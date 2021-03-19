@@ -1,11 +1,15 @@
 module.exports = {
   root: true, // Make sure eslint picks up the config at the root of the directory
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2020, // Use the latest ecmascript standard
     sourceType: 'module', // Allows using import/export statements
     ecmaFeatures: {
       jsx: true, // Enable JSX since we're using React
       modules: true
+    },
+    babelOptions: {
+      configFile: './babelrc.js'
     }
   },
   settings: {
