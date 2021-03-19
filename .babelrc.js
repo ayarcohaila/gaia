@@ -6,10 +6,11 @@ module.exports = {
     [
       'import',
       {
-        libraryName: '@ant-design/icons',
-        camel2DashComponentName: false
+        libraryName: '@ant-design',
+        libraryDirectory: 'icons',
+        camel2DashComponentName: false // default: true
       },
-      '@ant-design/icons'
+      '@ant-design'
     ]
   ],
   ignore: ['node_modules']
