@@ -1,3 +1,4 @@
+import 'antd/dist/antd.min.css';
 import { GlobalStyles } from '../components/layout/globalStyles';
 import { ThemeProvider } from 'styled-components';
 import theme from '../themes/default';
