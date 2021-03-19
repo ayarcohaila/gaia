@@ -31,6 +31,7 @@ module.exports = {
     'prettier/prettier': ['error', { endOfLine: 'auto' }, { usePrettierrc: true }], // Use our .prettierrc file as source
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
-    'react/react-in-jsx-scope': 'off' // suppress errors for missing 'import React' in files
+    'react/react-in-jsx-scope': 'off', // suppress errors for missing 'import React' in files
+    'react/prop-types': 'off'
   }
 };

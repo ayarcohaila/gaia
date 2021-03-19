@@ -1,9 +1,9 @@
 {
 	"contracts": {
-		"Profile": "./flow/cadence/prototype/contracts/Profile.cdc",
-		"NonFungibleToken": "./flow/cadence/prototype/contracts/NonFungibleToken.cdc",
-		"Assets": "./flow/cadence/prototype/contracts/Assets.cdc",
-		"AssetsMarket": "./flow/cadence/prototype/contracts/AssetsMarket.cdc"
+		"Profile": "./src/flow/cadence/prototype/contracts/Profile.cdc",
+		"NonFungibleToken": "./src/flow/cadence/prototype/contracts/NonFungibleToken.cdc",
+		"Assets": "./src/flow/cadence/prototype/contracts/Assets.cdc",
+		"AssetsMarket": "./src/flow/cadence/prototype/contracts/AssetsMarket.cdc"
 	},
 	"deployments": {
 		"emulator": {
