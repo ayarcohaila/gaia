@@ -24,6 +24,6 @@ export const testSign = async () => {
   ])
     .then(decode)
     .finally(
-      console.log(`tx[${txId}]: https://flow-view-source.com/testnet/tx/${txId}`) // see the status of the transaction
+      console.error(`tx[${txId}]: https://flow-view-source.com/testnet/tx/${txId}`) // see the status of the transaction
     );
 };
