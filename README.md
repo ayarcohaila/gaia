@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <img width="300" src="./nft_genius.png" />
+</p>
+<p align="center" style="color: black; font-size: 60px;">
+  NFT Genius - Nifty Beats
+</p>
 
-## Getting Started
+👋 &nbsp;Welcome! This is a marketplace app built with Flow.
 
-First, run the development server:
+# ✨ Getting started
 
-```bash
-npm run dev
-# or
+#### 1. Install the [Flow CLI](https://docs.onflow.org/flow-cli/install)
+
+#### 2. Clone this project
+
+On your terminal, type in:
+
+```
+git clone https://github.com/NFT-Genius/flow-boiler.git
+```
+
+#### 3. Install the dependencies
+
+```
+cd nifty-beats
+yarn
+```
+
+#### 4. Run the project
+
+```
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### 5. Run the flow emulator
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+yarn dev:emulator
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+# Flow utils
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Create testnet account / add funds](https://testnet-faucet.onflow.org).
+- [Explore testnet account](https://flow-view-source.com/testnet/account/0xACCOUNTADDRESS).
+- [Explore testnet transaction](https://flow-view-source.com/testnet/tx/TRANSACTIONHASH).
 
-## Learn More
+- [Flow mainnet explorer](https://flowscan.org/).
+- [Explore mainnet account](https://flow-view-source.com/account/0xACCOUNTADDRESS).
+- [Explore mainnet transaction](https://flow-view-source.com/tx/TRANSACTIONHASH).
 
-To learn more about Next.js, take a look at the following resources:
+# Built with
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Flow](https://www.onflow.org/)
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Ant Design](https://ant.design/)
+- [Axios](https://github.com/axios/axios)
+- [Styled Components](https://styled-components.com/)
+- [Node.js](https://nodejs.org/)
+- [Yarn](https://yarnpkg.com/)
+- [ESLint](https://eslint.org/)
+- [Husky](https://github.com/typicode/husky)
+- [Lint Staged](https://github.com/okonet/lint-staged)
