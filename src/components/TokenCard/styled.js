@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Avatar } from 'antd';
 
 export const Card = styled.div`
   width: 193px;
@@ -17,12 +18,16 @@ export const Card = styled.div`
   }
 `;
 
+export const StyledAvatar = styled(Avatar)`
+  margin: 7px;
+`;
+
 export const CardImage = styled.div`
   width: 100%;
   height: 182px;
   background-image: url(${({ src }) => src});
   background-repeat: no-repeat;
-  background-size: auto 100%;
+  background-size: cover;
   background-position: center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderGray};
 `;

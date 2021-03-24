@@ -1,5 +1,5 @@
 import Image from 'next/image';
-
+import { UserOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 import {
@@ -9,12 +9,16 @@ import {
   Text,
   PriceContainer,
   Price,
-  ContentContainer
+  ContentContainer,
+  StyledAvatar
 } from './styled';
 
-const TokenCard = ({ imgUrl, collection, name, price }) => {
+const TokenCard = ({ imgUrl, collection, name, price, owner }) => {
+  const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
+
   return (
     <Card className="token-card">
+      {owner && <StyledAvatar size="small" {...avatarSource} />}
       <CardImage src={imgUrl} />
       <div className="text-content">
         <ContentContainer>
@@ -34,7 +38,14 @@ TokenCard.propTypes = {
   imgUrl: PropTypes.string.isRequired,
   collection: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired
+  price: PropTypes.number.isRequired,
+  owner: PropTypes.shape({
+    src: PropTypes.string
+  })
+};
+
+TokenCard.defaultProps = {
+  owner: null
 };
 
 export default TokenCard;

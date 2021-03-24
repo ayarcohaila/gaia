@@ -1,6 +1,14 @@
 import styled from 'styled-components';
 import { Row } from 'antd';
 
+export const MarketPlaceWrapper = styled(Row)`
+  padding-top: 20px;
+
+  .token-card {
+    margin-bottom: 20px;
+  }
+`;
+
 export const ProfileWrapper = styled(Row)`
   .token-card,
   .drop-down {
