@@ -21,6 +21,7 @@
     "next": "10.0.9",
     "next-plugin-antd-less": "^0.3.0",
     "react": "17.0.1",
+    "react-cool-img": "^1.2.9",
     "react-dom": "17.0.1",
     "sha3": "^2.1.4",
     "styled-components": "^5.2.1",

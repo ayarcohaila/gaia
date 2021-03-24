@@ -1,53 +1,125 @@
-import Head from 'next/head';
-
+import { useState } from 'react';
+import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
+import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
+import { Col, Divider, Row } from 'antd';
+import Banner from '../components/home/Banner';
+import RecentlyAddedHeader, {
+  RecentlyAddedHeaderContent,
+  RecentlyAddedHeaderSpan
+} from '../components/home/RecentlyAddedHeader';
+import SetsList from '../components/home/SetsList';
+import LinkStyled, { LinkContent, LinkText } from '../components/shared/LinkStyled';
 export default function Home() {
+  const [loading] = useState(false);
+  const fakeSets = [
+    {
+      owner: 'cleiton',
+      id: 1,
+      price: 10,
+      collection: 'Collection',
+      name: 'Asset Name',
+      imgUrl:
+        'https://wax.atomichub.io/ipfs/QmeSXAbzuDQDkwBhspzyj9Ltz5m58UcBypCLvjcDRg4eAT/Base/19-GUILE-Base.png'
+    },
+    {
+      owner: 'cleiton',
+      id: 2,
+      price: 56.9,
+      collection: 'Collection',
+      name: 'Asset Name',
+      imgUrl:
+        'https://wax.atomichub.io/ipfs/QmeSXAbzuDQDkwBhspzyj9Ltz5m58UcBypCLvjcDRg4eAT/Base/19-GUILE-Base.png'
+    },
+    {
+      owner: 'cleiton',
+      id: 3,
+      price: 22,
+      collection: 'Collection',
+      name: 'Asset Name',
+      imgUrl:
+        'https://wax.atomichub.io/ipfs/QmeSXAbzuDQDkwBhspzyj9Ltz5m58UcBypCLvjcDRg4eAT/Base/19-GUILE-Base.png'
+    },
+    {
+      owner: 'cleiton',
+      id: 4,
+      price: 99,
+      collection: 'Collection',
+      name: 'Asset Name',
+      imgUrl:
+        'https://wax.atomichub.io/ipfs/QmeSXAbzuDQDkwBhspzyj9Ltz5m58UcBypCLvjcDRg4eAT/Base/19-GUILE-Base.png'
+    },
+    {
+      owner: 'cleiton',
+      id: 5,
+      price: 99,
+      collection: 'Collection',
+      name: 'Asset Name',
+      imgUrl:
+        'https://wax.atomichub.io/ipfs/QmeSXAbzuDQDkwBhspzyj9Ltz5m58UcBypCLvjcDRg4eAT/Base/19-GUILE-Base.png'
+    },
+    {
+      owner: 'cleiton',
+      id: 6,
+      price: 99,
+      collection: 'Collection',
+      name: 'Asset Name',
+      imgUrl:
+        'https://wax.atomichub.io/ipfs/QmeSXAbzuDQDkwBhspzyj9Ltz5m58UcBypCLvjcDRg4eAT/Base/19-GUILE-Base.png'
+    },
+    {
+      owner: 'cleiton',
+      id: 7,
+      price: 99,
+      collection: 'Collection',
+      name: 'Asset Name',
+      imgUrl:
+        'https://wax.atomichub.io/ipfs/QmeSXAbzuDQDkwBhspzyj9Ltz5m58UcBypCLvjcDRg4eAT/Base/19-GUILE-Base.png'
+    },
+    {
+      owner: 'cleiton',
+      id: 8,
+      price: 99,
+      collection: 'Collection',
+      name: 'Asset Name',
+      imgUrl:
+        'https://wax.atomichub.io/ipfs/QmeSXAbzuDQDkwBhspzyj9Ltz5m58UcBypCLvjcDRg4eAT/Base/19-GUILE-Base.png'
+    }
+  ];
+  function renderSets() {
+    if (loading) {
+      return <LoadingOutlined />;
+    }
+    return <SetsList sets={fakeSets} />;
+  }
+
   return (
-    <div>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p>
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div>
-          <a href="https://nextjs.org/docs">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a href="https://github.com/vercel/next.js/tree/master/examples">
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app">
-            <h3>Deploy &rarr;</h3>
-            <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer">
-          Powered by <img src="/vercel.svg" alt="Vercel Logo" />
-        </a>
-      </footer>
-    </div>
+    <Row>
+      <Col span={20} offset={2}>
+        <Row>
+          <Col span={24}>
+            <Banner />
+          </Col>
+        </Row>
+        <Row gutter={[21, 21]}>
+          <Col span={24}>
+            <RecentlyAddedHeader>
+              <RecentlyAddedHeaderContent>
+                <RecentlyAddedHeaderSpan>Recently Added</RecentlyAddedHeaderSpan>
+                <LinkStyled href={'somehref'}>
+                  <LinkContent>
+                    <LinkText>View All</LinkText>
+                    <ArrowRightOutlined />
+                  </LinkContent>
+                </LinkStyled>
+              </RecentlyAddedHeaderContent>
+              <Divider />
+            </RecentlyAddedHeader>
+          </Col>
+          <Col span={24}>
+            <Row gutter={[20, 20]}>{renderSets()}</Row>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   );
 }
