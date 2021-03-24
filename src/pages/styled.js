@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { Row } from 'antd';
 
 export const ProfileWrapper = styled(Row)`
-  .token-card {
+  .token-card,
+  .drop-down {
     margin-bottom: 20px;
   }
 
   .address {
-    margin: -22.5px auto 60px;
+    margin: -22.5px auto 10px;
   }
 `;
 
