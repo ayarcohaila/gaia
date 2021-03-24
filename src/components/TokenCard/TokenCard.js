@@ -14,7 +14,7 @@ import {
 
 const TokenCard = ({ imgUrl, collection, name, price }) => {
   return (
-    <Card>
+    <Card className="token-card">
       <CardImage src={imgUrl} />
       <div className="text-content">
         <ContentContainer>

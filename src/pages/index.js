@@ -2,13 +2,16 @@ import { useState } from 'react';
 import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 import { Col, Divider, Row } from 'antd';
-import Banner from '../components/home/Banner';
+
+import Banner from '~/components/home/Banner';
 import RecentlyAddedHeader, {
   RecentlyAddedHeaderContent,
   RecentlyAddedHeaderSpan
-} from '../components/home/RecentlyAddedHeader';
-import SetsList from '../components/home/SetsList';
-import LinkStyled, { LinkContent, LinkText } from '../components/shared/LinkStyled';
+} from '~/components/home/RecentlyAddedHeader';
+import SetsList from '~/components/home/SetsList';
+import LinkStyled, { LinkContent, LinkText } from '~/components/shared/LinkStyled';
+import { HomeWrapper } from '~/pages/styled';
+
 export default function Home() {
   const [loading] = useState(false);
   const fakeSets = [
@@ -93,7 +96,7 @@ export default function Home() {
   }
 
   return (
-    <Row>
+    <HomeWrapper>
       <Col span={20} offset={2}>
         <Row>
           <Col span={24}>
@@ -120,6 +123,6 @@ export default function Home() {
           </Col>
         </Row>
       </Col>
-    </Row>
+    </HomeWrapper>
   );
 }

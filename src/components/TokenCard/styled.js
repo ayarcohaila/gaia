@@ -8,7 +8,8 @@ export const Card = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.borderGray};
   overflow: hidden;
   position: relative;
-  margin-right: 22px;
+  cursor: pointer;
+
   .text-content {
     display: flex;
     padding: 7px;
