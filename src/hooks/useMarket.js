@@ -1,16 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getSales } from '~/flow/getSales';
-import useAuth from '~/hooks/useAuth';
 
-export default function useMarket() {
+export default function useMarket(address) {
   const [sales, setSales] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useAuth();
   const listSales = useCallback(async () => {
-    if (user?.addr) {
+    if (address) {
       try {
         setIsLoading(true);
-        const items = await getSales(user?.addr);
+        const items = await getSales(address);
         setSales(items);
       } catch (error) {
         console.error(error);
@@ -18,7 +16,7 @@ export default function useMarket() {
         setIsLoading(false);
       }
     }
-  }, [user?.addr]);
+  }, [address]);
 
   useEffect(listSales, [listSales]);
 

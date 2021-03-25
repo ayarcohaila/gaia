@@ -25,10 +25,18 @@ export default function Footer() {
     <Col span={6}>
       <Title level={4}>Get in touch</Title>
       <LinkContainer>
-        <Link margin>Home</Link>
-        <Link margin>Create NFT</Link>
-        <Link margin>Marketplace</Link>
-        <Link margin>Login</Link>
+        <Link margin href="/">
+          Home
+        </Link>
+        <Link margin href="/">
+          Create NFT
+        </Link>
+        <Link margin href="/marketplace">
+          Marketplace
+        </Link>
+        <Link margin href="/">
+          Login
+        </Link>
       </LinkContainer>
     </Col>
   );

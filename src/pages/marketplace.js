@@ -6,11 +6,13 @@ import { useMemo, useState } from 'react';
 import TokenCard from '~/components/TokenCard/TokenCard';
 import DropDown from '~/components/DropDown/DropDown';
 import useMarket from '~/hooks/useMarket';
+import useAuth from '~/hooks/useAuth';
 import { MarketPlaceWrapper } from './styled';
 
 const MarketPlace = () => {
   const [filter, setFilter] = useState(null);
-  const { sales, isLoading } = useMarket();
+  const { user } = useAuth();
+  const { sales, isLoading } = useMarket(user?.address);
   const data = useMemo(() => {
     if (!filter) {
       return sales;
