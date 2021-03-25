@@ -1,5 +1,6 @@
 const colors = {
   blue: '#1890ff',
+  brightBlue: '#0257FF',
   hover: '#014fcb',
   white: '#fefcff',
   gray: '#232b29',
