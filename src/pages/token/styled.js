@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'antd';
-import { Row } from 'antd';
+import { Button, Row } from 'antd';
 
 export const TokenWrapper = styled(Row)`
   .content {
