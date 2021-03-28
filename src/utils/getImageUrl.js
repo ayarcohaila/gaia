@@ -1,4 +1,4 @@
-import { ipfsGateway } from '../config/config';
+import { ipfsGateway } from '~/config/config';
 
 export const getImageURL = (image, local) => {
   if (local) return image;
