@@ -14,7 +14,7 @@ import { Banner, ProfileWrapper } from './styled';
 const Profile = () => {
   const { user } = useAuth();
   const [filter, setFilter] = useState(null);
-  const { assets, isLoading } = useInventory(user?.address);
+  const { assets, isLoading } = useInventory(user?.addr);
   const data = useMemo(() => {
     if (!filter) {
       return assets;
@@ -46,7 +46,7 @@ const Profile = () => {
         <title>Profile | NiftyBeats</title>
       </Head>
       <Banner src="/images/inventory-banner.png" />
-      <Address>{user?.address || 'NO ADDRESS FOUND'}</Address>
+      <Address>{user?.addr || 'NO ADDRESS FOUND'}</Address>
       <Col span={18} offset={3}>
         <Row justify="end">
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />

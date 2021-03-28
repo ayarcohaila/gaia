@@ -2,6 +2,10 @@ import { Typography, Row, Col, Menu, Dropdown, Button } from 'antd';
 import { useRouter } from 'next/router';
 import SearchOutlined from '@ant-design/icons/SearchOutlined';
 import Image from 'next/image';
+
+import useAuth from '~/hooks/useAuth';
+import { URLs } from '~/routes/urls';
+
 import {
   SearchCol,
   SearchInput,
@@ -11,8 +15,7 @@ import {
   UserButton,
   UserName
 } from './styles';
-import useAuth from '~/hooks/useAuth';
-import { URLs } from '~/routes/urls';
+
 function Header() {
   const { user, login, logout } = useAuth();
   const router = useRouter();
@@ -25,7 +28,7 @@ function Header() {
         </Button>
       </Menu.Item>
       <Menu.Item>
-        <Button type="text" onClick={() => router.push(URLs.profile(user?.address))}>
+        <Button type="text" onClick={() => router.push(URLs.profile(user?.addr))}>
           My Profile
         </Button>
       </Menu.Item>
@@ -57,7 +60,7 @@ function Header() {
           {user?.loggedIn || user?.name ? (
             <Dropdown overlay={menu} placement="bottomLeft">
               <UserButton>
-                <UserName>{user?.name || user?.address}</UserName>
+                <UserName>{user?.name || user?.addr}</UserName>
                 <Image src="/UserCircle.svg" width={30} height={30} />
               </UserButton>
             </Dropdown>

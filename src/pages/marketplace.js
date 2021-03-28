@@ -7,12 +7,13 @@ import TokenCard from '~/components/TokenCard/TokenCard';
 import DropDown from '~/components/DropDown/DropDown';
 import useMarket from '~/hooks/useMarket';
 import useAuth from '~/hooks/useAuth';
+
 import { MarketPlaceWrapper } from './styled';
 
 const MarketPlace = () => {
   const [filter, setFilter] = useState(null);
   const { user } = useAuth();
-  const { sales, isLoading } = useMarket(user?.address);
+  const { sales, isLoading } = useMarket(user?.addr);
   const data = useMemo(() => {
     if (!filter) {
       return sales;
