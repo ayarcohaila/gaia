@@ -7,7 +7,6 @@ import { Layout, Col, Input, Button, Typography, Row } from 'antd';
 
 export const CustomLayout = styled(Layout)`
   width: 100%;
-  height: 100%;
 `;
 
 /**
@@ -67,8 +66,6 @@ export const Content = styled(Layout.Content)`
  */
 
 export const LayoutFooter = styled(Layout.Footer)`
-  position: sticky;
-  bottom: 0;
   background-color: white;
 `;
 
