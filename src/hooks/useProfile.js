@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { initProfile } from '~/flow/initProfile';
 import { getProfile } from '~/flow/getProfile';
 import isInitialized from '~/flow/isInitialized';
@@ -6,23 +6,25 @@ import isInitialized from '~/flow/isInitialized';
 export default function useProfile(address) {
   const [userProfile, setUserProfile] = useState(null);
 
-  const checkAndGetProfile = useCallback(async () => {
-    const initialized = await isInitialized(address);
-    if (initialized) {
-      const profile = await getProfile(address);
-      setUserProfile(profile);
+  const initialized = useMemo(async () => {
+    if (!address) {
+      return false;
     }
+
+    return await isInitialized(address);
   }, [address]);
 
-  useEffect(() => {
-    if (address) {
-      checkAndGetProfile();
+  useEffect(async () => {
+    if (address && (await initialized)) {
+      setUserProfile(await getProfile(address));
     }
-  }, [address]);
+
+    return null;
+  }, [address, initialized]);
 
   return {
     userProfile,
     initProfile,
-    isInitialized
+    initialized
   };
 }

@@ -1,9 +1,11 @@
-import { Typography, Row, Col, Menu, Dropdown, Button } from 'antd';
+import { Typography, Row, Col, Menu, Dropdown, Button, Modal } from 'antd';
 import { useRouter } from 'next/router';
 import SearchOutlined from '@ant-design/icons/SearchOutlined';
 import Image from 'next/image';
+import { useState } from 'react';
 
 import useAuth from '~/hooks/useAuth';
+import useProfile from '~/hooks/useProfile';
 import { URLs } from '~/routes/urls';
 
 import {
@@ -17,13 +19,29 @@ import {
 } from './styles';
 
 function Header() {
+  const [modalVisible, setModalVisible] = useState(false);
   const { user, login, logout } = useAuth();
+  const { initialized, initProfile, userProfile } = useProfile(user?.addr);
   const router = useRouter();
+
+  const handleGoToEditProfile = async () => {
+    if (await initialized) {
+      router.push(URLs.editProfile);
+    } else {
+      setModalVisible(true);
+    }
+  };
+
+  const handleInitializeProfile = async () => {
+    setModalVisible(false);
+    await initProfile();
+    router.push(URLs.editProfile);
+  };
 
   const menu = (
     <Menu>
       <Menu.Item>
-        <Button type="text" onClick={() => router.push(URLs.editProfile)}>
+        <Button type="text" onClick={handleGoToEditProfile}>
           Edit Profile
         </Button>
       </Menu.Item>
@@ -57,10 +75,10 @@ function Header() {
           />
         </SearchCol>
         <UserCol span={8}>
-          {user?.loggedIn || user?.name ? (
+          {user?.loggedIn || userProfile?.name ? (
             <Dropdown overlay={menu} placement="bottomLeft">
               <UserButton>
-                <UserName>{user?.name || user?.addr}</UserName>
+                <UserName>{userProfile?.name || user?.addr}</UserName>
                 <Image src="/UserCircle.svg" width={30} height={30} />
               </UserButton>
             </Dropdown>
@@ -71,6 +89,13 @@ function Header() {
           )}
         </UserCol>
       </Row>
+      <Modal
+        visible={modalVisible}
+        title="You need to initialize your profile before edititing it"
+        onOk={handleInitializeProfile}
+        onRefuse={() => setModalVisible(false)}>
+        <p>Would you like to initialize it?</p>
+      </Modal>
     </LayoutHeader>
   );
 }

@@ -5,6 +5,7 @@ import isEqual from 'lodash.isequal';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import useAuth from '~/hooks/useAuth';
+import useProfile from '~/hooks/useProfile';
 import { editProfile } from '~/flow/editProfile';
 import { uploadFile } from '~/utils/upload';
 import { getImageURL } from '~/utils/getImageUrl';
@@ -20,6 +21,7 @@ import {
 
 const EditProfile = () => {
   const { user } = useAuth();
+  const { userProfile } = useProfile(user?.addr);
   const [state, setState] = useState({
     name: null,
     avatar: null,
@@ -28,18 +30,21 @@ const EditProfile = () => {
   });
 
   const disabled = useMemo(() => {
-    return isEqual({ name: user?.name, avatar: user?.avatar, info: user?.info }, state);
-  }, [user, state]);
+    return isEqual(
+      { name: userProfile?.name, avatar: userProfile?.avatar, info: userProfile?.info },
+      state
+    );
+  }, [userProfile, state]);
 
-  useEffect(() => {
-    if (user) {
+  useEffect(async () => {
+    if (userProfile) {
       setState({
-        name: user.name,
-        avatar: user.avatar,
-        info: user.info
+        name: userProfile?.name,
+        avatar: userProfile?.avatar,
+        info: userProfile?.info
       });
     }
-  }, [user]);
+  }, [userProfile]);
 
   const uploadImage = async ({ file }) => {
     setState(prevState => ({ ...prevState, loading: true }));
@@ -59,11 +64,11 @@ const EditProfile = () => {
     try {
       await editProfile(name, avatar, info);
       Modal.success({
-        title: 'Profile successfully updated!'
+        title: 'userProfile successfully updated!'
       });
     } catch (error) {
       Modal.error({
-        title: 'Failed to update your profile :/',
+        title: 'Failed to update your userProfile :/',
         content: 'Please, try again'
       });
     }
@@ -72,11 +77,11 @@ const EditProfile = () => {
   return (
     <EditProfileWrapper>
       <Head>
-        <title>Edit Profile | NiftyBeats</title>
+        <title>Edit userProfile | NiftyBeats</title>
       </Head>
       <Col span={10} offset={7}>
-        <Heading>Edit profile</Heading>
-        <Label>Upload profile picture</Label>
+        <Heading>Edit userProfile</Heading>
+        <Label>Upload userProfile picture</Label>
         <StyledUpload
           maxCount={1}
           name="avatar"
