@@ -25,16 +25,16 @@ export default function Footer() {
     <Col span={6}>
       <Title level={4}>Get in touch</Title>
       <LinkContainer>
-        <Link margin href="/">
+        <Link margin="true" href="/">
           Home
         </Link>
-        <Link margin href="/">
+        <Link margin="true" href="/">
           Create NFT
         </Link>
-        <Link margin href="/marketplace">
+        <Link margin="true" href="/marketplace">
           Marketplace
         </Link>
-        <Link margin href="/">
+        <Link margin="true" href="/">
           Login
         </Link>
       </LinkContainer>
@@ -44,10 +44,10 @@ export default function Footer() {
     <Col span={6}>
       <Title level={4}>About us</Title>
       <LinkContainer>
-        <Link margin>Global Value</Link>
-        <Link margin>Social</Link>
-        <Link margin>History</Link>
-        <Link margin>Press</Link>
+        <Link margin="true">Global Value</Link>
+        <Link margin="true">Social</Link>
+        <Link margin="true">History</Link>
+        <Link margin="true">Press</Link>
       </LinkContainer>
     </Col>
   );

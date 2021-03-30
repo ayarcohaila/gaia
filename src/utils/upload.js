@@ -13,12 +13,10 @@ export const uploadFile = async (file, onError) => {
       pinata_secret_api_key: ipfsPrivateKey
     }
   };
-
   try {
     const {
       data: { IpfsHash }
     } = await axios.post(ipfsPostUrl, formData, config);
-
     return IpfsHash;
   } catch (err) {
     onError({ err });

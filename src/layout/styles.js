@@ -2,20 +2,13 @@ import styled from 'styled-components';
 import { Layout, Col, Input, Button, Typography, Row } from 'antd';
 
 /**
- * Layout Styles
- */
-
-export const CustomLayout = styled(Layout)`
-  width: 100%;
-`;
-
-/**
  * Header Styles
  */
 
 export const Header = styled(Layout.Header)`
   background-color: white;
   font-family: Work Sans;
+  border-bottom: 1px solid #f3f3f3;
 `;
 
 export const SearchCol = styled(Col)`
@@ -58,7 +51,7 @@ export const UserName = styled(Typography.Text)`
  * Content Styles
  */
 export const Content = styled(Layout.Content)`
-  overflow: auto;
+  background-color: white;
 `;
 
 /**

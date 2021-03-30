@@ -60,6 +60,106 @@ export const HomeWrapper = styled(Row)`
   }
 `;
 
+export const CreateNFTWrapper = styled(Row)`
+  margin: 30px auto;
+
+  .form-row {
+    width: 90%;
+    height: 44px;
+    border: 1px solid #e5e8eb;
+    padding: 10px 20px;
+
+    border-radius: 10px;
+
+    margin: 5px 0;
+  }
+
+  .form-row-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .no-borders {
+    border: 0 !important;
+  }
+
+  .no-margin {
+    margin: 0 !important;
+  }
+
+  .form-upload-row {
+    height: 194px;
+
+    border: 1px dashed #e5e8eb;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-item-align {
+    margin: 0;
+  }
+
+  .form-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .upload-button {
+    margin-top: 10px;
+  }
+
+  .form-textarea-row {
+    height: 139px !important;
+    resize: none;
+  }
+
+  .ant-input-number-input-wrap {
+    width: 100%;
+  }
+
+  .ant-input-number-input {
+    padding: 0;
+  }
+
+  .form-submit-button {
+    width: 100%;
+    height: 48px;
+
+    margin-top: 20px;
+  }
+
+  .preview-image {
+    min-height: 100%;
+    width: auto;
+  }
+
+  .preview-meta {
+    width: 240px;
+
+    .ant-card-meta-title {
+      font-family: Work Sans;
+      font-size: 14px;
+      color: rgba(120, 123, 126, 1);
+      margin: 0;
+    }
+
+    .ant-card-meta-description {
+      font-family: Work Sans;
+      font-size: 14px;
+      color: black;
+      margin: 0;
+    }
+  }
+`;
+
 export const Banner = styled.div`
   width: 100%;
   height: 165px;
