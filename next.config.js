@@ -1,7 +1,9 @@
 const withAntdLess = require('next-plugin-antd-less');
 const antvars = require('./antvars');
+const withPlugins = require('next-compose-plugins');
+const ipfsDomain = process.env.NEXT_PUBLIC_PINATA_DOMAIN;
 
-module.exports = withAntdLess({
+const antdConfig = withAntdLess({
   modifyVars: antvars,
 
   reactStrictMode: true,
@@ -11,3 +13,11 @@ module.exports = withAntdLess({
     return config;
   }
 });
+
+const nextConfig = {
+  images: {
+    domains: [ipfsDomain]
+  }
+};
+
+module.exports = withPlugins([[antdConfig]], nextConfig);

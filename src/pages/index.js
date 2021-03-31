@@ -11,9 +11,11 @@ import RecentlyAddedHeader, {
 import SetsList from '~/components/home/SetsList';
 import LinkStyled, { LinkContent, LinkText } from '~/components/shared/LinkStyled';
 import { HomeWrapper } from '~/pages/styled';
+import { URLs } from '~/routes/urls';
 
 export default function Home() {
   const [loading] = useState(false);
+
   const fakeSets = [
     {
       owner: 'cleiton',
@@ -108,7 +110,7 @@ export default function Home() {
             <RecentlyAddedHeader>
               <RecentlyAddedHeaderContent>
                 <RecentlyAddedHeaderSpan>Recently Added</RecentlyAddedHeaderSpan>
-                <LinkStyled href={'somehref'}>
+                <LinkStyled href={URLs.marketplace}>
                   <LinkContent>
                     <LinkText>View All</LinkText>
                     <ArrowRightOutlined />

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Typography, Row, Col, Menu, Dropdown, Button, Modal } from 'antd';
 import { useRouter } from 'next/router';
 import SearchOutlined from '@ant-design/icons/SearchOutlined';
-import Image from 'next/image';
 
 import useAuth from '~/hooks/useAuth';
 import useProfile from '~/hooks/useProfile';
@@ -17,16 +16,19 @@ import {
   UserButton,
   UserName
 } from './styles';
+import { getImageURL } from '~/utils/getImageUrl';
+import { UserOutlined } from '@ant-design/icons';
+import Avatar from 'antd/lib/avatar/avatar';
 
 function Header() {
   const [currentRoute, setCurrentRoute] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const { user, login, logout } = useAuth();
-  const { initialized, initProfile } = useProfile(user?.addr);
+  const { initialized, initProfile, userProfile } = useProfile(user?.addr);
   const router = useRouter();
 
   const getCurrentKey = () => {
-    const routes = ['/marketplace', `/profile/${user?.addr}`, '/create-nft', '/'];
+    const routes = [URLs.marketplace, URLs.profile(user?.addr), URLs.createNFT, URLs.home];
     setCurrentRoute(routes.filter(item => router.asPath.includes(item))[0] || '');
   };
 
@@ -69,13 +71,17 @@ function Header() {
       <Menu.Item key="/">Home</Menu.Item>
       <Menu.Item key="/marketplace">Marketplace</Menu.Item>
       {user?.loggedIn && <Menu.Item key={`/profile/${user?.addr}`}>Inventory</Menu.Item>}
-      <Menu.Item key="/create-nft">Create NFT</Menu.Item>
+      {user?.loggedIn && <Menu.Item key="/create-nft">Create NFT</Menu.Item>}
       <Menu.Item className="user-button-height" key="login">
-        {user?.loggedIn || user?.name ? (
+        {user?.loggedIn ? (
           <Dropdown overlay={menu} placement="topLeft">
             <UserButton>
-              <UserName>{user?.name || user?.addr}</UserName>
-              <Image src="/UserCircle.svg" width={30} height={30} />
+              <UserName>{userProfile?.name || user?.addr}</UserName>
+              <Avatar
+                size={30}
+                icon={<UserOutlined />}
+                src={userProfile?.avatar && getImageURL(userProfile?.avatar)}
+              />
             </UserButton>
           </Dropdown>
         ) : (
@@ -112,6 +118,7 @@ function Header() {
         visible={modalVisible}
         title="You need to initialize your profile before edititing it"
         onOk={handleInitializeProfile}
+        onCancel={() => setModalVisible(false)}
         onRefuse={() => setModalVisible(false)}>
         <p>Would you like to initialize it?</p>
       </Modal>
