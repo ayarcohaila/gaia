@@ -10,7 +10,7 @@ export const EditProfileWrapper = styled(Row)`
 `;
 
 export const Heading = styled.p`
-  font-size 30px;
+  font-size: 30px;
   line-height: 32px;
   font-weight: 700;
   margin: 0 0 10px;
