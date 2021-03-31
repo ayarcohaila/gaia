@@ -9,6 +9,10 @@ export const Header = styled(Layout.Header)`
   background-color: white;
   font-family: Work Sans;
   border-bottom: 1px solid #f3f3f3;
+
+  .user-button-height {
+    height: 48px;
+  }
 `;
 
 export const SearchCol = styled(Col)`
@@ -51,7 +55,10 @@ export const UserName = styled(Typography.Text)`
  * Content Styles
  */
 export const Content = styled(Layout.Content)`
-  background-color: white;
+  overflow: auto;
+  min-height: calc(100vh - 64px - 267px);
+  padding: 20px 0;
+  background: white;
 `;
 
 /**

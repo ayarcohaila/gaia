@@ -2,19 +2,20 @@ import Head from 'next/head';
 import { Row, Col } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import Address from '~/components/Address/Address';
 import TokenCard from '~/components/TokenCard/TokenCard';
 import DropDown from '~/components/DropDown/DropDown';
-import useAuth from '~/hooks/useAuth';
 import useInventory from '~/hooks/useInventory';
 
-import { Banner, ProfileWrapper } from './styled';
+import { Banner, ProfileWrapper } from '../styled';
 
 const Profile = () => {
-  const { user } = useAuth();
+  const router = useRouter();
+  const { id } = router.query;
   const [filter, setFilter] = useState(null);
-  const { assets, isLoading } = useInventory(user?.addr);
+  const { assets, isLoading } = useInventory(id);
   const data = useMemo(() => {
     if (!filter) {
       return assets;
@@ -46,7 +47,7 @@ const Profile = () => {
         <title>Profile | NiftyBeats</title>
       </Head>
       <Banner src="/images/inventory-banner.png" />
-      <Address>{user?.addr || 'NO ADDRESS FOUND'}</Address>
+      <Address>{id || 'NO ADDRESS FOUND'}</Address>
       <Col span={18} offset={3}>
         <Row justify="end">
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />

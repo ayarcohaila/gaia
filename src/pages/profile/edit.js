@@ -17,7 +17,7 @@ import {
   Label,
   EditProfileWrapper,
   ImagePreview
-} from './styled';
+} from '../styled';
 
 const EditProfile = () => {
   const { user } = useAuth();

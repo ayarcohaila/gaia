@@ -90,7 +90,7 @@ const PreviewComponent = ({ values, file }) => {
       <Card
         cover={
           file ? (
-            <img width={182} height={182} alt={file.name} src={URL.createObjectURL(file)} />
+            <img className="preview-image" alt={file.name} src={URL.createObjectURL(file)} />
           ) : (
             <></>
           )
@@ -111,6 +111,7 @@ function CreateNFT() {
   const { user } = useAuth();
   const [updatedValue, setUpdatedValue] = useState(null);
   const [file, setFile] = useState(null);
+
   async function onSubmit(values) {
     try {
       await mintNft(user?.addr, 1, values.name, values.description, values.ipfsHash);

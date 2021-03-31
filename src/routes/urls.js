@@ -3,5 +3,5 @@ export const URLs = {
   home: '/',
   marketplace: '/marketplace',
   profile: address => `/profile/${address || ':id'}`,
-  editProfile: '/edit-profile'
+  editProfile: '/profile/edit'
 };
