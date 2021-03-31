@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Col, Form, Input, Typography, Upload, Button, Card, Modal, Result } from 'antd';
 
 import { uploadFile } from '~/utils/upload';
-import { mintNft } from '~/flow/mintNft';
+import { mintNft } from '~/flow/publicMint';
 import useAuth from '~/hooks/useAuth';
 
 import { CreateNFTWrapper } from '../../components/profile/styled';

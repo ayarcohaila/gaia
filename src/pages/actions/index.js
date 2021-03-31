@@ -7,7 +7,7 @@ import useAuth from '../../hooks/useAuth';
 import { listNfts } from '../../flow/listNfts';
 import { setupAccount } from '../../flow/setupAccount';
 import { deployContract } from '../../flow/deployContract';
-import { mintNft } from '../../flow/mintNft';
+import { mintNft } from '../../flow/publicMint';
 import { getSales } from '../../flow/getSales';
 import { createSaleOffer } from '../../flow/sell';
 import { changePrice } from '../../flow/changePrice';
