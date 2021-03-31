@@ -19,7 +19,7 @@ import UserInfo from '~/components/UserInfo/UserInfo';
 
 const mockedToken = {
   id: 0,
-  imgUrl:
+  imgURL:
     'https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
   collection: 'Hashmarks',
   name: 'Great Oracle War of 2023 by the Powerful Mystic',
@@ -51,7 +51,7 @@ const Profile = () => {
       </Head>
       <Col span={18} offset={3}>
         <Row justify="flex-start" wrap={false}>
-          <StyledImage src={mockedToken.imgUrl} />
+          <StyledImage src={mockedToken.imgURL} />
           <div className="content">
             <Heading>{mockedToken.name}</Heading>
             <p>

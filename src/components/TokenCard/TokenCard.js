@@ -12,33 +12,35 @@ import {
   ContentContainer,
   StyledAvatar
 } from './styled';
+import { getImageURL } from '~/utils/getImageUrl';
 
-const TokenCard = ({ imgUrl, collection, name, price, owner }) => {
+const TokenCard = ({ imgURL, collection, name, price, owner }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
-
   return (
     <Card className="token-card">
       {owner && <StyledAvatar size="small" {...avatarSource} />}
-      <CardImage src={imgUrl} />
+      <CardImage src={getImageURL(imgURL ?? '')} />
       <div className="text-content">
         <ContentContainer>
           <Collection>{collection}</Collection>
           <Text>{name}</Text>
         </ContentContainer>
-        <PriceContainer>
-          <Image src="/icons/list.svg" width={10} height={10} />
-          <Price>{price}</Price>
-        </PriceContainer>
+        {price && (
+          <PriceContainer>
+            <Image src="/icons/list.svg" width={10} height={10} />
+            <Price>{price.toFixed(4)}</Price>
+          </PriceContainer>
+        )}
       </div>
     </Card>
   );
 };
 
 TokenCard.propTypes = {
-  imgUrl: PropTypes.string.isRequired,
+  imgURL: PropTypes.string.isRequired,
   collection: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number,
   owner: PropTypes.shape({
     src: PropTypes.string
   })
