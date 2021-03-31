@@ -13,7 +13,7 @@ import {
   InfoHeading,
   InfoWrapper,
   TokenWrapper
-} from './styled';
+} from '~/components/asset/styled';
 
 import UserInfo from '~/components/UserInfo/UserInfo';
 

@@ -14,7 +14,7 @@ import {
 } from './styled';
 import { getImageURL } from '~/utils/getImageUrl';
 
-const TokenCard = ({ imgURL, collection, name, price, owner }) => {
+const Asset = ({ imgURL, collection, name, price, owner }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
   return (
     <Card className="token-card">
@@ -36,7 +36,7 @@ const TokenCard = ({ imgURL, collection, name, price, owner }) => {
   );
 };
 
-TokenCard.propTypes = {
+Asset.propTypes = {
   imgURL: PropTypes.string.isRequired,
   collection: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -46,8 +46,8 @@ TokenCard.propTypes = {
   })
 };
 
-TokenCard.defaultProps = {
+Asset.defaultProps = {
   owner: null
 };
 
-export default TokenCard;
+export default Asset;

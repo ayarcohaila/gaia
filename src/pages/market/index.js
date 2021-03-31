@@ -3,12 +3,12 @@ import { Row, Col } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
 
-import TokenCard from '~/components/TokenCard/TokenCard';
-import DropDown from '~/components/DropDown/DropDown';
+import Asset from '~/components/asset/Asset';
+import DropDown from '~/components/dropdown/DropDown';
 import useMarket from '~/hooks/useMarket';
 import useAuth from '~/hooks/useAuth';
 
-import { MarketPlaceWrapper } from './styled';
+import { MarketPlaceWrapper } from '~/components/profile/styled';
 
 const MarketPlace = () => {
   const [filter, setFilter] = useState(null);
@@ -53,13 +53,13 @@ const MarketPlace = () => {
         ) : (
           <Row justify="space-between">
             {data.map(token => (
-              <TokenCard key={`token-${token.id}`} {...token} />
+              <Asset key={`token-${token.id}`} {...token} />
             ))}
           </Row>
         )}
         <Row justify="space-between">
           {sales.map(token => (
-            <TokenCard key={`token-${token.id}`} {...token} />
+            <Asset key={`token-${token.id}`} {...token} />
           ))}
         </Row>
       </Col>

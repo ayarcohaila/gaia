@@ -1,5 +1,5 @@
 import React from 'react';
-import TokenCard from '../TokenCard/TokenCard';
+import Card from '../asset/Asset';
 
 function SetsList({ sets }) {
   return (
@@ -7,7 +7,7 @@ function SetsList({ sets }) {
       {sets.map(set => {
         if (set.owner !== null) {
           return (
-            <TokenCard
+            <Card
               key={set.id}
               imgURL={set.imgURL}
               collection={set.collection}

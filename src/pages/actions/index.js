@@ -3,16 +3,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Button, Col, List, Typography } from 'antd';
-import useAuth from '../hooks/useAuth';
-import { listNfts } from '../flow/listNfts';
-import { setupAccount } from '../flow/setupAccount';
-import { deployContract } from '../flow/deployContract';
-import { mintNft } from '../flow/mintNft';
-import { getSales } from '../flow/getSales';
-import { createSaleOffer } from '../flow/sell';
-import { changePrice } from '../flow/changePrice';
+import useAuth from '../../hooks/useAuth';
+import { listNfts } from '../../flow/listNfts';
+import { setupAccount } from '../../flow/setupAccount';
+import { deployContract } from '../../flow/deployContract';
+import { mintNft } from '../../flow/mintNft';
+import { getSales } from '../../flow/getSales';
+import { createSaleOffer } from '../../flow/sell';
+import { changePrice } from '../../flow/changePrice';
 
-import { buy } from '../flow/buy';
+import { buy } from '../../flow/buy';
 
 function Actions() {
   const { user } = useAuth();
@@ -73,7 +73,7 @@ function Actions() {
       <Button onClick={async () => console.log(await buy(0, user?.addr))}>buy 0</Button>
 
       <Button onClick={async () => console.log(await getSales(user.addr))}>getSales</Button>
-      <Link href="/create-nft">Create NFT</Link>
+      <Link href="/creator">Create NFT</Link>
       <List
         header={<div>My Inventory</div>}
         bordered

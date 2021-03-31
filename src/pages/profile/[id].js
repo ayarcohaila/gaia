@@ -4,12 +4,12 @@ import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import Address from '~/components/Address/Address';
-import TokenCard from '~/components/TokenCard/TokenCard';
-import DropDown from '~/components/DropDown/DropDown';
+import Address from '~/components/address/Address';
+import Card from '~/components/asset/Asset';
+import DropDown from '~/components/dropdown/DropDown';
 import useInventory from '~/hooks/useInventory';
 
-import { Banner, ProfileWrapper } from '../styled';
+import { Banner, ProfileWrapper } from '../../components/profile/styled';
 
 const Profile = () => {
   const router = useRouter();
@@ -57,7 +57,7 @@ const Profile = () => {
         ) : (
           <Row justify="space-between">
             {data.map(token => (
-              <TokenCard key={`token-${token.id}`} {...token} />
+              <Card key={`token-${token.id}`} {...token} />
             ))}
           </Row>
         )}

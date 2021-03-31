@@ -14,7 +14,7 @@ import { getSales } from '~/flow/getSales';
 import { getAsset } from '~/flow/getAsset';
 import useAuth from '~/hooks/useAuth';
 
-import { HomeWrapper } from '~/pages/styled';
+import { HomeWrapper } from '~/components/profile/styled';
 import { URLs } from '~/routes/urls';
 
 export default function Home() {

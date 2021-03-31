@@ -7,7 +7,7 @@ import { uploadFile } from '~/utils/upload';
 import { mintNft } from '~/flow/mintNft';
 import useAuth from '~/hooks/useAuth';
 
-import { CreateNFTWrapper } from './styled';
+import { CreateNFTWrapper } from '../../components/profile/styled';
 
 const FormComponent = ({ form, onSubmit, refresh, setFile }) => {
   const initialValues = {

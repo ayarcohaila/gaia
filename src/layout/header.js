@@ -70,9 +70,9 @@ function Header() {
       selectedKeys={[currentRoute]}
       mode="horizontal">
       <Menu.Item key="/">Home</Menu.Item>
-      <Menu.Item key="/marketplace">Marketplace</Menu.Item>
+      <Menu.Item key="/market">Marketplace</Menu.Item>
       {user?.loggedIn && <Menu.Item key={`/profile/${user?.addr}`}>Inventory</Menu.Item>}
-      {user?.loggedIn && <Menu.Item key="/create-nft">Create NFT</Menu.Item>}
+      {user?.loggedIn && <Menu.Item key="/creator">Create NFT</Menu.Item>}
       <Menu.Item className="user-button-height" key="login">
         {user?.loggedIn ? (
           <Dropdown overlay={menu} placement="topLeft">
