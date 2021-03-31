@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Typography, Row, Col, Menu, Dropdown, Button, Modal } from 'antd';
 import { useRouter } from 'next/router';
 import SearchOutlined from '@ant-design/icons/SearchOutlined';
+import Link from 'next/link';
 
 import useAuth from '~/hooks/useAuth';
 import useProfile from '~/hooks/useProfile';
@@ -97,7 +98,9 @@ function Header() {
     <LayoutHeader className="header">
       <Row align="middle">
         <Col span={3} xxl={8}>
-          <Typography.Text>Nifty Beats</Typography.Text>
+          <Link href="/">
+            <Typography.Text>Nifty Beats</Typography.Text>
+          </Link>
         </Col>
         <SearchCol span={6} xxl={8}>
           <SearchInput

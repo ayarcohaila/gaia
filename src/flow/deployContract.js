@@ -220,7 +220,7 @@ import NonFungibleToken from 0xf8d6e0586b0a20c7
 /*
     This is a simple Assets initial sale contract for the DApp to use
     in order to list and sell Assets.
-
+    
     Its structure is neither what it would be if it was the simplest possible
     marjet contract or if it was a complete general purpose market contract.
     Rather it's the simplest possible version of a more general purpose
@@ -228,12 +228,12 @@ import NonFungibleToken from 0xf8d6e0586b0a20c7
     broad strokes. This has been done so that integrating with this contract
     is a useful preparatory exercise for code that will integrate with the
     later more general purpose market contract.
-
+    
     It allows:
     - Anyone to create Sale Offers and place them in a collection, making it
       publicly accessible.
     - Anyone to accept the offer and buy the asset.
-
+    
     It notably does not handle:
     - Multiple different sale NFT contracts.
     - Multiple different payment FT contracts.
@@ -250,7 +250,7 @@ pub contract AssetsMarket {
     pub event SaleOfferAccepted(assetID: UInt64)
     // A sale offer has been destroyed, with or without being accepted.
     pub event SaleOfferFinished(assetID: UInt64)
-    
+
     // Collection events.
     //
     // A sale offer has been inserted into the collection of Address.
@@ -271,16 +271,16 @@ pub contract AssetsMarket {
         pub let saleAssetID: UInt64
         pub let saleOwner: Address
         pub var salePrice: UFix64
-        access(self) fun setPrice(_ newPrice: UFix64) {  
+        pub fun setPrice(_ newPrice: UFix64) {  
             pre {
                     newPrice > 0.00000000:
                     "Price must at least 0"
                 }
-      }
-       
     }
 
-   
+    }
+
+
     // SaleOffer
     // A Assets NFT being offered to sale for a set fee paid in FlowToken.
     //
@@ -301,15 +301,15 @@ pub contract AssetsMarket {
 
         // The FlowToken vault that will receive that payment if teh sale completes successfully.
         access(self) let sellerPaymentReceiver: Capability<&FlowToken.Vault{FungibleToken.Receiver}>
+        pub fun setPrice(_ newPrice: UFix64) { self.salePrice = newPrice }
 
-        access(self) fun setPrice(_ newPrice: UFix64) { self.salePrice = newPrice }
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
         // Called by a purchaser to accept the sale offer.
         // If they send the correct payment in FlowToken, and if the asset is still available,
         // the Assets NFT will be placed in their Assets.Collection .
@@ -333,14 +333,11 @@ pub contract AssetsMarket {
             emit SaleOfferAccepted(assetID: self.saleAssetID)
         }
 
-        pub fun changePrice(saleAssetID: UInt64 , newPrice: UFix64) {
-         
-
-            self.salePrice = 12.00000000
 
 
 
-        }
+
+
 
         // destructor
         //
@@ -393,7 +390,7 @@ pub contract AssetsMarket {
             saleOwner: saleOwner,
             sellerPaymentReceiver: sellerPaymentReceiver,
             salePrice: salePrice,
-           
+
         )
     }
 
@@ -430,7 +427,7 @@ pub contract AssetsMarket {
             buyerCollection: &Assets.Collection{NonFungibleToken.Receiver},
             buyerPayment: @FungibleToken.Vault
         )
-   }
+    }
 
     // Collection
     // A resource that allows its owner to manage a list of SaleOffers, and purchasers to interact with them.
@@ -441,7 +438,7 @@ pub contract AssetsMarket {
         // insert
         // Insert a SaleOffer into the collection, replacing one with the same saleAssetID if present.
         //
-         pub fun insert(offer: @AssetsMarket.SaleOffer) {
+        pub fun insert(offer: @AssetsMarket.SaleOffer) {
             let id: UInt64 = offer.saleAssetID
 
             // add the new offer to the dictionary which removes the old one
@@ -450,7 +447,7 @@ pub contract AssetsMarket {
 
             emit CollectionInsertedSaleOffer(saleAssetID: id, saleAssetCollection: self.owner?.address!)
         }
-       
+
 
         // remove
         // Remove and return a SaleOffer from the collection.
@@ -458,12 +455,12 @@ pub contract AssetsMarket {
             emit CollectionRemovedSaleOffer(saleAssetID: saleAssetID, saleAssetCollection: self.owner?.address!)
             return <-(self.saleOffers.remove(key: saleAssetID) ?? panic("missing SaleOffer"))
         }
-        
 
 
-        
 
- 
+
+
+
         // purchase
         // If the caller passes a valid saleAssetID and the asset is still for sale, and passes a FlowToken vault
         // typed as a FungibleToken.Vault (FlowToken.deposit() handles the type safety of this)
@@ -489,7 +486,7 @@ pub contract AssetsMarket {
             //FIXME: Is this correct? Or should we return it to the caller to dispose of?
             destroy offer
         }
-        
+
 
 
 

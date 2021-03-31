@@ -27,7 +27,7 @@ const TokenCard = ({ imgUrl, collection, name, price, owner }) => {
         </ContentContainer>
         <PriceContainer>
           <Image src="/icons/list.svg" width={10} height={10} />
-          <Price>{price.toFixed(4)}</Price>
+          <Price>{price}</Price>
         </PriceContainer>
       </div>
     </Card>
@@ -38,7 +38,7 @@ TokenCard.propTypes = {
   imgUrl: PropTypes.string.isRequired,
   collection: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   owner: PropTypes.shape({
     src: PropTypes.string
   })

@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Col, Form, Input, Typography, Upload, Button, Card, Modal, Result } from 'antd';
-import { uploadFile } from '../utils/upload';
+
+import { uploadFile } from '~/utils/upload';
 import { mintNft } from '~/flow/mintNft';
 import useAuth from '~/hooks/useAuth';
+
 import { CreateNFTWrapper } from './styled';
 
 const FormComponent = ({ form, onSubmit, refresh, setFile }) => {
@@ -23,7 +25,7 @@ const FormComponent = ({ form, onSubmit, refresh, setFile }) => {
         initialValues={initialValues}>
         <Typography.Text>Upload File</Typography.Text>
         <div className="form-row form-upload-row">
-          <Typography.Text>PNG, GIF, WEBP, MP4 or MP3</Typography.Text>
+          <Typography.Text>PNG, JPEG, GIF, WEBP, MP4 or MP3</Typography.Text>
           <Form.Item name="ipfsHash" trigger={null} shouldUpdate={false}>
             <Upload
               customRequest={async ({ file, onSuccess, onError }) => {
@@ -38,7 +40,7 @@ const FormComponent = ({ form, onSubmit, refresh, setFile }) => {
                 setFile(null);
               }}
               maxCount={1}
-              accept=".png,.gif,.webp,.mp4,.mp3"
+              accept=".png,.gif,.webp,.mp4,.mp3,.jpeg"
               className="form-upload">
               <Button type="primary" shape="round" className="upload-button">
                 Choose file

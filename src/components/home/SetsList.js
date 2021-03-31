@@ -9,7 +9,7 @@ function SetsList({ sets }) {
           return (
             <TokenCard
               key={set.id}
-              imgUrl={set.imgUrl}
+              imgUrl={set.imgURL}
               collection={set.collection}
               name={set.name}
               price={set.price}
