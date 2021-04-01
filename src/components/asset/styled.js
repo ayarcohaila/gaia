@@ -84,6 +84,7 @@ export const Heading = styled.p`
 `;
 
 export const OwnerName = styled.span`
+  cursor: pointer;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.brightBlue};
 `;

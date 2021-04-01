@@ -31,7 +31,7 @@ const Asset = ({ imgURL, collection, name, price, owner, id }) => {
           {price && (
             <PriceContainer>
               <Image src="/icons/list.svg" width={10} height={10} />
-              <Price>{price.toFixed(4)}</Price>
+              <Price>{Number(price).toFixed(4)}</Price>
             </PriceContainer>
           )}
         </div>
