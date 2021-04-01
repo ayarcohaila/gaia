@@ -57,6 +57,11 @@ function Header() {
         </Button>
       </Menu.Item>
       <Menu.Item>
+        <Button type="text" onClick={async () => setupAccount()}>
+          Setup Account
+        </Button>
+      </Menu.Item>
+      <Menu.Item>
         <Button type="text" danger onClick={logout}>
           Logout
         </Button>

@@ -3,10 +3,10 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Col, Form, Input, Typography, Upload, Button, Card, Modal, Result } from 'antd';
 import { uploadFile } from '~/utils/upload';
-import { mintNft } from '~/flow/publicMint';
 import useAuth from '~/hooks/useAuth';
 
 import { CreateNFTWrapper } from '../../components/profile/styled';
+import { mintNft } from '~/flow/mintNft';
 
 const FormComponent = ({ form, onSubmit, refresh, setFile }) => {
   const initialValues = {
@@ -116,7 +116,6 @@ function CreateNFT() {
   async function onSubmit(values) {
     try {
       await mintNft(user?.addr, 1, values.name, values.description, values.ipfsHash);
-
       Modal.success({
         icon: null,
         centered: true,
