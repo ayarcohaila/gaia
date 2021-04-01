@@ -4,5 +4,6 @@ export const URLs = {
   marketplace: '/market',
   profile: address => `/profile/${address || ':id'}`,
   editProfile: '/profile/edit',
-  createNFT: '/creator'
+  createNFT: '/creator',
+  explorer: assetId => `/explorer/asset/${assetId ?? ':id'}`
 };

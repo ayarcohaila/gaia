@@ -60,6 +60,7 @@ export const Price = styled(Text)`
 
 export const TokenWrapper = styled(Row)`
   .content {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -73,7 +74,6 @@ export const StyledImage = styled.div`
   background-image: url(${({ src }) => src});
   background-size: cover;
   margin-right: 30px;
-  flex-shrink: 0;
 `;
 
 export const Heading = styled.p`

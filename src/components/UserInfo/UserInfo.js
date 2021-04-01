@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 
 import { Wrapper, Info, Role } from './styled';
 
-const UserInfo = ({ src, name, role }) => {
+const UserInfo = ({ src, name, type }) => {
   const avatarSource = src ? { src } : { icon: <UserOutlined /> };
   return (
     <Wrapper>
       <Avatar size="large" {...avatarSource} />
       <Info>
-        {name} <Role>{role}</Role>
+        {name} <Role>{type}</Role>
       </Info>
     </Wrapper>
   );
@@ -18,7 +18,7 @@ const UserInfo = ({ src, name, role }) => {
 
 UserInfo.propTypes = {
   name: PropTypes.string.isRequired,
-  role: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   src: PropTypes.string
 };
 

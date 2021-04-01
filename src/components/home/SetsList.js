@@ -9,6 +9,7 @@ function SetsList({ sets }) {
           return (
             <Card
               key={set.id}
+              id={set.id}
               imgURL={set.imgURL}
               collection={set.collection}
               name={set.name}
