@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Col, Form, Input, Typography, Upload, Button, Card, Modal, Result } from 'antd';
-
 import { uploadFile } from '~/utils/upload';
 import { mintNft } from '~/flow/publicMint';
 import useAuth from '~/hooks/useAuth';
@@ -137,9 +136,9 @@ function CreateNFT() {
                 key="console"
                 onClick={() => {
                   Modal.destroyAll();
-                  router.push('/actions');
+                  router.push(`/profile/${user?.addr}`);
                 }}>
-                Go to actions
+                Go to your profile
               </Button>
             }
           />

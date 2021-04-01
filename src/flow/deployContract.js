@@ -18,7 +18,8 @@ pub contract Assets: NonFungibleToken {
     pub let CollectionStoragePath: StoragePath
     pub let CollectionPublicPath: PublicPath
     pub let MinterStoragePath: StoragePath
-
+    pub let MinterPublicPath: PublicPath
+    
     // totalSupply
     // The total number of Assets that have been minted
     //
@@ -194,20 +195,22 @@ pub contract Assets: NonFungibleToken {
     // initializer
     //
   init() {
-        // Set our named paths
-        //FIXME: REMOVE SUFFIX BEFORE RELEASE
-        self.CollectionStoragePath = /storage/AssetsCollection001
-        self.CollectionPublicPath = /public/AssetsCollection001
-        self.MinterStoragePath = /storage/AssetsMinter001
+    // Set our named paths
+    //FIXME: REMOVE SUFFIX BEFORE RELEASE
+    self.CollectionStoragePath = /storage/AssetsCollection001
+    self.CollectionPublicPath = /public/AssetsCollection001
+    self.MinterStoragePath = /storage/AssetsMinter001
+    self.MinterPublicPath = /public/AssetsMinter001
 
-        // Initialize the total supply
-        self.totalSupply = 0
+    // Initialize the total supply
+    self.totalSupply = 0
 
-        // Create a Minter resource and save it to storage
-        let minter <- create NFTMinter()
-        self.account.save(<-minter, to: self.MinterStoragePath)
-
-        emit ContractInitialized()
+    // Create a Minter resource and save it to storage
+    let minter <- create NFTMinter()
+    self.account.save(<-minter, to: self.MinterStoragePath)
+    self.account.link<&NFTMinter>(self.MinterPublicPath,target: self.MinterStoragePath)
+    
+    emit ContractInitialized()
   }
 }
 `;

@@ -1,4 +1,3 @@
-
 import NonFungibleToken from 0xf8d6e0586b0a20c7
 
 // Assets
@@ -16,7 +15,8 @@ pub contract Assets: NonFungibleToken {
     pub let CollectionStoragePath: StoragePath
     pub let CollectionPublicPath: PublicPath
     pub let MinterStoragePath: StoragePath
-
+    pub let MinterPublicPath: PublicPath
+    
     // totalSupply
     // The total number of Assets that have been minted
     //
@@ -157,21 +157,21 @@ pub contract Assets: NonFungibleToken {
     // Resource that an admin or something similar would own to be
     // able to mint new NFTs
     //
-  pub resource NFTMinter {
+    pub resource NFTMinter {
 
-    // mintNFT
-        // Mints a new NFT with a new ID
-    // and deposit it in the recipients collection using their collection reference
-        //
-    pub fun mintNFT(recipient: &{NonFungibleToken.CollectionPublic}, templateID: UInt64, name: String, description: String, imgURL: String) {
-            emit Minted(id: Assets.totalSupply, templateID: templateID, name:name, description:description,imgURL:imgURL)
+        // mintNFT
+            // Mints a new NFT with a new ID
+        // and deposit it in the recipients collection using their collection reference
+            //
+        pub fun mintNFT(recipient: &{NonFungibleToken.CollectionPublic}, templateID: UInt64, name: String, description: String, imgURL: String) {
+                emit Minted(id: Assets.totalSupply, templateID: templateID, name:name, description:description,imgURL:imgURL)
 
-      // deposit it in the recipient's account using their reference
-      recipient.deposit(token: <-create Assets.NFT(initID: Assets.totalSupply, initTemplateID: templateID, initName:name, initDescription:description, initImgUrl:imgURL))
+        // deposit it in the recipient's account using their reference
+        recipient.deposit(token: <-create Assets.NFT(initID: Assets.totalSupply, initTemplateID: templateID, initName:name, initDescription:description, initImgUrl:imgURL))
 
-            Assets.totalSupply = Assets.totalSupply + (1 as UInt64)
+                Assets.totalSupply = Assets.totalSupply + (1 as UInt64)
+        }
     }
-  }
 
     // fetch
     // Get a reference to a Asset from an account's Collection, if available.
@@ -191,12 +191,13 @@ pub contract Assets: NonFungibleToken {
 
     // initializer
     //
-  init() {
+    init() {
         // Set our named paths
         //FIXME: REMOVE SUFFIX BEFORE RELEASE
         self.CollectionStoragePath = /storage/AssetsCollection001
         self.CollectionPublicPath = /public/AssetsCollection001
         self.MinterStoragePath = /storage/AssetsMinter001
+        self.MinterPublicPath = /public/AssetsMinter001
 
         // Initialize the total supply
         self.totalSupply = 0
@@ -204,7 +205,8 @@ pub contract Assets: NonFungibleToken {
         // Create a Minter resource and save it to storage
         let minter <- create NFTMinter()
         self.account.save(<-minter, to: self.MinterStoragePath)
-
+        self.account.link<&NFTMinter>(self.MinterPublicPath,target: self.MinterStoragePath)
+        
         emit ContractInitialized()
-  }
+    }
 }

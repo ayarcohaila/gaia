@@ -20,6 +20,7 @@ import {
 import { getImageURL } from '~/utils/getImageUrl';
 import { UserOutlined } from '@ant-design/icons';
 import Avatar from 'antd/lib/avatar/avatar';
+import { setupAccount } from '~/flow/setupAccount';
 
 function Header() {
   const [currentRoute, setCurrentRoute] = useState('');
@@ -44,6 +45,7 @@ function Header() {
   const handleInitializeProfile = async () => {
     setModalVisible(false);
     await initProfile();
+    await setupAccount();
     router.push(URLs.editProfile);
   };
 
