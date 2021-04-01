@@ -26,22 +26,22 @@ transaction(minterAddress: Address, recipient: Address, templateID: UInt64, name
 
 export async function mintNft(address, templateID, name, description, imgURL) {
   try {
-    const txId = await fcl
-      .send([
-        fcl.transaction(MINT_NFT_TX),
-        fcl.payer(fcl.authz),
-        fcl.proposer(fcl.authz),
-        fcl.args([
-          fcl.arg(publicMintAddress, t.Address),
-          fcl.arg(address, t.Address),
-          fcl.arg(templateID, t.UInt64),
-          fcl.arg(name, t.String),
-          fcl.arg(description, t.String),
-          fcl.arg(imgURL, t.String)
-        ]),
-        fcl.limit(35)
-      ])
-      .then(fcl.decode);
+    const tx = await fcl.send([
+      fcl.transaction(MINT_NFT_TX),
+      fcl.payer(fcl.authz),
+      fcl.proposer(fcl.authz),
+      fcl.args([
+        fcl.arg(publicMintAddress, t.Address),
+        fcl.arg(address, t.Address),
+        fcl.arg(templateID, t.UInt64),
+        fcl.arg(name, t.String),
+        fcl.arg(description, t.String),
+        fcl.arg(imgURL, t.String)
+      ]),
+      fcl.limit(35)
+    ]);
+    const txId = await fcl.decode(tx);
+    console.warn('Transaction id: ', txId);
     return fcl.tx(txId).onceSealed();
   } catch (error) {
     console.warn('ERROR', error);
