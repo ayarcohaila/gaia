@@ -64,7 +64,7 @@ const EditProfile = () => {
     try {
       await editProfile(name, avatar, info);
       Modal.success({
-        title: 'userProfile successfully updated!'
+        title: 'User profile successfully updated!'
       });
     } catch (error) {
       Modal.error({
@@ -77,11 +77,11 @@ const EditProfile = () => {
   return (
     <EditProfileWrapper>
       <Head>
-        <title>Edit userProfile | NiftyBeats</title>
+        <title>Edit User Profile | NiftyBeats</title>
       </Head>
       <Col span={10} offset={7}>
-        <Heading>Edit userProfile</Heading>
-        <Label>Upload userProfile picture</Label>
+        <Heading>Edit User Profile</Heading>
+        <Label>Upload Photo</Label>
         <StyledUpload
           maxCount={1}
           name="avatar"
