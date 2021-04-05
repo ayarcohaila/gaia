@@ -24,9 +24,10 @@ import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
 
 const Explorer = () => {
+  const router = useRouter();
   const {
     query: { id }
-  } = useRouter();
+  } = router;
   const { user } = useAuth();
   const { userProfile } = useProfile(user?.addr);
   const { sales } = useMarket(user?.addr);
@@ -87,7 +88,10 @@ const Explorer = () => {
                 type="Creator"
               />
               {nft.isSale && (
-                <StyledButton type="primary" shape="round">
+                <StyledButton
+                  type="primary"
+                  shape="round"
+                  onClick={() => router.push(URLs.sale(id))}>
                   Go to sale
                 </StyledButton>
               )}
