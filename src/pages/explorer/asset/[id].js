@@ -32,7 +32,6 @@ const Explorer = () => {
     query: { id }
   } = router;
   const { user } = useAuth();
-  const router = useRouter();
   const { userProfile } = useProfile(user?.addr);
   const { sales } = useMarket(user?.addr);
   const [form] = Form.useForm();
@@ -48,17 +47,17 @@ const Explorer = () => {
   });
 
   const description = useMemo(() => {
-    if (completeDescription || nft.description.length < 330) {
-      return nft.description;
+    if (completeDescription || nft?.description?.length < 330) {
+      return nft?.description;
     } else {
-      return `${nft.description.substr(0, 330)}...`;
+      return `${nft?.description?.substr(0, 330)}...`;
     }
   }, [completeDescription, nft]);
 
   useEffect(async () => {
     if (user?.addr) {
-      const asset = await getAsset(user.addr, Number(id));
-      const isSale = sales.filter(sale => sale.id === Number(id)).length > 0;
+      const asset = await getAsset(user.addr, parseInt(id, 10));
+      const isSale = sales.filter(sale => sale.id === Number(id))?.length > 0;
       setNft({ ...asset, isSale });
     }
   }, [id, user, sales]);
@@ -117,9 +116,9 @@ const Explorer = () => {
       </Head>
       <Col span={18} offset={3}>
         <Row justify="flex-start" wrap={false}>
-          <StyledImage src={getImageURL(nft.imgURL)} />
+          <StyledImage src={getImageURL(nft?.imgURL ?? '')} />
           <div className="content">
-            <Heading>{nft.name}</Heading>
+            <Heading>{nft?.name}</Heading>
             <p>
               Owned by{' '}
               <Link href={URLs.profile(user?.addr)}>
@@ -128,7 +127,7 @@ const Explorer = () => {
             </p>
             <Description>
               {description}{' '}
-              {description.length > 330 && (
+              {description?.length > 330 && (
                 <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>
                   Show {completeDescription ? 'less' : 'more'}
                 </ReadMore>
@@ -141,7 +140,7 @@ const Explorer = () => {
                 src={getImageURL(userProfile?.avatar ?? '')}
                 type="Creator"
               />
-              {nft.isSale && (
+              {nft?.isSale ? (
                 <StyledButton
                   type="primary"
                   shape="round"
@@ -150,7 +149,7 @@ const Explorer = () => {
                 </StyledButton>
               ) : (
                 <StyledButton type="primary" shape="round" onClick={() => sellAsset()}>
-                  Sell
+                  List on Market
                 </StyledButton>
               )}
             </InfoWrapper>

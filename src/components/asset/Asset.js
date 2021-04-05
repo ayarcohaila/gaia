@@ -44,7 +44,7 @@ Asset.propTypes = {
   imgURL: PropTypes.string.isRequired,
   collection: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   price: PropTypes.number,
   owner: PropTypes.shape({
     src: PropTypes.string

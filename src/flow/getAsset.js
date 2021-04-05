@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { fcl, t } from '../config/config';
 
 const TRANSFER_NFT_TX = fcl.cdc`
@@ -20,6 +21,7 @@ pub fun main(address: Address, assetID: UInt64): &Assets.NFT? {
 `;
 
 export async function getAsset(address, assetID) {
+  if (Number.isNaN(assetID)) return;
   return fcl
     .send([
       fcl.script(TRANSFER_NFT_TX),

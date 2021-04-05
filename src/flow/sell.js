@@ -59,7 +59,7 @@ export async function createSaleOffer(saleAssetID, salePrice, owner) {
   const txId = await fcl
     .send([
       fcl.transaction(SALE_NFT_TX),
-      //salePrice must have 1. something INT are not accepted by this transaction
+      //salePrice must have 1. something , INT are not accepted by this transaction
       fcl.args([
         fcl.arg(saleAssetID, t.UInt64),
         fcl.arg(correctSalePrice, t.UFix64),
