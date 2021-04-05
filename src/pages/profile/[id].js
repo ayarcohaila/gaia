@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Head from 'next/head';
 import { Row, Col } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';

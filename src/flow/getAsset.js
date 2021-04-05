@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { fcl, t } from '../config/config';
 
 const TRANSFER_NFT_TX = fcl.cdc`
