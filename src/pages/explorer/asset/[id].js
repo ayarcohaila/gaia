@@ -27,9 +27,10 @@ import { createSaleOffer } from '~/flow/sell';
 const { Text } = Typography;
 
 const Explorer = () => {
+  const router = useRouter();
   const {
     query: { id }
-  } = useRouter();
+  } = router;
   const { user } = useAuth();
   const router = useRouter();
   const { userProfile } = useProfile(user?.addr);
@@ -140,8 +141,11 @@ const Explorer = () => {
                 src={getImageURL(userProfile?.avatar ?? '')}
                 type="Creator"
               />
-              {nft.isSale ? (
-                <StyledButton type="primary" shape="round">
+              {nft.isSale && (
+                <StyledButton
+                  type="primary"
+                  shape="round"
+                  onClick={() => router.push(URLs.sale(id))}>
                   Go to sale
                 </StyledButton>
               ) : (
