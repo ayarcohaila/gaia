@@ -11,7 +11,7 @@ function SetsList({ sets }) {
               key={set.id}
               id={set.id}
               imgURL={set.imgURL}
-              collection={set.collection}
+              description={set.description}
               name={set.name}
               price={set.price}
             />

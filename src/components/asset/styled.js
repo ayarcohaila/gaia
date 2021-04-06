@@ -40,7 +40,7 @@ export const PriceContainer = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  width: 67%;
+  width: ${({ fullWidth }) => (fullWidth ? '100' : '67')}%;
 `;
 
 export const Text = styled.p`
@@ -49,7 +49,7 @@ export const Text = styled.p`
   line-height: 15px;
 `;
 
-export const Collection = styled(Text)`
+export const AssetDescription = styled(Text)`
   color: ${({ theme }) => theme.colors.lightGray};
 `;
 

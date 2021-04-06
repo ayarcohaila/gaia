@@ -1,14 +1,15 @@
 import { useState, useMemo } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Col, Form, Input, Typography, Upload, Button, Card, Modal, Result } from 'antd';
-import { uploadFile } from '~/utils/upload';
-import useAuth from '~/hooks/useAuth';
+import { Col, Form, Input, Typography, Upload, Button, Modal, Result } from 'antd';
 
-import { CreateNFTWrapper } from '../../components/profile/styled';
+import { CreateNFTWrapper } from '~/components/profile/styled';
+import Asset from '~/components/asset/Asset';
 import { mintNft } from '~/flow/mintNft';
+import useAuth from '~/hooks/useAuth';
+import { uploadFile } from '~/utils/upload';
 
-const FormComponent = ({ form, onSubmit, refresh, setFile, loading }) => {
+const FormComponent = ({ form, onSubmit, refresh, loading }) => {
   const initialValues = {
     ipfsHash: null,
     file: null,
@@ -29,7 +30,7 @@ const FormComponent = ({ form, onSubmit, refresh, setFile, loading }) => {
   }, [formValues]);
 
   return (
-    <Col span={10}>
+    <Col offset={4} span={10}>
       <Form
         onBlur={() => refresh(Math.random())}
         onFinish={onSubmit}
@@ -43,13 +44,11 @@ const FormComponent = ({ form, onSubmit, refresh, setFile, loading }) => {
               customRequest={async ({ file, onSuccess, onError }) => {
                 const ipfsHash = await uploadFile(file, onError);
                 form.setFieldsValue({ ipfsHash });
-                setFile(file);
                 refresh(Math.random());
                 onSuccess();
               }}
               onRemove={() => {
                 form.setFieldsValue({ ipfsHash: null });
-                setFile(null);
               }}
               maxCount={1}
               accept=".png,.gif,.webp,.mp4,.mp3,.jpeg"
@@ -102,24 +101,11 @@ const FormComponent = ({ form, onSubmit, refresh, setFile, loading }) => {
   );
 };
 
-const PreviewComponent = ({ values, file }) => {
+const PreviewComponent = ({ values: { ipfsHash, name, description } }) => {
   return (
     <Col span={6}>
       <Typography.Text>Preview</Typography.Text>
-      <Card
-        cover={
-          file ? (
-            <img className="preview-image" alt={file.name} src={URL.createObjectURL(file)} />
-          ) : (
-            <></>
-          )
-        }>
-        <Card.Meta
-          className="preview-meta"
-          title={values?.name}
-          description={values?.description}
-        />
-      </Card>
+      <Asset imgURL={ipfsHash} {...{ name, description }} />
     </Col>
   );
 };
@@ -129,7 +115,6 @@ function CreateNFT() {
   const router = useRouter();
   const { user } = useAuth();
   const [updatedValue, setUpdatedValue] = useState(null);
-  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(values) {
@@ -176,26 +161,16 @@ function CreateNFT() {
     }
   }
 
-  const Title = ({ text }) => (
-    <>
-      <Col span={4}></Col>
-      <Col span={10}>
-        <Typography.Title>{text}</Typography.Title>
-      </Col>
-      <Col span={10}></Col>
-    </>
-  );
-
   return (
     <CreateNFTWrapper>
       <Head>
         <title>Create NFT | NiftyBeats</title>
       </Head>
-      <Title text="Create New Collection" />
-      <Col span={4}></Col>
-      <FormComponent refresh={setUpdatedValue} {...{ router, form, setFile, onSubmit, loading }} />
-      <PreviewComponent file={file} updatedValue={updatedValue} values={form.getFieldsValue()} />
-      <Col span={4}></Col>
+      <Col offset={4} span={10}>
+        <Typography.Title>Create New Collection</Typography.Title>
+      </Col>
+      <FormComponent refresh={setUpdatedValue} {...{ router, form, onSubmit, loading }} />
+      <PreviewComponent updatedValue={updatedValue} values={form.getFieldsValue()} />
     </CreateNFTWrapper>
   );
 }
