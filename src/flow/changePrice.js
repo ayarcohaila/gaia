@@ -32,6 +32,8 @@ transaction(address: Address, saleAssetID: UInt64, newPrice: UFix64) {
 `;
 
 export async function changePrice(address, saleAssetID, newPrice) {
+  if (Number.isNaN(newPrice) || Number.isNaN(saleAssetID) || !address)
+    throw new Error('Make sure all data you entered is correct');
   const correctSalePrice = newPrice.toFixed(8);
   const txId = await fcl
     .send([

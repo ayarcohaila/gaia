@@ -99,8 +99,9 @@ export const Description = styled.p`
 `;
 
 export const StyledButton = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.brightBlue};
-  width: 100%;
+  background-color: ${({ theme, cancel }) =>
+    cancel ? theme.colors.brightRed : theme.colors.brightBlue};
+  width: 50%;
 `;
 
 export const InfoHeading = styled.p`
