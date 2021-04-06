@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Col, Form, Input, Typography, Upload, Button, Card, Modal, Result } from 'antd';
@@ -8,13 +8,26 @@ import useAuth from '~/hooks/useAuth';
 import { CreateNFTWrapper } from '../../components/profile/styled';
 import { mintNft } from '~/flow/mintNft';
 
-const FormComponent = ({ form, onSubmit, refresh, setFile }) => {
+const FormComponent = ({ form, onSubmit, refresh, setFile, loading }) => {
   const initialValues = {
     ipfsHash: null,
     file: null,
     description: null,
     name: null
   };
+
+  const formValues = form.getFieldsValue();
+
+  const disabled = useMemo(() => {
+    const { ipfsHash, name, description } = formValues;
+
+    if (!ipfsHash || !name || !description) {
+      return true;
+    }
+
+    return false;
+  }, [formValues]);
+
   return (
     <Col span={10}>
       <Form
@@ -75,7 +88,12 @@ const FormComponent = ({ form, onSubmit, refresh, setFile }) => {
           />
         </Form.Item>
         <Form.Item className="form-row no-borders">
-          <Button type="primary" htmlType="submit" shape="round" className="form-submit-button">
+          <Button
+            type="primary"
+            htmlType="submit"
+            shape="round"
+            className="form-submit-button"
+            {...{ disabled, loading }}>
             Create
           </Button>
         </Form.Item>
@@ -112,9 +130,11 @@ function CreateNFT() {
   const { user } = useAuth();
   const [updatedValue, setUpdatedValue] = useState(null);
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   async function onSubmit(values) {
     try {
+      setLoading(true);
       await mintNft(user?.addr, 1, values.name, values.description, values.ipfsHash);
       Modal.success({
         icon: null,
@@ -151,6 +171,8 @@ function CreateNFT() {
         title: '',
         content: <Result status="error" title="Oops!" subTitle="Mission failed" />
       });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -171,13 +193,7 @@ function CreateNFT() {
       </Head>
       <Title text="Create New Collection" />
       <Col span={4}></Col>
-      <FormComponent
-        router={router}
-        form={form}
-        setFile={setFile}
-        onSubmit={onSubmit}
-        refresh={setUpdatedValue}
-      />
+      <FormComponent refresh={setUpdatedValue} {...{ router, form, setFile, onSubmit, loading }} />
       <PreviewComponent file={file} updatedValue={updatedValue} values={form.getFieldsValue()} />
       <Col span={4}></Col>
     </CreateNFTWrapper>
