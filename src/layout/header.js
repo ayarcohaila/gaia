@@ -75,12 +75,15 @@ function Header() {
     <Menu
       onClick={e => e.key != 'login' && router.push(e.key)}
       selectedKeys={[currentRoute]}
-      mode="horizontal">
+      mode="horizontal"
+      inlineCollapsed={false}
+      forceSubMenuRender={true}
+      overflowedIndicator={() => false}>
       <Menu.Item key="/">Home</Menu.Item>
       <Menu.Item key="/market">Marketplace</Menu.Item>
       {user?.loggedIn && <Menu.Item key={`/profile/${user?.addr}`}>Inventory</Menu.Item>}
       {user?.loggedIn && <Menu.Item key="/creator">Create NFT</Menu.Item>}
-      <Menu.Item className="user-button-height" key="login">
+      <Menu.Item className="user-button-height" key="login" disabled>
         {user?.loggedIn ? (
           <Dropdown overlay={menu} placement="topLeft">
             <UserButton>
@@ -102,8 +105,8 @@ function Header() {
   );
 
   return (
-    <LayoutHeader className="header">
-      <Row align="middle">
+    <LayoutHeader>
+      <Row justify="space-between" align="middle" gutter={[20, 0]}>
         <Col span={3} xxl={8}>
           <Link href="/">
             <Typography.Text>Nifty Beats</Typography.Text>

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { GlobalStyles } from '../components/layout/globalStyles';
 import { ThemeProvider } from 'styled-components';
 import { Layout } from 'antd';
-import Header from '~/layout/header';
+import Header from '~/components/header/header';
 import Content from '~/layout/content';
 import Footer from '~/layout/footer';
 import theme from '~/themes/default';
