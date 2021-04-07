@@ -46,8 +46,10 @@ const Profile = () => {
       <Head>
         <title>Profile | NiftyBeats</title>
       </Head>
-      <Banner src="/images/inventory-banner.png" />
-      <Address>{id || 'NO ADDRESS FOUND'}</Address>
+      <Col span={24}>
+        <Banner src="/images/inventory-banner.png" />
+        <Address>{id || 'NO ADDRESS FOUND'}</Address>
+      </Col>
       <Col span={18} offset={3}>
         <Row justify="end">
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
