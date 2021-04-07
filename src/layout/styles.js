@@ -108,4 +108,8 @@ export const CustomLink = styled(Typography.Link).attrs(() => ({
   font-size: 16px;
   line-height: 24px;
   margin-bottom: ${props => (props.margin ? '10px' : '0')};
+
+  a {
+    color: rgba(0, 0, 0, 0.3) !important;
+  }
 `;

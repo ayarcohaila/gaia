@@ -1,88 +1,127 @@
-import { Col, Row } from 'antd';
-import Image from 'next/image';
+import { Discord } from '@styled-icons/fa-brands/Discord';
+import { FacebookSquare } from '@styled-icons/fa-brands/FacebookSquare';
+import { Instagram } from '@styled-icons/fa-brands/Instagram';
+import { Telegram } from '@styled-icons/fa-brands/Telegram';
+import { Twitter } from '@styled-icons/fa-brands/Twitter';
+import { Signal } from '@styled-icons/simple-icons/Signal';
+import { Col, Divider, Row, Typography } from 'antd';
+import React from 'react';
+import { URLs } from '../routes/urls';
+import { CustomLink as Link, LayoutFooter } from './styles';
 
-import {
-  LayoutFooter,
-  SummaryCol,
-  CustomRow,
-  Title,
-  Text,
-  LinkContainer,
-  CustomLink as Link
-} from './styles';
-
-const placeholderText =
-  'The world’s largest digital marketplace for crypto collectibles and non-fungible tokens (NFTs), including ERC721 and ERC1155 assets. Buy, sell, and discover exclusive digital assets like Axies.';
-
-export default function Footer() {
-  const Summary = () => (
-    <SummaryCol span={8}>
-      <Title level={4}>Nifty Beats</Title>
-      <Text>{placeholderText}</Text>
-    </SummaryCol>
-  );
-  const Contact = () => (
-    <Col span={6}>
-      <Title level={4}>Get in touch</Title>
-      <LinkContainer>
-        <Link margin="true" href="/">
-          Home
-        </Link>
-        <Link margin="true" href="/">
-          Create NFT
-        </Link>
-        <Link margin="true" href="/marketplace">
-          Marketplace
-        </Link>
-        <Link margin="true" href="/">
-          Login
-        </Link>
-      </LinkContainer>
-    </Col>
-  );
-  const About = () => (
-    <Col span={6}>
-      <Title level={4}>About us</Title>
-      <LinkContainer>
-        <Link margin="true">Global Value</Link>
-        <Link margin="true">Social</Link>
-        <Link margin="true">History</Link>
-        <Link margin="true">Press</Link>
-      </LinkContainer>
-    </Col>
-  );
-  const Spacer = () => <Col span={3} />;
-
+const { Title, Text } = Typography;
+function Footer() {
   return (
     <LayoutFooter>
-      <Row justify="space-around">
-        <Summary />
-        <Contact />
-        <About />
-        <Spacer />
+      <Row>
+        <Col sm={{ span: 20, offset: 2 }}>
+          <Row justify="space-between">
+            <Col md={12} xs={24}>
+              <Title level={3}>Nifty Beats</Title>
+              <Text>
+                The world’s largest digital marketplace for crypto collectibles and non-fungible
+                tokens (NFTs). Buy, sell, and discover exclusive digital assets.
+              </Text>
+            </Col>
+            <Col md={4} xs={24}>
+              <Row>
+                <Title level={3}>Get in touch</Title>
+              </Row>
+              <Row>
+                <Link href={URLs.home}>Home</Link>
+              </Row>
+              <Row>
+                <Link href={URLs.createNFT}>Create NFT</Link>
+              </Row>
+              <Row>
+                <Link href={URLs.marketplace}>Marketplace</Link>
+              </Row>
+              <Row>
+                <Link href="#">Login</Link>
+              </Row>
+            </Col>
+            <Col md={4} xs={24}>
+              <Row>
+                <Title level={3}>About Us</Title>
+              </Row>
+              <Row>
+                <Link href="#">Global Value</Link>
+              </Row>
+              <Row>
+                <Link href="#">Social</Link>
+              </Row>
+              <Row>
+                <Link href="#">History</Link>
+              </Row>
+              <Row>
+                <Link href="#">Press</Link>
+              </Row>
+            </Col>
+          </Row>
+          <Divider />
+          <Row justify="space-between">
+            <Row gutter={10} align="middle">
+              <Col>
+                <Link href="#">Privacy Policy</Link>
+              </Col>
+              <Divider type="vertical" />
+              <Col>
+                <Link href="#">Modern Day Statement</Link>
+              </Col>
+              <Divider type="vertical" />
+              <Col>
+                <Link href="#">Social Impact Statement</Link>
+              </Col>
+            </Row>
+            <Row gutter={25}>
+              <Col>
+                <Link href="#" passHref>
+                  <a href="about:blank">
+                    <Discord size={25} />
+                  </a>
+                </Link>
+              </Col>
+              <Col>
+                <Link href="#" passHref>
+                  <a href="about:blank">
+                    <FacebookSquare size={25} />
+                  </a>
+                </Link>
+              </Col>
+              <Col>
+                <Link href="#" passHref>
+                  <a href="about:blank">
+                    <Telegram size={25} />
+                  </a>
+                </Link>
+              </Col>
+              <Col>
+                <Link href="#" passHref>
+                  <a href="about:blank">
+                    <Twitter size={25} />
+                  </a>
+                </Link>
+              </Col>
+              <Col>
+                <Link href="#" passHref>
+                  <a href="about:blank">
+                    <Signal size={25} />
+                  </a>
+                </Link>
+              </Col>
+              <Col>
+                <Link href="#" passHref>
+                  <a href="about:blank">
+                    <Instagram size={25} />
+                  </a>
+                </Link>
+              </Col>
+            </Row>
+          </Row>
+        </Col>
       </Row>
-      <CustomRow>
-        <Col span={12}>
-          <Row>
-            <Link>Privacy Policy</Link>
-            <Text>{`‎‎‎‏‏‎ ‎-‏‏‎ ‎`}</Text>
-            <Link>Modern Day Statement</Link>
-            <Text>{'‏‏‎ ‎-‏‏‎ ‎'}</Text>
-            <Link>Social Impact Statement</Link>
-          </Row>
-        </Col>
-        <Col span={6}></Col>
-        <Col span={6}>
-          <Row justify="space-around">
-            <Image src="/discord.svg" width={20} height={20} />
-            <Image src="/facebook.svg" width={20} height={20} />
-            <Image src="/telegram.svg" width={20} height={20} />
-            <Image src="/twitter.svg" width={20} height={20} />
-            <Image src="/signal.svg" width={20} height={20} />
-            <Image src="/instagram.svg" width={20} height={20} />
-          </Row>
-        </Col>
-      </CustomRow>
     </LayoutFooter>
   );
 }
+
+export default Footer;
