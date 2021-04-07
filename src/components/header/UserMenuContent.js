@@ -6,7 +6,7 @@ import { setupAccount } from '~/flow/setupAccount';
 import useAuth from '~/hooks/useAuth';
 import useProfile from '~/hooks/useProfile';
 import { URLs } from '~/routes/urls';
-import { ColStyled } from './styled';
+import { ColStyled } from '~/components/header/styled';
 
 function UserMenuContent({ loggedIn }) {
   const { logout } = useAuth();

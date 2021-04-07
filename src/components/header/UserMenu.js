@@ -4,8 +4,8 @@ import React from 'react';
 import useAuth from '~/hooks/useAuth';
 import useProfile from '~/hooks/useProfile';
 import { getImageURL } from '~/utils/getImageUrl';
-import UserMenuContent from './UserMenuContent';
-import { UserName } from './styled';
+import UserMenuContent from '~/components/header/UserMenuContent';
+import { UserName } from '~/components/header/styled';
 function UserMenu() {
   const { user, login } = useAuth();
   const { userProfile } = useProfile(user?.addr);

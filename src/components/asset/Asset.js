@@ -27,7 +27,7 @@ const Asset = ({ imgURL, description, name, price, owner, id }) => {
       <div className="text-content">
         <ContentContainer fullWidth={!price}>
           <Text>{name}</Text>
-          <Description>{`${description.substr(0, 33)}...`}</Description>
+          <Description>{description ? `${description?.substr(0, 33)}...` : null}</Description>
         </ContentContainer>
         {price && (
           <PriceContainer>

@@ -1,6 +1,6 @@
 import SearchOutlined from '@ant-design/icons/SearchOutlined';
 import { Col, Row } from 'antd';
-import AutoCompleteStyled from './styled';
+import { AutoCompleteStyled } from '~/components/header/styled';
 
 function Search() {
   return (
