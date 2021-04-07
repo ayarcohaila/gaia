@@ -30,7 +30,7 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
   }, [formValues]);
 
   return (
-    <Col offset={4} span={10}>
+    <Col offset={6} span={10}>
       <Form
         onBlur={() => refresh(Math.random())}
         onFinish={onSubmit}
@@ -166,7 +166,7 @@ function CreateNFT() {
       <Head>
         <title>Create NFT | NiftyBeats</title>
       </Head>
-      <Col offset={4} span={10}>
+      <Col offset={6} span={10}>
         <Typography.Title>Create New Collection</Typography.Title>
       </Col>
       <FormComponent refresh={setUpdatedValue} {...{ router, form, onSubmit, loading }} />
