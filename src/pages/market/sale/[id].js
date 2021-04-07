@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 
 import {
   StyledImage,
+  StyledImageContainer,
   Heading,
   OwnerName,
   ReadMore,
@@ -115,7 +116,9 @@ const Sale = () => {
             </LoadingContainer>
           ) : (
             <>
-              <StyledImage src={getImageURL(sale?.imgURL ?? '')} />
+              <StyledImageContainer>
+                <StyledImage src={getImageURL(sale?.imgURL ?? '')} />
+              </StyledImageContainer>
               <div className="content">
                 <Heading>{sale?.name}</Heading>
                 <p>

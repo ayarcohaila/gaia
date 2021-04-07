@@ -5,6 +5,7 @@ import { Row, Col, Modal, Form, Typography, InputNumber, Result, Button } from '
 import { useMemo, useState, useEffect } from 'react';
 
 import {
+  StyledImageContainer,
   StyledImage,
   Heading,
   OwnerName,
@@ -116,7 +117,9 @@ const Explorer = () => {
       </Head>
       <Col span={18} offset={3}>
         <Row justify="flex-start" wrap={false}>
-          <StyledImage src={getImageURL(nft?.imgURL ?? '')} />
+          <StyledImageContainer>
+            <StyledImage src={getImageURL(nft.imgURL)} />
+          </StyledImageContainer>
           <div className="content">
             <Heading>{nft?.name}</Heading>
             <p>

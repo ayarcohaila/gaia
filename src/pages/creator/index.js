@@ -51,7 +51,7 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
                 form.setFieldsValue({ ipfsHash: null });
               }}
               maxCount={1}
-              accept=".png,.gif,.webp,.mp4,.mp3,.jpeg"
+              accept=".png,.gif,.webp,.mp4,.mp3,.jpeg,.jpg"
               className="form-upload">
               <Button type="primary" shape="round" className="upload-button">
                 Choose file

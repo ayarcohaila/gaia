@@ -18,10 +18,16 @@ export default function useMarket(address) {
     }
   }, [address]);
 
+  const checkIfTokenIsOnSale = tokenId => {
+    const filteredArr = sales.filter(item => item.id === tokenId);
+    return filteredArr.length > 0;
+  };
+
   useEffect(listSales, [listSales]);
 
   return {
     sales,
-    isLoading
+    isLoading,
+    checkIfTokenIsOnSale
   };
 }

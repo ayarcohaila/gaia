@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Button, Row, Avatar } from 'antd';
+import { Button, Row, Avatar, Typography } from 'antd';
 
 export const Card = styled.div`
   width: 193px;
-  height: ${({ hasOwner }) => (hasOwner ? 303 : 275)}px;
+  height: auto;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.borderGray};
@@ -15,6 +15,15 @@ export const Card = styled.div`
     display: flex;
     padding: 7px;
     height: auto;
+  }
+
+  .buttons-container {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px;
   }
 `;
 
@@ -41,6 +50,7 @@ export const PriceContainer = styled.div`
 
 export const ContentContainer = styled.div`
   width: ${({ fullWidth }) => (fullWidth ? '100' : '67')}%;
+  height: 63px;
 `;
 
 export const Text = styled.p`
@@ -49,8 +59,9 @@ export const Text = styled.p`
   line-height: 15px;
 `;
 
-export const AssetDescription = styled(Text)`
+export const AssetDescription = styled(Typography.Paragraph)`
   color: ${({ theme }) => theme.colors.lightGray};
+  font-size: 12px;
 `;
 
 export const Price = styled(Text)`
@@ -67,13 +78,24 @@ export const TokenWrapper = styled(Row)`
   }
 `;
 
-export const StyledImage = styled.div`
+export const StyledImageContainer = styled.div`
   width: 480px;
   height: 480px;
   border-radius: 6px;
-  background-image: url(${({ src }) => src});
-  background-size: cover;
+
   margin-right: 30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StyledImage = styled.img`
+  max-height: 480px;
+  max-width: 480px;
+  margin: 0 auto;
+  object-fit: scale-down;
 `;
 
 export const Heading = styled.p`

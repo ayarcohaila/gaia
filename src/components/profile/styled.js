@@ -137,10 +137,9 @@ export const CreateNFTWrapper = styled(Row)`
   }
 
   .preview-image {
-    min-height: 100%;
     max-height: 300px;
-    width: auto;
     margin: 0 auto;
+    object-fit: scale-down;
   }
 
   .preview-meta {
