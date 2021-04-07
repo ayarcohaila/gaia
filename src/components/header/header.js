@@ -2,7 +2,7 @@ import { Row, Col, Menu, Space } from 'antd';
 import Link from 'next/link';
 import useAuth from '~/hooks/useAuth';
 import { URLs } from '~/routes/urls';
-import Search from './Search';
+import Search from './search';
 import UserMenu from './UserMenu';
 import { MenuCol, CustomHeader, JustifyCenter } from './styled';
 
