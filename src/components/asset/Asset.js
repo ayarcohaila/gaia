@@ -14,37 +14,39 @@ import {
   StyledAvatar
 } from './styled';
 import { getImageURL } from '~/utils/getImageUrl';
+import formatPrice from '~/utils/formatPrice';
 import { URLs } from '~/routes/urls';
 
 const Asset = ({ imgURL, description, name, price, owner, id }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
-  return (
-    <Link href={URLs.explorer(id)}>
-      <Card className="token-card">
-        {owner && <StyledAvatar size="small" {...avatarSource} />}
-        <CardImage src={getImageURL(imgURL ?? '')} />
-        <div className="text-content">
-          <ContentContainer fullWidth={!price}>
-            <Text>{name}</Text>
-            <Description>{description}</Description>
-          </ContentContainer>
-          {price && (
-            <PriceContainer>
-              <Image src="/icons/list.svg" width={10} height={10} />
-              <Price>{Number(price).toFixed(4)}</Price>
-            </PriceContainer>
-          )}
-        </div>
-      </Card>
-    </Link>
+
+  const Component = (
+    <Card className="token-card" hasOwner={owner}>
+      {owner && <StyledAvatar size="small" {...avatarSource} />}
+      <CardImage src={getImageURL(imgURL ?? '')} />
+      <div className="text-content">
+        <ContentContainer fullWidth={!price}>
+          <Text>{name}</Text>
+          <Description>{`${description.substr(0, 33)}...`}</Description>
+        </ContentContainer>
+        {price && (
+          <PriceContainer>
+            <Image src="/icons/list.svg" width={10} height={10} />
+            <Price>{formatPrice(price)}</Price>
+          </PriceContainer>
+        )}
+      </div>
+    </Card>
   );
+
+  return id ? <Link href={URLs.explorer(id)}>{Component}</Link> : Component;
 };
 
 Asset.propTypes = {
   imgURL: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
   price: PropTypes.number,
   owner: PropTypes.shape({
     src: PropTypes.string
@@ -52,6 +54,7 @@ Asset.propTypes = {
 };
 
 Asset.defaultProps = {
+  id: null,
   owner: null
 };
 
