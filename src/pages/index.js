@@ -66,7 +66,9 @@ export default function Home() {
             </RecentlyAddedHeader>
           </Col>
           <Col span={24}>
-            <Row gutter={[20, 20]}>{renderSets()}</Row>
+            <Row align="center" gutter={[20, 20]}>
+              {renderSets()}
+            </Row>
           </Col>
         </Row>
       </Col>
