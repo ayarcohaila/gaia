@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {
   Card,
   CardImage,
-  Collection,
+  AssetDescription as Description,
   Text,
   PriceContainer,
   Price,
@@ -16,7 +16,7 @@ import {
 import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
 
-const Asset = ({ imgURL, collection, name, price, owner, id }) => {
+const Asset = ({ imgURL, description, name, price, owner, id }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
   return (
     <Link href={URLs.explorer(id)}>
@@ -24,9 +24,9 @@ const Asset = ({ imgURL, collection, name, price, owner, id }) => {
         {owner && <StyledAvatar size="small" {...avatarSource} />}
         <CardImage src={getImageURL(imgURL ?? '')} />
         <div className="text-content">
-          <ContentContainer>
-            <Collection>{collection}</Collection>
+          <ContentContainer fullWidth={!price}>
             <Text>{name}</Text>
+            <Description>{description}</Description>
           </ContentContainer>
           {price && (
             <PriceContainer>
@@ -42,7 +42,7 @@ const Asset = ({ imgURL, collection, name, price, owner, id }) => {
 
 Asset.propTypes = {
   imgURL: PropTypes.string.isRequired,
-  collection: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   price: PropTypes.number,

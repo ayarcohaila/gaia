@@ -3,7 +3,7 @@ import { fcl, t } from '../config/config';
 const CANCEL_SALE_TX = fcl.cdc`
 import AssetsMarket from 0xNFTMarket
 
-transaction(saleItemID: UInt64) {
+transaction(saleAssetID: UInt64) {
     let marketCollection: &AssetsMarket.Collection
 
     prepare(signer: AuthAccount) {
@@ -12,20 +12,20 @@ transaction(saleItemID: UInt64) {
     }
 
     execute {
-        let offer <-self.marketCollection.remove(saleItemID: saleItemID)
+        let offer <-self.marketCollection.remove(saleAssetID: saleAssetID)
         destroy offer
     }
 }
 `;
 
-export async function buy(saleItemID) {
+export async function cancelSale(saleAssetID) {
   const txId = await fcl
     .send([
       fcl.transaction(CANCEL_SALE_TX),
       fcl.payer(fcl.authz),
       fcl.proposer(fcl.authz),
       fcl.authorizations([fcl.authz]),
-      fcl.args([fcl.arg(saleItemID, t.UInt64)]),
+      fcl.args([fcl.arg(saleAssetID, t.UInt64)]),
       fcl.limit(35)
     ])
     .then(fcl.decode);

@@ -40,7 +40,7 @@ export const PriceContainer = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  width: 67%;
+  width: ${({ fullWidth }) => (fullWidth ? '100' : '67')}%;
 `;
 
 export const Text = styled.p`
@@ -49,7 +49,7 @@ export const Text = styled.p`
   line-height: 15px;
 `;
 
-export const Collection = styled(Text)`
+export const AssetDescription = styled(Text)`
   color: ${({ theme }) => theme.colors.lightGray};
 `;
 
@@ -99,8 +99,9 @@ export const Description = styled.p`
 `;
 
 export const StyledButton = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.brightBlue};
-  width: 100%;
+  background-color: ${({ theme, cancel }) =>
+    cancel ? theme.colors.brightRed : theme.colors.brightBlue};
+  width: 50%;
 `;
 
 export const InfoHeading = styled.p`
