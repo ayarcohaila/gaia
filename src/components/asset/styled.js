@@ -3,7 +3,7 @@ import { Button, Row, Avatar } from 'antd';
 
 export const Card = styled.div`
   width: 193px;
-  height: 275px;
+  height: ${({ hasOwner }) => (hasOwner ? 303 : 275)}px;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.borderGray};

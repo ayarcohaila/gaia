@@ -14,24 +14,25 @@ import {
   StyledAvatar
 } from './styled';
 import { getImageURL } from '~/utils/getImageUrl';
+import formatPrice from '~/utils/formatPrice';
 import { URLs } from '~/routes/urls';
 
 const Asset = ({ imgURL, description, name, price, owner, id }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
 
   const Component = (
-    <Card className="token-card">
+    <Card className="token-card" hasOwner={owner}>
       {owner && <StyledAvatar size="small" {...avatarSource} />}
       <CardImage src={getImageURL(imgURL ?? '')} />
       <div className="text-content">
         <ContentContainer fullWidth={!price}>
           <Text>{name}</Text>
-          <Description>{description}</Description>
+          <Description>{`${description.substr(0, 33)}...`}</Description>
         </ContentContainer>
         {price && (
           <PriceContainer>
             <Image src="/icons/list.svg" width={10} height={10} />
-            <Price>{Number(price).toFixed(4)}</Price>
+            <Price>{formatPrice(price)}</Price>
           </PriceContainer>
         )}
       </div>
