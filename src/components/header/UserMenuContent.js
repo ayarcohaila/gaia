@@ -9,8 +9,7 @@ import { URLs } from '~/routes/urls';
 import { ColStyled } from '~/components/header/styled';
 
 function UserMenuContent({ loggedIn }) {
-  const { logout } = useAuth();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [modalVisible, setModalVisible] = useState(false);
   const { initialized, initProfile } = useProfile(user?.addr);
   const router = useRouter();

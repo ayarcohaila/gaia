@@ -4,15 +4,12 @@ import { fcl } from '~/config/config';
 export default function useAuth() {
   const [user, setUser] = useState(null);
 
-  const logout = () => {
-    fcl.unauthenticate();
-    setUser(null);
-  };
-
   useEffect(() => {
     fcl.currentUser().subscribe(async u => {
       if (u?.addr) {
         setUser(u);
+      } else {
+        setUser(null);
       }
     });
   }, []);
@@ -20,7 +17,7 @@ export default function useAuth() {
   return {
     user,
     login: fcl.logIn,
-    logout,
+    logout: fcl.unauthenticate,
     signup: fcl.signUp
   };
 }
