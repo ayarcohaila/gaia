@@ -24,7 +24,7 @@ export const StyledButton = styled(Button)`
 export const StyledUpload = styled(Upload)`
   .ant-upload {
     width: 100%;
-    height: 195px;
+    height: 300px;
     border-radius: 8px;
   }
 `;
@@ -171,7 +171,7 @@ export const Banner = styled.div`
 `;
 
 export const ImagePreview = styled.img`
-  width: 90%;
-  height: 90%;
+  width: 270px;
+  height: 270px;
   object-fit: cover;
 `;

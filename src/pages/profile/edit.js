@@ -79,7 +79,7 @@ const EditProfile = () => {
       <Head>
         <title>Edit User Profile | NiftyBeats</title>
       </Head>
-      <Col span={10} offset={7}>
+      <Col span={18} offset={3} lg={{ span: 10, offset: 7 }}>
         <Heading>Edit User Profile</Heading>
         <Label>Upload Photo</Label>
         <StyledUpload
