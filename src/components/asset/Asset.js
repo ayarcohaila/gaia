@@ -32,51 +32,49 @@ const Asset = ({
 }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
   const Component = (
-    <Link href={URLs.explorer(id)}>
-      <Card className="token-card">
-        {owner && <StyledAvatar size="small" {...avatarSource} />}
-        <CardImage src={getImageURL(imgURL ?? '')} />
-        <div className="text-content">
-          <ContentContainer fullWidth={!price}>
-            <Text>{name}</Text>
-            <Description ellipsis={{ rows: 2 }}>{description}</Description>
-          </ContentContainer>
-          {price && (
-            <PriceContainer>
-              <Image src="/icons/list.svg" width={10} height={10} />
-              <Price>{formatPrice(price)}</Price>
-            </PriceContainer>
+    <Card className="token-card">
+      {owner && <StyledAvatar size="small" {...avatarSource} />}
+      <CardImage src={getImageURL(imgURL ?? '')} />
+      <div className="text-content">
+        <ContentContainer fullWidth={!price}>
+          <Text>{name}</Text>
+          <Description ellipsis={{ rows: 2 }}>{description}</Description>
+        </ContentContainer>
+        {price && (
+          <PriceContainer>
+            <Image src="/icons/list.svg" width={10} height={10} />
+            <Price>{formatPrice(price)}</Price>
+          </PriceContainer>
+        )}
+      </div>
+      {(showSell || showCancel) && (
+        <div className="buttons-container">
+          {showSell && (
+            <Button
+              type="primary"
+              shape="round"
+              onClick={e => {
+                e.stopPropagation();
+                sell();
+              }}>
+              Sell
+            </Button>
+          )}
+          {showCancel && (
+            <Button
+              type="primary"
+              shape="round"
+              danger
+              onClick={e => {
+                e.stopPropagation();
+                cancel();
+              }}>
+              Cancel sale
+            </Button>
           )}
         </div>
-        {(showSell || showCancel) && (
-          <div className="buttons-container">
-            {showSell && (
-              <Button
-                type="primary"
-                shape="round"
-                onClick={e => {
-                  e.stopPropagation();
-                  sell();
-                }}>
-                Sell
-              </Button>
-            )}
-            {showCancel && (
-              <Button
-                type="primary"
-                shape="round"
-                danger
-                onClick={e => {
-                  e.stopPropagation();
-                  cancel();
-                }}>
-                Cancel sale
-              </Button>
-            )}
-          </div>
-        )}
-      </Card>
-    </Link>
+      )}
+    </Card>
   );
 
   return id ? <Link href={URLs.explorer(id)}>{Component}</Link> : Component;
