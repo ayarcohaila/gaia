@@ -71,10 +71,28 @@ export const Price = styled(Text)`
 
 export const TokenWrapper = styled(Row)`
   .content {
-    flex: 1;
+    align-self: flex-end;
+    width: 100%;
+    max-width: 480px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+  }
+
+  .column {
+    padding: 0 15px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn-min-width {
+    min-width: 100px;
+  }
+
+  .expanded-view-image {
+    width: 100%;
+    height: auto;
+    max-width: 700px;
   }
 `;
 
@@ -82,19 +100,18 @@ export const StyledImageContainer = styled.div`
   width: 480px;
   height: 480px;
   border-radius: 6px;
-
   margin-right: 30px;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
 `;
 
 export const StyledImage = styled.img`
-  max-height: 480px;
+  width: 100%;
   max-width: 480px;
-  margin: 0 auto;
+  max-height: 480px;
+  border-radius: 6px;
+  margin-right: 30px;
   object-fit: scale-down;
 `;
 
@@ -123,7 +140,9 @@ export const Description = styled.p`
 export const StyledButton = styled(Button)`
   background-color: ${({ theme, cancel }) =>
     cancel ? theme.colors.brightRed : theme.colors.brightBlue};
-  width: 50%;
+  width: 100%;
+  margin-top: ${props => (props.margin ? '5px' : '0px')};
+  margin-bottom: ${props => (props.margin ? '5px' : '0px')};
 `;
 
 export const InfoHeading = styled.p`

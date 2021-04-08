@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Row, Col, Modal, Typography, Form, InputNumber } from 'antd';
+import { Col, Modal, Typography, Form, InputNumber } from 'antd';
 import { useMemo, useState } from 'react';
 
 import {
@@ -104,119 +104,122 @@ const Sale = () => {
     }
   };
   return (
-    <TokenWrapper>
+    <TokenWrapper justify="center">
       <Head>
         <title>Details | NiftyBeats</title>
       </Head>
-      <Col span={18} offset={3}>
-        <Row justify="flex-start" wrap={false}>
-          {isLoading ? (
-            <LoadingContainer>
-              <LoadingIcon />
-            </LoadingContainer>
-          ) : (
-            <>
-              <StyledImageContainer>
-                <StyledImage src={getImageURL(sale?.imgURL ?? '')} />
-              </StyledImageContainer>
-              <div className="content">
-                <Heading>{sale?.name}</Heading>
+      {isLoading ? (
+        <LoadingContainer>
+          <LoadingIcon />
+        </LoadingContainer>
+      ) : (
+        <>
+          <Col span={8} offset={4} className="column">
+            <StyledImageContainer>
+              <StyledImage src={getImageURL(sale?.imgURL ?? '')} />
+            </StyledImageContainer>
+          </Col>
+          <Col span={8} className="column">
+            <div className="content">
+              <Heading>{sale?.name}</Heading>
+              <p>
+                Owned by{' '}
+                <Link href={URLs.profile(user?.addr)}>
+                  <OwnerName>{sale?.ownerProfile?.name}</OwnerName>
+                </Link>
+              </p>
+              <Description>
+                {description}{' '}
+                {description?.length > 330 && (
+                  <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>
+                    Show {completeDescription ? 'less' : 'more'}
+                  </ReadMore>
+                )}
+              </Description>
+
+              <InfoWrapper>
+                <InfoHeading>Info</InfoHeading>
+                <UserInfo
+                  name={sale?.ownerProfile?.name}
+                  src={getImageURL(sale?.ownerProfile?.avatar ?? '')}
+                  type="Creator"
+                />
                 <p>
-                  Owned by{' '}
-                  <Link href={URLs.profile(user?.addr)}>
-                    <OwnerName>{sale?.ownerProfile?.name}</OwnerName>
-                  </Link>
+                  Price: <Price>{Number(sale?.price).toFixed(4)}</Price>
                 </p>
-                <Description>
-                  {description}{' '}
-                  {description.length > 330 && (
-                    <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>
-                      Show {completeDescription ? 'less' : 'more'}
-                    </ReadMore>
-                  )}
-                </Description>
-                <InfoWrapper>
-                  <InfoHeading>Info</InfoHeading>
-                  <UserInfo
-                    name={sale?.ownerProfile?.name}
-                    src={getImageURL(sale?.ownerProfile?.avatar ?? '')}
-                    type="Creator"
-                  />
-                  <p>
-                    Price: <Price>{Number(sale?.price).toFixed(4)}</Price>
-                  </p>
-                  {user?.addr !== sale?.ownerProfile?.address ? (
-                    <StyledButton type="primary" shape="round" onClick={handleBuy}>
-                      Buy
+                {user?.addr !== sale?.ownerProfile?.address ? (
+                  <StyledButton type="primary" shape="round" onClick={handleBuy}>
+                    Buy
+                  </StyledButton>
+                ) : (
+                  <>
+                    <StyledButton
+                      margin={true}
+                      type="primary"
+                      shape="round"
+                      onClick={() => setEditPriceVisible(true)}>
+                      Edit price
                     </StyledButton>
-                  ) : (
-                    <>
-                      <StyledButton
-                        type="primary"
-                        shape="round"
-                        onClick={() => setEditPriceVisible(true)}>
-                        Edit price
-                      </StyledButton>
-                      <StyledButton
-                        cancel
-                        type="danger"
-                        shape="round"
-                        onClick={() => setCancelModalVisible(true)}>
-                        Cancel Sale
-                      </StyledButton>
-                      <Modal
-                        visible={editPriceVisible}
-                        title="Insert new price"
-                        onCancel={() => setEditPriceVisible(false)}
-                        onOk={() => form.submit()}
-                        okButtonProps={{
-                          loading: isModalLoading
-                        }}
-                        destroyOnClose>
-                        <Form form={form} onFinish={handleEditPrice}>
-                          <Form.Item>
-                            <Text type="secondary">{`Listing your asset on Market`}</Text>
-                          </Form.Item>
-                          <Form.Item
-                            name="newPrice"
-                            rules={[
-                              {
-                                required: true,
-                                message: 'You cannot leave price empty'
-                              }
-                            ]}>
-                            <InputNumber
-                              step={0.00000001}
-                              min={0.00000001}
-                              style={{ width: '100%' }}
-                              placeholder="10.00000000 FLOW"
-                            />
-                          </Form.Item>
-                        </Form>
-                      </Modal>
-                      <Modal
-                        visible={cancelModalVisible}
-                        title={`Do you want to cancel your sale for item (#${sale?.id})`}
-                        onCancel={() => setCancelModalVisible(false)}
-                        onOk={handleCancelSale}
-                        okButtonProps={{
-                          loading: isModalLoading
-                        }}
-                        okText="Cancel Sale"
-                        cancelText="Keep Listed"
-                        destroyOnClose>
-                        <Typography>
-                          This action will remove your sale from the marketplace.
-                        </Typography>
-                      </Modal>
-                    </>
-                  )}
-                </InfoWrapper>
-              </div>
-            </>
-          )}
-        </Row>
-      </Col>
+                    <StyledButton
+                      margin={true}
+                      cancel
+                      type="danger"
+                      shape="round"
+                      onClick={() => setCancelModalVisible(true)}>
+                      Cancel Sale
+                    </StyledButton>
+                    <Modal
+                      visible={editPriceVisible}
+                      title="Insert new price"
+                      onCancel={() => setEditPriceVisible(false)}
+                      onOk={() => form.submit()}
+                      okButtonProps={{
+                        loading: isModalLoading
+                      }}
+                      destroyOnClose>
+                      <Form form={form} onFinish={handleEditPrice}>
+                        <Form.Item>
+                          <Text type="secondary">{`Listing your asset on Market`}</Text>
+                        </Form.Item>
+                        <Form.Item
+                          name="newPrice"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'You cannot leave price empty'
+                            }
+                          ]}>
+                          <InputNumber
+                            step={0.00000001}
+                            min={0.00000001}
+                            style={{ width: '100%' }}
+                            placeholder="10.00000000 FLOW"
+                          />
+                        </Form.Item>
+                      </Form>
+                    </Modal>
+                    <Modal
+                      visible={cancelModalVisible}
+                      title={`Do you want to cancel your sale for item (#${sale?.id})`}
+                      onCancel={() => setCancelModalVisible(false)}
+                      onOk={handleCancelSale}
+                      okButtonProps={{
+                        loading: isModalLoading
+                      }}
+                      okText="Cancel Sale"
+                      cancelText="Keep Listed"
+                      destroyOnClose>
+                      <Typography>
+                        This action will remove your sale from the marketplace.
+                      </Typography>
+                    </Modal>
+                  </>
+                )}
+              </InfoWrapper>
+            </div>
+          </Col>
+        </>
+      )}
     </TokenWrapper>
   );
 };

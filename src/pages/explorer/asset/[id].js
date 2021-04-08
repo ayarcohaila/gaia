@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Row, Col, Modal, Form, Typography, InputNumber, Result, Button } from 'antd';
+import { Col, Modal, Form, Typography, InputNumber, Result, Button } from 'antd';
 import { useMemo, useState, useEffect } from 'react';
 
 import {
@@ -111,53 +111,54 @@ const Explorer = () => {
     setModalVisible(true);
   };
   return (
-    <TokenWrapper>
+    <TokenWrapper justify="center">
       <Head>
         <title>Details | NiftyBeats</title>
       </Head>
-      <Col span={18} offset={3}>
-        <Row justify="flex-start" wrap={false}>
-          <StyledImageContainer>
-            <StyledImage src={getImageURL(nft.imgURL)} />
-          </StyledImageContainer>
-          <div className="content">
-            <Heading>{nft?.name}</Heading>
-            <p>
-              Owned by{' '}
-              <Link href={URLs.profile(user?.addr)}>
-                <OwnerName>{userProfile?.name}</OwnerName>
-              </Link>
-            </p>
-            <Description>
-              {description}{' '}
-              {description?.length > 330 && (
-                <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>
-                  Show {completeDescription ? 'less' : 'more'}
-                </ReadMore>
-              )}
-            </Description>
-            <InfoWrapper>
-              <InfoHeading>Info</InfoHeading>
-              <UserInfo
-                name={userProfile?.name}
-                src={getImageURL(userProfile?.avatar ?? '')}
-                type="Creator"
-              />
-              {nft?.isSale ? (
-                <StyledButton
-                  type="primary"
-                  shape="round"
-                  onClick={() => router.push(URLs.sale(id))}>
-                  Go to sale
-                </StyledButton>
-              ) : (
-                <StyledButton type="primary" shape="round" onClick={() => sellAsset()}>
-                  List on Market
-                </StyledButton>
-              )}
-            </InfoWrapper>
-          </div>
-        </Row>
+      <Col span={8} offset={4} className="column">
+        <StyledImageContainer>
+          <StyledImage src={getImageURL(nft?.imgURL ?? '')} />
+        </StyledImageContainer>
+      </Col>
+      <Col span={8} className="column">
+        <div className="content">
+          <Heading>{nft?.name}</Heading>
+          <p>
+            Owned by{' '}
+            <Link href={URLs.profile(user?.addr)}>
+              <OwnerName>{userProfile?.name}</OwnerName>
+            </Link>
+          </p>
+          <Description>
+            {description}{' '}
+            {description?.length > 330 && (
+              <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>
+                Show {completeDescription ? 'less' : 'more'}
+              </ReadMore>
+            )}
+          </Description>
+          <InfoWrapper>
+            <InfoHeading>Info</InfoHeading>
+            <UserInfo
+              name={userProfile?.name}
+              src={getImageURL(userProfile?.avatar ?? '')}
+              type="Creator"
+            />
+            {nft?.isSale ? (
+              <StyledButton
+                type="primary"
+                shape="round"
+                className="btn-min-width"
+                onClick={() => router.push(URLs.sale(id))}>
+                Go to sale
+              </StyledButton>
+            ) : (
+              <StyledButton type="primary" shape="round" onClick={() => sellAsset()}>
+                List on Market
+              </StyledButton>
+            )}
+          </InfoWrapper>
+        </div>
       </Col>
       <Modal
         visible={modalVisible}
