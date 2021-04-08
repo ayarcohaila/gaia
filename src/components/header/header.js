@@ -33,11 +33,13 @@ function MyHeader() {
                 <a href="about:blank">Marketplace</a>
               </Link>
             </Menu.Item>
-            <Menu.Item key="inventory">
-              <Link href={URLs.profile(user?.addr)}>
-                <a href="about:blank">Inventory</a>
-              </Link>
-            </Menu.Item>
+            {user?.loggedIn && (
+              <Menu.Item key="inventory">
+                <Link href={URLs.profile(user?.addr)}>
+                  <a href="about:blank">Inventory</a>
+                </Link>
+              </Menu.Item>
+            )}
             <Menu.Item key="create-nft">
               <Link href={URLs.createNFT}>
                 <a href="about:blank">Create NFT</a>
