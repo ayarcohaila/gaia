@@ -1,10 +1,14 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Col, Modal, Typography, Form, InputNumber } from 'antd';
+import { Col, Modal, Typography, Form, InputNumber, Skeleton, Space } from 'antd';
 import { useMemo, useState } from 'react';
 
 import {
+  ExpandedViewSkeletonButton,
+  ExpandedViewSkeletonImage,
+  ExpandedViewSkeletonInput,
+  ExpandedViewSkeletonParagraph,
   StyledImage,
   StyledImageContainer,
   Heading,
@@ -25,7 +29,6 @@ import { buy } from '~/flow/buy';
 import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
 import useSale from '~/hooks/useSale';
-import { LoadingContainer, LoadingIcon } from '~/components/shared/LoadingContainer';
 const { Text } = Typography;
 
 const Sale = () => {
@@ -109,9 +112,26 @@ const Sale = () => {
         <title>Details | NiftyBeats</title>
       </Head>
       {isLoading ? (
-        <LoadingContainer>
-          <LoadingIcon />
-        </LoadingContainer>
+        <>
+          {/* Skeleton */}
+          <Col span={8} offset={4} className="column">
+            <ExpandedViewSkeletonImage active />
+          </Col>
+          <Col span={8} className="column">
+            <div className="content">
+              <ExpandedViewSkeletonParagraph active title paragraph={{ rows: 2 }} />
+              <Space direction="horizontal">
+                <Skeleton.Avatar active size="large" />
+                <Space direction="vertical">
+                  <ExpandedViewSkeletonInput active size="small" />
+                  <ExpandedViewSkeletonInput active size="small" />
+                </Space>
+              </Space>
+              <ExpandedViewSkeletonButton active size="large" shape="round" />
+            </div>
+          </Col>
+          {/* End of Skeleton */}
+        </>
       ) : (
         <>
           <Col span={8} offset={4} className="column">

@@ -1,10 +1,14 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Col, Modal, Form, Typography, InputNumber, Result, Button } from 'antd';
+import { Col, Modal, Form, Typography, InputNumber, Result, Button, Skeleton, Space } from 'antd';
 import { useMemo, useState, useEffect } from 'react';
 
 import {
+  ExpandedViewSkeletonButton,
+  ExpandedViewSkeletonImage,
+  ExpandedViewSkeletonInput,
+  ExpandedViewSkeletonParagraph,
   StyledImageContainer,
   StyledImage,
   Heading,
@@ -33,11 +37,12 @@ const Explorer = () => {
     query: { id }
   } = router;
   const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const { userProfile } = useProfile(user?.addr);
   const { sales } = useMarket(user?.addr);
   const [form] = Form.useForm();
   const [modalVisible, setModalVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAsset, setIsLoadingAsset] = useState(false);
 
   const [completeDescription, setCompleteDescription] = useState(false);
   const [nft, setNft] = useState({
@@ -57,9 +62,11 @@ const Explorer = () => {
 
   useEffect(async () => {
     if (user?.addr) {
+      setIsLoadingAsset(true);
       const asset = await getAsset(user.addr, parseInt(id, 10));
       const isSale = sales.filter(sale => sale.id === Number(id))?.length > 0;
       setNft({ ...asset, isSale });
+      setIsLoadingAsset(false);
     }
   }, [id, user, sales]);
   const onFinishSale = async ({ price }) => {
@@ -115,51 +122,76 @@ const Explorer = () => {
       <Head>
         <title>Details | NiftyBeats</title>
       </Head>
-      <Col span={8} offset={4} className="column">
-        <StyledImageContainer>
-          <StyledImage src={getImageURL(nft?.imgURL ?? '')} />
-        </StyledImageContainer>
-      </Col>
-      <Col span={8} className="column">
-        <div className="content">
-          <Heading>{nft?.name}</Heading>
-          <p>
-            Owned by{' '}
-            <Link href={URLs.profile(user?.addr)}>
-              <OwnerName>{userProfile?.name}</OwnerName>
-            </Link>
-          </p>
-          <Description>
-            {description}{' '}
-            {description?.length > 330 && (
-              <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>
-                Show {completeDescription ? 'less' : 'more'}
-              </ReadMore>
-            )}
-          </Description>
-          <InfoWrapper>
-            <InfoHeading>Info</InfoHeading>
-            <UserInfo
-              name={userProfile?.name}
-              src={getImageURL(userProfile?.avatar ?? '')}
-              type="Creator"
-            />
-            {nft?.isSale ? (
-              <StyledButton
-                type="primary"
-                shape="round"
-                className="btn-min-width"
-                onClick={() => router.push(URLs.sale(id))}>
-                Go to sale
-              </StyledButton>
-            ) : (
-              <StyledButton type="primary" shape="round" onClick={() => sellAsset()}>
-                List on Market
-              </StyledButton>
-            )}
-          </InfoWrapper>
-        </div>
-      </Col>
+      {isLoadingAsset ? (
+        <>
+          {/* Skeleton */}
+          <Col span={8} offset={4} className="column">
+            <ExpandedViewSkeletonImage active />
+          </Col>
+          <Col span={8} className="column">
+            <div className="content">
+              <ExpandedViewSkeletonParagraph active title paragraph={{ rows: 2 }} />
+              <Space direction="horizontal">
+                <Skeleton.Avatar active size="large" />
+                <Space direction="vertical">
+                  <ExpandedViewSkeletonInput active size="small" />
+                  <ExpandedViewSkeletonInput active size="small" />
+                </Space>
+              </Space>
+              <ExpandedViewSkeletonButton active size="large" shape="round" />
+            </div>
+          </Col>
+          {/* End of Skeleton */}
+        </>
+      ) : (
+        <>
+          <Col span={8} offset={4} className="column">
+            <StyledImageContainer>
+              <StyledImage src={getImageURL(nft?.imgURL ?? '')} />
+            </StyledImageContainer>
+          </Col>
+          <Col span={8} className="column">
+            <div className="content">
+              <Heading>{nft?.name}</Heading>
+              <p>
+                Owned by{' '}
+                <Link href={URLs.profile(user?.addr)}>
+                  <OwnerName>{userProfile?.name}</OwnerName>
+                </Link>
+              </p>
+              <Description>
+                {description}{' '}
+                {description?.length > 330 && (
+                  <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>
+                    Show {completeDescription ? 'less' : 'more'}
+                  </ReadMore>
+                )}
+              </Description>
+              <InfoWrapper>
+                <InfoHeading>Info</InfoHeading>
+                <UserInfo
+                  name={userProfile?.name}
+                  src={getImageURL(userProfile?.avatar ?? '')}
+                  type="Creator"
+                />
+                {nft?.isSale ? (
+                  <StyledButton
+                    type="primary"
+                    shape="round"
+                    className="btn-min-width"
+                    onClick={() => router.push(URLs.sale(id))}>
+                    Go to sale
+                  </StyledButton>
+                ) : (
+                  <StyledButton type="primary" shape="round" onClick={() => sellAsset()}>
+                    List on Market
+                  </StyledButton>
+                )}
+              </InfoWrapper>
+            </div>
+          </Col>
+        </>
+      )}
       <Modal
         visible={modalVisible}
         title={`How much do you want for this asset (#${nft?.id})`}

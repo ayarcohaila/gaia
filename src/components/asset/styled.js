@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Row, Avatar, Typography } from 'antd';
+import { Button, Row, Avatar, Typography, Skeleton } from 'antd';
 
 export const Card = styled.div`
   width: 193px;
@@ -94,6 +94,27 @@ export const TokenWrapper = styled(Row)`
     height: auto;
     max-width: 700px;
   }
+`;
+
+export const ExpandedViewSkeletonParagraph = styled(Skeleton)`
+  margin-bottom: 20px;
+`;
+
+export const ExpandedViewSkeletonImage = styled(Skeleton.Input)`
+  width: 480px !important;
+  height: 480px !important;
+  border-radius: 8px;
+  margin-right: 20px !important;
+`;
+
+export const ExpandedViewSkeletonInput = styled(Skeleton.Input)`
+  width: 200px !important;
+  height: 20px !important;
+`;
+
+export const ExpandedViewSkeletonButton = styled(Skeleton.Button)`
+  width: 400px !important;
+  margin-top: 20px !important;
 `;
 
 export const StyledImageContainer = styled.div`
