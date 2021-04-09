@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Head from 'next/head';
 import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 import { Col, Divider, Row } from 'antd';
@@ -44,6 +45,9 @@ export default function Home() {
 
   return (
     <HomeWrapper>
+      <Head>
+        <title>Home | NiftyBeats</title>
+      </Head>
       <Col span={20} offset={2}>
         <Row>
           <Col span={24}>

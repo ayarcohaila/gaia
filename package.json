@@ -54,6 +54,7 @@
     "@onflow/dev-wallet": "^0.0.10",
     "babel-eslint": "^10.1.0",
     "babel-plugin-import": "^1.13.3",
+    "babel-plugin-styled-components": "^1.12.0",
     "concurrently": "^6.0.0",
     "cross-os": "^1.4.0",
     "eslint": "^7.20.0",
