@@ -40,6 +40,7 @@ export const MarketPlaceWrapper = styled(Row)`
 
   .token-card {
     margin-bottom: 20px;
+    margin-right: 20px;
   }
 `;
 

@@ -68,10 +68,12 @@ const MarketPlace = () => {
           <h2>Marketplace</h2>
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
         </Row>
-        <Row justify="space-between">
+        <Row align="center">
           {loading
             ? [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
-            : data.map(token => <Asset key={`token-${token.id}`} {...token} />)}
+            : data.map(token => (
+                <Asset className="marketplace-asset" key={`token-${token.id}`} {...token} />
+              ))}
         </Row>
       </Col>
     </MarketPlaceWrapper>
