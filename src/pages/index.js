@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
-import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 import { Col, Divider, Row } from 'antd';
 
 import Banner from '~/components/home/Banner';
@@ -17,14 +16,16 @@ import useAuth from '~/hooks/useAuth';
 
 import { HomeWrapper } from '~/components/profile/styled';
 import { URLs } from '~/routes/urls';
+import { CardLoading } from '~/components/skeleton/CardLoading';
 
 export default function Home() {
   const { user } = useAuth();
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [sets, setSets] = useState([]);
 
   useEffect(async () => {
     if (user?.addr) {
+      setLoading(true);
       const sales = await getSales(user.addr);
       const data = await Promise.all(
         sales.map(async (sale, index) => {
@@ -32,13 +33,14 @@ export default function Home() {
           return { ...result, price: sales[index].price };
         })
       );
+      setLoading(false);
       setSets(data);
     }
   }, [user]);
 
   function renderSets() {
     if (loading) {
-      return <LoadingOutlined />;
+      return [...Array(8).keys()].map(index => <CardLoading hasTopBar={false} key={index} />);
     }
     return <SetsList {...{ sets }} />;
   }

@@ -1,4 +1,4 @@
-import { Card } from 'antd';
+import { Card, Skeleton } from 'antd';
 import styled from 'styled-components';
 
 const CardStyled = styled(Card)`
@@ -40,6 +40,9 @@ const CardStyled = styled(Card)`
       }
     }
   }
+  margin-bottom: ${props => (props.skeleton ? '20px' : '0')};
+  margin-left: ${props => (props.skeleton ? '10px' : '0')};
+  margin-right: ${props => (props.skeleton ? '10px' : '0')};
 `;
 
 export const CardTitleContainer = styled.div`
@@ -58,6 +61,28 @@ export const CardBottomOptions = styled.div`
 export const CardBottomText = styled.span`
   font-weight: 700;
   color: #404040;
+`;
+export const PlaceholderSkeletonImg = styled(Skeleton.Avatar)`
+  &&& {
+    width: 100%;
+    height: 182px;
+  }
+`;
+
+export const PlaceholderSkeleton = styled(Skeleton)`
+  &&& {
+    width: 100%;
+    .ant-skeleton-title {
+      margin-top: 0;
+    }
+    .ant-skeleton-paragraph {
+      width: 100%;
+      margin-bottom: 0;
+      & > li + li {
+        margin-top: 4px;
+      }
+    }
+  }
 `;
 
 export default CardStyled;

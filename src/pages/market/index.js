@@ -10,14 +10,17 @@ import useAuth from '~/hooks/useAuth';
 import { getSales } from '~/flow/getSales';
 import { getAsset } from '~/flow/getAsset';
 import { getProfile } from '~/flow/getProfile';
+import { CardLoading } from '~/components/skeleton/CardLoading';
 
 const MarketPlace = () => {
   const [filter, setFilter] = useState(null);
   const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [assets, setAssets] = useState([]);
 
   useEffect(async () => {
     if (user?.addr) {
+      setLoading(true);
       const sales = await getSales(user.addr);
       const data = await Promise.all(
         sales.map(async (sale, index) => {
@@ -26,6 +29,7 @@ const MarketPlace = () => {
           return { ...result, price: sales[index].price, owner: { src: owner.avatar } };
         })
       );
+      setLoading(false);
       setAssets(data);
     }
   }, [user]);
@@ -65,9 +69,9 @@ const MarketPlace = () => {
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
         </Row>
         <Row justify="space-between">
-          {data.map(token => (
-            <Asset key={`token-${token.id}`} {...token} />
-          ))}
+          {loading
+            ? [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
+            : data.map(token => <Asset key={`token-${token.id}`} {...token} />)}
         </Row>
       </Col>
     </MarketPlaceWrapper>

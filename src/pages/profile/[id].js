@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { Row, Col, Modal, Form, Typography, Button, InputNumber, Result } from 'antd';
-const { Text } = Typography;
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -18,7 +17,8 @@ import { createSaleOffer } from '~/flow/sell';
 import { cancelSale } from '~/flow/cancelSale';
 
 import { Banner, ProfileWrapper } from '../../components/profile/styled';
-
+import { CardLoading } from '~/components/skeleton/CardLoading';
+const { Text } = Typography;
 const Profile = () => {
   const [form] = Form.useForm();
   const router = useRouter();
@@ -135,32 +135,36 @@ const Profile = () => {
         <Row justify="end">
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
         </Row>
-        {isLoading ? (
-          <span>LOADING</span>
-        ) : (
-          <Row justify="space-between">
-            {data.map(token => {
-              let buttonProps = {};
-              const onSale = checkIfTokenIsOnSale(token.id);
 
-              if (user?.addr === id) {
-                buttonProps = {
-                  showSell: !onSale,
-                  showCancel: onSale
-                };
-              }
-              return (
-                <Card
-                  key={`token-${token.id}`}
-                  {...token}
-                  {...buttonProps}
-                  sell={() => sellAsset(token.id)}
-                  cancel={() => onCancelSale(token.id)}
-                />
-              );
-            })}
-          </Row>
-        )}
+        <Row justify="space-between">
+          {isLoading
+            ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
+            : data.map(token => <Card key={`token-${token.id}`} {...token} />)}
+        </Row>
+        <Row justify="space-between">
+          {isLoading
+            ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
+            : data.map(token => {
+                let buttonProps = {};
+                const onSale = checkIfTokenIsOnSale(token.id);
+
+                if (user?.addr === id) {
+                  buttonProps = {
+                    showSell: !onSale,
+                    showCancel: onSale
+                  };
+                }
+                return (
+                  <Card
+                    key={`token-${token.id}`}
+                    {...token}
+                    {...buttonProps}
+                    sell={() => sellAsset(token.id)}
+                    cancel={() => onCancelSale(token.id)}
+                  />
+                );
+              })}
+        </Row>
       </Col>
 
       <Modal
