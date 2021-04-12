@@ -1,38 +1,19 @@
 import Head from 'next/head';
 import { Row, Col } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { MarketPlaceWrapper } from '~/components/profile/styled';
 import Asset from '~/components/asset/Asset';
 import DropDown from '~/components/dropdown/DropDown';
 import useAuth from '~/hooks/useAuth';
-import { getSales } from '~/flow/getSales';
-import { getAsset } from '~/flow/getAsset';
-import { getProfile } from '~/flow/getProfile';
+import useMarketplace from '~/hooks/useMarketplace';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 
 const MarketPlace = () => {
   const [filter, setFilter] = useState(null);
   const { user } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [assets, setAssets] = useState([]);
-
-  useEffect(async () => {
-    if (user?.addr) {
-      setLoading(true);
-      const sales = await getSales(user.addr);
-      const data = await Promise.all(
-        sales.map(async (sale, index) => {
-          const result = await getAsset(user.addr, sale.id);
-          const owner = await getProfile(sale.owner);
-          return { ...result, price: sales[index].price, owner: { src: owner.avatar } };
-        })
-      );
-      setLoading(false);
-      setAssets(data);
-    }
-  }, [user]);
+  const { assets, isLoading } = useMarketplace(user?.addr);
 
   const data = useMemo(() => {
     if (!filter) {
@@ -69,7 +50,7 @@ const MarketPlace = () => {
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
         </Row>
         <Row align="center">
-          {loading
+          {isLoading
             ? [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
             : data.map(token => (
                 <Asset className="marketplace-asset" key={`token-${token.id}`} {...token} />
