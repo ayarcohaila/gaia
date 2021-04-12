@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Col, Modal, Form, Typography, InputNumber, Result, Button, Skeleton, Space } from 'antd';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 
 import {
   ExpandedViewSkeletonButton,
@@ -21,10 +21,9 @@ import {
   TokenWrapper
 } from '~/components/asset/styled';
 import UserInfo from '~/components/UserInfo/UserInfo';
-import { getAsset } from '~/flow/getAsset';
 import useAuth from '~/hooks/useAuth';
-import useMarket from '~/hooks/useMarket';
 import useProfile from '~/hooks/useProfile';
+import useAsset from '~/hooks/useAsset';
 import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
 import { createSaleOffer } from '~/flow/sell';
@@ -37,42 +36,26 @@ const Explorer = () => {
     query: { id }
   } = router;
   const { user } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingSale, setIsLoadingSale] = useState(false);
   const { userProfile } = useProfile(user?.addr);
-  const { sales } = useMarket(user?.addr);
+  const { asset, isLoading } = useAsset(id, user?.addr);
   const [form] = Form.useForm();
   const [modalVisible, setModalVisible] = useState(false);
-  const [isLoadingAsset, setIsLoadingAsset] = useState(false);
 
   const [completeDescription, setCompleteDescription] = useState(false);
-  const [nft, setNft] = useState({
-    name: '',
-    description: '',
-    imgURL: '',
-    isSale: false
-  });
 
   const description = useMemo(() => {
-    if (completeDescription || nft?.description?.length < 330) {
-      return nft?.description;
+    if (completeDescription || asset?.description?.length < 330) {
+      return asset?.description;
     } else {
-      return `${nft?.description?.substr(0, 330)}...`;
+      return `${asset?.description?.substr(0, 330)}...`;
     }
-  }, [completeDescription, nft]);
+  }, [completeDescription, asset]);
 
-  useEffect(async () => {
-    if (user?.addr) {
-      setIsLoadingAsset(true);
-      const asset = await getAsset(user.addr, parseInt(id, 10));
-      const isSale = sales.filter(sale => sale.id === Number(id))?.length > 0;
-      setNft({ ...asset, isSale });
-      setIsLoadingAsset(false);
-    }
-  }, [id, user, sales]);
   const onFinishSale = async ({ price }) => {
     try {
-      setIsLoading(true);
-      await createSaleOffer(nft?.id, price, user?.addr);
+      setIsLoadingSale(true);
+      await createSaleOffer(asset?.id, price, user?.addr);
       setModalVisible(false);
       Modal.success({
         icon: null,
@@ -110,7 +93,7 @@ const Explorer = () => {
         content: <Result status="error" title="Oops!" subTitle="Mission failed" />
       });
     } finally {
-      setIsLoading(false);
+      setIsLoadingSale(false);
     }
     form.resetFields();
   };
@@ -122,7 +105,7 @@ const Explorer = () => {
       <Head>
         <title>Details | NiftyBeats</title>
       </Head>
-      {isLoadingAsset ? (
+      {isLoading ? (
         <>
           {/* Skeleton */}
           <Col span={8} offset={4} className="column">
@@ -147,12 +130,12 @@ const Explorer = () => {
         <>
           <Col span={8} offset={4} className="column">
             <StyledImageContainer>
-              <StyledImage src={getImageURL(nft?.imgURL ?? '')} />
+              <StyledImage src={getImageURL(asset?.imgURL ?? '')} />
             </StyledImageContainer>
           </Col>
           <Col span={8} className="column">
             <div className="content">
-              <Heading>{nft?.name}</Heading>
+              <Heading>{asset?.name}</Heading>
               <p>
                 Owned by{' '}
                 <Link href={URLs.profile(user?.addr)}>
@@ -174,7 +157,7 @@ const Explorer = () => {
                   src={getImageURL(userProfile?.avatar ?? '')}
                   type="Creator"
                 />
-                {nft?.isSale ? (
+                {asset?.isSale ? (
                   <StyledButton
                     type="primary"
                     shape="round"
@@ -194,12 +177,12 @@ const Explorer = () => {
       )}
       <Modal
         visible={modalVisible}
-        title={`How much do you want for this asset (#${nft?.id})`}
+        title={`How much do you want for this asset (#${asset?.id})`}
         footer={[
           <Button key="back" onClick={() => setModalVisible(false)}>
             Cancel
           </Button>,
-          <Button key="submit" type="primary" loading={isLoading} onClick={() => form.submit()}>
+          <Button key="submit" type="primary" loading={isLoadingSale} onClick={() => form.submit()}>
             Sell
           </Button>
         ]}>
