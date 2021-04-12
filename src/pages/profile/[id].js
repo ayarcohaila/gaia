@@ -135,12 +135,6 @@ const Profile = () => {
         <Row justify="end">
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
         </Row>
-
-        <Row justify="space-between">
-          {isLoading
-            ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
-            : data.map(token => <Card key={`token-${token.id}`} {...token} />)}
-        </Row>
         <Row justify="space-between">
           {isLoading
             ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
