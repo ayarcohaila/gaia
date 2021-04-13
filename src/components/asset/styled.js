@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Row, Avatar, Typography, Skeleton } from 'antd';
+import { Button, Avatar, Typography, Skeleton, Col } from 'antd';
 
 export const Card = styled.div`
   width: 193px;
@@ -69,31 +69,21 @@ export const Price = styled(Text)`
   margin-left: 5px;
 `;
 
-export const TokenWrapper = styled(Row)`
-  .content {
-    align-self: flex-end;
-    width: 100%;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
-  .column {
-    padding: 0 15px;
-    display: flex;
-    justify-content: center;
-  }
+export const ContentColumn = styled(Col)`
+  padding: 0 15px;
+  display: flex;
+`;
 
-  .btn-min-width {
-    min-width: 100px;
-  }
-
-  .expanded-view-image {
-    width: 100%;
-    height: auto;
-    max-width: 700px;
-  }
+export const Column = styled(Col)`
+  padding: 0 15px;
+  display: flex;
+  justify-content: center;
 `;
 
 export const ExpandedViewSkeletonParagraph = styled(Skeleton)`

@@ -1,9 +1,18 @@
 import { useState, useMemo } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Col, Form, Input, Typography, Upload, Button, Modal, Result } from 'antd';
+import { Col, Form, Typography, Button, Modal, Result } from 'antd';
 
-import { CreateNFTWrapper } from '~/components/profile/styled';
+import {
+  CreateNFTWrapper,
+  UploadWrapper,
+  CreatorUpload,
+  CreatorUploadButton,
+  StyledInput,
+  StyledTextArea,
+  SubmitButton,
+  Centralizer
+} from '~/components/profile/styled';
 import Asset from '~/components/asset/Asset';
 import { mintNft } from '~/flow/mintNft';
 import useAuth from '~/hooks/useAuth';
@@ -30,17 +39,17 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
   }, [formValues]);
 
   return (
-    <Col offset={6} span={10}>
+    <Col offset={6} span={9}>
       <Form
         onBlur={() => refresh(Math.random())}
         onFinish={onSubmit}
         form={form}
         initialValues={initialValues}>
         <Typography.Text>Upload File</Typography.Text>
-        <div className="form-row form-upload-row">
+        <UploadWrapper>
           <Typography.Text>PNG, JPEG, GIF, WEBP, MP4 or MP3</Typography.Text>
           <Form.Item name="ipfsHash" trigger={null} shouldUpdate={false}>
-            <Upload
+            <CreatorUpload
               customRequest={async ({ file, onSuccess, onError }) => {
                 const ipfsHash = await uploadFile(file, onError);
                 form.setFieldsValue({ ipfsHash });
@@ -51,14 +60,13 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
                 form.setFieldsValue({ ipfsHash: null });
               }}
               maxCount={1}
-              accept=".png,.gif,.webp,.mp4,.mp3,.jpeg,.jpg"
-              className="form-upload">
-              <Button type="primary" shape="round" className="upload-button">
+              accept=".png,.gif,.webp,.mp4,.mp3,.jpeg,.jpg">
+              <CreatorUploadButton type="primary" shape="round">
                 Choose file
-              </Button>
-            </Upload>
+              </CreatorUploadButton>
+            </CreatorUpload>
           </Form.Item>
-        </div>
+        </UploadWrapper>
 
         <Form.Item
           name="name"
@@ -69,7 +77,7 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
               message: 'Please insert a name'
             }
           ]}>
-          <Input placeholder="Name" className="form-row form-input" />
+          <StyledInput placeholder="Name" />
         </Form.Item>
         <Form.Item
           name="description"
@@ -80,22 +88,13 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
               message: 'Please insert a description'
             }
           ]}>
-          <Input.TextArea
-            className="form-row form-textarea-row no-margin"
-            name="description"
-            placeholder="Description"
-          />
+          <StyledTextArea name="description" placeholder="Description" multiline />
         </Form.Item>
-        <Form.Item className="form-row no-borders">
-          <Button
-            type="primary"
-            htmlType="submit"
-            shape="round"
-            className="form-submit-button"
-            {...{ disabled, loading }}>
+        <Centralizer>
+          <SubmitButton type="primary" htmlType="submit" shape="round" {...{ disabled, loading }}>
             Create
-          </Button>
-        </Form.Item>
+          </SubmitButton>
+        </Centralizer>
       </Form>
     </Col>
   );
@@ -103,7 +102,7 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
 
 const PreviewComponent = ({ values: { ipfsHash, name, description } }) => {
   return (
-    <Col span={6}>
+    <Col offset={1} span={6}>
       <Typography.Text>Preview</Typography.Text>
       <Asset imgURL={ipfsHash} {...{ name, description }} />
     </Col>

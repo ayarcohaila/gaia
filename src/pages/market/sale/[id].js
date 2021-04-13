@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Col, Modal, Typography, Form, InputNumber, Skeleton, Space } from 'antd';
+import { Modal, Typography, Form, InputNumber, Skeleton, Space, Row } from 'antd';
 import { useMemo, useState } from 'react';
 
 import {
@@ -18,8 +18,10 @@ import {
   StyledButton,
   InfoHeading,
   InfoWrapper,
-  TokenWrapper,
-  Price
+  Price,
+  Column,
+  Content,
+  ContentColumn
 } from '~/components/asset/styled';
 import UserInfo from '~/components/UserInfo/UserInfo';
 import useAuth from '~/hooks/useAuth';
@@ -107,18 +109,18 @@ const Sale = () => {
     }
   };
   return (
-    <TokenWrapper justify="center">
+    <Row justify="center">
       <Head>
         <title>Details | NiftyBeats</title>
       </Head>
       {isLoading ? (
         <>
           {/* Skeleton */}
-          <Col span={8} offset={4} className="column">
+          <Column span={6} offset={2}>
             <ExpandedViewSkeletonImage active />
-          </Col>
-          <Col span={8} className="column">
-            <div className="content">
+          </Column>
+          <Column span={8} offset={2}>
+            <Content>
               <ExpandedViewSkeletonParagraph active title paragraph={{ rows: 2 }} />
               <Space direction="horizontal">
                 <Skeleton.Avatar active size="large" />
@@ -128,19 +130,19 @@ const Sale = () => {
                 </Space>
               </Space>
               <ExpandedViewSkeletonButton active size="large" shape="round" />
-            </div>
-          </Col>
+            </Content>
+          </Column>
           {/* End of Skeleton */}
         </>
       ) : (
         <>
-          <Col span={8} offset={4} className="column">
+          <Column span={6} offset={2}>
             <StyledImageContainer>
               <StyledImage src={getImageURL(sale?.imgURL ?? '')} />
             </StyledImageContainer>
-          </Col>
-          <Col span={8} className="column">
-            <div className="content">
+          </Column>
+          <ContentColumn span={8}>
+            <Content>
               <Heading>{sale?.name}</Heading>
               <p>
                 Owned by{' '}
@@ -236,11 +238,11 @@ const Sale = () => {
                   </>
                 )}
               </InfoWrapper>
-            </div>
-          </Col>
+            </Content>
+          </ContentColumn>
         </>
       )}
-    </TokenWrapper>
+    </Row>
   );
 };
 

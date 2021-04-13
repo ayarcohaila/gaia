@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Col, Input, Modal } from 'antd';
+import { Col, Modal, Row } from 'antd';
 import { useState, useEffect, useMemo } from 'react';
 import isEqual from 'lodash.isequal';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -15,7 +15,8 @@ import {
   StyledButton,
   StyledUpload,
   Label,
-  EditProfileWrapper,
+  StyledProfileInput,
+  StyledProfileTextArea,
   ImagePreview
 } from '../../components/profile/styled';
 
@@ -75,7 +76,7 @@ const EditProfile = () => {
   };
 
   return (
-    <EditProfileWrapper>
+    <Row>
       <Head>
         <title>Edit User Profile | NiftyBeats</title>
       </Head>
@@ -86,7 +87,6 @@ const EditProfile = () => {
           maxCount={1}
           name="avatar"
           listType="picture-card"
-          className="avatar-uploader"
           customRequest={uploadImage}
           showUploadList={false}>
           {state.loading ? (
@@ -99,14 +99,12 @@ const EditProfile = () => {
             </StyledButton>
           )}
         </StyledUpload>
-        <Input
-          className="input"
+        <StyledProfileInput
           placeholder="Name"
           onChange={e => setState(prevState => ({ ...prevState, name: e.target.value }))}
           value={state.name}
         />
-        <Input.TextArea
-          className="input"
+        <StyledProfileTextArea
           placeholder="Description"
           onChange={e => setState(prevState => ({ ...prevState, info: e.target.value }))}
           value={state.info}
@@ -120,7 +118,7 @@ const EditProfile = () => {
           Save
         </StyledButton>
       </Col>
-    </EditProfileWrapper>
+    </Row>
   );
 };
 

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Col, Modal, Form, Typography, InputNumber, Result, Button, Skeleton, Space } from 'antd';
+import { Row, Modal, Form, Typography, InputNumber, Result, Button, Skeleton, Space } from 'antd';
 import { useMemo, useState } from 'react';
 
 import {
@@ -18,7 +18,9 @@ import {
   StyledButton,
   InfoHeading,
   InfoWrapper,
-  TokenWrapper
+  Content,
+  Column,
+  ContentColumn
 } from '~/components/asset/styled';
 import UserInfo from '~/components/UserInfo/UserInfo';
 import useAuth from '~/hooks/useAuth';
@@ -101,18 +103,18 @@ const Explorer = () => {
     setModalVisible(true);
   };
   return (
-    <TokenWrapper justify="center">
+    <Row justify="center">
       <Head>
         <title>Details | NiftyBeats</title>
       </Head>
       {isLoading ? (
         <>
           {/* Skeleton */}
-          <Col span={8} offset={4} className="column">
+          <Column span={6} offset={2}>
             <ExpandedViewSkeletonImage active />
-          </Col>
-          <Col span={8} className="column">
-            <div className="content">
+          </Column>
+          <Column span={8} offset={2}>
+            <div>
               <ExpandedViewSkeletonParagraph active title paragraph={{ rows: 2 }} />
               <Space direction="horizontal">
                 <Skeleton.Avatar active size="large" />
@@ -123,18 +125,18 @@ const Explorer = () => {
               </Space>
               <ExpandedViewSkeletonButton active size="large" shape="round" />
             </div>
-          </Col>
+          </Column>
           {/* End of Skeleton */}
         </>
       ) : (
         <>
-          <Col span={8} offset={4} className="column">
+          <Column span={6} offset={2}>
             <StyledImageContainer>
               <StyledImage src={getImageURL(asset?.imgURL ?? '')} />
             </StyledImageContainer>
-          </Col>
-          <Col span={8} className="column">
-            <div className="content">
+          </Column>
+          <ContentColumn span={8}>
+            <Content>
               <Heading>{asset?.name}</Heading>
               <p>
                 Owned by{' '}
@@ -161,7 +163,6 @@ const Explorer = () => {
                   <StyledButton
                     type="primary"
                     shape="round"
-                    className="btn-min-width"
                     onClick={() => router.push(URLs.sale(id))}>
                     Go to sale
                   </StyledButton>
@@ -171,8 +172,8 @@ const Explorer = () => {
                   </StyledButton>
                 )}
               </InfoWrapper>
-            </div>
-          </Col>
+            </Content>
+          </ContentColumn>
         </>
       )}
       <Modal
@@ -207,7 +208,7 @@ const Explorer = () => {
           </Form.Item>
         </Form>
       </Modal>
-    </TokenWrapper>
+    </Row>
   );
 };
 
