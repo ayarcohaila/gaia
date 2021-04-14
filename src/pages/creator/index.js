@@ -18,7 +18,7 @@ import { mintNft } from '~/flow/mintNft';
 import useAuth from '~/hooks/useAuth';
 import { uploadFile } from '~/utils/upload';
 
-const FormComponent = ({ form, onSubmit, refresh, loading }) => {
+const FormComponent = ({ form, onSubmit, onFileSelected, refresh, loading }) => {
   const initialValues = {
     ipfsHash: null,
     file: null,
@@ -29,9 +29,9 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
   const formValues = form.getFieldsValue();
 
   const disabled = useMemo(() => {
-    const { ipfsHash, name, description } = formValues;
+    const { file, name, description } = formValues;
 
-    if (!ipfsHash || !name || !description) {
+    if (!file || !name || !description) {
       return true;
     }
 
@@ -48,16 +48,16 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
         <Typography.Text>Upload File</Typography.Text>
         <UploadWrapper>
           <Typography.Text>PNG, JPEG, GIF, WEBP, MP4 or MP3</Typography.Text>
-          <Form.Item name="ipfsHash" trigger={null} shouldUpdate={false}>
+          <Form.Item name="file" trigger={null} shouldUpdate={false}>
             <CreatorUpload
-              customRequest={async ({ file, onSuccess, onError }) => {
-                const ipfsHash = await uploadFile(file, onError);
-                form.setFieldsValue({ ipfsHash });
+              customRequest={async ({ file, onSuccess }) => {
+                onFileSelected(file);
+                form.setFieldsValue({ file });
                 refresh(Math.random());
                 onSuccess();
               }}
               onRemove={() => {
-                form.setFieldsValue({ ipfsHash: null });
+                form.setFieldsValue({ file: null });
               }}
               maxCount={1}
               accept=".png,.gif,.webp,.mp4,.mp3,.jpeg,.jpg">
@@ -100,11 +100,11 @@ const FormComponent = ({ form, onSubmit, refresh, loading }) => {
   );
 };
 
-const PreviewComponent = ({ values: { ipfsHash, name, description } }) => {
+const PreviewComponent = ({ file, values: { name, description } }) => {
   return (
     <Col offset={1} span={6}>
       <Typography.Text>Preview</Typography.Text>
-      <Asset imgURL={ipfsHash} {...{ name, description }} />
+      <Asset imgURL={file ? URL.createObjectURL(file) : ''} {...{ name, description }} />
     </Col>
   );
 };
@@ -115,11 +115,13 @@ function CreateNFT() {
   const { user } = useAuth();
   const [updatedValue, setUpdatedValue] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
 
   async function onSubmit(values) {
     try {
       setLoading(true);
-      await mintNft(user?.addr, 1, values.name, values.description, values.ipfsHash);
+      const ipfsHash = await uploadFile(file);
+      await mintNft(user?.addr, 1, values.name, values.description, ipfsHash);
       Modal.success({
         icon: null,
         centered: true,
@@ -168,8 +170,12 @@ function CreateNFT() {
       <Col offset={6} span={10}>
         <Typography.Title>Create New Collection</Typography.Title>
       </Col>
-      <FormComponent refresh={setUpdatedValue} {...{ router, form, onSubmit, loading }} />
-      <PreviewComponent updatedValue={updatedValue} values={form.getFieldsValue()} />
+      <FormComponent
+        refresh={setUpdatedValue}
+        onFileSelected={setFile}
+        {...{ router, form, onSubmit, loading }}
+      />
+      <PreviewComponent updatedValue={updatedValue} file={file} values={form.getFieldsValue()} />
     </CreateNFTWrapper>
   );
 }
