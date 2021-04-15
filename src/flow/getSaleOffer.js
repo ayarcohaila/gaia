@@ -20,25 +20,31 @@ pub struct AssetVO {
 }
 
 pub fun main(address: Address, assetID: UInt64): [AssetVO] {
-      
-  let colectionRef = getAccount(address)
-  .getCapability<&AssetsMarket.Collection{AssetsMarket.CollectionPublic}>(AssetsMarket.CollectionPublicPath).borrow()
-  ?? panic("Could not borrow capability from public collection")
+        
+    let colectionRef = getAccount(address)
+        .getCapability<&AssetsMarket.Collection{AssetsMarket.CollectionPublic}>(AssetsMarket.CollectionPublicPath).borrow()
+        ?? panic("Could not borrow capability from public collection")
+    
+    if(colectionRef != nil){
+        let ids = colectionRef.getSaleOfferIDs()
+        let assets: [AssetVO] = []
 
-  if(colectionRef != nil){
-      let ids = colectionRef.getSaleOfferIDs()
-      let assets: [AssetVO] = []
+        for marketAssetID in ids {
+            if(marketAssetID == assetID){
+              let sale = colectionRef.borrowSaleAsset(saleAssetID: marketAssetID)!
+              let a = AssetVO(id: sale.saleAssetID, isCompleted: sale.saleCompleted, price: sale.salePrice, owner: sale.saleOwner)
+              assets.append(a)
+              return assets
+            }
+            
+        }
 
-      let sale = colectionRef.borrowSaleAsset(saleAssetID: assetID)!
-      let a = AssetVO(id: sale.saleAssetID, isCompleted: sale.saleCompleted, price: sale.salePrice, owner: sale.saleOwner)
-      assets.append(a)
-
-      return assets
+        
+    }
+    
+    
+    return []
   }
-  return []
-  
-  
-}
 `;
 
 export async function getSaleOffer(address, saleID) {

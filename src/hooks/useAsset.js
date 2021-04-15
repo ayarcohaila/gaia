@@ -1,25 +1,25 @@
-/* eslint-disable no-console */
 import { useState, useEffect, useCallback } from 'react';
 import { getAsset } from '~/flow/getAsset';
-import useSale from '~/hooks/useSale';
+import { getSaleOffer } from '~/flow/getSaleOffer';
 
 export default function useAsset(assetId, userAddress) {
-  const { sale } = useSale(assetId, userAddress);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAsset, setIsLoadingAsset] = useState(true);
   const [asset, setAsset] = useState(null);
 
   const fetchAsset = useCallback(async () => {
     try {
-      if (userAddress) {
-        setIsLoading(true);
-        const fetchedAsset = await getAsset(userAddress, parseInt(assetId, 10));
-        const isSale = sale !== [];
-        setAsset({ ...fetchedAsset, isSale });
-      }
+      if (!userAddress && assetId) setIsLoadingAsset(true);
+      setIsLoadingAsset(true);
+      const fetchedAsset = await getAsset(userAddress, parseInt(assetId, 10));
+      const [sale] = await getSaleOffer(userAddress, Number(assetId));
+      const price = sale?.price;
+      const owner = sale?.owner;
+      const onSale = !!sale?.price;
+      setAsset({ ...fetchedAsset, isSale: onSale, price, owner });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
-      setIsLoading(false);
+      setIsLoadingAsset(false);
     }
   }, [assetId, userAddress]);
 
@@ -27,6 +27,6 @@ export default function useAsset(assetId, userAddress) {
 
   return {
     asset,
-    isLoading
+    isLoadingAsset
   };
 }

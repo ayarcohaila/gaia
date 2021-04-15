@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useState, useEffect, useCallback } from 'react';
 import { getAsset } from '~/flow/getAsset';
 import { getSaleOffer } from '~/flow/getSaleOffer';
@@ -9,15 +8,15 @@ export default function useSale(saleID, userAddress) {
   const [isLoading, setIsLoading] = useState(false);
   const { userProfile } = useProfile(userAddress);
   const getSale = useCallback(async () => {
-    console.log(userProfile, userAddress, saleID);
     if (!saleID || !userProfile) return setIsLoading(true);
     if (saleID && userProfile) {
       try {
         setIsLoading(true);
         const asset = await getAsset(userAddress, Number(saleID));
-        const [{ price, owner }] = await getSaleOffer(userAddress, Number(saleID));
-        setSale({ ...asset, ownerProfile: userProfile, price, owner });
-        console.log({ ...asset, ownerProfile: userProfile, price, owner });
+        const [marketSale] = await getSaleOffer(userAddress, Number(saleID));
+        const price = marketSale?.price ?? null;
+        const owner = marketSale?.owner ?? null;
+        setSale({ ...asset, ownerProfile: userProfile, price, owner, isOnSale: !!price });
       } catch (error) {
         console.error(error);
       } finally {
@@ -29,6 +28,7 @@ export default function useSale(saleID, userAddress) {
   useEffect(getSale, [getSale]);
 
   return {
+    getSale,
     sale,
     isLoading
   };

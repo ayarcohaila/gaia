@@ -40,7 +40,7 @@ const Explorer = () => {
   const { user } = useAuth();
   const [isLoadingSale, setIsLoadingSale] = useState(false);
   const { userProfile } = useProfile(user?.addr);
-  const { asset, isLoading } = useAsset(id, user?.addr);
+  const { asset, isLoadingAsset } = useAsset(id, user?.addr);
   const [form] = Form.useForm();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -107,7 +107,7 @@ const Explorer = () => {
       <Head>
         <title>Details | NiftyBeats</title>
       </Head>
-      {isLoading ? (
+      {isLoadingAsset ? (
         <>
           {/* Skeleton */}
           <Column span={6} offset={2}>
