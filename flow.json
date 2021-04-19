@@ -1,56 +1,45 @@
 {
-	"contracts": {
-		"Profile": "./src/flow/cadence/prototype/contracts/Profile.cdc",
-		"NonFungibleToken": "./src/flow/cadence/prototype/contracts/NonFungibleToken.cdc",
-		"Assets": "./src/flow/cadence/prototype/contracts/Assets.cdc",
-		"AssetsMarket": "./src/flow/cadence/prototype/contracts/AssetsMarket.cdc"
-	},
-	"deployments": {
-		"emulator": {
-			"emulator-account": [
-				"Profile",
-				"NonFungibleToken",
-				"Assets",
-				"AssetsMarket"
-			]
-		}
-	},
 	"emulators": {
 		"default": {
 			"port": 3569,
 			"serviceAccount": "emulator-account"
 		}
 	},
+	"contracts": {
+		"Profile": "./src/flow/cadence/v1/Profile.cdc",
+		"NonFungibleToken": "./src/flow/cadence/v1/NonFungibleToken.cdc",
+		"FlowAssets": "./src/flow/cadence/v1/FlowAssets.cdc",
+		"FlowAssetsMarket": "./src/flow/cadence/v1/FlowAssetsMarket.cdc"
+	},
 	"networks": {
 		"emulator": {
 			"host": "127.0.0.1:3569",
 			"chain": "flow-emulator"
 		},
+		"mainnet": {
+			"host": "access.mainnet.nodes.onflow.org:9000",
+			"chain": "flow-mainnet"
+		},
 		"testnet": {
-			"host": "https://access-testnet.onflow.org:9000",
+			"host": "access.devnet.nodes.onflow.org:9000",
 			"chain": "flow-testnet"
 		}
 	},
 	"accounts": {
 		"emulator-account": {
 			"address": "f8d6e0586b0a20c7",
-			"keys": "a3237769ca4040ce0eb1742f4acb299a074e7db80f803016aea920f020edb8b3",
-			"sigAlgorithm": "ECDSA_P256",
-			"hashAlgorithm": "SHA3_256",
-			"chain": "flow-emulator"
-		},
-		"emulator-nfts": {
-			"address": "01cf0e2f2f715450",
-			"keys": "51e972f8bd01e4f4c539afc8ceac664c525c9221a2489d832a9424addbed6b22",
-			"sigAlgorithm": "ECDSA_P256",
-			"hashAlgorithm": "SHA3_256",
+			"keys": "c1083c9fa9e9cd92415809f2a2572bc41adf93d431109376c1335eacacb55d05",
 			"chain": "flow-emulator"
 		}
 	},
-	"devWallet": {
-		"accessNode": {
-			"endpoint": "http://localhost:8080"
-		},
-		"port": 8701
+	"deployments": {
+		"emulator": {
+			"emulator-account": [
+				"Profile",
+				"NonFungibleToken",
+				"FlowAssets",
+				"FlowAssetsMarket"
+			]
+		}
 	}
 }
