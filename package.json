@@ -32,9 +32,9 @@
   },
   "cross-os": {
     "start:emulator": {
-      "darwin": "concurrently 'flow project start-emulator' 'sleep 3 && flow project deploy' 'yarn run dev:wallet'",
-      "linux": "concurrently 'flow project start-emulator' 'sleep 3 && flow project deploy' 'yarn run dev:wallet'",
-      "win32": "concurrently 'flow project start-emulator' 'timeout 3 && flow project deploy' 'yarn run dev:wallet'"
+      "darwin": "concurrently 'flow emulator' 'sleep 3 && flow project deploy -n emulator' 'yarn run dev:wallet'",
+      "linux": "concurrently 'flow emulator' 'sleep 3 && flow project deploy -n emulator' 'yarn run dev:wallet'",
+      "win32": "concurrently 'flow emulator' 'timeout 3 && flow project deploy -n emulator' 'yarn run dev:wallet'"
     }
   },
   "lint-staged": {

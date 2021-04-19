@@ -6,10 +6,10 @@
 		}
 	},
 	"contracts": {
-		"Profile": "./src/flow/cadence/v1/Profile.cdc",
-		"NonFungibleToken": "./src/flow/cadence/v1/NonFungibleToken.cdc",
-		"FlowAssets": "./src/flow/cadence/v1/FlowAssets.cdc",
-		"FlowAssetsMarket": "./src/flow/cadence/v1/FlowAssetsMarket.cdc"
+		"Profile": "./src/flow/cadence/v1/contracts/Profile.cdc",
+		"NonFungibleToken": "./src/flow/cadence/v1/contracts/NonFungibleToken.cdc",
+		"FlowAssets": "./src/flow/cadence/v1/contracts/FlowAssets.cdc",
+		"FlowAssetsMarket": "./src/flow/cadence/v1/contracts/FlowAssetsMarket.cdc"
 	},
 	"networks": {
 		"emulator": {
@@ -41,5 +41,11 @@
 				"FlowAssetsMarket"
 			]
 		}
+	},
+	"devWallet": {
+		"accessNode": {
+			"endpoint": "http://localhost:8080"
+		},
+		"port": 8701
 	}
 }
