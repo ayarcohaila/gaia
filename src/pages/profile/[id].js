@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Row, Col, Modal, Form, Typography, Button, InputNumber, Result } from 'antd';
+import { Row, Col, Modal, Form, Typography, Button, InputNumber, Result, Input } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -15,6 +15,7 @@ import useAuth from '~/hooks/useAuth';
 
 import { createSaleOffer } from '~/flow/sell';
 import { cancelSale } from '~/flow/cancelSale';
+import { transferNft } from '~/flow/transferNft';
 
 import { Banner, ProfileWrapper } from '../../components/profile/styled';
 import { CardLoading } from '~/components/skeleton/CardLoading';
@@ -28,7 +29,10 @@ const Profile = () => {
   const [filter, setFilter] = useState(null);
   const [modalItemId, setModalItemId] = useState(null);
   const [isLoadingModal, setIsLoadingModal] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [sellModal, setSellModalVisible] = useState(false);
+  const [transferModal, setTransferModalVisible] = useState(false);
+  const [destinationAddress, setDestinationAddress] = useState(null);
+
   const { assets, isLoading } = useInventory(id);
   const data = useMemo(() => {
     if (!filter) {
@@ -59,7 +63,6 @@ const Profile = () => {
     try {
       setIsLoadingModal(true);
       await createSaleOffer(modalItemId, price, user?.addr);
-      setModalVisible(false);
       Modal.success({
         icon: null,
         centered: true,
@@ -104,7 +107,7 @@ const Profile = () => {
   };
   const sellAsset = itemId => {
     setModalItemId(itemId);
-    setModalVisible(true);
+    setSellModalVisible(true);
   };
 
   const onCancelSale = async itemId => {
@@ -119,6 +122,50 @@ const Profile = () => {
         title: '',
         content: <Result status="error" title="Oops!" subTitle="Mission failed" />
       });
+    }
+  };
+
+  const handleTransfer = async () => {
+    try {
+      setIsLoadingModal(true);
+      await transferNft(destinationAddress, modalItemId);
+      Modal.success({
+        icon: null,
+        centered: true,
+        closable: false,
+        okButtonProps: {
+          hidden: true
+        },
+        title: '',
+        content: (
+          <Result
+            status="success"
+            title="Woohoo!"
+            subTitle="Mission accomplished"
+            extra={
+              <Button
+                type="primary"
+                key="console"
+                onClick={() => {
+                  Modal.destroyAll();
+                }}>
+                Go to Marketplace
+              </Button>
+            }
+          />
+        )
+      });
+    } catch (err) {
+      Modal.error({
+        icon: null,
+        centered: true,
+        closable: true,
+        title: '',
+        content: <Result status="error" title="Oops!" subTitle="Mission failed" />
+      });
+    } finally {
+      setModalItemId(null);
+      setIsLoadingModal(false);
     }
   };
 
@@ -155,21 +202,59 @@ const Profile = () => {
                     {...buttonProps}
                     sell={() => sellAsset(token.id)}
                     cancel={() => onCancelSale(token.id)}
+                    actions={[
+                      {
+                        title: 'Transfer',
+                        action: e => {
+                          e.domEvent.stopPropagation();
+                          setModalItemId(token.id);
+                          setTransferModalVisible(true);
+                        }
+                      }
+                    ]}
                   />
                 );
               })}
         </Row>
       </Col>
-
       <Modal
-        visible={modalVisible}
+        destroyOnClose
+        visible={transferModal}
+        title={`Who'd you like to transfer this asset to?`}
+        onCancel={() => setTransferModalVisible(false)}
+        footer={[
+          <Button
+            key="back"
+            onClick={() => {
+              setModalItemId(null);
+              setTransferModalVisible(false);
+            }}>
+            Cancel
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            loading={isLoadingModal}
+            disabled={!destinationAddress}
+            onClick={handleTransfer}>
+            Transfer
+          </Button>
+        ]}>
+        <Text type="secondary">Enter the address to transfer the asset to</Text>
+        <Input
+          style={{ width: '100%', marginTop: 20 }}
+          onChange={e => setDestinationAddress(e.target.value)}
+        />
+      </Modal>
+      <Modal
+        visible={sellModal}
         title={`How much do you want for this asset (#${modalItemId})`}
         footer={[
           <Button
             key="back"
             onClick={() => {
               setModalItemId(null);
-              setModalVisible(false);
+              setSellModalVisible(false);
             }}>
             Cancel
           </Button>,

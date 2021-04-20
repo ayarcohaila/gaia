@@ -1,6 +1,17 @@
 import styled from 'styled-components';
 import { Button, Avatar, Typography, Skeleton, Col } from 'antd';
 
+export const DropDownContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
+
+  .drop-down {
+    margin-bottom: 5px !important;
+    z-index: 1000;
+  }
+`;
+
 export const Card = styled.div`
   width: 193px;
   height: auto;
@@ -19,11 +30,10 @@ export const Card = styled.div`
 
   .buttons-container {
     width: 100%;
-    height: 50px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 10px;
+    padding: 0 10px 10px;
   }
 `;
 

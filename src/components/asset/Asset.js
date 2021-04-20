@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, CaretDownOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 import {
@@ -12,11 +12,13 @@ import {
   PriceContainer,
   Price,
   ContentContainer,
-  StyledAvatar
+  StyledAvatar,
+  DropDownContainer
 } from './styled';
 import { getImageURL } from '~/utils/getImageUrl';
 import formatPrice from '~/utils/formatPrice';
 import { URLs } from '~/routes/urls';
+import DropDown from '~/components/dropdown/DropDown';
 
 const Asset = ({
   imgURL,
@@ -28,7 +30,8 @@ const Asset = ({
   showSell,
   showCancel,
   sell,
-  cancel
+  cancel,
+  actions
 }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
   const Component = (
@@ -47,6 +50,11 @@ const Asset = ({
           </PriceContainer>
         )}
       </div>
+      {actions && (
+        <DropDownContainer>
+          <DropDown title="actions" options={actions} icon={<CaretDownOutlined />} />
+        </DropDownContainer>
+      )}
       {(showSell || showCancel) && (
         <div className="buttons-container">
           {showSell && (
@@ -92,14 +100,21 @@ Asset.propTypes = {
   showSell: PropTypes.bool,
   showCancel: PropTypes.bool,
   sell: PropTypes.func,
-  cancel: PropTypes.func
+  cancel: PropTypes.func,
+  actions: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      action: PropTypes.func
+    })
+  )
 };
 
 Asset.defaultProps = {
   showSell: false,
   showCancel: false,
   id: null,
-  owner: null
+  owner: null,
+  actions: null
 };
 
 export default Asset;
