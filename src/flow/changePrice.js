@@ -5,16 +5,16 @@ import FungibleToken from 0xFungibleToken
 import NonFungibleToken from 0xNFTInterface
 import Assets from 0xNFTContract
 import FlowToken from 0xFlowToken
-import AssetsMarket from 0xNFTMarket
+import FlowAssetsMarket from 0xNFTMarket
 
 transaction(address: Address, saleAssetID: UInt64, newPrice: UFix64) {
-    let marketCollection: &AssetsMarket.Collection{AssetsMarket.CollectionPublic}
+    let marketCollection: &FlowAssetsMarket.Collection{FlowAssetsMarket.CollectionPublic}
 
     prepare(signer: AuthAccount) {
 
         self.marketCollection = getAccount(address)
-            .getCapability<&AssetsMarket.Collection{AssetsMarket.CollectionPublic}>(
-                AssetsMarket.CollectionPublicPath
+            .getCapability<&FlowAssetsMarket.Collection{FlowAssetsMarket.CollectionPublic}>(
+                FlowAssetsMarket.CollectionPublicPath
             )!
             .borrow()
             ?? panic("Could not borrow market collection from market address")

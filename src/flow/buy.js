@@ -3,22 +3,22 @@ import { fcl, t } from '../config/config';
 const BUY_NFT_TX = fcl.cdc`
 import FungibleToken from 0xFungibleToken
 import NonFungibleToken from 0xNFTInterface
-import Assets from 0xNFTContract
+import FlowAssets from 0xNFTContract
 import FlowToken from 0xFlowToken
-import AssetsMarket from 0xNFTMarket
+import FlowAssetsMarket from 0xNFTMarket
 
 transaction(saleAssetID: UInt64, address: Address) {
     let paymentVault: @FungibleToken.Vault
-    let AssetsCollection: &Assets.Collection{NonFungibleToken.Receiver}
-    let marketCollection: &AssetsMarket.Collection{AssetsMarket.CollectionPublic}
+    let AssetsCollection: &FlowAssets.Collection{NonFungibleToken.Receiver}
+    let marketCollection: &FlowAssetsMarket.Collection{FlowAssets.FlowAssetsCollectionPublic}
 
     prepare(signer: AuthAccount) {
         let FlowTokenReceiverPublicPath = /public/flowTokenReceiver
         let FlowTokenVaultStoragePath = /storage/flowTokenVault
 
         self.marketCollection = getAccount(address)
-            .getCapability<&AssetsMarket.Collection{AssetsMarket.CollectionPublic}>(
-                AssetsMarket.CollectionPublicPath
+            .getCapability<&FlowAssetsMarket.Collection{FlowAssets.FlowAssetsCollectionPublic}>(
+                FlowAssetsMarket.CollectionPublicPath
             )!
             .borrow()
             ?? panic("Could not borrow market collection from market address")
@@ -31,8 +31,8 @@ transaction(saleAssetID: UInt64, address: Address) {
             ?? panic("Cannot borrow FlowToken vault from acct storage")
         self.paymentVault <- mainFlowTokenVault.withdraw(amount: price)
 
-        self.AssetsCollection = signer.borrow<&Assets.Collection{NonFungibleToken.Receiver}>(
-            from: Assets.CollectionStoragePath
+        self.AssetsCollection = signer.borrow<&FlowAssets.Collection{NonFungibleToken.Receiver}>(
+            from: FlowAssets.CollectionStoragePath
         ) ?? panic("Cannot borrow Assets collection receiver from acct")
     }
 

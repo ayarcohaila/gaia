@@ -2,7 +2,7 @@ import { fcl, t } from '../config/config';
 
 const TRANSFER_NFT_TX = fcl.cdc`
 import NonFungibleToken from 0xNFTInterface
-import Assets from 0xNFTContract
+import FlowAssets from 0xNFTContract
 
 // This transaction transfers a Kitty Item from one account to another.
 transaction(recipient: Address, withdrawID: UInt64) {
@@ -12,11 +12,11 @@ transaction(recipient: Address, withdrawID: UInt64) {
         let recipient = getAccount(recipient)
 
         // borrow a reference to the signer's NFT collection
-        let collectionRef = signer.borrow<&Assets.Collection>(from: Assets.CollectionStoragePath)
+        let collectionRef = signer.borrow<&FlowAssets.Collection>(from: FlowAssets.CollectionStoragePath)
             ?? panic("Could not borrow a reference to the owner's collection")
 
         // borrow a public reference to the receivers collection
-        let depositRef = recipient.getCapability(Assets.CollectionPublicPath)!.borrow<&{NonFungibleToken.CollectionPublic}>()!
+        let depositRef = recipient.getCapability(FlowAssets.CollectionPublicPath)!.borrow<&{NonFungibleToken.CollectionPublic}>()!
 
         // withdraw the NFT from the owner's collection
         let nft <- collectionRef.withdraw(withdrawID: withdrawID)
