@@ -62,7 +62,7 @@ const Profile = () => {
   const onFinishSale = async ({ price }) => {
     try {
       setIsLoadingModal(true);
-      await createSaleOffer(modalItemId, price, user?.addr);
+      await createSaleOffer(modalItemId, price);
       Modal.success({
         icon: null,
         centered: true,

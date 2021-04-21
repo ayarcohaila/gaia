@@ -257,7 +257,7 @@ const Sale = () => {
   const onFinishSale = async ({ price }) => {
     try {
       setIsLoadingSale(true);
-      await createSaleOffer(asset?.id, price, user?.addr);
+      await createSaleOffer(asset?.id, price);
       setModalVisible(false);
       Modal.success({
         icon: null,
