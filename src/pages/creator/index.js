@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
+import { Col, Form, Typography, Modal, Result } from 'antd';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Col, Form, Typography, Button, Modal, Result } from 'antd';
 
 import {
   CreateNFTWrapper,
@@ -14,6 +14,7 @@ import {
   Centralizer
 } from '~/components/profile/styled';
 import Asset from '~/components/asset/Asset';
+import FeedbackItem from '~/components/feedbackItem/FeedbackItem';
 import { mintNft } from '~/flow/mintNft';
 import useAuth from '~/hooks/useAuth';
 import { uploadFile } from '~/utils/upload';
@@ -116,39 +117,32 @@ function CreateNFT() {
   const [updatedValue, setUpdatedValue] = useState(null);
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
+  const [feedbackItems, setFeedbackItems] = useState([
+    { title: 'Uploading', description: 'Uploading file to IPFS service', completed: false },
+    { title: 'Optimizing', description: 'Preprocessing file', completed: true }
+  ]);
 
   async function onSubmit(values) {
     try {
       setLoading(true);
       const ipfsHash = await uploadFile(file);
-      await mintNft(user?.addr, 1, values.name, values.description, ipfsHash);
-      Modal.success({
-        icon: null,
-        centered: true,
-        closable: false,
-        okButtonProps: {
-          hidden: true
-        },
-        title: '',
-        content: (
-          <Result
-            status="success"
-            title="Woohoo!"
-            subTitle="Mission accomplished"
-            extra={
-              <Button
-                type="primary"
-                key="console"
-                onClick={() => {
-                  Modal.destroyAll();
-                  router.push(`/profile/${user?.addr}`);
-                }}>
-                Go to your profile
-              </Button>
-            }
-          />
-        )
-      });
+      setFeedbackItems([
+        { title: 'Minting token', description: 'Call contract method', completed: false },
+        { title: 'Uploading', description: 'Uploading file to IPFS service', completed: true },
+        { title: 'Optimizing', description: 'Preprocessing file', completed: true }
+      ]);
+      const tx = await mintNft(user?.addr, 1, values.name, values.description, ipfsHash);
+      tx.onceSealed();
+      setFeedbackItems([
+        { title: 'Deploy token', description: 'Deploying to Blockchain', completed: true },
+        { title: 'Mint token', description: 'Calling contract method', completed: true },
+        { title: 'Upload', description: 'Uploading file to IPFS service', completed: true },
+        { title: 'Optimize', description: 'Preprocessing file', completed: true }
+      ]);
+      setTimeout(() => {
+        setLoading(false);
+        router.push(`/profile/${user?.addr}`);
+      }, 2000);
     } catch (error) {
       Modal.error({
         icon: null,
@@ -157,7 +151,6 @@ function CreateNFT() {
         title: '',
         content: <Result status="error" title="Oops!" subTitle="Mission failed" />
       });
-    } finally {
       setLoading(false);
     }
   }
@@ -176,6 +169,11 @@ function CreateNFT() {
         {...{ router, form, onSubmit, loading }}
       />
       <PreviewComponent updatedValue={updatedValue} file={file} values={form.getFieldsValue()} />
+      <Modal title="Steps" visible={loading} footer={null} closable={false}>
+        {feedbackItems.map((item, index) => (
+          <FeedbackItem key={String(index)} {...item} />
+        ))}
+      </Modal>
     </CreateNFTWrapper>
   );
 }

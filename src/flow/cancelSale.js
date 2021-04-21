@@ -1,14 +1,14 @@
 import { fcl, t } from '../config/config';
 
 const CANCEL_SALE_TX = fcl.cdc`
-import AssetsMarket from 0xNFTMarket
+import FlowAssetsMarket from 0xNFTMarket
 
 transaction(saleAssetID: UInt64) {
-    let marketCollection: &AssetsMarket.Collection
+    let marketCollection: &FlowAssetsMarket.Collection
 
     prepare(signer: AuthAccount) {
-        self.marketCollection = signer.borrow<&AssetsMarket.Collection>(from: AssetsMarket.CollectionStoragePath)
-            ?? panic("Missing or mis-typed AssetsMarket Collection")
+        self.marketCollection = signer.borrow<&FlowAssetsMarket.Collection>(from: FlowAssetsMarket.CollectionStoragePath)
+            ?? panic("Missing or mis-typed FlowAssetsMarket Collection")
     }
 
     execute {

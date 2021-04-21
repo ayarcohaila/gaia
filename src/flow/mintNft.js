@@ -54,7 +54,7 @@ export async function mintNft(address, templateID, name, description, imgURL) {
         fcl.limit(35)
       ])
       .then(fcl.decode);
-    return fcl.tx(txId).onceSealed();
+    return fcl.tx(txId);
   } catch (error) {
     console.warn('ERROR', error);
   }

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+import { useEffect, useState } from 'react';
 import { Row, Col, Menu, Space } from 'antd';
 import Link from 'next/link';
 import useAuth from '~/hooks/useAuth';
@@ -5,9 +7,29 @@ import { URLs } from '~/routes/urls';
 import Search from '~/components/header/search';
 import UserMenu from '~/components/header/UserMenu';
 import { MenuCol, CustomHeader, JustifyCenter } from './styled';
+import { useRouter } from 'next/router';
 
 function MyHeader() {
   const { user } = useAuth();
+  const router = useRouter();
+  const [currentRoute, setCurrentRoute] = useState('');
+
+  const getCurrentKey = () => {
+    const routes = [
+      URLs.marketplace,
+      `/profile/${user?.addr || '[id]'}`,
+      `/explorer`,
+      URLs.editProfile,
+      URLs.createNFT,
+      URLs.root
+    ];
+    let whichRoute = routes.filter(route => router.asPath.includes(route))[0];
+    if (whichRoute === routes[1] || whichRoute === routes[2]) return setCurrentRoute('inventory');
+    if (whichRoute === routes[5]) return setCurrentRoute(URLs.root);
+    if (whichRoute === routes[3]) return setCurrentRoute('login');
+    setCurrentRoute(whichRoute);
+  };
+  useEffect(getCurrentKey, [router.pathname]);
   return (
     <CustomHeader>
       <Row justify="space-between" align="middle" gutter={[20, 0]}>
@@ -22,13 +44,13 @@ function MyHeader() {
           </JustifyCenter>
         </Col>
         <MenuCol>
-          <Menu mode="horizontal">
-            <Menu.Item key="home">
+          <Menu mode="horizontal" selectedKeys={currentRoute}>
+            <Menu.Item key="/">
               <Link href={URLs.home}>
                 <a href="about:blank">Home</a>
               </Link>
             </Menu.Item>
-            <Menu.Item key="marketplace">
+            <Menu.Item key={URLs.marketplace}>
               <Link href={URLs.marketplace}>
                 <a href="about:blank">Marketplace</a>
               </Link>
@@ -40,12 +62,12 @@ function MyHeader() {
                 </Link>
               </Menu.Item>
             )}
-            <Menu.Item key="create-nft">
+            <Menu.Item key={URLs.createNFT}>
               <Link href={URLs.createNFT}>
                 <a href="about:blank">Create NFT</a>
               </Link>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item key="login">
               <Space align="baseline">
                 <UserMenu />
               </Space>

@@ -5,8 +5,8 @@ import Profile from 0xProfile
 import FungibleToken from 0xFungibleToken
 import NonFungibleToken from 0xNFTInterface
 import FlowToken from 0xFlowToken
-import Assets from 0xNFTContract
-import AssetsMarket from 0xNFTMarket
+import FlowAssets from 0xNFTContract
+import FlowAssetsMarket from 0xNFTMarket
 
 // This transaction configures an account to hold assets.
 transaction {
@@ -29,42 +29,34 @@ transaction {
           account.link<&Profile.Base{Profile.Public}>(Profile.publicPath, target: Profile.privatePath)
         }
 
-        // Init Assets Collection
-        if account.borrow<&Assets.Collection>(from: Assets.CollectionStoragePath) == nil {
+        // First, check to see if a moment collection already exists
+        if acct.borrow<&FlowAssets.Collection>(from: /storage/FlowAssetsCollection) == nil {
 
-            // create a new empty collection
-            let collection <- Assets.createEmptyCollection()
+            // create a new FlowAssets Collection
+            let collection <- FlowAssets.createEmptyCollection() as! @FlowAssets.Collection
 
-            log("Collection created for account")
-
-            // save it to the account
-            account.save(<-collection, to: Assets.CollectionStoragePath)
+            // Put the new Collection in storage
+            acct.save(<-collection, to: /storage/FlowAssetsCollection)
 
             // create a public capability for the collection
-            account.link<&Assets.Collection{NonFungibleToken.CollectionPublic, Assets.AssetsCollectionPublic}>(Assets.CollectionPublicPath, target: Assets.CollectionStoragePath)
-        
-            // create a public capability for market collection
-            account.link<&Assets.Collection{NonFungibleToken.Provider}>(/private/AssetsCollectionProvider, target: Assets.CollectionStoragePath)
-
-            log("Capability created")
-
+            acct.link<&{FlowAssets.FlowAssetsCollectionPublic}>(/public/FlowAssetsCollection, target: /storage/FlowAssetsCollection)
         }
 
-        // Init Assets Market collection
-        if account.borrow<&AssetsMarket.Collection>(from: AssetsMarket.CollectionStoragePath) == nil {
+        // Init FlowAssets Market collection
+        if account.borrow<&FlowAssetsMarket.Collection>(from: FlowAssetsMarket.CollectionStoragePath) == nil {
 
             // create a new empty collection
-            let collection <- AssetsMarket.createEmptyCollection() as! @AssetsMarket.Collection
+            let collection <- FlowAssetsMarket.createEmptyCollection() as! @FlowAssetsMarket.Collection
             
             // save it to the account
-            account.save(<-collection, to: AssetsMarket.CollectionStoragePath)
+            account.save(<-collection, to: FlowAssetsMarket.CollectionStoragePath)
 
             // create a public capability for market the collection
-            account.link<&AssetsMarket.Collection{AssetsMarket.CollectionPublic}>(AssetsMarket.CollectionPublicPath, target: AssetsMarket.CollectionStoragePath)
+            account.link<&FlowAssetsMarket.Collection{FlowAssetsMarket.CollectionPublic}>(FlowAssetsMarket.CollectionPublicPath, target: FlowAssetsMarket.CollectionStoragePath)
         
             // create a public capability for the collection
-            if !account.getCapability<&Assets.Collection{NonFungibleToken.Provider}>(/private/AssetsCollectionProvider)!.check() {
-              account.link<&Assets.Collection{NonFungibleToken.Provider}>(/private/AssetsCollectionProvider, target: Assets.CollectionStoragePath)
+            if !account.getCapability<&FlowAssets.Collection{NonFungibleToken.Provider}>(/private/AssetsCollectionProvider)!.check() {
+              account.link<&FlowAssets.Collection{NonFungibleToken.Provider}>(/private/AssetsCollectionProvider, target: FlowAssets.CollectionStoragePath)
           }
   
           }
