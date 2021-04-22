@@ -6,5 +6,6 @@ export const URLs = {
   profile: address => `/profile/${address || ':id'}`,
   editProfile: '/profile/edit',
   createNFT: '/creator',
+  createCollection: '/creator/collection',
   explorer: assetId => `/explorer/asset/${assetId ?? ':id'}`
 };

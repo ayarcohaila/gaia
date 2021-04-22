@@ -93,7 +93,6 @@ export const StyledInput = styled(Input)`
   border: 1px solid #e5e8eb;
   padding: 10px 20px;
   border-radius: 10px;
-  margin: 5px 0;
 `;
 
 export const StyledTextArea = styled(Input.TextArea)`
