@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 import { Button, Avatar, Typography, Skeleton, Col } from 'antd';
 
+export const AmountContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
 export const DropDownContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -82,7 +89,7 @@ export const Price = styled(Text)`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
 `;
 
 export const ContentColumn = styled(Col)`
@@ -174,5 +181,5 @@ export const InfoHeading = styled.p`
 `;
 
 export const InfoWrapper = styled.div`
-  margin-top: auto;
+  margin-top: ${({ noMargin }) => (noMargin ? 'none' : 'auto')}};
 `;

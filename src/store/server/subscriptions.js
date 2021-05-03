@@ -1,5 +1,21 @@
 import gql from 'graphql-tag';
 
+export const GET_DROP_BY_ID = gql`
+  subscription nft_drops($id: uuid!) {
+    nft_drops(where: { id: { _eq: $id } }) {
+      id
+      name
+      price
+      claimed
+      total_claimable
+      end_time
+      template {
+        metadata
+      }
+    }
+  }
+`;
+
 export const GET_NFTS_ON_SALE = gql`
   subscription nft_sale_offer {
     nft_sale_offer {
