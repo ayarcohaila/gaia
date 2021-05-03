@@ -1,8 +1,20 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Modal, Typography, Form, InputNumber, Skeleton, Space, Row, Result, Button } from 'antd';
+import {
+  Modal,
+  Typography,
+  Form,
+  InputNumber,
+  Skeleton,
+  Space,
+  Row,
+  Result,
+  Button,
+  List
+} from 'antd';
 import { useMemo, useState } from 'react';
+import { useSubscription } from '@apollo/react-hooks';
 
 import {
   ExpandedViewSkeletonButton,
@@ -18,7 +30,6 @@ import {
   StyledButton,
   InfoHeading,
   InfoWrapper,
-  Price,
   Column,
   Content,
   ContentColumn
@@ -30,8 +41,9 @@ import { cancelSale } from '~/flow/cancelSale';
 import { buy } from '~/flow/buy';
 import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
-import useAsset from '~/hooks/useAsset';
 import { createSaleOffer } from '~/flow/sell';
+import { GET_NFT } from '~/store/server/subscriptions';
+
 const { Text } = Typography;
 
 const Sale = () => {
@@ -45,9 +57,34 @@ const Sale = () => {
   const [isModalLoading, setIsModalLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [isLoadingSale, setIsLoadingSale] = useState(false);
+  const [buyModalVisible, setBuyModalVisible] = useState(false);
+  const [asset, setAsset] = useState(null);
+
   const [form] = Form.useForm();
   const { user } = useAuth();
-  const { asset, isLoading } = useAsset(id, user?.addr);
+
+  useSubscription(GET_NFT, {
+    variables: {
+      id
+    },
+    onSubscriptionData: ({
+      subscriptionData: {
+        data: { nft }
+      }
+    }) =>
+      setAsset({
+        isLoading: false,
+        isOnSale: nft[0].is_for_sale,
+        ownerProfile: {
+          address: nft[0].owner
+        },
+        id: nft[0].id,
+        imgURL: nft[0].template.metadata.imgURL,
+        name: nft[0].template.metadata.name,
+        description: nft[0].template.metadata.description,
+        saleOffers: nft[0].sale_offers
+      })
+  });
 
   const description = useMemo(() => {
     if (completeDescription || asset?.description?.length < 330) {
@@ -58,10 +95,10 @@ const Sale = () => {
   }, [completeDescription, asset]);
 
   //This function handle the buy sale
-  const handleBuy = async () => {
+  const handleBuy = async saleId => {
     setIsModalLoading(true);
     try {
-      await buy(Number(id), user?.addr);
+      await buy(Number(saleId), user?.addr);
       setIsModalLoading(false);
       Modal.success({
         title: 'Congratulations!',
@@ -233,9 +270,9 @@ const Sale = () => {
 
   //It renders only if you are not the asset owner
   const renderMarketOptions = () => {
-    if (asset?.isOnSale && user?.addr !== asset?.ownerProfile?.address) {
+    if (asset?.saleOffers?.length > 0 && user?.addr !== asset?.ownerProfile?.address) {
       return (
-        <StyledButton type="primary" shape="round" onClick={handleBuy}>
+        <StyledButton margin type="primary" shape="round" onClick={() => setBuyModalVisible(true)}>
           Buy
         </StyledButton>
       );
@@ -300,77 +337,108 @@ const Sale = () => {
     form.resetFields();
   };
   return (
-    <Row justify="center">
-      <Head>
-        <title>Details | NiftyBeats</title>
-      </Head>
-      {isLoading ? (
-        <>
-          {/* Skeleton */}
-          <Column span={6} offset={2}>
-            <ExpandedViewSkeletonImage active />
-          </Column>
-          <Column span={8} offset={2}>
-            <Content>
-              <ExpandedViewSkeletonParagraph active title paragraph={{ rows: 2 }} />
-              <Space direction="horizontal">
-                <Skeleton.Avatar active size="large" />
-                <Space direction="vertical">
-                  <ExpandedViewSkeletonInput active size="small" />
-                  <ExpandedViewSkeletonInput active size="small" />
+    <>
+      <Row justify="center">
+        <Head>
+          <title>Details | NiftyBeats</title>
+        </Head>
+        {asset?.isLoading ? (
+          <>
+            {/* Skeleton */}
+            <Column span={6} offset={2}>
+              <ExpandedViewSkeletonImage active />
+            </Column>
+            <Column span={8} offset={2}>
+              <Content>
+                <ExpandedViewSkeletonParagraph active title paragraph={{ rows: 2 }} />
+                <Space direction="horizontal">
+                  <Skeleton.Avatar active size="large" />
+                  <Space direction="vertical">
+                    <ExpandedViewSkeletonInput active size="small" />
+                    <ExpandedViewSkeletonInput active size="small" />
+                  </Space>
                 </Space>
-              </Space>
-              <ExpandedViewSkeletonButton active size="large" shape="round" />
-            </Content>
-          </Column>
-          {/* End of Skeleton */}
-        </>
-      ) : (
-        <>
-          <Column span={6} offset={2}>
-            <StyledImageContainer>
-              <StyledImage src={getImageURL(asset?.imgURL ?? '')} />
-            </StyledImageContainer>
-          </Column>
-          <ContentColumn span={8}>
-            <Content>
-              <Heading>{asset?.name}</Heading>
-              <p>
-                Owned by{' '}
-                <Link href={URLs.profile(user?.addr)}>
-                  <OwnerName>{asset?.ownerProfile?.name}</OwnerName>
-                </Link>
-              </p>
-              <Description>
-                {description}{' '}
-                {description?.length > 330 && (
-                  <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>
-                    Show {completeDescription ? 'less' : 'more'}
-                  </ReadMore>
-                )}
-              </Description>
+                <ExpandedViewSkeletonButton active size="large" shape="round" />
+              </Content>
+            </Column>
+            {/* End of Skeleton */}
+          </>
+        ) : (
+          <>
+            <Column span={6} offset={2}>
+              <StyledImageContainer>
+                <StyledImage src={getImageURL(asset?.imgURL ?? '')} />
+              </StyledImageContainer>
+            </Column>
+            <ContentColumn span={8}>
+              <Content>
+                <Heading>{asset?.name}</Heading>
+                <p>
+                  Owned by{' '}
+                  <Link href={URLs.profile(user?.addr)}>
+                    <OwnerName>{asset?.ownerProfile?.address}</OwnerName>
+                  </Link>
+                </p>
+                <Description>
+                  {description}{' '}
+                  {description?.length > 330 && (
+                    <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>
+                      Show {completeDescription ? 'less' : 'more'}
+                    </ReadMore>
+                  )}
+                </Description>
 
-              <InfoWrapper>
-                <InfoHeading>Info</InfoHeading>
-                <UserInfo
-                  name={asset?.ownerProfile?.name}
-                  src={getImageURL(asset?.ownerProfile?.avatar ?? '')}
-                  type="Creator"
-                />
-                {asset?.isOnSale && (
+                <InfoWrapper>
+                  <InfoHeading>Info</InfoHeading>
+                  <UserInfo
+                    name={asset?.ownerProfile?.name}
+                    src={getImageURL(asset?.ownerProfile?.avatar ?? '')}
+                    type="Creator"
+                  />
+                  {/* {asset?.saleOffers.length > 0 && (
                   <p>
                     Price: <Price>{Number(asset?.price).toFixed(4)}</Price>
                   </p>
-                )}
-                {renderAssetOwner()} {/*List on Market button */}
-                {renderMarketOptions()} {/* Buy button or This asset is not on sale */}
-                {renderSaleOwnerOptions()} {/*Edit and Cancel sale buttons */}
-              </InfoWrapper>
-            </Content>
-          </ContentColumn>
-        </>
-      )}
-    </Row>
+                )} */}
+                  {renderAssetOwner()} {/*List on Market button */}
+                  {renderMarketOptions()} {/* Buy button or This asset is not on sale */}
+                  {renderSaleOwnerOptions()} {/*Edit and Cancel sale buttons */}
+                </InfoWrapper>
+              </Content>
+            </ContentColumn>
+          </>
+        )}
+      </Row>
+      <Modal
+        visible={buyModalVisible}
+        width={1000}
+        title="Pick an offer"
+        onOk={() => setBuyModalVisible(false)}
+        closable={false}
+        cancelButtonProps={{
+          style: { display: 'none' }
+        }}>
+        <List
+          size="small"
+          itemLayout="horizontal"
+          dataSource={asset?.saleOffers}
+          renderItem={({ id, price, nft: { owner } }) => (
+            <List.Item>
+              <p style={{ flex: 1 }}>{price}</p>
+              <p style={{ flex: 1 }}>{owner}</p>
+              <StyledButton
+                width="10%"
+                margin={true}
+                type="primary"
+                shape="round"
+                onClick={() => handleBuy(id)}>
+                Buy
+              </StyledButton>
+            </List.Item>
+          )}
+        />
+      </Modal>
+    </>
   );
 };
 

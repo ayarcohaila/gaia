@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
 import { Col, Divider, Row } from 'antd';
+import { useSubscription } from '@apollo/react-hooks';
 
 import Banner from '~/components/home/Banner';
 import RecentlyAddedHeader, {
@@ -10,39 +10,23 @@ import RecentlyAddedHeader, {
 } from '~/components/home/RecentlyAddedHeader';
 import SetsList from '~/components/home/SetsList';
 import LinkStyled, { LinkContent, LinkText } from '~/components/shared/LinkStyled';
-import { getSales } from '~/flow/getSales';
-import { getAsset } from '~/flow/getAsset';
-import useAuth from '~/hooks/useAuth';
 
 import { HomeWrapper } from '~/components/profile/styled';
 import { URLs } from '~/routes/urls';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 
-export default function Home() {
-  const { user } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [sets, setSets] = useState([]);
+import { GET_NFTS_ON_SALE } from '~/store/server/subscriptions';
 
-  useEffect(async () => {
-    if (user?.addr) {
-      setLoading(true);
-      const sales = await getSales(user.addr);
-      const data = await Promise.all(
-        sales.map(async (sale, index) => {
-          const result = await getAsset(user.addr, sale.id);
-          return { ...result, price: sales[index].price };
-        })
-      );
-      setLoading(false);
-      setSets(data);
-    }
-  }, [user]);
+export default function Home() {
+  const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading } = useSubscription(
+    GET_NFTS_ON_SALE
+  );
 
   function renderSets() {
     if (loading) {
       return [...Array(8).keys()].map(index => <CardLoading hasTopBar={false} key={index} />);
     }
-    return <SetsList {...{ sets }} />;
+    return <SetsList sets={nft_sale_offer} />;
   }
 
   return (

@@ -3,15 +3,16 @@ import { Row, Col, Modal, Form, Typography, Button, InputNumber, Result, Input }
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useSubscription } from '@apollo/react-hooks';
 
 import { URLs } from '~/routes/urls';
 
 import Address from '~/components/address/Address';
 import Card from '~/components/asset/Asset';
 import DropDown from '~/components/dropdown/DropDown';
-import useInventory from '~/hooks/useInventory';
-import useMarket from '~/hooks/useMarket';
 import useAuth from '~/hooks/useAuth';
+
+import { GET_MY_NFTS_BY_OWNER } from '~/store/server/subscriptions';
 
 import { createSaleOffer } from '~/flow/sell';
 import { cancelSale } from '~/flow/cancelSale';
@@ -20,20 +21,42 @@ import { transferNft } from '~/flow/transferNft';
 import { Banner, ProfileWrapper } from '../../components/profile/styled';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 const { Text } = Typography;
+
 const Profile = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const { id } = router.query;
   const { user } = useAuth();
-  const { checkIfTokenIsOnSale } = useMarket(user?.addr);
   const [filter, setFilter] = useState(null);
   const [modalItemId, setModalItemId] = useState(null);
   const [isLoadingModal, setIsLoadingModal] = useState(false);
   const [sellModal, setSellModalVisible] = useState(false);
   const [transferModal, setTransferModalVisible] = useState(false);
   const [destinationAddress, setDestinationAddress] = useState(null);
+  const [assets, setAssets] = useState([]);
 
-  const { assets, isLoading } = useInventory(id);
+  const { loading: isLoading } = useSubscription(GET_MY_NFTS_BY_OWNER, {
+    variables: {
+      id
+    },
+    onSubscriptionData: ({
+      onSubscriptionData: {
+        data: { nft: nfts }
+      }
+    }) => {
+      const mappedAssets = nfts.map(nft => ({
+        onSale: nft.is_for_sale,
+        imgURL: nft.template.metadata.imgURL,
+        name: nft.template.metadata.name,
+        description: nft.template.metadata.description,
+        owner: nft.owner,
+        id: nft.id
+      }));
+
+      setAssets(mappedAssets);
+    }
+  });
+
   const data = useMemo(() => {
     if (!filter) {
       return assets;
@@ -187,7 +210,7 @@ const Profile = () => {
             ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
             : data.map(token => {
                 let buttonProps = {};
-                const onSale = checkIfTokenIsOnSale(token.id);
+                const { onSale } = token;
 
                 if (user?.addr === id) {
                   buttonProps = {

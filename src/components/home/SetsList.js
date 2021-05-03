@@ -2,25 +2,16 @@ import React from 'react';
 import Card from '../asset/Asset';
 
 function SetsList({ sets }) {
-  return (
-    <>
-      {sets.map(set => {
-        if (set.owner !== null) {
-          return (
-            <Card
-              key={set.id}
-              id={set.id}
-              imgURL={set.imgURL}
-              description={set.description}
-              name={set.name}
-              price={set.price}
-            />
-          );
-        }
-        return null;
-      })}
-    </>
-  );
+  return sets.map(({ nft, price }) => (
+    <Card
+      key={nft.asset_id}
+      id={nft.asset_id}
+      imgURL={nft.template.metadata.imgURL}
+      description={nft.template.metadata.description}
+      name={nft.template.metadata.name}
+      price={Number(price)}
+    />
+  ));
 }
 
 export default SetsList;

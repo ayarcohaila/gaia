@@ -161,7 +161,7 @@ export const Description = styled.p`
 export const StyledButton = styled(Button)`
   background-color: ${({ theme, cancel }) =>
     cancel ? theme.colors.brightRed : theme.colors.brightBlue};
-  width: 100%;
+  width: ${({ width }) => width ?? '100%'};
   margin-top: ${props => (props.margin ? '5px' : '0px')};
   margin-bottom: ${props => (props.margin ? '5px' : '0px')};
 `;

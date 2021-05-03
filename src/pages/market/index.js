@@ -2,36 +2,40 @@ import Head from 'next/head';
 import { Row, Col } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
+import { useSubscription } from '@apollo/react-hooks';
 
 import { MarketPlaceWrapper } from '~/components/profile/styled';
 import Asset from '~/components/asset/Asset';
 import DropDown from '~/components/dropdown/DropDown';
-import useAuth from '~/hooks/useAuth';
-import useMarketplace from '~/hooks/useMarketplace';
 import { CardLoading } from '~/components/skeleton/CardLoading';
+
+import { GET_NFTS_ON_SALE } from '~/store/server/subscriptions';
 
 const MarketPlace = () => {
   const [filter, setFilter] = useState(null);
-  const { user } = useAuth();
-  const { assets, isLoading } = useMarketplace(user?.addr);
+  const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading: isLoading } = useSubscription(
+    GET_NFTS_ON_SALE
+  );
 
   const data = useMemo(() => {
     if (!filter) {
-      return assets;
+      return nft_sale_offer;
     }
 
     if (filter === 'highestPrice') {
-      return [...assets].sort((a, b) => b.price - a.price);
+      return [...nft_sale_offer].sort((a, b) => b.price - a.price);
     }
 
     if (filter === 'lowestPrice') {
-      return [...assets].sort((a, b) => a.price - b.price);
+      return [...nft_sale_offer].sort((a, b) => a.price - b.price);
     }
 
     if (filter === 'createdAt') {
-      return [...assets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      return [...nft_sale_offer].sort(
+        (a, b) => new Date(b.nft.created_at) - new Date(a.nft.created_at)
+      );
     }
-  }, [filter, assets]);
+  }, [filter, nft_sale_offer]);
 
   const options = [
     { title: 'Recently added', action: () => setFilter('createdAt') },
@@ -52,8 +56,16 @@ const MarketPlace = () => {
         <Row align="center">
           {isLoading
             ? [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
-            : data.map(token => (
-                <Asset className="marketplace-asset" key={`token-${token.id}`} {...token} />
+            : data.map(({ nft, price }) => (
+                <Asset
+                  className="marketplace-asset"
+                  key={nft.id}
+                  id={nft.id}
+                  imgURL={nft.template.metadata.imgURL}
+                  description={nft.template.metadata.description}
+                  name={nft.template.metadata.name}
+                  price={Number(price)}
+                />
               ))}
         </Row>
       </Col>
