@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { Col, Modal, Row } from 'antd';
 import { useState, useEffect, useMemo } from 'react';
 import isEqual from 'lodash.isequal';
@@ -19,6 +18,7 @@ import {
   StyledProfileTextArea,
   ImagePreview
 } from '../../components/profile/styled';
+import Seo from '~/components/seo/seo';
 
 const EditProfile = () => {
   const { user } = useAuth();
@@ -77,9 +77,7 @@ const EditProfile = () => {
 
   return (
     <Row>
-      <Head>
-        <title>Edit User Profile | NiftyBeats</title>
-      </Head>
+      <Seo title="Edit Profile" />
       <Col span={18} offset={3} lg={{ span: 10, offset: 7 }}>
         <Heading>Edit User Profile</Heading>
         <Label>Upload Photo</Label>

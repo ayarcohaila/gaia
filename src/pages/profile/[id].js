@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { Row, Col, Modal, Form, Typography, Button, InputNumber, Result, Input } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
@@ -20,6 +19,7 @@ import { transferNft } from '~/flow/transferNft';
 
 import { Banner, ProfileWrapper } from '../../components/profile/styled';
 import { CardLoading } from '~/components/skeleton/CardLoading';
+import Seo from '~/components/seo/seo';
 const { Text } = Typography;
 
 const Profile = () => {
@@ -194,9 +194,7 @@ const Profile = () => {
 
   return (
     <ProfileWrapper>
-      <Head>
-        <title>Profile | NiftyBeats</title>
-      </Head>
+      <Seo title="Profile" />
       <Col span={24}>
         <Banner src="/images/inventory-banner.png" />
         <Address>{id || 'NO ADDRESS FOUND'}</Address>

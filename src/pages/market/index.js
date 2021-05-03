@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { Row, Col } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
@@ -8,6 +7,7 @@ import { MarketPlaceWrapper } from '~/components/profile/styled';
 import Asset from '~/components/asset/Asset';
 import DropDown from '~/components/dropdown/DropDown';
 import { CardLoading } from '~/components/skeleton/CardLoading';
+import Seo from '~/components/seo/seo';
 
 import { GET_NFTS_ON_SALE } from '~/store/server/subscriptions';
 
@@ -45,9 +45,7 @@ const MarketPlace = () => {
   ];
   return (
     <MarketPlaceWrapper>
-      <Head>
-        <title>MarketPlace | NiftyBeats</title>
-      </Head>
+      <Seo title="MarketPlace" />
       <Col span={22} offset={1}>
         <Row justify="space-between">
           <h2>Marketplace</h2>

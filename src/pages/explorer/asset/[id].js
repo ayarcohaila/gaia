@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
@@ -34,6 +33,7 @@ import {
   Content,
   ContentColumn
 } from '~/components/asset/styled';
+import Seo from '~/components/seo/seo';
 import UserInfo from '~/components/UserInfo/UserInfo';
 import useAuth from '~/hooks/useAuth';
 import { changePrice } from '~/flow/changePrice';
@@ -339,9 +339,7 @@ const Sale = () => {
   return (
     <>
       <Row justify="center">
-        <Head>
-          <title>Details | NiftyBeats</title>
-        </Head>
+        <Seo title="Details" imgURL={getImageURL(asset?.imgURL)} />
         {asset?.isLoading ? (
           <>
             {/* Skeleton */}

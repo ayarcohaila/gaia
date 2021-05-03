@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
 import { Col, Divider, Row } from 'antd';
 import { useSubscription } from '@apollo/react-hooks';
@@ -10,6 +9,7 @@ import RecentlyAddedHeader, {
 } from '~/components/home/RecentlyAddedHeader';
 import SetsList from '~/components/home/SetsList';
 import LinkStyled, { LinkContent, LinkText } from '~/components/shared/LinkStyled';
+import Seo from '~/components/seo/seo';
 
 import { HomeWrapper } from '~/components/profile/styled';
 import { URLs } from '~/routes/urls';
@@ -31,9 +31,7 @@ export default function Home() {
 
   return (
     <HomeWrapper>
-      <Head>
-        <title>Home | NiftyBeats</title>
-      </Head>
+      <Seo title="Home" />
       <Col span={20} offset={2}>
         <Row>
           <Col span={24}>

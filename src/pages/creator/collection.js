@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import { Col, Form, Typography, Modal, Result, Row } from 'antd';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import {
@@ -16,6 +15,7 @@ import {
 import { mintNft } from '~/flow/mintNft';
 import useAuth from '~/hooks/useAuth';
 import { uploadFile } from '~/utils/upload';
+import Seo from '~/components/seo/seo';
 
 const FormComponent = ({ onSubmit, loading }) => {
   const [, forceUpdate] = useState({});
@@ -154,9 +154,7 @@ function CreateNFT() {
 
   return (
     <CreateNFTWrapper>
-      <Head>
-        <title>Create NFT | NiftyBeats</title>
-      </Head>
+      <Seo title="Create Collection" />
       <Col offset={6} span={12}>
         <Typography.Title>Create New Collection</Typography.Title>
       </Col>
