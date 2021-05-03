@@ -18,23 +18,6 @@ transaction(metadata: {String: String}) {
     }
 }`;
 
-function serializeMetadata(metadata) {
-  try {
-    let serializedData = [];
-    Object.keys(metadata).forEach(k => {
-      serializedData.push({
-        key: k,
-        value: metadata[k]
-      });
-    });
-
-    return serializedData;
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-  }
-}
-
 export async function createTemplate(metadata) {
   const txId = await fcl
     .send([
@@ -44,12 +27,8 @@ export async function createTemplate(metadata) {
       fcl.authorizations([fcl.authz]),
       fcl.args([
         fcl.arg(
-          serializeMetadata(metadata),
-          t.Dictionary([
-            { key: t.String, value: t.String },
-            { key: t.String, value: t.String },
-            { key: t.String, value: t.String }
-          ])
+          metadata,
+          t.Dictionary(Array(metadata.length).fill({ key: t.String, value: t.String }))
         )
       ]),
       fcl.limit(35)
