@@ -339,7 +339,7 @@ const Sale = () => {
   return (
     <>
       <Row justify="center">
-        <Seo title="Details" imgURL={getImageURL(asset?.imgURL)} />
+        <Seo title="Details" imgURL={getImageURL(asset?.imgURL ?? '')} />
         {asset?.isLoading ? (
           <>
             {/* Skeleton */}
