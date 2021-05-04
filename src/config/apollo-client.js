@@ -11,6 +11,9 @@ const httpLink = new HttpLink({
 const wsLink = process.browser
   ? new WebSocketLink({
       uri: process.env.NEXT_PUBLIC_API_WS_URL,
+      headers: {
+        'x-hasura-admin-secret/x-hasura-access-key': 'EeGheidu0xae0cuuP9ofahvaichaighu'
+      },
       options: {
         reconnect: true
       }
