@@ -12,12 +12,7 @@ const wsLink = process.browser
   ? new WebSocketLink({
       uri: process.env.NEXT_PUBLIC_API_WS_URL,
       options: {
-        reconnect: true,
-        connectionParams: {
-          headers: {
-            'x-hasura-admin-secret': 'EeGheidu0xae0cuuP9ofahvaichaighu'
-          }
-        }
+        reconnect: true
       }
     })
   : null;
