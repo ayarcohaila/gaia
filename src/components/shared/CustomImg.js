@@ -12,8 +12,8 @@ const StyledImg = styled(Img)`
   z-index: 0;
 `;
 
-function CustomImg({ src, alt, banner }) {
-  return <StyledImg banner={banner} src={src} alt={alt} />;
+function CustomImg({ src, alt, isBanner }) {
+  return <StyledImg banner={isBanner} src={src} alt={alt} />;
 }
 CustomImg.propTypes = {
   banner: PropTypes.bool

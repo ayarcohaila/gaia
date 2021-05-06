@@ -40,7 +40,7 @@ const Profile = () => {
       id
     },
     onSubscriptionData: ({
-      onSubscriptionData: {
+      subscriptionData: {
         data: { nft: nfts }
       }
     }) => {
