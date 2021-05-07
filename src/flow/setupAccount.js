@@ -30,16 +30,13 @@ transaction {
         }
 
         // First, check to see if a moment collection already exists
-        if acct.borrow<&FlowAssets.Collection>(from: /storage/FlowAssetsCollection) == nil {
-
+        if account.borrow<&FlowAssets.Collection>(from: FlowAssets.CollectionStoragePath) == nil {
             // create a new FlowAssets Collection
             let collection <- FlowAssets.createEmptyCollection() as! @FlowAssets.Collection
-
             // Put the new Collection in storage
-            acct.save(<-collection, to: /storage/FlowAssetsCollection)
-
+            account.save(<-collection, to: FlowAssets.CollectionStoragePath)
             // create a public capability for the collection
-            acct.link<&{FlowAssets.FlowAssetsCollectionPublic}>(/public/FlowAssetsCollection, target: /storage/FlowAssetsCollection)
+            account.link<&{FlowAssets.FlowAssetsCollectionPublic}>(FlowAssets.CollectionPublicPath, target: FlowAssets.CollectionStoragePath)
         }
 
         // Init FlowAssets Market collection
@@ -57,7 +54,7 @@ transaction {
             // create a public capability for the collection
             if !account.getCapability<&FlowAssets.Collection{NonFungibleToken.Provider}>(/private/AssetsCollectionProvider)!.check() {
               account.link<&FlowAssets.Collection{NonFungibleToken.Provider}>(/private/AssetsCollectionProvider, target: FlowAssets.CollectionStoragePath)
-          }
+            }
   
           }
 

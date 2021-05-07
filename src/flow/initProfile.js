@@ -19,6 +19,15 @@ transaction {
       // This creates the public capability that lets applications read the profiles info
       account.link<&Profile.Base{Profile.Public}>(Profile.publicPath, target: Profile.privatePath)
     }
+    // First, check to see if a moment collection already exists
+    if account.borrow<&FlowAssets.Collection>(from: FlowAssets.CollectionStoragePath) == nil {
+      // create a new FlowAssets Collection
+      let collection <- FlowAssets.createEmptyCollection() as! @FlowAssets.Collection
+      // Put the new Collection in storage
+      account.save(<-collection, to: FlowAssets.CollectionStoragePath)
+      // create a public capability for the collection
+      account.link<&{FlowAssets.FlowAssetsCollectionPublic}>(FlowAssets.CollectionPublicPath, target: FlowAssets.CollectionStoragePath)
+  }
   }
 
   // verify the account has been initialized

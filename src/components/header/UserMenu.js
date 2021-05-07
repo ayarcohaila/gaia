@@ -12,12 +12,7 @@ function UserMenu() {
 
   return user?.loggedIn ? (
     <Popover
-      content={
-        <UserMenuContent
-          handleOptionClick={() => alert('clicado no content')}
-          loggedIn={user?.loggedIn}
-        />
-      }
+      content={<UserMenuContent loggedIn={user?.loggedIn} />}
       trigger="hover"
       placement="bottomRight">
       <div>

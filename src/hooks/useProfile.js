@@ -1,6 +1,8 @@
 import { useMemo, useState, useEffect } from 'react';
 import { initProfile } from '~/flow/initProfile';
 import { getProfile } from '~/flow/getProfile';
+import { checkSetup } from '~/flow/checkSetup';
+
 import isInitialized from '~/flow/isInitialized';
 
 export default function useProfile(address) {
@@ -12,6 +14,13 @@ export default function useProfile(address) {
     }
 
     return await isInitialized(address);
+  }, [address]);
+  const hasSetup = useMemo(async () => {
+    if (!address) {
+      return false;
+    }
+
+    return await checkSetup(address);
   }, [address]);
 
   useEffect(async () => {
@@ -25,6 +34,7 @@ export default function useProfile(address) {
   return {
     userProfile,
     initProfile,
+    hasSetup,
     initialized
   };
 }

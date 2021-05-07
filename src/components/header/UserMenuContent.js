@@ -11,11 +11,11 @@ import { ColStyled } from '~/components/header/styled';
 function UserMenuContent({ loggedIn }) {
   const { user, logout } = useAuth();
   const [modalVisible, setModalVisible] = useState(false);
-  const { initialized, initProfile } = useProfile(user?.addr);
+  const { initialized, hasSetup } = useProfile(user?.addr);
   const router = useRouter();
 
   const handleGoToEditProfile = async () => {
-    if (await initialized) {
+    if ((await initialized) && (await hasSetup)) {
       router.push(URLs.editProfile);
     } else {
       setModalVisible(true);
@@ -24,7 +24,6 @@ function UserMenuContent({ loggedIn }) {
 
   const handleInitializeProfile = async () => {
     setModalVisible(false);
-    await initProfile();
     await setupAccount();
     router.push(URLs.editProfile);
   };
