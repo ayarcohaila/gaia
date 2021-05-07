@@ -79,7 +79,7 @@ const Sale = () => {
           address: nft[0].owner
         },
         id: nft[0].id,
-        imgURL: nft[0].template.metadata.imgURL,
+        imgURL: nft[0].template.metadata.image,
         name: nft[0].template.metadata.name,
         description: nft[0].template.metadata.description,
         saleOffers: nft[0].sale_offers

@@ -74,7 +74,7 @@ const MarketPlace = () => {
                   className="marketplace-asset"
                   key={nft.id}
                   id={nft.id}
-                  imgURL={nft.template.metadata.imgURL}
+                  imgURL={nft.template.metadata.image}
                   description={nft.template.metadata.description}
                   name={nft.template.metadata.name}
                   price={Number(price)}

@@ -46,7 +46,7 @@ const Profile = () => {
     }) => {
       const mappedAssets = nfts.map(nft => ({
         onSale: nft.is_for_sale,
-        imgURL: nft.template.metadata.imgURL,
+        imgURL: nft.template.metadata.image,
         name: nft.template.metadata.name,
         description: nft.template.metadata.description,
         owner: nft.owner,
@@ -207,34 +207,37 @@ const Profile = () => {
           {isLoading
             ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
             : data.map(token => {
-                let buttonProps = {};
                 const { onSale } = token;
+                let actions = [
+                  {
+                    title: 'Transfer',
+                    action: e => {
+                      e.domEvent.stopPropagation();
+                      setModalItemId(token.id);
+                      setTransferModalVisible(true);
+                    }
+                  }
+                ];
 
                 if (user?.addr === id) {
-                  buttonProps = {
-                    showSell: !onSale,
-                    showCancel: onSale
-                  };
-                }
-                return (
-                  <Card
-                    key={`token-${token.id}`}
-                    {...token}
-                    {...buttonProps}
-                    sell={() => sellAsset(token.id)}
-                    cancel={() => onCancelSale(token.id)}
-                    actions={[
-                      {
-                        title: 'Transfer',
-                        action: e => {
-                          e.domEvent.stopPropagation();
-                          setModalItemId(token.id);
-                          setTransferModalVisible(true);
-                        }
+                  !onSale &&
+                    actions.push({
+                      title: 'Sell',
+                      action: e => {
+                        e.domEvent.stopPropagation();
+                        sellAsset(token.id);
                       }
-                    ]}
-                  />
-                );
+                    });
+                  onSale &&
+                    actions.push({
+                      title: 'Cancel',
+                      action: e => {
+                        e.domEvent.stopPropagation();
+                        onCancelSale(token.id);
+                      }
+                    });
+                }
+                return <Card key={`token-${token.id}`} {...token} actions={actions} />;
               })}
         </Row>
       </Col>

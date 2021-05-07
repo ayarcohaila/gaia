@@ -102,8 +102,9 @@ export const GET_TEMPLATES = gql`
     nft_template(where: { collection: { collection_id: { _eq: $id } } }) {
       metadata
       template_id
-      collection_id
-      id
+      collection {
+        collection_id
+      }
     }
   }
 `;
