@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from 'antd';
 import { UserOutlined, CaretDownOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
@@ -20,20 +19,7 @@ import formatPrice from '~/utils/formatPrice';
 import { URLs } from '~/routes/urls';
 import DropDown from '~/components/dropdown/DropDown';
 
-const Asset = ({
-  imgURL,
-  description,
-  name,
-  price,
-  owner,
-  id,
-  showSell,
-  showCancel,
-  sell,
-  cancel,
-  actions,
-  linkTo
-}) => {
+const Asset = ({ imgURL, description, name, price, owner, id, actions, linkTo }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
   const Component = (
     <Card className="token-card">
@@ -55,33 +41,6 @@ const Asset = ({
         <DropDownContainer>
           <DropDown title="actions" options={actions} icon={<CaretDownOutlined />} />
         </DropDownContainer>
-      )}
-      {(showSell || showCancel) && (
-        <div className="buttons-container">
-          {showSell && (
-            <Button
-              type="primary"
-              shape="round"
-              onClick={e => {
-                e.stopPropagation();
-                sell();
-              }}>
-              Sell
-            </Button>
-          )}
-          {showCancel && (
-            <Button
-              type="primary"
-              shape="round"
-              danger
-              onClick={e => {
-                e.stopPropagation();
-                cancel();
-              }}>
-              Cancel sale
-            </Button>
-          )}
-        </div>
       )}
     </Card>
   );

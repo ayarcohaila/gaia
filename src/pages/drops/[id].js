@@ -93,7 +93,7 @@ const DropDetails = () => {
         <>
           <Column span={6} offset={2}>
             <StyledImageContainer>
-              <StyledImage src={getImageURL(drop?.template?.metadata?.imgURL ?? '')} />
+              <StyledImage src={getImageURL(drop?.template?.metadata?.image ?? '')} />
             </StyledImageContainer>
           </Column>
           <ContentColumn span={8}>
