@@ -20,7 +20,7 @@ function MyHeader() {
       `/profile/${user?.addr || '[id]'}`,
       `/explorer`,
       URLs.editProfile,
-      URLs.createNFT,
+      URLs.create,
       URLs.root
     ];
     let whichRoute = routes.filter(route => router.asPath.includes(route))[0];
@@ -62,8 +62,8 @@ function MyHeader() {
                 </Link>
               </Menu.Item>
             )}
-            <Menu.Item key={URLs.createNFT}>
-              <Link href={URLs.createNFT}>
+            <Menu.Item key={URLs.create}>
+              <Link href={URLs.create}>
                 <a href="about:blank">Create NFT</a>
               </Link>
             </Menu.Item>

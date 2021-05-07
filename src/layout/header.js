@@ -30,7 +30,7 @@ function Header() {
   const router = useRouter();
 
   const getCurrentKey = () => {
-    const routes = [URLs.marketplace, URLs.profile(user?.addr), URLs.createNFT, URLs.home];
+    const routes = [URLs.marketplace, URLs.profile(user?.addr), URLs.create, URLs.home];
     setCurrentRoute(routes.filter(item => router.asPath.includes(item))[0] || '');
   };
 

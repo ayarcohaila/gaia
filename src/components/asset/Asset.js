@@ -31,7 +31,8 @@ const Asset = ({
   showCancel,
   sell,
   cancel,
-  actions
+  actions,
+  linkTo
 }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
   const Component = (
@@ -85,7 +86,7 @@ const Asset = ({
     </Card>
   );
 
-  return id ? <Link href={URLs.explorer(id)}>{Component}</Link> : Component;
+  return id ? <Link href={linkTo ?? URLs.explorer(id)}>{Component}</Link> : Component;
 };
 
 Asset.propTypes = {
@@ -106,7 +107,8 @@ Asset.propTypes = {
       title: PropTypes.string,
       action: PropTypes.func
     })
-  )
+  ),
+  linkTo: PropTypes.string
 };
 
 Asset.defaultProps = {
@@ -114,7 +116,8 @@ Asset.defaultProps = {
   showCancel: false,
   id: null,
   owner: null,
-  actions: null
+  actions: null,
+  linkTo: null
 };
 
 export default Asset;

@@ -116,6 +116,10 @@ export const Centralizer = styled.div`
 
 export const CreateNFTWrapper = styled(Row)`
   margin: 30px auto;
+
+  .token-card {
+    margin: 0 20px 20px 0;
+  }
 `;
 
 export const Banner = styled.div`

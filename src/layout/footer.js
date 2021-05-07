@@ -31,7 +31,7 @@ function Footer() {
                 <Link href={URLs.home}>Home</Link>
               </Row>
               <Row>
-                <Link href={URLs.createNFT}>Create NFT</Link>
+                <Link href={URLs.create}>Create NFT</Link>
               </Row>
               <Row>
                 <Link href={URLs.marketplace}>Marketplace</Link>

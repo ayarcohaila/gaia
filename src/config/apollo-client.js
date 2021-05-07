@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, split, HttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, split, HttpLink, ApolloLink, concat } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
 
@@ -8,6 +8,16 @@ const httpLink = new HttpLink({
   uri: process.env.NEXT_PUBLIC_API_URL
 });
 
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      'x-hasura-admin-secret': process.env.NEXT_PUBLIC_API_SECRET
+    }
+  });
+
+  return forward(operation);
+});
+
 const wsLink = process.browser
   ? new WebSocketLink({
       uri: process.env.NEXT_PUBLIC_API_WS_URL,
@@ -15,7 +25,7 @@ const wsLink = process.browser
         reconnect: true,
         connectionParams: {
           headers: {
-            'x-hasura-admin-secret': 'EeGheidu0xae0cuuP9ofahvaichaighu'
+            'x-hasura-admin-secret': process.env.NEXT_PUBLIC_API_SECRET
           }
         }
       }
@@ -29,7 +39,7 @@ const link = process.browser
         return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
       },
       wsLink,
-      httpLink
+      concat(authMiddleware, httpLink)
     )
   : httpLink;
 

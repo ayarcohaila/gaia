@@ -15,7 +15,7 @@ function Banner() {
       <BannerStyled>
         <BannerTitle type="secondary">The largest NFT marketplace</BannerTitle>
         <BannerSubTitle>Buy, sell, and discover rare digital items</BannerSubTitle>
-        <Button onClick={() => router.push(URLs.createNFT)} type="primary" shape="round">
+        <Button onClick={() => router.push(URLs.create)} type="primary" shape="round">
           Create an NFT
         </Button>
       </BannerStyled>
