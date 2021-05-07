@@ -16,7 +16,7 @@ const antdConfig = withAntdLess({
 
 const nextConfig = {
   images: {
-    domains: [ipfsDomain]
+    domains: [ipfsDomain, 'staging-flow-bucket.s3-us-west-1.amazonaws.com']
   }
 };
 
