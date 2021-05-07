@@ -11,8 +11,7 @@ pub contract FlowAssets: NonFungibleToken {
     pub event Withdraw(id: UInt64, from: Address?)
     pub event Deposit(id: UInt64, to: Address?)
     pub event TemplateCreated(id: UInt64, metadata: {String:String})
-    pub event SetCreated(setID: UInt64, name: String, creator: Address, marketFee: UFix64, websiteURL: String, imgURL: String, description: String )
-
+    pub event SetCreated(setID: UInt64, name: String, creator: Address, marketFee: UFix64)
     pub event TemplateAddedToSet(setID: UInt64, templateID: UInt64)
     pub event TemplateLockedFromSet(setID: UInt64, templateID: UInt64, numNFTs: UInt64)
     pub event SetLocked(setID: UInt64)
@@ -100,15 +99,6 @@ pub contract FlowAssets: NonFungibleToken {
         // Unique ID for the Set
         pub let setID: UInt64
 
-        // Website URL for the Set
-        pub let websiteURL: String
-
-        // Description for the Set
-        pub let description: String
-
-        // Image URL for the Set
-        pub let imgURL: String
-
         // Name of the Set
         pub let name: String
 
@@ -119,24 +109,20 @@ pub contract FlowAssets: NonFungibleToken {
         // This is not the long term way NFT metadata will be stored.
         pub let marketFee: UFix64
 
-        init(name: String, creator: Address, marketFee: UFix64, websiteURL: String, imgURL: String, description: String) {
+        init(name: String, creator: Address, marketFee: UFix64) {
             pre {
                 name.length > 0: "New set name cannot be empty"
-                imgURL.length > 0: "New set image cannot be empty"
             }
 
             self.setID = FlowAssets.nextSetID
             self.name = name
-            self.description = description
-            self.websiteURL = websiteURL
-            self.imgURL = imgURL
             self.creator = creator
             self.marketFee = marketFee
 
             // Increment the setID so that it isn't used again
             FlowAssets.nextSetID = FlowAssets.nextSetID + 1 as UInt64
 
-            emit SetCreated(setID: self.setID, name: name, creator: creator, marketFee: marketFee, websiteURL: websiteURL, imgURL: imgURL, description: description )
+            emit SetCreated(setID: self.setID, name: name, creator: creator, marketFee: marketFee)
         }
     }
 
@@ -191,14 +177,14 @@ pub contract FlowAssets: NonFungibleToken {
         // show its place in the Set, eg. 13 of 60.
         pub var numberMintedPerTemplate: {UInt64: UInt64}
 
-        init(name: String, creator: Address, marketFee: UFix64, websiteURL: String, imgURL: String, description: String) {
+        init(name: String, creator: Address, marketFee: UFix64) {
             self.setID = FlowAssets.nextSetID
             self.templates = []
             self.lockedTemplates = {}
             self.locked = false
             self.numberMintedPerTemplate = {}
             // Create a new SetData for this Set and store it in contract storage
-            FlowAssets.setDatas[self.setID] = SetData(name: name, creator: creator, marketFee: marketFee, websiteURL: websiteURL, imgURL: imgURL, description: description)
+            FlowAssets.setDatas[self.setID] = SetData(name: name, creator: creator, marketFee: marketFee)
         }
 
         // addTemplate adds a template to the set
@@ -404,9 +390,10 @@ pub contract FlowAssets: NonFungibleToken {
         //
         // Parameters: name: The name of the Set
         //
-        pub fun createSet(name: String, creator: Address, marketFee: UFix64, websiteURL: String, imgURL: String, description: String) {
+        pub fun createSet(name: String, creator: Address, marketFee: UFix64) {
             // Create the new Set
-            var newSet <- create Set(name: name, creator: creator, marketFee: marketFee, websiteURL: websiteURL, imgURL: imgURL, description: description)
+            var newSet <- create Set(name: name, creator: creator, marketFee: marketFee)
+
             // Store it in the sets mapping field
             FlowAssets.sets[newSet.setID] <-! newSet
         }
@@ -745,6 +732,16 @@ pub contract FlowAssets: NonFungibleToken {
         // (it checks it before returning it).
         return collection.borrowFlowAsset(id: itemID)
     }
+    // checkSetup
+    // Get a reference to a FlowAsset from an account's Collection, if available.
+    // If an account does not have a FlowAssets.Collection, returns false.
+    // If it has a collection, return true.
+    //
+  pub fun checkSetup(_ address: Address): Bool {
+    return getAccount(address)
+      .getCapability<&{FlowAssets.FlowAssetsCollectionPublic}>(FlowAssets.CollectionPublicPath)
+      .check()
+  }
 
     // initializer
     //
