@@ -2,7 +2,7 @@ import { AutoComplete, Col, Layout } from 'antd';
 import styled from 'styled-components';
 const { Header } = Layout;
 export const AutoCompleteStyled = styled(AutoComplete)`
-  width: 80%;
+  width: 100%;
   padding-left: 10%;
   padding-right: 10%;
   div.ant-select-selector {
@@ -30,4 +30,13 @@ export const JustifyCenter = styled.div`
 export const UserName = styled.span`
   padding-left: 5px;
   padding-right: 5px;
+`;
+
+export const SubmitInput = styled.input`
+  position: absolute;
+  left: -10000px;
+`;
+
+export const StyledForm = styled.form`
+  width: 80%;
 `;
