@@ -24,7 +24,13 @@ const Asset = ({ imgURL, description, name, price, owner, id, actions, linkTo })
   const Component = (
     <Card className="token-card">
       {owner && <StyledAvatar size="small" {...avatarSource} />}
-      <CardImage width="100%" height={182} layout={undefined} src={getImageURL(imgURL ?? '')} />
+      <CardImage
+        width={193}
+        height={182}
+        layout={undefined}
+        src={getImageURL(imgURL ?? '')}
+        unoptimized={true}
+      />
       <div className="text-content">
         <ContentContainer fullWidth={!price}>
           <Text>{name}</Text>
