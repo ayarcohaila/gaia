@@ -1,5 +1,4 @@
-import { Menu, Row } from 'antd';
-import Modal from 'antd/lib/modal/Modal';
+import { Menu, Row, Modal } from 'antd';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { setupAccount } from '~/flow/setupAccount';
