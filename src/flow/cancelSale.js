@@ -12,7 +12,7 @@ transaction(saleAssetID: UInt64) {
     }
 
     execute {
-        let offer <-self.marketCollection.remove(saleAssetID: saleAssetID)
+        let offer <-self.marketCollection.remove(itemID: saleAssetID)
         destroy offer
     }
 }

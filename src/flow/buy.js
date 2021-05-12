@@ -10,22 +10,19 @@ import FlowAssetsMarket from 0xNFTMarket
 transaction(saleAssetID: UInt64, address: Address) {
     let paymentVault: @FungibleToken.Vault
     let AssetsCollection: &FlowAssets.Collection{NonFungibleToken.Receiver}
-    let marketCollection: &FlowAssetsMarket.Collection{FlowAssets.FlowAssetsCollectionPublic}
+    let marketCollection: &FlowAssetsMarket.Collection{FlowAssetsMarket.CollectionPublic}
 
     prepare(signer: AuthAccount) {
         let FlowTokenReceiverPublicPath = /public/flowTokenReceiver
         let FlowTokenVaultStoragePath = /storage/flowTokenVault
 
         self.marketCollection = getAccount(address)
-            .getCapability<&FlowAssetsMarket.Collection{FlowAssets.FlowAssetsCollectionPublic}>(
-                FlowAssetsMarket.CollectionPublicPath
-            )!
-            .borrow()
-            ?? panic("Could not borrow market collection from market address")
+                    .getCapability<&FlowAssetsMarket.Collection{FlowAssetsMarket.CollectionPublic}>(FlowAssetsMarket.CollectionPublicPath).borrow()
+                    ?? panic("Could not borrow capability from public collection")
 
-        let saleItem = self.marketCollection.borrowSaleAsset(saleAssetID: saleAssetID)
+        let saleItem = self.marketCollection.borrowSaleItem(itemID: saleAssetID)
                     ?? panic("No item with that ID")
-        let price = saleItem.salePrice
+        let price = saleItem.price
 
         let mainFlowTokenVault = signer.borrow<&FlowToken.Vault>(from: FlowTokenVaultStoragePath)
             ?? panic("Cannot borrow FlowToken vault from acct storage")
@@ -38,7 +35,7 @@ transaction(saleAssetID: UInt64, address: Address) {
 
     execute {
         self.marketCollection.purchase(
-            saleAssetID: saleAssetID,
+            itemID: saleAssetID,
             buyerCollection: self.AssetsCollection,
             buyerPayment: <- self.paymentVault
         )
@@ -54,7 +51,7 @@ export async function buy(saleAssetID, address) {
       fcl.proposer(fcl.authz),
       fcl.authorizations([fcl.authz]),
       fcl.args([fcl.arg(saleAssetID, t.UInt64), fcl.arg(address, t.Address)]),
-      fcl.limit(100)
+      fcl.limit(1000)
     ])
     .then(fcl.decode);
   return fcl.tx(txId).onceSealed();

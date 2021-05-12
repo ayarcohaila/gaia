@@ -101,7 +101,7 @@ const Sale = () => {
   const handleBuy = async saleId => {
     setIsModalLoading(true);
     try {
-      await buy(Number(saleId), user?.addr);
+      await buy(Number(saleId), asset?.ownerProfile?.address);
       setIsModalLoading(false);
       Modal.success({
         title: 'Congratulations!',
@@ -432,7 +432,7 @@ const Sale = () => {
                 margin={true}
                 type="primary"
                 shape="round"
-                onClick={() => handleBuy(id)}>
+                onClick={() => handleBuy(asset?.asset_id)}>
                 Buy
               </StyledButton>
             </List.Item>
