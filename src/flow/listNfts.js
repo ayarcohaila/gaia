@@ -2,22 +2,21 @@ import { fcl, t } from '../config/config';
 
 const LIST_NFTS_SCRIPT = fcl.cdc`
 import NonFungibleToken from 0xNFTInterface
-import Assets from 0xNFTContract
+import FlowAssets from 0xNFTContract
 
 // Print the NFTs owned by account.
 // pub fun main(address: Address): [UInt64] {
-pub fun main(address: Address): [&Assets.NFT] {
+pub fun main(address: Address): [&FlowAssets.NFT] {
     let account = getAccount(address)
 
-    let collectionRef = account.getCapability(Assets.CollectionPublicPath)!.borrow<&Assets.Collection{Assets.AssetsCollectionPublic}>()
-        ?? panic("Could not borrow capability from public collection")
+    let collectionRef = account.getCapability(FlowAssets.CollectionPublicPath)
+                            .borrow<&{FlowAssets.FlowAssetsCollectionPublic}>()!
 
-    // return collectionRef.getIDs()
     let ids = collectionRef.getIDs()
-    let assets: [&Assets.NFT] = []
+    let assets: [&FlowAssets.NFT] = []
 
     for assetID in ids {
-        let asset = collectionRef.borrowAsset(id: assetID)!
+        let asset = collectionRef.borrowFlowAsset(id: assetID)!
         assets.append(asset)
     }
 

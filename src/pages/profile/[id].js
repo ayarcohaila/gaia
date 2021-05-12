@@ -45,6 +45,7 @@ const Profile = () => {
       }
     }) => {
       const mappedAssets = nfts.map(nft => ({
+        asset_id: nft.asset_id,
         onSale: nft.is_for_sale,
         imgURL: nft.template.metadata.image,
         name: nft.template.metadata.name,
@@ -147,11 +148,10 @@ const Profile = () => {
       });
     }
   };
-
   const handleTransfer = async () => {
     try {
       setIsLoadingModal(true);
-      await transferNft(destinationAddress, modalItemId);
+      await transferNft(destinationAddress, modalItemId?.asset_id);
       Modal.success({
         icon: null,
         centered: true,
@@ -213,7 +213,7 @@ const Profile = () => {
                     title: 'Transfer',
                     action: e => {
                       e.domEvent.stopPropagation();
-                      setModalItemId(token.id);
+                      setModalItemId(token);
                       setTransferModalVisible(true);
                     }
                   }

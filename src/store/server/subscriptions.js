@@ -56,6 +56,7 @@ export const GET_MY_NFTS_BY_OWNER = gql`
   subscription nft($id: String!) {
     nft(where: { owner: { _eq: $id } }) {
       id
+      asset_id
       is_for_sale
       owner
       template {
