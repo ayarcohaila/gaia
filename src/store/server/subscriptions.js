@@ -38,6 +38,12 @@ export const GET_NFT = gql`
       is_for_sale
       owner
       asset_id
+      mint_number
+      collection {
+        id
+        name
+        author
+      }
       template {
         template_id
         metadata

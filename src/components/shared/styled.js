@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Button, Upload } from 'antd';
+import { Button, Upload, Typography } from 'antd';
+const { Text } = Typography;
 
 export const UploadComponent = styled(Upload)`
   .ant-upload {
@@ -45,4 +46,13 @@ export const UploadClearButton = styled(Button)`
   right: 0;
   z-index: 1;
   font-size: 2rem;
+`;
+
+export const Price = styled(Text)`
+  font-weight: 700;
+  margin-left: 5px;
+`;
+
+export const PriceContainer = styled.div`
+  display: flex;
 `;

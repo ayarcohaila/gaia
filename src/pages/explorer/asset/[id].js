@@ -11,9 +11,10 @@ import {
   Row,
   Result,
   Button,
-  List
+  List,
+  Col
 } from 'antd';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useSubscription } from '@apollo/react-hooks';
 
 import {
@@ -36,9 +37,11 @@ import {
 } from '~/components/asset/styled';
 import Seo from '~/components/seo/seo';
 import UserInfo from '~/components/UserInfo/UserInfo';
+import AssetInfo from '~/components/AssetInfo/AssetInfo';
 import useAuth from '~/hooks/useAuth';
 // import { changePrice } from '~/flow/changePrice';
 import { cancelSale } from '~/flow/cancelSale';
+import { getProfile } from '~/flow/getProfile';
 import { buy } from '~/flow/buy';
 import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
@@ -68,11 +71,12 @@ const Sale = () => {
     variables: {
       id
     },
-    onSubscriptionData: ({
+    onSubscriptionData: async ({
       subscriptionData: {
         data: { nft }
       }
-    }) =>
+    }) => {
+      const creatorProfile = await getProfile(nft[0]?.collection.author);
       setAsset({
         isLoading: false,
         isOnSale: nft[0].is_for_sale,
@@ -85,8 +89,12 @@ const Sale = () => {
         imgURL: nft[0].template.metadata.image,
         name: nft[0].template.metadata.name,
         description: nft[0].template.metadata.description,
-        saleOffers: nft[0].sale_offers
-      })
+        saleOffers: nft[0].sale_offers,
+        mintNumber: nft[0].mint_number,
+        collection: nft[0].collection,
+        creatorProfile
+      });
+    }
   });
 
   const description = useMemo(() => {
@@ -342,7 +350,7 @@ const Sale = () => {
     <>
       <Row justify="center">
         <Seo title="Details" imgURL={getImageURL(asset?.imgURL ?? '')} />
-        {asset?.isLoading ? (
+        {asset == null ? (
           <>
             {/* Skeleton */}
             <Column span={6} offset={2}>
@@ -390,16 +398,17 @@ const Sale = () => {
 
                 <InfoWrapper>
                   <InfoHeading>Info</InfoHeading>
+                  <AssetInfo
+                    collection={asset?.collection.name}
+                    mintNumber={asset?.mintNumber}
+                    id={asset?.id}
+                    price={asset?.saleOffers[0]?.price}
+                  />
                   <UserInfo
-                    name={asset?.ownerProfile?.name}
-                    src={getImageURL(asset?.ownerProfile?.avatar ?? '')}
+                    name={asset?.creatorProfile?.name}
+                    src={getImageURL(asset?.creatorProfile?.avatar ?? '')}
                     type="Creator"
                   />
-                  {/* {asset?.saleOffers.length > 0 && (
-                  <p>
-                    Price: <Price>{Number(asset?.price).toFixed(4)}</Price>
-                  </p>
-                )} */}
                   {renderAssetOwner()} {/*List on Market button */}
                   {renderMarketOptions()} {/* Buy button or This asset is not on sale */}
                   {renderSaleOwnerOptions()} {/*Edit and Cancel sale buttons */}
