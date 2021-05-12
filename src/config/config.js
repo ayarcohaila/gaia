@@ -7,7 +7,6 @@ const ipfsPostUrl = process.env.NEXT_PUBLIC_PINATA_POST_URL;
 const ipfsGateway = process.env.NEXT_PUBLIC_PINATA_GATEWAY;
 const marketAddress = process.env.NEXT_PUBLIC_NFTMARKET_CONTRACT;
 const landingOnly = process.env.NEXT_PUBLIC_LANDING_ONLY === 'true';
-const publicMintAddress = process.env.NEXT_PUBLIC_NFT_CONTRACT;
 
 fcl
   .config()
@@ -20,14 +19,4 @@ fcl
   .put('0xNFTContract', process.env.NEXT_PUBLIC_NFT_CONTRACT)
   .put('0xNFTMarket', marketAddress);
 
-export {
-  fcl,
-  t,
-  ipfsApiKey,
-  ipfsPrivateKey,
-  ipfsPostUrl,
-  ipfsGateway,
-  marketAddress,
-  landingOnly,
-  publicMintAddress
-};
+export { fcl, t, ipfsApiKey, ipfsPrivateKey, ipfsPostUrl, ipfsGateway, marketAddress, landingOnly };
