@@ -37,7 +37,7 @@ import {
 import Seo from '~/components/seo/seo';
 import UserInfo from '~/components/UserInfo/UserInfo';
 import useAuth from '~/hooks/useAuth';
-import { changePrice } from '~/flow/changePrice';
+// import { changePrice } from '~/flow/changePrice';
 import { cancelSale } from '~/flow/cancelSale';
 import { buy } from '~/flow/buy';
 import { getImageURL } from '~/utils/getImageUrl';
@@ -118,23 +118,22 @@ const Sale = () => {
 
   //This function handle the edit sale price
   const handleEditPrice = async ({ newPrice }) => {
-    setIsModalLoading(true);
-
-    try {
-      await changePrice(user?.addr, parseInt(id, 10), Number(newPrice));
-      setIsModalLoading(false);
-      Modal.success({
-        title: 'Price successfully updated!'
-      });
-    } catch (error) {
-      setIsModalLoading(false);
-      console.warn(error);
-      Modal.error({
-        title: `Failed to update price`
-      });
-    } finally {
-      setEditPriceVisible(false);
-    }
+    // setIsModalLoading(true);
+    // try {
+    //   await changePrice(user?.addr, parseInt(id, 10), Number(newPrice));
+    //   setIsModalLoading(false);
+    //   Modal.success({
+    //     title: 'Price successfully updated!'
+    //   });
+    // } catch (error) {
+    //   setIsModalLoading(false);
+    //   console.warn(error);
+    //   Modal.error({
+    //     title: `Failed to update price`
+    //   });
+    // } finally {
+    //   setEditPriceVisible(false);
+    // }
   };
 
   //This function handle the cancel sale
