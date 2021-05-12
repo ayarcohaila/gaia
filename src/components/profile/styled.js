@@ -93,6 +93,10 @@ export const CreatorUploadButton = styled(Button)`
   margin-top: 10px;
 `;
 
+export const NewAttrButton = styled(CreatorUploadButton)`
+  width: 90%;
+`;
+
 export const StyledInput = styled(Input)`
   border: 1px solid #e5e8eb;
   padding: 10px 20px;

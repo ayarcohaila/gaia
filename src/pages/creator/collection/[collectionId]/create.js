@@ -13,7 +13,8 @@ import {
   StyledInput,
   StyledTextArea,
   SubmitButton,
-  Centralizer
+  Centralizer,
+  NewAttrButton
 } from '~/components/profile/styled';
 import useAuth from '~/hooks/useAuth';
 import { uploadFile } from '~/utils/upload';
@@ -132,15 +133,17 @@ const FormComponent = ({ onSubmit, loading }) => {
                 ))}
               </Row>
               <Form.Item>
-                <CreatorUploadButton
-                  type="primary"
-                  shape="round"
-                  onClick={add}
-                  block
-                  icon={<PlusOutlined />}
-                  size="large">
-                  Add New Attribute
-                </CreatorUploadButton>
+                <Centralizer>
+                  <NewAttrButton
+                    type="primary"
+                    shape="round"
+                    onClick={add}
+                    block
+                    icon={<PlusOutlined />}
+                    size="large">
+                    Add New Attribute
+                  </NewAttrButton>
+                </Centralizer>
               </Form.Item>
             </>
           )}
