@@ -203,7 +203,7 @@ const Profile = () => {
         <Row justify="end">
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
         </Row>
-        <Row justify="space-between">
+        <Row justify="start">
           {isLoading
             ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
             : data.map(token => {

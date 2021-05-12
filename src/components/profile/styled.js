@@ -54,6 +54,10 @@ export const ProfileWrapper = styled(Row)`
     margin-bottom: 20px;
   }
 
+  .token-card {
+    margin-right: 20px;
+  }
+
   .address {
     margin: -22.5px auto 10px;
   }
