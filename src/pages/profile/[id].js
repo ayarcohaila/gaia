@@ -45,6 +45,8 @@ const Profile = () => {
       }
     }) => {
       const mappedAssets = nfts.map(nft => ({
+        asset_id: nft.asset_id,
+        template_id: nft.template.template_id,
         onSale: nft.is_for_sale,
         imgURL: nft.template.metadata.image,
         name: nft.template.metadata.name,
@@ -52,7 +54,6 @@ const Profile = () => {
         owner: nft.owner,
         id: nft.id
       }));
-
       setAssets(mappedAssets);
     }
   });
@@ -81,11 +82,12 @@ const Profile = () => {
     { title: 'Highest price', action: () => setFilter('highestPrice') },
     { title: 'None', action: () => setFilter(null) }
   ];
-
   const onFinishSale = async ({ price }) => {
     try {
       setIsLoadingModal(true);
-      await createSaleOffer(modalItemId, price);
+      // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID)
+      await createSaleOffer(modalItemId?.asset_id, price, modalItemId?.template_id);
+
       Modal.success({
         icon: null,
         centered: true,
@@ -128,11 +130,10 @@ const Profile = () => {
     }
     form.resetFields();
   };
-  const sellAsset = itemId => {
-    setModalItemId(itemId);
+  const sellAsset = token => {
+    setModalItemId(token);
     setSellModalVisible(true);
   };
-
   const onCancelSale = async itemId => {
     try {
       await cancelSale(itemId);
@@ -147,11 +148,10 @@ const Profile = () => {
       });
     }
   };
-
   const handleTransfer = async () => {
     try {
       setIsLoadingModal(true);
-      await transferNft(destinationAddress, modalItemId);
+      await transferNft(destinationAddress, modalItemId?.asset_id);
       Modal.success({
         icon: null,
         centered: true,
@@ -203,7 +203,7 @@ const Profile = () => {
         <Row justify="end">
           <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
         </Row>
-        <Row justify="space-between">
+        <Row justify="start">
           {isLoading
             ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
             : data.map(token => {
@@ -213,7 +213,7 @@ const Profile = () => {
                     title: 'Transfer',
                     action: e => {
                       e.domEvent.stopPropagation();
-                      setModalItemId(token.id);
+                      setModalItemId(token);
                       setTransferModalVisible(true);
                     }
                   }
@@ -225,7 +225,7 @@ const Profile = () => {
                       title: 'Sell',
                       action: e => {
                         e.domEvent.stopPropagation();
-                        sellAsset(token.id);
+                        sellAsset(token);
                       }
                     });
                   onSale &&
@@ -272,7 +272,7 @@ const Profile = () => {
       </Modal>
       <Modal
         visible={sellModal}
-        title={`How much do you want for this asset (#${modalItemId})`}
+        title={`How much do you want for this asset (#${modalItemId?.id})`}
         footer={[
           <Button
             key="back"

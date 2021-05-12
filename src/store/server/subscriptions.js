@@ -37,7 +37,9 @@ export const GET_NFT = gql`
       id
       is_for_sale
       owner
+      asset_id
       template {
+        template_id
         metadata
       }
       sale_offers {
@@ -56,9 +58,12 @@ export const GET_MY_NFTS_BY_OWNER = gql`
   subscription nft($id: String!) {
     nft(where: { owner: { _eq: $id } }) {
       id
+      asset_id
       is_for_sale
       owner
+      asset_id
       template {
+        template_id
         metadata
       }
       sale_offers {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
@@ -41,8 +42,8 @@ import { cancelSale } from '~/flow/cancelSale';
 import { buy } from '~/flow/buy';
 import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
-import { createSaleOffer } from '~/flow/sell';
 import { GET_NFT } from '~/store/server/subscriptions';
+import { createSaleOffer } from '~/flow/sell';
 
 const { Text } = Typography;
 
@@ -79,6 +80,8 @@ const Sale = () => {
           address: nft[0].owner
         },
         id: nft[0].id,
+        asset_id: nft[0]?.asset_id,
+        template_id: nft[0]?.template.template_id,
         imgURL: nft[0].template.metadata.image,
         name: nft[0].template.metadata.name,
         description: nft[0].template.metadata.description,
@@ -294,7 +297,7 @@ const Sale = () => {
   const onFinishSale = async ({ price }) => {
     try {
       setIsLoadingSale(true);
-      await createSaleOffer(asset?.id, price);
+      await createSaleOffer(asset?.asset_id, price, asset?.template_id);
       setModalVisible(false);
       Modal.success({
         icon: null,
