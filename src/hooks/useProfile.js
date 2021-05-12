@@ -1,5 +1,4 @@
 import { useMemo, useState, useEffect } from 'react';
-import { initProfile } from '~/flow/initProfile';
 import { getProfile } from '~/flow/getProfile';
 import { checkSetup } from '~/flow/checkSetup';
 
@@ -33,7 +32,6 @@ export default function useProfile(address) {
 
   return {
     userProfile,
-    initProfile,
     hasSetup,
     initialized
   };
