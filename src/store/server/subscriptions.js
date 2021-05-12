@@ -18,7 +18,7 @@ export const GET_DROP_BY_ID = gql`
 
 export const GET_NFTS_ON_SALE = gql`
   subscription nft_sale_offer {
-    nft_sale_offer {
+    nft_sale_offer(where: { status: { _eq: "active" } }) {
       price
       nft {
         id
