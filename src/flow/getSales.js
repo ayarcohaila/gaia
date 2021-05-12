@@ -1,47 +1,42 @@
 import { fcl, t } from '../config/config';
 
 const LIST_NFTS_SCRIPT = fcl.cdc`
-  import Assets from 0xNFTContract
-  import AssetsMarket from 0xNFTMarket
+  import FlowAssets from 0xNFTContract
+  import FlowAssetsMarket from 0xNFTMarket
 
   pub struct AssetVO {
     pub let id: UInt64
-    pub let isCompleted: Bool
     pub let price: UFix64
-    pub let owner: Address
+    pub let templateID: UInt64
   
-    init(id: UInt64, isCompleted: Bool, price: UFix64, owner: Address) {
+    init(id: UInt64, price: UFix64, templateID: UInt64) {
       self.id = id
-      self.isCompleted = isCompleted
       self.price = price
-      self.owner = owner
+      self.templateID = templateID
     }
   }
 
   pub fun main(address: Address): [AssetVO] {
         
     let colectionRef = getAccount(address)
-        .getCapability<&AssetsMarket.Collection{AssetsMarket.CollectionPublic}>(AssetsMarket.CollectionPublicPath).borrow()
+        .getCapability<&FlowAssetsMarket.Collection{FlowAssetsMarket.CollectionPublic}>(FlowAssetsMarket.CollectionPublicPath).borrow()
         ?? panic("Could not borrow capability from public collection")
-    
-    if(colectionRef != nil){
+      if(colectionRef != nil){
         let ids = colectionRef.getSaleOfferIDs()
         let assets: [AssetVO] = []
-
+        
         for assetID in ids {
-            let sale = colectionRef.borrowSaleAsset(saleAssetID: assetID)!
-            let a = AssetVO(id: sale.saleAssetID, isCompleted: sale.saleCompleted, price: sale.salePrice, owner: sale.saleOwner)
-            assets.append(a)
+          let sale = colectionRef.borrowSaleItem(itemID: assetID)!
+          let a = AssetVO(id: sale.itemID, price: sale.price, templateID: sale.templateID)
+          assets.append(a)
         }
-
         return assets
-    }
+      }
+      return []
     
     
-    return []
   }
 `;
-
 export async function getSales(address) {
   try {
     const r = await fcl
@@ -49,6 +44,7 @@ export async function getSales(address) {
       .then(fcl.decode);
     return r;
   } catch (error) {
+    console.warn(error);
     return [];
   }
 }
