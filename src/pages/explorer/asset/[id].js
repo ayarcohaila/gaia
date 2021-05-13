@@ -249,7 +249,7 @@ const Sale = () => {
         </StyledButton>
         <Modal
           visible={modalVisible}
-          title={`How much do you want for this asset (#${asset?.id})`}
+          title={`How much do you want for this asset (${asset?.name} - ${asset?.asset_id})`}
           footer={[
             <Button key="back" onClick={() => setModalVisible(false)}>
               Cancel

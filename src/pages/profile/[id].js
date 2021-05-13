@@ -272,7 +272,7 @@ const Profile = () => {
       </Modal>
       <Modal
         visible={sellModal}
-        title={`How much do you want for this asset (#${modalItemId?.id})`}
+        title={`How much do you want for this asset (${modalItemId?.name} - ${modalItemId?.asset_id})`}
         footer={[
           <Button
             key="back"
