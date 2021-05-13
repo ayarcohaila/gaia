@@ -35,6 +35,10 @@ export const SubmitInput = styled.input`
 
 export const StyledForm = styled.form`
   width: 80%;
+
+  .ant-select-clear {
+    display: none !important;
+  }
 `;
 
 export const UserInfo = styled.span`
