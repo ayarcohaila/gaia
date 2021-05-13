@@ -26,7 +26,7 @@ const Asset = ({ imgURL, description, name, price, owner, id, actions, linkTo, m
     <Card className="token-card">
       {owner && <StyledAvatar size="small" {...avatarSource} />}
       <MintNumberContainer justify="end">
-        <Description>{`Mint num.: ${mintNumber}`}</Description>
+        <Description>{`#${mintNumber}`}</Description>
       </MintNumberContainer>
       <CardImage
         width={193}
