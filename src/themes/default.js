@@ -7,7 +7,8 @@ const colors = {
   gray: '#232b29',
   borderGray: '#e5e8eb',
   lightGray: '#838689',
-  headerLink: '#404040'
+  headerLink: '#404040',
+  green: 'green'
 };
 
 const fontSizes = {
