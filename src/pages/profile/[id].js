@@ -53,7 +53,8 @@ const Profile = () => {
         name: nft.template.metadata.name,
         description: nft.template.metadata.description,
         id: nft.id,
-        mintNumber: nft.mint_number
+        mintNumber: nft.mint_number,
+        owner: nft.owner
       }));
       setAssets(mappedAssets);
     }
