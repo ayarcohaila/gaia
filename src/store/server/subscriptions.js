@@ -49,6 +49,7 @@ export const GET_NFT = gql`
         metadata
       }
       sale_offers {
+        status
         id
         price
         nft {

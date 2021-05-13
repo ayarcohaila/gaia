@@ -355,6 +355,7 @@ const Sale = () => {
     }
     form.resetFields();
   };
+
   return (
     <>
       <Row justify="center">
@@ -418,7 +419,9 @@ const Sale = () => {
                     src={getImageURL(asset?.creatorProfile?.avatar ?? '')}
                     type="Creator"
                   />
-                  {renderAssetOwner()} {/*List on Market button */}
+                  {(asset?.saleOffers?.length === 0 && renderAssetOwner()) ||
+                    (asset?.saleOffers?.some(offer => offer.status !== 'active') &&
+                      renderAssetOwner())}
                   {renderMarketOptions()} {/* Buy button or This asset is not on sale */}
                   {renderSaleOwnerOptions()} {/*Edit and Cancel sale buttons */}
                 </InfoWrapper>
