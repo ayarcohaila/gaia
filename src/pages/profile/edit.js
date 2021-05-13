@@ -1,4 +1,4 @@
-import { Col, Modal, Row } from 'antd';
+import { Col, Modal, Row, Spin, notification } from 'antd';
 import { useState, useEffect, useMemo } from 'react';
 import isEqual from 'lodash.isequal';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -63,14 +63,26 @@ const EditProfile = () => {
   const handleSave = async () => {
     const { name, avatar, info } = state;
     try {
+      notification.open({
+        key: `edit_profile`,
+        message: `Editing profile`,
+        description: 'You gonna be prompted to accept this transaction',
+        icon: <Spin />,
+        duration: null
+      });
       await editProfile(name, avatar, info);
-      Modal.success({
-        title: 'User profile successfully updated!'
+      notification.open({
+        key: `edit_profile`,
+        type: 'success',
+        message: `Profile edited`,
+        description: `Your profile has been successfully edited`
       });
     } catch (error) {
-      Modal.error({
-        title: 'Failed to update your userProfile :/',
-        content: 'Please, try again'
+      notification.open({
+        key: `edit_profile`,
+        type: 'error',
+        message: `Error on editing your profile`,
+        description: `Your profile edition has failed`
       });
     }
   };

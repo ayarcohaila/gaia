@@ -1,3 +1,4 @@
+import { Spin, notification } from 'antd';
 import { fcl, t } from '../config/config';
 
 const TRANSFER_NFT_TX = fcl.cdc`
@@ -30,15 +31,26 @@ transaction(recipient: Address, withdrawID: UInt64) {
 `;
 
 export async function transferNft(recipient, withdrawID) {
-  const txId = await fcl
-    .send([
-      fcl.transaction(TRANSFER_NFT_TX),
-      fcl.args([fcl.arg(recipient, t.Address), fcl.arg(withdrawID, t.UInt64)]),
-      fcl.payer(fcl.authz), // current user is responsible for paying for the transaction
-      fcl.proposer(fcl.authz), // current user acting as the nonce
-      fcl.authorizations([fcl.authz]), // current user will be first AuthAccount
-      fcl.limit(35) // set the compute limit
-    ])
-    .then(fcl.decode);
-  return fcl.tx(txId).onceSealed();
+  try {
+    const txId = await fcl
+      .send([
+        fcl.transaction(TRANSFER_NFT_TX),
+        fcl.args([fcl.arg(recipient, t.Address), fcl.arg(withdrawID, t.UInt64)]),
+        fcl.payer(fcl.authz), // current user is responsible for paying for the transaction
+        fcl.proposer(fcl.authz), // current user acting as the nonce
+        fcl.authorizations([fcl.authz]), // current user will be first AuthAccount
+        fcl.limit(35) // set the compute limit
+      ])
+      .then(fcl.decode);
+    notification.open({
+      key: `transfer_${withdrawID}`,
+      icon: <Spin />,
+      message: `Transferring #${withdrawID} to ${recipient}`,
+      description: 'Sending transaction to the blockchain',
+      duration: null
+    });
+    return fcl.tx(txId).onceSealed();
+  } catch (err) {
+    throw new Error(err);
+  }
 }

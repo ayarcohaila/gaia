@@ -11,6 +11,7 @@ import theme from '~/themes/default';
 import client from '~/config/apollo-client';
 
 import 'antd/dist/antd.less';
+import 'antd/dist/antd.css';
 
 function MyApp({ Component, pageProps }) {
   return (

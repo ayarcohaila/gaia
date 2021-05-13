@@ -9,10 +9,9 @@ import {
   Skeleton,
   Space,
   Row,
-  Result,
   Button,
-  List,
-  Col
+  Spin,
+  notification
 } from 'antd';
 import { useMemo, useState } from 'react';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
@@ -113,6 +112,13 @@ const Sale = () => {
   const handleBuy = async saleId => {
     setIsModalLoading(true);
     try {
+      notification.open({
+        key: `buy_sale_${saleId}`,
+        message: `Buying sale offer #${saleId}`,
+        description: 'You gonna be prompted to accept this transaction',
+        icon: <Spin />,
+        duration: null
+      });
       await buy(Number(saleId), asset?.ownerProfile?.address);
       updateOwner({
         variables: {
@@ -120,16 +126,18 @@ const Sale = () => {
           owner: user?.addr
         }
       });
-      setIsModalLoading(false);
-      Modal.success({
-        title: 'Congratulations!',
-        content: `You have successfully bought an ${asset?.name}`
+      notification.open({
+        key: `buy_sale_${saleId}`,
+        type: 'success',
+        message: `You bought sale offer #${saleId} `,
+        description: `Your have bought sale offer #${saleId} successfully`
       });
     } catch (error) {
-      setIsModalLoading(false);
-      Modal.error({
-        title: `Failed to buy ${asset?.name}`,
-        content: 'Please, try again'
+      notification.open({
+        key: `buy_sale_${saleId}`,
+        type: 'error',
+        message: `Error on buy sale offer #${saleId}  `,
+        description: `Your sale offer for ID #${saleId} has failed`
       });
     }
   };
@@ -147,7 +155,7 @@ const Sale = () => {
     //   setIsModalLoading(false);
     //   console.warn(error);
     //   Modal.error({
-    //     title: `Failed to update price`
+    //     message: `Failed to update price`
     //   });
     // } finally {
     //   setEditPriceVisible(false);
@@ -156,21 +164,29 @@ const Sale = () => {
 
   //This function handle the cancel sale
   const handleCancelSale = async () => {
-    setIsModalLoading(true);
+    setCancelModalVisible(false);
     try {
-      await cancelSale(Number(id));
-      setIsModalLoading(false);
-      Modal.success({
-        title: 'Sale successfully canceled'
+      notification.open({
+        key: `cancel_sale_${asset?.asset_id}`,
+        message: `Canceling sale offer for ID #${asset?.asset_id}`,
+        description: 'You gonna be prompted to accept this transaction',
+        icon: <Spin />,
+        duration: null
+      });
+      await cancelSale(asset?.asset_id);
+      notification.open({
+        key: `cancel_sale_${asset?.asset_id}`,
+        type: 'success',
+        message: `Sale offer #${asset?.asset_id} canceled `,
+        description: `Your sale offer for ID #${asset?.asset_id} is canceled`
       });
     } catch (error) {
-      setIsModalLoading(false);
-      console.warn(error);
-      Modal.error({
-        title: `Failed to cancel sale`
+      notification.open({
+        key: `cancel_sale_${asset?.asset_id}`,
+        type: 'error',
+        message: `Canceling sale offer #${asset?.asset_id} failed `,
+        description: `Your sale offer for ID #${asset?.asset_id} has failed`
       });
-    } finally {
-      setCancelModalVisible(false);
     }
   };
 
@@ -259,7 +275,10 @@ const Sale = () => {
               key="submit"
               type="primary"
               loading={isLoadingSale}
-              onClick={() => form.submit()}>
+              onClick={() => {
+                setModalVisible(false);
+                form.submit();
+              }}>
               Sell
             </Button>
           ]}>
@@ -317,53 +336,35 @@ const Sale = () => {
   //It handle the form submit of sell modal
   const onFinishSale = async ({ price }) => {
     try {
-      setIsLoadingSale(true);
+      notification.open({
+        key: `sale_${asset?.asset_id}`,
+        message: `Creating an offer for ID #${asset?.asset_id}`,
+        description: 'You gonna be prompted to accept this transaction',
+        icon: <Spin />,
+        duration: null
+      });
+      // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID)
       await createSaleOffer(asset?.asset_id, price, asset?.template_id);
       insertSaleOffer({
         variables: {
-          price: price,
-          nft_id: asset?.asset_id,
+          price: price.toFixed(8),
+          nft_id: asset?.id,
           status: 'active'
         }
       });
-      setModalVisible(false);
-      Modal.success({
-        icon: null,
-        centered: true,
-        closable: false,
-        okButtonProps: {
-          hidden: true
-        },
-        title: '',
-        content: (
-          <Result
-            status="success"
-            title="Woohoo!"
-            subTitle="Mission accomplished"
-            extra={
-              <Button
-                type="primary"
-                key="console"
-                onClick={() => {
-                  Modal.destroyAll();
-                  router.push(URLs.marketplace);
-                }}>
-                Go to Marketplace
-              </Button>
-            }
-          />
-        )
+      notification.open({
+        key: `sale_${asset?.asset_id}`,
+        type: 'success',
+        message: `Sale for ID #${asset?.asset_id} created `,
+        description: `Your sale offer for ID #${asset?.asset_id} is created`
       });
     } catch (err) {
-      Modal.error({
-        icon: null,
-        centered: true,
-        closable: true,
-        title: '',
-        content: <Result status="error" title="Oops!" subTitle="Mission failed" />
+      notification.open({
+        key: `sale_${asset?.asset_id}`,
+        type: 'error',
+        message: `Sale for ID #${asset?.asset_id} failed `,
+        description: `Your sale offer for ID #${asset?.asset_id} has failed`
       });
-    } finally {
-      setIsLoadingSale(false);
     }
     form.resetFields();
   };

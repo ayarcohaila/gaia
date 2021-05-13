@@ -1,3 +1,5 @@
+import { Spin, notification } from 'antd';
+
 import { fcl, t } from '../config/config';
 
 const CANCEL_SALE_TX = fcl.cdc`
@@ -19,15 +21,28 @@ transaction(saleAssetID: UInt64) {
 `;
 
 export async function cancelSale(saleAssetID) {
-  const txId = await fcl
-    .send([
-      fcl.transaction(CANCEL_SALE_TX),
-      fcl.payer(fcl.authz),
-      fcl.proposer(fcl.authz),
-      fcl.authorizations([fcl.authz]),
-      fcl.args([fcl.arg(saleAssetID, t.UInt64)]),
-      fcl.limit(35)
-    ])
-    .then(fcl.decode);
-  return fcl.tx(txId).onceSealed();
+  try {
+    const txId = await fcl
+      .send([
+        fcl.transaction(CANCEL_SALE_TX),
+        fcl.payer(fcl.authz),
+        fcl.proposer(fcl.authz),
+        fcl.authorizations([fcl.authz]),
+        fcl.args([fcl.arg(saleAssetID, t.UInt64)]),
+        fcl.limit(35)
+      ])
+      .then(fcl.decode);
+    notification.open({
+      key: `cancel_sale_${saleAssetID}`,
+      icon: <Spin />,
+      message: `Canceling #${saleAssetID} offer`,
+      description: 'Sending transaction to the blockchain',
+      duration: null
+    });
+    return fcl.tx(txId).onceSealed();
+  } catch (err) {
+    throw new Error(
+      'createSaleOffer(saleAssetID, salePrice, marketFee, templateID, marketPaymentReceiver) -- templateID required'
+    );
+  }
 }

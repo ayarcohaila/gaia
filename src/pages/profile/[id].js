@@ -1,10 +1,19 @@
-import { Row, Col, Modal, Form, Typography, Button, InputNumber, Result, Input } from 'antd';
+import {
+  Row,
+  Col,
+  Modal,
+  Form,
+  Typography,
+  Button,
+  InputNumber,
+  Input,
+  Spin,
+  notification
+} from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
-
-import { URLs } from '~/routes/urls';
 
 import Address from '~/components/address/Address';
 import Card from '~/components/asset/Asset';
@@ -30,7 +39,6 @@ const Profile = () => {
   const { user } = useAuth();
   const [filter, setFilter] = useState(null);
   const [modalItemId, setModalItemId] = useState(null);
-  const [isLoadingModal, setIsLoadingModal] = useState(false);
   const [sellModal, setSellModalVisible] = useState(false);
   const [transferModal, setTransferModalVisible] = useState(false);
   const [destinationAddress, setDestinationAddress] = useState(null);
@@ -86,120 +94,96 @@ const Profile = () => {
     { title: 'Highest price', action: () => setFilter('highestPrice') },
     { title: 'None', action: () => setFilter(null) }
   ];
-  const onFinishSale = async ({ price }) => {
-    try {
-      setIsLoadingModal(true);
-      // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID)
-      await createSaleOffer(modalItemId?.asset_id, price, modalItemId?.template_id);
-      insertSaleOffer({
-        variables: {
-          price: price,
-          nft_id: modalItemId?.asset_id,
-          status: 'active'
-        }
-      });
 
-      Modal.success({
-        icon: null,
-        centered: true,
-        closable: false,
-        okButtonProps: {
-          hidden: true
-        },
-        title: '',
-        content: (
-          <Result
-            status="success"
-            title="Woohoo!"
-            subTitle="Mission accomplished"
-            extra={
-              <Button
-                type="primary"
-                key="console"
-                onClick={() => {
-                  setModalItemId(null);
-                  Modal.destroyAll();
-                  router.push(URLs.marketplace);
-                }}>
-                Go to Marketplace
-              </Button>
-            }
-          />
-        )
-      });
-    } catch (err) {
-      setModalItemId(null);
-      Modal.error({
-        icon: null,
-        centered: true,
-        closable: true,
-        title: '',
-        content: <Result status="error" title="Oops!" subTitle="Mission failed" />
-      });
-    } finally {
-      setIsLoadingModal(false);
-    }
-    form.resetFields();
-  };
   const sellAsset = token => {
     setModalItemId(token);
     setSellModalVisible(true);
   };
-  const onCancelSale = async itemId => {
+  const onFinishSale = async ({ price }) => {
     try {
-      await cancelSale(itemId);
-      router.reload();
+      notification.open({
+        key: `sale_${modalItemId?.asset_id}`,
+        message: `Creating an offer for ID #${modalItemId?.asset_id}`,
+        description: 'You gonna be prompted to accept this transaction',
+        icon: <Spin />,
+        duration: null
+      });
+      // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID)
+      await createSaleOffer(modalItemId?.asset_id, price, modalItemId?.template_id);
+      insertSaleOffer({
+        variables: {
+          price: price.toFixed(8),
+          nft_id: modalItemId?.id,
+          status: 'active'
+        }
+      });
+      notification.open({
+        key: `sale_${modalItemId?.asset_id}`,
+        type: 'success',
+        message: `Sale for ID #${modalItemId?.asset_id} created `,
+        description: `Your sale offer for ID #${modalItemId?.asset_id} is created`
+      });
+    } catch (err) {
+      notification.open({
+        key: `sale_${modalItemId?.asset_id}`,
+        type: 'error',
+        message: `Sale for ID #${modalItemId?.asset_id} failed `,
+        description: `Your sale offer for ID #${modalItemId?.asset_id} has failed`
+      });
+    }
+    form.resetFields();
+  };
+  const onCancelSale = async item => {
+    try {
+      notification.open({
+        key: `cancel_sale_${item?.asset_id}`,
+        message: `Canceling sale offer for ID #${item?.asset_id}`,
+        description: 'You gonna be prompted to accept this transaction',
+        icon: <Spin />,
+        duration: null
+      });
+      await cancelSale(item?.asset_id);
+      notification.open({
+        key: `cancel_sale_${item?.asset_id}`,
+        type: 'success',
+        message: `Sale offer #${item?.asset_id} canceled `,
+        description: `Your sale offer for ID #${item?.asset_id} is canceled`
+      });
     } catch (error) {
-      Modal.error({
-        icon: null,
-        centered: true,
-        closable: true,
-        title: '',
-        content: <Result status="error" title="Oops!" subTitle="Mission failed" />
+      notification.open({
+        key: `cancel_sale_${item?.asset_id}`,
+        type: 'error',
+        message: `Canceling sale offer #${item?.asset_id} failed `,
+        description: `Your sale offer for ID #${item?.asset_id} has failed`
       });
     }
   };
   const handleTransfer = async () => {
     try {
-      setIsLoadingModal(true);
+      setTransferModalVisible(false);
+      notification.open({
+        key: `transfer_${modalItemId?.asset_id}`,
+        message: `Transferring #${modalItemId?.asset_id}`,
+        description: `You gonna be prompted to accept transferring ${modalItemId?.asset_id} to ${destinationAddress}.`,
+        icon: <Spin />,
+        duration: null
+      });
       await transferNft(destinationAddress, modalItemId?.asset_id);
-      Modal.success({
-        icon: null,
-        centered: true,
-        closable: false,
-        okButtonProps: {
-          hidden: true
-        },
-        title: '',
-        content: (
-          <Result
-            status="success"
-            title="Woohoo!"
-            subTitle="Mission accomplished"
-            extra={
-              <Button
-                type="primary"
-                key="console"
-                onClick={() => {
-                  Modal.destroyAll();
-                }}>
-                Go to Marketplace
-              </Button>
-            }
-          />
-        )
+      notification.open({
+        key: `transfer_${modalItemId?.asset_id}`,
+        type: 'success',
+        message: `#${modalItemId?.asset_id} transferred `,
+        description: `#${modalItemId?.asset_id} have been transferred to ${destinationAddress}`
       });
     } catch (err) {
-      Modal.error({
-        icon: null,
-        centered: true,
-        closable: true,
-        title: '',
-        content: <Result status="error" title="Oops!" subTitle="Mission failed" />
+      notification.open({
+        key: `transfer_${modalItemId?.asset_id}`,
+        type: 'error',
+        message: `Transferring #${modalItemId?.asset_id} failed `,
+        description: `Your asset #${modalItemId?.asset_id} has failed on transferring to ${destinationAddress}`
       });
     } finally {
       setModalItemId(null);
-      setIsLoadingModal(false);
     }
   };
 
@@ -229,7 +213,6 @@ const Profile = () => {
                     }
                   }
                 ];
-
                 if (user?.addr === id) {
                   !onSale &&
                     actions.push({
@@ -244,7 +227,7 @@ const Profile = () => {
                       title: 'Cancel',
                       action: e => {
                         e.domEvent.stopPropagation();
-                        onCancelSale(token.id);
+                        onCancelSale(token);
                       }
                     });
                 }
@@ -275,7 +258,6 @@ const Profile = () => {
           <Button
             key="submit"
             type="primary"
-            loading={isLoadingModal}
             disabled={!destinationAddress}
             onClick={handleTransfer}>
             Transfer
@@ -302,8 +284,10 @@ const Profile = () => {
           <Button
             key="submit"
             type="primary"
-            loading={isLoadingModal}
-            onClick={() => form.submit()}>
+            onClick={() => {
+              setSellModalVisible(false);
+              form.submit();
+            }}>
             Sell
           </Button>
         ]}>

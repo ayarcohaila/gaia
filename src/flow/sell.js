@@ -1,3 +1,5 @@
+import { Spin, notification } from 'antd';
+
 import { fcl, t } from '../config/config';
 
 const SALE_NFT_TX = `
@@ -88,8 +90,16 @@ export async function createSaleOffer(saleAssetID, salePrice, templateID) {
         fcl.limit(1000)
       ])
       .then(fcl.decode);
+    notification.open({
+      key: `sale_${saleAssetID}`,
+      icon: <Spin />,
+      message: `Creating an offer for ID #${saleAssetID}`,
+      description: 'Sending transaction to the blockchain',
+      duration: null
+    });
     return fcl.tx(txId).onceSealed();
   } catch (err) {
     console.error(err);
+    throw new Error(err);
   }
 }
