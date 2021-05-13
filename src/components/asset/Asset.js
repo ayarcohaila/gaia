@@ -12,18 +12,22 @@ import {
   Price,
   ContentContainer,
   StyledAvatar,
-  DropDownContainer
+  DropDownContainer,
+  MintNumberContainer
 } from './styled';
 import { getImageURL } from '~/utils/getImageUrl';
 import formatPrice from '~/utils/formatPrice';
 import { URLs } from '~/routes/urls';
 import DropDown from '~/components/dropdown/DropDown';
 
-const Asset = ({ imgURL, description, name, price, owner, id, actions, linkTo }) => {
+const Asset = ({ imgURL, description, name, price, owner, id, actions, linkTo, mintNumber }) => {
   const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
   const Component = (
     <Card className="token-card">
       {owner && <StyledAvatar size="small" {...avatarSource} />}
+      <MintNumberContainer justify="end">
+        <Description>{`Mint num.: ${mintNumber}`}</Description>
+      </MintNumberContainer>
       <CardImage
         width={193}
         height={182}

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
-import { Button, Avatar, Typography, Skeleton, Col } from 'antd';
+import { Button, Avatar, Typography, Skeleton, Col, Row } from 'antd';
 
 export const AmountContainer = styled.div`
   display: flex;
@@ -178,4 +178,8 @@ export const InfoHeading = styled.p`
 
 export const InfoWrapper = styled.div`
   margin-top: ${({ noMargin }) => (noMargin ? 'none' : 'auto')}};
+`;
+
+export const MintNumberContainer = styled(Row)`
+  padding: 5px 10px;
 `;

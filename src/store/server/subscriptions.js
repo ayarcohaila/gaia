@@ -23,6 +23,7 @@ export const GET_NFTS_ON_SALE = gql`
       nft {
         id
         created_at
+        mint_number
         template {
           metadata
         }
