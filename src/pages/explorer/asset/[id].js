@@ -396,7 +396,7 @@ const Sale = () => {
                 <Heading>{asset?.name}</Heading>
                 <p>
                   Owned by{' '}
-                  <Link href={URLs.profile(user?.addr)}>
+                  <Link href={URLs.profile(asset?.ownerProfile?.address)}>
                     <OwnerName>{asset?.ownerProfile?.address}</OwnerName>
                   </Link>
                 </p>
