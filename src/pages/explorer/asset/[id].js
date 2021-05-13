@@ -46,7 +46,7 @@ import { buy } from '~/flow/buy';
 import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
 import { GET_NFT } from '~/store/server/subscriptions';
-import { UPDATE_OWNER } from '~/store/server/mutations';
+import { UPDATE_OWNER, INSERT_SALE_OFFER } from '~/store/server/mutations';
 import { createSaleOffer } from '~/flow/sell';
 
 const { Text } = Typography;
@@ -98,6 +98,8 @@ const Sale = () => {
   });
 
   const [updateOwner] = useMutation(UPDATE_OWNER);
+
+  const [insertSaleOffer] = useMutation(INSERT_SALE_OFFER);
 
   const description = useMemo(() => {
     if (completeDescription || asset?.description?.length < 330) {
@@ -317,6 +319,13 @@ const Sale = () => {
     try {
       setIsLoadingSale(true);
       await createSaleOffer(asset?.asset_id, price, asset?.template_id);
+      insertSaleOffer({
+        variables: {
+          price: price,
+          nft_id: asset?.asset_id,
+          status: 'active'
+        }
+      });
       setModalVisible(false);
       Modal.success({
         icon: null,
@@ -408,7 +417,6 @@ const Sale = () => {
                     </ReadMore>
                   )}
                 </Description>
-
                 <InfoWrapper>
                   <InfoHeading>Info</InfoHeading>
                   <AssetInfo

@@ -2,7 +2,7 @@ import { Row, Col, Modal, Form, Typography, Button, InputNumber, Result, Input }
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useSubscription } from '@apollo/react-hooks';
+import { useSubscription, useMutation } from '@apollo/react-hooks';
 
 import { URLs } from '~/routes/urls';
 
@@ -12,6 +12,7 @@ import DropDown from '~/components/dropdown/DropDown';
 import useAuth from '~/hooks/useAuth';
 
 import { GET_MY_NFTS_BY_OWNER } from '~/store/server/subscriptions';
+import { INSERT_SALE_OFFER } from '~/store/server/mutations';
 
 import { createSaleOffer } from '~/flow/sell';
 import { cancelSale } from '~/flow/cancelSale';
@@ -58,6 +59,8 @@ const Profile = () => {
     }
   });
 
+  const [insertSaleOffer] = useMutation(INSERT_SALE_OFFER);
+
   const data = useMemo(() => {
     if (!filter) {
       return assets;
@@ -87,6 +90,13 @@ const Profile = () => {
       setIsLoadingModal(true);
       // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID)
       await createSaleOffer(modalItemId?.asset_id, price, modalItemId?.template_id);
+      insertSaleOffer({
+        variables: {
+          price: price,
+          nft_id: modalItemId?.asset_id,
+          status: 'active'
+        }
+      });
 
       Modal.success({
         icon: null,

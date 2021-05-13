@@ -31,3 +31,16 @@ export const UPDATE_OWNER = gql`
     }
   }
 `;
+
+export const INSERT_SALE_OFFER = gql`
+  mutation createSaleOffer($price: String!, $nft_id: uuid!, $status: String!) {
+    insert_nft_sale_offer_one(object: { price: $price, nft_id: $nft_id, status: $status }) {
+      created_at
+      id
+      nft_id
+      price
+      status
+      updated_at
+    }
+  }
+`;
