@@ -62,7 +62,6 @@ const Sale = () => {
   const [isModalLoading, setIsModalLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [isLoadingSale, setIsLoadingSale] = useState(false);
-  const [buyModalVisible, setBuyModalVisible] = useState(false);
   const [asset, setAsset] = useState(null);
 
   const [form] = Form.useForm();
@@ -291,7 +290,11 @@ const Sale = () => {
   const renderMarketOptions = () => {
     if (asset?.saleOffers?.length > 0 && user?.addr !== asset?.ownerProfile?.address) {
       return (
-        <StyledButton margin type="primary" shape="round" onClick={() => setBuyModalVisible(true)}>
+        <StyledButton
+          margin
+          type="primary"
+          shape="round"
+          onClick={() => handleBuy(asset?.asset_id)}>
           Buy
         </StyledButton>
       );
@@ -430,35 +433,6 @@ const Sale = () => {
           </>
         )}
       </Row>
-      <Modal
-        visible={buyModalVisible}
-        width={1000}
-        title="Pick an offer"
-        onOk={() => setBuyModalVisible(false)}
-        closable={false}
-        cancelButtonProps={{
-          style: { display: 'none' }
-        }}>
-        <List
-          size="small"
-          itemLayout="horizontal"
-          dataSource={asset?.saleOffers}
-          renderItem={({ id, price, nft: { owner } }) => (
-            <List.Item>
-              <p style={{ flex: 1 }}>{price}</p>
-              <p style={{ flex: 1 }}>{owner}</p>
-              <StyledButton
-                width="10%"
-                margin={true}
-                type="primary"
-                shape="round"
-                onClick={() => handleBuy(asset?.asset_id)}>
-                Buy
-              </StyledButton>
-            </List.Item>
-          )}
-        />
-      </Modal>
     </>
   );
 };
