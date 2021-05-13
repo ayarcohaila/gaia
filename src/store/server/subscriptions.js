@@ -100,8 +100,8 @@ export const GET_NFTS_BY_TEMPLATE_ID = gql`
 `;
 
 export const GET_COLLECTIONS = gql`
-  subscription nft_collection {
-    nft_collection {
+  subscription nft_collection($author: String!) {
+    nft_collection(where: { collection: { author: { _eq: $author } } }) {
       collection_id
       name
       templates {

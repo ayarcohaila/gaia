@@ -10,12 +10,17 @@ import { CardLoading } from '~/components/skeleton/CardLoading';
 import { URLs } from '~/routes/urls';
 
 import { GET_COLLECTIONS } from '~/store/server/subscriptions';
+import useAuth from '~/hooks/useAuth';
 
 function Collections() {
   const router = useRouter();
+  const { user } = useAuth();
 
   const { loading, data: { nft_collection } = { nft_collection: [] } } = useSubscription(
-    GET_COLLECTIONS
+    GET_COLLECTIONS,
+    {
+      variables: { author: user?.addr }
+    }
   );
 
   return (
