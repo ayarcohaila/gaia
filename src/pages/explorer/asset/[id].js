@@ -14,8 +14,8 @@ import {
   List,
   Col
 } from 'antd';
-import { useMemo, useState, useEffect } from 'react';
-import { useSubscription } from '@apollo/react-hooks';
+import { useMemo, useState } from 'react';
+import { useSubscription, useMutation } from '@apollo/react-hooks';
 
 import {
   ExpandedViewSkeletonButton,
@@ -46,6 +46,7 @@ import { buy } from '~/flow/buy';
 import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
 import { GET_NFT } from '~/store/server/subscriptions';
+import { UPDATE_OWNER } from '~/store/server/mutations';
 import { createSaleOffer } from '~/flow/sell';
 
 const { Text } = Typography;
@@ -97,6 +98,8 @@ const Sale = () => {
     }
   });
 
+  const [updateOwner] = useMutation(UPDATE_OWNER);
+
   const description = useMemo(() => {
     if (completeDescription || asset?.description?.length < 330) {
       return asset?.description;
@@ -110,6 +113,12 @@ const Sale = () => {
     setIsModalLoading(true);
     try {
       await buy(Number(saleId), asset?.ownerProfile?.address);
+      updateOwner({
+        variables: {
+          assetId: Number(saleId),
+          owner: user?.addr
+        }
+      });
       setIsModalLoading(false);
       Modal.success({
         title: 'Congratulations!',

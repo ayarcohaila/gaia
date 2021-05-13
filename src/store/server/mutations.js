@@ -23,3 +23,11 @@ export const CREATE_SET = gql`
     }
   }
 `;
+
+export const UPDATE_OWNER = gql`
+  mutation update_owner($assetId: bigint!, $owner: String!) {
+    update_nft(where: { asset_id: { _eq: $assetId } }, _set: { owner: $owner }) {
+      affected_rows
+    }
+  }
+`;
