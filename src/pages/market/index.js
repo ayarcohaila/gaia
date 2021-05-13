@@ -78,7 +78,7 @@ const MarketPlace = () => {
                   description={nft.template.metadata.description}
                   name={nft.template.metadata.name}
                   price={Number(price)}
-                  mintNUmber={nft.mint_number}
+                  mintNumber={nft.mint_number}
                 />
               ))}
         </Row>
