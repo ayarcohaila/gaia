@@ -22,6 +22,7 @@ export const GET_NFTS_ON_SALE = gql`
       price
       nft {
         id
+        owner
         created_at
         mint_number
         template {

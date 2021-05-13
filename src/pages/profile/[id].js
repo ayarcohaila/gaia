@@ -51,7 +51,6 @@ const Profile = () => {
         imgURL: nft.template.metadata.image,
         name: nft.template.metadata.name,
         description: nft.template.metadata.description,
-        owner: nft.owner,
         id: nft.id,
         mintNumber: nft.mint_number
       }));
