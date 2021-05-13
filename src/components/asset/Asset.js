@@ -47,7 +47,7 @@ const Asset = ({ imgURL, description, name, price, owner, id, actions, linkTo, m
           </PriceContainer>
         )}
       </div>
-      {actions && (
+      {actions && actions.length > 0 && (
         <DropDownContainer>
           <DropDown title="actions" options={actions} icon={<CaretDownOutlined />} />
         </DropDownContainer>

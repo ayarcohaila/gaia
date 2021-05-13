@@ -238,7 +238,13 @@ const Profile = () => {
                       }
                     });
                 }
-                return <Card key={`token-${token.id}`} {...token} actions={actions} />;
+                return (
+                  <Card
+                    key={`token-${token.id}`}
+                    {...token}
+                    actions={user?.addr === token.owner ? actions : []}
+                  />
+                );
               })}
         </Row>
       </Col>
