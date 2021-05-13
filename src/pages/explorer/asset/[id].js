@@ -411,7 +411,7 @@ const Sale = () => {
                   <AssetInfo
                     collection={asset?.collection.name}
                     mintNumber={asset?.mintNumber}
-                    id={asset?.id}
+                    id={asset?.asset_id}
                     price={asset?.saleOffers[0]?.price}
                   />
                   <UserInfo
