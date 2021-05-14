@@ -11,6 +11,8 @@ function SetsList({ sets }) {
       name={nft.template.metadata.name}
       price={Number(price)}
       mintNumber={nft.mint_number}
+      owner={nft.owner}
+      showOwner
     />
   ));
 }

@@ -46,7 +46,7 @@ export const Card = styled.div`
 `;
 
 export const StyledAvatar = styled(Avatar)`
-  margin: 7px;
+  margin: 0px;
 `;
 
 export const CardImage = styled(Image)`
@@ -75,6 +75,12 @@ export const Text = styled.p`
 export const AssetDescription = styled(Typography.Paragraph)`
   color: ${({ theme }) => theme.colors.lightGray};
   font-size: 12px;
+`;
+
+export const MintNumber = styled(Typography.Paragraph)`
+  color: ${({ theme }) => theme.colors.lightGray};
+  font-size: 12px;
+  margin: 0 !important;
 `;
 
 export const Price = styled(Text)`

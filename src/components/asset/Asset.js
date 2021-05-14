@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { UserOutlined, CaretDownOutlined } from '@ant-design/icons';
@@ -13,24 +14,46 @@ import {
   ContentContainer,
   StyledAvatar,
   DropDownContainer,
-  MintNumberContainer
+  MintNumberContainer,
+  MintNumber
 } from './styled';
 import { getImageURL } from '~/utils/getImageUrl';
+import { getProfile } from '~/flow/getProfile';
 import formatPrice from '~/utils/formatPrice';
 import { URLs } from '~/routes/urls';
 import DropDown from '~/components/dropdown/DropDown';
 
-const Asset = ({ imgURL, description, name, price, owner, id, actions, linkTo, mintNumber }) => {
-  const avatarSource = owner?.src ? { src: owner.src } : { icon: <UserOutlined /> };
+const Asset = ({
+  imgURL,
+  description,
+  name,
+  price,
+  owner,
+  id,
+  actions,
+  linkTo,
+  mintNumber,
+  showOwner = false
+}) => {
+  const [imageSrc, setImageSrc] = useState(null);
+
+  async function getImage() {
+    const ownerInfo = await getProfile(owner);
+
+    setImageSrc(ownerInfo.avatar);
+  }
+
+  useEffect(() => {
+    showOwner && getImage();
+  }, []);
+
+  const avatarSource = imageSrc ? { src: imageSrc } : { icon: <UserOutlined /> };
   const Component = (
     <Card className="token-card">
-      {owner && <StyledAvatar size="small" {...avatarSource} />}
-      {mintNumber && (
-        <MintNumberContainer justify="end">
-          <Description>{`#${mintNumber}`}</Description>
-        </MintNumberContainer>
-      )}
-
+      <MintNumberContainer justify={showOwner ? 'space-between' : 'end'} align="middle">
+        {showOwner && owner && <StyledAvatar size="small" {...avatarSource} />}
+        {mintNumber && <MintNumber>{`#${mintNumber}`}</MintNumber>}
+      </MintNumberContainer>
       <CardImage
         width={193}
         height={182}
@@ -80,12 +103,14 @@ Asset.propTypes = {
       action: PropTypes.func
     })
   ),
-  linkTo: PropTypes.string
+  linkTo: PropTypes.string,
+  showOwner: PropTypes.bool
 };
 
 Asset.defaultProps = {
   showSell: false,
   showCancel: false,
+  showOwner: false,
   id: null,
   owner: null,
   actions: null,

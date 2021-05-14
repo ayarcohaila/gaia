@@ -80,6 +80,7 @@ const MarketPlace = () => {
                   price={Number(price)}
                   owner={nft.owner}
                   mintNumber={nft.mint_number}
+                  showOwner
                 />
               ))}
         </Row>
