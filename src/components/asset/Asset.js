@@ -52,7 +52,7 @@ const Asset = ({
     <Card className="token-card">
       <MintNumberContainer justify={showOwner ? 'space-between' : 'end'} align="middle">
         {showOwner && owner && <StyledAvatar size="small" {...avatarSource} />}
-        <MintNumber>{`#${mintNumber}`}</MintNumber>
+        {mintNumber && <MintNumber>{`#${mintNumber}`}</MintNumber>}
       </MintNumberContainer>
       <CardImage
         width={193}
