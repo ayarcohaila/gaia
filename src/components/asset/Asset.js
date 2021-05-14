@@ -44,7 +44,7 @@ const Asset = ({
   }
 
   useEffect(() => {
-    getImage();
+    showOwner && getImage();
   }, []);
 
   const avatarSource = imageSrc ? { src: imageSrc } : { icon: <UserOutlined /> };
