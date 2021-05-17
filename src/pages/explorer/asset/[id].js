@@ -396,12 +396,12 @@ const Sale = () => {
           </>
         ) : (
           <>
-            <Column span={6} offset={2}>
+            <Column offset={2} xs={24} xl={6} md={6} sm={6}>
               <StyledImageContainer>
                 <StyledImage src={getImageURL(asset?.imgURL ?? '')} />
               </StyledImageContainer>
             </Column>
-            <ContentColumn span={8}>
+            <ContentColumn xs={24} xl={8} md={8} sm={8}>
               <Content>
                 <Heading>{asset?.name}</Heading>
                 <p>
