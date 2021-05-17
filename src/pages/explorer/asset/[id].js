@@ -76,11 +76,13 @@ const Sale = () => {
       }
     }) => {
       const creatorProfile = await getProfile(nft[0]?.collection.author);
+      const ownerInfo = await getProfile(nft[0]?.owner);
       setAsset({
         isLoading: false,
         isOnSale: nft[0].is_for_sale,
         ownerProfile: {
-          address: nft[0].owner
+          address: nft[0].owner,
+          name: ownerInfo.name
         },
         id: nft[0].id,
         asset_id: nft[0]?.asset_id,
@@ -407,7 +409,7 @@ const Sale = () => {
                 <p>
                   Owned by{' '}
                   <Link href={URLs.profile(asset?.ownerProfile?.address)}>
-                    <OwnerName>{asset?.ownerProfile?.address}</OwnerName>
+                    <OwnerName>{asset?.ownerProfile?.name}</OwnerName>
                   </Link>
                 </p>
                 <Description>
