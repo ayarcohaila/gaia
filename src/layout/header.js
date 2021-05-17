@@ -21,6 +21,7 @@ import { getImageURL } from '~/utils/getImageUrl';
 import { UserOutlined } from '@ant-design/icons';
 import Avatar from 'antd/lib/avatar/avatar';
 import { setupAccount } from '~/flow/setupAccount';
+import { appName } from '~/config/config';
 
 function Header() {
   const [currentRoute, setCurrentRoute] = useState('');
@@ -109,7 +110,7 @@ function Header() {
       <Row justify="space-between" align="middle" gutter={[20, 0]}>
         <Col span={3} xxl={8}>
           <Link href="/">
-            <Typography.Text>Nifty Beats</Typography.Text>
+            <Typography.Text>{appName}</Typography.Text>
           </Link>
         </Col>
         <SearchCol span={6} xxl={8}>

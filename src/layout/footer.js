@@ -8,6 +8,7 @@ import { Col, Divider, Row, Typography } from 'antd';
 import React from 'react';
 import { URLs } from '../routes/urls';
 import { CustomLink as Link, LayoutFooter } from './styles';
+import { appName } from '~/config/config';
 
 const { Title, Text } = Typography;
 function Footer() {
@@ -17,7 +18,7 @@ function Footer() {
         <Col sm={{ span: 20, offset: 2 }}>
           <Row justify="space-between">
             <Col md={12} xs={24}>
-              <Title level={3}>Nifty Beats</Title>
+              <Title level={3}>{appName}</Title>
               <Text>
                 The world’s largest digital marketplace for crypto collectibles and non-fungible
                 tokens (NFTs). Buy, sell, and discover exclusive digital assets.

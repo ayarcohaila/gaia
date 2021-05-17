@@ -8,6 +8,7 @@ import Search from '~/components/header/search';
 import UserMenu from '~/components/header/UserMenu';
 import { MenuCol, CustomHeader, JustifyCenter } from './styled';
 import { useRouter } from 'next/router';
+import { appName } from '~/config/config';
 
 function MyHeader() {
   const { user } = useAuth();
@@ -35,7 +36,7 @@ function MyHeader() {
       <Row justify="space-between" align="middle" gutter={[20, 0]}>
         <Col>
           <Link href={URLs.home}>
-            <a href="about:blank">Nifty Beats</a>
+            <a href="about:blank">{appName}</a>
           </Link>
         </Col>
         <Col flex="auto">

@@ -25,6 +25,7 @@ import {
 } from '~/components/asset/styled';
 import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
+import { appName } from '~/config/config';
 
 import { GET_DROP_BY_ID } from '~/store/server/subscriptions';
 
@@ -66,7 +67,7 @@ const DropDetails = () => {
   return (
     <Row justify="center">
       <Head>
-        <title>Drop | NiftyBeats</title>
+        <title>Drop | {appName}</title>
       </Head>
       {isLoading ? (
         <>
