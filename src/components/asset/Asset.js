@@ -17,6 +17,8 @@ import {
   MintNumberContainer,
   MintNumber
 } from './styled';
+import { PlaceholderSkeletonImg } from '~/components/shared/CardStyled';
+
 import { getImageURL } from '~/utils/getImageUrl';
 import { getProfile } from '~/flow/getProfile';
 import formatPrice from '~/utils/formatPrice';
@@ -36,6 +38,7 @@ const Asset = ({
   showOwner = false
 }) => {
   const [imageSrc, setImageSrc] = useState(null);
+  const [isImageLoading, setImageLoading] = useState(true);
 
   async function getImage() {
     const ownerInfo = await getProfile(owner);
@@ -54,12 +57,14 @@ const Asset = ({
         {showOwner && owner && <StyledAvatar size="small" {...avatarSource} />}
         {mintNumber && <MintNumber>{`#${mintNumber}`}</MintNumber>}
       </MintNumberContainer>
+      {isImageLoading && <PlaceholderSkeletonImg shape="square" active />}
       <CardImage
         width={193}
         height={182}
         layout={undefined}
         src={getImageURL(imgURL ?? '')}
         unoptimized={true}
+        onLoad={() => setImageLoading(false)}
       />
       <div className="text-content">
         <ContentContainer fullWidth={!price}>
