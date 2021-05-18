@@ -407,12 +407,11 @@ const Sale = () => {
             <ContentColumn xs={24} xl={8} md={8} sm={8}>
               <Content>
                 <Heading>{asset?.name}</Heading>
-                <p>
-                  Owned by{' '}
-                  <Link href={URLs.profile(asset?.ownerProfile?.address)}>
-                    <OwnerName>{asset?.ownerProfile?.name}</OwnerName>
-                  </Link>
-                </p>
+                <UserInfo
+                  name={asset?.creatorProfile?.name}
+                  src={getImageURL(asset?.creatorProfile?.avatar ?? '')}
+                  type="Creator"
+                />
                 <Description>
                   {description}{' '}
                   {description?.length > 330 && (
@@ -429,11 +428,12 @@ const Sale = () => {
                     id={asset?.asset_id}
                     price={asset?.saleOffers[0]?.price}
                   />
-                  <UserInfo
-                    name={asset?.creatorProfile?.name}
-                    src={getImageURL(asset?.creatorProfile?.avatar ?? '')}
-                    type="Creator"
-                  />
+                  <p>
+                    Owned by{' '}
+                    <Link href={URLs.profile(asset?.ownerProfile?.address)}>
+                      <OwnerName>{asset?.ownerProfile?.name}</OwnerName>
+                    </Link>
+                  </p>
                   {(asset?.saleOffers?.length === 0 && renderAssetOwner()) ||
                     (asset?.saleOffers?.some(offer => offer.status !== 'active') &&
                       renderAssetOwner())}
