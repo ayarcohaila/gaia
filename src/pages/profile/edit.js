@@ -1,4 +1,4 @@
-import { Col, Modal, Row, Spin, notification } from 'antd';
+import { Col, Row, Spin, notification } from 'antd';
 import { useState, useEffect, useMemo } from 'react';
 import isEqual from 'lodash.isequal';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -51,9 +51,11 @@ const EditProfile = () => {
     setState(prevState => ({ ...prevState, loading: true }));
 
     const showErrorModal = () =>
-      Modal.error({
-        title: 'Failed to upload your avatar',
-        content: 'Please, try again'
+      notification.open({
+        key: `edit_profile`,
+        type: 'error',
+        message: `Error on upload your profile image`,
+        description: `Your profile image upload has failed`
       });
 
     const hash = await uploadFile(file, showErrorModal);

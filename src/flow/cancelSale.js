@@ -28,8 +28,8 @@ export async function cancelSale(saleAssetID) {
         fcl.payer(fcl.authz),
         fcl.proposer(fcl.authz),
         fcl.authorizations([fcl.authz]),
-        fcl.args([fcl.arg(saleAssetID, t.UInt64)]),
-        fcl.limit(35)
+        fcl.args([fcl.arg(Number(saleAssetID), t.UInt64)]),
+        fcl.limit(100)
       ])
       .then(fcl.decode);
     notification.open({
@@ -41,6 +41,7 @@ export async function cancelSale(saleAssetID) {
     });
     return fcl.tx(txId).onceSealed();
   } catch (err) {
+    console.warn(err);
     throw new Error(
       'createSaleOffer(saleAssetID, salePrice, marketFee, templateID, marketPaymentReceiver) -- templateID required'
     );

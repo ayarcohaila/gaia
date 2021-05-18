@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Col, Form, Typography, Modal, Result, Row } from 'antd';
+import { Col, Form, Typography, Row, notification, Spin } from 'antd';
 import { useRouter } from 'next/router';
 import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
@@ -168,6 +168,13 @@ function CreateTemplate() {
   async function onSubmit(values) {
     try {
       setLoading(true);
+      notification.open({
+        key: `create_template_${values.templateName}`,
+        message: `Uploading ${values.templateName} image`,
+        description: 'Saving image to ipfs',
+        icon: <Spin />,
+        duration: null
+      });
       const ipfsHash = await uploadFile(values.file);
 
       const metadata = {
@@ -181,22 +188,32 @@ function CreateTemplate() {
           metadata[field.key] = field.value;
         });
       }
-
+      notification.open({
+        key: `create_template_${values.templateName}`,
+        message: `Creating ${values.templateName} template`,
+        description: 'Sending transaction to the blockchain',
+        icon: <Spin />,
+        duration: null
+      });
       await createTemplate({
         variables: {
           metadata,
           id: Number(query.collectionId)
         }
       });
-
+      notification.open({
+        key: `create_template_${values.templateName}`,
+        type: 'success',
+        message: `You have created ${values.templateName} template `,
+        description: `Your have successfully created ${values.templateName} template`
+      });
       router.push(`/profile/${user?.addr}`);
     } catch (error) {
-      Modal.error({
-        icon: null,
-        centered: true,
-        closable: true,
-        title: '',
-        content: <Result status="error" title="Oops!" subTitle="Mission failed" />
+      notification.open({
+        key: `create_template_${values.templateName}`,
+        type: 'error',
+        message: `Error on create ${values.templateName} template  `,
+        description: `Your template creation failed for ${values.templateName}`
       });
     } finally {
       setLoading(false);

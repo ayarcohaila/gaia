@@ -1,7 +1,6 @@
-import { Col, Typography, Row, Modal, Result } from 'antd';
+import { Col, Typography, Row, notification, Spin } from 'antd';
 import { useRouter } from 'next/router';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
-import { useState } from 'react';
 
 import { CreateNFTWrapper } from '~/components/profile/styled';
 import Seo from '~/components/seo/seo';
@@ -10,17 +9,11 @@ import Asset from '~/components/asset/Asset';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import { URLs } from '~/routes/urls';
 import useAuth from '~/hooks/useAuth';
-import FeedbackItem from '~/components/feedbackItem/FeedbackItem';
 
 import { GET_TEMPLATES } from '~/store/server/subscriptions';
 import { MINT } from '~/store/server/mutations';
 
 function Templates() {
-  const [feedbackItems, setFeedbackItems] = useState([
-    { title: 'Uploading', description: 'Uploading file to IPFS service', completed: false },
-    { title: 'Optimizing', description: 'Preprocessing file', completed: true }
-  ]);
-  const [loadingModal, setLoading] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
   const { query, push } = router;
@@ -35,14 +28,15 @@ function Templates() {
 
   const [mint] = useMutation(MINT);
 
-  const handleMint = async (templateId, collection_id) => {
+  const handleMint = async (templateId, collection_id, template_name) => {
     try {
-      setLoading(true);
-      setFeedbackItems([
-        { title: 'Minting token', description: 'Call contract method', completed: false },
-        { title: 'Uploading', description: 'Uploading file to IPFS service', completed: true },
-        { title: 'Optimizing', description: 'Preprocessing file', completed: true }
-      ]);
+      notification.open({
+        key: `mint_template_${templateId}`,
+        message: `Minting ${template_name} template`,
+        description: 'Sending transaction to the blockchain',
+        icon: <Spin />,
+        duration: null
+      });
       await mint({
         variables: {
           recipient: user?.addr,
@@ -50,25 +44,22 @@ function Templates() {
           templateID: templateId
         }
       });
-      setFeedbackItems([
-        { title: 'Deploy token', description: 'Deploying to Blockchain', completed: true },
-        { title: 'Mint token', description: 'Calling contract method', completed: true },
-        { title: 'Upload', description: 'Uploading file to IPFS service', completed: true },
-        { title: 'Optimize', description: 'Preprocessing file', completed: true }
-      ]);
+      notification.open({
+        key: `mint_template_${templateId}`,
+        type: 'success',
+        message: `You have minted ${template_name} template `,
+        description: `Your have successfully minted ${template_name} template`
+      });
       setTimeout(() => {
-        setLoading(false);
         router.push(`/profile/${user?.addr}`);
       }, 2000);
     } catch (error) {
-      Modal.error({
-        icon: null,
-        centered: true,
-        closable: true,
-        title: '',
-        content: <Result status="error" title="Oops!" subTitle="Mission failed" />
+      notification.open({
+        key: `mint_template_${templateId}`,
+        type: 'error',
+        message: `Error on mint ${template_name} template  `,
+        description: `Your template mint failed for ${template_name}`
       });
-      setLoading(false);
     }
   };
 
@@ -101,18 +92,13 @@ function Templates() {
                     actions={[
                       {
                         title: 'Mint NFT',
-                        action: () => handleMint(template_id, collection_id)
+                        action: () => handleMint(template_id, collection_id, metadata.name)
                       }
                     ]}
                   />
                 ))}
           </Row>
         </Col>
-        <Modal title="Steps" visible={loadingModal} footer={null} closable={false}>
-          {feedbackItems.map((item, index) => (
-            <FeedbackItem key={String(index)} {...item} />
-          ))}
-        </Modal>
       </CreateNFTWrapper>
     </>
   );

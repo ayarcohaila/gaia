@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Col, Form, Typography, Modal, Result, Row } from 'antd';
+import { Col, Form, Typography, Row, Spin, notification } from 'antd';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -12,6 +12,7 @@ import {
 import useAuth from '~/hooks/useAuth';
 import Seo from '~/components/seo/seo';
 import { CREATE_SET } from '~/store/server/mutations';
+import { URLs } from '~/routes/urls';
 
 const FormComponent = ({ onSubmit, loading }) => {
   const [, forceUpdate] = useState({});
@@ -88,25 +89,36 @@ function CreateNFT() {
   const [createSet] = useMutation(CREATE_SET);
 
   async function onSubmit(values) {
+    const { collectionName, fee } = values;
     try {
       setLoading(true);
-
+      notification.open({
+        key: `create_collection_${collectionName}`,
+        icon: <Spin />,
+        message: `Creating collection ${collectionName}`,
+        description: 'Sending transaction to the blockchain',
+        duration: null
+      });
       await createSet({
         variables: {
-          name: values.collectionName,
-          marketFee: values.fee,
+          name: collectionName,
+          marketFee: fee,
           creator: user?.addr
         }
       });
-
-      router.push(`/profile/${user?.addr}`);
+      notification.open({
+        key: `create_collection_${collectionName}`,
+        type: 'success',
+        message: `You have created ${collectionName} collection `,
+        description: `Your have successfully created ${collectionName} collection which market fee is ${fee}`
+      });
+      router.push(URLs.create);
     } catch (error) {
-      Modal.error({
-        icon: null,
-        centered: true,
-        closable: true,
-        title: '',
-        content: <Result status="error" title="Oops!" subTitle="Mission failed" />
+      notification.open({
+        key: `create_collection_${collectionName}`,
+        type: 'error',
+        message: `Error on create ${collectionName} collection  `,
+        description: `Your collection creation failed for ${collectionName}`
       });
     } finally {
       setLoading(false);
