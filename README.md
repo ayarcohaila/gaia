@@ -9,9 +9,7 @@
 
 # ✨ Getting started
 
-#### 1. Install the [Flow CLI](https://docs.onflow.org/flow-cli/install)
-
-#### 2. Clone this project
+#### 1. Clone this project
 
 On your terminal, type in:
 
@@ -19,23 +17,17 @@ On your terminal, type in:
 git clone https://github.com/NFT-Genius/flow-boiler.git
 ```
 
-#### 3. Install the dependencies
+#### 2. Install the dependencies
 
 ```
 cd nifty-beats
 yarn
 ```
 
-#### 4. Run the project
+#### 3. Run the project
 
 ```
-yarn dev
-```
-
-#### 5. Run the flow emulator
-
-```
-yarn dev:emulator
+export NODE_ENV=test | yarn dev
 ```
 
 # Flow utils
