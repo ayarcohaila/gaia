@@ -1,4 +1,4 @@
-import { Col, Typography, Row } from 'antd';
+import { Col, Typography, Row, notification } from 'antd';
 import { useRouter } from 'next/router';
 import { useSubscription } from '@apollo/react-hooks';
 
@@ -43,16 +43,33 @@ function Collections() {
           <Row>
             {loading
               ? [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
-              : nft_collection.map(({ collection_id, name, templates }) => (
-                  <Asset
-                    key={collection_id}
-                    id={collection_id}
-                    imgURL={templates[0]?.metadata?.image}
-                    description="Collection"
-                    name={name}
-                    linkTo={URLs.templates(collection_id)}
-                  />
-                ))}
+              : nft_collection.map(({ collection_id, name, templates }) => {
+                  let actions = [
+                    {
+                      title: 'Lock Collection',
+                      action: e => {
+                        e.domEvent.stopPropagation();
+                        notification.open({
+                          key: `lock_collection_${collection_id}`,
+                          type: 'info',
+                          message: `Lock Collection Not Implemented`,
+                          description: `Lock Collection function not implemented on backend yet`
+                        });
+                      }
+                    }
+                  ];
+                  return (
+                    <Asset
+                      key={collection_id}
+                      id={collection_id}
+                      imgURL={templates[0]?.metadata?.image}
+                      description="Collection"
+                      name={name}
+                      actions={actions}
+                      linkTo={URLs.templates(collection_id)}
+                    />
+                  );
+                })}
           </Row>
         </Col>
       </CreateNFTWrapper>
