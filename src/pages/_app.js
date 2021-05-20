@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client/react';
 import { ThemeProvider } from 'styled-components';
-import { Layout } from 'antd';
+import { Layout, notification } from 'antd';
 
 import { GlobalStyles } from '~/components/layout/globalStyles';
 import Header from '~/components/header/header';
@@ -14,6 +14,8 @@ import 'antd/dist/antd.less';
 import 'antd/dist/antd.css';
 
 function MyApp({ Component, pageProps }) {
+  notification.config({ top: 64 });
+
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
