@@ -62,13 +62,7 @@ const FormComponent = ({ onSubmit, loading }) => {
               label="Market Fee (%)"
               labelCol={{ span: 24 }}
               wrapperCol={{ span: 24 }}>
-              <StyledInput
-                step={0.01}
-                min={0.0}
-                max={0.15}
-                placeholder="Market Fee"
-                type="number"
-              />
+              <StyledInput min={0} max={15} placeholder="Market Fee" type="number" />
             </Form.Item>
           </Col>
         </Row>
@@ -90,6 +84,7 @@ function CreateNFT() {
 
   async function onSubmit(values) {
     const { collectionName, fee } = values;
+    const marketFee = Number(fee) === 0 ? Number(fee).toFixed(2) : fee / 100;
     try {
       setLoading(true);
       notification.open({
@@ -102,7 +97,7 @@ function CreateNFT() {
       await createSet({
         variables: {
           name: collectionName,
-          marketFee: fee,
+          marketFee,
           creator: user?.addr
         }
       });
@@ -114,6 +109,7 @@ function CreateNFT() {
       });
       router.push(URLs.create);
     } catch (error) {
+      console.error(error);
       notification.open({
         key: `create_collection_${collectionName}`,
         type: 'error',
