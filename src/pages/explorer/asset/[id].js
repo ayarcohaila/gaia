@@ -35,8 +35,8 @@ import {
   ContentColumn
 } from '~/components/asset/styled';
 import Seo from '~/components/seo/seo';
-import UserInfo from '~/components/UserInfo/UserInfo';
-import AssetInfo from '~/components/AssetInfo/AssetInfo';
+import UserInfo from '~/components/userInfo/UserInfo';
+import AssetInfo from '~/components/assetInfo/AssetInfo';
 import useAuth from '~/hooks/useAuth';
 // import { changePrice } from '~/flow/changePrice';
 import { cancelSale } from '~/flow/cancelSale';
