@@ -13,6 +13,7 @@ import {
   Spin,
   notification
 } from 'antd';
+import { Lightbox } from 'react-modal-image';
 import { useMemo, useState } from 'react';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
 
@@ -62,6 +63,7 @@ const Sale = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isLoadingSale, setIsLoadingSale] = useState(false);
   const [asset, setAsset] = useState(null);
+  const [openLightbox, setOpenLightbox] = useState(false);
 
   const [form] = Form.useForm();
   const { user } = useAuth();
@@ -399,11 +401,15 @@ const Sale = () => {
           </>
         ) : (
           <>
-            <Column offset={2} xs={24} xl={6} md={6} sm={6}>
+            <>
               <StyledImageContainer>
-                <StyledImage src={getImageURL(asset?.imgURL ?? '')} />
+                <StyledImage
+                  isClickable
+                  onClick={() => setOpenLightbox(true)}
+                  src={getImageURL(asset?.imgURL ?? '')}
+                />
               </StyledImageContainer>
-            </Column>
+            </>
             <ContentColumn xs={24} xl={8} md={8} sm={8}>
               <Content>
                 <Heading>{asset?.name}</Heading>
@@ -434,6 +440,17 @@ const Sale = () => {
                       <OwnerName>{asset?.ownerProfile?.name}</OwnerName>
                     </Link>
                   </p>
+                  {openLightbox && (
+                    <Lightbox
+                      medium={asset?.imgURL}
+                      large={asset?.imgURL}
+                      alt={asset?.name}
+                      onClose={() => setOpenLightbox(false)}
+                      hideDownload
+                      showRotate={false}
+                      hideZoom
+                    />
+                  )}
                   {(asset?.saleOffers?.length === 0 && renderAssetOwner()) ||
                     (asset?.saleOffers?.some(offer => offer.status !== 'active') &&
                       renderAssetOwner())}

@@ -128,10 +128,9 @@ export const ExpandedViewSkeletonButton = styled(Skeleton.Button)`
 `;
 
 export const StyledImageContainer = styled.div`
-  width: 480px;
-  height: 480px;
+  width: 45%;
+  height: 45%;
   border-radius: 6px;
-  margin-right: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,8 +141,10 @@ export const StyledImage = styled.img`
   max-width: 480px;
   max-height: 480px;
   border-radius: 6px;
-  margin-right: 30px;
   object-fit: scale-down;
+  :hover {
+    cursor: ${props => props?.isClickable && 'pointer'};
+  }
 `;
 
 export const Heading = styled.p`
