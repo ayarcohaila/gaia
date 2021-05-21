@@ -16,11 +16,11 @@ import {
   Centralizer,
   NewAttrButton
 } from '~/components/profile/styled';
-import useAuth from '~/hooks/useAuth';
 import { uploadFile } from '~/utils/upload';
 import Seo from '~/components/seo/seo';
 import { CREATE_TEMPLATE } from '~/store/server/mutations';
 import { getImageURL } from '~/utils/getImageUrl';
+import { URLs } from '~/routes/urls';
 
 const FormComponent = ({ onSubmit, loading }) => {
   const [, forceUpdate] = useState({});
@@ -161,7 +161,6 @@ const FormComponent = ({ onSubmit, loading }) => {
 function CreateTemplate() {
   const router = useRouter();
   const { query } = router;
-  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [createTemplate] = useMutation(CREATE_TEMPLATE);
 
@@ -207,7 +206,7 @@ function CreateTemplate() {
         message: `You have created ${values.templateName} template `,
         description: `Your have successfully created ${values.templateName} template`
       });
-      router.push(`/profile/${user?.addr}`);
+      router.push(URLs.templates(query.collectionId));
     } catch (error) {
       notification.open({
         key: `create_template_${values.templateName}`,
