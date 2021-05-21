@@ -73,7 +73,7 @@ const Asset = ({
         </ContentContainer>
         {price && (
           <PriceContainer>
-            <Image src="/icons/list.svg" width={10} height={10} />
+            <Image src="/images/flow-black.png" width={20} height={20} object-fit="contain" />
             <Price>{formatPrice(price)}</Price>
           </PriceContainer>
         )}

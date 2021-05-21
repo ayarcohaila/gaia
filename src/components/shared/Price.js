@@ -5,7 +5,7 @@ import formatPrice from '~/utils/formatPrice';
 function AssetPrice({ value }) {
   return (
     <PriceContainer>
-      <Image src="/icons/list.svg" width={10} height={10} />
+      <Image src="/images/flow-black.png" width={24} height={24} object-fit="contain" />
       <Price>{formatPrice(value)}</Price>
     </PriceContainer>
   );
