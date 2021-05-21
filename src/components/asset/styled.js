@@ -130,6 +130,7 @@ export const ExpandedViewSkeletonButton = styled(Skeleton.Button)`
 export const StyledImageContainer = styled.div`
   width: 45%;
   height: 45%;
+  min-height: 480px;
   border-radius: 6px;
   display: flex;
   align-items: center;
