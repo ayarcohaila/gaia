@@ -177,8 +177,7 @@ const Sale = () => {
         icon: <Spin />,
         duration: null
       });
-      console.warn(asset?.asset_id);
-      //await cancelSale(asset?.asset_id);
+      await cancelSale(asset?.asset_id);
       notification.open({
         key: `cancel_sale_${asset?.asset_id}`,
         type: 'success',
