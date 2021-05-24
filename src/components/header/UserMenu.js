@@ -5,7 +5,7 @@ import useAuth from '~/hooks/useAuth';
 import useProfile from '~/hooks/useProfile';
 import { getImageURL } from '~/utils/getImageUrl';
 import UserMenuContent from '~/components/header/UserMenuContent';
-import { UserContainerCenter, UserAvatarContainer, UserInfo } from './styled';
+import { UserContainerCenter, UserAvatarContainer, UserInfo, UserBalance } from './styled';
 function UserMenu() {
   const { user, login } = useAuth();
   const { userProfile } = useProfile(user?.addr);
@@ -19,6 +19,7 @@ function UserMenu() {
         <UserContainerCenter wrap>
           <UserInfo>{userProfile?.name ?? user?.addr}</UserInfo>
           <UserInfo small> {user?.balance} FLOW</UserInfo>
+          <UserBalance small>{user?.usd_balance} FUSD</UserBalance>
         </UserContainerCenter>
         <UserAvatarContainer>
           <Avatar

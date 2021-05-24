@@ -130,7 +130,7 @@ function Header() {
       </Row>
       <Modal
         visible={modalVisible}
-        title="You need to initialize your profile before edititing it"
+        title="You need to initialize your profile before editing it"
         onOk={handleInitializeProfile}
         onCancel={() => setModalVisible(false)}
         onRefuse={() => setModalVisible(false)}>

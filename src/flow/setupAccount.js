@@ -1,3 +1,4 @@
+import { notification, Spin } from 'antd';
 import { fcl } from '../config/config';
 
 const TX = fcl.cdc`
@@ -7,16 +8,13 @@ import NonFungibleToken from 0xNFTInterface
 import FlowToken from 0xFlowToken
 import FlowAssets from 0xNFTContract
 import FlowAssetsMarket from 0xNFTMarket
+import FUSD from 0xFUSDContract
 
 // This transaction configures an account to hold assets.
 transaction {
 
     let address: Address
-    let flowVault: Capability<&FlowToken.Vault{FungibleToken.Receiver}>
     prepare(account: AuthAccount) {
-      let FlowTokenReceiverPublicPath = /public/flowTokenReceiver
-      let FlowTokenVaultStoragePath = /storage/flowTokenVault
-      
       //INITIALIZING PARAMS
       self.address = account.address
         
@@ -58,29 +56,28 @@ transaction {
   
           }
 
-        //Init Flow Token Balance
-        if account.borrow<&FlowToken.Vault>(from: /storage/flowTokenVault) == nil {
+        //Init FUSD Balance
+        if account.borrow<&FUSD.Vault>(from: /storage/fusdVault) == nil {
           
-          // Create a new flowToken Vault and put it in storage
-          account.save(<-FlowToken.createEmptyVault(), to: /storage/flowTokenVault)
-
+          // Create a new FUSD Vault and put it in storage
+          account.save(<-FUSD.createEmptyVault(), to: /storage/fusdVault)
+      
           // Create a public capability to the Vault that only exposes
           // the deposit function through the Receiver interface
-          account.link<&FlowToken.Vault{FungibleToken.Receiver}>(
-              /public/flowTokenReceiver,
-              target: /storage/flowTokenVault
+          account.link<&FUSD.Vault{FungibleToken.Receiver}>(
+            /public/fusdReceiver,
+            target: /storage/fusdVault
           )
-
+      
           // Create a public capability to the Vault that only exposes
           // the balance field through the Balance interface
-          account.link<&FlowToken.Vault{FungibleToken.Balance}>(
-              /public/flowTokenBalance,
-              target: /storage/flowTokenVault
+          account.link<&FUSD.Vault{FungibleToken.Balance}>(
+            /public/fusdBalance,
+            target: /storage/fusdVault
           )
+         
       }
-        self.flowVault = account.getCapability<&FlowToken.Vault{FungibleToken.Receiver}>(/public/flowTokenReceiver)!
-
-        assert(self.flowVault.borrow() != nil, message: "Missing or mis-typed FlowToken receiver")
+       
 
     }
 
@@ -92,14 +89,26 @@ transaction {
 `;
 
 export async function setupAccount() {
-  const txId = await fcl
-    .send([
-      fcl.transaction(TX),
-      fcl.payer(fcl.authz), // current user is responsible for paying for the transaction
-      fcl.proposer(fcl.authz), // current user acting as the nonce
-      fcl.authorizations([fcl.authz]), // current user will be first AuthAccount
-      fcl.limit(100) // set the compute limit
-    ])
-    .then(fcl.decode);
-  return fcl.tx(txId).onceSealed();
+  try {
+    const txId = await fcl
+      .send([
+        fcl.transaction(TX),
+        fcl.payer(fcl.authz), // current user is responsible for paying for the transaction
+        fcl.proposer(fcl.authz), // current user acting as the nonce
+        fcl.authorizations([fcl.authz]), // current user will be first AuthAccount
+        fcl.limit(100) // set the compute limit
+      ])
+      .then(fcl.decode);
+    notification.open({
+      key: `setup_account`,
+      icon: <Spin />,
+      message: `Setting up your account`,
+      description: 'Sending transaction to the blockchain',
+      duration: null
+    });
+    return fcl.tx(txId).onceSealed();
+  } catch (err) {
+    console.warn(err);
+    throw new Error(err);
+  }
 }

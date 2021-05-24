@@ -46,10 +46,22 @@ export const UserInfo = styled.span`
   margin: 0px;
   padding-right: 5px;
   line-height: 0px !important;
-  font-size: ${props => props.small && '10px'};
+  font-size: ${props => props.small && '9px'};
   color: ${props => props.small && props.theme.colors.green};
   position: ${props => props.small && 'absolute'};
   top: ${props => props.small && '45px'};
+  margin-left: ${props => props.small && '35px'};
+  min-width: 80px;
+`;
+export const UserBalance = styled.span`
+  width: 100%;
+  margin: 0px;
+  padding-right: 5px;
+  line-height: 0px !important;
+  font-size: ${props => props.small && '9px'};
+  color: ${props => props.small && props.theme.colors.green};
+  position: ${props => props.small && 'absolute'};
+  top: ${props => props.small && '55px'};
   margin-left: ${props => props.small && '35px'};
   min-width: 80px;
 `;

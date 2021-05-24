@@ -43,7 +43,6 @@ const Profile = () => {
   const [transferModal, setTransferModalVisible] = useState(false);
   const [destinationAddress, setDestinationAddress] = useState(null);
   const [assets, setAssets] = useState([]);
-
   const { loading: isLoading } = useSubscription(GET_MY_NFTS_BY_OWNER, {
     variables: {
       id

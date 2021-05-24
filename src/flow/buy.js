@@ -4,7 +4,7 @@ const BUY_NFT_TX = fcl.cdc`
 import FungibleToken from 0xFungibleToken
 import NonFungibleToken from 0xNFTInterface
 import FlowAssets from 0xNFTContract
-import FlowToken from 0xFlowToken
+import FUSD from 0xFUSDContract
 import FlowAssetsMarket from 0xNFTMarket
 
 transaction(saleAssetID: UInt64, address: Address) {
@@ -13,8 +13,7 @@ transaction(saleAssetID: UInt64, address: Address) {
     let marketCollection: &FlowAssetsMarket.Collection{FlowAssetsMarket.CollectionPublic}
 
     prepare(signer: AuthAccount) {
-        let FlowTokenReceiverPublicPath = /public/flowTokenReceiver
-        let FlowTokenVaultStoragePath = /storage/flowTokenVault
+        let FUSDVaultStoragePath = /storage/fusdVault
 
         self.marketCollection = getAccount(address)
                     .getCapability<&FlowAssetsMarket.Collection{FlowAssetsMarket.CollectionPublic}>(FlowAssetsMarket.CollectionPublicPath).borrow()
@@ -24,9 +23,9 @@ transaction(saleAssetID: UInt64, address: Address) {
                     ?? panic("No item with that ID")
         let price = saleItem.price
 
-        let mainFlowTokenVault = signer.borrow<&FlowToken.Vault>(from: FlowTokenVaultStoragePath)
+        let mainFUSDVault = signer.borrow<&FUSD.Vault>(from: FUSDVaultStoragePath)
             ?? panic("Cannot borrow FlowToken vault from acct storage")
-        self.paymentVault <- mainFlowTokenVault.withdraw(amount: price)
+        self.paymentVault <- mainFUSDVault.withdraw(amount: price)
 
         self.AssetsCollection = signer.borrow<&FlowAssets.Collection{NonFungibleToken.Receiver}>(
             from: FlowAssets.CollectionStoragePath

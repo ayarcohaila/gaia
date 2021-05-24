@@ -1,4 +1,4 @@
-import { Menu, Row, Modal } from 'antd';
+import { Menu, Row, Modal, notification, Spin } from 'antd';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { setupAccount } from '~/flow/setupAccount';
@@ -14,7 +14,9 @@ function UserMenuContent({ loggedIn }) {
   const router = useRouter();
 
   const handleGoToEditProfile = async () => {
-    if ((await initialized) && (await hasSetup)) {
+    const initializedProfile = await initialized();
+    const initializedAccount = await hasSetup();
+    if (initializedProfile && initializedAccount) {
       router.push(URLs.editProfile);
     } else {
       setModalVisible(true);
@@ -22,23 +24,45 @@ function UserMenuContent({ loggedIn }) {
   };
 
   const handleInitializeProfile = async () => {
-    setModalVisible(false);
-    await setupAccount();
-    router.push(URLs.editProfile);
+    try {
+      setModalVisible(false);
+      notification.open({
+        key: `setup_account`,
+        icon: <Spin />,
+        message: `Setting up your account`,
+        description: 'You gonna be prompted to accept this transaction',
+        duration: null
+      });
+      await setupAccount();
+      notification.open({
+        key: `setup_account`,
+        type: 'success',
+        message: `You have set up your account`,
+        description: `Your have successfully set up your account`
+      });
+      router.push(URLs.editProfile);
+    } catch (err) {
+      notification.open({
+        key: `setup_account`,
+        type: 'error',
+        message: `Error on setup your account`,
+        description: `Your account setup failed, please try again later.`
+      });
+    }
   };
   return loggedIn ? (
     <>
       <Row>
         <ColStyled span={24}>
           <Menu>
-            <Menu.Item onClick={handleGoToEditProfile}>Edit Profile</Menu.Item>
+            <Menu.Item onClick={() => handleGoToEditProfile()}>Edit Profile</Menu.Item>
             <Menu.Item onClick={logout}>Logout</Menu.Item>
           </Menu>
         </ColStyled>
       </Row>
       <Modal
         visible={modalVisible}
-        title="You need to initialize your profile before edititing it"
+        title="You need to initialize your profile before editing it"
         onOk={handleInitializeProfile}
         onCancel={() => setModalVisible(false)}
         onRefuse={() => setModalVisible(false)}>

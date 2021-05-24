@@ -61,7 +61,6 @@ const EditProfile = () => {
     const hash = await uploadFile(file, showErrorModal);
     setState(prevState => ({ ...prevState, avatar: getImageURL(hash), loading: false }));
   };
-
   const handleSave = async () => {
     const { name, avatar, info } = state;
     try {

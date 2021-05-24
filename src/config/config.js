@@ -15,6 +15,7 @@ fcl
   .put('challenge.handshake', process.env.NEXT_PUBLIC_WALLET_DISCOVERY)
   .put('0xFungibleToken', process.env.NEXT_PUBLIC_FUNGIBLE_TOKEN)
   .put('0xFlowToken', process.env.NEXT_PUBLIC_FLOW_TOKEN)
+  .put('0xFUSDContract', process.env.NEXT_PUBLIC_FUSD)
   .put('0xProfile', process.env.NEXT_PUBLIC_PROFILE_CONTRACT)
   .put('0xNFTInterface', process.env.NEXT_PUBLIC_NFT_INTERFACE)
   .put('0xNFTContract', process.env.NEXT_PUBLIC_NFT_CONTRACT)

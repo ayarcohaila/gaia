@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Spin, notification } from 'antd';
 
 import { fcl, t } from '../config/config';
@@ -5,33 +6,30 @@ import { fcl, t } from '../config/config';
 const SALE_NFT_TX = `
   import FungibleToken from 0xFungibleToken
   import NonFungibleToken from 0xNFTInterface
-  import FlowToken from 0xFlowToken
   import FlowAssets from 0xNFTContract
   import FlowAssetsMarket from 0xNFTMarket
+  import FUSD from 0xFUSDContract
+
 
   transaction(saleAssetID: UInt64, salePrice: UFix64, templateID: UInt64) {
-    let flowTokenVault: Capability<&FlowToken.Vault{FungibleToken.Receiver}>
-    let flowAssetsCollection: Capability<&FlowAssets.Collection{NonFungibleToken.Provider, FlowAssets.FlowAssetsCollectionPublic}>
+    let FUSDVault: Capability<&FUSD.Vault{FungibleToken.Receiver}>
+    let flowAssetsCollection: Capability<&FlowAssets.Collection{NonFungibleToken.Provider}>
     let marketCollection: &FlowAssetsMarket.Collection
     let marketFee: UFix64
 
     prepare(signer: AuthAccount) {
         // we need a provider capability, but one is not provided by default so we create one.
-        let FlowAssetsCollectionProviderPrivatePath = /private/flowAssetsCollectionProvider
+        let FlowAssetsCollectionProviderPrivatePath = /private/AssetsCollectionProvider
 
-        self.flowTokenVault = signer.getCapability<&FlowToken.Vault{FungibleToken.Receiver}>(/public/flowTokenReceiver)!
-        assert(self.flowTokenVault.borrow() != nil, message: "Missing or mis-typed FlowToken receiver")
+        self.FUSDVault = signer.getCapability<&FUSD.Vault{FungibleToken.Receiver}>(/public/fusdReceiver)!
+        assert(self.FUSDVault.borrow() != nil, message: "Missing or mis-typed FUSD receiver")
 
-        if !signer.getCapability<&FlowAssets.Collection{NonFungibleToken.Provider, FlowAssets.FlowAssetsCollectionPublic}>(FlowAssetsCollectionProviderPrivatePath)!.check() {
-            signer.link<&FlowAssets.Collection{NonFungibleToken.Provider, FlowAssets.FlowAssetsCollectionPublic}>(FlowAssetsCollectionProviderPrivatePath, target: FlowAssets.CollectionStoragePath)
-        }
-
-        self.flowAssetsCollection = signer.getCapability<&FlowAssets.Collection{NonFungibleToken.Provider, FlowAssets.FlowAssetsCollectionPublic}>(FlowAssetsCollectionProviderPrivatePath)!
-        assert(self.flowAssetsCollection.borrow() != nil, message: "Missing or mis-typed FlowAssetsCollection provider")
 
         self.marketCollection = signer.borrow<&FlowAssetsMarket.Collection>(from: FlowAssetsMarket.CollectionStoragePath)
             ?? panic("Missing or mis-typed FlowAssetsMarket Collection")
 
+      self.flowAssetsCollection = signer.getCapability<&FlowAssets.Collection{NonFungibleToken.Provider}>(FlowAssetsCollectionProviderPrivatePath)!
+      assert(self.flowAssetsCollection.borrow() != nil, message: "Missing or mis-typed FlowAssetsCollection provider")
 
     // borrow a reference to the signer's NFT collection
     let collectionRef = signer.borrow<&FlowAssets.Collection>(from: FlowAssets.CollectionStoragePath)
@@ -50,8 +48,8 @@ const SALE_NFT_TX = `
         sellerItemProvider: self.flowAssetsCollection,
         itemID: saleAssetID,
         templateID: templateID,
-        sellerPaymentReceiver: self.flowTokenVault,
-        marketPaymentReceiver: self.flowTokenVault,
+        sellerPaymentReceiver: self.FUSDVault,
+        marketPaymentReceiver: self.FUSDVault,
         price: salePrice,
         marketFee: self.marketFee
     )
@@ -89,11 +87,15 @@ export async function createSaleOffer(saleAssetID, salePrice, templateID) {
         fcl.authorizations([fcl.authz]),
         fcl.limit(1000)
       ])
-      .then(fcl.decode);
+      .then(async a => {
+        let response = await fcl.decode(a);
+        console.log(response);
+        return response;
+      });
     notification.open({
       key: `sale_${saleAssetID}`,
       icon: <Spin />,
-      message: `Creating an offer for ID #${saleAssetID}`,
+      message: `Creating an FUSD offer for ID #${saleAssetID}`,
       description: 'Sending transaction to the blockchain',
       duration: null
     });
