@@ -39,7 +39,6 @@ import Seo from '~/components/seo/seo';
 import UserInfo from '~/components/userInfo/UserInfo';
 import AssetInfo from '~/components/assetInfo/AssetInfo';
 import useAuth from '~/hooks/useAuth';
-// import { changePrice } from '~/flow/changePrice';
 import { cancelSale } from '~/flow/cancelSale';
 import { getProfile } from '~/flow/getProfile';
 import { buy } from '~/flow/buy';
@@ -86,6 +85,7 @@ const Sale = () => {
           address: nft[0].owner,
           name: ownerInfo.name
         },
+        fullMetadata: nft[0].template.metadata,
         id: nft[0].id,
         asset_id: nft[0]?.asset_id,
         template_id: nft[0]?.template.template_id,
@@ -99,7 +99,6 @@ const Sale = () => {
       });
     }
   });
-
   const [updateOwner] = useMutation(UPDATE_OWNER);
 
   const [insertSaleOffer] = useMutation(INSERT_SALE_OFFER);
@@ -428,10 +427,11 @@ const Sale = () => {
                 <InfoWrapper>
                   <InfoHeading>Info</InfoHeading>
                   <AssetInfo
-                    collection={asset?.collection.name}
-                    mintNumber={asset?.mintNumber}
+                    metadata={asset?.fullMetadata}
                     id={asset?.asset_id}
                     price={asset?.saleOffers[0]?.price}
+                    collection={asset?.collection.name}
+                    mintNumber={asset?.mintNumber}
                   />
                   <p>
                     Owned by{' '}
