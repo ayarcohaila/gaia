@@ -59,12 +59,17 @@ const FormComponent = ({ onSubmit, loading }) => {
                   message: 'Please insert a market fee'
                 }
               ]}
-              label="Market Fee (%)"
+              label="Market Fee (max: 15%)"
               labelCol={{ span: 24 }}
               wrapperCol={{ span: 24 }}>
               <StyledInput min={0} max={15} placeholder="Market Fee" type="number" />
             </Form.Item>
           </Col>
+        </Row>
+        <Row>
+          {formValues.fee && (
+            <p>* You will make for {100 - formValues.fee}% every secondary sale</p>
+          )}
         </Row>
         <Centralizer>
           <SubmitButton type="primary" htmlType="submit" shape="round" {...{ disabled, loading }}>
