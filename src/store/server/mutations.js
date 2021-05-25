@@ -17,8 +17,22 @@ export const MINT = gql`
 `;
 
 export const CREATE_SET = gql`
-  mutation createSet($creator: String!, $marketFee: float8!, $name: String!) {
-    createSet(arg1: { creator: $creator, marketFee: $marketFee, name: $name }) {
+  mutation createSet(
+    $creator: String!
+    $marketFee: float8!
+    $name: String!
+    $description: String!
+    $image: String!
+  ) {
+    createSet(
+      arg1: {
+        creator: $creator
+        marketFee: $marketFee
+        name: $name
+        description: $description
+        image: $image
+      }
+    ) {
       errors
     }
   }

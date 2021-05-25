@@ -7,12 +7,17 @@ import {
   CreateNFTWrapper,
   StyledInput,
   SubmitButton,
-  Centralizer
+  Centralizer,
+  StyledTextArea,
+  CreatorUpload,
+  CreatorUploadButton,
+  UploadWrapper
 } from '~/components/profile/styled';
 import useAuth from '~/hooks/useAuth';
 import Seo from '~/components/seo/seo';
 import { CREATE_SET } from '~/store/server/mutations';
 import { URLs } from '~/routes/urls';
+import { uploadFile } from '~/utils/upload';
 
 const FormComponent = ({ onSubmit, loading }) => {
   const [, forceUpdate] = useState({});
@@ -20,9 +25,11 @@ const FormComponent = ({ onSubmit, loading }) => {
   const formValues = form.getFieldsValue();
 
   const disabled = useMemo(() => {
-    const { collectionName, fee } = formValues;
+    const { collectionName, fee, file, description } = formValues;
 
-    if (!collectionName || !fee) {
+    if (
+      [collectionName, fee, file, description].some(item => item == false || item === undefined)
+    ) {
       return true;
     }
 
@@ -32,6 +39,38 @@ const FormComponent = ({ onSubmit, loading }) => {
   return (
     <Col offset={6} span={12}>
       <Form onBlur={forceUpdate} onFinish={onSubmit} form={form}>
+        <UploadWrapper>
+          <Typography.Text>Add a collection image</Typography.Text>
+          <Form.Item name="file" trigger={null} shouldUpdate={false}>
+            <CreatorUpload
+              customRequest={async ({ file, onSuccess }) => {
+                form.setFieldsValue({ file });
+                onSuccess();
+              }}
+              onRemove={() => {
+                form.setFieldsValue({ file: null });
+              }}
+              maxCount={1}
+              accept=".png,.gif,.webp,.jpeg,.jpg">
+              <CreatorUploadButton type="primary" shape="round">
+                Choose file
+              </CreatorUploadButton>
+            </CreatorUpload>
+          </Form.Item>
+        </UploadWrapper>
+        <Form.Item
+          name="description"
+          shouldUpdate={false}
+          label="Description"
+          rules={[
+            {
+              required: true,
+              message: 'Please insert a description'
+            }
+          ]}
+          labelCol={{ span: 24 }}>
+          <StyledTextArea name="description" placeholder="Description" multiline />
+        </Form.Item>
         <Row>
           <Col span={19}>
             <Form.Item
@@ -62,15 +101,12 @@ const FormComponent = ({ onSubmit, loading }) => {
               label="Market Fee (max: 15%)"
               labelCol={{ span: 24 }}
               wrapperCol={{ span: 24 }}>
-              <StyledInput min={0} max={15} placeholder="Market Fee" type="number" />
+              <StyledInput min={1} max={15} placeholder="Market Fee" type="number" />
             </Form.Item>
           </Col>
         </Row>
-        <Row>
-          {formValues.fee && (
-            <p>* You will make for {100 - formValues.fee}% every secondary sale</p>
-          )}
-        </Row>
+        {formValues.fee && <p>* You will make for {100 - formValues.fee}% every secondary sale</p>}
+
         <Centralizer>
           <SubmitButton type="primary" htmlType="submit" shape="round" {...{ disabled, loading }}>
             Create
@@ -88,7 +124,7 @@ function CreateNFT() {
   const [createSet] = useMutation(CREATE_SET);
 
   async function onSubmit(values) {
-    const { collectionName, fee } = values;
+    const { collectionName, fee, description, file } = values;
     const marketFee = Number(fee) === 0 ? Number(fee).toFixed(2) : fee / 100;
     try {
       setLoading(true);
@@ -99,11 +135,15 @@ function CreateNFT() {
         description: 'Sending transaction to the blockchain',
         duration: null
       });
+      const ipfsHash = await uploadFile(file);
+
       await createSet({
         variables: {
-          name: collectionName,
           marketFee,
-          creator: user?.addr
+          description,
+          name: collectionName,
+          creator: user?.addr,
+          image: ipfsHash
         }
       });
       notification.open({
@@ -138,3 +178,5 @@ function CreateNFT() {
 }
 
 export default CreateNFT;
+
+// Missing description and image
