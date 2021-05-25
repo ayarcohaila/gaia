@@ -19,7 +19,6 @@ import {
 import { uploadFile } from '~/utils/upload';
 import Seo from '~/components/seo/seo';
 import { CREATE_TEMPLATE } from '~/store/server/mutations';
-import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
 
 const FormComponent = ({ onSubmit, loading }) => {
@@ -179,7 +178,7 @@ function CreateTemplate() {
       const metadata = {
         name: values.templateName,
         description: values.description,
-        image: getImageURL(ipfsHash)
+        image: ipfsHash
       };
 
       if (values.fields) {
