@@ -105,6 +105,8 @@ export const GET_COLLECTIONS = gql`
     nft_collection(where: { author: { _eq: $author } }) {
       collection_id
       name
+      image
+      description
       templates {
         metadata
       }

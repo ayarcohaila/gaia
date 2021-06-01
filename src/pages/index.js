@@ -23,9 +23,6 @@ export default function Home() {
   const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading } = useSubscription(
     GET_NFTS_ON_SALE
   );
-  /*  console.warn(
-    getImageURL('ipfs://QmdxycfVS5McFV6s8HHodf5jVnsgBerpqTHdPJeSfTdTNa/Seed/rag/AnubisCard.png')
-  ); */
   function renderSets() {
     if (loading) {
       return [...Array(8).keys()].map(index => <CardLoading hasTopBar={false} key={index} />);

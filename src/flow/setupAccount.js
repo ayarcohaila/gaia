@@ -14,7 +14,10 @@ import FUSD from 0xFUSDContract
 transaction {
 
     let address: Address
+
     prepare(account: AuthAccount) {
+      let FlowTokenReceiverPublicPath = /public/flowTokenReceiver
+      let FlowTokenVaultStoragePath = /storage/flowTokenVault
       //INITIALIZING PARAMS
       self.address = account.address
         
@@ -77,14 +80,26 @@ transaction {
           )
          
       }
-       
+      //Init Flow Token Balance
+      if account.borrow<&FlowToken.Vault>(from: /storage/flowTokenVault) == nil {
+        // Create a new flowToken Vault and put it in storage
+        account.save(<-FlowToken.createEmptyVault(), to: /storage/flowTokenVault)
 
-    }
+        // Create a public capability to the Vault that only exposes
+        // the deposit function through the Receiver interface
+        account.link<&FlowToken.Vault{FungibleToken.Receiver}>(
+            /public/flowTokenReceiver,
+            target: /storage/flowTokenVault
+        )
 
-    // verify the account has been initialized
-    post {
-      Profile.check(self.address): "Account was not initialized"
+        // Create a public capability to the Vault that only exposes
+        // the balance field through the Balance interface
+        account.link<&FlowToken.Vault{FungibleToken.Balance}>(
+            /public/flowTokenBalance,
+            target: /storage/flowTokenVault
+        )
     }
+  }
 }
 `;
 
@@ -98,7 +113,10 @@ export async function setupAccount() {
         fcl.authorizations([fcl.authz]), // current user will be first AuthAccount
         fcl.limit(100) // set the compute limit
       ])
-      .then(fcl.decode);
+      .then(async a => {
+        console.warn(a);
+        return fcl.decode(a);
+      });
     notification.open({
       key: `setup_account`,
       icon: <Spin />,
@@ -106,6 +124,7 @@ export async function setupAccount() {
       description: 'Sending transaction to the blockchain',
       duration: null
     });
+    console.warn(fcl.tx(txId).onceSealed());
     return fcl.tx(txId).onceSealed();
   } catch (err) {
     console.warn(err);

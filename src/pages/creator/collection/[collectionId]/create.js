@@ -20,6 +20,7 @@ import { uploadFile } from '~/utils/upload';
 import Seo from '~/components/seo/seo';
 import { CREATE_TEMPLATE } from '~/store/server/mutations';
 import { URLs } from '~/routes/urls';
+import useAuth from '~/hooks/useAuth';
 
 const FormComponent = ({ onSubmit, loading }) => {
   const [, forceUpdate] = useState({});
@@ -161,6 +162,8 @@ function CreateTemplate() {
   const router = useRouter();
   const { query } = router;
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
+
   const [createTemplate] = useMutation(CREATE_TEMPLATE);
 
   async function onSubmit(values) {
@@ -196,7 +199,8 @@ function CreateTemplate() {
       await createTemplate({
         variables: {
           metadata,
-          id: Number(query.collectionId)
+          id: Number(query.collectionId),
+          recipientAddr: user?.addr
         }
       });
       notification.open({

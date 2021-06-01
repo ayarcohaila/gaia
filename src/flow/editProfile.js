@@ -30,7 +30,7 @@ export async function editProfile(name, avatar, info) {
       fcl.proposer(fcl.authz),
       fcl.payer(fcl.authz),
       fcl.authorizations([fcl.authz]),
-      fcl.limit(35),
+      fcl.limit(50),
       fcl.args([
         fcl.arg(name ?? '', t.String),
         fcl.arg(avatar ?? '', t.String),
@@ -38,7 +38,10 @@ export async function editProfile(name, avatar, info) {
       ]),
       fcl.transaction(EDIT_PROFILE_TX)
     ])
-    .then(fcl.decode);
+    .then(async a => {
+      console.warn(a);
+      return fcl.decode(a);
+    });
 
   return txId;
 }

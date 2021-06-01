@@ -136,14 +136,14 @@ function CreateNFT() {
         duration: null
       });
       const ipfsHash = await uploadFile(file);
-
       await createSet({
         variables: {
-          marketFee,
-          description,
           name: collectionName,
+          description: description,
+          image: ipfsHash,
+          website: 'siteURL',
           creator: user?.addr,
-          image: ipfsHash
+          marketFee: marketFee
         }
       });
       notification.open({

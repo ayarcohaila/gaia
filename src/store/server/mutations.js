@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const CREATE_TEMPLATE = gql`
-  mutation createTemplate($metadata: json!, $id: bigint!) {
-    createTemplate(arg1: { metadata: $metadata, setID: $id }) {
+  mutation createTemplate($metadata: json!, $id: bigint!, $recipientAddr: String!) {
+    createTemplate(arg1: { metadata: $metadata, setID: $id, recipientAddr: $recipientAddr }) {
       errors
     }
   }
@@ -18,19 +18,21 @@ export const MINT = gql`
 
 export const CREATE_SET = gql`
   mutation createSet(
-    $creator: String!
-    $marketFee: float8!
     $name: String!
     $description: String!
     $image: String!
+    $website: String!
+    $creator: String!
+    $marketFee: float8!
   ) {
     createSet(
       arg1: {
-        creator: $creator
-        marketFee: $marketFee
         name: $name
         description: $description
         image: $image
+        website: $website
+        creator: $creator
+        marketFee: $marketFee
       }
     ) {
       errors

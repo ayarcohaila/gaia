@@ -43,7 +43,7 @@ function Collections() {
           <Row>
             {loading
               ? [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
-              : nft_collection.map(({ collection_id, name, templates }) => {
+              : nft_collection.map(({ collection_id, name, image, description }) => {
                   let actions = [
                     {
                       title: 'Lock Collection',
@@ -62,8 +62,8 @@ function Collections() {
                     <Asset
                       key={collection_id}
                       id={collection_id}
-                      imgURL={templates[0]?.metadata?.image}
-                      description="Collection"
+                      imgURL={image}
+                      description={description}
                       name={name}
                       actions={actions}
                       linkTo={URLs.templates(collection_id)}
