@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Space, Row, Skeleton } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSubscription } from '@apollo/react-hooks';
 
 import {
@@ -27,15 +27,22 @@ import { getImageURL } from '~/utils/getImageUrl';
 import { URLs } from '~/routes/urls';
 import { appName } from '~/config/config';
 
+import useBlockPage from '~/hooks/useBlockPage';
+
 import { GET_DROP_BY_ID } from '~/store/server/subscriptions';
 
 const DropDetails = () => {
+  const { shouldPageBlock } = useBlockPage();
   const router = useRouter();
   const {
     query: { id }
   } = router;
   const [drop, setDrop] = useState({});
   const [amount, setAmount] = useState(0);
+
+  useEffect(() => {
+    shouldPageBlock();
+  }, []);
 
   const { loading: isLoading } = useSubscription(GET_DROP_BY_ID, {
     variables: {

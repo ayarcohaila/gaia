@@ -3,8 +3,16 @@ import { Col, Row, Card, Typography, Button, Skeleton } from 'antd';
 const { Text } = Typography;
 import { DropListWrapper, AssetWrapper } from '../../components/drops/styled';
 
+import useBlockPage from '~/hooks/useBlockPage';
+
 function DropsList() {
+  const { shouldPageBlock } = useBlockPage();
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    shouldPageBlock();
+  }, []);
+
   const AttrRow = ({ title, value }) => (
     <Row className="infoRow" justify="space-around">
       <Col span={10}>

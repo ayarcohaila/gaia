@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Col, Typography, Row, notification } from 'antd';
 import { useRouter } from 'next/router';
 import { useSubscription } from '@apollo/react-hooks';
@@ -11,10 +12,16 @@ import { URLs } from '~/routes/urls';
 
 import { GET_COLLECTIONS } from '~/store/server/subscriptions';
 import useAuth from '~/hooks/useAuth';
+import useBlockPage from '~/hooks/useBlockPage';
 
 function Collections() {
+  const { shouldPageBlock } = useBlockPage();
   const router = useRouter();
   const { user } = useAuth();
+
+  useEffect(() => {
+    shouldPageBlock();
+  }, []);
 
   const { loading, data: { nft_collection } = { nft_collection: [] } } = useSubscription(
     GET_COLLECTIONS,

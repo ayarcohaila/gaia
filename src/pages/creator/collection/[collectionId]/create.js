@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Col, Form, Typography, Row, notification, Spin } from 'antd';
 import { useRouter } from 'next/router';
 import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
@@ -19,13 +19,19 @@ import {
 import { uploadFile } from '~/utils/upload';
 import Seo from '~/components/seo/seo';
 import { CREATE_TEMPLATE } from '~/store/server/mutations';
+import useBlockPage from '~/hooks/useBlockPage';
 import { URLs } from '~/routes/urls';
 import useAuth from '~/hooks/useAuth';
 
 const FormComponent = ({ onSubmit, loading }) => {
+  const { shouldPageBlock } = useBlockPage();
   const [, forceUpdate] = useState({});
   const [form] = Form.useForm();
   const formValues = form.getFieldsValue();
+
+  useEffect(() => {
+    shouldPageBlock();
+  }, []);
 
   const disabled = useMemo(() => {
     const { templateName, description, file } = formValues;

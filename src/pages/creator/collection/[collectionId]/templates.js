@@ -1,6 +1,7 @@
 import { Col, Typography, Row, notification, Spin } from 'antd';
 import { useRouter } from 'next/router';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
+import { useEffect } from 'react';
 
 import { CreateNFTWrapper } from '~/components/profile/styled';
 import Seo from '~/components/seo/seo';
@@ -9,15 +10,21 @@ import Asset from '~/components/asset/Asset';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import { URLs } from '~/routes/urls';
 import useAuth from '~/hooks/useAuth';
+import useBlockPage from '~/hooks/useBlockPage';
 
 import { GET_TEMPLATES } from '~/store/server/subscriptions';
 import { MINT } from '~/store/server/mutations';
 
 function Templates() {
+  const { shouldPageBlock } = useBlockPage();
   const { user } = useAuth();
   const router = useRouter();
   const { query, push } = router;
   const { collectionId } = query;
+
+  useEffect(() => {
+    shouldPageBlock();
+  }, []);
 
   const { loading, data: { nft_template } = { nft_template: [] } } = useSubscription(
     GET_TEMPLATES,

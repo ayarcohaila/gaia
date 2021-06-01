@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from 'react';
 import isEqual from 'lodash.isequal';
 import { LoadingOutlined } from '@ant-design/icons';
 
+import useBlockPage from '~/hooks/useBlockPage';
 import useAuth from '~/hooks/useAuth';
 import useProfile from '~/hooks/useProfile';
 import { editProfile } from '~/flow/editProfile';
@@ -21,6 +22,7 @@ import {
 import Seo from '~/components/seo/seo';
 
 const EditProfile = () => {
+  const { shouldPageBlock } = useBlockPage();
   const { user } = useAuth();
   const { userProfile } = useProfile(user?.addr);
   const [state, setState] = useState({
@@ -29,6 +31,10 @@ const EditProfile = () => {
     info: null,
     loading: false
   });
+
+  useEffect(() => {
+    shouldPageBlock();
+  }, []);
 
   const disabled = useMemo(() => {
     return isEqual(

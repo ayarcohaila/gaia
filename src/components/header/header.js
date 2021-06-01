@@ -1,14 +1,17 @@
-/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import { Row, Col, Menu, Space } from 'antd';
 import Link from 'next/link';
-import useAuth from '~/hooks/useAuth';
-import { URLs } from '~/routes/urls';
+import { useRouter } from 'next/router';
+
 import Search from '~/components/header/search';
 import UserMenu from '~/components/header/UserMenu';
-import { MenuCol, CustomHeader, JustifyCenter } from './styled';
-import { useRouter } from 'next/router';
+
+import useAuth from '~/hooks/useAuth';
+
+import { URLs } from '~/routes/urls';
 import { appName } from '~/config/config';
+
+import { MenuCol, CustomHeader, JustifyCenter } from './styled';
 
 function MyHeader() {
   const { user } = useAuth();
@@ -31,6 +34,7 @@ function MyHeader() {
     setCurrentRoute(whichRoute);
   };
   useEffect(getCurrentKey, [router.pathname]);
+
   return (
     <CustomHeader>
       <Row justify="space-between" align="middle" gutter={[20, 0]}>

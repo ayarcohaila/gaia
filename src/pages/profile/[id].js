@@ -11,7 +11,7 @@ import {
   notification
 } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
 
@@ -19,6 +19,7 @@ import Address from '~/components/address/Address';
 import Card from '~/components/asset/Asset';
 import DropDown from '~/components/dropdown/DropDown';
 import useAuth from '~/hooks/useAuth';
+import useBlockPage from '~/hooks/useBlockPage';
 
 import { GET_MY_NFTS_BY_OWNER } from '~/store/server/subscriptions';
 import { INSERT_SALE_OFFER } from '~/store/server/mutations';
@@ -43,6 +44,12 @@ const Profile = () => {
   const [transferModal, setTransferModalVisible] = useState(false);
   const [destinationAddress, setDestinationAddress] = useState(null);
   const [assets, setAssets] = useState([]);
+  const { shouldPageBlock } = useBlockPage();
+
+  useEffect(() => {
+    shouldPageBlock();
+  }, []);
+
   const { loading: isLoading } = useSubscription(GET_MY_NFTS_BY_OWNER, {
     variables: {
       id
