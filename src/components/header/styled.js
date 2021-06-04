@@ -1,6 +1,9 @@
-import { AutoComplete, Col, Layout } from 'antd';
+import { AutoComplete, Col, Layout, Typography } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import Image from 'next/image';
 const { Header } = Layout;
+const { Text } = Typography;
 export const AutoCompleteStyled = styled(AutoComplete)`
   width: 100%;
   padding-left: 10%;
@@ -9,6 +12,21 @@ export const AutoCompleteStyled = styled(AutoComplete)`
     border-radius: 50px !important;
   }
 `;
+
+export const OptionStyled = styled(AutoComplete.Option)`
+  width: 80%;
+`;
+
+export const DropdownImage = styled(Image)`
+  margin-right: 50px;
+`;
+
+export const DropdownText = styled(Text)`
+  padding-left: 20px;
+`;
+
+export const UserIcon = styled(UserOutlined)``;
+
 export const ColStyled = styled(Col)`
   .ant-menu-inline,
   .ant-menu-vertical,
