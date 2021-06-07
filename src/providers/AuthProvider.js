@@ -2,30 +2,42 @@ import { createContext, useState, useCallback, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router';
 
 import AuthModal from '~/components/authModal/AuthModal';
+import SetupModal from '~/components/setupModal/SetupModal';
 
 import useAuth from '~/hooks/useAuth';
+import useProfile from '~/hooks/useProfile';
 
 import { URLs } from '~/routes/urls';
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [visible, setVisible] = useState(false);
+  const [authModalVisible, setAuthModalVisible] = useState(false);
+  const [setupModalVisible, setSetupModalVisible] = useState(false);
   const router = useRouter();
   const { user, updateUser } = useAuth();
+  const { hasSetup } = useProfile(user?.addr);
 
   const shouldPageBlock = useCallback(() => {
     if (!user?.addr) {
       router.push(URLs.home);
-      setVisible(true);
+      setAuthModalVisible(true);
     }
-  }, [user, visible]);
+  }, [user, authModalVisible]);
 
   useEffect(() => {
     if (user?.addr) {
-      setVisible(false);
+      setAuthModalVisible(false);
     }
   }, [user]);
+
+  useEffect(async () => {
+    const initializedAccount = await hasSetup();
+
+    if (user?.addr && !initializedAccount) {
+      setSetupModalVisible(true);
+    }
+  }, [user, hasSetup]);
 
   const flowBalance = useMemo(() => user?.balance, [user]);
 
@@ -34,7 +46,8 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{ shouldPageBlock, updateUser, flowBalance, fusdBalance }}>
       {children}
-      <AuthModal onDismiss={() => setVisible(false)} {...{ visible }} />
+      <AuthModal onDismiss={() => setAuthModalVisible(false)} visible={authModalVisible} />
+      <SetupModal onDismiss={() => setSetupModalVisible(false)} visible={setupModalVisible} />
     </AuthContext.Provider>
   );
 };

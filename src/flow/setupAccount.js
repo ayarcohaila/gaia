@@ -113,10 +113,7 @@ export async function setupAccount() {
         fcl.authorizations([fcl.authz]), // current user will be first AuthAccount
         fcl.limit(100) // set the compute limit
       ])
-      .then(async a => {
-        console.warn(a);
-        return fcl.decode(a);
-      });
+      .then(fcl.decode);
     notification.open({
       key: `setup_account`,
       icon: <Spin />,
@@ -124,7 +121,6 @@ export async function setupAccount() {
       description: 'Sending transaction to the blockchain',
       duration: null
     });
-    console.warn(fcl.tx(txId).onceSealed());
     return fcl.tx(txId).onceSealed();
   } catch (err) {
     console.warn(err);
