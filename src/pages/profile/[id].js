@@ -44,7 +44,7 @@ const Profile = () => {
   const [transferModal, setTransferModalVisible] = useState(false);
   const [destinationAddress, setDestinationAddress] = useState(null);
   const [assets, setAssets] = useState([]);
-  const { shouldPageBlock } = useBlockPage();
+  const shouldPageBlock = useBlockPage();
 
   useEffect(() => {
     shouldPageBlock();

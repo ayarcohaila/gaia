@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback, useEffect } from 'react';
+import { createContext, useState, useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 
 import AuthModal from '~/components/authModal/AuthModal';
@@ -12,7 +12,7 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
 
   const shouldPageBlock = useCallback(() => {
     if (!user?.addr) {
@@ -27,8 +27,12 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user]);
 
+  const flowBalance = useMemo(() => user?.balance, [user]);
+
+  const fusdBalance = useMemo(() => user?.usd_balance, [user]);
+
   return (
-    <AuthContext.Provider value={{ shouldPageBlock }}>
+    <AuthContext.Provider value={{ shouldPageBlock, updateUser, flowBalance, fusdBalance }}>
       {children}
       <AuthModal onDismiss={() => setVisible(false)} {...{ visible }} />
     </AuthContext.Provider>

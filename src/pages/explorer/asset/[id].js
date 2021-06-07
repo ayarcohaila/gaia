@@ -38,15 +38,19 @@ import {
 import Seo from '~/components/seo/seo';
 import UserInfo from '~/components/userInfo/UserInfo';
 import AssetInfo from '~/components/assetInfo/AssetInfo';
+
 import useAuth from '~/hooks/useAuth';
+import useBalance from '~/hooks/useBalance';
+import { getImageURL } from '~/utils/getImageUrl';
+import { URLs } from '~/routes/urls';
+
 import { cancelSale } from '~/flow/cancelSale';
 import { getProfile } from '~/flow/getProfile';
 import { buy } from '~/flow/buy';
-import { getImageURL } from '~/utils/getImageUrl';
-import { URLs } from '~/routes/urls';
+import { createSaleOffer } from '~/flow/sell';
+
 import { GET_NFT } from '~/store/server/subscriptions';
 import { UPDATE_OWNER, INSERT_SALE_OFFER } from '~/store/server/mutations';
-import { createSaleOffer } from '~/flow/sell';
 
 const { Text } = Typography;
 
@@ -66,6 +70,8 @@ const Sale = () => {
 
   const [form] = Form.useForm();
   const { user } = useAuth();
+
+  const { updateUser } = useBalance();
 
   useSubscription(GET_NFT, {
     variables: {
@@ -129,6 +135,7 @@ const Sale = () => {
           owner: user?.addr
         }
       });
+      updateUser();
       notification.open({
         key: `buy_sale_${saleId}`,
         type: 'success',
