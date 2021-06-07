@@ -50,6 +50,7 @@ import { buy } from '~/flow/buy';
 import { createSaleOffer } from '~/flow/sell';
 
 import { GET_NFT } from '~/store/server/subscriptions';
+import { checkAndInsertSale } from '~/utils/graphql';
 import { UPDATE_OWNER, INSERT_SALE_OFFER } from '~/store/server/mutations';
 
 const { Text } = Typography;
@@ -106,8 +107,6 @@ const Sale = () => {
     }
   });
   const [updateOwner] = useMutation(UPDATE_OWNER);
-
-  const [insertSaleOffer] = useMutation(INSERT_SALE_OFFER);
 
   const description = useMemo(() => {
     if (completeDescription || asset?.description?.length < 330) {
@@ -355,13 +354,8 @@ const Sale = () => {
       });
       // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID)
       await createSaleOffer(asset?.asset_id, price, asset?.template_id);
-      insertSaleOffer({
-        variables: {
-          price: price.toFixed(8),
-          nft_id: asset?.id,
-          status: 'active'
-        }
-      });
+      // checkAndInsertSale(ASSET_ID, DATABASE ID, PRICE)
+      await checkAndInsertSale(asset?.asset_id, asset?.id, price);
       notification.open({
         key: `sale_${asset?.asset_id}`,
         type: 'success',
@@ -369,6 +363,7 @@ const Sale = () => {
         description: `Your sale offer for ID #${asset?.asset_id} is created`
       });
     } catch (err) {
+      console.warn(err);
       notification.open({
         key: `sale_${asset?.asset_id}`,
         type: 'error',

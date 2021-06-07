@@ -16,6 +16,7 @@ function UserMenuContent({ loggedIn }) {
   const handleGoToEditProfile = async () => {
     const initializedProfile = await initialized();
     const initializedAccount = await hasSetup();
+    console.warn(initializedProfile, initializedAccount);
     if (initializedProfile && initializedAccount) {
       router.push(URLs.editProfile);
     } else {
