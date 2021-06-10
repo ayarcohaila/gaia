@@ -20,8 +20,11 @@ import { useSubscription, useMutation } from '@apollo/react-hooks';
 import {
   ExpandedViewSkeletonButton,
   ExpandedViewSkeletonImage,
-  ExpandedViewSkeletonInput,
-  ExpandedViewSkeletonParagraph,
+  ExpandedViewSkeletonNameInput,
+  ExpandedViewSkeletonCreatorInput,
+  ExpandedViewSkeletonInfoInput,
+  ExpandedViewSkeletonTitle,
+  ExpandedViewSkeletonText,
   StyledImage,
   StyledImageContainer,
   Heading,
@@ -394,19 +397,31 @@ const Sale = () => {
           <>
             {/* Skeleton */}
             <Column span={6} offset={2}>
-              <ExpandedViewSkeletonImage active />
+              <Skeleton.Button active size={550} />
             </Column>
             <Column span={8} offset={2}>
               <Content>
-                <ExpandedViewSkeletonParagraph active title paragraph={{ rows: 2 }} />
+                <ExpandedViewSkeletonTitle />
                 <Space direction="horizontal">
                   <Skeleton.Avatar active size="large" />
                   <Space direction="vertical">
-                    <ExpandedViewSkeletonInput active size="small" />
-                    <ExpandedViewSkeletonInput active size="small" />
+                    <ExpandedViewSkeletonNameInput active size="small" />
+                    <ExpandedViewSkeletonCreatorInput active size="small" />
                   </Space>
                 </Space>
-                <ExpandedViewSkeletonButton active size="large" shape="round" />
+                <ExpandedViewSkeletonText active />
+                <ExpandedViewSkeletonText active />
+                <ExpandedViewSkeletonText active />
+                <ExpandedViewSkeletonText active />
+                <ExpandedViewSkeletonText active />
+                <ExpandedViewSkeletonText active />
+
+                <ExpandedViewSkeletonInfoInput $width={50} $marginTop={10} active />
+                <ExpandedViewSkeletonInfoInput $width={30} $marginTop={10} active />
+                <ExpandedViewSkeletonInfoInput $width={100} active />
+                <ExpandedViewSkeletonInfoInput $width={90} active />
+                <ExpandedViewSkeletonInfoInput $width={95} active />
+                <ExpandedViewSkeletonButton active size="small" shape="round" />
               </Content>
             </Column>
             {/* End of Skeleton */}
