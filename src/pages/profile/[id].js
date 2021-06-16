@@ -13,7 +13,7 @@ import {
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useSubscription } from '@apollo/react-hooks';
+import { useMutation, useSubscription } from '@apollo/react-hooks';
 
 import Address from '~/components/address/Address';
 import Card from '~/components/asset/Asset';
@@ -25,12 +25,13 @@ import { GET_MY_NFTS_BY_OWNER } from '~/store/server/subscriptions';
 
 import { createSaleOffer } from '~/flow/sell';
 import { cancelSale } from '~/flow/cancelSale';
-import { transferNft } from '~/flow/transferNft';
+import { cancelAndTransfer } from '~/flow/cancelAndTransfer';
 
 import { Banner, ProfileWrapper } from '../../components/profile/styled';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
-import { cancelSaleOffer, checkAndInsertSale } from '~/utils/graphql';
+import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils/graphql';
+import { UPDATE_OWNER } from '~/store/server/mutations';
 const { Text } = Typography;
 
 const Profile = () => {
@@ -44,6 +45,8 @@ const Profile = () => {
   const [transferModal, setTransferModalVisible] = useState(false);
   const [destinationAddress, setDestinationAddress] = useState(null);
   const [assets, setAssets] = useState([]);
+  const [updateOwner] = useMutation(UPDATE_OWNER);
+
   const shouldPageBlock = useBlockPage();
 
   useEffect(() => {
@@ -168,22 +171,29 @@ const Profile = () => {
     try {
       setTransferModalVisible(false);
       notification.open({
-        key: `transfer_${modalItemId?.asset_id}`,
+        key: `Transfering_${modalItemId?.asset_id}`,
         message: `Transferring #${modalItemId?.asset_id}`,
         description: `You gonna be prompted to accept transferring ${modalItemId?.asset_id} to ${destinationAddress}.`,
         icon: <Spin />,
         duration: null
       });
-      await transferNft(destinationAddress, modalItemId?.asset_id);
+      await cancelAndTransfer(destinationAddress, modalItemId?.asset_id);
+      await checkAndRemoveSale(modalItemId?.asset_id, modalItemId?.id);
+      await updateOwner({
+        variables: {
+          assetId: Number(modalItemId?.asset_id),
+          owner: user?.addr
+        }
+      });
       notification.open({
-        key: `transfer_${modalItemId?.asset_id}`,
+        key: `Transfering_${modalItemId?.asset_id}`,
         type: 'success',
         message: `#${modalItemId?.asset_id} transferred `,
         description: `#${modalItemId?.asset_id} have been transferred to ${destinationAddress}`
       });
     } catch (err) {
       notification.open({
-        key: `transfer_${modalItemId?.asset_id}`,
+        key: `Transfering_${modalItemId?.asset_id}`,
         type: 'error',
         message: `Transferring #${modalItemId?.asset_id} failed `,
         description: `Your asset #${modalItemId?.asset_id} has failed on transferring to ${destinationAddress}`

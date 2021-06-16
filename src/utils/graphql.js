@@ -7,6 +7,7 @@ import {
   CANCEL_SALE_OFFER
 } from '~/store/server/mutations';
 import { CHECK_SALE_EXISTS } from '~/store/server/queries';
+
 export const checkIfSaleExists = async itemID => {
   const { nft_sale_offer_aggregate } = await gqlClient.request(CHECK_SALE_EXISTS, { itemID });
   return nft_sale_offer_aggregate.aggregate.count > 0;
@@ -37,6 +38,18 @@ export const checkAndInsertSale = async (itemID, id, price) => {
     asset_id: itemID,
     standard: 'flow'
   });
+};
+
+export const checkAndRemoveSale = async (itemID, id) => {
+  const saleExists = await checkIfSaleExists(itemID);
+
+  if (saleExists) {
+    await gqlClient.request(UPDATE_IS_FOR_SALE, { id: id, is_for_sale: false });
+    await gqlClient.request(CANCEL_SALE_OFFER, {
+      asset_id: itemID,
+      standard: 'flow'
+    });
+  }
 };
 
 export const cancelSaleOffer = async (itemID, id) => {
