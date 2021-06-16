@@ -117,3 +117,11 @@ export const UPDATE_SALE_PRICE = gql`
     }
   }
 `;
+
+export const LOCK_COLLECTION = gql`
+  mutation lockSet($authorizedAddr: String!, $setID: bigint!) {
+    lockSet(arg1: { authorizedAddr: $authorizedAddr, setID: $setID }) {
+      errors
+    }
+  }
+`;

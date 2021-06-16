@@ -12,7 +12,7 @@ import { URLs } from '~/routes/urls';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
 
-import { GET_TEMPLATES } from '~/store/server/subscriptions';
+import { GET_TEMPLATES, GET_COLLECTION } from '~/store/server/subscriptions';
 import { MINT } from '~/store/server/mutations';
 
 function Templates() {
@@ -32,6 +32,10 @@ function Templates() {
       variables: { id: Number(collectionId) }
     }
   );
+
+  const { data: { nft_collection } = { nft_collection: [] } } = useSubscription(GET_COLLECTION, {
+    variables: { id: parseInt(collectionId) }
+  });
 
   const [mint] = useMutation(MINT);
 
@@ -78,13 +82,15 @@ function Templates() {
           <Typography.Title>Select a Template</Typography.Title>
         </Col>
         <Col>
-          <StyledButton
-            type="primary"
-            shape="round"
-            style={{ margin: 35 }}
-            onClick={() => push(URLs.createTemplate(collectionId))}>
-            Create Template
-          </StyledButton>
+          {nft_collection[0]?.is_locked === true ? null : (
+            <StyledButton
+              type="primary"
+              shape="round"
+              style={{ margin: 35 }}
+              onClick={() => push(URLs.createTemplate(collectionId))}>
+              Create Template
+            </StyledButton>
+          )}
         </Col>
         <Col offset={3} span={18}>
           <Row>
@@ -96,12 +102,16 @@ function Templates() {
                     imgURL={metadata.image}
                     description={metadata.description}
                     name={metadata.name}
-                    actions={[
-                      {
-                        title: 'Mint NFT',
-                        action: () => handleMint(template_id, collection_id, metadata.name)
-                      }
-                    ]}
+                    actions={
+                      nft_collection[0]?.is_locked === true
+                        ? []
+                        : [
+                            {
+                              title: 'Mint NFT',
+                              action: () => handleMint(template_id, collection_id, metadata.name)
+                            }
+                          ]
+                    }
                   />
                 ))}
           </Row>

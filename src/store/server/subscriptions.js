@@ -111,6 +111,22 @@ export const GET_COLLECTIONS = gql`
       name
       image
       description
+      is_locked
+      templates {
+        metadata
+      }
+    }
+  }
+`;
+
+export const GET_COLLECTION = gql`
+  subscription nft_collection($id: bigint!) {
+    nft_collection(where: { collection_id: { _eq: $id } }) {
+      collection_id
+      name
+      image
+      description
+      is_locked
       templates {
         metadata
       }
