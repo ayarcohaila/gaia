@@ -122,7 +122,7 @@ const Sale = () => {
   }, [completeDescription, asset]);
 
   //This function handle the buy sale
-  const handleBuy = async saleId => {
+  const handleBuy = async (saleId, id) => {
     setIsModalLoading(true);
     try {
       notification.open({
@@ -132,13 +132,17 @@ const Sale = () => {
         icon: <Spin />,
         duration: null
       });
+      //buy asset
       await buy(Number(saleId), asset?.ownerProfile?.address);
-      updateOwner({
+      //update owner on database
+      await updateOwner({
         variables: {
           assetId: Number(saleId),
           owner: user?.addr
         }
       });
+      //cancel sale on database
+      await cancelSaleOffer(saleId, id);
       updateUser();
       notification.open({
         key: `buy_sale_${saleId}`,
@@ -338,7 +342,7 @@ const Sale = () => {
           $margin
           type="primary"
           shape="round"
-          onClick={() => handleBuy(asset?.asset_id)}>
+          onClick={() => handleBuy(asset?.asset_id, asset?.id)}>
           Buy
         </StyledButton>
       );
@@ -366,8 +370,13 @@ const Sale = () => {
         icon: <Spin />,
         duration: null
       });
-      // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID)
-      await createSaleOffer(asset?.asset_id, price, asset?.template_id);
+      // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID, COLLECTION_CREATOR_ADDRESS)
+      await createSaleOffer(
+        asset?.asset_id,
+        price,
+        asset?.template_id,
+        asset?.creatorProfile.address
+      );
       // checkAndInsertSale(ASSET_ID, DATABASE ID, PRICE)
       await checkAndInsertSale(asset?.asset_id, asset?.id, price);
       notification.open({

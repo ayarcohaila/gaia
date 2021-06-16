@@ -85,6 +85,9 @@ export const GET_MY_NFTS_BY_OWNER = gql`
           asset_id
         }
       }
+      collection {
+        author
+      }
     }
   }
 `;

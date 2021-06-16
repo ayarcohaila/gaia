@@ -11,11 +11,14 @@ const SALE_NFT_TX = `
   import FUSD from 0xFUSDContract
 
 
-  transaction(saleAssetID: UInt64, salePrice: UFix64, templateID: UInt64) {
+  transaction(saleAssetID: UInt64, salePrice: UFix64, templateID: UInt64, creatorAddress: Address) {
     let FUSDVault: Capability<&FUSD.Vault{FungibleToken.Receiver}>
     let GaiaCollection: Capability<&Gaia.Collection{NonFungibleToken.Provider}>
     let marketCollection: &GaiaMarket.Collection
     let marketFee: UFix64
+    let creatorFUSDVault: Capability<&FUSD.Vault{FungibleToken.Receiver}>
+
+    
 
     prepare(signer: AuthAccount) {
         // we need a provider capability, but one is not provided by default so we create one.
@@ -42,14 +45,20 @@ const SALE_NFT_TX = `
     // get market fee by set id
     self.marketFee = Gaia.getSetMarketFee(setID: setiD)!
 
+    //Get Collection creator vault
+    self.creatorFUSDVault = getAccount(creatorAddress)
+      .getCapability<&FUSD.Vault{FungibleToken.Receiver}>(/public/fusdReceiver)!
+
     }
+    
+      
     execute {
       let offer <- GaiaMarket.createSaleOffer (
         sellerItemProvider: self.GaiaCollection,
         itemID: saleAssetID,
         templateID: templateID,
         sellerPaymentReceiver: self.FUSDVault,
-        marketPaymentReceiver: self.FUSDVault,
+        marketPaymentReceiver: self.creatorFUSDVault,
         price: salePrice,
         marketFee: self.marketFee
     )
@@ -58,7 +67,7 @@ const SALE_NFT_TX = `
 }
 `;
 
-export async function createSaleOffer(saleAssetID, salePrice, templateID) {
+export async function createSaleOffer(saleAssetID, salePrice, templateID, creatorAddress) {
   if (saleAssetID == null)
     throw new Error(
       'createSaleOffer(saleAssetID, salePrice, marketFee, templateID, marketPaymentReceiver) -- saleAssetID required'
@@ -80,7 +89,8 @@ export async function createSaleOffer(saleAssetID, salePrice, templateID) {
         fcl.args([
           fcl.arg(Number(saleAssetID), t.UInt64),
           fcl.arg(Number(correctSalePrice).toFixed(8), t.UFix64),
-          fcl.arg(Number(templateID), t.UInt64)
+          fcl.arg(Number(templateID), t.UInt64),
+          fcl.arg(creatorAddress, t.Address)
         ]),
         fcl.proposer(fcl.authz),
         fcl.payer(fcl.authz),

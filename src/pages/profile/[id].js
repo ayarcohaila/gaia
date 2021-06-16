@@ -66,6 +66,7 @@ const Profile = () => {
         imgURL: nft.template.metadata.image,
         name: nft.template.metadata.name,
         description: nft.template.metadata.description,
+        creator: nft.collection.author,
         id: nft.id,
         mintNumber: nft.mint_number,
         owner: nft.owner
@@ -112,8 +113,13 @@ const Profile = () => {
         icon: <Spin />,
         duration: null
       });
-      // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID)
-      await createSaleOffer(modalItemId?.asset_id, price, modalItemId?.template_id);
+      // createSaleOffer(ASSET_ID, PRICE, MARKET_FEE, TEMPLATE_ID, COLLECTION_CREATOR_ADDRESS)
+      await createSaleOffer(
+        modalItemId?.asset_id,
+        price,
+        modalItemId?.template_id,
+        modalItemId?.creator
+      );
       // checkAndInsertSale(ASSET_ID, DATABASE ID, PRICE)
       await checkAndInsertSale(modalItemId?.asset_id, modalItemId?.id, price);
       notification.open({
