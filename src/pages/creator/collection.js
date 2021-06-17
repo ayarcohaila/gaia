@@ -14,6 +14,7 @@ import {
   UploadWrapper
 } from '~/components/profile/styled';
 import useAuth from '~/hooks/useAuth';
+import { regexURL } from '~/utils/validations';
 import Seo from '~/components/seo/seo';
 import { CREATE_SET } from '~/store/server/mutations';
 import { URLs } from '~/routes/urls';
@@ -72,6 +73,20 @@ const FormComponent = ({ onSubmit, loading }) => {
             }
           ]}>
           <StyledInput placeholder="Collection Name" />
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{ span: 24 }}
+          name="websiteUrl"
+          shouldUpdate={false}
+          label="Website Url"
+          labelCol={{ span: 24 }}
+          rules={[
+            {
+              pattern: regexURL,
+              message: 'This field must be a valid url.'
+            }
+          ]}>
+          <StyledInput placeholder="Website Url" />
         </Form.Item>
         <Row>
           <Col span={19}>
