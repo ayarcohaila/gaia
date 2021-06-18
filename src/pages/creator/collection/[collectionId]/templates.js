@@ -1,9 +1,11 @@
 import { Col, Typography, Row, notification, Spin } from 'antd';
+import { DeploymentUnitOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
 import { useEffect } from 'react';
 
 import { CreateNFTWrapper } from '~/components/profile/styled';
+
 import Seo from '~/components/seo/seo';
 import { StyledButton } from '~/components/asset/styled';
 import Asset from '~/components/asset/Asset';
@@ -14,6 +16,7 @@ import useBlockPage from '~/hooks/useBlockPage';
 
 import { GET_TEMPLATES, GET_COLLECTION } from '~/store/server/subscriptions';
 import { MINT } from '~/store/server/mutations';
+import EmptyResult from '~/components/shared/EmptyResult';
 
 function Templates() {
   const shouldPageBlock = useBlockPage();
@@ -94,26 +97,29 @@ function Templates() {
         </Col>
         <Col offset={3} span={18}>
           <Row>
-            {loading
-              ? [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
-              : nft_template.map(({ template_id, metadata, collection: { collection_id } }) => (
-                  <Asset
-                    key={template_id}
-                    imgURL={metadata.image}
-                    description={metadata.description}
-                    name={metadata.name}
-                    actions={
-                      nft_collection[0]?.is_locked === true
-                        ? []
-                        : [
-                            {
-                              title: 'Mint NFT',
-                              action: () => handleMint(template_id, collection_id, metadata.name)
-                            }
-                          ]
-                    }
-                  />
-                ))}
+            {loading && [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)}
+            {nft_template.length ? (
+              nft_template.map(({ template_id, metadata, collection: { collection_id } }) => (
+                <Asset
+                  key={template_id}
+                  imgURL={metadata.image}
+                  description={metadata.description}
+                  name={metadata.name}
+                  actions={
+                    nft_collection[0]?.is_locked === true
+                      ? []
+                      : [
+                          {
+                            title: 'Mint NFT',
+                            action: () => handleMint(template_id, collection_id, metadata.name)
+                          }
+                        ]
+                  }
+                />
+              ))
+            ) : (
+              <EmptyResult title="No Results" icon={<DeploymentUnitOutlined />} />
+            )}
           </Row>
         </Col>
       </CreateNFTWrapper>
