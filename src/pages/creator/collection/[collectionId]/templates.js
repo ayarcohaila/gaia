@@ -1,8 +1,9 @@
-import { Col, Typography, Row, notification, Spin } from 'antd';
+import { Col, Typography, Row, notification, Spin, Breadcrumb } from 'antd';
 import { DeploymentUnitOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 import { CreateNFTWrapper } from '~/components/profile/styled';
 
@@ -85,15 +86,25 @@ function Templates() {
           <Typography.Title>Select a Template</Typography.Title>
         </Col>
         <Col>
-          {nft_collection[0]?.is_locked === true ? null : (
-            <StyledButton
-              type="primary"
-              shape="round"
-              style={{ margin: 35 }}
-              onClick={() => push(URLs.createTemplate(collectionId))}>
-              Create Template
-            </StyledButton>
-          )}
+          <StyledButton
+            type="primary"
+            shape="round"
+            disabled={nft_collection[0]?.is_locked}
+            style={{ margin: 35 }}
+            onClick={() => push(URLs.createTemplate(collectionId))}>
+            Create Template
+          </StyledButton>
+        </Col>
+        <Col offset={3} span={14}>
+          <Breadcrumb style={{ margin: '10px 0' }}>
+            <Breadcrumb.Item>
+              <Link href="/">Home</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link href="/creator">Collections</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Template</Breadcrumb.Item>
+          </Breadcrumb>
         </Col>
         <Col offset={3} span={18}>
           <Row>
@@ -105,8 +116,9 @@ function Templates() {
                   imgURL={metadata.image}
                   description={metadata.description}
                   name={metadata.name}
+                  $isLocked={nft_collection[0]?.is_locked}
                   actions={
-                    nft_collection[0]?.is_locked === true
+                    nft_collection[0]?.is_locked
                       ? []
                       : [
                           {

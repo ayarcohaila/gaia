@@ -27,7 +27,7 @@ function Collections() {
     shouldPageBlock();
   }, []);
 
-  const { loading, data: { nft_collection } = { nft_collection: [] } } = useSubscription(
+  const { loading = true, data: { nft_collection } = { nft_collection: [] } } = useSubscription(
     GET_COLLECTIONS,
     {
       variables: { author: user?.addr }
@@ -122,6 +122,7 @@ function Collections() {
                       name={name}
                       actions={actions}
                       linkTo={URLs.templates(collection_id)}
+                      $isLocked={is_locked}
                     />
                   );
                 })}

@@ -1,4 +1,5 @@
 import { Card, Skeleton } from 'antd';
+import { LockOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 const CardStyled = styled(Card)`
@@ -83,6 +84,12 @@ export const PlaceholderSkeleton = styled(Skeleton)`
       }
     }
   }
+`;
+
+export const LockOutlinedStyled = styled(LockOutlined)`
+  position: absolute;
+  top: 5px;
+  right: 5px;
 `;
 
 export default CardStyled;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Tooltip } from 'antd';
 import { UserOutlined, CaretDownOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
@@ -15,7 +16,7 @@ import {
   MintNumberContainer,
   MintNumber
 } from './styled';
-import { PlaceholderSkeletonImg } from '~/components/shared/CardStyled';
+import { PlaceholderSkeletonImg, LockOutlinedStyled } from '~/components/shared/CardStyled';
 
 import { getImageURL } from '~/utils/getImageUrl';
 import { getProfile } from '~/flow/getProfile';
@@ -32,7 +33,8 @@ const Asset = ({
   actions,
   linkTo,
   mintNumber,
-  showOwner = false
+  showOwner = false,
+  $isLocked = false
 }) => {
   const [imageSrc, setImageSrc] = useState(null);
   const [isImageLoading, setImageLoading] = useState(true);
@@ -78,7 +80,12 @@ const Asset = ({
   }
 
   const Component = (
-    <Card className="token-card">
+    <Card $isLocked={$isLocked} className="token-card">
+      {$isLocked && (
+        <Tooltip title="Locked">
+          <LockOutlinedStyled />
+        </Tooltip>
+      )}
       <MintNumberContainer justify={showOwner ? 'space-between' : 'end'} align="middle">
         {getOwner()}
         {getMintNumber()}
