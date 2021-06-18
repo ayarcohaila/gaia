@@ -7,7 +7,7 @@ import { capitalize } from '~/utils/string';
 import { CustomRow as Row, Wrapper } from './styled';
 
 function AssetInfo({ metadata, price, id, mintNumber, collection }) {
-  const cleanMetadata = objectRemover(['image', 'description', 'name'], metadata);
+  const cleanMetadata = objectRemover(['image', 'description', 'name', 'video'], metadata);
   const infoKey = Object.keys(cleanMetadata);
   return (
     <Wrapper>

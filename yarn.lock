@@ -5177,15 +5177,15 @@ react-dom@17.0.1:
     object-assign "^4.1.1"
     scheduler "^0.20.1"
 
+react-image-video-lightbox@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-image-video-lightbox/-/react-image-video-lightbox-3.0.0.tgz#14f7090a6fd042cf55bd6387ee46e4573e9c024d"
+  integrity sha512-kEF6r1oZ6wPQIlVzsmmOgIAvaPdpQg8CVUNoggnGBR3GnaHdiRoGbyoty1smtoovjfzIFDHP3P6mLU4R//7COQ==
+
 react-is@16.13.1, react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
-
-react-modal-image@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/react-modal-image/-/react-modal-image-2.5.0.tgz#c9f047ae2a1b8ca54c35dbdad3bbca846cf21632"
-  integrity sha512-QucQrgOLmF44CD4EFDLZ9ICrbHEZwztjALgx1GsNmMWZrAtmzDLarG+T1TK2OSE4w1eHfkXtmEhQibjbt0mT2g==
 
 react-refresh@0.8.3:
   version "0.8.3"

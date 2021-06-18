@@ -12,9 +12,9 @@ import {
   Spin,
   notification
 } from 'antd';
-import { Lightbox } from 'react-modal-image';
 import { useMemo, useState } from 'react';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
+import ReactImageVideoLightbox from 'react-image-video-lightbox';
 
 import {
   ExpandedViewSkeletonButton,
@@ -23,6 +23,7 @@ import {
   ExpandedViewSkeletonInfoInput,
   ExpandedViewSkeletonTitle,
   ExpandedViewSkeletonText,
+  StyledVideo,
   StyledImage,
   StyledImageContainer,
   Heading,
@@ -99,6 +100,7 @@ const Sale = () => {
         asset_id: nft[0]?.asset_id,
         template_id: nft[0]?.template.template_id,
         imgURL: nft[0].template.metadata.image,
+        video: nft[0].template.metadata?.video,
         name: nft[0].template.metadata.name,
         description: nft[0].template.metadata.description,
         saleOffers: nft[0].sale_offers,
@@ -360,6 +362,7 @@ const Sale = () => {
   const sellAsset = () => {
     setModalVisible(true);
   };
+
   //It handle the form submit of sell modal
   const onFinishSale = async ({ price }) => {
     try {
@@ -438,11 +441,21 @@ const Sale = () => {
           <>
             <>
               <StyledImageContainer>
-                <StyledImage
-                  isClickable
-                  onClick={() => setOpenLightbox(true)}
-                  src={getImageURL(asset?.imgURL ?? '')}
-                />
+                {asset?.video ? (
+                  <StyledVideo
+                    autoPlay
+                    loop
+                    onClick={() => {
+                      //setOpenLightbox(true);
+                    }}
+                    src={getImageURL(asset?.imgURL ?? '')}
+                  />
+                ) : (
+                  <StyledImage
+                    onClick={() => {} /* setOpenLightbox(true) */}
+                    src={getImageURL(asset?.imgURL ?? '')}
+                  />
+                )}
               </StyledImageContainer>
             </>
             <ContentColumn xs={24} xl={8} md={8} sm={8}>
@@ -475,17 +488,6 @@ const Sale = () => {
                     ownerName={asset?.ownerProfile?.name}
                     link={URLs.profile(asset?.ownerProfile?.address)}
                   />
-                  {openLightbox && (
-                    <Lightbox
-                      medium={asset?.imgURL}
-                      large={asset?.imgURL}
-                      alt={asset?.name}
-                      onClose={() => setOpenLightbox(false)}
-                      hideDownload
-                      showRotate={false}
-                      hideZoom
-                    />
-                  )}
                   {(asset?.saleOffers?.length === 0 && renderAssetOwner()) ||
                     (asset?.saleOffers?.some(offer => offer.status !== 'active') &&
                       renderAssetOwner())}
@@ -497,6 +499,23 @@ const Sale = () => {
           </>
         )}
       </Row>
+      {openLightbox && (
+        <ReactImageVideoLightbox
+          autoPlay
+          loop
+          showControls={false}
+          data={[
+            {
+              url: getImageURL(asset?.imgURL ?? ''),
+              type: asset?.video ? 'video' : 'photo',
+              altTag: asset?.name
+            }
+          ]}
+          onCloseCallback={() => setOpenLightbox(false)}
+          startIndex={0}
+          showResourceCount={true}
+        />
+      )}
     </>
   );
 };

@@ -116,6 +116,7 @@ function Templates() {
                   imgURL={metadata.image}
                   description={metadata.description}
                   name={metadata.name}
+                  video={metadata?.video}
                   $isLocked={nft_collection[0]?.is_locked}
                   actions={
                     nft_collection[0]?.is_locked

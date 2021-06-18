@@ -67,6 +67,7 @@ const Profile = () => {
         template_id: nft.template.template_id,
         onSale: nft.is_for_sale,
         imgURL: nft.template.metadata.image,
+        video: nft.template.metadata?.video,
         name: nft.template.metadata.name,
         description: nft.template.metadata.description,
         creator: nft.collection.author,

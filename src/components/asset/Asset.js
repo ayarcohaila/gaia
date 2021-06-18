@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Tooltip } from 'antd';
@@ -8,6 +9,7 @@ import Price from './Price';
 import {
   Card,
   CardImage,
+  CardVideo,
   AssetDescription as Description,
   Text,
   ContentContainer,
@@ -16,7 +18,7 @@ import {
   MintNumberContainer,
   MintNumber
 } from './styled';
-import { PlaceholderSkeletonImg, LockOutlinedStyled } from '~/components/shared/CardStyled';
+import { LockOutlinedStyled } from '~/components/shared/CardStyled';
 
 import { getImageURL } from '~/utils/getImageUrl';
 import { getProfile } from '~/flow/getProfile';
@@ -25,6 +27,7 @@ import DropDown from '~/components/dropdown/DropDown';
 
 const Asset = ({
   imgURL,
+  video,
   description,
   name,
   price,
@@ -37,7 +40,6 @@ const Asset = ({
   $isLocked = false
 }) => {
   const [imageSrc, setImageSrc] = useState(null);
-  const [isImageLoading, setImageLoading] = useState(true);
 
   async function getImage() {
     const ownerInfo = await getProfile(owner);
@@ -73,10 +75,20 @@ const Asset = ({
     return null;
   }
 
-  function getImageLoading() {
-    if (isImageLoading) return <PlaceholderSkeletonImg shape="square" active />;
-
-    return null;
+  function getVisualContent() {
+    return video ? (
+      <CardVideo autoPlay loop>
+        <source src={getImageURL(imgURL ?? '')} type="video/mp4" />
+      </CardVideo>
+    ) : (
+      <CardImage
+        width={193}
+        height={182}
+        layout={undefined}
+        src={getImageURL(imgURL ?? '')}
+        unoptimized={true}
+      />
+    );
   }
 
   const Component = (
@@ -90,15 +102,8 @@ const Asset = ({
         {getOwner()}
         {getMintNumber()}
       </MintNumberContainer>
-      {getImageLoading()}
-      <CardImage
-        width={193}
-        height={182}
-        layout={undefined}
-        src={getImageURL(imgURL ?? '')}
-        unoptimized={true}
-        onLoad={() => setImageLoading(false)}
-      />
+      {getVisualContent()}
+
       <div className="text-content">
         <ContentContainer fullWidth={!price}>
           <Text>{name}</Text>

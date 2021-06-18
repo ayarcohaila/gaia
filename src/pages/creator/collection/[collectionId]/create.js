@@ -58,7 +58,7 @@ const FormComponent = ({ onSubmit, loading }) => {
                 form.setFieldsValue({ file: null });
               }}
               maxCount={1}
-              accept=".png,.gif,.webp,.jpeg,.jpg">
+              accept=".png,.gif,.webp,.jpeg,.jpg,.mp4">
               <CreatorUploadButton type="primary" shape="round">
                 Choose file
               </CreatorUploadButton>
@@ -182,12 +182,14 @@ function CreateTemplate() {
         icon: <Spin />,
         duration: null
       });
+      const isVideo = ['video/mp4'].includes(values.file.type);
       const ipfsHash = await uploadFile(values.file);
 
       const metadata = {
         name: values.templateName,
         description: values.description,
-        image: ipfsHash
+        image: ipfsHash,
+        ...(isVideo && { video: ipfsHash })
       };
 
       if (values.fields) {

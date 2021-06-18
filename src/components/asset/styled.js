@@ -53,6 +53,12 @@ export const CardImage = styled(Image)`
   object-fit: contain;
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderGray};
 `;
+export const CardVideo = styled.video`
+  width: 193px;
+  height: 182px;
+  object-fit: contain;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderGray};
+`;
 
 export const PriceContainer = styled.div`
   display: flex;
@@ -173,6 +179,16 @@ export const StyledImage = styled.img`
   }
 `;
 
+export const StyledVideo = styled.video`
+  width: 100%;
+  max-width: 480px;
+  max-height: 480px;
+  border-radius: 6px;
+  object-fit: scale-down;
+  :hover {
+    cursor: ${props => props?.isClickable && 'pointer'};
+  }
+`;
 export const Heading = styled.p`
   font-size: 30px;
   line-height: 32px;
