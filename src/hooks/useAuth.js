@@ -5,6 +5,7 @@ import { getFUSDBalance } from '~/flow/getFusdBalance';
 
 export default function useAuth() {
   const [user, setUser] = useState(null);
+  const [checkedAuth, setCheckedAuth] = useState(false);
 
   const updateUser = () =>
     fcl.currentUser().subscribe(async u => {
@@ -17,6 +18,8 @@ export default function useAuth() {
       } else {
         setUser(null);
       }
+
+      setCheckedAuth(true);
     });
 
   useEffect(() => {
@@ -26,6 +29,7 @@ export default function useAuth() {
   return {
     user,
     updateUser,
+    checkedAuth,
     login: fcl.logIn,
     logout: fcl.unauthenticate,
     signup: fcl.signUp

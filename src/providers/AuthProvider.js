@@ -15,21 +15,21 @@ export const AuthProvider = ({ children }) => {
   const [authModalVisible, setAuthModalVisible] = useState(false);
   const [setupModalVisible, setSetupModalVisible] = useState(false);
   const router = useRouter();
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, checkedAuth } = useAuth();
   const { hasSetup } = useProfile(user?.addr);
 
   const shouldPageBlock = useCallback(() => {
-    if (!user?.addr) {
+    if (checkedAuth && !user?.addr) {
       router.push(URLs.home);
       setAuthModalVisible(true);
     }
-  }, [user, authModalVisible]);
+  }, [user, authModalVisible, checkedAuth]);
 
   useEffect(() => {
-    if (user?.addr) {
+    if (checkedAuth && user?.addr) {
       setAuthModalVisible(false);
     }
-  }, [user]);
+  }, [user, checkedAuth]);
 
   useEffect(async () => {
     const initializedAccount = await hasSetup();
