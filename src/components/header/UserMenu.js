@@ -1,20 +1,18 @@
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Popover } from 'antd';
 import React from 'react';
-
 import UserMenuContent from '~/components/header/UserMenuContent';
-
 import useBalance from '~/hooks/useBalance';
 import useAuth from '~/hooks/useAuth';
 import useProfile from '~/hooks/useProfile';
 import { getImageURL } from '~/utils/getImageUrl';
-
 import { UserContainerCenter, UserAvatarContainer, UserInfo, UserBalance } from './styled';
+import config from '~/utils/config';
 
 function UserMenu() {
   const { user, login } = useAuth();
   const { userProfile } = useProfile(user?.addr);
-  const { flowBalance, fusdBalance } = useBalance();
+  const { fusdBalance } = useBalance();
 
   return user?.loggedIn ? (
     <Popover
@@ -24,8 +22,10 @@ function UserMenu() {
       <UserContainerCenter>
         <UserContainerCenter $wrap>
           <UserInfo>{userProfile?.name ?? user?.addr}</UserInfo>
-          <UserInfo small> {flowBalance} FLOW</UserInfo>
-          <UserBalance small>{fusdBalance} FUSD</UserBalance>
+          {/*<UserInfo small> {flowBalance} FLOW</UserInfo>*/}
+          <UserBalance small>
+            {fusdBalance} {config.currency}
+          </UserBalance>
         </UserContainerCenter>
         <UserAvatarContainer>
           <Avatar

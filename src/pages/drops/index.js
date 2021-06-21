@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Col, Row, Card, Typography, Button, Skeleton } from 'antd';
 const { Text } = Typography;
 import { DropListWrapper, AssetWrapper } from '../../components/drops/styled';
+import config from '~/utils/config';
 
 import useBlockPage from '~/hooks/useBlockPage';
 
@@ -61,7 +62,7 @@ function DropsList() {
             <AttrRow title="Drop ID" value="#28393" />
             <AttrRow title="Collection" value="jamesjohnson" />
             <AttrRow title="Claimed" value="0/100" />
-            <AttrRow title="Price" value="15.000000000 FLOW" />
+            <AttrRow title="Price" value={`15.000000000 ${config.currency}`} />
             <Col span={24}>
               <Button type="primary" style={{ width: '100%', borderRadius: 20, marginTop: 30 }}>
                 Show drop

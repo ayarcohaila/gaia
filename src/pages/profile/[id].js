@@ -14,6 +14,7 @@ import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation, useSubscription } from '@apollo/react-hooks';
+import config from '~/utils/config';
 
 import Address from '~/components/address/Address';
 import Card from '~/components/asset/Asset';
@@ -324,7 +325,7 @@ const Profile = () => {
               step={0.00000001}
               min={0.00000001}
               style={{ width: '100%' }}
-              placeholder="10.00000000 FLOW"
+              placeholder={`10.00000000 ${config.currency}`}
             />
           </Form.Item>
         </Form>

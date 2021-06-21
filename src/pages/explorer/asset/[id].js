@@ -15,6 +15,7 @@ import {
 import { useMemo, useState } from 'react';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
 import ReactImageVideoLightbox from 'react-image-video-lightbox';
+import config from '~/utils/config';
 
 import {
   ExpandedViewSkeletonButton,
@@ -264,7 +265,7 @@ const Sale = () => {
                 step={0.00000001}
                 min={0.00000001}
                 style={{ width: '100%' }}
-                placeholder="10.00000000 FLOW"
+                placeholder={`10.00000000 ${config.currency}`}
               />
             </Form.Item>
           </Form>
@@ -327,7 +328,7 @@ const Sale = () => {
                 step={0.00000001}
                 min={0.00000001}
                 style={{ width: '100%' }}
-                placeholder="10.00000000 FLOW"
+                placeholder={`10.00000000 ${config.currency}`}
               />
             </Form.Item>
           </Form>

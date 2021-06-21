@@ -10,6 +10,7 @@ import { ColStyled } from '~/components/header/styled';
 import { useMutation } from '@apollo/react-hooks';
 import { FUSD_FAUCET } from '~/store/server/mutations';
 import { getFUSDBalance } from '~/flow/getFusdBalance';
+import config from '~/utils/config';
 
 function UserMenuContent({ loggedIn }) {
   const [form] = Form.useForm();
@@ -48,7 +49,7 @@ function UserMenuContent({ loggedIn }) {
       notification.open({
         key: `faucet_usd`,
         icon: <Spin />,
-        message: `Adding FUSD to your account`,
+        message: `Adding ${config.currency} to your account`,
         description: 'Please wait while we process your request.',
         duration: null
       });
@@ -66,14 +67,14 @@ function UserMenuContent({ loggedIn }) {
       notification.open({
         key: `faucet_usd`,
         type: 'success',
-        message: `FUSD added succesfully `,
+        message: `${config.currency} added succesfully `,
         description: ``
       });
     } catch (err) {
       notification.open({
         key: `faucet_usd`,
         type: 'error',
-        message: `Error to add FUSD to your account`,
+        message: `Error to add ${config.currency} to your account`,
         description: `Something has failed, please try again later.`
       });
     }
@@ -129,11 +130,11 @@ function UserMenuContent({ loggedIn }) {
       </Modal>
 
       <Modal
-        title="How many FUSD do you want?"
+        title={`How many ${config.currency} do you want?`}
         visible={openModalFlow}
         width="500px"
         onOk={() => form.submit()}
-        okText="Claim FUSD"
+        okText={`Claim ${config.currency}`}
         onCancel={() => setOpenModalFlow(false)}
         onRefuse={() => setOpenModalFlow(false)}>
         <Form form={form} onFinish={handleFaucet} initialValues={{ amount: 10 }}>
