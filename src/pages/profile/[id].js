@@ -242,7 +242,7 @@ const Profile = () => {
                     });
                   onSale &&
                     actions.push({
-                      title: 'Cancel',
+                      title: 'Cancel Sale',
                       action: e => {
                         e.domEvent.stopPropagation();
                         onCancelSale(token);
