@@ -11,6 +11,7 @@ import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
 
 import { GET_NFTS_ON_SALE } from '~/store/server/subscriptions';
+import basicAuthCheck from '~/utils/basicAuthCheck';
 
 const MarketPlace = () => {
   const router = useRouter();
@@ -90,3 +91,11 @@ const MarketPlace = () => {
 };
 
 export default MarketPlace;
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await basicAuthCheck(req, res);
+
+  return {
+    props: {}
+  };
+}

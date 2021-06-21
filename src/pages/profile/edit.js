@@ -20,6 +20,7 @@ import {
   ImagePreview
 } from '../../components/profile/styled';
 import Seo from '~/components/seo/seo';
+import basicAuthCheck from '~/utils/basicAuthCheck';
 
 const EditProfile = () => {
   const shouldPageBlock = useBlockPage();
@@ -140,3 +141,11 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await basicAuthCheck(req, res);
+
+  return {
+    props: {}
+  };
+}

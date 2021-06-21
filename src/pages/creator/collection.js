@@ -19,6 +19,7 @@ import Seo from '~/components/seo/seo';
 import { CREATE_SET } from '~/store/server/mutations';
 import { URLs } from '~/routes/urls';
 import { uploadFile } from '~/utils/upload';
+import basicAuthCheck from '~/utils/basicAuthCheck';
 
 const FormComponent = ({ onSubmit, loading }) => {
   const [, forceUpdate] = useState({});
@@ -196,4 +197,11 @@ function CreateNFT() {
 
 export default CreateNFT;
 
-// Missing description and image
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await basicAuthCheck(req, res);
+
+  return {
+    props: {}
+  };
+}

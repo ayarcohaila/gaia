@@ -22,6 +22,7 @@ import { CREATE_TEMPLATE } from '~/store/server/mutations';
 import useBlockPage from '~/hooks/useBlockPage';
 import { URLs } from '~/routes/urls';
 import useAuth from '~/hooks/useAuth';
+import basicAuthCheck from '~/utils/basicAuthCheck';
 
 const FormComponent = ({ onSubmit, loading }) => {
   const shouldPageBlock = useBlockPage();
@@ -242,3 +243,12 @@ function CreateTemplate() {
 }
 
 export default CreateTemplate;
+
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await basicAuthCheck(req, res);
+
+  return {
+    props: {}
+  };
+}

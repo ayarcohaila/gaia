@@ -56,6 +56,7 @@ import { editPrice } from '~/flow/editPrice';
 import { GET_NFT } from '~/store/server/subscriptions';
 import { cancelSaleOffer, checkAndInsertSale } from '~/utils/graphql';
 import { UPDATE_OWNER, UPDATE_SALE_PRICE } from '~/store/server/mutations';
+import basicAuthCheck from '~/utils/basicAuthCheck';
 
 const { Text } = Typography;
 
@@ -522,3 +523,11 @@ const Sale = () => {
 };
 
 export default Sale;
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await basicAuthCheck(req, res);
+
+  return {
+    props: {}
+  };
+}

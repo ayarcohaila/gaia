@@ -18,6 +18,7 @@ import { CardLoading } from '~/components/skeleton/CardLoading';
 
 import { GET_NFTS_ON_SALE } from '~/store/server/subscriptions';
 import { getImageURL } from '~/utils/getImageUrl';
+import basicAuthCheck from '~/utils/basicAuthCheck';
 
 export default function Home() {
   const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading } = useSubscription(
@@ -63,4 +64,12 @@ export default function Home() {
       </Col>
     </HomeWrapper>
   );
+}
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await basicAuthCheck(req, res);
+
+  return {
+    props: {}
+  };
 }

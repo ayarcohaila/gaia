@@ -33,6 +33,7 @@ import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
 import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils/graphql';
 import { UPDATE_OWNER } from '~/store/server/mutations';
+import basicAuthCheck from '~/utils/basicAuthCheck';
 const { Text } = Typography;
 
 const Profile = () => {
@@ -335,3 +336,11 @@ const Profile = () => {
 };
 
 export default Profile;
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await basicAuthCheck(req, res);
+
+  return {
+    props: {}
+  };
+}

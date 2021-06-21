@@ -15,6 +15,8 @@ import { LOCK_COLLECTION } from '~/store/server/mutations';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
 
+import basicAuthCheck from '~/utils/basicAuthCheck';
+
 function Collections() {
   const shouldPageBlock = useBlockPage();
   const [lockSet] = useMutation(LOCK_COLLECTION);
@@ -134,3 +136,12 @@ function Collections() {
 }
 
 export default Collections;
+
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await basicAuthCheck(req, res);
+
+  return {
+    props: {}
+  };
+}

@@ -18,6 +18,7 @@ import useBlockPage from '~/hooks/useBlockPage';
 import { GET_TEMPLATES, GET_COLLECTION } from '~/store/server/subscriptions';
 import { MINT } from '~/store/server/mutations';
 import EmptyResult from '~/components/shared/EmptyResult';
+import basicAuthCheck from '~/utils/basicAuthCheck';
 
 function Templates() {
   const shouldPageBlock = useBlockPage();
@@ -141,3 +142,11 @@ function Templates() {
 }
 
 export default Templates;
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await basicAuthCheck(req, res);
+
+  return {
+    props: {}
+  };
+}

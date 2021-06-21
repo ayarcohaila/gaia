@@ -8,6 +8,13 @@ const ipfsGateway = process.env.NEXT_PUBLIC_PINATA_GATEWAY;
 const marketAddress = process.env.NEXT_PUBLIC_NFTMARKET_CONTRACT;
 const landingOnly = process.env.NEXT_PUBLIC_LANDING_ONLY === 'true';
 const appName = process.env.NEXT_PUBLIC_APP_NAME;
+const needsAuth = process.env.APPLICATION_NEEDS_AUTH === 'true';
+const users = [
+  {
+    user: process.env.APPLICATION_USER,
+    password: process.env.APPLICATION_PASSWORD
+  }
+];
 
 fcl
   .config()
@@ -30,5 +37,7 @@ export {
   ipfsGateway,
   marketAddress,
   landingOnly,
-  appName
+  appName,
+  needsAuth,
+  users
 };
