@@ -5,11 +5,11 @@ import { useRouter } from 'next/router';
 
 import Search from '~/components/header/search';
 import UserMenu from '~/components/header/UserMenu';
+import Logo from '~/components/logo/Logo';
 
 import useAuth from '~/hooks/useAuth';
 
 import { URLs } from '~/routes/urls';
-import { appName } from '~/config/config';
 
 import { MenuCol, CustomHeader, JustifyCenter } from './styled';
 
@@ -39,7 +39,9 @@ function MyHeader() {
     <CustomHeader>
       <Row justify="space-between" align="middle" gutter={[20, 0]}>
         <Col>
-          <Link href={URLs.home}>{appName}</Link>
+          <a href={URLs.home}>
+            <Logo />
+          </a>
         </Col>
         <Col flex="auto">
           <JustifyCenter>
