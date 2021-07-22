@@ -6,12 +6,14 @@ import { Twitter } from '@styled-icons/fa-brands/Twitter';
 import { Signal } from '@styled-icons/simple-icons/Signal';
 import { Col, Divider, Row, Typography } from 'antd';
 import React from 'react';
+import useAuth from '~/hooks/useAuth';
 import { URLs } from '../routes/urls';
 import { CustomLink as Link, LayoutFooter } from './styles';
 import Logo from '~/components/logo/Logo';
 
 const { Title, Text } = Typography;
 function Footer() {
+  const { login } = useAuth();
   return (
     <LayoutFooter>
       <Row>
@@ -42,7 +44,9 @@ function Footer() {
                 <Link href={URLs.marketplace}>Marketplace</Link>
               </Row>
               <Row>
-                <Link href="#">Login</Link>
+                <Link href="#" onClick={login}>
+                  Login
+                </Link>
               </Row>
             </Col>
             <Col md={4} xs={24}>

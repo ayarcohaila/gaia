@@ -22,7 +22,6 @@ function UserMenu() {
       <UserContainerCenter>
         <UserContainerCenter $wrap>
           <UserInfo>{userProfile?.name ?? user?.addr}</UserInfo>
-          {/*<UserInfo small> {flowBalance} FLOW</UserInfo>*/}
           <UserBalance small>
             {fusdBalance} {config.currency}
           </UserBalance>
