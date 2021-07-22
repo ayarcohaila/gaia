@@ -9,6 +9,7 @@ function SetsList({ sets }) {
       imgURL={nft.template.metadata.image}
       description={nft.template.metadata.description}
       name={nft.template.metadata.name}
+      video={nft.template.metadata.video}
       price={Number(price)}
       mintNumber={nft.mint_number}
       owner={nft.owner}

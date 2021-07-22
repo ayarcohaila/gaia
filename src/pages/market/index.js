@@ -78,6 +78,7 @@ const MarketPlace = () => {
                   imgURL={nft.template.metadata.image}
                   description={nft.template.metadata.description}
                   name={nft.template.metadata.name}
+                  video={nft.template.metadata.video}
                   price={Number(price)}
                   owner={nft.owner}
                   mintNumber={nft.mint_number}

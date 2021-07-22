@@ -77,7 +77,7 @@ const Asset = ({
 
   function getVisualContent() {
     return video ? (
-      <CardVideo autoPlay loop>
+      <CardVideo autoPlay muted loop>
         <source src={getImageURL(imgURL ?? '')} type="video/mp4" />
       </CardVideo>
     ) : (
