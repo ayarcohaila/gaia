@@ -10,6 +10,8 @@ import { editProfile } from '~/flow/editProfile';
 import { uploadFile } from '~/utils/upload';
 import { getImageURL } from '~/utils/getImageUrl';
 
+import MESSAGES from '~/utils/messages';
+
 import {
   Heading,
   StyledButton,
@@ -61,8 +63,8 @@ const EditProfile = () => {
       notification.open({
         key: `edit_profile`,
         type: 'error',
-        message: `Error on upload your profile image`,
-        description: `Your profile image upload has failed`
+        message: MESSAGES.error_upload_profile_title,
+        description: MESSAGES.error_upload_profile_msg
       });
 
     const hash = await uploadFile(file, showErrorModal);
@@ -74,7 +76,7 @@ const EditProfile = () => {
       notification.open({
         key: `edit_profile`,
         message: `Editing profile`,
-        description: 'You gonna be prompted to accept this transaction',
+        description: MESSAGES.transaction_msg,
         icon: <Spin />,
         duration: null
       });
@@ -82,15 +84,15 @@ const EditProfile = () => {
       notification.open({
         key: `edit_profile`,
         type: 'success',
-        message: `Profile edited`,
-        description: `Your profile has been successfully edited`
+        message: MESSAGES.profile_updated_title,
+        description: MESSAGES.profile_updated_msg
       });
     } catch (error) {
       notification.open({
         key: `edit_profile`,
         type: 'error',
-        message: `Error on editing your profile`,
-        description: `Your profile edition has failed`
+        message: MESSAGES.error_update_profile_title,
+        description: MESSAGES.error_update_profile_desc
       });
     }
   };

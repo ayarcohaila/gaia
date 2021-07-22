@@ -11,6 +11,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { FUSD_FAUCET } from '~/store/server/mutations';
 import { getFUSDBalance } from '~/flow/getFusdBalance';
 import config from '~/utils/config';
+import MESSAGES from '~/utils/messages';
 
 function UserMenuContent({ loggedIn }) {
   const [form] = Form.useForm();
@@ -86,8 +87,8 @@ function UserMenuContent({ loggedIn }) {
       notification.open({
         key: `setup_account`,
         icon: <Spin />,
-        message: `Setting up your account`,
-        description: 'You gonna be prompted to accept this transaction',
+        message: MESSAGES.setting_up_account_msg,
+        description: MESSAGES.transaction_msg,
         duration: null
       });
 
@@ -96,16 +97,16 @@ function UserMenuContent({ loggedIn }) {
       notification.open({
         key: `setup_account`,
         type: 'success',
-        message: `You have set up your account`,
-        description: `Your have successfully set up your account`
+        message: MESSAGES.setup_account_msg,
+        description: MESSAGES.setup_account_desc
       });
       router.push(URLs.editProfile);
     } catch (err) {
       notification.open({
         key: `setup_account`,
         type: 'error',
-        message: `Error on setup your account`,
-        description: `Your account setup failed, please try again later.`
+        message: MESSAGES.error_setup_account_msg,
+        description: MESSAGES.error_setup_account_desc
       });
     }
   };

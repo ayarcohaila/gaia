@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Modal, Spin, notification } from 'antd';
-
+import MESSAGES from '~/utils/messages';
 import { setupAccount } from '~/flow/setupAccount';
 
 import styles from './styles';
@@ -10,16 +10,16 @@ const SetupModal = ({ visible, onDismiss }) => {
     notification.open({
       key: `setup_account`,
       icon: <Spin />,
-      message: `Setting up your account`,
-      description: 'You gonna be prompted to accept this transaction',
+      message: MESSAGES.setting_up_account_msg,
+      description: MESSAGES.transaction_msg,
       duration: null
     });
     await setupAccount();
     notification.open({
       key: `setup_account`,
       type: 'success',
-      message: `You have set up your account`,
-      description: `Your have successfully set up your account`
+      message: MESSAGES.setup_account_msg,
+      description: MESSAGES.setup_account_desc
     });
     onDismiss();
   };

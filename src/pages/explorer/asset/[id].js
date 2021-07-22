@@ -58,6 +58,8 @@ import { cancelSaleOffer, checkAndInsertSale } from '~/utils/graphql';
 import { UPDATE_OWNER, UPDATE_SALE_PRICE } from '~/store/server/mutations';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 
+import MESSAGES from '~/utils/messages';
+
 const { Text } = Typography;
 
 const Sale = () => {
@@ -132,7 +134,7 @@ const Sale = () => {
       notification.open({
         key: `buy_sale_${saleId}`,
         message: `Buying sale offer #${saleId}`,
-        description: 'You gonna be prompted to accept this transaction',
+        description: MESSAGES.transaction_msg,
         icon: <Spin />,
         duration: null
       });
@@ -199,7 +201,7 @@ const Sale = () => {
       notification.open({
         key: `cancel_sale_${asset?.asset_id}`,
         message: `Canceling sale offer for ID #${asset?.asset_id}`,
-        description: 'You gonna be prompted to accept this transaction',
+        description: MESSAGES.transaction_msg,
         icon: <Spin />,
         duration: null
       });
@@ -371,7 +373,7 @@ const Sale = () => {
       notification.open({
         key: `sale_${asset?.asset_id}`,
         message: `Creating an offer for ID #${asset?.asset_id}`,
-        description: 'You gonna be prompted to accept this transaction',
+        description: MESSAGES.transaction_msg,
         icon: <Spin />,
         duration: null
       });

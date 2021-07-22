@@ -35,6 +35,7 @@ import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils
 import { UPDATE_OWNER } from '~/store/server/mutations';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 const { Text } = Typography;
+import MESSAGES from '~/utils/messages';
 
 const Profile = () => {
   const [form] = Form.useForm();
@@ -115,7 +116,7 @@ const Profile = () => {
       notification.open({
         key: `sale_${modalItemId?.asset_id}`,
         message: `Creating an offer for ID #${modalItemId?.asset_id}`,
-        description: 'You gonna be prompted to accept this transaction',
+        description: MESSAGES.transaction_msg,
         icon: <Spin />,
         duration: null
       });
@@ -149,7 +150,7 @@ const Profile = () => {
       notification.open({
         key: `cancel_sale_${item?.asset_id}`,
         message: `Canceling sale offer for ID #${item?.asset_id}`,
-        description: 'You gonna be prompted to accept this transaction',
+        description: MESSAGES.transaction_msg,
         icon: <Spin />,
         duration: null
       });
@@ -173,10 +174,11 @@ const Profile = () => {
   const handleTransfer = async () => {
     try {
       setTransferModalVisible(false);
+      const text = MESSAGES.accept_transf_msg;
       notification.open({
         key: `Transfering_${modalItemId?.asset_id}`,
         message: `Transferring #${modalItemId?.asset_id}`,
-        description: `You gonna be prompted to accept transferring ${modalItemId?.asset_id} to ${destinationAddress}.`,
+        description: MESSAGES.transformMessage(text, [modalItemId?.asset_id, destinationAddress]),
         icon: <Spin />,
         duration: null
       });
@@ -263,7 +265,7 @@ const Profile = () => {
       <Modal
         destroyOnClose
         visible={transferModal}
-        title={`Who'd you like to transfer this asset to?`}
+        title="Who would you like to transfer this asset to?"
         onCancel={() => setTransferModalVisible(false)}
         footer={[
           <Button
