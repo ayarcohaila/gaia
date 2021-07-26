@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Upload, Row, Input } from 'antd';
+import { Button, Upload, Row, Input, Avatar } from 'antd';
 
 export const StyledProfileInput = styled(Input)`
   border-radius: 8px;
@@ -130,13 +130,26 @@ export const CreateNFTWrapper = styled(Row)`
   }
 `;
 
+export const ProfileInfo = styled(Avatar)`
+  border: solid 2px;
+`;
+
 export const Banner = styled.div`
   width: 100%;
-  height: 165px;
+  height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background-image: url(${({ src }) => src});
   background-repeat: no-repeat;
   background-size: auto 100%;
   background-position: center;
+
+  h3 {
+    color: ${({ theme }) => theme.colors.white};
+    margin: 10px 0;
+  }
 `;
 
 export const ImagePreview = styled.img`

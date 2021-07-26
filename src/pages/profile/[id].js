@@ -10,7 +10,7 @@ import {
   Spin,
   notification
 } from 'antd';
-import { SlidersFilled } from '@ant-design/icons';
+import { SlidersFilled, UserOutlined } from '@ant-design/icons';
 import { useMemo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation, useSubscription } from '@apollo/react-hooks';
@@ -28,14 +28,16 @@ import { createSaleOffer } from '~/flow/sell';
 import { cancelSale } from '~/flow/cancelSale';
 import { cancelAndTransfer } from '~/flow/cancelAndTransfer';
 
-import { Banner, ProfileWrapper } from '../../components/profile/styled';
+import { Banner, ProfileWrapper, ProfileInfo } from '../../components/profile/styled';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
 import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils/graphql';
 import { UPDATE_OWNER } from '~/store/server/mutations';
 import basicAuthCheck from '~/utils/basicAuthCheck';
-const { Text } = Typography;
 import MESSAGES from '~/utils/messages';
+import { getImageURL } from '~/utils/getImageUrl';
+import useProfile from '~/hooks/useProfile';
+const { Title, Text } = Typography;
 
 const Profile = () => {
   const [form] = Form.useForm();
@@ -48,6 +50,7 @@ const Profile = () => {
   const [transferModal, setTransferModalVisible] = useState(false);
   const [destinationAddress, setDestinationAddress] = useState(null);
   const [assets, setAssets] = useState([]);
+  const { userProfile } = useProfile(user?.addr);
   const [updateOwner] = useMutation(UPDATE_OWNER);
 
   const shouldPageBlock = useBlockPage();
@@ -212,7 +215,14 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <Col span={24}>
-        <Banner src="/images/inventory-banner.png" />
+        <Banner src="/images/inventory-banner.png">
+          <ProfileInfo
+            icon={<UserOutlined />}
+            size={{ xs: 100, sm: 100, md: 100, lg: 100, xl: 100, xxl: 120 }}
+            src={userProfile?.avatar && getImageURL(userProfile?.avatar)}
+          />
+          <Title level={3}>{userProfile?.name}</Title>
+        </Banner>
         <Address>{id || 'NO ADDRESS FOUND'}</Address>
       </Col>
       <Col span={18} offset={3}>
