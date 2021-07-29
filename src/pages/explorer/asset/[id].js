@@ -16,6 +16,7 @@ import { useMemo, useState } from 'react';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
 import ReactImageVideoLightbox from 'react-image-video-lightbox';
 import config from '~/utils/config';
+import { getFUSDBalance } from '~/flow/getFusdBalance';
 
 import {
   ExpandedViewSkeletonButton,
@@ -128,9 +129,19 @@ const Sale = () => {
   }, [completeDescription, asset]);
 
   //This function handle the buy sale
-  const handleBuy = async (saleId, id) => {
+  const handleBuy = async (saleId, id, price) => {
+    const balance = await getFUSDBalance(user?.addr);
     setIsModalLoading(true);
     try {
+      if (!price || price > parseFloat(balance)) {
+        return notification.open({
+          key: `buy_sale_${saleId}`,
+          type: 'error',
+          message: `Transaction cancelled`,
+          description: `Your balance ${balance} is less than price ${parseFloat(price).toFixed(2)}`
+        });
+      }
+
       notification.open({
         key: `buy_sale_${saleId}`,
         message: `Buying sale offer #${saleId}`,
@@ -348,7 +359,7 @@ const Sale = () => {
           $margin
           type="primary"
           shape="round"
-          onClick={() => handleBuy(asset?.asset_id, asset?.id)}>
+          onClick={() => handleBuy(asset?.asset_id, asset?.id, asset?.saleOffers[0].price)}>
           Buy
         </StyledButton>
       );

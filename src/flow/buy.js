@@ -43,15 +43,19 @@ transaction(saleAssetID: UInt64, address: Address) {
 `;
 
 export async function buy(saleAssetID, address) {
-  const txId = await fcl
-    .send([
-      fcl.transaction(BUY_NFT_TX),
-      fcl.payer(fcl.authz),
-      fcl.proposer(fcl.authz),
-      fcl.authorizations([fcl.authz]),
-      fcl.args([fcl.arg(saleAssetID, t.UInt64), fcl.arg(address, t.Address)]),
-      fcl.limit(1000)
-    ])
-    .then(fcl.decode);
-  return fcl.tx(txId).onceSealed();
+  try {
+    const txId = await fcl
+      .send([
+        fcl.transaction(BUY_NFT_TX),
+        fcl.payer(fcl.authz),
+        fcl.proposer(fcl.authz),
+        fcl.authorizations([fcl.authz]),
+        fcl.args([fcl.arg(saleAssetID, t.UInt64), fcl.arg(address, t.Address)]),
+        fcl.limit(1000)
+      ])
+      .then(fcl.decode);
+    return fcl.tx(txId).onceSealed();
+  } catch (err) {
+    throw new Error(`Error on trying to buy: ${err.message}`);
+  }
 }
