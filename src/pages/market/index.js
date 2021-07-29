@@ -17,9 +17,8 @@ const MarketPlace = () => {
   const router = useRouter();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState(null);
-  const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading: isLoading } = useSubscription(
-    GET_NFTS_ON_SALE
-  );
+  const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading: isLoading } =
+    useSubscription(GET_NFTS_ON_SALE);
 
   const data = useMemo(() => {
     const nftsToFilter = nft_sale_offer.filter(item =>
@@ -45,9 +44,9 @@ const MarketPlace = () => {
   }, [filter, nft_sale_offer, search]);
 
   const options = [
-    { title: 'Recently added', action: () => setFilter('createdAt') },
-    { title: 'Lowest price', action: () => setFilter('lowestPrice') },
-    { title: 'Highest price', action: () => setFilter('highestPrice') },
+    { title: 'Recently added', action: () => setFilter('createdAt'), id: 'createdAt' },
+    { title: 'Lowest price', action: () => setFilter('lowestPrice'), id: 'lowestPrice' },
+    { title: 'Highest price', action: () => setFilter('highestPrice'), id: 'highestPrice' },
     { title: 'None', action: () => setFilter(null) }
   ];
 
@@ -65,7 +64,16 @@ const MarketPlace = () => {
       <Col span={22} offset={1}>
         <Row justify="space-between">
           <h2>Marketplace</h2>
-          <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
+          <DropDown
+            title="Filter & Sort"
+            icon={<SlidersFilled />}
+            {...{
+              options: options.map(opt => ({
+                ...opt,
+                title: `${opt.title} ${opt.id === filter ? '  ✓' : ''}`
+              }))
+            }}
+          />
         </Row>
         <Row align="center">
           {isLoading

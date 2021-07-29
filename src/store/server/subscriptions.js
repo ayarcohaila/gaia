@@ -73,6 +73,7 @@ export const GET_MY_NFTS_BY_OWNER = gql`
       owner
       asset_id
       mint_number
+      created_at
       template {
         template_id
         metadata

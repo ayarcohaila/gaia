@@ -79,23 +79,24 @@ const Profile = () => {
         creator: nft.collection.author,
         id: nft.id,
         mintNumber: nft.mint_number,
-        owner: nft.owner
+        owner: nft.owner,
+        createdAt: nft.created_at
       }));
       setAssets(mappedAssets);
     }
   });
+
+  function compareNumbers(a, b) {
+    return a - b;
+  }
 
   const data = useMemo(() => {
     if (!filter) {
       return assets;
     }
 
-    if (filter === 'highestPrice') {
-      return [...assets].sort((a, b) => b.price - a.price);
-    }
-
-    if (filter === 'lowestPrice') {
-      return [...assets].sort((a, b) => a.price - b.price);
+    if (filter === 'mintNumber') {
+      return [...assets].sort((a, b) => compareNumbers(a.mintNumber, b.mintNumber));
     }
 
     if (filter === 'createdAt') {
@@ -104,10 +105,9 @@ const Profile = () => {
   }, [filter, assets]);
 
   const options = [
-    { title: 'Recently added', action: () => setFilter('createdAt') },
-    { title: 'Lowest price', action: () => setFilter('lowestPrice') },
-    { title: 'Highest price', action: () => setFilter('highestPrice') },
-    { title: 'None', action: () => setFilter(null) }
+    { title: 'Recently added', action: () => setFilter('createdAt'), id: 'createdAt' },
+    { title: 'Mint number', action: () => setFilter('mintNumber'), id: 'mintNumber' },
+    { title: 'None', action: () => setFilter(null), id: 'none' }
   ];
 
   const sellAsset = token => {
@@ -227,7 +227,16 @@ const Profile = () => {
       </Col>
       <Col span={18} offset={3}>
         <Row justify="end">
-          <DropDown title="Filter & Sort" icon={<SlidersFilled />} {...{ options }} />
+          <DropDown
+            title="Filter & Sort"
+            icon={<SlidersFilled />}
+            {...{
+              options: options.map(opt => ({
+                ...opt,
+                title: `${opt.title} ${opt.id === filter ? '  ✓' : ''}`
+              }))
+            }}
+          />
         </Row>
         <Row justify="start">
           {isLoading
