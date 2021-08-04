@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useRouter } from 'next/router';
+import { gqlClient } from '~/config/apollo-client';
 import {
   Modal,
   Typography,
@@ -12,7 +13,7 @@ import {
   Spin,
   notification
 } from 'antd';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
 import ReactImageVideoLightbox from 'react-image-video-lightbox';
 import config from '~/utils/config';
@@ -55,7 +56,9 @@ import { buy } from '~/flow/buy';
 import { createSaleOffer } from '~/flow/sell';
 import { editPrice } from '~/flow/editPrice';
 
+import { GET_NFT as GET_NFT_QUERY } from '~/store/server/queries';
 import { GET_NFT } from '~/store/server/subscriptions';
+
 import { cancelSaleOffer, checkAndInsertSale } from '~/utils/graphql';
 import { UPDATE_OWNER, UPDATE_SALE_PRICE } from '~/store/server/mutations';
 import basicAuthCheck from '~/utils/basicAuthCheck';
@@ -64,11 +67,12 @@ import MESSAGES from '~/utils/messages';
 
 const { Text } = Typography;
 
-const Sale = () => {
+const Sale = ({ nft, creatorProfile, ownerInfo }) => {
   const router = useRouter();
   const {
     query: { id }
   } = router;
+
   const [completeDescription, setCompleteDescription] = useState(false);
   const [editPriceVisible, setEditPriceVisible] = useState(false);
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
@@ -83,6 +87,37 @@ const Sale = () => {
 
   const { updateUser } = useBalance();
 
+  const getNFTData = nft => {
+    return {
+      isLoading: false,
+      isOnSale: nft[0].is_for_sale,
+      ownerProfile: {
+        address: nft[0].owner,
+        name: ownerInfo.name
+      },
+      fullMetadata: nft[0].template.metadata,
+      id: nft[0].id,
+      asset_id: nft[0]?.asset_id,
+      template_id: nft[0]?.template.template_id,
+      imgURL: nft[0].template.metadata.image || nft?.[0].template?.metadata?.video,
+      video: nft[0].template.metadata?.video,
+      name: nft[0].template.metadata.name,
+      description: nft[0].template.metadata.description,
+      saleOffers: nft[0].sale_offers,
+      mintNumber: nft[0].mint_number,
+      collection: nft[0].collection,
+      creatorProfile
+    };
+  };
+
+  useEffect(() => {
+    setAsset(getNFTData(nft));
+  }, [nft]);
+
+  const [updateOwner] = useMutation(UPDATE_OWNER);
+
+  const [updatePrice] = useMutation(UPDATE_SALE_PRICE);
+
   useSubscription(GET_NFT, {
     variables: {
       id
@@ -94,32 +129,9 @@ const Sale = () => {
     }) => {
       const creatorProfile = await getProfile(nft[0]?.collection.author);
       const ownerInfo = await getProfile(nft[0]?.owner);
-      setAsset({
-        isLoading: false,
-        isOnSale: nft[0].is_for_sale,
-        ownerProfile: {
-          address: nft[0].owner,
-          name: ownerInfo.name
-        },
-        fullMetadata: nft[0].template.metadata,
-        id: nft[0].id,
-        asset_id: nft[0]?.asset_id,
-        template_id: nft[0]?.template.template_id,
-        imgURL: nft[0].template.metadata.image,
-        video: nft[0].template.metadata?.video,
-        name: nft[0].template.metadata.name,
-        description: nft[0].template.metadata.description,
-        saleOffers: nft[0].sale_offers,
-        mintNumber: nft[0].mint_number,
-        collection: nft[0].collection,
-        creatorProfile
-      });
+      setAsset(getNFTData(nft));
     }
   });
-
-  const [updateOwner] = useMutation(UPDATE_OWNER);
-
-  const [updatePrice] = useMutation(UPDATE_SALE_PRICE);
 
   const description = useMemo(() => {
     if (completeDescription || asset?.description?.length < 330) {
@@ -411,11 +423,26 @@ const Sale = () => {
     }
     form.resetFields();
   };
-
   return (
     <>
+      <Seo
+        title={nft?.[0].template?.metadata.name || asset?.name || ''}
+        imgURL={getImageURL(
+          nft?.[0].template?.metadata?.image ||
+            nft?.[0].template?.metadata?.video ||
+            asset?.imgURL ||
+            '',
+          null,
+          200
+        )}
+        description={
+          `${nft?.[0].template?.metadata?.name} is a NFT listed on ${config.appName} Marketplace` ??
+          ''
+        }
+        data1={`Collection ${nft[0]?.collection?.name}` ?? ''}
+        label1={`Owned by ${creatorProfile?.name}` ?? ''}
+      />
       <Row justify="center">
-        <Seo title="Details" imgURL={getImageURL(asset?.imgURL ?? '')} />
         {asset == null ? (
           <>
             {/* Skeleton */}
@@ -534,10 +561,17 @@ const Sale = () => {
 
 export default Sale;
 export async function getServerSideProps(ctx) {
-  const { req, res } = ctx;
+  const {
+    req,
+    res,
+    query: { id }
+  } = ctx;
   await basicAuthCheck(req, res);
+  const nftInfo = await gqlClient.request(GET_NFT_QUERY, { id });
+  const creatorProfile = await getProfile(nftInfo?.nft[0]?.collection.author);
+  const ownerInfo = await getProfile(nftInfo?.nft[0]?.owner);
 
   return {
-    props: {}
+    props: { nft: nftInfo?.nft, creatorProfile, ownerInfo }
   };
 }
