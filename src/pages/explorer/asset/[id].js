@@ -42,6 +42,7 @@ import Seo from '~/components/seo/seo';
 import UserInfo from '~/components/userInfo/UserInfo';
 import AssetInfo from '~/components/assetInfo/AssetInfo';
 import OwnedBy from '~/components/ownedBy';
+import BuyButton from '~/components/buyButton';
 
 import useAuth from '~/hooks/useAuth';
 import useBalance from '~/hooks/useBalance';
@@ -78,7 +79,7 @@ const Sale = () => {
   const [openLightbox, setOpenLightbox] = useState(false);
 
   const [form] = Form.useForm();
-  const { user } = useAuth();
+  const { user, login } = useAuth();
 
   const { updateUser } = useBalance();
 
@@ -355,13 +356,9 @@ const Sale = () => {
   const renderMarketOptions = () => {
     if (asset?.saleOffers?.length > 0 && user?.addr !== asset?.ownerProfile?.address) {
       return (
-        <StyledButton
-          $margin
-          type="primary"
-          shape="round"
-          onClick={() => handleBuy(asset?.asset_id, asset?.id, asset?.saleOffers[0].price)}>
-          Buy
-        </StyledButton>
+        <BuyButton
+          onClick={() => handleBuy(asset?.asset_id, asset?.id, asset?.saleOffers[0].price)}
+        />
       );
     }
     if (!asset?.isOnSale && user?.addr !== asset?.ownerProfile?.address) {
