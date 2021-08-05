@@ -21,6 +21,10 @@ export const DropdownImage = styled(Image)`
   margin-right: 50px;
 `;
 
+export const DropdownVideo = styled.video`
+  object-fit: contain;
+`;
+
 export const DropdownText = styled(Text)`
   padding-left: 20px;
 `;

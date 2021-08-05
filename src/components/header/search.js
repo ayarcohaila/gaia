@@ -7,6 +7,7 @@ import {
   SubmitInput,
   StyledForm,
   DropdownImage,
+  DropdownVideo,
   DropdownText
 } from '~/components/header/styled';
 import { useSubscription } from '@apollo/react-hooks';
@@ -41,6 +42,16 @@ function Search() {
     router.push(`/explorer/asset/${id}`);
   }
 
+  function displayPreviewImage(image, video) {
+    return video ? (
+      <DropdownVideo autoPlay muted loop width={50} height={50}>
+        <source src={getImageURL(image ?? '')} type="video/mp4" />
+      </DropdownVideo>
+    ) : (
+      <DropdownImage objectFit="contain" width={50} height={50} src={getImageURL(image)} />
+    );
+  }
+
   return (
     <StyledForm onSubmit={onSubmit}>
       <AutoCompleteStyled
@@ -62,12 +73,10 @@ function Search() {
         {getDropdownData(searchQuery).map(item => (
           <OptionStyled key={`drpdwn-${item.nft.id}`} value={item.nft.id}>
             <Row align="middle">
-              <DropdownImage
-                objectFit="contain"
-                width={50}
-                height={50}
-                src={getImageURL(item.nft.template.metadata.image)}
-              />
+              {displayPreviewImage(
+                item.nft.template.metadata.image,
+                item.nft.template.metadata.video
+              )}
               <DropdownText>{item.nft.template.metadata.name}</DropdownText>
             </Row>
           </OptionStyled>

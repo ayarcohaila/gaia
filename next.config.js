@@ -16,7 +16,12 @@ const antdConfig = withAntdLess({
 
 const nextConfig = {
   images: {
-    domains: [ipfsDomain, 'staging-flow-bucket.s3-us-west-1.amazonaws.com', 'i.picsum.photos']
+    domains: [
+      ipfsDomain,
+      'staging-flow-bucket.s3-us-west-1.amazonaws.com',
+      'i.picsum.photos',
+      'btco.mypinata.cloud'
+    ]
   }
 };
 
