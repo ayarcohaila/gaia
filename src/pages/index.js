@@ -21,12 +21,11 @@ import { getImageURL } from '~/utils/getImageUrl';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 
 export default function Home() {
-  const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading } = useSubscription(
-    GET_NFTS_ON_SALE
-  );
+  const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading } =
+    useSubscription(GET_NFTS_ON_SALE);
   function renderSets() {
     if (loading) {
-      return [...Array(8).keys()].map(index => <CardLoading hasTopBar={false} key={index} />);
+      return [...Array(8).keys()].map(index => <CardLoading hasTopBar key={index} />);
     }
     return <SetsList sets={nft_sale_offer} />;
   }

@@ -101,7 +101,7 @@ function Collections() {
         <Col offset={3} span={18}>
           <Row>
             {loading
-              ? [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
+              ? [...Array(12).keys()].map(index => <CardLoading key={index} />)
               : nft_collection.map(({ collection_id, name, image, description, is_locked }) => {
                   let actions = [];
 

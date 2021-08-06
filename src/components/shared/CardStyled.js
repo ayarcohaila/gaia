@@ -7,7 +7,7 @@ const CardStyled = styled(Card)`
   border-color: #e5e8eb;
   border-radius: 8px;
   width: 184px;
-  height: ${({ title }) => (title ? '300px' : '259px')};
+  height: ${({ title }) => (title ? '315px' : '275px')};
   overflow: hidden;
   display: flex;
   flex-direction: column;

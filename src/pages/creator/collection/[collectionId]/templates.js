@@ -109,7 +109,7 @@ function Templates() {
         </Col>
         <Col offset={3} span={18}>
           <Row>
-            {loading && [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)}
+            {loading && [...Array(12).keys()].map(index => <CardLoading key={index} />)}
             {nft_template.length ? (
               nft_template.map(({ template_id, metadata, collection: { collection_id } }) => (
                 <Asset
