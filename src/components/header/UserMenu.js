@@ -1,31 +1,45 @@
 import { UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Popover } from 'antd';
-import React from 'react';
+import { Avatar, Button } from 'antd';
+import React, { useState } from 'react';
 import UserMenuContent from '~/components/header/UserMenuContent';
 import useBalance from '~/hooks/useBalance';
 import useAuth from '~/hooks/useAuth';
 import useProfile from '~/hooks/useProfile';
 import { getImageURL } from '~/utils/getImageUrl';
-import { UserContainerCenter, UserAvatarContainer, UserInfo, UserBalance } from './styled';
+import {
+  UserContainerCenter,
+  UserAvatarContainer,
+  UserInfo,
+  UserBalance,
+  UserPopover
+} from './styled';
 import config from '~/utils/config';
 
-function UserMenu() {
-  const { user, login } = useAuth();
+function UserMenu({ drawerOpen, user }) {
+  const { login } = useAuth();
   const { userProfile } = useProfile(user?.addr);
   const { fusdBalance } = useBalance();
+  const [openPopover, setOpenPopover] = useState(false);
+  const visibilityControl = drawerOpen
+    ? {
+        visible: openPopover,
+        onClick: () => setOpenPopover(!openPopover)
+      }
+    : { trigger: 'hover' };
 
   return user?.loggedIn ? (
-    <Popover
-      content={<UserMenuContent loggedIn={user?.loggedIn} />}
-      trigger="hover"
-      placement="bottomRight">
+    <UserPopover
+      content={
+        <UserMenuContent
+          loggedIn={user?.loggedIn}
+          isDrawer={drawerOpen}
+          setOpenPopover={setOpenPopover}
+        />
+      }
+      placement="bottomRight"
+      {...visibilityControl}>
       <UserContainerCenter>
-        <UserContainerCenter $wrap>
-          <UserInfo>{userProfile?.name ?? user?.addr}</UserInfo>
-          <UserBalance small>
-            {fusdBalance} {config.currency}
-          </UserBalance>
-        </UserContainerCenter>
+        <UserInfo>{userProfile?.name ?? user?.addr}</UserInfo>
         <UserAvatarContainer>
           <Avatar
             icon={<UserOutlined />}
@@ -33,7 +47,10 @@ function UserMenu() {
           />
         </UserAvatarContainer>
       </UserContainerCenter>
-    </Popover>
+      <UserBalance small>
+        {fusdBalance} {config.currency}
+      </UserBalance>
+    </UserPopover>
   ) : (
     <Button type="link" onClick={login}>
       Login

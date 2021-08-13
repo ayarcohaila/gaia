@@ -1,4 +1,4 @@
-import { AutoComplete, Col, Layout, Typography } from 'antd';
+import { AutoComplete, Col, Layout, Menu, Popover, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -44,10 +44,14 @@ export const MenuCol = styled(Col)`
 export const CustomHeader = styled(Header)`
   background: white;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-`;
-export const JustifyCenter = styled.div`
-  display: flex;
-  justify-content: center;
+  left: 0;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  @media (max-width: 800px) {
+    z-index: 2;
+    position: fixed;
+  }
 `;
 
 export const SubmitInput = styled.input`
@@ -64,37 +68,62 @@ export const StyledForm = styled.form`
 `;
 
 export const UserInfo = styled.span`
-  width: 100%;
-  margin: 0px;
-  padding-right: 5px;
-  line-height: 0px !important;
-  font-size: ${props => props.small && '9px'};
-  color: ${props => props.small && props.theme.colors.green};
-  position: ${props => props.small && 'absolute'};
-  top: ${props => props.small && '45px'};
-  margin-left: ${props => props.small && '35px'};
-  min-width: 80px;
+  align-self: center;
 `;
 export const UserBalance = styled.span`
-  width: 100%;
-  margin: 0px;
-  padding-right: 5px;
-  line-height: 0px !important;
   font-size: ${props => props.small && '9px'};
   color: ${props => props.small && props.theme.colors.green};
-  position: ${props => props.small && 'absolute'};
-  top: ${props => props.small && '55px'};
-  margin-left: ${props => props.small && '35px'};
-  min-width: 80px;
+  align-self: start;
+  @media (min-width: 980px) {
+    position: absolute;
+    margin-top: 35px;
+  }
 `;
 
 export const UserContainerCenter = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: ${props => props.$wrap && 'wrap'};
 `;
 export const UserAvatarContainer = styled.div`
   width: 50%;
+  align-self: center;
+  margin-left: 1rem;
+`;
+export const SearchContainer = styled.div`
+  max-width: 600px;
+  justify-self: center;
+  @media (max-width: 990px) {
+    min-width: 350px;
+  }
+  @media (max-width: 600px) {
+    min-width: 250px;
+  }
+  @media (max-width: 420px) {
+    min-width: 210px;
+    padding-right: 20px;
+  }
+`;
+
+export const ListItem = styled.a`
+  color: ${({ isSelected }) => (isSelected ? '#096dd9' : 'black')};
+  border-left: ${({ isSelected }) => (isSelected ? '2px solid #096dd9' : 'none')};
+  padding: 4px;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+export const UserPopover = styled(Popover)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const StyledMenu = styled(Menu)`
+  max-height: 62px;
 `;

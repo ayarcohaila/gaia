@@ -13,7 +13,7 @@ import { getFUSDBalance } from '~/flow/getFusdBalance';
 import config from '~/utils/config';
 import MESSAGES from '~/utils/messages';
 
-function UserMenuContent({ loggedIn }) {
+function UserMenuContent({ loggedIn, isDrawer, setOpenPopover }) {
   const [form] = Form.useForm();
   const { user, logout } = useAuth();
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,6 +41,7 @@ function UserMenuContent({ loggedIn }) {
     } else {
       setModalVisible(true);
     }
+    setOpenPopover(false);
   };
 
   async function handleFaucet(values) {
@@ -115,9 +116,17 @@ function UserMenuContent({ loggedIn }) {
       <Row>
         <ColStyled span={24}>
           <Menu>
-            <Menu.Item onClick={() => handleGoToEditProfile()}>Edit Profile</Menu.Item>
-            <Menu.Item onClick={handleOpenModalFlowUsd}>Flow USD</Menu.Item>
-            <Menu.Item onClick={logout}>Logout</Menu.Item>
+            <Menu.Item onClick={() => handleGoToEditProfile()} key="edit">
+              Edit Profile
+            </Menu.Item>
+            <Menu.Item onClick={handleOpenModalFlowUsd} key="flowusd">
+              Flow USD
+            </Menu.Item>
+            {!isDrawer && (
+              <Menu.Item onClick={logout} key="logout">
+                Logout
+              </Menu.Item>
+            )}
           </Menu>
         </ColStyled>
       </Row>
