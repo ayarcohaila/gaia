@@ -392,14 +392,14 @@
     "@onflow/util-actor" "0.0.2"
     queue-microtask "1.1.2"
 
-"@onflow/fcl@^0.0.73":
-  version "0.0.73"
-  resolved "https://registry.yarnpkg.com/@onflow/fcl/-/fcl-0.0.73.tgz#c90b86af4527559ddc0e2e2592203edbfbda926d"
-  integrity sha512-A6HNPgfck51uBMyhuKoOQaH9Ro1Ma7iE45Q5imrjeAT0Jk1DLUgG78M28oFpt+mlCwhYFsLuyMVmVPwGsAL64w==
+"@onflow/fcl@^0.0.76":
+  version "0.0.76"
+  resolved "https://registry.yarnpkg.com/@onflow/fcl/-/fcl-0.0.76.tgz#f62b4a1add5142bdceeb01d8691a6fa8713b32e0"
+  integrity sha512-GFD8Pk4k9A6WKoK5CEO5KVZi4b3+KiJVY41NkLG376Wm+nqWLY7XlysU+uX1n+GvoJ7m1W+4BTSKmJRVU/QWjg==
   dependencies:
     "@onflow/interaction" "0.0.11"
     "@onflow/rlp" "0.0.3"
-    "@onflow/sdk" "0.0.50"
+    "@onflow/sdk" "^0.0.53"
     "@onflow/types" "^0.0.4"
     "@onflow/util-actor" "0.0.2"
     "@onflow/util-address" "0.0.0"
@@ -454,10 +454,10 @@
     "@onflow/send" "0.0.20"
     "@qvvg/templar" "0.0.1"
 
-"@onflow/sdk@0.0.50":
-  version "0.0.50"
-  resolved "https://registry.yarnpkg.com/@onflow/sdk/-/sdk-0.0.50.tgz#86dbd252c76b7d3b6860e52254e683004bb32a31"
-  integrity sha512-A3g43Qx7OgeFfpgz9Tk4bJIE2xJ6zWe6FPGAm6Al+5OP+TNU5vdLcxKNgR+Pk2u+QVCYBaA0Jf4pncF9+K+pVw==
+"@onflow/sdk@^0.0.53":
+  version "0.0.53"
+  resolved "https://registry.yarnpkg.com/@onflow/sdk/-/sdk-0.0.53.tgz#596856f2e9134ed62c813caabf7c7da553cc1ba8"
+  integrity sha512-arGlf1RSFPMrBzaPjmPKh742fftRCYukTtoUCfihdSskFFip7aNkpSnUUhza+mtkM748vnvSs9xknsB6yg41qQ==
   dependencies:
     "@improbable-eng/grpc-web" "^0.14.0"
     "@improbable-eng/grpc-web-node-http-transport" "^0.14.0"
@@ -494,6 +494,11 @@
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.4.tgz#d4a9c3e301d23182dd256b73d3679c952fe653f0"
   integrity sha512-47r0qTM45mR7FSvyEE0njGljkpgy3MCf/2W82pfZ/PTFGWr1nsGV/4j2bUfK9Sry4Ymz2W20iRZVP3xpqOhqGw==
+
+"@onflow/types@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.5.tgz#933f12dd85eadfec1ab62d23bd767e993c7be0cf"
+  integrity sha512-Pgh3hz3Cr8KPpkaDd1E3FdQRASGqpfA1NK7dtgz+6xdTdESeqU2z0ksocrOdfy9ikRvKt4RyFmDuXPx2CVbjuQ==
 
 "@onflow/util-actor@0.0.2":
   version "0.0.2"
@@ -2095,6 +2100,11 @@ depd@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
+
+dequal@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.2.tgz#85ca22025e3a87e65ef75a7a437b35284a7e319d"
+  integrity sha512-q9K8BlJVxK7hQYqa6XISGmBZbtQQWVXSrRrWreHC94rMt1QL/Impruc+7p2CYSYuVIUr+YCt6hjrs1kkdJRTug==
 
 des.js@^1.0.0:
   version "1.0.1"
@@ -5960,6 +5970,13 @@ supports-color@^8.1.0:
   integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==
   dependencies:
     has-flag "^4.0.0"
+
+swr@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-1.0.0.tgz#d047933714d8bd16ae35af67d81149f4ae700a4d"
+  integrity sha512-v55Dr+vxIFiUyGxC5W4uN5falxHxYdbpb/R3bO+bSG+svbC9bUWmupy4NM/2pER7X8OvgwJWu0AiSoGy0ND9ew==
+  dependencies:
+    dequal "2.0.2"
 
 symbol-observable@^1.0.4:
   version "1.2.0"

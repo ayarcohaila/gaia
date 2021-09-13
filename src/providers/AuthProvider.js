@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback, useEffect, useMemo } from 'react';
+import { createContext, useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import AuthModal from '~/components/authModal/AuthModal';
@@ -39,12 +39,8 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user, hasSetup]);
 
-  const flowBalance = useMemo(() => user?.balance, [user]);
-
-  const fusdBalance = useMemo(() => user?.usd_balance, [user]);
-
   return (
-    <AuthContext.Provider value={{ shouldPageBlock, updateUser, flowBalance, fusdBalance }}>
+    <AuthContext.Provider value={{ shouldPageBlock, updateUser, user }}>
       {children}
       <AuthModal onDismiss={() => setAuthModalVisible(false)} visible={authModalVisible} />
       <SetupModal onDismiss={() => setSetupModalVisible(false)} visible={setupModalVisible} />

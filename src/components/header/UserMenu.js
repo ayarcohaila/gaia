@@ -18,7 +18,7 @@ import config from '~/utils/config';
 function UserMenu({ drawerOpen, user }) {
   const { login } = useAuth();
   const { userProfile } = useProfile(user?.addr);
-  const { fusdBalance } = useBalance();
+  const { flowBalance } = useBalance();
   const [openPopover, setOpenPopover] = useState(false);
   const visibilityControl = drawerOpen
     ? {
@@ -48,7 +48,7 @@ function UserMenu({ drawerOpen, user }) {
         </UserAvatarContainer>
       </UserContainerCenter>
       <UserBalance small>
-        {fusdBalance} {config.currency}
+        {flowBalance} {config.currency}
       </UserBalance>
     </UserPopover>
   ) : (
