@@ -123,7 +123,7 @@ const FormComponent = ({ onSubmit, loading }) => {
             </Form.Item>
           </Col>
         </Row>
-        {formValues.fee && <p>* You will make for {100 - formValues.fee}% every secondary sale</p>}
+        {formValues.fee && <p>* You will make for {formValues.fee}% every secondary sale</p>}
 
         <Centralizer>
           <SubmitButton type="primary" htmlType="submit" shape="round" {...{ disabled, loading }}>
