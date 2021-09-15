@@ -178,7 +178,7 @@ const Sale = ({ nft, creatorProfile, ownerInfo }) => {
         key: `buy_sale_${saleId}`,
         type: 'success',
         message: `You bought sale offer #${saleId} `,
-        description: `Your have bought sale offer #${saleId} successfully`
+        description: `You have bought the sale offer #${saleId} successfully`
       });
     } catch (error) {
       notification.open({
