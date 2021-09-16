@@ -28,7 +28,12 @@ import { createSaleOffer } from '~/flow/sell';
 import { cancelSale } from '~/flow/cancelSale';
 import { cancelAndTransfer } from '~/flow/cancelAndTransfer';
 
-import { Banner, ProfileWrapper, ProfileInfo } from '../../components/profile/styled';
+import {
+  Banner,
+  ProfileWrapper,
+  ProfileInfo,
+  PaginationStyled
+} from '../../components/profile/styled';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
 import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils/graphql';
@@ -38,6 +43,7 @@ import MESSAGES from '~/utils/messages';
 import { getImageURL } from '~/utils/getImageUrl';
 import useProfile from '~/hooks/useProfile';
 const { Title, Text } = Typography;
+import { PaginationGridOptions } from '~/utils/paginationGridOptions';
 
 const Profile = () => {
   const [form] = Form.useForm();
@@ -239,9 +245,18 @@ const Profile = () => {
           />
         </Row>
         <Row justify="start">
-          {isLoading
-            ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
-            : data.map(token => {
+          {isLoading ? (
+            [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
+          ) : (
+            <PaginationStyled
+              grid={() => PaginationGridOptions(data)}
+              pagination={{
+                showSizeChanger: true,
+                pageSizeOptions: ['10', '50', '100', '1000'],
+                position: 'top'
+              }}
+              dataSource={data}
+              renderItem={token => {
                 const { onSale } = token;
                 let actions = [
                   {
@@ -278,7 +293,9 @@ const Profile = () => {
                     actions={user?.addr === token.owner ? actions : []}
                   />
                 );
-              })}
+              }}
+            />
+          )}
         </Row>
       </Col>
       <Modal

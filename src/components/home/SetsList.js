@@ -1,8 +1,8 @@
 import React from 'react';
 import Card from '../asset/Asset';
 
-function SetsList({ sets }) {
-  return sets.map(({ nft, price }) => (
+function SetsList({ nft, price }) {
+  return (
     <Card
       key={nft.id}
       id={nft.id}
@@ -15,7 +15,7 @@ function SetsList({ sets }) {
       owner={nft.owner}
       showOwner
     />
-  ));
+  );
 }
 
 export default SetsList;

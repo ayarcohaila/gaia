@@ -1,14 +1,15 @@
-import { Row, Col } from 'antd';
+import { Row, Col, List } from 'antd';
 import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState, useEffect } from 'react';
 import { useSubscription } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 
-import { MarketPlaceWrapper } from '~/components/profile/styled';
-import Asset from '~/components/asset/Asset';
+import { MarketPlaceWrapper, CardContainer, PaginationStyled } from '~/components/profile/styled';
 import DropDown from '~/components/dropdown/DropDown';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
+import SetsList from '~/components/home/SetsList';
+import { PaginationGridOptions } from '~/utils/paginationGridOptions';
 
 import { GET_NFTS_ON_SALE } from '~/store/server/subscriptions';
 import basicAuthCheck from '~/utils/basicAuthCheck';
@@ -76,23 +77,28 @@ const MarketPlace = () => {
           />
         </Row>
         <Row align="center">
-          {isLoading
-            ? [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
-            : data.map(({ nft, price }) => (
-                <Asset
-                  className="marketplace-asset"
-                  key={nft.id}
-                  id={nft.id}
-                  imgURL={nft.template.metadata.image}
-                  description={nft.template.metadata.description}
-                  name={nft.template.metadata.name}
-                  video={nft.template.metadata.video}
-                  price={Number(price)}
-                  owner={nft.owner}
-                  mintNumber={nft.mint_number}
-                  showOwner
-                />
-              ))}
+          {isLoading ? (
+            [...Array(12).keys()].map(index => <CardLoading hasTopBar key={index} />)
+          ) : (
+            <PaginationStyled
+              grid={() => PaginationGridOptions(data)}
+              pagination={{
+                showSizeChanger: true,
+                pageSizeOptions: ['10', '50', '100', '1000'],
+                position: 'top'
+              }}
+              dataSource={data}
+              renderItem={({ price, nft }) => {
+                return (
+                  <List.Item>
+                    <CardContainer>
+                      <SetsList nft={nft} price={price} />
+                    </CardContainer>
+                  </List.Item>
+                );
+              }}
+            />
+          )}
         </Row>
       </Col>
     </MarketPlaceWrapper>

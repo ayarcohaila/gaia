@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Upload, Row, Input, Avatar } from 'antd';
+import { Button, Upload, Row, Input, Avatar, List } from 'antd';
 
 export const StyledProfileInput = styled(Input)`
   border-radius: 8px;
@@ -156,4 +156,42 @@ export const ImagePreview = styled.img`
   width: 270px;
   height: 270px;
   object-fit: cover;
+`;
+
+export const ListContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const CardContainer = styled.div`
+  display: flex;
+  margin-left: 8vw;
+  justify-content: center;
+  width: 100%;
+  @media (max-width: 500px) {
+    margin-left: 16vw;
+  }
+  @media (min-width: 501px) and (max-width: 720px) {
+    margin-left: 20vw;
+  }
+  @media (min-width: 769px) and (max-width: 1000px) {
+    margin-left: 14vw;
+  }
+  @media (min-width: 1001px) and (max-width: 1200px) {
+    margin-left: 6vw;
+  }
+  @media (min-width: 1201px) and (max-width: 1500px) {
+    margin-left: 4vw;
+  }
+  @media (min-width: 1501px) and (max-width: 1800px) {
+    margin-left: 2vw;
+  }
+`;
+
+export const PaginationStyled = styled(List)`
+  .ant-list-pagination {
+    margin-bottom: 8px;
+    margin-right: 2vw;
+  }
 `;
