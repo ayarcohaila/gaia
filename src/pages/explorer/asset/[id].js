@@ -137,6 +137,7 @@ const Sale = ({ nft, creatorProfile, ownerInfo }) => {
     if (completeDescription || asset?.description?.length < 330) {
       return asset?.description;
     } else {
+      if (!asset?.description) return 'No description...';
       return `${asset?.description?.substr(0, 330)}...`;
     }
   }, [completeDescription, asset]);
@@ -505,7 +506,7 @@ const Sale = ({ nft, creatorProfile, ownerInfo }) => {
                   src={getImageURL(asset?.creatorProfile?.avatar ?? '')}
                   type="Creator"
                 />
-                <Description>
+                <Description description={asset?.description}>
                   {description}{' '}
                   {description?.length > 330 && (
                     <ReadMore onClick={() => setCompleteDescription(prevState => !prevState)}>

@@ -209,6 +209,7 @@ export const ReadMore = styled.span`
 
 export const Description = styled.p`
   font-weight: 500;
+  color: ${props => (props.description ? '' : props.theme.colors.lightGray)};
 `;
 
 export const StyledButton = styled(Button)`
