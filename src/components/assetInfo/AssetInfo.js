@@ -40,7 +40,7 @@ function AssetInfo({ metadata, price, id, mintNumber, collection }) {
           return (
             <Row key={index}>
               <Col span={8}>
-                <Text strong>{info}</Text>
+                <Text strong>{capitalize(info)}</Text>
               </Col>
               <Col span={16}>
                 <Text>{capitalize(cleanMetadata[info])}</Text>
