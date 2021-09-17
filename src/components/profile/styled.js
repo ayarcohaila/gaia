@@ -77,7 +77,13 @@ export const UploadWrapper = styled.div`
   justify-content: center;
   border: 1px dashed #e5e8eb;
   border-radius: 10px;
-  height: 194px;
+  height: ${({ hasFile }) => (hasFile ? 534 : 194)}px;
+`;
+
+export const UploadImagePreview = styled.img`
+  max-width: 300px;
+  max-height: 300px;
+  margin: 20px 0;
 `;
 
 export const CreatorUpload = styled(Upload)`

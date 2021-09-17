@@ -11,7 +11,8 @@ import {
   StyledTextArea,
   CreatorUpload,
   CreatorUploadButton,
-  UploadWrapper
+  UploadWrapper,
+  UploadImagePreview
 } from '~/components/profile/styled';
 import useAuth from '~/hooks/useAuth';
 import { regexURL } from '~/utils/validations';
@@ -41,19 +42,21 @@ const FormComponent = ({ onSubmit, loading }) => {
   return (
     <Col offset={6} span={12}>
       <Form onBlur={forceUpdate} onFinish={onSubmit} form={form}>
-        <UploadWrapper>
+        <UploadWrapper hasFile={formValues.file}>
           <Typography.Text>Add a collection image</Typography.Text>
-          <Form.Item name="file" trigger={null} shouldUpdate={false}>
+          <Form.Item name="file" trigger={null} shouldUpdate={true}>
             <CreatorUpload
               customRequest={async ({ file, onSuccess }) => {
                 form.setFieldsValue({ file });
                 onSuccess();
+                forceUpdate();
               }}
               onRemove={() => {
                 form.setFieldsValue({ file: null });
               }}
               maxCount={1}
               accept=".png,.gif,.webp,.jpeg,.jpg">
+              {formValues.file && <UploadImagePreview src={URL.createObjectURL(formValues.file)} />}
               <CreatorUploadButton type="primary" shape="round">
                 Choose file
               </CreatorUploadButton>
