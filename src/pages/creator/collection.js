@@ -28,10 +28,12 @@ const FormComponent = ({ onSubmit, loading }) => {
   const formValues = form.getFieldsValue();
 
   const disabled = useMemo(() => {
-    const { collectionName, fee, file, description } = formValues;
+    const { collectionName, fee, file, description, collectionFee } = formValues;
 
     if (
-      [collectionName, fee, file, description].some(item => item == false || item === undefined)
+      [collectionName, fee, file, description, collectionFee].some(
+        item => item == false || item === undefined
+      )
     ) {
       return true;
     }
@@ -93,7 +95,7 @@ const FormComponent = ({ onSubmit, loading }) => {
           <StyledInput placeholder="Website Url" />
         </Form.Item>
         <Row>
-          <Col span={19}>
+          <Col span={16}>
             <Form.Item
               name="description"
               shouldUpdate={false}
@@ -109,7 +111,7 @@ const FormComponent = ({ onSubmit, loading }) => {
               <StyledTextArea name="description" placeholder="Description" multiline />
             </Form.Item>
           </Col>
-          <Col offset={1} span={4}>
+          <Col offset={1} span={3}>
             <Form.Item
               name="fee"
               shouldUpdate={false}
@@ -125,8 +127,29 @@ const FormComponent = ({ onSubmit, loading }) => {
               <StyledInput min={1} max={15} placeholder="Market Fee" type="number" />
             </Form.Item>
           </Col>
+          <Col offset={1} span={3}>
+            <Form.Item
+              name="collectionFee"
+              shouldUpdate={false}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please insert a collection fee'
+                }
+              ]}
+              label="Collection Fee (max: 15%)"
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 24 }}>
+              <StyledInput min={1} max={15} placeholder="Collection Fee" type="number" />
+            </Form.Item>
+          </Col>
         </Row>
-        {formValues.fee && <p>* You will make for {formValues.fee}% every secondary sale</p>}
+        {formValues.fee && (
+          <p>* The platform will make for {formValues.fee}% every secondary sale</p>
+        )}
+        {formValues.collectionFee && (
+          <p>* You will make for {formValues.collectionFee}% every secondary sale</p>
+        )}
 
         <Centralizer>
           <SubmitButton type="primary" htmlType="submit" shape="round" {...{ disabled, loading }}>
