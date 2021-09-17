@@ -26,8 +26,8 @@ yarn
 
 #### 3. Before to Run
 
-* Make sure that you are with the correct environment set up.
-* Try to use file -> ".env.test"
+- Make sure that you are with the correct environment set up.
+- Try to use file -> ".env.test"
 
 #### 4. Run the project
 
@@ -38,17 +38,17 @@ yarn
 
 #### 5. First Access
 
-* When you click on Login you need to choice a wallet
-* We have 2 options available [Blocto and Ledger]
-* For this first access try to choice "Blocto"
-* Type your email to receive a validation "passcode" and click on "signin"
-* After that click on "Confirm" button
+- When you click on Login you need to choice a wallet
+- We have 2 options available [Blocto and Ledger]
+- For this first access try to choice "Blocto"
+- Type your email to receive a validation "passcode" and click on "signin"
+- After that click on "Confirm" button
 
 #### 6. How to Claim FUSD
 
 1 - You must be logged in
 2 - After that go to your profile
-3 - Click on "Flow USD"
+3 - Click on "Flow"
 4 - A Modal will open and you can typing any value less than or equal to 50
 5 - Click on "Claim FUSD" to receive FUSD value
 

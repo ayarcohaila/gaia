@@ -120,7 +120,7 @@ function UserMenuContent({ loggedIn, isDrawer, setOpenPopover }) {
               Edit Profile
             </Menu.Item>
             <Menu.Item onClick={handleOpenModalFlowUsd} key="flowusd">
-              Flow USD
+              Flow
             </Menu.Item>
             {!isDrawer && (
               <Menu.Item onClick={logout} key="logout">
