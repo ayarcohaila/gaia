@@ -32,8 +32,8 @@ yarn
 #### 4. Run the project
 
 ```
-[UNIX] export NODE_ENV=test | yarn dev
-[WINDOWS] set NODE_ENV=test | yarn dev
+[UNIX] yarn dev
+[WINDOWS] yarn dev-windows
 ```
 
 #### 5. First Access
