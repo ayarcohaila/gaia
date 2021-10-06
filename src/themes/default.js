@@ -1,3 +1,5 @@
+import muiTheme from './materialTheme';
+
 const colors = {
   blue: '#1890ff',
   brightBlue: '#0257FF',
@@ -35,7 +37,8 @@ const theme = {
   fontSizes,
   sizes,
   lineHeight,
-  fontWeight
+  fontWeight,
+  ...muiTheme
 };
 
 export default theme;
