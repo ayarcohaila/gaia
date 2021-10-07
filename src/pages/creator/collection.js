@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Col, Form, Typography, Row, Spin, notification } from 'antd';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
+import CollectionBanner from '~/components/collectionBanner/CollectionBanner';
 
 import {
   CreateNFTWrapper,
@@ -211,13 +212,16 @@ function CreateNFT() {
   }
 
   return (
-    <CreateNFTWrapper>
-      <Seo title="Create Collection" />
-      <Col offset={6} span={12}>
-        <Typography.Title>Create New Collection</Typography.Title>
-      </Col>
-      <FormComponent {...{ router, onSubmit, loading }} />
-    </CreateNFTWrapper>
+    <>
+      <CollectionBanner />
+      <CreateNFTWrapper>
+        <Seo title="Create Collection" />
+        <Col offset={6} span={12}>
+          <Typography.Title>Create New Collection</Typography.Title>
+        </Col>
+        <FormComponent {...{ router, onSubmit, loading }} />
+      </CreateNFTWrapper>
+    </>
   );
 }
 
