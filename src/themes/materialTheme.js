@@ -38,6 +38,7 @@ const theme = createTheme({
 });
 
 theme.typography = {
+  ...theme.typography,
   h1: {
     fontSize: '3.5rem', // 56px
     fontWeight: 'bold',
