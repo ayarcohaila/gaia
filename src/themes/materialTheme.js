@@ -39,71 +39,71 @@ const theme = createTheme({
 
 theme.typography = {
   h1: {
-    fontSize: '3.5rem',
+    fontSize: '3.5rem', // 56px
     fontWeight: 'bold',
     letterSpacing: '-1px',
     lineHeight: '3.75rem',
 
     [theme.breakpoints.down('lg')]: {
-      fontSize: '2.25rem',
+      fontSize: '2.25rem', // 36px
       letterSpacing: '-0.6px',
       lineHeight: '2.5rem'
     }
   },
   h2: {
-    fontSize: '2.5rem',
+    fontSize: '2.5rem', // 40px
     fontWeight: '500',
     letterSpacing: '0',
     lineHeight: '2.75rem',
 
     [theme.breakpoints.down('lg')]: {
-      fontSize: '1.625rem',
+      fontSize: '1.625rem', // 26px
       lineHeight: '1.875rem'
     }
   },
   h3: {
-    fontSize: '2.25rem',
+    fontSize: '2.25rem', // 36px
     fontWeight: 'bold',
     letterSpacing: '-0.6px',
     lineHeight: '2.5rem',
 
     [theme.breakpoints.down('lg')]: {
-      fontSize: '1.875rem',
+      fontSize: '1.875rem', // 30px
       letterSpacing: '-0.5px',
       lineHeight: '2.125rem'
     }
   },
   h4: {
-    fontSize: '1.25rem',
+    fontSize: '1.25rem', // 20px
     fontWeight: 'bold',
     letterSpacing: '0',
     lineHeight: '1.5rem'
   },
   h5: {
-    fontSize: '1rem',
+    fontSize: '1rem', // 16px
     fontWeight: 'bold',
     letterSpacing: '0',
     lineHeight: '1.5rem'
   },
   h6: {
-    fontSize: '1rem',
+    fontSize: '1rem', // 16px
     fontWeight: 'regular',
     letterSpacing: '0',
     lineHeight: '1.5rem',
 
     [theme.breakpoints.down('lg')]: {
-      fontSize: '0.875rem',
+      fontSize: '0.875rem', // 14px
       lineHeight: '1.25rem'
     }
   },
   subtitle1: {
-    fontSize: '0.875rem',
+    fontSize: '0.875rem', // 14px
     fontWeight: '500',
     letterSpacing: '0',
     lineHeight: '1rem'
   },
   subtitle2: {
-    fontSize: '0.8125rem',
+    fontSize: '0.8125rem', // 13px
     fontWeight: '500',
     letterSpacing: '0',
     lineHeight: '1.rem',
@@ -113,7 +113,7 @@ theme.typography = {
     }
   },
   body1: {
-    fontSize: '0.75rem',
+    fontSize: '0.75rem', // 12px
     fontWeight: '500',
     letterSpacing: '0.6px',
     lineHeight: '1rem'
