@@ -5,7 +5,7 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { Layout, notification } from 'antd';
 
 import { GlobalStyles } from '~/components/layout/globalStyles';
-import Header from '~/components/header/header';
+import Header from '~/components/header/index.jsx';
 import Content from '~/layout/content';
 import Footer from '~/layout/footer';
 import theme from '~/themes/default';
