@@ -1,55 +1,5 @@
 import styled from 'styled-components';
-import { Layout, Col, Input, Button, Typography, Row } from 'antd';
-
-/**
- * Header Styles
- */
-
-export const Header = styled(Layout.Header)`
-  background-color: white;
-  font-family: Work Sans;
-  border-bottom: 1px solid #f3f3f3;
-
-  .user-button-height {
-    height: 48px;
-  }
-`;
-
-export const SearchCol = styled(Col)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const SearchInput = styled(Input)`
-  width: 350px;
-`;
-
-export const SearchButton = styled(Button)`
-  border-width: 0;
-  padding: 5px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const UserCol = styled(Col)`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-export const UserButton = styled(Button)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-width: 0;
-`;
-
-export const UserName = styled(Typography.Text)`
-  margin-right: 10px;
-`;
+import { Layout, Col, Typography, Row } from 'antd';
 
 /**
  * Content Styles

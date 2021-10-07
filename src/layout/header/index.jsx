@@ -3,7 +3,8 @@ import { Grid, MenuList, ClickAwayListener } from '@mui/material';
 import useAuth from '~/hooks/useAuth';
 import { useRouter } from 'next/router';
 import * as Styled from './styled.js';
-import SearchInput from '~/components/searchInput';
+import { SearchInput } from '~/components';
+import NextLink from 'next/link';
 
 import {
   ArrowDropDown as ArrowDropDownIcon,
@@ -51,9 +52,9 @@ const Header = () => {
   return (
     <Styled.HeaderBar position="static">
       <Styled.Container component="section">
-        <Styled.Logo href="/" variant="h1">
-          Gaia
-        </Styled.Logo>
+        <NextLink href="/">
+          <Styled.Logo>Gaia</Styled.Logo>
+        </NextLink>
         {/* TODO: Remove "hidden" when implement the routes redirection */}
         <Grid component="nav" hidden>
           <Styled.MenuOptionList component="ul">
