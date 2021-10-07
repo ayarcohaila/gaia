@@ -20,7 +20,7 @@ export const Banner = styled(Box)`
 `;
 
 export const ProfileInfo = styled(Typography)`
-  width: 304px;
+  width: 100%;
   height: 60px;
   margin: 0 0 20px;
   font-family: 'IBMPlexMono';
@@ -31,5 +31,26 @@ export const ProfileInfo = styled(Typography)`
   line-height: 1.07;
   letter-spacing: -1px;
   text-align: center;
+  color: #fff;
+`;
+
+export const BoxWallet = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-items: center;
+`;
+
+export const WalletText = styled(Typography)`
+  width: 60px;
+  height: 16px;
+  margin: 8px 0px 8px 0;
+  opacity: 0.8;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: normal;
+  text-align: right;
   color: #fff;
 `;

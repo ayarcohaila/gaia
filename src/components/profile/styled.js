@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Button, Upload, Row, Input, Avatar, List } from 'antd';
-import { Box } from '@mui/system';
+import Box from '@mui/material/Box';
 
 export const StyledProfileInput = styled(Input)`
   border-radius: 8px;
@@ -49,7 +49,7 @@ export const MarketPlaceWrapper = styled(Row)`
   }
 `;
 
-export const ProfileWrapper = styled(Row)`
+export const ProfileWrapper = styled(Box)`
   .token-card,
   .drop-down {
     margin-bottom: 20px;
@@ -57,10 +57,6 @@ export const ProfileWrapper = styled(Row)`
 
   .token-card {
     margin-right: 20px;
-  }
-
-  .address {
-    margin: -22.5px auto 10px;
   }
 `;
 

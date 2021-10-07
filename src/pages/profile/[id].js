@@ -34,7 +34,6 @@ import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils
 import { UPDATE_OWNER } from '~/store/server/mutations';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import MESSAGES from '~/utils/messages';
-import useProfile from '~/hooks/useProfile';
 const { Text } = Typography;
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
 import ProfileBanner from '~/components/profileBanner/ProfileBanner';
@@ -50,7 +49,6 @@ const Profile = () => {
   const [transferModal, setTransferModalVisible] = useState(false);
   const [destinationAddress, setDestinationAddress] = useState(null);
   const [assets, setAssets] = useState([]);
-  const { userProfile } = useProfile(user?.addr);
   const [updateOwner] = useMutation(UPDATE_OWNER);
 
   const shouldPageBlock = useBlockPage();
@@ -214,7 +212,7 @@ const Profile = () => {
   return (
     <ProfileWrapper>
       <Seo title="Profile" />
-      <ProfileBanner address={id} userProfile={userProfile} />
+      <ProfileBanner address={id} />
       <Col span={18} offset={3}>
         <Row justify="end">
           <DropDown
