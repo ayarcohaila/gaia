@@ -1,7 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { Instagram as InstagramIcon, Twitter as TwitterIcon } from '@mui/icons-material';
 import { useTheme } from 'styled-components';
-import { SearchInput } from '~/components';
 
 import Logo from '~/components/logo/Logo';
 import useBreakpoints from '~/hooks/useBreakpoints';
@@ -17,13 +16,14 @@ function Footer() {
 
   return (
     <Grid bgcolor={secondary.main} component="footer" width="100%">
-      <Grid maxWidth="1440px" p="48px 188px 48px 82px" width="100%">
+      <Grid maxWidth="1440px" p="48px 188px 48px 82px" mx="auto" width="100%">
         <Grid container flexWrap="wrap" justifyContent="space-between">
           <Box width={isMediumDevice ? 'auto' : '35%'}>
             <Typography color="white" mb="16px" variant="subtitle2">
               Sign Up to our Newsletter
             </Typography>
-            <SearchInput />
+            <Styled.Input hasIcon={false} placeholder="Email Address" />
+            <Styled.CustomButton>Sign Up</Styled.CustomButton>
           </Box>
           {COLUMNS.map(({ title, items }) => (
             <Grid key={title} item>
