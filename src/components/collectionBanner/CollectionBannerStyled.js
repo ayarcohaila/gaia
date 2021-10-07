@@ -117,6 +117,14 @@ const BannerShareIconStyled = styled.div`
   justify-content: center;
 `;
 
+const BannerAvatar = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  border: 1px solid #fff;
+  background-image: url(${props => props.imgUrl});
+`;
+
 export {
   BannerStyled,
   Divider,
@@ -126,5 +134,6 @@ export {
   BannerItemDescription,
   BannerItemValue,
   BannerShareIconStyled,
-  BannerBackground
+  BannerBackground,
+  BannerAvatar
 };

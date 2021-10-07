@@ -6,7 +6,8 @@ import {
   BannerDescription,
   BannerItemDescription,
   BannerItemValue,
-  BannerBackground
+  BannerBackground,
+  BannerAvatar
 } from './CollectionBannerStyled';
 import BannerAccount from './BannerAccount';
 import BannerShareIcon from './BannerShareIcon';
@@ -27,7 +28,7 @@ function CollectionBanner(props) {
     <BannerBackground imgUrl={bgImg}>
       <BannerStyled bgColor={mainColor}>
         <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
-          <Box width="80px" height="80px" bgcolor="black" borderRadius="40px"></Box>
+          <BannerAvatar />
           <Divider ml="32px" />
           <Box>
             <BannerName>{bannerName}</BannerName>
