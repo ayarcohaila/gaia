@@ -52,7 +52,7 @@ theme.typography = {
   },
   h2: {
     fontSize: '2.5rem',
-    fontWeight: 'medium',
+    fontWeight: '500',
     letterSpacing: '0',
     lineHeight: '2.75rem',
 
@@ -98,13 +98,13 @@ theme.typography = {
   },
   subtitle1: {
     fontSize: '0.875rem',
-    fontWeight: 'medium',
+    fontWeight: '500',
     letterSpacing: '0',
     lineHeight: '1rem'
   },
   subtitle2: {
     fontSize: '0.8125rem',
-    fontWeight: 'medium',
+    fontWeight: '500',
     letterSpacing: '0',
     lineHeight: '1.rem',
 
