@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 import { Col, Form, Typography, Row, Spin, notification } from 'antd';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-import CollectionBanner from '~/components/collectionBanner/CollectionBanner';
 
 import {
   CreateNFTWrapper,
@@ -213,7 +212,6 @@ function CreateNFT() {
 
   return (
     <>
-      <CollectionBanner />
       <CreateNFTWrapper>
         <Seo title="Create Collection" />
         <Col offset={6} span={12}>

@@ -1,9 +1,9 @@
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { BannerShareIconStyled } from './CollectionBannerStyled';
 
-function BannerShareIcon() {
+function BannerShareIcon(props) {
   return (
-    <BannerShareIconStyled>
+    <BannerShareIconStyled bgColor={props.bgColor}>
       <IosShareIcon />
     </BannerShareIconStyled>
   );

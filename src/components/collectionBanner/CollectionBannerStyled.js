@@ -2,10 +2,11 @@ import styled from 'styled-components';
 import { Box, Typography } from '@mui/material';
 
 const BannerBackground = styled.div`
-  width: 90%;
+  width: 100%;
   min-height: 420px;
   background-image: url(${props => props.imgUrl});
   border-radius: 40px;
+  background-size: cover;
 `;
 
 const BannerStyled = styled(Box)`
@@ -38,7 +39,7 @@ const BannerAccountStyled = styled.div`
   margin: 8px 0 0;
   padding: 4px 8px;
   border-radius: 6px;
-  background-color: #4814a6;
+  background-color: ${props => props.bgColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,7 +111,7 @@ const BannerShareIconStyled = styled.div`
   width: 54px;
   height: 54px;
   border-radius: 27px;
-  background-color: #4814a6;
+  background-color: ${props => props.bgColor};
   display: flex;
   align-items: center;
   justify-content: center;
