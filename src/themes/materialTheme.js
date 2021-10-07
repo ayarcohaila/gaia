@@ -114,7 +114,7 @@ theme.typography = {
   },
   body1: {
     fontSize: '0.75rem',
-    fontWeight: 'medium',
+    fontWeight: '500',
     letterSpacing: '0.6px',
     lineHeight: '1rem'
   }
