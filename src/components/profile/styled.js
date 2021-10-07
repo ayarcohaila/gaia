@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button, Upload, Row, Input, Avatar, List } from 'antd';
+import { Box } from '@mui/system';
 
 export const StyledProfileInput = styled(Input)`
   border-radius: 8px;
@@ -140,18 +141,14 @@ export const ProfileInfo = styled(Avatar)`
   border: solid 2px;
 `;
 
-export const Banner = styled.div`
+export const Banner = styled(Box)`
   width: 100%;
   height: 210px;
   display: flex;
   justify-content: center;
+  background-image: linear-gradient(189deg, #411f7e 20%, rgba(65, 31, 126, 0.2) 93%);
   align-items: center;
   flex-direction: column;
-  background-image: url(${({ src }) => src});
-  background-repeat: no-repeat;
-  background-size: auto 100%;
-  background-position: center;
-
   h3 {
     color: ${({ theme }) => theme.colors.white};
     margin: 10px 0;

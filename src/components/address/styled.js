@@ -13,10 +13,12 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
+  margin: 0 0 0 8px;
+  padding: 8px 10px;
+  width: 152px;
   height: 45px;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #402086;
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   ${({ isFocused }) =>
@@ -27,8 +29,15 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.p`
-  color: #0057ff;
-  margin: 0;
-  font-weight: 400;
-  margin-right: 10px;
+  width: 78px;
+  height: 16px;
+  margin: 0 8px 0 0;
+  font-size: 14px;
+  font-family: 'IBMPlexMono';
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: 0.2px;
+  color: #fff;
 `;
