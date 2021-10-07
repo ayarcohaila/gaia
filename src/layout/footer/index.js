@@ -27,7 +27,7 @@ function Footer() {
   return (
     <Grid bgcolor={secondary.main} component="footer" width="100%">
       <Grid maxWidth="1440px" p="48px 188px 48px 82px" width="100%">
-        <Grid>
+        <Grid container justifyContent="space-between">
           <Box>
             <Typography color="white" mb="16px" variant="subtitle2">
               Sign Up to our Newsletter
@@ -36,20 +36,20 @@ function Footer() {
           </Box>
 
           <List subheader={<ListSubheader>Our network</ListSubheader>}>
-            {OUR_NETWORK_ITEMS.map(({ id, label, href }) => (
-              <ListItem key={id}>
-                <ListItemButton href={href}>
-                  <ListItemText>{label}</ListItemText>
+            {OUR_NETWORK_ITEMS.map(({ label, href }) => (
+              <ListItem key={label}>
+                <ListItemButton component="a" href={href} target="_blank">
+                  <ListItemText primaryTypographyProps={{ color: grey[600] }}>{label}</ListItemText>
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
 
           <List subheader={<ListSubheader>Our network</ListSubheader>}>
-            {OUR_INVESTORS_ITEMS.map(({ id, label, href }) => (
-              <ListItem key={id}>
-                <ListItemButton href={href}>
-                  <ListItemText>{label}</ListItemText>
+            {OUR_INVESTORS_ITEMS.map(({ label, href }) => (
+              <ListItem key={label}>
+                <ListItemButton component="a" href={href} target="_blank">
+                  <ListItemText primaryTypographyProps={{ color: grey[600] }}>{label}</ListItemText>
                 </ListItemButton>
               </ListItem>
             ))}

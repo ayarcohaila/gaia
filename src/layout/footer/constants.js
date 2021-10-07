@@ -1,45 +1,45 @@
 export const OUR_NETWORK_ITEMS = [
   {
-    id: 'a',
-    label: 'A',
-    href: 'https://google.com'
+    label: 'Bitcoin Origins',
+    href: 'https://www.btcorigins.com/'
   },
   {
-    id: 'a',
-    label: 'A',
-    href: 'https://google.com'
+    label: 'Cryptobuds ',
+    href: 'https://twitter.com/buds_crypto'
   },
   {
-    id: 'a',
-    label: 'A',
-    href: 'https://google.com'
+    label: 'NFT Genius',
+    href: 'https://nftgenius.com/'
   },
   {
-    id: 'a',
-    label: 'A',
-    href: 'https://google.com'
+    label: 'NiftyCap',
+    href: 'https://niftycap.com/'
+  },
+  {
+    label: 'Rebel Rabbits',
+    href: 'https://rebelrabbits.io/'
   }
 ];
 
 export const OUR_INVESTORS_ITEMS = [
   {
-    id: 'a',
-    label: 'A',
-    href: 'https://google.com'
+    label: 'Mark Cuban',
+    href: 'https://twitter.com/mcuban'
   },
   {
-    id: 'a',
-    label: 'A',
-    href: 'https://google.com'
+    label: 'Anthony Pompliano',
+    href: 'https://twitter.com/APompliano'
   },
   {
-    id: 'a',
-    label: 'A',
-    href: 'https://google.com'
+    label: 'Roham Gharegozlou',
+    href: 'https://www.linkedin.com/in/roham/'
   },
   {
-    id: 'a',
-    label: 'A',
-    href: 'https://google.com'
+    label: 'HOF Capital',
+    href: 'https://www.hofvc.com/'
+  },
+  {
+    label: 'Sound Ventures',
+    href: 'https://www.soundventures.com/'
   }
 ];
