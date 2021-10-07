@@ -10,7 +10,7 @@ function BannerAccount(props) {
   const { accountNumber } = props;
 
   const secretAccount = accountNumber => {
-    return `${accountNumber.substring(0, 5)}...${accountNumber.substring(
+    return `${accountNumber.substring(0, 5)}\u2026${accountNumber.substring(
       accountNumber.length - 4,
       accountNumber.length
     )}`;
@@ -25,7 +25,7 @@ function BannerAccount(props) {
     <Tooltip title={tooltipTitle} onOpen={() => setTooltipTitle(defaultTooltipTitle)}>
       <BannerAccountStyled onClick={copyHandler}>
         <span>{secretAccount(accountNumber)}</span>
-        <ContentCopyIcon style={{ color: '#fff', transform: 'rotateY(140deg)' }} fontSize="12px" />
+        <ContentCopyIcon style={{ color: '#fff', transform: 'rotateY(170deg)' }} fontSize="12px" />
       </BannerAccountStyled>
     </Tooltip>
   );
