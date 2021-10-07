@@ -5,16 +5,17 @@ import { useTheme } from 'styled-components';
 
 import Logo from '~/components/logo/Logo';
 import useBreakpoints from '~/hooks/useBreakpoints';
+import usePrevious from '~/hooks/usePrevious';
 import { validateEmail } from '~/utils/validations';
 
 import * as Styled from './styles';
 import { COLUMNS, iconStyles } from './constants';
-import usePrevious from '~/hooks/usePrevious';
 
 function Footer() {
   const [email, setEmail] = useState('');
   const previousEmailValue = usePrevious(email);
   const [hasError, setHasError] = useState(false);
+  const [isSigned, setIsSigned] = useState(false);
   const { isMediumDevice } = useBreakpoints();
   const {
     palette: { secondary, grey }
@@ -23,9 +24,11 @@ function Footer() {
   const handleSubmit = event => {
     event.preventDefault();
     const isEmailValid = validateEmail(email);
-    if (!isEmailValid) {
+    if (!isEmailValid && !isSigned) {
       setHasError(true);
+      return;
     }
+    setIsSigned(true);
     //TODO: Register email on newsletter when integrate it
   };
 
@@ -48,7 +51,7 @@ function Footer() {
               endAdornment={<Styled.CustomButton type="submit">Sign Up</Styled.CustomButton>}
               placeholder="Email Address"
               onChange={({ target: { value } }) => setEmail(value)}
-              value={email}
+              value={isSigned ? 'You’re signed in!' : email}
             />
           </Box>
           {COLUMNS.map(({ title, items }) => (
@@ -74,12 +77,11 @@ function Footer() {
               <Styled.CustomLink href="#" target="_blank">
                 Contact Us
               </Styled.CustomLink>
-              <Styled.CustomLink href="#" target="_blank">
+              <Styled.CustomLink href="#" mr="18px" target="_blank">
                 <TwitterIcon sx={iconStyles} />
               </Styled.CustomLink>
-              {/* TODO: Change to Discord icon */}
               <Styled.CustomLink href="#" target="_blank">
-                <TwitterIcon sx={iconStyles} />
+                <Styled.DiscordIcon alt="Gaia Discord" src="/icons/discord.svg" />
               </Styled.CustomLink>
               <Styled.CustomLink href="#" target="_blank">
                 <InstagramIcon sx={iconStyles} />

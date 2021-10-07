@@ -38,3 +38,9 @@ export const CustomButton = styled(Button)`
   transform: translateX(8px);
   width: 130px;
 `;
+
+export const DiscordIcon = styled.img`
+  height: 20px;
+  transform: translateY(-3.5px);
+  width: 20px;
+`;
