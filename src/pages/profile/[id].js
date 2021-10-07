@@ -214,9 +214,7 @@ const Profile = () => {
   return (
     <ProfileWrapper>
       <Seo title="Profile" />
-      <Col span={24}>
-        <ProfileBanner address={id} userProfile={userProfile} />
-      </Col>
+      <ProfileBanner address={id} userProfile={userProfile} />
       <Col span={18} offset={3}>
         <Row justify="end">
           <DropDown

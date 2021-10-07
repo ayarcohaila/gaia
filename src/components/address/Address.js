@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import Image from 'next/image';
 import PropTypes from 'prop-types';
 
 import { truncate } from '~/utils/string';
 
-import { Container, Text } from './styled';
+import { Container, Text, RectangleTop, RectangleBottom, RectangleContainer } from './styled';
 
 const Address = ({ children }) => {
   const [isFocused, setFocused] = useState(false);
-  const shortenedAddress = truncate(children, 11, -3, '...');
+  const shortenedAddress = truncate(children, 5, -3, '...');
 
   const copyToClipboard = () => {
     setFocused(true);
@@ -21,7 +20,10 @@ const Address = ({ children }) => {
   return (
     <Container className="address" onClick={copyToClipboard} {...{ isFocused }}>
       <Text>{shortenedAddress}</Text>
-      <Image src="/icons/copy.svg" width={16} height={16} />
+      <RectangleContainer>
+        <RectangleTop />
+        <RectangleBottom />
+      </RectangleContainer>
     </Container>
   );
 };
