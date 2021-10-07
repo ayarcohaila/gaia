@@ -1,7 +1,6 @@
 const withAntdLess = require('next-plugin-antd-less');
 const antvars = require('./antvars');
 const withPlugins = require('next-compose-plugins');
-const ipfsDomain = process.env.NEXT_PUBLIC_PINATA_DOMAIN;
 
 const antdConfig = withAntdLess({
   modifyVars: antvars,
@@ -17,7 +16,7 @@ const antdConfig = withAntdLess({
 const nextConfig = {
   images: {
     domains: [
-      ipfsDomain,
+      'gateway.pinata.cloud',
       'staging-flow-bucket.s3-us-west-1.amazonaws.com',
       'i.picsum.photos',
       'btco.mypinata.cloud'

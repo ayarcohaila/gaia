@@ -10,7 +10,7 @@
     "dev": "export NODE_ENV=test && next dev",
     "dev-windows": "set NODE_ENV=test | next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "eslint 'src/**/*.{js,jsx}' --fix",
     "format": "prettier --write 'src/**/*.{js,jsx,css,scss,less}'",
     "dev:wallet": "env PK=c1083c9fa9e9cd92415809f2a2572bc41adf93d431109376c1335eacacb55d05 SERVICE_ADDR=f8d6e0586b0a20c7 fcl-wallet",
