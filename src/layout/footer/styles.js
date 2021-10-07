@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { Grid, Typography } from '@mui/material';
+import { Link } from '@mui/material';
 
-export const Container = styled(Grid)`
-  max-width: 1440px;
-  width: 100%;
-`;
+export const CustomLink = styled(Link).attrs({ underline: 'none', variant: 'subtitle2' })`
+  color: ${({ theme }) => theme.palette.grey[600]};
+  display: block;
 
-export const Text = styled(Typography)`
-  color: ${({ theme }) => theme.palette.text.secondary};
+  &:hover {
+    color: white;
+  }
 `;
