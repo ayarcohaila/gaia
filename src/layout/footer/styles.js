@@ -16,6 +16,7 @@ export const CustomLink = styled(Link).attrs({ underline: 'none', variant: 'subt
 export const Input = styled(SearchInput)`
   background-color: ${({ theme }) => theme.palette.grey[700]};
   border-radius: 28px;
+  border: ${({ theme, error }) => (error ? `2px solid ${theme.palette.error.dark}` : 'none')};
   height: 50px;
 
   & > .MuiInput-input {
@@ -34,6 +35,6 @@ export const Input = styled(SearchInput)`
 
 export const CustomButton = styled(Button)`
   height: 40px;
-  transform: translate(-108px, -2px);
-  width: 100px;
+  transform: translateX(8px);
+  width: 130px;
 `;

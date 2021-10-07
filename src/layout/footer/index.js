@@ -1,32 +1,58 @@
+import { useEffect, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { Instagram as InstagramIcon, Twitter as TwitterIcon } from '@mui/icons-material';
 import { useTheme } from 'styled-components';
 
 import Logo from '~/components/logo/Logo';
 import useBreakpoints from '~/hooks/useBreakpoints';
+import { validateEmail } from '~/utils/validations';
 
 import * as Styled from './styles';
 import { COLUMNS, iconStyles } from './constants';
+import usePrevious from '~/hooks/usePrevious';
 
 function Footer() {
+  const [email, setEmail] = useState('');
+  const previousEmailValue = usePrevious(email);
+  const [hasError, setHasError] = useState(false);
   const { isMediumDevice } = useBreakpoints();
   const {
     palette: { secondary, grey }
   } = useTheme();
 
+  const handleSubmit = event => {
+    event.preventDefault();
+    const isEmailValid = validateEmail(email);
+    if (!isEmailValid) {
+      setHasError(true);
+    }
+    //TODO: Register email on newsletter when integrate it
+  };
+
+  useEffect(() => {
+    if (hasError && previousEmailValue !== email) {
+      setHasError(false);
+    }
+  }, [email, hasError, previousEmailValue]);
+
   return (
     <Grid bgcolor={secondary.main} component="footer" width="100%">
       <Grid maxWidth="1440px" p="48px 188px 48px 82px" mx="auto" width="100%">
         <Grid container flexWrap="wrap" justifyContent="space-between">
-          <Box width={isMediumDevice ? 'auto' : '35%'}>
+          <Box component="form" onSubmit={handleSubmit} width={isMediumDevice ? 'auto' : '35%'}>
             <Typography color="white" mb="16px" variant="subtitle2">
               Sign Up to our Newsletter
             </Typography>
-            <Styled.Input hasIcon={false} placeholder="Email Address" />
-            <Styled.CustomButton>Sign Up</Styled.CustomButton>
+            <Styled.Input
+              error={hasError}
+              endAdornment={<Styled.CustomButton type="submit">Sign Up</Styled.CustomButton>}
+              placeholder="Email Address"
+              onChange={({ target: { value } }) => setEmail(value)}
+              value={email}
+            />
           </Box>
           {COLUMNS.map(({ title, items }) => (
-            <Grid key={title} item>
+            <Grid key={title} item width="160px">
               <Typography color="white" mb="12px" variant="subtitle2">
                 {title}
               </Typography>
@@ -61,7 +87,7 @@ function Footer() {
             </Grid>
           </Box>
 
-          <Box>
+          <Box width="160px">
             <Typography color={grey[600]} mb="4px" variant="body1">
               © 2021 Gaia
             </Typography>
@@ -70,7 +96,7 @@ function Footer() {
             </Typography>
           </Box>
 
-          <Box>
+          <Box width="160px">
             <Styled.CustomLink href="#" target="_blank">
               Terms of Use
             </Styled.CustomLink>

@@ -30,7 +30,8 @@ const theme = createTheme({
       100: '#ffffff'
     },
     error: {
-      main: '#e9252f'
+      main: '#e9252f',
+      dark: 'rgba(233, 37, 47, 0.8)'
     },
     success: {
       main: '#0bbd69'

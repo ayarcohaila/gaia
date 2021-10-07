@@ -4,13 +4,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import * as Styled from './styled.js';
 import PropTypes from 'prop-types';
 
-const SearchInput = ({ hasIcon = true, placeholder = 'Search', ...props }) => {
+const SearchInput = ({ endAdornment = null, placeholder = 'Search', ...props }) => {
   return (
     <Styled.Search
       disableUnderline
       placeholder={placeholder}
       endAdornment={
-        hasIcon && (
+        endAdornment || (
           <InputAdornment position="end">
             <SearchIcon fontSize="small" />
           </InputAdornment>
@@ -22,7 +22,6 @@ const SearchInput = ({ hasIcon = true, placeholder = 'Search', ...props }) => {
 };
 
 SearchInput.propTypes = {
-  hasIcon: PropTypes.bool,
   placeholder: PropTypes.string
 };
 

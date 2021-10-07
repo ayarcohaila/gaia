@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client/react';
 import { ThemeProvider } from 'styled-components';
@@ -55,10 +54,10 @@ function MyApp({ Component, pageProps }) {
               <meta name="theme-color" content="#ffffff" />
             </Head>
             <Layout>
-              {/* <Header />
-            <Content>
-              <Component {...pageProps} />
-            </Content> */}
+              <Header />
+              <Content>
+                <Component {...pageProps} />
+              </Content>
               <Footer />
             </Layout>
           </ThemeProvider>
