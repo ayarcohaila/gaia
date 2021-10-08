@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { Button as MuiButton } from '@mui/material';
+import { Button as MuiButton, styled } from '@mui/material';
 
 export const Button = styled(MuiButton)(({ theme }) => ({
   ...theme.typography.subtitle1,

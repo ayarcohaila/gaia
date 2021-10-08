@@ -1,5 +1,4 @@
-import { Input } from '@mui/material';
-import styled from 'styled-components';
+import { Input, styled } from '@mui/material';
 
 export const Search = styled(Input)(({ theme }) => ({
   width: '305px',
