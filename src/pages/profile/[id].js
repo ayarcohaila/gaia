@@ -36,7 +36,7 @@ import basicAuthCheck from '~/utils/basicAuthCheck';
 import MESSAGES from '~/utils/messages';
 const { Text } = Typography;
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
-import ProfileBanner from '~/components/profileBanner/ProfileBanner';
+import { ProfileBanner } from '~/components';
 
 const Profile = () => {
   const [form] = Form.useForm();

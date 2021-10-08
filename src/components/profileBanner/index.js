@@ -1,5 +1,5 @@
 import * as styled from './styled';
-import Address from '~/components/address';
+import { Address } from '~/components';
 
 const ProfileBanner = ({ address }) => {
   return (
