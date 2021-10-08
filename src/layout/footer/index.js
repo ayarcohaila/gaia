@@ -52,6 +52,7 @@ function Footer() {
               placeholder="Email Address"
               onChange={({ target: { value } }) => setEmail(value)}
               value={isSigned ? 'You’re signed in!' : email}
+              sx={{ backgroundColor: 'red' }}
             />
           </Box>
           {COLUMNS.map(({ title, items }) => (
@@ -60,7 +61,12 @@ function Footer() {
                 {title}
               </Typography>
               {items.map(({ label, href }) => (
-                <Styled.CustomLink key={label} href={href} mb="4px" target="_blank">
+                <Styled.CustomLink
+                  key={label}
+                  href={href}
+                  mb="4px"
+                  target="_blank"
+                  underline="none">
                   {label}
                 </Styled.CustomLink>
               ))}
@@ -74,16 +80,16 @@ function Footer() {
             {/* TODO: Change to correct logo */}
             <Logo color="white" />
             <Grid alignItems="center" container mt="24px">
-              <Styled.CustomLink href="#" target="_blank">
+              <Styled.CustomLink href="#" target="_blank" underline="none">
                 Contact Us
               </Styled.CustomLink>
-              <Styled.CustomLink href="#" mr="18px" target="_blank">
+              <Styled.CustomLink href="#" mr="18px" target="_blank" underline="none">
                 <TwitterIcon sx={iconStyles} />
               </Styled.CustomLink>
-              <Styled.CustomLink href="#" target="_blank">
+              <Styled.CustomLink href="#" target="_blank" underline="none">
                 <Styled.DiscordIcon alt="Gaia Discord" src="/icons/discord.svg" />
               </Styled.CustomLink>
-              <Styled.CustomLink href="#" target="_blank">
+              <Styled.CustomLink href="#" target="_blank" underline="none">
                 <InstagramIcon sx={iconStyles} />
               </Styled.CustomLink>
             </Grid>
@@ -99,10 +105,10 @@ function Footer() {
           </Box>
 
           <Box width="160px">
-            <Styled.CustomLink href="#" target="_blank">
+            <Styled.CustomLink href="#" target="_blank" underline="none">
               Terms of Use
             </Styled.CustomLink>
-            <Styled.CustomLink href="#" target="_blank">
+            <Styled.CustomLink href="#" target="_blank" underline="none">
               Privacy Policy
             </Styled.CustomLink>
           </Box>
