@@ -1,7 +1,6 @@
 import { Link, styled } from '@mui/material';
 
-import { Button } from '~/base';
-import { SearchInput } from '~/components';
+import { Button, SearchInput } from '~/base';
 
 export const CustomLink = styled(Link)(
   ({

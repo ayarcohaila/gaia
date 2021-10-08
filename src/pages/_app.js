@@ -3,10 +3,9 @@ import { ApolloProvider } from '@apollo/client/react';
 import { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { Layout, notification } from 'antd';
-
 import { GlobalStyles } from '~/components/layout/globalStyles';
-import { Content, Footer } from '~/layout';
-import Header from '~/components/header/header';
+
+import { Header, Content, Footer } from '~/layout';
 import theme from '~/themes/default';
 import muiTheme from '~/themes/materialTheme';
 import client from '~/config/apollo-client';
