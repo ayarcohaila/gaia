@@ -4,9 +4,8 @@ import { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 
 import { GlobalStyles } from '~/components/layout/globalStyles';
-import Header from '~/components/header/header';
-import Content from '~/layout/content';
-import Footer from '~/layout/footer';
+
+import { Header, Content, Footer } from '~/layout';
 import theme from '~/themes/default';
 import muiTheme from '~/themes/materialTheme';
 import client from '~/config/apollo-client';

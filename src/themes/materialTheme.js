@@ -14,7 +14,8 @@ const theme = createTheme({
   breakpoints,
   palette: {
     primary: {
-      main: '#215cf1'
+      main: '#215cf1',
+      hover: '#1a49c1'
     },
     secondary: {
       main: '#171a24'
@@ -29,7 +30,8 @@ const theme = createTheme({
       100: '#ffffff'
     },
     error: {
-      main: '#e9252f'
+      main: '#e9252f',
+      hover: '#fce9ea'
     },
     success: {
       main: '#0bbd69'
