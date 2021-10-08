@@ -1,4 +1,4 @@
-import CollectionBanner from '~/components/collectionBanner/CollectionBanner';
+import CollectionBanner from '~/components/collectionBanner';
 import { Grid } from '@mui/material';
 
 const BANNER_ITEM = [

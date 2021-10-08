@@ -1,5 +1,5 @@
 import IosShareIcon from '@mui/icons-material/IosShare';
-import { BannerShareIconStyled } from './CollectionBannerStyled';
+import BannerShareIconStyled from './styled';
 
 function BannerShareIcon(props) {
   return (

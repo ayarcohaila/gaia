@@ -8,7 +8,7 @@ import {
   BannerItemValue,
   BannerBackground,
   BannerAvatar
-} from './CollectionBannerStyled';
+} from './styled';
 import BannerAccount from './BannerAccount';
 import BannerShareIcon from './BannerShareIcon';
 import { Box, Grid } from '@mui/material';
