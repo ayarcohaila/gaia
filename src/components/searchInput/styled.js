@@ -11,10 +11,10 @@ export const Search = styled(Input)(({ theme }) => ({
   cursor: 'pointer',
 
   '& > .MuiInput-input': {
-    ...theme.typography.subtitle1,
     fontWeight: 'bold',
     color: theme.palette.grey[700],
-    cursor: 'pointer'
+    cursor: 'pointer',
+    ...theme.typography.subtitle1
   },
 
   '& > .MuiInput-input::placeholder': {

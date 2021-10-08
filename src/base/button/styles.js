@@ -1,13 +1,13 @@
 import { Button as MuiButton, styled } from '@mui/material';
 
 export const Button = styled(MuiButton)(({ theme }) => ({
-  ...theme.typography.subtitle1,
   backgroundColor: theme.palette.primary.dark,
   borderRadius: '24px',
   color: 'white',
-  fontWeight: 'bold',
   padding: '16px 22px',
   textTransform: 'none',
+  ...theme.typography.subtitle1,
+  fontWeight: 'bold',
 
   '&:hover': {
     backgroundColor: theme.palette.primary.main
