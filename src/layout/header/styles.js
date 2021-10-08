@@ -59,14 +59,19 @@ export const MoreButton = styled(Button)(({ theme: { typography, palette } }) =>
 }));
 
 export const CustomButton = styled(Button, { shouldForwardProp: prop => prop !== 'isBlack' })(
-  ({ theme: { typography }, isBlack }) => ({
+  ({ theme: { typography, palette }, isBlack }) => ({
     ...typography.subtitle1,
     marginLeft: '12px',
     borderRadius: '20px',
     height: '40px',
     backgroundColor: isBlack && 'black',
     fontWeight: 'bold',
-    textTransform: 'unset'
+    textTransform: 'unset',
+    letterSpacing: '0.2px',
+
+    '&:hover': {
+      backgroundColor: isBlack ? palette.grey[600] : palette.primary.hover
+    }
   })
 );
 

@@ -3,7 +3,7 @@ import { Grid, MenuList, ClickAwayListener, Popper } from '@mui/material';
 import useAuth from '~/hooks/useAuth';
 import { useRouter } from 'next/router';
 import * as Styled from './styles.js';
-import { SearchInput } from '~/components';
+import { SearchInput } from '~/base';
 import NextLink from 'next/link';
 
 import {
