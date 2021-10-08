@@ -22,7 +22,8 @@ const SearchInput = ({ endAdornment = null, placeholder = 'Search', ...props }) 
 };
 
 SearchInput.propTypes = {
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  endAdornment: PropTypes.node
 };
 
 export default React.memo(SearchInput);
