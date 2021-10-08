@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react';
-import { Grid, MenuList, ClickAwayListener } from '@mui/material';
+import { Grid, MenuList, ClickAwayListener, Popper } from '@mui/material';
 import useAuth from '~/hooks/useAuth';
 import { useRouter } from 'next/router';
-import * as Styled from './styled.js';
+import * as Styled from './styles.js';
 import { SearchInput } from '~/components';
 import NextLink from 'next/link';
 
@@ -73,7 +73,7 @@ const Header = () => {
         <Styled.SearchWrapper>
           <SearchInput value={searchQuery} onChange={handleChangeSearch} />
         </Styled.SearchWrapper>
-        <Styled.CustomButton $isBlack variant="contained">
+        <Styled.CustomButton isBlack variant="contained">
           Sell NFT
         </Styled.CustomButton>
         {user?.loggedIn ? (
@@ -83,31 +83,28 @@ const Header = () => {
             variant="text"
             onClick={toggleUserMenu}>
             <Styled.UserAvatar alt="User Icon" />
-            <Styled.AvatarMoreIcon $rotate={!!openUserMenu} />
+            <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
           </Styled.AvatarButton>
         ) : (
           <Styled.CustomButton variant="contained" onClick={login}>
             Sign in
           </Styled.CustomButton>
         )}
-        <Styled.UserMenu
-          anchorEl={menuAnchorRef?.current}
-          open={openUserMenu}
-          onClose={toggleUserMenu}>
+        <Popper anchorEl={menuAnchorRef?.current} open={openUserMenu} onClose={toggleUserMenu}>
           <Styled.CustomPaper>
             <ClickAwayListener onClickAway={toggleUserMenu}>
               <MenuList autoFocus onKeyDown={handleListKeyDown}>
                 <Styled.CustomMenuItem onClick={navigateToUserProfile}>
                   Profile
                 </Styled.CustomMenuItem>
-                <Styled.CustomMenuItem $isSignOut onClick={handleLogout}>
+                <Styled.CustomMenuItem isSignOut onClick={handleLogout}>
                   <LockOpenOutlinedIcon fontSize="12px" />
                   Sign Out
                 </Styled.CustomMenuItem>
               </MenuList>
             </ClickAwayListener>
           </Styled.CustomPaper>
-        </Styled.UserMenu>
+        </Popper>
       </Styled.Container>
     </Styled.HeaderBar>
   );
