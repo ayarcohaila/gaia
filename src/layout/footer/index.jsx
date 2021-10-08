@@ -56,12 +56,13 @@ const Footer = () => {
           </Box>
           {COLUMNS.map(({ title, items }) => (
             <Grid key={title} item width="160px">
-              <Typography color="white" mb="12px" variant="subtitle2">
+              <Typography color="white" mb="12px" letterSpacing="0.2px" variant="subtitle2">
                 {title}
               </Typography>
               {items.map(({ label, href }) => (
                 <Styled.CustomLink
                   key={label}
+                  fontSize="1rem"
                   href={href}
                   mb="4px"
                   target="_blank"
@@ -95,10 +96,10 @@ const Footer = () => {
           </Box>
 
           <Box width="160px">
-            <Typography color={grey[600]} mb="4px" variant="body1">
+            <Typography color={grey[600]} mb="4px" variant="subtitle2">
               © 2021 Gaia
             </Typography>
-            <Typography color={grey[600]} variant="body1">
+            <Typography color={grey[600]} variant="subtitle2">
               An NFT Genius company
             </Typography>
           </Box>

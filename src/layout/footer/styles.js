@@ -5,6 +5,7 @@ import { SearchInput } from '~/components';
 
 export const CustomLink = styled(Link)(
   ({
+    fontSize,
     theme: {
       palette: { grey },
       typography
@@ -13,6 +14,8 @@ export const CustomLink = styled(Link)(
     ...typography.subtitle2,
     color: grey[600],
     display: 'block',
+    fontSize: fontSize ? fontSize : typography.subtitle2.fontSize,
+    letterSpacing: '0.2px',
 
     '&:hover': {
       color: 'white'
@@ -31,13 +34,16 @@ export const Input = styled(SearchInput, { shouldForwardProp: prop => prop !== '
     border: hasError ? `2px solid ${error.dark}` : 'none',
     borderRadius: '28px',
     height: '50px',
+    minWidth: '405px',
 
     '& > .MuiInput-input': {
-      color: grey[500]
+      color: grey[500],
+      fontSize: '1rem'
     },
 
     '& > .MuiInput-input::placeholder': {
-      color: grey[600]
+      color: grey[600],
+      fontWeight: 'bold'
     },
 
     '&:hover > .MuiInput-input::placeholder': {

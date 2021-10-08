@@ -7,7 +7,7 @@ export const Button = styled(MuiButton)(
       typography
     }
   }) => ({
-    backgroundColor: primary.dark,
+    backgroundColor: primary.main,
     borderRadius: '24px',
     color: 'white',
     padding: '16px 22px',
@@ -16,7 +16,7 @@ export const Button = styled(MuiButton)(
     fontWeight: 'bold',
 
     '&:hover': {
-      backgroundColor: primary.main
+      backgroundColor: primary.dark
     },
 
     '&:disabled': {
