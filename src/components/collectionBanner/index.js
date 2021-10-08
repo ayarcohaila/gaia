@@ -9,8 +9,8 @@ import {
   BannerBackground,
   BannerAvatar
 } from './styled';
-import BannerAccount from './BannerAccount';
-import BannerShareIcon from './BannerShareIcon';
+import BannerAccount from '~/components/collectionBannerAccount';
+import BannerShareIcon from '~/components/collectionBannerShareButton';
 import { Box, Grid } from '@mui/material';
 
 function CollectionBanner(props) {

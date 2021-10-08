@@ -1,4 +1,4 @@
-import CollectionBanner from '~/components/collectionBanner';
+import { CollectionBanner } from '~/components';
 import { Grid } from '@mui/material';
 
 const BANNER_ITEM = [
@@ -12,7 +12,7 @@ function Collection() {
   const accountNumber = '0xc562773b26ade24cd8a33c4870380E774BF8A6DE';
   const bannerName = '@Ballerz';
   const bannerDescription = "Buy and sell Ballerz NFTs on Gaia, the world's best NFT marketplace";
-  const bgImg = '/static/img/home-banner.png';
+  const bgImg = '';
   const mainColor = '#270b5a';
   const secondaryColor = '#4814a6';
 

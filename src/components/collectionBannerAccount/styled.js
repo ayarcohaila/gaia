@@ -1,4 +1,4 @@
-import styled from 'styled-component';
+import styled from 'styled-components';
 
 const BannerAccountStyled = styled.div`
   width: 113px;

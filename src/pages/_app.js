@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
-import { Layout, notification } from 'antd';
 
 import { GlobalStyles } from '~/components/layout/globalStyles';
 import Header from '~/components/header/header';
@@ -17,8 +16,6 @@ import 'antd/dist/antd.less';
 import 'antd/dist/antd.css';
 
 function MyApp({ Component, pageProps }) {
-  notification.config({ top: 64 });
-
   return (
     <AuthProvider>
       <ApolloProvider client={client}>
@@ -56,13 +53,11 @@ function MyApp({ Component, pageProps }) {
               <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
               <meta name="theme-color" content="#ffffff" />
             </Head>
-            <Layout>
-              <Header />
-              <Content>
-                <Component {...pageProps} />
-              </Content>
-              <Footer />
-            </Layout>
+            <Header />
+            <Content>
+              <Component {...pageProps} />
+            </Content>
+            <Footer />
           </ThemeProvider>
         </MuiThemeProvider>
       </ApolloProvider>

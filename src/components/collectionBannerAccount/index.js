@@ -1,4 +1,4 @@
-import { BannerAccountStyled } from './styled';
+import BannerAccountStyled from './styled';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Tooltip from '@mui/material/Tooltip';
 import { truncate } from '~/utils/string';
