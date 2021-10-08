@@ -47,7 +47,7 @@ const Footer = () => {
               Sign Up to our Newsletter
             </Typography>
             <Styled.Input
-              error={hasError}
+              hasError={hasError}
               endAdornment={<Styled.CustomButton type="submit">Sign Up</Styled.CustomButton>}
               placeholder="Email Address"
               onChange={({ target: { value } }) => setEmail(value)}

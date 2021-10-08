@@ -20,15 +20,15 @@ export const CustomLink = styled(Link)(
   })
 );
 
-export const Input = styled(SearchInput)(
+export const Input = styled(SearchInput, { shouldForwardProp: prop => prop !== 'hasError' })(
   ({
-    error,
+    hasError,
     theme: {
-      palette: { error: red, grey }
+      palette: { error, grey }
     }
   }) => ({
     backgroundColor: grey[700],
-    border: error ? `2px solid ${red.dark}` : 'none',
+    border: hasError ? `2px solid ${error.dark}` : 'none',
     borderRadius: '28px',
     height: '50px',
 
