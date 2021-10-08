@@ -7,11 +7,13 @@ import {
   BannerItemDescription,
   BannerItemValue,
   BannerBackground,
-  BannerAvatar
+  BannerAvatar,
+  MobileSubBanner
 } from './styled';
 import BannerAccount from '~/components/collectionBannerAccount';
 import BannerShareIcon from '~/components/collectionBannerShareButton';
 import { Box, Grid } from '@mui/material';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 function CollectionBanner(props) {
   const {
@@ -24,46 +26,71 @@ function CollectionBanner(props) {
     bannerItems
   } = props;
 
+  const { isSmallDevice } = useBreakpoints();
+
   return (
-    <BannerBackground imgUrl={bgImg}>
-      <BannerStyled bgColor={mainColor}>
-        <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
-          <BannerAvatar />
-          <Divider ml="32px" />
-          <Box>
-            <BannerName>{bannerName}</BannerName>
-            <BannerAccount accountNumber={accountNumber} bgColor={secondaryColor}></BannerAccount>
+    <>
+      <BannerBackground imgUrl={bgImg}>
+        <BannerStyled bgColor={mainColor}>
+          <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
+            <BannerAvatar />
+            <Divider ml="32px" />
+            <Box>
+              <BannerName>{bannerName}</BannerName>
+              <BannerAccount accountNumber={accountNumber} bgColor={secondaryColor}></BannerAccount>
+            </Box>
           </Box>
-        </Box>
-        <Box width="100%" color="#fff" mt="115px">
-          <BannerDescription>{bannerDescription}</BannerDescription>
-          <Grid container pt="32px">
-            <Grid
-              container
-              item
-              xs={6}
-              sx={{
-                columnGap: 5
-              }}>
-              {bannerItems.map(item => (
-                <Grid item key={item.description}>
-                  <BannerItemValue>
-                    {item.price ? <span>$</span> : undefined}
-                    {item.value}
-                  </BannerItemValue>
-                  <BannerItemDescription>{item.description}</BannerItemDescription>
+          <Box width="100%" color="#fff" mt="115px">
+            <BannerDescription>{bannerDescription}</BannerDescription>
+            <Grid container pt="32px">
+              {!isSmallDevice && (
+                <Grid
+                  container
+                  item
+                  xs={6}
+                  sx={{
+                    columnGap: 5
+                  }}>
+                  {bannerItems.map(item => (
+                    <Grid item key={item.description}>
+                      <BannerItemValue>
+                        {item.price ? <span>$</span> : undefined}
+                        {item.value}
+                      </BannerItemValue>
+                      <BannerItemDescription>{item.description}</BannerItemDescription>
+                    </Grid>
+                  ))}
                 </Grid>
-              ))}
+              )}
+              <Grid item xs={6}>
+                <Box display="flex" justifyContent="flex-end" width="100%">
+                  <BannerShareIcon bgColor={secondaryColor} />
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <Box display="flex" justifyContent="flex-end" width="100%">
-                <BannerShareIcon bgColor={secondaryColor} />
-              </Box>
-            </Grid>
+          </Box>
+        </BannerStyled>
+      </BannerBackground>
+      {isSmallDevice && (
+        <MobileSubBanner>
+          <Grid
+            container
+            sx={{
+              rowGap: 5
+            }}>
+            {bannerItems.map(item => (
+              <Grid item key={item.description} xs={6}>
+                <BannerItemValue>
+                  {item.price ? <span>$</span> : undefined}
+                  {item.value}
+                </BannerItemValue>
+                <BannerItemDescription>{item.description}</BannerItemDescription>
+              </Grid>
+            ))}
           </Grid>
-        </Box>
-      </BannerStyled>
-    </BannerBackground>
+        </MobileSubBanner>
+      )}
+    </>
   );
 }
 

@@ -64,6 +64,13 @@ const BannerItemDescription = styled(Typography)`
   line-height: 1.23;
   letter-spacing: 0.2px;
   color: #fff;
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    font-size: 12px;
+    line-height: 1.33;
+    text-align: center;
+    color: #1c202a;
+  }
 `;
 
 const BannerItemValue = styled(Typography)`
@@ -75,9 +82,21 @@ const BannerItemValue = styled(Typography)`
   letter-spacing: normal;
   color: #fff;
 
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    font-size: 20px;
+    line-height: 1.3;
+    color: #1c202a;
+    text-align: center;
+  }
+
   span {
     line-height: 1.43;
     font-size: 14px;
+
+    ${({ theme }) => theme.breakpoints.down('sm')} {
+      font-size: 20px;
+      line-height: 1.3;
+    }
   }
 `;
 
@@ -89,6 +108,15 @@ const BannerAvatar = styled.div`
   background-image: url(${props => props.imgUrl});
 `;
 
+const MobileSubBanner = styled(Box)`
+  padding: 26px 24px 26px 23px;
+  border-radius: 20px;
+  border: solid 2px #e7e9ed;
+  width: 85%;
+  margin-left: 5.5vw;
+  margin-top: 16px;
+`;
+
 export {
   BannerStyled,
   Divider,
@@ -97,5 +125,6 @@ export {
   BannerItemDescription,
   BannerItemValue,
   BannerBackground,
-  BannerAvatar
+  BannerAvatar,
+  MobileSubBanner
 };
