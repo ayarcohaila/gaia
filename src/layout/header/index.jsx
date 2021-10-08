@@ -10,6 +10,7 @@ import {
   ArrowDropDown as ArrowDropDownIcon,
   LockOpenOutlined as LockOpenOutlinedIcon
 } from '@mui/icons-material';
+import useBreakpoints from '~/hooks/useBreakpoints.js';
 
 const MENU_OPTIONS = [
   { label: 'Sports', href: '/sports' },
@@ -23,6 +24,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const { login, user, logout } = useAuth();
+  const { isMediumDevice } = useBreakpoints();
   const router = useRouter();
 
   const handleChangeSearch = ({ target: { value } }) => {
@@ -70,26 +72,33 @@ const Header = () => {
             )}
           </Styled.MenuOptionList>
         </Grid>
-        <Styled.SearchWrapper>
-          <SearchInput value={searchQuery} onChange={handleChangeSearch} />
-        </Styled.SearchWrapper>
-        <Styled.CustomButton isBlack variant="contained">
-          Sell NFT
-        </Styled.CustomButton>
-        {user?.loggedIn ? (
-          <Styled.AvatarButton
-            ref={menuAnchorRef}
-            disableRipple
-            variant="text"
-            onClick={toggleUserMenu}>
-            <Styled.UserAvatar alt="User Icon" />
-            <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
-          </Styled.AvatarButton>
-        ) : (
-          <Styled.CustomButton variant="contained" onClick={login}>
-            Sign in
-          </Styled.CustomButton>
+        {!isMediumDevice && (
+          <Styled.SearchWrapper>
+            <SearchInput value={searchQuery} onChange={handleChangeSearch} />
+          </Styled.SearchWrapper>
         )}
+        {!isMediumDevice && (
+          <>
+            <Styled.CustomButton isBlack variant="contained">
+              Sell NFT
+            </Styled.CustomButton>
+            {user?.loggedIn ? (
+              <Styled.AvatarButton
+                ref={menuAnchorRef}
+                disableRipple
+                variant="text"
+                onClick={toggleUserMenu}>
+                <Styled.UserAvatar alt="User Icon" />
+                <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
+              </Styled.AvatarButton>
+            ) : (
+              <Styled.CustomButton variant="contained" onClick={login}>
+                Sign in
+              </Styled.CustomButton>
+            )}
+          </>
+        )}
+
         <Popper anchorEl={menuAnchorRef?.current} open={openUserMenu} onClose={toggleUserMenu}>
           <Styled.CustomPaper>
             <ClickAwayListener onClickAway={toggleUserMenu}>
