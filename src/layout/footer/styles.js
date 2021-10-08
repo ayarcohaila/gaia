@@ -14,33 +14,28 @@ export const CustomLink = styled(Link)(({ theme }) => ({
 }));
 
 export const Input = styled(SearchInput)(({ theme, error }) => ({
-  '&&': {
-    backgroundColor: theme.palette.grey[700],
-    border: error ? `2px solid ${theme.palette.error.dark}` : 'none',
-    borderRadius: '28px',
-    height: '50px',
+  backgroundColor: theme.palette.grey[700],
+  border: error ? `2px solid ${theme.palette.error.dark}` : 'none',
+  borderRadius: '28px',
+  height: '50px',
 
-    '& > .MuiInput-input': {
-      ...theme.typography.subtitle1,
-      color: theme.palette.grey[500]
-    },
+  '& > .MuiInput-input': {
+    color: theme.palette.grey[500]
+  },
 
-    '& > .MuiInput-input::placeholder': {
-      color: theme.palette.grey[600]
-    },
+  '& > .MuiInput-input::placeholder': {
+    color: theme.palette.grey[600]
+  },
 
-    '&:hover > .MuiInput-input::placeholder': {
-      color: theme.palette.grey[500]
-    }
+  '&:hover > .MuiInput-input::placeholder': {
+    color: theme.palette.grey[500]
   }
 }));
 
 export const CustomButton = styled(Button)({
-  '&&': {
-    height: '40px',
-    transform: 'translateX(8px)',
-    width: '130px'
-  }
+  height: '40px',
+  transform: 'translateX(8px)',
+  width: '130px'
 });
 
 export const DiscordIcon = styled('img')({

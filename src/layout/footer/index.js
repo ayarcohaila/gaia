@@ -52,7 +52,6 @@ function Footer() {
               placeholder="Email Address"
               onChange={({ target: { value } }) => setEmail(value)}
               value={isSigned ? 'You’re signed in!' : email}
-              sx={{ backgroundColor: 'red' }}
             />
           </Box>
           {COLUMNS.map(({ title, items }) => (
