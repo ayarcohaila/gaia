@@ -11,7 +11,7 @@ import { validateEmail } from '~/utils/validations';
 import * as Styled from './styles';
 import { COLUMNS, iconStyles } from './constants';
 
-function Footer() {
+const Footer = () => {
   const [email, setEmail] = useState('');
   const previousEmailValue = usePrevious(email);
   const [hasError, setHasError] = useState(false);
@@ -115,6 +115,6 @@ function Footer() {
       </Grid>
     </Grid>
   );
-}
+};
 
 export default Footer;

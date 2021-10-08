@@ -5,9 +5,8 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { Layout, notification } from 'antd';
 
 import { GlobalStyles } from '~/components/layout/globalStyles';
+import { Content, Footer } from '~/layout';
 import Header from '~/components/header/header';
-import Content from '~/layout/content';
-import Footer from '~/layout/footer';
 import theme from '~/themes/default';
 import muiTheme from '~/themes/materialTheme';
 import client from '~/config/apollo-client';

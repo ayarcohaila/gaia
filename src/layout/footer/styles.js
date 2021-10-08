@@ -3,34 +3,48 @@ import { Link, styled } from '@mui/material';
 import { Button } from '~/base';
 import { SearchInput } from '~/components';
 
-export const CustomLink = styled(Link)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  color: theme.palette.grey[600],
-  display: 'block',
+export const CustomLink = styled(Link)(
+  ({
+    theme: {
+      palette: { grey },
+      typography
+    }
+  }) => ({
+    ...typography.subtitle2,
+    color: grey[600],
+    display: 'block',
 
-  '&:hover': {
-    color: 'white'
-  }
-}));
+    '&:hover': {
+      color: 'white'
+    }
+  })
+);
 
-export const Input = styled(SearchInput)(({ theme, error }) => ({
-  backgroundColor: theme.palette.grey[700],
-  border: error ? `2px solid ${theme.palette.error.dark}` : 'none',
-  borderRadius: '28px',
-  height: '50px',
+export const Input = styled(SearchInput)(
+  ({
+    error,
+    theme: {
+      palette: { error: red, grey }
+    }
+  }) => ({
+    backgroundColor: grey[700],
+    border: error ? `2px solid ${red.dark}` : 'none',
+    borderRadius: '28px',
+    height: '50px',
 
-  '& > .MuiInput-input': {
-    color: theme.palette.grey[500]
-  },
+    '& > .MuiInput-input': {
+      color: grey[500]
+    },
 
-  '& > .MuiInput-input::placeholder': {
-    color: theme.palette.grey[600]
-  },
+    '& > .MuiInput-input::placeholder': {
+      color: grey[600]
+    },
 
-  '&:hover > .MuiInput-input::placeholder': {
-    color: theme.palette.grey[500]
-  }
-}));
+    '&:hover > .MuiInput-input::placeholder': {
+      color: grey[500]
+    }
+  })
+);
 
 export const CustomButton = styled(Button)({
   height: '40px',
