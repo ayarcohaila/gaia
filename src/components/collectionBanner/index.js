@@ -6,8 +6,8 @@ import {
   BannerItemDescription,
   BannerItemValue,
   BannerBackground,
-  BannerAvatar,
-  MobileSubBanner
+  BannerAvatar
+  // MobileSubBanner
 } from './styled';
 import BannerAccount from '~/components/collectionBannerAccount';
 import BannerShareIcon from '~/components/collectionBannerShareButton';
@@ -81,7 +81,8 @@ function CollectionBanner(props) {
           </Box>
         </BannerStyled>
       </BannerBackground>
-      {isSmallDevice && (
+      {/* The Ballerz layout do not have this component */}
+      {/* {isSmallDevice && (
         <MobileSubBanner>
           <Grid
             container
@@ -99,7 +100,7 @@ function CollectionBanner(props) {
             ))}
           </Grid>
         </MobileSubBanner>
-      )}
+      )} */}
     </>
   );
 }
