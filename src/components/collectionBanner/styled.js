@@ -7,6 +7,10 @@ const BannerBackground = styled.div`
   background-image: url(${props => props.imgUrl});
   border-radius: 40px;
   background-size: cover;
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    min-height: 220px;
+  }
 `;
 
 const BannerStyled = styled(Box)`
@@ -23,6 +27,10 @@ const BannerStyled = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: stretch;
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    min-height: 220px;
+  }
 `;
 
 const Divider = styled.div`
@@ -31,16 +39,6 @@ const Divider = styled.div`
   margin: 12px 32px;
   opacity: 0.12;
   background-color: #fff;
-`;
-
-const BannerName = styled(Typography)`
-  font-size: 20px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  color: #fff;
 `;
 
 const BannerDescription = styled(Typography)`
@@ -120,7 +118,6 @@ const MobileSubBanner = styled(Box)`
 export {
   BannerStyled,
   Divider,
-  BannerName,
   BannerDescription,
   BannerItemDescription,
   BannerItemValue,

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   BannerStyled,
   Divider,
-  BannerName,
   BannerDescription,
   BannerItemDescription,
   BannerItemValue,
@@ -34,16 +33,27 @@ function CollectionBanner(props) {
         <BannerStyled bgColor={mainColor}>
           <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
             <BannerAvatar />
-            <Divider ml="32px" />
-            <Box>
-              <BannerName>{bannerName}</BannerName>
-              <BannerAccount accountNumber={accountNumber} bgColor={secondaryColor}></BannerAccount>
-            </Box>
+            {!isSmallDevice && (
+              <>
+                <Divider ml="32px" />
+                <BannerAccount
+                  bannerName={bannerName}
+                  accountNumber={accountNumber}
+                  bgColor={secondaryColor}></BannerAccount>
+              </>
+            )}
           </Box>
-          <Box width="100%" color="#fff" mt="115px">
-            <BannerDescription>{bannerDescription}</BannerDescription>
+          <Box width="100%" color="#fff" mt={isSmallDevice ? '60px' : '115px'}>
+            {!isSmallDevice && <BannerDescription>{bannerDescription}</BannerDescription>}
             <Grid container pt="32px">
-              {!isSmallDevice && (
+              {isSmallDevice ? (
+                <Grid item xs={6}>
+                  <BannerAccount
+                    bannerName={bannerName}
+                    accountNumber={accountNumber}
+                    bgColor={secondaryColor}></BannerAccount>
+                </Grid>
+              ) : (
                 <Grid
                   container
                   item

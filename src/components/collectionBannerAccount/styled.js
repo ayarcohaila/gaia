@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Typography } from '@mui/material';
 
 const BannerAccountStyled = styled.div`
   width: 113px;
@@ -26,4 +27,14 @@ const BannerAccountStyled = styled.div`
   }
 `;
 
-export default BannerAccountStyled;
+const BannerName = styled(Typography)`
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: normal;
+  color: #fff;
+`;
+
+export { BannerAccountStyled, BannerName };
