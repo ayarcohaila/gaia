@@ -1,15 +1,15 @@
-import { ProfileInfo, WalletText, Banner, BoxWallet } from './styled';
-import Address from '~/components/address/Address';
+import * as styled from './styled';
+import Address from '~/components/address';
 
 const ProfileBanner = ({ address }) => {
   return (
-    <Banner>
-      <ProfileInfo>My Account</ProfileInfo>
-      <BoxWallet>
-        <WalletText>In Wallet:</WalletText>
+    <styled.Banner>
+      <styled.ProfileInfo>My Account</styled.ProfileInfo>
+      <styled.BoxWallet>
+        <styled.WalletText>In Wallet:</styled.WalletText>
         <Address>{address || 'NO ADDRESS FOUND'}</Address>
-      </BoxWallet>
-    </Banner>
+      </styled.BoxWallet>
+    </styled.Banner>
   );
 };
 

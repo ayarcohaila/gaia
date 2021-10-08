@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { truncate } from '~/utils/string';
 
-import { Container, Text, RectangleTop, RectangleBottom, RectangleContainer } from './styled';
+import * as styled from './styled';
 
 const Address = ({ children }) => {
   const [isFocused, setFocused] = useState(false);
@@ -18,13 +18,13 @@ const Address = ({ children }) => {
   };
 
   return (
-    <Container className="address" onClick={copyToClipboard} {...{ isFocused }}>
-      <Text>{shortenedAddress}</Text>
-      <RectangleContainer>
-        <RectangleTop />
-        <RectangleBottom />
-      </RectangleContainer>
-    </Container>
+    <styled.Container className="address" onClick={copyToClipboard} {...{ isFocused }}>
+      <styled.Text>{shortenedAddress}</styled.Text>
+      <styled.RectangleContainer>
+        <styled.RectangleTop />
+        <styled.RectangleBottom />
+      </styled.RectangleContainer>
+    </styled.Container>
   );
 };
 
