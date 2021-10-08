@@ -1,25 +1,27 @@
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-export const Banner = styled(Box)`
+export const Banner = styled(Box)(
+  ({ theme }) => `
   width: 95.6%;
   height: 210px;
   margin: 0px 32px;
   border-radius: 40px;
-  background-color: #11042d;
+  background-color: ${theme.palette.darkPurple.main};
   display: flex;
   justify-content: center;
-  background-image: linear-gradient(189deg, rgba(65, 31, 126, 0.2) 20%, #411f7e 93%);
+  background-image: linear-gradient(189deg, rgba(65, 31, 126, 0.2) 20%, ${theme.palette.purple['200']} 93%);
   align-items: center;
   flex-direction: column;
   h3 {
-    color: ${({ theme }) => theme.colors.white};
     margin: 10px 0;
   }
-`;
+`
+);
 
-export const ProfileInfo = styled(Typography)`
+export const ProfileInfo = styled(Typography)(
+  ({ theme }) => `
   width: 100%;
   height: 60px;
   margin: 0 0 20px;
@@ -31,16 +33,20 @@ export const ProfileInfo = styled(Typography)`
   line-height: 1.07;
   letter-spacing: -1px;
   text-align: center;
-  color: #fff;
-`;
+  color: ${theme.palette.grey['100']};
+`
+);
 
-export const BoxWallet = styled(Box)`
+export const BoxWallet = styled(Box)(
+  () => `
   display: flex;
   align-items: center;
   justify-items: center;
-`;
+`
+);
 
-export const WalletText = styled(Typography)`
+export const WalletText = styled(Typography)(
+  ({ theme }) => `
   width: 60px;
   height: 16px;
   margin: 8px 0px 8px 0;
@@ -52,5 +58,6 @@ export const WalletText = styled(Typography)`
   line-height: 1.14;
   letter-spacing: normal;
   text-align: right;
-  color: #fff;
-`;
+  color: ${theme.palette.grey['100']};
+`
+);
