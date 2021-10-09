@@ -15,6 +15,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#215cf1',
+      dark: '#1a49c1',
       hover: '#1a49c1'
     },
     secondary: {
@@ -31,6 +32,7 @@ const theme = createTheme({
     },
     error: {
       main: '#e9252f',
+      dark: 'rgba(233, 37, 47, 0.8)',
       hover: '#fce9ea'
     },
     success: {
