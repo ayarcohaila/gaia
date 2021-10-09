@@ -30,6 +30,13 @@ const theme = createTheme({
       200: '#f4f4f6',
       100: '#ffffff'
     },
+    purple: {
+      200: '#411f7e',
+      100: '#402086'
+    },
+    darkPurple: {
+      main: '#11042d'
+    },
     error: {
       main: '#e9252f',
       dark: 'rgba(233, 37, 47, 0.8)',
