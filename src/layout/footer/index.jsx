@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { Instagram as InstagramIcon, Twitter as TwitterIcon } from '@mui/icons-material';
 import { useTheme } from 'styled-components';
+import NextLink from 'next/link';
 
 import Logo from '~/components/logo/Logo';
 import useBreakpoints from '~/hooks/useBreakpoints';
@@ -108,9 +109,9 @@ const Footer = () => {
             <Styled.CustomLink href="#" target="_blank" underline="none">
               Terms of Use
             </Styled.CustomLink>
-            <Styled.CustomLink href="#" target="_blank" underline="none">
-              Privacy Policy
-            </Styled.CustomLink>
+            <NextLink href="/privacy-policy">
+              <Styled.CustomLink underline="none">Privacy Policy</Styled.CustomLink>
+            </NextLink>
           </Box>
         </Grid>
       </Grid>
