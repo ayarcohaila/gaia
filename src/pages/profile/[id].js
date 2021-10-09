@@ -17,7 +17,7 @@ import { useMutation, useSubscription } from '@apollo/react-hooks';
 import config from '~/utils/config';
 
 import Card from '~/components/asset/Asset';
-import DropDown from '~/components/dropdown/DropDown';
+import DropDown from '~/components/deprecatedDropdown/DropDown';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
 

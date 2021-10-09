@@ -1,4 +1,4 @@
-import { Grid, AppBar, Link, Button, Avatar, Paper, MenuItem, styled } from '@mui/material';
+import { Grid, AppBar, Link, Button, Avatar, styled } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export const Container = styled(Grid)(() => ({
@@ -11,7 +11,8 @@ export const Container = styled(Grid)(() => ({
 }));
 
 export const HeaderBar = styled(AppBar)(({ theme: { palette } }) => ({
-  backgroundColor: palette.grey[200]
+  backgroundColor: palette.grey[200],
+  boxShadow: 'none'
 }));
 
 export const Logo = styled(Link)(({ theme: { typography, palette } }) => ({
@@ -102,31 +103,4 @@ export const AvatarMoreIcon = styled(ArrowDropDownIcon, {
 })(({ theme: { palette }, rotate }) => ({
   color: palette.grey[500],
   transform: rotate && 'rotate(180deg)'
-}));
-
-export const CustomPaper = styled(Paper)(() => ({
-  padding: '12px',
-  boxSizing: 'border-box',
-  boxShadow: '0 6px 12px 0 rgba(33, 34, 35, 0.08)',
-  borderRadius: '16px',
-  marginTop: '8px'
-}));
-
-export const CustomMenuItem = styled(MenuItem, {
-  shouldForwardProp: prop => prop !== 'isSignOut'
-})(({ theme: { typography, palette }, isSignOut }) => ({
-  ...typography.subtitle1,
-  color: palette.grey[500],
-  height: '40px',
-  fontWeight: 'bold',
-  borderRadius: '10px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '4px',
-
-  '&:hover, &:focus': {
-    color: isSignOut ? palette.error.main : palette.grey[700],
-    backgroundColor: isSignOut && palette.error.hover
-  }
 }));
