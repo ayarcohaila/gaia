@@ -22,6 +22,7 @@ const theme = createTheme({
       main: '#171a24'
     },
     grey: {
+      800: '#1c202a',
       700: '#272a36',
       600: '#6c7283',
       500: '#9a9fac',
@@ -100,7 +101,7 @@ theme.typography = {
   },
   h6: {
     fontSize: '1rem', // 16px
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     letterSpacing: '0',
     lineHeight: '1.5rem',
 
