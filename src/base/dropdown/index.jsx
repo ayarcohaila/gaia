@@ -3,6 +3,8 @@ import { MenuList, ClickAwayListener, Popper } from '@mui/material';
 import PropTypes from 'prop-types';
 import * as Styled from './styles.js';
 
+const ESC_KEY = 27;
+
 const Dropdown = ({
   menuAnchorRef,
   isOpen,
@@ -12,8 +14,10 @@ const Dropdown = ({
   handleClickOption
 }) => {
   const defaultKeyDownPress = event => {
-    if (!handleListKeyDown && event.key === 'Escape') {
-      onClose();
+    if (!handleListKeyDown) {
+      if (event.key === ESC_KEY) {
+        onClose();
+      }
     } else {
       handleListKeyDown();
     }
