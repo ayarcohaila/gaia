@@ -70,10 +70,11 @@ export const OrderButton = styled(Button, { shouldForwardProp: prop => prop !== 
     color: palette.grey[600],
     padding: '8px 6px',
     boxSizing: 'border-box',
+    borderRadius: '7px',
     textTransform: 'capitalize',
-    backgroundColor: isSelected && palette.grey[300],
 
     '& > span': {
+      transform: isSelected && 'rotate(180deg)',
       marginLeft: '2px'
     },
 

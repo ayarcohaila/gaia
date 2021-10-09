@@ -88,6 +88,7 @@ const HomeFilters = ({ setNftList, nftQuantity }) => {
         ref={orderButtonRef}
         disableRipple
         onClick={toggleMenuOrder}
+        isSelected={isMenuOrderOpen}
         endIcon={<Styled.ArrowIcon />}>
         {orderButton.find(item => item.id === selectedOrderButton)?.label}
       </Styled.OrderButton>
