@@ -36,7 +36,6 @@ export const Text = styled(Typography)(({ theme: { palette, typography } }) => (
 
   '& > ul': {
     marginTop: '12px',
-    // listStyle: 'none',
 
     '& > li': {
       marginBottom: '12px',
