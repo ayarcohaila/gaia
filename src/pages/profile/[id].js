@@ -1,10 +1,10 @@
 import {
   Row,
   Col,
-  Modal,
+  Modal as AntdModal,
   Form,
   Typography,
-  Button,
+  Button as AntdButton,
   InputNumber,
   Input,
   Spin,
@@ -17,6 +17,8 @@ import { useMutation, useSubscription } from '@apollo/react-hooks';
 import config from '~/utils/config';
 
 import Address from '~/components/address/Address';
+import { Button } from '~/base';
+import { Modal } from '~/components';
 import Card from '~/components/asset/Asset';
 import DropDown from '~/components/dropdown/DropDown';
 import useAuth from '~/hooks/useAuth';
@@ -44,6 +46,7 @@ import { getImageURL } from '~/utils/getImageUrl';
 import useProfile from '~/hooks/useProfile';
 const { Title, Text } = Typography;
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
+import useToggle from '~/hooks/useToggle';
 
 const Profile = () => {
   const [form] = Form.useForm();
@@ -56,6 +59,7 @@ const Profile = () => {
   const [transferModal, setTransferModalVisible] = useState(false);
   const [destinationAddress, setDestinationAddress] = useState(null);
   const [assets, setAssets] = useState([]);
+  const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const { userProfile } = useProfile(user?.addr);
   const [updateOwner] = useMutation(UPDATE_OWNER);
 
@@ -230,6 +234,7 @@ const Profile = () => {
           <Title level={3}>{userProfile?.name}</Title>
         </Banner>
         <Address>{id || 'NO ADDRESS FOUND'}</Address>
+        <Button onClick={toggleSellNftModal}>Sell NFT</Button>
       </Col>
       <Col span={18} offset={3}>
         <Row justify="end">
@@ -298,47 +303,47 @@ const Profile = () => {
           )}
         </Row>
       </Col>
-      <Modal
+      <AntdModal
         destroyOnClose
         visible={transferModal}
         title="Who would you like to transfer this asset to?"
         onCancel={() => setTransferModalVisible(false)}
         footer={[
-          <Button
+          <AntdButton
             key="back"
             onClick={() => {
               setModalItemId(null);
               setTransferModalVisible(false);
             }}>
             Cancel
-          </Button>,
-          <Button
+          </AntdButton>,
+          <AntdButton
             key="submit"
             type="primary"
             disabled={!destinationAddress}
             onClick={handleTransfer}>
             Transfer
-          </Button>
+          </AntdButton>
         ]}>
         <Text type="secondary">Enter the address to transfer the asset to</Text>
         <Input
           style={{ width: '100%', marginTop: 20 }}
           onChange={e => setDestinationAddress(e.target.value)}
         />
-      </Modal>
-      <Modal
+      </AntdModal>
+      <AntdModal
         visible={sellModal}
         title={`How much do you want for this asset (${modalItemId?.name} - ${modalItemId?.asset_id})`}
         footer={[
-          <Button
+          <AntdButton
             key="back"
             onClick={() => {
               setModalItemId(null);
               setSellModalVisible(false);
             }}>
             Cancel
-          </Button>,
-          <Button
+          </AntdButton>,
+          <AntdButton
             key="submit"
             type="primary"
             onClick={() => {
@@ -346,7 +351,7 @@ const Profile = () => {
               form.submit();
             }}>
             Sell
-          </Button>
+          </AntdButton>
         ]}>
         <Form form={form} onFinish={onFinishSale}>
           <Form.Item>
@@ -368,7 +373,8 @@ const Profile = () => {
             />
           </Form.Item>
         </Form>
-      </Modal>
+      </AntdModal>
+      <Modal open={isSellNftModalOpen} onClose={toggleSellNftModal} />
     </ProfileWrapper>
   );
 };

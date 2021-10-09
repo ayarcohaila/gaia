@@ -28,7 +28,7 @@ const theme = createTheme({
       400: '#bcbfc8',
       300: '#e9eaed',
       200: '#f4f4f6',
-      100: '#ffffff'
+      100: '#f6f7fa '
     },
     error: {
       main: '#e9252f',
