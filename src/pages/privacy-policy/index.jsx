@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import { Divider } from '~/base';
 
-import * as Styled from './styles.js';
+import * as Styled from '~/styles/privacy-policy/styles.js';
 
 const PrivacyPolicy = () => {
   return (
