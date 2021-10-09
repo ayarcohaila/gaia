@@ -17,10 +17,15 @@ const Modal = ({
 }) => {
   return (
     <MuiModal
+      BackdropProps={{
+        sx: {
+          WebkitBackdropFilter: 'blur(20px)',
+          backdropFilter: 'blur(20px)',
+          bgcolor: 'rgba(28, 29, 34, 0.94)'
+        }
+      }}
       open={open}
       onClose={onClose}
-      aria-labelledby={title}
-      aria-describedby={description}
       {...props}>
       <Styled.Container>
         <Styled.Content {...containerProps}>
