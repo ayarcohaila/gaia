@@ -1,49 +1,38 @@
-import {
-  Row,
-  Col,
-  Modal,
-  Form,
-  Typography,
-  Button,
-  InputNumber,
-  Input,
-  Spin,
-  notification
-} from 'antd';
-import { SlidersFilled } from '@ant-design/icons';
 import { useMemo, useState, useEffect } from 'react';
+import { Modal, Form, Typography, Button, InputNumber, Input, Spin, notification } from 'antd';
 import { useRouter } from 'next/router';
 import { useMutation, useSubscription } from '@apollo/react-hooks';
-import config from '~/utils/config';
+import { Grid } from '@mui/material';
 
+import { CardLoading } from '~/components/skeleton/CardLoading';
+import Seo from '~/components/seo/seo';
+import { ProfileBanner } from '~/components';
 import Card from '~/components/asset/Asset';
-import DropDown from '~/components/deprecatedDropdown/DropDown';
+import { CollectionsFilter } from '~/components';
+import { Divider } from '~/base';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
-
-import { GET_MY_NFTS_BY_OWNER } from '~/store/server/subscriptions';
-
 import { createSaleOffer } from '~/flow/sell';
 import { cancelSale } from '~/flow/cancelSale';
 import { cancelAndTransfer } from '~/flow/cancelAndTransfer';
-
-import { ProfileWrapper, PaginationStyled } from '../../components/profile/styled';
-import { CardLoading } from '~/components/skeleton/CardLoading';
-import Seo from '~/components/seo/seo';
-import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils/graphql';
+import { GET_MY_NFTS_BY_OWNER } from '~/store/server/subscriptions';
 import { UPDATE_OWNER } from '~/store/server/mutations';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import MESSAGES from '~/utils/messages';
-const { Text } = Typography;
+import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils/graphql';
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
-import { ProfileBanner } from '~/components';
+import config from '~/utils/config';
+
+import { ProfileWrapper, PaginationStyled } from '../../components/profile/styled';
+
+const { Text } = Typography;
 
 const Profile = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const { id } = router.query;
   const { user } = useAuth();
-  const [filter, setFilter] = useState(null);
+  const [filter] = useState(null);
   const [modalItemId, setModalItemId] = useState(null);
   const [sellModal, setSellModalVisible] = useState(false);
   const [transferModal, setTransferModalVisible] = useState(false);
@@ -102,16 +91,11 @@ const Profile = () => {
     }
   }, [filter, assets]);
 
-  const options = [
-    { title: 'Recently added', action: () => setFilter('createdAt'), id: 'createdAt' },
-    { title: 'Mint number', action: () => setFilter('mintNumber'), id: 'mintNumber' },
-    { title: 'None', action: () => setFilter(null), id: 'none' }
-  ];
-
   const sellAsset = token => {
     setModalItemId(token);
     setSellModalVisible(true);
   };
+
   const onFinishSale = async ({ price }) => {
     try {
       notification.open({
@@ -146,6 +130,7 @@ const Profile = () => {
     }
     form.resetFields();
   };
+
   const onCancelSale = async item => {
     try {
       notification.open({
@@ -172,6 +157,7 @@ const Profile = () => {
       });
     }
   };
+
   const handleTransfer = async () => {
     try {
       setTransferModalVisible(false);
@@ -213,73 +199,61 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <ProfileBanner address={id} />
-      <Col span={18} offset={3}>
-        <Row justify="end">
-          <DropDown
-            title="Filter & Sort"
-            icon={<SlidersFilled />}
-            {...{
-              options: options.map(opt => ({
-                ...opt,
-                title: `${opt.title} ${opt.id === filter ? '  ✓' : ''}`
-              }))
+      <Grid sx={{ padding: '0 80px', boxSizing: 'border-box' }}>
+        <CollectionsFilter nftQuantity={data?.length} enableSearch />
+        <Divider customProps={{ marginTop: '24px' }} />
+        {isLoading ? (
+          [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
+        ) : (
+          <PaginationStyled
+            grid={() => PaginationGridOptions(data)}
+            pagination={{
+              showSizeChanger: true,
+              pageSizeOptions: ['10', '50', '100', '1000'],
+              position: 'top'
             }}
-          />
-        </Row>
-        <Row justify="start">
-          {isLoading ? (
-            [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
-          ) : (
-            <PaginationStyled
-              grid={() => PaginationGridOptions(data)}
-              pagination={{
-                showSizeChanger: true,
-                pageSizeOptions: ['10', '50', '100', '1000'],
-                position: 'top'
-              }}
-              dataSource={data}
-              renderItem={token => {
-                const { onSale } = token;
-                let actions = [
-                  {
-                    title: 'Transfer',
+            dataSource={data}
+            renderItem={token => {
+              const { onSale } = token;
+              let actions = [
+                {
+                  title: 'Transfer',
+                  action: e => {
+                    e.domEvent.stopPropagation();
+                    setModalItemId(token);
+                    setTransferModalVisible(true);
+                  }
+                }
+              ];
+              if (user?.addr === id) {
+                !onSale &&
+                  actions.push({
+                    title: 'Sell',
                     action: e => {
                       e.domEvent.stopPropagation();
-                      setModalItemId(token);
-                      setTransferModalVisible(true);
+                      sellAsset(token);
                     }
-                  }
-                ];
-                if (user?.addr === id) {
-                  !onSale &&
-                    actions.push({
-                      title: 'Sell',
-                      action: e => {
-                        e.domEvent.stopPropagation();
-                        sellAsset(token);
-                      }
-                    });
-                  onSale &&
-                    actions.push({
-                      title: 'Cancel Sale',
-                      action: e => {
-                        e.domEvent.stopPropagation();
-                        onCancelSale(token);
-                      }
-                    });
-                }
-                return (
-                  <Card
-                    key={`token-${token.id}`}
-                    {...token}
-                    actions={user?.addr === token.owner ? actions : []}
-                  />
-                );
-              }}
-            />
-          )}
-        </Row>
-      </Col>
+                  });
+                onSale &&
+                  actions.push({
+                    title: 'Cancel Sale',
+                    action: e => {
+                      e.domEvent.stopPropagation();
+                      onCancelSale(token);
+                    }
+                  });
+              }
+              return (
+                <Card
+                  key={`token-${token.id}`}
+                  {...token}
+                  actions={user?.addr === token.owner ? actions : []}
+                />
+              );
+            }}
+          />
+        )}
+      </Grid>
       <Modal
         destroyOnClose
         visible={transferModal}

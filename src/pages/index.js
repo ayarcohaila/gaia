@@ -8,15 +8,16 @@ import {
   CardContainer,
   PaginationStyled
 } from '~/components/profile/styled';
-import { HomeFilters } from '~/components';
 import Banner from '~/components/home/Banner';
 import SetsList from '~/components/home/SetsList';
 import Seo from '~/components/seo/seo';
+import { CardLoading } from '~/components/skeleton/CardLoading';
+import { CollectionsFilter } from '~/components';
+
 import { Divider } from '~/base';
 import { GET_NFTS_ON_SALE } from '~/store/server/subscriptions';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
-import { CardLoading } from '~/components/skeleton/CardLoading';
 
 const Home = () => {
   const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading } =
@@ -48,7 +49,7 @@ const Home = () => {
             <Banner />
           </Col>
         </Row>
-        <HomeFilters nftQuantity={nftList?.length} setNftList={setNftList} />
+        <CollectionsFilter nftQuantity={nftList?.length} setNftList={setNftList} />
         <Divider customProps={{ marginTop: '24px' }} />
         <Row gutter={[21, 21]}>
           <ListContainer>
