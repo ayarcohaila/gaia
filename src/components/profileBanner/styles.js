@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 export const Banner = styled(Box)(
   ({ theme }) => `
   width: 95.6%;
-  height: 210px;
+  height: 260px;
   margin: 0px 32px;
   border-radius: 40px;
   background-color: ${theme.palette.darkPurple.main};
