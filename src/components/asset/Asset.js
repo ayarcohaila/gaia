@@ -23,7 +23,7 @@ import { LockOutlinedStyled } from '~/components/shared/CardStyled';
 import { getImageURL } from '~/utils/getImageUrl';
 import { getProfile } from '~/flow/getProfile';
 import { URLs } from '~/routes/urls';
-import DropDown from '~/components/dropdown/DropDown';
+import DropDown from '~/components/deprecatedDropdown/DropDown';
 
 const Asset = ({
   imgURL,
