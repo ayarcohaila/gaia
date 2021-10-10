@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { Box, Fade, Modal as MuiModal, SwipeableDrawer } from '@mui/material';
-import { Close as CloseIcon } from '@mui/icons-material';
+import { Fade, IconButton, Modal as MuiModal, SwipeableDrawer, useTheme } from '@mui/material';
+import { Close as CloseIcon, KeyboardArrowDown as ArrowDownIcon } from '@mui/icons-material';
 import { Global } from '@emotion/react';
 import PropTypes from 'prop-types';
 
@@ -23,10 +23,20 @@ const Modal = ({
   ...props
 }) => {
   const { isSmallDevice } = useBreakpoints();
+  const {
+    palette: { grey, secondary }
+  } = useTheme();
 
   const renderContent = () => (
     <Styled.Container>
       <Styled.Content height={height} {...containerProps}>
+        {isSmallDevice && (
+          <IconButton
+            onClick={onClose}
+            sx={{ position: 'absolute', left: '50%', marginLeft: '-16px', top: -120 }}>
+            <ArrowDownIcon sx={{ color: grey[375], fontSize: 32 }} />
+          </IconButton>
+        )}
         <Styled.AssetContainer>
           <Styled.Asset alt={title} layout="fill" src={asset?.image} />
         </Styled.AssetContainer>
@@ -65,20 +75,16 @@ const Modal = ({
           swipeAreaWidth={DRAWER_BLEEDING}
           disableSwipeToOpen={false}
           ModalProps={{
-            keepMounted: true
+            keepMounted: true,
+            BackdropProps: {
+              sx: {
+                WebkitBackdropFilter: 'none',
+                backdropFilter: 'none',
+                bgcolor: secondary.main
+              }
+            }
           }}>
-          <Styled.PullerContainer>
-            <Styled.Puller />
-          </Styled.PullerContainer>
-          <Box
-            sx={{
-              px: 2,
-              pb: 2,
-              height: '100%',
-              overflow: 'auto'
-            }}>
-            {renderContent()}
-          </Box>
+          {renderContent()}
         </SwipeableDrawer>
       </>
     );

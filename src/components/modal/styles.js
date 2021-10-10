@@ -1,6 +1,5 @@
 import { Box, Button, Typography, styled } from '@mui/material';
 import Image from 'next/image';
-import { DRAWER_BLEEDING } from '.';
 
 export const Container = styled(Box)(() => ({
   left: '50%',
@@ -87,29 +86,3 @@ export const CloseButton = styled(Button)(({ theme: { typography } }) => ({
   position: 'absolute',
   textTransform: 'none'
 }));
-
-export const PullerContainer = styled(Box)(() => ({
-  position: 'absolute',
-  top: DRAWER_BLEEDING,
-  borderTopLeftRadius: 8,
-  borderTopRightRadius: 8,
-  visibility: 'visible',
-  right: 0,
-  left: 0
-}));
-
-export const Puller = styled(Box)(
-  ({
-    theme: {
-      palette: { grey }
-    }
-  }) => ({
-    width: 30,
-    height: 6,
-    backgroundColor: grey[600],
-    borderRadius: 3,
-    position: 'absolute',
-    top: 8,
-    left: 'calc(50% - 15px)'
-  })
-);
