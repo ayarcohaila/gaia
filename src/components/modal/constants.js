@@ -6,11 +6,6 @@ export const DRAWER_MODAL_PROPS = {
       backdropFilter: 'none',
       bgcolor: '#171a24'
     }
-  },
-  PaperProps: {
-    sx: {
-      bgcolor: 'red'
-    }
   }
 };
 

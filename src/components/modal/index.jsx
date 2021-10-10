@@ -67,6 +67,7 @@ const Modal = ({
           styles={{
             '.MuiDrawer-root > .MuiPaper-root': {
               backgroundColor: 'transparent',
+              boxShadow: 'none',
               height: mobileHeight || '55%',
               overflow: 'visible'
             }
@@ -87,7 +88,7 @@ const Modal = ({
 
   return (
     <MuiModal BackdropProps={MODAL_BACKDROP_PROPS} open={open} onClose={onClose} {...props}>
-      <Fade in={open} timeout={{ enter: 2000, exit: 750 }}>
+      <Fade in={open} timeout={{ enter: 1000, exit: 750 }}>
         {renderContent()}
       </Fade>
     </MuiModal>
@@ -101,7 +102,7 @@ Modal.propTypes = {
   description: PropTypes.string,
   descriptionSx: PropTypes.object,
   height: PropTypes.string,
-  mobileHeight: PropTypes.number,
+  mobileHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
