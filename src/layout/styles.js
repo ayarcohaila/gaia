@@ -7,8 +7,7 @@ import { Layout, Col, Typography, Row } from 'antd';
 export const Content = styled(Layout.Content)`
   overflow: auto;
   min-height: calc(100vh - 64px - 267px);
-  padding: 20px 0;
-  background: white;
+  background: ${({ theme }) => theme.colors.backgroundGrey};
   @media (max-width: 800px) {
     margin-top: 50px;
   }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { Instagram as InstagramIcon, Twitter as TwitterIcon } from '@mui/icons-material';
 import { useTheme } from 'styled-components';
+import NextLink from 'next/link';
 
 import Logo from '~/components/logo/Logo';
 import useBreakpoints from '~/hooks/useBreakpoints';
@@ -16,7 +17,7 @@ const Footer = () => {
   const previousEmailValue = usePrevious(email);
   const [hasError, setHasError] = useState(false);
   const [isSigned, setIsSigned] = useState(false);
-  const { isMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const {
     palette: { secondary, grey }
   } = useTheme();
@@ -40,7 +41,11 @@ const Footer = () => {
 
   return (
     <Grid bgcolor={secondary.main} component="footer" width="100%">
-      <Grid maxWidth="1440px" p="48px 188px 48px 82px" mx="auto" width="100%">
+      <Grid
+        maxWidth="1440px"
+        p={isSmallDevice ? '32px' : '48px 188px 48px 82px'}
+        mx="auto"
+        width="100%">
         <Grid container flexWrap="wrap" justifyContent="space-between">
           <Box component="form" onSubmit={handleSubmit} width={isMediumDevice ? 'auto' : '35%'}>
             <Typography color="white" mb="16px" variant="subtitle2">
@@ -56,7 +61,12 @@ const Footer = () => {
           </Box>
           {COLUMNS.map(({ title, items }) => (
             <Grid key={title} item width="160px">
-              <Typography color="white" mb="12px" letterSpacing="0.2px" variant="subtitle2">
+              <Typography
+                color="white"
+                mb="12px"
+                mt={isSmallDevice ? '32px' : '0px'}
+                letterSpacing="0.2px"
+                variant="subtitle2">
                 {title}
               </Typography>
               {items.map(({ label, href }) => (
@@ -95,7 +105,7 @@ const Footer = () => {
             </Grid>
           </Box>
 
-          <Box width="160px">
+          <Box width="160px" my={isSmallDevice ? '24px' : '0'}>
             <Typography color={grey[600]} mb="4px" variant="subtitle2">
               © 2021 Gaia
             </Typography>
@@ -108,9 +118,9 @@ const Footer = () => {
             <Styled.CustomLink href="#" target="_blank" underline="none">
               Terms of Use
             </Styled.CustomLink>
-            <Styled.CustomLink href="#" target="_blank" underline="none">
-              Privacy Policy
-            </Styled.CustomLink>
+            <NextLink href="/privacy-policy">
+              <Styled.CustomLink underline="none">Privacy Policy</Styled.CustomLink>
+            </NextLink>
           </Box>
         </Grid>
       </Grid>

@@ -26,6 +26,7 @@ export const Input = styled(SearchInput, { shouldForwardProp: prop => prop !== '
   ({
     hasError,
     theme: {
+      breakpoints,
       palette: { error, grey }
     }
   }) => ({
@@ -47,6 +48,14 @@ export const Input = styled(SearchInput, { shouldForwardProp: prop => prop !== '
 
     '&:hover > .MuiInput-input::placeholder': {
       color: grey[500]
+    },
+
+    [breakpoints.down('sm')]: {
+      minWidth: '80%'
+    },
+
+    [breakpoints.down('xs')]: {
+      maxWidth: '280px'
     }
   })
 );

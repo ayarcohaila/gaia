@@ -1,16 +1,6 @@
-/* eslint-disable no-unused-vars */
-import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
-import { Col, Divider, Row, List } from 'antd';
+import { useState, useEffect, useCallback } from 'react';
+import { Col, Row, List } from 'antd';
 import { useSubscription } from '@apollo/react-hooks';
-
-import Banner from '~/components/home/Banner';
-import RecentlyAddedHeader, {
-  RecentlyAddedHeaderContent,
-  RecentlyAddedHeaderSpan
-} from '~/components/home/RecentlyAddedHeader';
-import SetsList from '~/components/home/SetsList';
-import LinkStyled, { LinkContent, LinkText } from '~/components/shared/LinkStyled';
-import Seo from '~/components/seo/seo';
 
 import {
   HomeWrapper,
@@ -18,22 +8,37 @@ import {
   CardContainer,
   PaginationStyled
 } from '~/components/profile/styled';
-import { URLs } from '~/routes/urls';
+import Banner from '~/components/home/Banner';
+import SetsList from '~/components/home/SetsList';
+import Seo from '~/components/seo/seo';
 import { CardLoading } from '~/components/skeleton/CardLoading';
+import { CollectionsFilter } from '~/components';
 
+import { Divider } from '~/base';
 import { GET_NFTS_ON_SALE } from '~/store/server/subscriptions';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
 
-export default function Home() {
+const Home = () => {
   const { data: { nft_sale_offer } = { nft_sale_offer: [] }, loading } =
     useSubscription(GET_NFTS_ON_SALE);
-  function renderSets(nft, price) {
-    if (loading) {
-      return [...Array(8).keys()].map(index => <CardLoading hasTopBar key={index} />);
+  const [nftList, setNftList] = useState([]);
+
+  const renderSets = useCallback(
+    (nft, price) => {
+      if (loading) {
+        return [...Array(8).keys()].map(index => <CardLoading hasTopBar key={index} />);
+      }
+      return <SetsList nft={nft} price={price} />;
+    },
+    [loading]
+  );
+
+  useEffect(() => {
+    if (nft_sale_offer?.length) {
+      setNftList([...nft_sale_offer.sort((a, b) => Number(a.price) - Number(b.price))]);
     }
-    return <SetsList nft={nft} price={price} />;
-  }
+  }, [nft_sale_offer]);
 
   return (
     <HomeWrapper>
@@ -44,30 +49,18 @@ export default function Home() {
             <Banner />
           </Col>
         </Row>
+        <CollectionsFilter nftQuantity={nftList?.length} setNftList={setNftList} />
+        <Divider customProps={{ marginTop: '24px' }} />
         <Row gutter={[21, 21]}>
-          <Col span={24}>
-            <RecentlyAddedHeader>
-              <RecentlyAddedHeaderContent>
-                <RecentlyAddedHeaderSpan>Recently Added</RecentlyAddedHeaderSpan>
-                <LinkStyled href={URLs.marketplace}>
-                  <LinkContent>
-                    <LinkText>View All</LinkText>
-                    <ArrowRightOutlined />
-                  </LinkContent>
-                </LinkStyled>
-              </RecentlyAddedHeaderContent>
-              <Divider />
-            </RecentlyAddedHeader>
-          </Col>
           <ListContainer>
             <PaginationStyled
-              grid={() => PaginationGridOptions(nft_sale_offer)}
+              grid={() => PaginationGridOptions(nftList)}
               pagination={{
                 showSizeChanger: true,
                 pageSizeOptions: ['10', '50', '100', '1000'],
                 position: 'top'
               }}
-              dataSource={nft_sale_offer}
+              dataSource={nftList}
               renderItem={({ price, nft }) => {
                 return (
                   <List.Item>
@@ -81,7 +74,7 @@ export default function Home() {
       </Col>
     </HomeWrapper>
   );
-}
+};
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   await basicAuthCheck(req, res);
@@ -90,3 +83,5 @@ export async function getServerSideProps(ctx) {
     props: {}
   };
 }
+
+export default Home;
