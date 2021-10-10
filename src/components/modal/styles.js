@@ -56,7 +56,7 @@ export const Title = styled(Typography)(
     color: secondary.main,
     fontSize: '1.5rem',
     fontWeight: 'bold',
-    marginTop: '32px'
+    marginTop: '72px'
   })
 );
 

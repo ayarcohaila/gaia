@@ -60,9 +60,9 @@ Modal.defaultProps = {
   asset: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg',
   children: null,
   containerProps: {},
-  description: 'Enter sale price in FLOW',
+  description: '',
   open: false,
-  title: 'Sell NFT'
+  title: ''
 };
 
 export default memo(Modal);

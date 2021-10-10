@@ -9,26 +9,36 @@ export const Input = styled(SearchInput)(
     }
   }) => ({
     borderRadius: '28px',
+    marginLeft: '0',
     height: '50px',
     width: '360px',
 
     '& > .MuiInput-input': {
-      color: grey[500],
-      fontSize: '1rem'
+      color: grey[700],
+      fontSize: '1rem',
+      fontWeight: '500',
+
+      '&::-webkit-outer-spin-button': {
+        WebkitAppearance: 'none',
+        MozAppearance: 'textfield'
+      },
+
+      '&::-webkit-inner-spin-button': {
+        WebkitAppearance: 'none',
+        MozAppearance: 'textfield'
+      }
     },
 
     '& > .MuiInput-input::placeholder': {
       color: grey[600],
-      fontWeight: 'bold'
-    },
-
-    '&:hover > .MuiInput-input::placeholder': {
-      color: grey[500]
+      fontWeight: '500'
     }
   })
 );
 
 export const CustomButton = styled(Button)({
   height: '40px',
-  transform: 'translateX(8px)'
+  padding: '12px 16px',
+  transform: 'translateX(8px)',
+  width: '180px'
 });
