@@ -2,8 +2,8 @@ import React from 'react';
 import * as Styled from './styles.js';
 import PropTypes from 'prop-types';
 
-const Divider = ({ customProps }) => {
-  return <Styled.Divider customProps={customProps} />;
+const Divider = ({ customProps, ...props }) => {
+  return <Styled.Divider customProps={customProps} {...props} />;
 };
 
 Divider.propTypes = {
