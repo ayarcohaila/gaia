@@ -1,23 +1,37 @@
 import { Box, Button, Typography, styled } from '@mui/material';
 import Image from 'next/image';
 
-export const Container = styled(Box)(() => ({
+export const Container = styled(Box)(({ theme: { breakpoints } }) => ({
   left: '50%',
   position: 'absolute',
   top: '50%',
-  transform: 'translate(-50%, -50%)'
+  transform: 'translate(-50%, -50%)',
+
+  [breakpoints.down('sm')]: {
+    // left: '0',
+    // bottom: '0',
+    // transform: 'none'
+  }
 }));
 
 export const Content = styled(Box)(
   ({
     theme: {
+      breakpoints,
       palette: { grey }
     }
   }) => ({
     backgroundColor: grey[100],
     borderRadius: 32,
     position: 'relative',
-    width: 632
+    width: 632,
+
+    [breakpoints.down('sm')]: {
+      borderRadius: 0,
+      borderTopLeftRadius: 32,
+      borderTopRightRadius: 32,
+      width: '100%'
+    }
   })
 );
 

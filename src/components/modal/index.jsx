@@ -29,7 +29,7 @@ const Modal = ({
 
   const renderContent = () => (
     <Styled.Container>
-      <Styled.Content height={height} {...containerProps}>
+      <Styled.Content height={isSmallDevice ? '55vh' : height} {...containerProps}>
         {isSmallDevice && (
           <IconButton
             onClick={onClose}
@@ -49,9 +49,11 @@ const Modal = ({
           </Styled.Description>
           {children}
         </Styled.InfoContainer>
-        <Styled.CloseButton startIcon={<CloseIcon sx={{ color: '#bcbfc8' }} />} onClick={onClose}>
-          Close Window
-        </Styled.CloseButton>
+        {!isSmallDevice && (
+          <Styled.CloseButton startIcon={<CloseIcon sx={{ color: '#bcbfc8' }} />} onClick={onClose}>
+            Close Window
+          </Styled.CloseButton>
+        )}
       </Styled.Content>
     </Styled.Container>
   );
@@ -62,7 +64,8 @@ const Modal = ({
         <Global
           styles={{
             '.MuiDrawer-root > .MuiPaper-root': {
-              height: `calc(50% - ${DRAWER_BLEEDING}px)`,
+              backgroundColor: 'transparent',
+              height: '55%',
               overflow: 'visible'
             }
           }}
@@ -72,7 +75,7 @@ const Modal = ({
           open={open}
           onClose={onClose}
           onOpen={onClose}
-          swipeAreaWidth={DRAWER_BLEEDING}
+          // swipeAreaWidth={DRAWER_BLEEDING}
           disableSwipeToOpen={false}
           ModalProps={{
             keepMounted: true,
@@ -81,6 +84,11 @@ const Modal = ({
                 WebkitBackdropFilter: 'none',
                 backdropFilter: 'none',
                 bgcolor: secondary.main
+              }
+            },
+            PaperProps: {
+              sx: {
+                bgcolor: 'red'
               }
             }
           }}>
