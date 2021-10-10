@@ -18,7 +18,7 @@ import config from '~/utils/config';
 
 import Address from '~/components/address/Address';
 import { Button } from '~/base';
-import { Modal } from '~/components';
+import { SellNftModal } from '~/components';
 import Card from '~/components/asset/Asset';
 import DropDown from '~/components/dropdown/DropDown';
 import useAuth from '~/hooks/useAuth';
@@ -374,7 +374,7 @@ const Profile = () => {
           </Form.Item>
         </Form>
       </AntdModal>
-      <Modal open={isSellNftModalOpen} onClose={toggleSellNftModal} />
+      <SellNftModal open={isSellNftModalOpen} onClose={toggleSellNftModal} />
     </ProfileWrapper>
   );
 };
