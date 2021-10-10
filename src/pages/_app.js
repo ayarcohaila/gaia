@@ -1,19 +1,20 @@
-import Head from 'next/head';
 import '../../public/static/fonts/fonts.css';
+import 'react-toastify/dist/ReactToastify.css';
+import 'antd/dist/antd.less';
+import 'antd/dist/antd.css';
+import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client/react';
 import { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { Layout, notification } from 'antd';
 import { GlobalStyles } from '~/components/layout/globalStyles';
+import { ToastContainer } from 'react-toastify';
 
 import { Header, Content, Footer } from '~/layout';
 import theme from '~/themes/default';
 import muiTheme from '~/themes/materialTheme';
 import client from '~/config/apollo-client';
 import { AuthProvider } from '~/providers/AuthProvider';
-
-import 'antd/dist/antd.less';
-import 'antd/dist/antd.css';
 
 function MyApp({ Component, pageProps }) {
   notification.config({ top: 64 });
@@ -58,6 +59,7 @@ function MyApp({ Component, pageProps }) {
                 <Component {...pageProps} />
               </Content>
               <Footer />
+              <ToastContainer />
             </Layout>
           </ThemeProvider>
         </MuiThemeProvider>

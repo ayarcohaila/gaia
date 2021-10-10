@@ -16,7 +16,14 @@ import { Grid } from '@mui/material';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
 import Card from '~/components/asset/Asset';
-import { CollectionsFilter, ProfileBanner, CancelListingModal } from '~/components';
+import {
+  CollectionsFilter,
+  ProfileBanner,
+  SellNftModal,
+  CancelListingModal,
+  TransferNftModal,
+  OrderCompleteModal
+} from '~/components';
 import { Button, Divider } from '~/base';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
@@ -48,6 +55,9 @@ const Profile = () => {
   const [destinationAddress, setDestinationAddress] = useState(null);
   const [assets, setAssets] = useState([]);
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
+  const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
+  const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
+  const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
   const [updateOwner] = useMutation(UPDATE_OWNER);
 
   const shouldPageBlock = useBlockPage();
@@ -209,7 +219,12 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <ProfileBanner address={id} />
-      <Button onClick={toggleSellNftModal}>Sell NFT</Button>
+      <Grid container ml="120px">
+        <Button onClick={toggleSellNftModal}>Sell NFT</Button>
+        <Button onClick={toggleCancelListingModal}>Cancel Listing</Button>
+        <Button onClick={toggleTransferNftModal}>Transfer NFT</Button>
+        <Button onClick={toggleOrderCompleteModal}>Order complete</Button>
+      </Grid>
       <Grid sx={{ padding: '0 80px', boxSizing: 'border-box' }}>
         <CollectionsFilter nftQuantity={data?.length} enableSearch />
         <Divider customProps={{ marginTop: '24px' }} />
@@ -336,7 +351,10 @@ const Profile = () => {
           </Form.Item>
         </Form>
       </AntdModal>
-      <CancelListingModal open={isSellNftModalOpen} onClose={toggleSellNftModal} />
+      <SellNftModal open={isSellNftModalOpen} onClose={toggleSellNftModal} />
+      <CancelListingModal open={isCancelListingModalOpen} onClose={toggleCancelListingModal} />
+      <TransferNftModal open={isTransferNftModalOpen} onClose={toggleTransferNftModal} />
+      <OrderCompleteModal open={isOrderCompleteModalOpen} onClose={toggleOrderCompleteModal} />
     </ProfileWrapper>
   );
 };

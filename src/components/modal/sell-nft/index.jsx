@@ -13,14 +13,14 @@ const SellNftModal = ({ onClose, ...props }) => {
   };
 
   return (
-    <Modal description="Enter sale price in FLOW" title="Sell NFT" {...props}>
+    <Modal description="Enter sale price in FLOW" onClose={onClose} title="Sell NFT" {...props}>
       <Styled.Input
         endAdornment={
           <Styled.CustomButton onClick={handlePostForSale}>Post For Sale</Styled.CustomButton>
         }
-        type="number"
         placeholder="Enter FLOW value"
         onChange={({ target: { value: targetValue } }) => setValue(targetValue)}
+        type="number"
         value={value}
       />
     </Modal>

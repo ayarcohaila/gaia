@@ -16,7 +16,6 @@ export const Content = styled(Box)(
   }) => ({
     backgroundColor: grey[100],
     borderRadius: 32,
-    height: 358,
     position: 'relative',
     width: 632
   })

@@ -15,6 +15,7 @@ const CancelListingModal = ({ asset, onClose, ...props }) => {
       asset={asset}
       description={`This will take down your listing for ${asset?.collectionName} #${asset?.id}`}
       descriptionSx={{ maxWidth: '250px', mt: '12px', textAlign: 'center' }}
+      height="374px"
       onClose={onClose}
       title="Cancel Listing"
       {...props}>

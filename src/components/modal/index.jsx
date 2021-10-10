@@ -11,6 +11,7 @@ const Modal = ({
   containerProps,
   description,
   descriptionSx,
+  height,
   open,
   onClose,
   title,
@@ -30,7 +31,7 @@ const Modal = ({
       onClose={onClose}
       {...props}>
       <Styled.Container>
-        <Styled.Content {...containerProps}>
+        <Styled.Content height={height} {...containerProps}>
           <Styled.AssetContainer>
             <Styled.Asset alt={title} layout="fill" src={asset?.image} />
           </Styled.AssetContainer>
@@ -58,6 +59,7 @@ Modal.propTypes = {
   containerProps: PropTypes.object,
   description: PropTypes.string,
   descriptionSx: PropTypes.object,
+  height: PropTypes.string,
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
@@ -72,6 +74,7 @@ Modal.defaultProps = {
   containerProps: {},
   description: '',
   descriptionSx: {},
+  height: '358px',
   open: false,
   title: '',
   titleSx: {}
