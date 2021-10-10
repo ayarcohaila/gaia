@@ -13,13 +13,11 @@ import { useRouter } from 'next/router';
 import { useMutation, useSubscription } from '@apollo/react-hooks';
 import { Grid } from '@mui/material';
 
-import { SellNftModal } from '~/components';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
-import { ProfileBanner } from '~/components';
 import Card from '~/components/asset/Asset';
-import { CollectionsFilter } from '~/components';
-import { Divider } from '~/base';
+import { CollectionsFilter, ProfileBanner, SellNftModal } from '~/components';
+import { Button, Divider } from '~/base';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
 import { createSaleOffer } from '~/flow/sell';
@@ -211,6 +209,7 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <ProfileBanner address={id} />
+      <Button onClick={toggleSellNftModal}>Sell NFT</Button>
       <Grid sx={{ padding: '0 80px', boxSizing: 'border-box' }}>
         <CollectionsFilter nftQuantity={data?.length} enableSearch />
         <Divider customProps={{ marginTop: '24px' }} />
