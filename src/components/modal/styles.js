@@ -1,18 +1,18 @@
 import { Box, Button, Typography, styled } from '@mui/material';
 import Image from 'next/image';
 
-export const Container = styled(Box)(({ theme: { breakpoints } }) => ({
-  left: '50%',
-  position: 'absolute',
-  top: '50%',
-  transform: 'translate(-50%, -50%)',
+export const Container = styled(Box, { shouldForwardProp: prop => prop !== 'mobileHeight' })(
+  ({ mobileHeight, theme: { breakpoints } }) => ({
+    left: '50%',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
 
-  [breakpoints.down('sm')]: {
-    // left: '0',
-    // bottom: '0',
-    // transform: 'none'
-  }
-}));
+    [breakpoints.down('sm')]: {
+      bottom: mobileHeight ? 'auto' : 0
+    }
+  })
+);
 
 export const Content = styled(Box)(
   ({
@@ -30,7 +30,7 @@ export const Content = styled(Box)(
       borderRadius: 0,
       borderTopLeftRadius: 32,
       borderTopRightRadius: 32,
-      width: '100%'
+      width: '100vw'
     }
   })
 );

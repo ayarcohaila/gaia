@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import useBreakpoints from '~/hooks/useBreakpoints';
 import * as Styled from './styles';
+import { DRAWER_MODAL_PROPS, MODAL_BACKDROP_PROPS } from './constants';
 
 export const DRAWER_BLEEDING = 56;
 
@@ -16,6 +17,7 @@ const Modal = ({
   description,
   descriptionSx,
   height,
+  mobileHeight,
   open,
   onClose,
   title,
@@ -24,12 +26,12 @@ const Modal = ({
 }) => {
   const { isSmallDevice } = useBreakpoints();
   const {
-    palette: { grey, secondary }
+    palette: { grey }
   } = useTheme();
 
   const renderContent = () => (
-    <Styled.Container>
-      <Styled.Content height={isSmallDevice ? '55vh' : height} {...containerProps}>
+    <Styled.Container mobileHeight={mobileHeight}>
+      <Styled.Content height={isSmallDevice ? mobileHeight || '55vh' : height} {...containerProps}>
         {isSmallDevice && (
           <IconButton
             onClick={onClose}
@@ -65,7 +67,7 @@ const Modal = ({
           styles={{
             '.MuiDrawer-root > .MuiPaper-root': {
               backgroundColor: 'transparent',
-              height: '55%',
+              height: mobileHeight || '55%',
               overflow: 'visible'
             }
           }}
@@ -75,23 +77,8 @@ const Modal = ({
           open={open}
           onClose={onClose}
           onOpen={onClose}
-          // swipeAreaWidth={DRAWER_BLEEDING}
           disableSwipeToOpen={false}
-          ModalProps={{
-            keepMounted: true,
-            BackdropProps: {
-              sx: {
-                WebkitBackdropFilter: 'none',
-                backdropFilter: 'none',
-                bgcolor: secondary.main
-              }
-            },
-            PaperProps: {
-              sx: {
-                bgcolor: 'red'
-              }
-            }
-          }}>
+          ModalProps={DRAWER_MODAL_PROPS}>
           {renderContent()}
         </SwipeableDrawer>
       </>
@@ -99,17 +86,7 @@ const Modal = ({
   }
 
   return (
-    <MuiModal
-      BackdropProps={{
-        sx: {
-          WebkitBackdropFilter: 'blur(20px)',
-          backdropFilter: 'blur(20px)',
-          bgcolor: 'rgba(28, 29, 34, 0.94)'
-        }
-      }}
-      open={open}
-      onClose={onClose}
-      {...props}>
+    <MuiModal BackdropProps={MODAL_BACKDROP_PROPS} open={open} onClose={onClose} {...props}>
       <Fade in={open} timeout={{ enter: 2000, exit: 750 }}>
         {renderContent()}
       </Fade>
@@ -124,6 +101,7 @@ Modal.propTypes = {
   description: PropTypes.string,
   descriptionSx: PropTypes.object,
   height: PropTypes.string,
+  mobileHeight: PropTypes.number,
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
@@ -139,7 +117,7 @@ Modal.defaultProps = {
   description: '',
   descriptionSx: {},
   height: '358px',
-  open: false,
+  mobileHeight: '',
   title: '',
   titleSx: {}
 };
