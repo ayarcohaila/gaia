@@ -16,7 +16,7 @@ import { Grid } from '@mui/material';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
 import Card from '~/components/asset/Asset';
-import { CollectionsFilter, ProfileBanner, SellNftModal } from '~/components';
+import { CollectionsFilter, ProfileBanner, CancelListingModal } from '~/components';
 import { Button, Divider } from '~/base';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
@@ -336,7 +336,7 @@ const Profile = () => {
           </Form.Item>
         </Form>
       </AntdModal>
-      <SellNftModal open={isSellNftModalOpen} onClose={toggleSellNftModal} />
+      <CancelListingModal open={isSellNftModalOpen} onClose={toggleSellNftModal} />
     </ProfileWrapper>
   );
 };

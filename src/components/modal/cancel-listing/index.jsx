@@ -1,14 +1,39 @@
 import { memo } from 'react';
-import { Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
 import Modal from '..';
+import { Button } from '~/base';
 
-const CancelListingModal = ({ ...props }) => {
+const CancelListingModal = ({ asset, onClose, ...props }) => {
+  const handleCancelListing = () => {
+    //TODO: Implement cancel listing integration
+    onClose();
+  };
+
   return (
-    <Modal {...props}>
-      <Typography>aaaa</Typography>
+    <Modal
+      asset={asset}
+      description={`This will take down your listing for ${asset?.collectionName} #${asset?.id}`}
+      descriptionSx={{ maxWidth: '250px', mt: '12px', textAlign: 'center' }}
+      onClose={onClose}
+      title="Cancel Listing"
+      {...props}>
+      <Button onClick={handleCancelListing}>Confirm</Button>
     </Modal>
   );
+};
+
+CancelListingModal.propTypes = {
+  asset: PropTypes.object,
+  onClose: PropTypes.func.isRequired
+};
+
+CancelListingModal.defaultProps = {
+  asset: {
+    id: 1234,
+    collectionName: 'BALLERZ',
+    image: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
+  }
 };
 
 export default memo(CancelListingModal);

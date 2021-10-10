@@ -10,9 +10,11 @@ const Modal = ({
   children,
   containerProps,
   description,
+  descriptionSx,
   open,
   onClose,
   title,
+  titleSx,
   ...props
 }) => {
   return (
@@ -30,11 +32,15 @@ const Modal = ({
       <Styled.Container>
         <Styled.Content {...containerProps}>
           <Styled.AssetContainer>
-            <Styled.Asset alt={title} layout="fill" src={asset} />
+            <Styled.Asset alt={title} layout="fill" src={asset?.image} />
           </Styled.AssetContainer>
           <Styled.InfoContainer>
-            <Styled.Title id={title}>{title}</Styled.Title>
-            <Styled.Description id={description}>{description}</Styled.Description>
+            <Styled.Title id={title} sx={titleSx}>
+              {title}
+            </Styled.Title>
+            <Styled.Description id={description} sx={descriptionSx}>
+              {description}
+            </Styled.Description>
             {children}
           </Styled.InfoContainer>
           <Styled.CloseButton startIcon={<CloseIcon sx={{ color: '#bcbfc8' }} />} onClick={onClose}>
@@ -47,22 +53,28 @@ const Modal = ({
 };
 
 Modal.propTypes = {
-  asset: PropTypes.string,
+  asset: PropTypes.object,
   children: PropTypes.node,
   containerProps: PropTypes.object,
   description: PropTypes.string,
+  descriptionSx: PropTypes.object,
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
+  titleSx: PropTypes.object
 };
 
 Modal.defaultProps = {
-  asset: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg',
+  asset: {
+    image: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
+  },
   children: null,
   containerProps: {},
   description: '',
+  descriptionSx: {},
   open: false,
-  title: ''
+  title: '',
+  titleSx: {}
 };
 
 export default memo(Modal);
