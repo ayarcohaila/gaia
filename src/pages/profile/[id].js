@@ -219,7 +219,7 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <ProfileBanner address={id} />
-      <Grid container ml="120px">
+      <Grid container>
         <Button onClick={toggleSellNftModal}>Sell NFT</Button>
         <Button onClick={toggleCancelListingModal}>Cancel Listing</Button>
         <Button onClick={toggleTransferNftModal}>Transfer NFT</Button>

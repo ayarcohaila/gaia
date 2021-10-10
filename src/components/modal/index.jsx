@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Modal as MuiModal } from '@mui/material';
+import { Fade, Modal as MuiModal } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
@@ -30,25 +30,29 @@ const Modal = ({
       open={open}
       onClose={onClose}
       {...props}>
-      <Styled.Container>
-        <Styled.Content height={height} {...containerProps}>
-          <Styled.AssetContainer>
-            <Styled.Asset alt={title} layout="fill" src={asset?.image} />
-          </Styled.AssetContainer>
-          <Styled.InfoContainer>
-            <Styled.Title id={title} sx={titleSx}>
-              {title}
-            </Styled.Title>
-            <Styled.Description id={description} sx={descriptionSx}>
-              {description}
-            </Styled.Description>
-            {children}
-          </Styled.InfoContainer>
-          <Styled.CloseButton startIcon={<CloseIcon sx={{ color: '#bcbfc8' }} />} onClick={onClose}>
-            Close Window
-          </Styled.CloseButton>
-        </Styled.Content>
-      </Styled.Container>
+      <Fade in={open} timeout={{ enter: 2000, exit: 750 }}>
+        <Styled.Container>
+          <Styled.Content height={height} {...containerProps}>
+            <Styled.AssetContainer>
+              <Styled.Asset alt={title} layout="fill" src={asset?.image} />
+            </Styled.AssetContainer>
+            <Styled.InfoContainer>
+              <Styled.Title id={title} sx={titleSx}>
+                {title}
+              </Styled.Title>
+              <Styled.Description id={description} sx={descriptionSx}>
+                {description}
+              </Styled.Description>
+              {children}
+            </Styled.InfoContainer>
+            <Styled.CloseButton
+              startIcon={<CloseIcon sx={{ color: '#bcbfc8' }} />}
+              onClick={onClose}>
+              Close Window
+            </Styled.CloseButton>
+          </Styled.Content>
+        </Styled.Container>
+      </Fade>
     </MuiModal>
   );
 };
