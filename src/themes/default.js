@@ -10,6 +10,7 @@ const colors = {
   borderGray: '#e5e8eb',
   lightGray: '#838689',
   headerLink: '#404040',
+  backgroundGrey: '#f4f4f6',
   green: 'green'
 };
 

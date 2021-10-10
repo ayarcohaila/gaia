@@ -1,119 +1,115 @@
-import styled from 'styled-components';
+import { styled } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 
-const BannerBackground = styled.div`
-  width: 100%;
-  min-height: 420px;
-  background-image: url(${props => props.imgUrl});
-  border-radius: 40px;
-  background-size: cover;
+const BannerBackground = styled('div')(({ theme }) => ({
+  width: '100%',
+  minHeight: '420px',
+  backgroundImage: 'url(${props => props.imgUrl})',
+  borderRadius: '40px',
+  backgroundSize: 'cover',
 
-  ${({ theme }) => theme.breakpoints.down('sm')} {
-    min-height: 220px;
+  [theme.breakpoints.down('sm')]: {
+    minHeight: '220px'
   }
-`;
+}));
 
-const BannerStyled = styled(Box)`
-  width: 100%;
-  min-height: 420px;
-  padding: 48px;
-  background-image: radial-gradient(
-    circle at 91% 0,
-    rgba(39, 11, 90, 0),
-    rgba(39, 11, 90, 0.06) 22%,
-    ${props => props.bgColor} 81%
-  );
-  border-radius: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+const BannerStyled = styled(Box)(({ theme }) => ({
+  width: '100%',
+  minHeight: '420px',
+  padding: '48px',
+  backgroundImage:
+    'radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, ${props => props.bgColor} 81%)',
+  borderRadius: '40px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'stretch',
 
-  ${({ theme }) => theme.breakpoints.down('sm')} {
-    min-height: 220px;
+  [theme.breakpoints.down('sm')]: {
+    minHeight: '220px'
   }
-`;
+}));
 
-const Divider = styled.div`
-  width: 2px;
-  height: 56px;
-  margin: 12px 32px;
-  opacity: 0.12;
-  background-color: #fff;
-`;
+const Divider = styled('div')(() => ({
+  width: '2px',
+  height: '56px',
+  margin: '12px 32px',
+  opacity: '0.12',
+  backgroundColor: '#fff'
+}));
 
-const BannerDescription = styled(Typography)`
-  max-width: 400px;
-  opacity: 0.8;
-  font-size: 16px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.5;
-  letter-spacing: normal;
-  color: #fff;
-`;
+const BannerDescription = styled(Typography)(() => ({
+  maxWidth: '400px',
+  opacity: '0.8',
+  fontSize: '16px',
+  fontWeight: '500',
+  fontStretch: 'normal',
+  fontStyle: 'normal',
+  lineHeight: 1.5,
+  letterSpacing: 'normal',
+  color: '#fff'
+}));
 
-const BannerItemDescription = styled(Typography)`
-  opacity: 0.64;
-  font-size: 13px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.23;
-  letter-spacing: 0.2px;
-  color: #fff;
+const BannerItemDescription = styled(Typography)(({ theme }) => ({
+  opacity: 0.64,
+  fontSize: '13px',
+  fontWeight: 500,
+  fontStretch: 'normal',
+  fontStyle: 'normal',
+  lineHeight: 1.23,
+  letterSpacing: '0.2px',
+  color: '#fff',
 
-  ${({ theme }) => theme.breakpoints.down('sm')} {
-    font-size: 12px;
-    line-height: 1.33;
-    text-align: center;
-    color: #1c202a;
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '12px',
+    lineHeight: 1.33,
+    textAlign: 'center',
+    color: '#1c202a'
   }
-`;
+}));
 
-const BannerItemValue = styled(Typography)`
-  font-size: 20px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  color: #fff;
+const BannerItemValue = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 'bold',
+  fontStretch: 'normal',
+  fontStyle: 'normal',
+  lineHeight: 1.6,
+  letterSpacing: 'normal',
+  color: '#fff',
 
-  ${({ theme }) => theme.breakpoints.down('sm')} {
-    font-size: 20px;
-    line-height: 1.3;
-    color: #1c202a;
-    text-align: center;
-  }
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '20px',
+    lineHeight: 1.3,
+    color: '#1c202a',
+    textAlign: 'center'
+  },
 
-  span {
-    line-height: 1.43;
-    font-size: 14px;
+  span: {
+    lineHeight: 1.43,
+    fontSize: '14px',
 
-    ${({ theme }) => theme.breakpoints.down('sm')} {
-      font-size: 20px;
-      line-height: 1.3;
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '20px',
+      lineHeight: 1.3
     }
   }
-`;
+}));
 
-const BannerAvatar = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  border: 1px solid #fff;
-  background-image: url(${props => props.imgUrl});
-`;
+const BannerAvatar = styled('div')(() => ({
+  width: '80px',
+  height: '80px',
+  borderRadius: '40px',
+  border: '1px solid #fff',
+  backgroundImage: 'url(${props => props.imgUrl})'
+}));
 
-const MobileSubBanner = styled(Box)`
-  padding: 26px 24px 26px 23px;
-  border-radius: 20px;
-  border: solid 2px #e7e9ed;
-  width: 85%;
-  margin-left: 5.5vw;
-  margin-top: 16px;
-`;
+const MobileSubBanner = styled(Box)(() => ({
+  padding: '26px 24px 26px 23px',
+  borderRadius: '20px',
+  border: 'solid 2px #e7e9ed',
+  width: '85%',
+  marginLeft: '5.5vw',
+  marginTop: '16px'
+}));
 
 export {
   BannerStyled,

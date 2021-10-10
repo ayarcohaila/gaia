@@ -1,5 +1,7 @@
 import Head from 'next/head';
-import { ApolloProvider } from '@apollo/client';
+
+import '../../public/static/fonts/fonts.css';
+import { ApolloProvider } from '@apollo/client/react';
 import { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 

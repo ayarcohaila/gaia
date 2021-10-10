@@ -1,28 +1,22 @@
 import { useState, useRef } from 'react';
-import { Grid, MenuList, ClickAwayListener, Popper } from '@mui/material';
-import useAuth from '~/hooks/useAuth';
-import { useRouter } from 'next/router';
-import * as Styled from './styles.js';
-import { SearchInput } from '~/base';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { Grid } from '@mui/material';
+import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
-import {
-  ArrowDropDown as ArrowDropDownIcon,
-  LockOpenOutlined as LockOpenOutlinedIcon
-} from '@mui/icons-material';
+import useAuth from '~/hooks/useAuth';
+import { Dropdown, SearchInput } from '~/base';
+import useBreakpoints from '~/hooks/useBreakpoints.js';
 
-const MENU_OPTIONS = [
-  { label: 'Sports', href: '/sports' },
-  { label: 'Movies', href: '/movies' },
-  { label: 'Music', href: '/music' },
-  { label: 'Pop Culture', href: '/pop-culture' }
-];
+import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
+import * as Styled from './styles.js';
 
 const Header = () => {
   const menuAnchorRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const { login, user, logout } = useAuth();
+  const { isMediumDevice } = useBreakpoints();
   const router = useRouter();
 
   const handleChangeSearch = ({ target: { value } }) => {
@@ -33,19 +27,16 @@ const Header = () => {
     setOpenUserMenu(prevState => !prevState);
   };
 
-  const navigateToUserProfile = () => {
+  const handleClick = ({
+    target: {
+      dataset: { id }
+    }
+  }) => {
     toggleUserMenu();
-    router.push(`/profile/${user?.addr}`);
-  };
-
-  const handleLogout = () => {
-    toggleUserMenu();
-    logout();
-  };
-
-  const handleListKeyDown = event => {
-    if (event.key === 'Escape') {
-      setOpenUserMenu(false);
+    if (id === USER_MENU_IDS.PROFILE) {
+      router.push(`/profile/${user?.addr}`);
+    } else {
+      logout();
     }
   };
 
@@ -70,41 +61,39 @@ const Header = () => {
             )}
           </Styled.MenuOptionList>
         </Grid>
-        <Styled.SearchWrapper>
-          <SearchInput value={searchQuery} onChange={handleChangeSearch} />
-        </Styled.SearchWrapper>
-        <Styled.CustomButton isBlack variant="contained">
-          Sell NFT
-        </Styled.CustomButton>
-        {user?.loggedIn ? (
-          <Styled.AvatarButton
-            ref={menuAnchorRef}
-            disableRipple
-            variant="text"
-            onClick={toggleUserMenu}>
-            <Styled.UserAvatar alt="User Icon" />
-            <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
-          </Styled.AvatarButton>
-        ) : (
-          <Styled.CustomButton variant="contained" onClick={login}>
-            Sign in
-          </Styled.CustomButton>
+        {!isMediumDevice && (
+          <Styled.SearchWrapper>
+            <SearchInput value={searchQuery} onChange={handleChangeSearch} />
+          </Styled.SearchWrapper>
         )}
-        <Popper anchorEl={menuAnchorRef?.current} open={openUserMenu} onClose={toggleUserMenu}>
-          <Styled.CustomPaper>
-            <ClickAwayListener onClickAway={toggleUserMenu}>
-              <MenuList autoFocus onKeyDown={handleListKeyDown}>
-                <Styled.CustomMenuItem onClick={navigateToUserProfile}>
-                  Profile
-                </Styled.CustomMenuItem>
-                <Styled.CustomMenuItem isSignOut onClick={handleLogout}>
-                  <LockOpenOutlinedIcon fontSize="12px" />
-                  Sign Out
-                </Styled.CustomMenuItem>
-              </MenuList>
-            </ClickAwayListener>
-          </Styled.CustomPaper>
-        </Popper>
+        {!isMediumDevice && (
+          <>
+            <Styled.CustomButton isBlack variant="contained">
+              Sell NFT
+            </Styled.CustomButton>
+            {user?.loggedIn ? (
+              <Styled.AvatarButton
+                ref={menuAnchorRef}
+                disableRipple
+                variant="text"
+                onClick={toggleUserMenu}>
+                <Styled.UserAvatar alt="User Icon" />
+                <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
+              </Styled.AvatarButton>
+            ) : (
+              <Styled.CustomButton variant="contained" onClick={login}>
+                Sign in
+              </Styled.CustomButton>
+            )}
+          </>
+        )}
+        <Dropdown
+          menuAnchorRef={menuAnchorRef}
+          isOpen={openUserMenu}
+          onClose={toggleUserMenu}
+          options={USER_MENU_OPTIONS}
+          handleClickOption={handleClick}
+        />
       </Styled.Container>
     </Styled.HeaderBar>
   );

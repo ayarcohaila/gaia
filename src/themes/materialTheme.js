@@ -15,22 +15,33 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#215cf1',
+      dark: '#1a49c1',
       hover: '#1a49c1'
     },
     secondary: {
       main: '#171a24'
     },
     grey: {
+      800: '#1c202a',
       700: '#272a36',
       600: '#6c7283',
       500: '#9a9fac',
       400: '#bcbfc8',
+      350: '#dddfe3',
       300: '#e9eaed',
       200: '#f4f4f6',
       100: '#ffffff'
     },
+    purple: {
+      200: '#411f7e',
+      100: '#402086'
+    },
+    darkPurple: {
+      main: '#11042d'
+    },
     error: {
       main: '#e9252f',
+      dark: 'rgba(233, 37, 47, 0.8)',
       hover: '#fce9ea'
     },
     success: {
@@ -90,7 +101,7 @@ theme.typography = {
   },
   h6: {
     fontSize: '1rem', // 16px
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     letterSpacing: '0',
     lineHeight: '1.5rem',
 

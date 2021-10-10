@@ -5,7 +5,7 @@ import { useSubscription } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 
 import { MarketPlaceWrapper, CardContainer, PaginationStyled } from '~/components/profile/styled';
-import DropDown from '~/components/dropdown/DropDown';
+import DropDown from '~/components/deprecatedDropdown/DropDown';
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
 import SetsList from '~/components/home/SetsList';
