@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 
 import Modal from '..';
 import { Button } from '~/base';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 const CancelListingModal = ({ asset, onClose, ...props }) => {
+  const { isExtraSmallDevice } = useBreakpoints();
+
   const handleCancelListing = () => {
     //TODO: Implement cancel listing integration
     onClose();
@@ -18,6 +21,7 @@ const CancelListingModal = ({ asset, onClose, ...props }) => {
       height="374px"
       onClose={onClose}
       title="Cancel Listing"
+      titleSx={{ mt: isExtraSmallDevice ? '120px' : '72px' }}
       {...props}>
       <Button onClick={handleCancelListing}>Confirm</Button>
     </Modal>

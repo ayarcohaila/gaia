@@ -13,7 +13,7 @@ const OrderCompleteModal = ({ asset, blockchainId, orderId, ...props }) => {
     palette: { grey }
   } = useTheme();
   const router = useRouter();
-  const { isSmallDevice } = useBreakpoints();
+  const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
 
   const renderConfirmationItem = useCallback(
     (isBlockchain = true) => {
@@ -55,7 +55,7 @@ const OrderCompleteModal = ({ asset, blockchainId, orderId, ...props }) => {
       description={`Congratulations, you are now the proud owner of ${asset?.collectionName} #${asset?.id}.`}
       descriptionSx={{ maxWidth: '280px', mt: '16px', textAlign: 'center' }}
       height="518px"
-      mobileHeight="72vh"
+      mobileHeight={isExtraSmallDevice ? 80 : 72}
       title="Order Complete!"
       titleSx={{ mt: '108px' }}
       {...props}>

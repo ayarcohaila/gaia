@@ -10,6 +10,10 @@ export const Container = styled(Box, { shouldForwardProp: prop => prop !== 'mobi
 
     [breakpoints.down('sm')]: {
       bottom: mobileHeight ? 'auto' : 0
+    },
+
+    [breakpoints.down('xs')]: {
+      bottom: mobileHeight ? 'auto' : 50
     }
   })
 );

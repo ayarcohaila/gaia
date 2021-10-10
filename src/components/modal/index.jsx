@@ -31,7 +31,9 @@ const Modal = ({
 
   const renderContent = () => (
     <Styled.Container mobileHeight={mobileHeight}>
-      <Styled.Content height={isSmallDevice ? mobileHeight || '55vh' : height} {...containerProps}>
+      <Styled.Content
+        height={isSmallDevice ? (mobileHeight ? `${mobileHeight}vh` : '55vh') : height}
+        {...containerProps}>
         {isSmallDevice && (
           <IconButton
             onClick={onClose}
@@ -68,7 +70,7 @@ const Modal = ({
             '.MuiDrawer-root > .MuiPaper-root': {
               backgroundColor: 'transparent',
               boxShadow: 'none',
-              height: mobileHeight || '55%',
+              height: mobileHeight ? `${mobileHeight}%` : '55%',
               overflow: 'visible'
             }
           }}
