@@ -81,7 +81,7 @@ const TransferNftModal = ({ ...props }) => {
     <Modal
       description={
         hasNftSuccessfullyTransfered
-          ? 'Your NFT has been successfully transfered to'
+          ? 'Your NFT has been successfully transfered to:'
           : 'Enter wallet address to transfer to.'
       }
       descriptionSx={{ m: '8px 0 4px', maxWidth: '270px', textAlign: 'center' }}
