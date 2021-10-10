@@ -12,7 +12,7 @@ function Collection() {
   const accountNumber = '0xc562773b26ade24cd8a33c4870380E774BF8A6DE';
   const bannerName = '@Ballerz';
   const bannerDescription = "Buy and sell Ballerz NFTs on Gaia, the world's best NFT marketplace";
-  const bgImg = '';
+  const bgImg = '/collections/ballerz-1200x630.jpg';
   const mainColor = '#270b5a';
   const secondaryColor = '#4814a6';
 

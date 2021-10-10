@@ -1,4 +1,4 @@
-import { BannerAccountStyled, BannerName } from './styled';
+import * as Styled from './styles';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Tooltip from '@mui/material/Tooltip';
 import { truncate } from '~/utils/string';
@@ -19,15 +19,15 @@ function BannerAccount(props) {
 
   return (
     <Box>
-      <BannerName>{bannerName}</BannerName>
+      <Styled.BannerName>{bannerName}</Styled.BannerName>
       <Tooltip title={tooltipTitle} onOpen={() => setTooltipTitle(defaultTooltipTitle)}>
-        <BannerAccountStyled onClick={copyHandler} bgColor={props.bgColor}>
+        <Styled.BannerAccountStyled onClick={copyHandler} bgColor={props.bgColor}>
           <span>{secretAccount}</span>
           <ContentCopyIcon
             style={{ color: '#fff', transform: 'rotateY(170deg)' }}
             fontSize="12px"
           />
-        </BannerAccountStyled>
+        </Styled.BannerAccountStyled>
       </Tooltip>
     </Box>
   );

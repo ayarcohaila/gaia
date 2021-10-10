@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  BannerStyled,
-  Divider,
-  BannerDescription,
-  BannerItemDescription,
-  BannerItemValue,
-  BannerBackground,
-  BannerAvatar
-  // MobileSubBanner
-} from './styled';
+import * as Styled from './styles';
 import BannerAccount from '~/components/collectionBannerAccount';
 import BannerShareIcon from '~/components/collectionBannerShareButton';
 import { Box, Grid } from '@mui/material';
@@ -29,13 +20,13 @@ function CollectionBanner(props) {
 
   return (
     <>
-      <BannerBackground imgUrl={bgImg}>
-        <BannerStyled bgColor={mainColor}>
+      <Styled.BannerBackground imgUrl={bgImg}>
+        <Styled.BannerStyled bgColor={mainColor}>
           <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
-            <BannerAvatar />
+            <Styled.BannerAvatar />
             {!isSmallDevice && (
               <>
-                <Divider ml="32px" />
+                <Styled.Divider ml="32px" />
                 <BannerAccount
                   bannerName={bannerName}
                   accountNumber={accountNumber}
@@ -44,7 +35,9 @@ function CollectionBanner(props) {
             )}
           </Box>
           <Box width="100%" color="#fff" mt={isSmallDevice ? '60px' : '115px'}>
-            {!isSmallDevice && <BannerDescription>{bannerDescription}</BannerDescription>}
+            {!isSmallDevice && (
+              <Styled.BannerDescription>{bannerDescription}</Styled.BannerDescription>
+            )}
             <Grid container pt="32px">
               {isSmallDevice ? (
                 <Grid item xs={6}>
@@ -63,11 +56,13 @@ function CollectionBanner(props) {
                   }}>
                   {bannerItems.map(item => (
                     <Grid item key={item.description}>
-                      <BannerItemValue>
+                      <Styled.BannerItemValue>
                         {item.price ? <span>$</span> : undefined}
                         {item.value}
-                      </BannerItemValue>
-                      <BannerItemDescription>{item.description}</BannerItemDescription>
+                      </Styled.BannerItemValue>
+                      <Styled.BannerItemDescription>
+                        {item.description}
+                      </Styled.BannerItemDescription>
                     </Grid>
                   ))}
                 </Grid>
@@ -79,8 +74,8 @@ function CollectionBanner(props) {
               </Grid>
             </Grid>
           </Box>
-        </BannerStyled>
-      </BannerBackground>
+        </Styled.BannerStyled>
+      </Styled.BannerBackground>
       {/* The Ballerz layout do not have this component */}
       {/* {isSmallDevice && (
         <MobileSubBanner>

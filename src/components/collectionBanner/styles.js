@@ -1,33 +1,36 @@
 import { styled } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 
-const BannerBackground = styled('div')(({ theme }) => ({
-  width: '100%',
-  minHeight: '420px',
-  backgroundImage: 'url(${props => props.imgUrl})',
-  borderRadius: '40px',
-  backgroundSize: 'cover',
+const BannerBackground = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
+  ({ theme, imgUrl }) => ({
+    width: '100%',
+    minHeight: '420px',
+    backgroundImage: `url(${imgUrl})`,
+    borderRadius: '40px',
+    backgroundSize: 'contain',
 
-  [theme.breakpoints.down('sm')]: {
-    minHeight: '220px'
-  }
-}));
+    [theme.breakpoints.down('sm')]: {
+      minHeight: '220px'
+    }
+  })
+);
 
-const BannerStyled = styled(Box)(({ theme }) => ({
-  width: '100%',
-  minHeight: '420px',
-  padding: '48px',
-  backgroundImage:
-    'radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, ${props => props.bgColor} 81%)',
-  borderRadius: '40px',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'stretch',
+const BannerStyled = styled(Box, { shouldForwardProp: prop => prop !== 'bgColor' })(
+  ({ theme, bgColor }) => ({
+    width: '100%',
+    minHeight: '420px',
+    padding: '48px',
+    backgroundImage: `radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, ${bgColor} 81%)`,
+    borderRadius: '40px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
 
-  [theme.breakpoints.down('sm')]: {
-    minHeight: '220px'
-  }
-}));
+    [theme.breakpoints.down('sm')]: {
+      minHeight: '220px'
+    }
+  })
+);
 
 const Divider = styled('div')(() => ({
   width: '2px',
@@ -94,13 +97,15 @@ const BannerItemValue = styled(Typography)(({ theme }) => ({
   }
 }));
 
-const BannerAvatar = styled('div')(() => ({
-  width: '80px',
-  height: '80px',
-  borderRadius: '40px',
-  border: '1px solid #fff',
-  backgroundImage: 'url(${props => props.imgUrl})'
-}));
+const BannerAvatar = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
+  ({ imgUrl }) => ({
+    width: '80px',
+    height: '80px',
+    borderRadius: '40px',
+    border: '1px solid #fff',
+    backgroundImage: `url(${imgUrl})`
+  })
+);
 
 const MobileSubBanner = styled(Box)(() => ({
   padding: '26px 24px 26px 23px',

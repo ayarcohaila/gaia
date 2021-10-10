@@ -1,11 +1,11 @@
 import IosShareIcon from '@mui/icons-material/IosShare';
-import BannerShareIconStyled from './styled';
+import * as Styled from './styles';
 
 function BannerShareIcon(props) {
   return (
-    <BannerShareIconStyled bgColor={props.bgColor}>
+    <Styled.BannerShareIconStyled bgColor={props.bgColor}>
       <IosShareIcon />
-    </BannerShareIconStyled>
+    </Styled.BannerShareIconStyled>
   );
 }
 
