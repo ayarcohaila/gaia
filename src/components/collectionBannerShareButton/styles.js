@@ -12,4 +12,4 @@ const BannerShareIconStyled = styled('div', { shouldForwardProp: prop => prop !=
   })
 );
 
-export default BannerShareIconStyled;
+export { BannerShareIconStyled };
