@@ -43,16 +43,20 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
       setNftList(prevState => {
         switch (currentId) {
           case ORDER_MENU_IDS.LOWER:
-            return [...prevState.sort((a, b) => Number(a.price) - Number(b.price))];
+            return [...prevState.sort((a, b) => Number(a?.price) - Number(b?.price))];
           case ORDER_MENU_IDS.HIGHEST:
-            return [...prevState.sort((a, b) => Number(b.price) - Number(a.price))];
+            return [...prevState.sort((a, b) => Number(b?.price) - Number(a?.price))];
           case ORDER_MENU_IDS.RECENTLY:
             return [
-              ...prevState.sort((a, b) => new Date(b.nft.created_at) - new Date(a.nft.created_at))
+              ...prevState.sort(
+                (a, b) => new Date(b?.nft?.created_at) - new Date(a?.nft?.created_at)
+              )
             ];
           case ORDER_MENU_IDS.OLDEST:
             return [
-              ...prevState.sort((a, b) => new Date(a.nft.created_at) - new Date(b.nft.created_at))
+              ...prevState.sort(
+                (a, b) => new Date(a?.nft?.created_at) - new Date(b?.nft?.created_at)
+              )
             ];
           default:
             return prevState;

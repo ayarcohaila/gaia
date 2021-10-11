@@ -23,7 +23,7 @@ function CollectionBanner(props) {
       <Styled.BannerBackground imgUrl={bgImg}>
         <Styled.BannerStyled bgColor={mainColor}>
           <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
-            <Styled.BannerAvatar />
+            <Styled.BannerAvatar imgUrl={'/collections/user.png'} />
             {!isSmallDevice && (
               <>
                 <Styled.Divider ml="32px" />
