@@ -1,14 +1,19 @@
 import { Box, Button, Typography, styled } from '@mui/material';
 import Image from 'next/image';
 
-export const Container = styled(Box, { shouldForwardProp: prop => prop !== 'mobileHeight' })(
-  () => ({
-    left: '50%',
-    position: 'absolute',
-    top: '50%',
-    transform: 'translate(-50%, -50%)'
-  })
-);
+export const Container = styled(Box)(({ theme: { breakpoints } }) => ({
+  left: '50%',
+  position: 'absolute',
+  top: '50%',
+  transform: 'translate(-50%, -50%)',
+
+  [breakpoints.down('sm')]: {
+    position: 'static',
+    transform: 'none',
+    left: 'auto',
+    top: 'auto'
+  }
+}));
 
 export const Content = styled(Box)(
   ({
@@ -31,7 +36,7 @@ export const Content = styled(Box)(
   })
 );
 
-export const AssetContainer = styled(Box)(() => ({
+export const AssetContainer = styled(Box)(({ theme: { breakpoints } }) => ({
   backgroundColor: 'transparent',
   boxShadow: '0 26px 14px -24px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)',
   height: 180,
@@ -39,7 +44,13 @@ export const AssetContainer = styled(Box)(() => ({
   position: 'absolute',
   left: '50%',
   width: 180,
-  top: -60
+  top: -60,
+
+  [breakpoints.down('sm')]: {
+    height: 160,
+    marginLeft: -80,
+    width: 160
+  }
 }));
 
 export const Asset = styled(Image)(() => ({

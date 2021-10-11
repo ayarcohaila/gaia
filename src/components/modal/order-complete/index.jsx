@@ -53,6 +53,7 @@ const OrderCompleteModal = ({ asset, blockchainId, onClose, orderId, ...props })
       description={`Congratulations, you are now the proud owner of ${asset?.collectionName} #${asset?.id}.`}
       descriptionSx={{ maxWidth: '280px', mt: '16px', textAlign: 'center' }}
       height="518px"
+      mobileHeight="80vh"
       onClose={onClose}
       title="Order Complete!"
       titleSx={{ mt: '108px' }}
