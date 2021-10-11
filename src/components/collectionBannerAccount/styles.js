@@ -1,5 +1,4 @@
-import { styled } from '@mui/material';
-import { Typography } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 
 const BannerAccountStyled = styled('div', { shouldForwardProp: prop => prop !== 'bgColor' })(
   ({ bgColor }) => ({
