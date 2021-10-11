@@ -5,6 +5,7 @@ import { Button, SearchInput } from '~/base';
 export const Input = styled(SearchInput)(
   ({
     theme: {
+      breakpoints,
       palette: { grey },
       typography
     }
@@ -24,6 +25,10 @@ export const Input = styled(SearchInput)(
     '& > .MuiInput-input::placeholder': {
       color: grey[600],
       fontWeight: '600'
+    },
+
+    [breakpoints.down('sm')]: {
+      width: '90%'
     }
   })
 );

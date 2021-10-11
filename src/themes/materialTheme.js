@@ -27,6 +27,7 @@ const theme = createTheme({
       600: '#6c7283',
       500: '#9a9fac',
       400: '#bcbfc8',
+      375: '#d8d8d8',
       350: '#dddfe3',
       300: '#e9eaed',
       200: '#f4f4f6',

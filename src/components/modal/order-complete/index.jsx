@@ -13,35 +13,49 @@ const OrderCompleteModal = ({ asset, blockchainId, orderId, ...props }) => {
     palette: { grey }
   } = useTheme();
   const router = useRouter();
-  const { isSmallDevice } = useBreakpoints();
+  const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
 
-  const renderConfirmationItem = useCallback((isBlockchain = true) => {
-    return (
-      <Grid
-        alignItems="center"
-        bgcolor={grey[300]}
-        borderRadius="10px"
-        container
-        height="56px"
-        justifyContent="space-between"
-        width={isSmallDevice ? '80%' : '400px'}
-        mt="8px"
-        p="20px">
-        <Typography color={grey[600]} fontFamily="IBMPlexMono" fontWeight="600" variant="subtitle1">
-          {`${isBlockchain ? 'Blockchain' : asset?.collectionName} confirmation:`}
-        </Typography>
-        <Typography color={grey[700]} fontFamily="IBMPlexMono" fontWeight="600" variant="subtitle1">
-          {isBlockchain ? blockchainId : orderId}
-        </Typography>
-      </Grid>
-    );
-  }, []);
+  const renderConfirmationItem = useCallback(
+    (isBlockchain = true) => {
+      return (
+        <Grid
+          alignItems="center"
+          bgcolor={grey[300]}
+          borderRadius="10px"
+          container
+          height="56px"
+          justifyContent="space-between"
+          mt="8px"
+          mx={isSmallDevice ? 'auto' : '0'}
+          p="20px"
+          width={isSmallDevice ? '100%' : '400px'}>
+          <Typography
+            color={grey[600]}
+            fontFamily="IBMPlexMono"
+            fontWeight="600"
+            variant="subtitle1">
+            {`${isBlockchain ? 'Blockchain' : asset?.collectionName} confirmation:`}
+          </Typography>
+          <Typography
+            color={grey[700]}
+            fontFamily="IBMPlexMono"
+            fontWeight="600"
+            noWrap
+            variant="subtitle1">
+            {isBlockchain ? blockchainId : orderId}
+          </Typography>
+        </Grid>
+      );
+    },
+    [asset, blockchainId, isSmallDevice, orderId]
+  );
 
   return (
     <Modal
       description={`Congratulations, you are now the proud owner of ${asset?.collectionName} #${asset?.id}.`}
       descriptionSx={{ maxWidth: '280px', mt: '16px', textAlign: 'center' }}
       height="518px"
+      mobileHeight={isExtraSmallDevice ? 80 : 72}
       title="Order Complete!"
       titleSx={{ mt: '108px' }}
       {...props}>
@@ -53,7 +67,10 @@ const OrderCompleteModal = ({ asset, blockchainId, orderId, ...props }) => {
       <Button
         endIcon={<ArrowRightIcon />}
         onClick={() => router.push(`/collections/${asset?.collectionName}`)}
-        sx={{ height: '40px', mt: '24px' }}>{`Go to My ${asset?.collectionName}`}</Button>
+        sx={{
+          height: isSmallDevice ? 'auto' : '40px',
+          mt: '24px'
+        }}>{`Go to My ${asset?.collectionName}`}</Button>
     </Modal>
   );
 };
