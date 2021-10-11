@@ -1,18 +1,16 @@
-import { Grid, AppBar, Link, Button, Avatar, styled } from '@mui/material';
+import { Grid, AppBar, Link, Button, Avatar, IconButton, styled } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
-  width: '100%',
-  height: '80px',
-  padding: '20px 80px',
-  display: 'flex',
-  alignItems: 'center',
-  boxSizing: 'border-box',
-
-  [breakpoints.down('sm')]: {
-    padding: '16px 32px'
-  }
-}));
+export const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'isMobile' })(
+  ({ isMobile }) => ({
+    width: '100%',
+    height: isMobile ? '72px' : '80px',
+    padding: isMobile ? '20px' : '20px 80px',
+    display: 'flex',
+    alignItems: 'center',
+    boxSizing: 'border-box'
+  })
+);
 
 export const HeaderBar = styled(AppBar)(({ theme: { palette } }) => ({
   backgroundColor: palette.grey[200],
@@ -107,4 +105,22 @@ export const AvatarMoreIcon = styled(ArrowDropDownIcon, {
 })(({ theme: { palette }, rotate }) => ({
   color: palette.grey[500],
   transform: rotate && 'rotate(180deg)'
+}));
+
+export const MobileMenuButton = styled(IconButton)(({ theme: { palette } }) => ({
+  color: palette.grey[600],
+  width: '48px',
+  height: '48px',
+  borderRadius: '50%',
+  boxSizing: 'border-box',
+  border: `2px solid ${palette.grey[350]}`,
+  marginLeft: 'auto',
+
+  '& > svg': {
+    height: '18px'
+  },
+
+  '&:hover': {
+    backgroundColor: 'transparent'
+  }
 }));

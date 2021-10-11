@@ -7,7 +7,7 @@ import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 import useAuth from '~/hooks/useAuth';
 import { Dropdown, SearchInput } from '~/base';
 import useBreakpoints from '~/hooks/useBreakpoints.js';
-
+import MenuIcon from '@mui/icons-material/Menu';
 import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
 import * as Styled from './styles.js';
 
@@ -42,7 +42,7 @@ const Header = () => {
 
   return (
     <Styled.HeaderBar position="static">
-      <Styled.Container component="section">
+      <Styled.Container component="section" isMobile={isMediumDevice}>
         <NextLink href="/">
           <Styled.Logo>Gaia</Styled.Logo>
         </NextLink>
@@ -66,22 +66,30 @@ const Header = () => {
             <SearchInput value={searchQuery} onChange={handleChangeSearch} />
           </Styled.SearchWrapper>
         )}
-        <Styled.CustomButton isBlack variant="contained">
-          Sell NFT
-        </Styled.CustomButton>
-        {user?.loggedIn ? (
-          <Styled.AvatarButton
-            ref={menuAnchorRef}
-            disableRipple
-            variant="text"
-            onClick={toggleUserMenu}>
-            <Styled.UserAvatar alt="User Icon" />
-            <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
-          </Styled.AvatarButton>
+        {isMediumDevice ? (
+          <Styled.MobileMenuButton>
+            <MenuIcon />
+          </Styled.MobileMenuButton>
         ) : (
-          <Styled.CustomButton variant="contained" onClick={login}>
-            Sign in
-          </Styled.CustomButton>
+          <>
+            <Styled.CustomButton isBlack variant="contained">
+              Sell NFT
+            </Styled.CustomButton>
+            {user?.loggedIn ? (
+              <Styled.AvatarButton
+                ref={menuAnchorRef}
+                disableRipple
+                variant="text"
+                onClick={toggleUserMenu}>
+                <Styled.UserAvatar alt="User Icon" />
+                <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
+              </Styled.AvatarButton>
+            ) : (
+              <Styled.CustomButton variant="contained" onClick={login}>
+                Sign in
+              </Styled.CustomButton>
+            )}
+          </>
         )}
         <Dropdown
           menuAnchorRef={menuAnchorRef}

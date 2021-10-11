@@ -38,6 +38,9 @@ import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
 import useToggle from '~/hooks/useToggle';
 import config from '~/utils/config';
+import useBreakpoints from '~/hooks/useBreakpoints.js';
+
+import * as Styled from '~/styles/profile/styles';
 
 import { ProfileWrapper, PaginationStyled } from '../../components/profile/styled';
 
@@ -59,7 +62,7 @@ const Profile = () => {
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
   const [updateOwner] = useMutation(UPDATE_OWNER);
-
+  const { isMediumDevice } = useBreakpoints();
   const shouldPageBlock = useBlockPage();
 
   useEffect(() => {
@@ -225,7 +228,7 @@ const Profile = () => {
         <Button onClick={toggleTransferNftModal}>Transfer NFT</Button>
         <Button onClick={toggleOrderCompleteModal}>Order complete</Button>
       </Grid>
-      <Grid sx={{ padding: '0 80px', boxSizing: 'border-box' }}>
+      <Styled.ListWrapper isMobile={isMediumDevice}>
         <CollectionsFilter nftQuantity={data?.length} enableSearch />
         <Divider customProps={{ marginTop: '24px' }} />
         {isLoading ? (
@@ -279,7 +282,7 @@ const Profile = () => {
             }}
           />
         )}
-      </Grid>
+      </Styled.ListWrapper>
       <AntdModal
         destroyOnClose
         visible={transferModal}
