@@ -27,10 +27,11 @@ const theme = createTheme({
       600: '#6c7283',
       500: '#9a9fac',
       400: '#bcbfc8',
+      375: '#d8d8d8',
       350: '#dddfe3',
       300: '#e9eaed',
       200: '#f4f4f6',
-      100: '#ffffff'
+      100: '#f6f7fa '
     },
     purple: {
       200: '#411f7e',
@@ -42,7 +43,8 @@ const theme = createTheme({
     error: {
       main: '#e9252f',
       dark: 'rgba(233, 37, 47, 0.8)',
-      hover: '#fce9ea'
+      hover: '#fce9ea',
+      light: '#d73e35'
     },
     success: {
       main: '#0bbd69'
