@@ -2,19 +2,11 @@ import { Box, Button, Typography, styled } from '@mui/material';
 import Image from 'next/image';
 
 export const Container = styled(Box, { shouldForwardProp: prop => prop !== 'mobileHeight' })(
-  ({ mobileHeight, theme: { breakpoints } }) => ({
+  () => ({
     left: '50%',
     position: 'absolute',
     top: '50%',
-    transform: 'translate(-50%, -50%)',
-
-    [breakpoints.down('sm')]: {
-      bottom: mobileHeight ? 'auto' : 0
-    },
-
-    [breakpoints.down('xs')]: {
-      bottom: mobileHeight ? 'auto' : 50
-    }
+    transform: 'translate(-50%, -50%)'
   })
 );
 
