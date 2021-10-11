@@ -49,7 +49,8 @@ const BannerDescription = styled(Typography)(() => ({
   fontStyle: 'normal',
   lineHeight: 1.5,
   letterSpacing: 'normal',
-  color: '#fff'
+  color: '#fff',
+  whiteSpace: 'pre-line'
 }));
 
 const BannerItemDescription = styled(Typography)(({ theme }) => ({
