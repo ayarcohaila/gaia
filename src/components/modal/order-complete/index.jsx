@@ -6,13 +6,11 @@ import PropTypes from 'prop-types';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import { Button } from '~/base';
 import Modal from '..';
-import { useRouter } from 'next/router';
 
-const OrderCompleteModal = ({ asset, blockchainId, orderId, ...props }) => {
+const OrderCompleteModal = ({ asset, blockchainId, onClose, orderId, ...props }) => {
   const {
     palette: { grey }
   } = useTheme();
-  const router = useRouter();
   const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
 
   const renderConfirmationItem = useCallback(
@@ -66,7 +64,7 @@ const OrderCompleteModal = ({ asset, blockchainId, orderId, ...props }) => {
       {/* TODO: Change to correct route on button click */}
       <Button
         endIcon={<ArrowRightIcon />}
-        onClick={() => router.push(`/collections/${asset?.collectionName}`)}
+        onClick={onClose}
         sx={{
           height: isSmallDevice ? 'auto' : '40px',
           mt: '24px'
@@ -78,7 +76,8 @@ const OrderCompleteModal = ({ asset, blockchainId, orderId, ...props }) => {
 OrderCompleteModal.propTypes = {
   asset: PropTypes.object,
   blockchainId: PropTypes.string,
-  orderId: PropTypes.string
+  orderId: PropTypes.string,
+  onClose: PropTypes.func
 };
 
 OrderCompleteModal.defaultProps = {
@@ -88,6 +87,7 @@ OrderCompleteModal.defaultProps = {
     image: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
   },
   blockchainId: '214992321',
+  onClose: () => {},
   orderId: '1952F837HD'
 };
 
