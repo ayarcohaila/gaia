@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import Modal from '..';
 import * as Styled from './styles';
 
-const SellNftModal = ({ onClose, ...props }) => {
+const SellNftModal = ({ onClose, onConfirm, ...props }) => {
   const [value, setValue] = useState('');
 
   const handlePostForSale = () => {
     //TODO: Implement NFT post for sale integration
+    onConfirm();
     onClose();
   };
 
@@ -28,7 +29,8 @@ const SellNftModal = ({ onClose, ...props }) => {
 };
 
 SellNftModal.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired
 };
 
 export default memo(SellNftModal);
