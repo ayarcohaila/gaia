@@ -11,17 +11,25 @@ const fontStyle = {
   letterSpacing: '0.2px'
 };
 
-export const Wrapper = styled(Grid)(() => ({
-  width: '100%',
-  borderSizing: 'border-box',
-  display: 'flex',
-  justifyContent: 'space-between'
-}));
+export const Wrapper = styled(Grid, { shouldForwardProp: prop => prop !== 'isMobile' })(
+  ({ isMobile }) => ({
+    width: '100%',
+    borderSizing: 'border-box',
+    display: 'flex',
+    flexDirection: isMobile ? 'column-reverse' : 'row',
+    gap: isMobile && '16px',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  })
+);
 
-export const Text = styled(Typography)(({ theme: { palette } }) => ({
-  ...fontStyle,
-  color: palette.grey[600]
-}));
+export const Text = styled(Typography, { shouldForwardProp: prop => prop !== 'isMobile' })(
+  ({ theme: { palette }, isMobile }) => ({
+    ...fontStyle,
+    color: palette.grey[600],
+    ...(isMobile && { fontSize: '13px' })
+  })
+);
 
 export const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'space' })(
   ({ space }) => ({

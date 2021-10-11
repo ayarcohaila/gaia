@@ -5,12 +5,13 @@ import Modal from '..';
 import { Button } from '~/base';
 import useBreakpoints from '~/hooks/useBreakpoints';
 
-const CancelListingModal = ({ asset, onClose, ...props }) => {
+const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
 
   const handleCancelListing = () => {
     //TODO: Implement cancel listing integration
     onClose();
+    onConfirm();
   };
 
   return (
@@ -30,7 +31,8 @@ const CancelListingModal = ({ asset, onClose, ...props }) => {
 
 CancelListingModal.propTypes = {
   asset: PropTypes.object,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired
 };
 
 CancelListingModal.defaultProps = {

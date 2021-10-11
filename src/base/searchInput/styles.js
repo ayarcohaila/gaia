@@ -12,14 +12,18 @@ export const Search = styled(Input, { shouldForwardProp: props => props !== 'sty
     cursor: 'pointer',
 
     '& > .MuiInput-input': {
-      fontWeight: 'bold',
+      ...typography.subtitle1,
       color: palette.grey[700],
       cursor: 'pointer',
-      ...typography.subtitle1
+      lineHeight: '1.14',
+      letterSpacing: '0.2px',
+      fontWeight: 'bold'
     },
 
     '& > .MuiInput-input::placeholder': {
-      color: palette.grey[600]
+      color: palette.grey[600],
+      fontWeight: 'bold',
+      letterSpacing: '0.2px'
     },
 
     '&:hover > .MuiInput-input::placeholder': {
