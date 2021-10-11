@@ -41,7 +41,7 @@ const Divider = styled('div')(() => ({
 }));
 
 const BannerDescription = styled(Typography)(() => ({
-  maxWidth: '400px',
+  maxWidth: '250px',
   opacity: '0.8',
   fontSize: '16px',
   fontWeight: '500',
@@ -49,8 +49,7 @@ const BannerDescription = styled(Typography)(() => ({
   fontStyle: 'normal',
   lineHeight: 1.5,
   letterSpacing: 'normal',
-  color: '#fff',
-  whiteSpace: 'pre-line'
+  color: '#fff'
 }));
 
 const BannerItemDescription = styled(Typography)(({ theme }) => ({
