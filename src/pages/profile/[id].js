@@ -203,7 +203,7 @@ const Profile = () => {
       <ProfileBanner address={id} />
       <Styled.ListWrapper isMobile={isMediumDevice}>
         <CollectionsFilter nftQuantity={data?.length} enableSearch />
-        <Divider customProps={{ marginTop: '24px' }} />
+        <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
         {isLoading ? (
           [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
         ) : (

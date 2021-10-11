@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { Dropdown, SearchInput } from '~/base';
+import useBreakpoints from '~/hooks/useBreakpoints.js';
 
 import { BUTTONS, ORDER_MENU_IDS } from './constants';
 import * as Styled from './styles.js';
@@ -17,6 +18,7 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
   const [isMenuOrderOpen, setIsMenuOrderOpen] = useState(false);
   const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWER);
   const [isSearching, setIsSearching] = useState(false);
+  const { isMediumDevice } = useBreakpoints();
 
   const handleSelectOption = ({
     target: {
@@ -88,11 +90,11 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
   }, [cancelIsSearching]);
 
   const renderInput = useMemo(() => {
-    if (isSearching) {
+    if (isSearching || isMediumDevice) {
       return (
         <SearchInput
           placeholder="Search: NFT, Collection, …"
-          styles={{ height: '48px' }}
+          styles={{ height: '48px', width: isMediumDevice ? '100%' : '305px' }}
           inputRef={searchInput}
           endAdornment={
             <Styled.SearchButton isSearching onClick={toggleSearchInput}>
@@ -111,10 +113,12 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
   }, [isSearching, setIsSearching, toggleSearchInput]);
 
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper isMobile={isMediumDevice}>
       <Styled.Container>
         <Styled.BurstIcon />
-        <Styled.Text>{`${nftQuantity} ${enableSearch ? 'owned' : 'available'}`}</Styled.Text>
+        <Styled.Text isMobile={isMediumDevice}>{`${nftQuantity} ${
+          enableSearch ? 'owned' : 'available'
+        }`}</Styled.Text>
       </Styled.Container>
       <Styled.Container space hidden>
         {Object.values(BUTTONS).map(({ label, id }) => (
