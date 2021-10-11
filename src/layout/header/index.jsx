@@ -66,26 +66,22 @@ const Header = () => {
             <SearchInput value={searchQuery} onChange={handleChangeSearch} />
           </Styled.SearchWrapper>
         )}
-        {!isMediumDevice && (
-          <>
-            <Styled.CustomButton isBlack variant="contained">
-              Sell NFT
-            </Styled.CustomButton>
-            {user?.loggedIn ? (
-              <Styled.AvatarButton
-                ref={menuAnchorRef}
-                disableRipple
-                variant="text"
-                onClick={toggleUserMenu}>
-                <Styled.UserAvatar alt="User Icon" />
-                <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
-              </Styled.AvatarButton>
-            ) : (
-              <Styled.CustomButton variant="contained" onClick={login}>
-                Sign in
-              </Styled.CustomButton>
-            )}
-          </>
+        <Styled.CustomButton isBlack variant="contained">
+          Sell NFT
+        </Styled.CustomButton>
+        {user?.loggedIn ? (
+          <Styled.AvatarButton
+            ref={menuAnchorRef}
+            disableRipple
+            variant="text"
+            onClick={toggleUserMenu}>
+            <Styled.UserAvatar alt="User Icon" />
+            <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
+          </Styled.AvatarButton>
+        ) : (
+          <Styled.CustomButton variant="contained" onClick={login}>
+            Sign in
+          </Styled.CustomButton>
         )}
         <Dropdown
           menuAnchorRef={menuAnchorRef}

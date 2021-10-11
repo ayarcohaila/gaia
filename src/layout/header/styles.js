@@ -1,13 +1,17 @@
 import { Grid, AppBar, Link, Button, Avatar, styled } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-export const Container = styled(Grid)(() => ({
+export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   width: '100%',
   height: '80px',
   padding: '20px 80px',
   display: 'flex',
   alignItems: 'center',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+
+  [breakpoints.down('sm')]: {
+    padding: '16px 32px'
+  }
 }));
 
 export const HeaderBar = styled(AppBar)(({ theme: { palette } }) => ({
