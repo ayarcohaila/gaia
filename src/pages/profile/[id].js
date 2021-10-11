@@ -38,6 +38,9 @@ import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
 import useToggle from '~/hooks/useToggle';
 import config from '~/utils/config';
+import useBreakpoints from '~/hooks/useBreakpoints.js';
+
+import * as Styled from '~/styles/profile/styles';
 
 import { ProfileWrapper, PaginationStyled } from '../../components/profile/styled';
 
@@ -59,7 +62,7 @@ const Profile = () => {
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
   const [updateOwner] = useMutation(UPDATE_OWNER);
-
+  const { isMediumDevice } = useBreakpoints();
   const shouldPageBlock = useBlockPage();
 
   useEffect(() => {
@@ -226,59 +229,61 @@ const Profile = () => {
         <Button onClick={toggleOrderCompleteModal}>Order complete</Button>
       </Grid>
       <Grid sx={{ padding: '0 80px', boxSizing: 'border-box' }}>
-        <CollectionsFilter nftQuantity={data?.length} enableSearch />
-        <Divider customProps={{ marginTop: '24px' }} />
-        {isLoading ? (
-          [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
-        ) : (
-          <PaginationStyled
-            grid={() => PaginationGridOptions(data)}
-            pagination={{
-              showSizeChanger: true,
-              pageSizeOptions: ['10', '50', '100', '1000'],
-              position: 'top'
-            }}
-            dataSource={data}
-            renderItem={token => {
-              const { onSale } = token;
-              let actions = [
-                {
-                  title: 'Transfer',
-                  action: e => {
-                    e.domEvent.stopPropagation();
-                    setModalItemId(token);
-                    setTransferModalVisible(true);
+        <Styled.ListWrapper isMobile={isMediumDevice}>
+          <CollectionsFilter nftQuantity={data?.length} enableSearch />
+          <Divider customProps={{ marginTop: '24px' }} />
+          {isLoading ? (
+            [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
+          ) : (
+            <PaginationStyled
+              grid={() => PaginationGridOptions(data)}
+              pagination={{
+                showSizeChanger: true,
+                pageSizeOptions: ['10', '50', '100', '1000'],
+                position: 'top'
+              }}
+              dataSource={data}
+              renderItem={token => {
+                const { onSale } = token;
+                let actions = [
+                  {
+                    title: 'Transfer',
+                    action: e => {
+                      e.domEvent.stopPropagation();
+                      setModalItemId(token);
+                      setTransferModalVisible(true);
+                    }
                   }
+                ];
+                if (user?.addr === id) {
+                  !onSale &&
+                    actions.push({
+                      title: 'Sell',
+                      action: e => {
+                        e.domEvent.stopPropagation();
+                        sellAsset(token);
+                      }
+                    });
+                  onSale &&
+                    actions.push({
+                      title: 'Cancel Sale',
+                      action: e => {
+                        e.domEvent.stopPropagation();
+                        onCancelSale(token);
+                      }
+                    });
                 }
-              ];
-              if (user?.addr === id) {
-                !onSale &&
-                  actions.push({
-                    title: 'Sell',
-                    action: e => {
-                      e.domEvent.stopPropagation();
-                      sellAsset(token);
-                    }
-                  });
-                onSale &&
-                  actions.push({
-                    title: 'Cancel Sale',
-                    action: e => {
-                      e.domEvent.stopPropagation();
-                      onCancelSale(token);
-                    }
-                  });
-              }
-              return (
-                <Card
-                  key={`token-${token.id}`}
-                  {...token}
-                  actions={user?.addr === token.owner ? actions : []}
-                />
-              );
-            }}
-          />
-        )}
+                return (
+                  <Card
+                    key={`token-${token.id}`}
+                    {...token}
+                    actions={user?.addr === token.owner ? actions : []}
+                  />
+                );
+              }}
+            />
+          )}
+        </Styled.ListWrapper>
       </Grid>
       <AntdModal
         destroyOnClose

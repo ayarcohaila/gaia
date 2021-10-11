@@ -8,9 +8,6 @@ export const Content = styled(Layout.Content)`
   overflow: auto;
   min-height: calc(100vh - 64px - 267px);
   background: ${({ theme }) => theme.colors.backgroundGrey};
-  @media (max-width: 800px) {
-    margin-top: 50px;
-  }
 `;
 
 /**

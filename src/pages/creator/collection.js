@@ -211,13 +211,15 @@ function CreateNFT() {
   }
 
   return (
-    <CreateNFTWrapper>
-      <Seo title="Create Collection" />
-      <Col offset={6} span={12}>
-        <Typography.Title>Create New Collection</Typography.Title>
-      </Col>
-      <FormComponent {...{ router, onSubmit, loading }} />
-    </CreateNFTWrapper>
+    <>
+      <CreateNFTWrapper>
+        <Seo title="Create Collection" />
+        <Col offset={6} span={12}>
+          <Typography.Title>Create New Collection</Typography.Title>
+        </Col>
+        <FormComponent {...{ router, onSubmit, loading }} />
+      </CreateNFTWrapper>
+    </>
   );
 }
 
