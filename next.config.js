@@ -14,6 +14,15 @@ const antdConfig = withAntdLess({
 });
 
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/ballerz',
+        permanent: true,
+      },
+    ]
+  },
   images: {
     domains: [
       'gateway.pinata.cloud',
