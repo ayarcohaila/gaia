@@ -10,6 +10,7 @@ const SellNftModal = ({ onClose, onConfirm, ...props }) => {
   const handlePostForSale = () => {
     //TODO: Implement NFT post for sale integration
     onConfirm();
+    setValue('');
     onClose();
   };
 
