@@ -1,21 +1,13 @@
-import {
-  Modal as AntdModal,
-  Form,
-  Typography,
-  Button as AntdButton,
-  InputNumber,
-  Input,
-  Spin,
-  notification
-} from 'antd';
 import { useMemo, useState, useEffect } from 'react';
+import { Modal, Form, Typography, Button, InputNumber, Input, Spin, notification } from 'antd';
 import { useRouter } from 'next/router';
 import { useMutation, useSubscription } from '@apollo/react-hooks';
 
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
+import { ProfileBanner } from '~/components';
 import Card from '~/components/asset/Asset';
-import { CollectionsFilter, ProfileBanner } from '~/components';
+import { CollectionsFilter } from '~/components';
 import { Divider } from '~/base';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
@@ -211,7 +203,7 @@ const Profile = () => {
       <ProfileBanner address={id} />
       <Styled.ListWrapper isMobile={isMediumDevice}>
         <CollectionsFilter nftQuantity={data?.length} enableSearch />
-        <Divider customProps={{ marginTop: '24px' }} />
+        <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
         {isLoading ? (
           [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
         ) : (
@@ -264,47 +256,47 @@ const Profile = () => {
           />
         )}
       </Styled.ListWrapper>
-      <AntdModal
+      <Modal
         destroyOnClose
         visible={transferModal}
         title="Who would you like to transfer this asset to?"
         onCancel={() => setTransferModalVisible(false)}
         footer={[
-          <AntdButton
+          <Button
             key="back"
             onClick={() => {
               setModalItemId(null);
               setTransferModalVisible(false);
             }}>
             Cancel
-          </AntdButton>,
-          <AntdButton
+          </Button>,
+          <Button
             key="submit"
             type="primary"
             disabled={!destinationAddress}
             onClick={handleTransfer}>
             Transfer
-          </AntdButton>
+          </Button>
         ]}>
         <Text type="secondary">Enter the address to transfer the asset to</Text>
         <Input
           style={{ width: '100%', marginTop: 20 }}
           onChange={e => setDestinationAddress(e.target.value)}
         />
-      </AntdModal>
-      <AntdModal
+      </Modal>
+      <Modal
         visible={sellModal}
         title={`How much do you want for this asset (${modalItemId?.name} - ${modalItemId?.asset_id})`}
         footer={[
-          <AntdButton
+          <Button
             key="back"
             onClick={() => {
               setModalItemId(null);
               setSellModalVisible(false);
             }}>
             Cancel
-          </AntdButton>,
-          <AntdButton
+          </Button>,
+          <Button
             key="submit"
             type="primary"
             onClick={() => {
@@ -312,7 +304,7 @@ const Profile = () => {
               form.submit();
             }}>
             Sell
-          </AntdButton>
+          </Button>
         ]}>
         <Form form={form} onFinish={onFinishSale}>
           <Form.Item>
@@ -334,7 +326,7 @@ const Profile = () => {
             />
           </Form.Item>
         </Form>
-      </AntdModal>
+      </Modal>
     </ProfileWrapper>
   );
 };
