@@ -2,7 +2,6 @@ import { useMemo, useState, useEffect } from 'react';
 import { Modal, Form, Typography, Button, InputNumber, Input, Spin, notification } from 'antd';
 import { useRouter } from 'next/router';
 import { useMutation, useSubscription } from '@apollo/react-hooks';
-import { Grid } from '@mui/material';
 
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
@@ -22,6 +21,9 @@ import MESSAGES from '~/utils/messages';
 import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils/graphql';
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
 import config from '~/utils/config';
+import useBreakpoints from '~/hooks/useBreakpoints.js';
+
+import * as Styled from '~/styles/profile/styles';
 
 import { ProfileWrapper, PaginationStyled } from '../../components/profile/styled';
 
@@ -39,7 +41,7 @@ const Profile = () => {
   const [destinationAddress, setDestinationAddress] = useState(null);
   const [assets, setAssets] = useState([]);
   const [updateOwner] = useMutation(UPDATE_OWNER);
-
+  const { isMediumDevice } = useBreakpoints();
   const shouldPageBlock = useBlockPage();
 
   useEffect(() => {
@@ -199,7 +201,7 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <ProfileBanner address={id} />
-      <Grid sx={{ padding: '0 80px', boxSizing: 'border-box' }}>
+      <Styled.ListWrapper isMobile={isMediumDevice}>
         <CollectionsFilter nftQuantity={data?.length} enableSearch />
         <Divider customProps={{ marginTop: '24px' }} />
         {isLoading ? (
@@ -253,7 +255,7 @@ const Profile = () => {
             }}
           />
         )}
-      </Grid>
+      </Styled.ListWrapper>
       <Modal
         destroyOnClose
         visible={transferModal}
