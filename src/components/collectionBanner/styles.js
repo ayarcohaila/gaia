@@ -41,7 +41,7 @@ const Divider = styled('div')(() => ({
 }));
 
 const BannerDescription = styled(Typography)(() => ({
-  maxWidth: '250px',
+  maxWidth: '400px',
   opacity: '0.8',
   fontSize: '16px',
   fontWeight: '500',
