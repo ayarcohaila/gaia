@@ -8,9 +8,17 @@ export const Container = styled(Grid)(() => ({
   gridTemplateColumns: '1fr 632px 1fr'
 }));
 
-export const Content = styled(Grid)(() => ({
+export const Content = styled(Grid)(({ theme }) => ({
   width: '100%',
-  gridArea: 'text'
+  gridArea: 'text',
+
+  [theme.breakpoints.down('sm')]: {
+    width: '65%',
+    paddingLeft: '20px',
+    ul: {
+      paddingLeft: '60px'
+    }
+  }
 }));
 
 export const Title = styled(Typography)(({ theme: { palette } }) => ({
