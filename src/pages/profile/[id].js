@@ -228,63 +228,61 @@ const Profile = () => {
         <Button onClick={toggleTransferNftModal}>Transfer NFT</Button>
         <Button onClick={toggleOrderCompleteModal}>Order complete</Button>
       </Grid>
-      <Grid sx={{ padding: '0 80px', boxSizing: 'border-box' }}>
-        <Styled.ListWrapper isMobile={isMediumDevice}>
-          <CollectionsFilter nftQuantity={data?.length} enableSearch />
-          <Divider customProps={{ marginTop: '24px' }} />
-          {isLoading ? (
-            [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
-          ) : (
-            <PaginationStyled
-              grid={() => PaginationGridOptions(data)}
-              pagination={{
-                showSizeChanger: true,
-                pageSizeOptions: ['10', '50', '100', '1000'],
-                position: 'top'
-              }}
-              dataSource={data}
-              renderItem={token => {
-                const { onSale } = token;
-                let actions = [
-                  {
-                    title: 'Transfer',
+      <Styled.ListWrapper isMobile={isMediumDevice}>
+        <CollectionsFilter nftQuantity={data?.length} enableSearch />
+        <Divider customProps={{ marginTop: '24px' }} />
+        {isLoading ? (
+          [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
+        ) : (
+          <PaginationStyled
+            grid={() => PaginationGridOptions(data)}
+            pagination={{
+              showSizeChanger: true,
+              pageSizeOptions: ['10', '50', '100', '1000'],
+              position: 'top'
+            }}
+            dataSource={data}
+            renderItem={token => {
+              const { onSale } = token;
+              let actions = [
+                {
+                  title: 'Transfer',
+                  action: e => {
+                    e.domEvent.stopPropagation();
+                    setModalItemId(token);
+                    setTransferModalVisible(true);
+                  }
+                }
+              ];
+              if (user?.addr === id) {
+                !onSale &&
+                  actions.push({
+                    title: 'Sell',
                     action: e => {
                       e.domEvent.stopPropagation();
-                      setModalItemId(token);
-                      setTransferModalVisible(true);
+                      sellAsset(token);
                     }
-                  }
-                ];
-                if (user?.addr === id) {
-                  !onSale &&
-                    actions.push({
-                      title: 'Sell',
-                      action: e => {
-                        e.domEvent.stopPropagation();
-                        sellAsset(token);
-                      }
-                    });
-                  onSale &&
-                    actions.push({
-                      title: 'Cancel Sale',
-                      action: e => {
-                        e.domEvent.stopPropagation();
-                        onCancelSale(token);
-                      }
-                    });
-                }
-                return (
-                  <Card
-                    key={`token-${token.id}`}
-                    {...token}
-                    actions={user?.addr === token.owner ? actions : []}
-                  />
-                );
-              }}
-            />
-          )}
-        </Styled.ListWrapper>
-      </Grid>
+                  });
+                onSale &&
+                  actions.push({
+                    title: 'Cancel Sale',
+                    action: e => {
+                      e.domEvent.stopPropagation();
+                      onCancelSale(token);
+                    }
+                  });
+              }
+              return (
+                <Card
+                  key={`token-${token.id}`}
+                  {...token}
+                  actions={user?.addr === token.owner ? actions : []}
+                />
+              );
+            }}
+          />
+        )}
+      </Styled.ListWrapper>
       <AntdModal
         destroyOnClose
         visible={transferModal}
