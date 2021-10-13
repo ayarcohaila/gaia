@@ -16,7 +16,7 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
   const orderButtonRef = useRef(null);
   const [selectButton, setSelectButton] = useState(null);
   const [isMenuOrderOpen, setIsMenuOrderOpen] = useState(false);
-  const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWER);
+  const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWEST_PRICE);
   const [isSearching, setIsSearching] = useState(false);
   const { isMediumDevice } = useBreakpoints();
 
@@ -42,22 +42,15 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
       const currentId = Number(id);
       setNftList(prevState => {
         switch (currentId) {
-          case ORDER_MENU_IDS.LOWER:
+          case ORDER_MENU_IDS.LOWEST_PRICE:
             return [...prevState.sort((a, b) => Number(a?.price) - Number(b?.price))];
-          case ORDER_MENU_IDS.HIGHEST:
+          case ORDER_MENU_IDS.HIGHEST_PRICE:
             return [...prevState.sort((a, b) => Number(b?.price) - Number(a?.price))];
-          case ORDER_MENU_IDS.RECENTLY:
-            return [
-              ...prevState.sort(
-                (a, b) => new Date(b?.nft?.created_at) - new Date(a?.nft?.created_at)
-              )
-            ];
-          case ORDER_MENU_IDS.OLDEST:
-            return [
-              ...prevState.sort(
-                (a, b) => new Date(a?.nft?.created_at) - new Date(b?.nft?.created_at)
-              )
-            ];
+          case ORDER_MENU_IDS.LOWEST_MINT:
+            return [...prevState.sort((a, b) => Number(a?.mint) - Number(b?.mint))];
+          case ORDER_MENU_IDS.HIGHEST_MINT:
+            return [...prevState.sort((a, b) => Number(b?.mint) - Number(a?.mint))];
+
           default:
             return prevState;
         }
@@ -69,11 +62,10 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
   );
 
   const orderButton = [
-    { id: ORDER_MENU_IDS.LOWER, label: 'Lowest Price' },
-    { id: ORDER_MENU_IDS.HIGHEST, label: 'Highest Price' },
-    { id: ORDER_MENU_IDS.RECENTLY, label: 'Recently Added' },
-    { id: ORDER_MENU_IDS.ENDING, label: 'Ending Soon' }, // TODO: Missing implement Ending soon filter
-    { id: ORDER_MENU_IDS.OLDEST, label: 'Oldest' }
+    { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Lowest Price' },
+    { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' },
+    { id: ORDER_MENU_IDS.LOWEST_MINT, label: 'Lowest Mint' },
+    { id: ORDER_MENU_IDS.HIGHEST_MINT, label: 'Highest Mint' }
   ];
 
   const toggleSearchInput = () => {
