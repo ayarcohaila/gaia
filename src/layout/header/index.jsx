@@ -5,7 +5,7 @@ import { Grid } from '@mui/material';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
 import useAuth from '~/hooks/useAuth';
-import { Dropdown, SearchInput } from '~/base';
+import { Dropdown } from '~/base';
 import useBreakpoints from '~/hooks/useBreakpoints.js';
 import MenuIcon from '@mui/icons-material/Menu';
 import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
@@ -13,15 +13,10 @@ import * as Styled from './styles.js';
 
 const Header = () => {
   const menuAnchorRef = useRef(null);
-  const [searchQuery, setSearchQuery] = useState('');
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const { login, user, logout } = useAuth();
   const { isMediumDevice } = useBreakpoints();
   const router = useRouter();
-
-  const handleChangeSearch = ({ target: { value } }) => {
-    setSearchQuery(value);
-  };
 
   const toggleUserMenu = () => {
     setOpenUserMenu(prevState => !prevState);
@@ -63,7 +58,7 @@ const Header = () => {
         </Grid>
         {!isMediumDevice && (
           <Styled.SearchWrapper>
-            <SearchInput value={searchQuery} onChange={handleChangeSearch} />
+            {/* <SearchInput value={searchQuery} onChange={handleChangeSearch} /> */}
           </Styled.SearchWrapper>
         )}
         {isMediumDevice ? (
@@ -72,9 +67,9 @@ const Header = () => {
           </Styled.MobileMenuButton>
         ) : (
           <>
-            <Styled.CustomButton isBlack variant="contained">
+            {/* <Styled.CustomButton isBlack variant="contained">
               Sell NFT
-            </Styled.CustomButton>
+            </Styled.CustomButton> */}
             {user?.loggedIn ? (
               <Styled.AvatarButton
                 ref={menuAnchorRef}
