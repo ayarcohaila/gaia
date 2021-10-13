@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Grid } from '@mui/material';
-import useSWR from '~/hooks/useSWR';
-import { CollectionBanner, CollectionsFilter } from '~/components';
+
 import { NFTList } from '~/components';
-import { Divider } from '~/base';
 import { CardSkeletonLoader } from '~/components';
+import { CollectionBanner, CollectionsFilter } from '~/components';
+import useSWR from '~/hooks/useSWR';
 import useBreakpoints from '~/hooks/useBreakpoints.js';
+import { Divider } from '~/base';
 
 import * as Styled from '~/styles/collection-name/styles';
 
