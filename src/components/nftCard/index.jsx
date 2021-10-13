@@ -64,7 +64,7 @@ const NFTCard = ({ nft }) => {
           src={`/templates/${nft.img}`}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>{`BALLERZ #${nft.id}`}</Styled.NFTText>
+          <Styled.NFTText>{`BALLER #${nft.id}`}</Styled.NFTText>
         </CardContent>
         {user?.addr === '0x5f14b7e68e0bc3c3' && route?.asPath === '0x5f14b7e68e0bc3c3' ? (
           renderUserCardActions
