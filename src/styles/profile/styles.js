@@ -8,7 +8,7 @@ export const ListWrapper = styled(Grid, { shouldForwardProp: prop => prop !== 'i
     gridAutoFlow: 'row',
     gap: '24px',
     justifyItems: 'center',
-    padding: '16px',
+    padding: '16px 16px 40px',
     width: '100%',
 
     [breakpoints.down('md')]: {
