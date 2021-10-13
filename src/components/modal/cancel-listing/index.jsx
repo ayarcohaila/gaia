@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '~/base';
@@ -7,7 +7,7 @@ import useBreakpoints from '~/hooks/useBreakpoints';
 import Modal from '..';
 import SuccessContent from '../success-content';
 
-const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
+const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
   const [hasListingSuccessfullyCancelled, setHasListingSuccessfullyCancelled] = useState(false);
 
@@ -21,6 +21,10 @@ const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
   const description = hasListingSuccessfullyCancelled
     ? 'Your listing has been successfully cancelled'
     : `This will take down your listing for ${asset?.collectionName} #${asset?.id}`;
+
+  useEffect(() => {
+    setHasListingSuccessfullyCancelled(!hasPostedForSale);
+  }, [hasPostedForSale]);
 
   return (
     <Modal
@@ -43,6 +47,7 @@ const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
 
 CancelListingModal.propTypes = {
   asset: PropTypes.object,
+  hasPostedForSale: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired
 };
