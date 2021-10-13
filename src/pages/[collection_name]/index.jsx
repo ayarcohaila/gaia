@@ -10,17 +10,11 @@ import { Divider } from '~/base';
 
 import * as Styled from '~/styles/collection-name/styles';
 
-const BANNER_ITEM = [
-  { value: '100K', description: 'Items' },
-  { value: '5.5K', description: 'Owners' },
-  { value: '41.39', description: 'Flor Price', price: true },
-  { value: '161.0K', description: 'Volume Traded', price: true }
-];
-
 const DATA = {
   accountNumber: '0x5f14b7e68e0bc3c3',
   bannerName: '@Ballerz',
-  bannerDescription: "Buy and sell Ballerz NFTs on Gaia, the world's best NFT marketplace",
+  bannerDescription:
+    "BALLERZ is a basketball-inspired generative NFT set launching on the Flow blockchain. Collect your favorite teams and jersey numbers, and show everyone you're a true baller",
   bgImg: '/collections/ballerz-1200x630.jpg',
   mainColor: '#270b5a',
   secondaryColor: '#4814a6'
@@ -53,7 +47,6 @@ const Collection = () => {
         bgImg={DATA.bgImg}
         mainColor={DATA.mainColor}
         secondaryColor={DATA.secondaryColor}
-        bannerItems={BANNER_ITEM}
       />
       <Styled.Container>
         <Grid sx={{ margin: '24px 0' }}>
