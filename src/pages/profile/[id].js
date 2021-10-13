@@ -5,7 +5,7 @@ import { useMutation, useSubscription } from '@apollo/react-hooks';
 
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
-import { ProfileBanner } from '~/components';
+import { ProfileBanner, NFTCard } from '~/components';
 import Card from '~/components/asset/Asset';
 import { CollectionsFilter } from '~/components';
 import { Divider } from '~/base';
@@ -43,6 +43,11 @@ const Profile = () => {
   const [updateOwner] = useMutation(UPDATE_OWNER);
   const { isMediumDevice } = useBreakpoints();
   const shouldPageBlock = useBlockPage();
+  //TODO: Remove fakeNfts on integration
+  const fakeNfts = Array.from(Array(9).keys()).map(item => ({
+    id: item + 1,
+    img: `${item + 1}.png`
+  }));
 
   useEffect(() => {
     shouldPageBlock();
@@ -255,6 +260,9 @@ const Profile = () => {
             }}
           />
         )}
+        {fakeNfts.map(nft => (
+          <NFTCard key={nft.id} nft={nft} isFake />
+        ))}
       </Styled.ListWrapper>
       <Modal
         destroyOnClose

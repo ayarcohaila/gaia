@@ -161,14 +161,15 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
 };
 
 CollectionsFilter.propTypes = {
-  nftQuantity: PropTypes.number.isRequired,
+  nftQuantity: PropTypes.number,
   setNftList: PropTypes.func,
   enableSearch: PropTypes.bool
 };
 
 CollectionsFilter.defaultProps = {
   enableSearch: false,
-  setNftList: () => {}
+  setNftList: () => {},
+  nftQuantity: 0
 };
 
 export default React.memo(CollectionsFilter);
