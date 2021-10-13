@@ -4,7 +4,7 @@ import { normalize } from 'styled-normalize';
 export const GlobalStyles = createGlobalStyle`
   ${normalize}
   html, body {
-    width: 100%;
+    width: 100vw;
     height: 100%;
   }
 

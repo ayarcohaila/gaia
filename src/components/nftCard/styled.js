@@ -1,136 +1,136 @@
 import { styled, Card, Typography, Button, CardHeader } from '@mui/material';
 
-export const CustomCard = styled(Card)`
-  width: 310px;
-  min-width: 310px;
-  margin: 10px 0px;
+export const CustomCard = styled(Card)(() => ({
+  width: 308,
+  padding: '16px 16px 22px',
+  borderRadius: 20,
+  backgroundColor: 'white',
+  boxShadow: '0 0 0 0'
+}));
 
-  padding: 16px 16px 22px;
+export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => ({
+  padding: '0px 0 10px 0',
 
-  border-radius: 20px;
-  background-color: #fff;
-
-  box-shadow: 0 0 0 0;
-`;
-
-export const CustomCardHeader = styled(CardHeader)`
-  padding: 0px 0 10px 0;
-
-  .MuiCardHeader-title {
-    font-size: 13px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.23;
-    letter-spacing: normal;
-    color: #6c7283;
+  '.MuiCardHeader-title': {
+    fontSize: 13,
+    fontWeight: 'bold',
+    lineHeight: '1.23',
+    letterSpacing: 'normal',
+    color: palette.grey[600]
   }
-`;
+}));
 
-export const NFTTitle = styled(Typography)`
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 8px;
-`;
-export const NFTText = styled(Typography)`
-  font-size: 13px;
-  font-weight: 500;
-  color: #6c7283;
-  margin-bottom: 8px;
-`;
+export const NFTTitle = styled(Typography)(() => ({
+  fontSize: '16px',
+  fontWeight: 'bold',
+  marginBottom: 8
+}));
 
-export const SellButton = styled(Button)`
-  width: 126px;
-  height: 48px;
-  padding: 15px 22px 17px;
-  border-radius: 24px;
-  background-color: #215cf1;
-  color: white;
-  font-weight: bold;
+export const NFTText = styled(Typography)(({ theme: { palette } }) => ({
+  fontSize: '20px',
+  fontWeight: 700,
+  color: palette.secondary.main,
+  marginBottom: 8
+}));
 
-  text-transform: none;
+export const SellButton = styled(Button)(({ theme: { palette } }) => ({
+  width: 126,
+  height: 48,
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  backgroundColor: palette.primary.main,
+  color: 'white',
+  fontWeight: 'bold',
+  textTransform: 'none',
 
-  :hover {
-    background-color: #1a49c1;
+  ':hover': {
+    backgroundColor: palette.primary.hover
   }
-`;
+}));
 
-export const TransferButton = styled(Button)`
-  width: 126px;
-  height: 48px;
-  padding: 15px 22px 17px;
-  border-radius: 24px;
-  border: solid 2px #e9eaed;
+export const PurchaseButton = styled(Button)(({ theme: { palette } }) => ({
+  width: 256,
+  height: 48,
+  marginTop: 16,
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  backgroundColor: palette.primary.main,
+  color: 'white',
+  fontWeight: 'bold',
+  textTransform: 'none',
 
-  color: #171a24;
-  font-size: 14px;
-  letter-spacing: 0.2px;
-  font-weight: bold;
-
-  text-transform: none;
-
-  :hover {
-    background-color: #f4f4f6;
+  ':hover': {
+    backgroundColor: palette.primary.hover
   }
-`;
+}));
 
-export const CancelButtonContainer = styled('div')`
-  width: 264px;
-  height: 48px;
-  padding: 14px 22px;
-  border-radius: 24px;
-  background-color: #e9252f;
-  display: flex;
-  flex-direction: row;
+export const TransferButton = styled(Button)(({ theme: { palette } }) => ({
+  width: 126,
+  height: 48,
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  border: `solid 2px ${palette.grey[300]}`,
+  color: palette.secondary.main,
+  fontSize: '14px',
+  letterSpacing: '0.2px',
+  fontWeight: 'bold',
+  textTransform: 'none',
 
-  transition: ease-in-out;
-  transition-duration: 100ms;
-
-  :hover {
-    background-color: #cf111b;
+  ':hover': {
+    backgroundColor: palette.grey[200]
   }
+}));
 
-  color: white;
+export const CancelButtonContainer = styled('div')(({ theme: { palette } }) => ({
+  width: 264,
+  height: 48,
+  padding: '14px 22px',
+  borderRadius: '24px',
+  backgroundColor: palette.error.main,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
 
-  justify-content: space-between;
+  transition: 'ease-in-out',
+  transitionDuration: '100ms',
+  color: 'white',
 
-  /* font-family: StaffGroteskTest; */
-  font-size: 14px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.14;
-  letter-spacing: 0.2px;
-  color: #fff;
-  align-items: center;
-`;
+  fontSize: '14px',
+  fontWeight: 'bold',
+  lineHeight: '1.14',
+  letterSpacing: '0.2px',
 
-export const CancelButton = styled(Button)`
-  margin: 0;
-  color: white;
-  text-transform: none;
-  font-weight: bold;
-  :hover {
-    background-color: transparent;
+  ':hover': {
+    backgroundColor: palette.error[700]
   }
-`;
+}));
 
-export const CancelButtonDivider = styled('div')`
-  width: 2px;
-  height: 20px;
-  margin: 0 5px 0 29px;
-  opacity: 0.16;
-  background-color: #fff;
-`;
+export const CancelButton = styled(Button)(() => ({
+  margin: 0,
+  color: 'white',
+  textTransform: 'none',
+  fontWeight: 'bold',
 
-export const ListedText = styled(Typography)`
-  font-size: 14px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.14;
-  letter-spacing: 0.2px;
-  text-align: center;
-  color: #fff;
-  text-transform: none;
-`;
+  ':hover': {
+    backgroundColor: 'transparent'
+  }
+}));
+
+export const CancelButtonDivider = styled('div')(() => ({
+  width: '2px',
+  height: '20px',
+  margin: '0 5px 0 29px',
+  opacity: '0.16',
+  backgroundColor: 'white'
+}));
+
+export const ListedText = styled(Typography)(() => ({
+  fontSize: '14px',
+  fontWeight: 'bold',
+  lineHeight: '1.14',
+  letterSpacing: '0.2px',
+  textAlign: 'center',
+  color: 'white',
+  textTransform: 'none'
+}));

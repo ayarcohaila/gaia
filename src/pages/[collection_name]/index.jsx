@@ -18,7 +18,7 @@ const BANNER_ITEM = [
 ];
 
 const DATA = {
-  accountNumber: '0xc562773b26ade24cd8a33c4870380E774BF8A6DE',
+  accountNumber: '0x5f14b7e68e0bc3c3',
   bannerName: '@Ballerz',
   bannerDescription: "Buy and sell Ballerz NFTs on Gaia, the world's best NFT marketplace",
   bgImg: '/collections/ballerz-1200x630.jpg',
@@ -45,7 +45,7 @@ const Collection = () => {
   const cursorLimit = useMemo(() => Math.ceil(data?.length / 10), [data]);
 
   return (
-    <Grid pl="32px" pr="32px">
+    <Grid>
       <CollectionBanner
         accountNumber={DATA.accountNumber}
         bannerName={DATA.bannerName}
@@ -60,15 +60,17 @@ const Collection = () => {
           <CollectionsFilter nftQuantity={data?.length} setNftList={setNftList} />
         </Grid>
         <Divider sx={{ marginBottom: '32px' }} />
-        {loading ? (
-          <Grid sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-            {new Array(isMediumDevice ? 1 : 5).fill(null).map((_, index) => (
-              <CardSkeletonLoader key={index} />
-            ))}
-          </Grid>
-        ) : (
-          <NFTList nfts={nftList} />
-        )}
+        <Grid sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {loading ? (
+            <>
+              {new Array(isMediumDevice ? 1 : 5).fill(null).map((_, index) => (
+                <CardSkeletonLoader key={index} />
+              ))}
+            </>
+          ) : (
+            <NFTList nfts={nftList} />
+          )}
+        </Grid>
         {cursorLimit > cursor && !loading && (
           <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 64px' }}>
             <Styled.BlackButton onClick={handleLoadMore}>Load more NFTS</Styled.BlackButton>
