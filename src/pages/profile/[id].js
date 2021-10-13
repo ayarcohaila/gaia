@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useMemo, useState, useEffect } from 'react';
 import { Modal, Form, Typography, Button, InputNumber, Input, Spin, notification } from 'antd';
 import { useRouter } from 'next/router';
@@ -206,63 +207,63 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <ProfileBanner address={id} />
-      <Styled.ListWrapper isMobile={isMediumDevice}>
+      <Styled.ListWrapper>
+        {/* TODO: Uncomment on integration and refactor to MUI
         <CollectionsFilter nftQuantity={data?.length} enableSearch />
-        <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
-        {isLoading ? (
-          [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
-        ) : (
-          <PaginationStyled
-            grid={() => PaginationGridOptions(data)}
-            pagination={{
-              showSizeChanger: true,
-              pageSizeOptions: ['10', '50', '100', '1000'],
-              position: 'top'
-            }}
-            dataSource={data}
-            renderItem={token => {
-              const { onSale } = token;
-              let actions = [
-                {
-                  title: 'Transfer',
-                  action: e => {
-                    e.domEvent.stopPropagation();
-                    setModalItemId(token);
-                    setTransferModalVisible(true);
-                  }
-                }
-              ];
-              if (user?.addr === id) {
-                !onSale &&
-                  actions.push({
-                    title: 'Sell',
-                    action: e => {
-                      e.domEvent.stopPropagation();
-                      sellAsset(token);
-                    }
-                  });
-                onSale &&
-                  actions.push({
-                    title: 'Cancel Sale',
-                    action: e => {
-                      e.domEvent.stopPropagation();
-                      onCancelSale(token);
-                    }
-                  });
-              }
-              return (
-                <Card
-                  key={`token-${token.id}`}
-                  {...token}
-                  actions={user?.addr === token.owner ? actions : []}
-                />
-              );
-            }}
-          />
-        )}
-        {fakeNfts.map(nft => (
-          <NFTCard key={nft.id} nft={nft} isFake />
-        ))}
+        <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} /> */}
+        {
+          isLoading
+            ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
+            : fakeNfts.map(nft => <NFTCard key={nft.id} nft={nft} isFake />)
+          // TODO: Uncomment on integration and refactor to MUI
+          // <PaginationStyled
+          //   grid={() => PaginationGridOptions(data)}
+          //   pagination={{
+          //     showSizeChanger: true,
+          //     pageSizeOptions: ['10', '50', '100', '1000'],
+          //     position: 'top'
+          //   }}
+          //   dataSource={data}
+          //   renderItem={token => {
+          //     const { onSale } = token;
+          //     let actions = [
+          //       {
+          //         title: 'Transfer',
+          //         action: e => {
+          //           e.domEvent.stopPropagation();
+          //           setModalItemId(token);
+          //           setTransferModalVisible(true);
+          //         }
+          //       }
+          //     ];
+          //     if (user?.addr === id) {
+          //       !onSale &&
+          //         actions.push({
+          //           title: 'Sell',
+          //           action: e => {
+          //             e.domEvent.stopPropagation();
+          //             sellAsset(token);
+          //           }
+          //         });
+          //       onSale &&
+          //         actions.push({
+          //           title: 'Cancel Sale',
+          //           action: e => {
+          //             e.domEvent.stopPropagation();
+          //             onCancelSale(token);
+          //           }
+          //         });
+          //     }
+          //     return (
+          //       <Card
+          //         key={`token-${token.id}`}
+          //         {...token}
+          //         actions={user?.addr === token.owner ? actions : []}
+          //       />
+          //     );
+          //   }}
+          // />
+        }
       </Styled.ListWrapper>
       <Modal
         destroyOnClose
