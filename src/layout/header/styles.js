@@ -17,19 +17,21 @@ export const HeaderBar = styled(AppBar)(({ theme: { palette } }) => ({
   boxShadow: 'none'
 }));
 
-export const Logo = styled(Link)(({ theme: { typography, palette } }) => ({
-  fontSize: typography.pxToRem(24),
-  color: palette.secondary.main,
-  fontWeight: 'bold',
-  marginRight: '38px',
-  textTransform: 'uppercase',
-  textDecoration: 'none',
-  cursor: 'pointer',
+export const Logo = styled(Link, { shouldForwardProp: prop => prop !== 'headerModal' })(
+  ({ theme: { typography, palette }, headerModal }) => ({
+    fontSize: typography.pxToRem(24),
+    color: palette.secondary.main,
+    fontWeight: 'bold',
+    marginRight: headerModal ? 0 : '38px',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    cursor: 'pointer',
 
-  '&:hover': {
-    color: palette.secondary.main
-  }
-}));
+    '&:hover': {
+      color: palette.secondary.main
+    }
+  })
+);
 
 export const MenuOptionList = styled(Grid)(() => ({
   display: 'flex',
@@ -61,22 +63,23 @@ export const MoreButton = styled(Button)(({ theme: { typography, palette } }) =>
   }
 }));
 
-export const CustomButton = styled(Button, { shouldForwardProp: prop => prop !== 'isBlack' })(
-  ({ theme: { typography, palette }, isBlack }) => ({
-    ...typography.subtitle1,
-    marginLeft: '12px',
-    borderRadius: '20px',
-    height: '40px',
-    backgroundColor: isBlack && 'black',
-    fontWeight: 'bold',
-    textTransform: 'unset',
-    letterSpacing: '0.2px',
+export const CustomButton = styled(Button, {
+  shouldForwardProp: prop => prop !== 'isBlack' && prop !== 'headerModal'
+})(({ theme: { typography, palette }, isBlack, headerModal }) => ({
+  ...typography.subtitle1,
+  marginLeft: headerModal ? 0 : '12px',
+  borderRadius: '20px',
+  height: '40px',
+  backgroundColor: isBlack && 'black',
+  fontWeight: headerModal ? 400 : 'bold',
+  textTransform: 'unset',
+  letterSpacing: '0.2px',
+  width: headerModal && '100%',
 
-    '&:hover': {
-      backgroundColor: isBlack ? palette.grey[600] : palette.primary.hover
-    }
-  })
-);
+  '&:hover': {
+    backgroundColor: isBlack ? palette.grey[600] : palette.primary.hover
+  }
+}));
 
 export const SearchWrapper = styled(Grid)(() => ({
   marginLeft: 'auto',
@@ -123,4 +126,14 @@ export const MobileMenuButton = styled(IconButton)(({ theme: { palette } }) => (
   '&:hover': {
     backgroundColor: 'transparent'
   }
+}));
+
+export const ButtonText = styled(Button)(({ theme: { palette } }) => ({
+  fontSize: '24px',
+  padding: 0,
+  color: palette.secondary.main,
+  fontWeight: 400,
+  textTransform: 'unset',
+  letterSpacing: '0.2px',
+  width: '100%'
 }));
