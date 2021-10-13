@@ -24,7 +24,7 @@ const TransferNftModal = ({ ...props }) => {
 
   const handleCopyWalletAddress = () => {
     copy(address);
-    toast.success('Wallet address copied to clipboard!', { position: toast.POSITION.BOTTOM_LEFT });
+    toast.success('Wallet address copied to clipboard!');
   };
 
   const renderInitialContent = useMemo(

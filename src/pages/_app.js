@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 
 import { GlobalStyles } from '~/components/layout/globalStyles';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { Header, Content, Footer } from '~/layout';
 import theme from '~/themes/default';
@@ -59,7 +59,7 @@ function MyApp({ Component, pageProps }) {
               <Component {...pageProps} />
             </Content>
             <Footer />
-            <ToastContainer />
+            <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
           </ThemeProvider>
         </MuiThemeProvider>
       </ApolloProvider>
