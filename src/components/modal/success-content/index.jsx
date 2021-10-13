@@ -6,11 +6,13 @@ import { toast } from 'react-toastify';
 
 import useBreakpoints from '~/hooks/useBreakpoints';
 import useCopyToClipboard from '~/hooks/useCopyToClipboard';
+import { useRouter } from 'next/router';
 
 const ModalSuccessContent = ({ address }) => {
   const {
     palette: { grey }
   } = useTheme();
+  const { query } = useRouter();
   const [, copy] = useCopyToClipboard();
   const { isSmallDevice } = useBreakpoints();
 
@@ -40,7 +42,7 @@ const ModalSuccessContent = ({ address }) => {
           fontWeight="600"
           noWrap
           variant="subtitle1">
-          {address}
+          {address || query?.id}
         </Typography>
       </Box>
       <IconButton p="0" onClick={handleCopyWalletAddress}>
@@ -55,7 +57,7 @@ ModalSuccessContent.propTypes = {
 };
 
 ModalSuccessContent.defaultProps = {
-  address: 'mocked_address'
+  address: ''
 };
 
 export default memo(ModalSuccessContent);

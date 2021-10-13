@@ -23,6 +23,8 @@ const NFTCard = ({ nft, isFake }) => {
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
 
+  const asset = { ...nft, collectionName: 'BALLERZ', img: `/templates/${nft?.img}` };
+
   // TODO: Implement function
   const handlePurchaseClick = () => {};
 
@@ -78,13 +80,19 @@ const NFTCard = ({ nft, isFake }) => {
         )}
       </Styled.CustomCard>
       <SellNftModal
+        asset={asset}
         hasPostedForSale={forSale}
         open={isSellNftModalOpen}
         onClose={toggleSellNftModal}
         onConfirm={() => setForSale(true)}
       />
-      <TransferNftModal open={isTransferNftModalOpen} onClose={toggleTransferNftModal} />
+      <TransferNftModal
+        asset={asset}
+        open={isTransferNftModalOpen}
+        onClose={toggleTransferNftModal}
+      />
       <CancelListingModal
+        asset={asset}
         hasPostedForSale={forSale}
         open={isCancelListingModalOpen}
         onClose={toggleCancelListingModal}
