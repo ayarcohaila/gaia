@@ -6,7 +6,7 @@ const NFTList = ({ nfts }) => {
     <Grid container justifyContent="center" spacing={2}>
       {nfts.map((nft, index) => (
         <Grid key={`item-${index}`} item spacing={0}>
-          <NFTCard nft={nft} />
+          <NFTCard nft={nft.item} />
         </Grid>
       ))}
     </Grid>
