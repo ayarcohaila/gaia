@@ -14,7 +14,7 @@ import {
 
 import * as Styled from './styled';
 
-const NFTCard = ({ nft }) => {
+const NFTCard = ({ nft, isFake }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const [forSale, setForSale] = useState(false);
@@ -22,6 +22,8 @@ const NFTCard = ({ nft }) => {
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
+
+  const asset = { ...nft, collectionName: 'BALLERZ', img: `/templates/${nft?.img}` };
 
   // TODO: Implement function
   const handlePurchaseClick = () => {};
@@ -66,7 +68,8 @@ const NFTCard = ({ nft }) => {
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
           <Styled.NFTText>{`BALLER #${nft?.id}`}</Styled.NFTText>
         </CardContent>
-        {user?.addr === '0x5f14b7e68e0bc3c3' && route?.asPath === '0x5f14b7e68e0bc3c3' ? (
+        {(user?.addr === '0x5f14b7e68e0bc3c3' && route?.asPath === '0x5f14b7e68e0bc3c3') ||
+        isFake ? (
           renderUserCardActions
         ) : (
           <Grid container justifyContent="center">
@@ -77,15 +80,20 @@ const NFTCard = ({ nft }) => {
         )}
       </Styled.CustomCard>
       <SellNftModal
+        asset={asset}
+        hasPostedForSale={forSale}
         open={isSellNftModalOpen}
         onClose={toggleSellNftModal}
-        onConfirm={() => {
-          setForSale(true);
-          toggleOrderCompleteModal();
-        }}
+        onConfirm={() => setForSale(true)}
       />
-      <TransferNftModal open={isTransferNftModalOpen} onClose={toggleTransferNftModal} />
+      <TransferNftModal
+        asset={asset}
+        open={isTransferNftModalOpen}
+        onClose={toggleTransferNftModal}
+      />
       <CancelListingModal
+        asset={asset}
+        hasPostedForSale={forSale}
         open={isCancelListingModalOpen}
         onClose={toggleCancelListingModal}
         onConfirm={() => setForSale(false)}
@@ -96,11 +104,14 @@ const NFTCard = ({ nft }) => {
 };
 
 NFTCard.propTypes = {
+  //TODO: Remove prop isFake on integration
+  isFake: PropTypes.bool,
   sell: PropTypes.bool,
   transfer: PropTypes.bool
 };
 
 NFTCard.defaultProps = {
+  isFake: false,
   sell: false,
   transfer: false
 };

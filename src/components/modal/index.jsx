@@ -40,7 +40,7 @@ const Modal = ({
           </IconButton>
         )}
         <Styled.AssetContainer>
-          <Styled.Asset alt={title} layout="fill" src={asset?.image} />
+          <Styled.Asset alt={title} layout="fill" src={asset?.img} />
         </Styled.AssetContainer>
         <Styled.InfoContainer>
           <Styled.Title id={title} sx={titleSx}>
@@ -110,7 +110,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   asset: {
-    image: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
+    img: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
   },
   children: null,
   containerProps: {},
