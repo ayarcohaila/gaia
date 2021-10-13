@@ -66,12 +66,10 @@ const NFTCard = ({ nft }) => {
         </CardActions>
       </CustomCard>
       <SellNftModal
+        hasPostedForSale={forSale}
         open={isSellNftModalOpen}
         onClose={toggleSellNftModal}
-        onConfirm={() => {
-          setForSale(true);
-          toggleOrderCompleteModal();
-        }}
+        onConfirm={() => setForSale(true)}
       />
       <TransferNftModal open={isTransferNftModalOpen} onClose={toggleTransferNftModal} />
       <CancelListingModal
