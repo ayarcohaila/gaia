@@ -18,10 +18,10 @@ import { AuthProvider } from '~/providers/AuthProvider';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AuthProvider>
-      <ApolloProvider client={client}>
-        <MuiThemeProvider theme={muiTheme}>
-          <ThemeProvider theme={theme}>
+    <MuiThemeProvider theme={muiTheme}>
+      <ThemeProvider theme={theme}>
+        <AuthProvider>
+          <ApolloProvider client={client}>
             <GlobalStyles />
             <Head>
               <link rel="preconnect" href="https://fonts.gstatic.com"></link>
@@ -60,10 +60,10 @@ function MyApp({ Component, pageProps }) {
             </Content>
             <Footer />
             <ToastContainer />
-          </ThemeProvider>
-        </MuiThemeProvider>
-      </ApolloProvider>
-    </AuthProvider>
+          </ApolloProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </MuiThemeProvider>
   );
 }
 
