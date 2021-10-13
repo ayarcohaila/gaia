@@ -19,7 +19,7 @@ function CollectionBanner(props) {
   const { isSmallDevice } = useBreakpoints();
 
   return (
-    <>
+    <Grid pl="32px" pr="32px">
       <Styled.BannerBackground imgUrl={bgImg}>
         <Styled.BannerStyled bgColor={mainColor}>
           <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
@@ -96,7 +96,7 @@ function CollectionBanner(props) {
           </Grid>
         </MobileSubBanner>
       )} */}
-    </>
+    </Grid>
   );
 }
 
