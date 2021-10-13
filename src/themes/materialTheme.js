@@ -44,7 +44,8 @@ const theme = createTheme({
       main: '#e9252f',
       dark: 'rgba(233, 37, 47, 0.8)',
       hover: '#fce9ea',
-      light: '#d73e35'
+      light: '#d73e35',
+      700: '#cf111b'
     },
     success: {
       main: '#0bbd69'

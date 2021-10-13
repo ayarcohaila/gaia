@@ -4,17 +4,22 @@ import BannerAccount from '~/components/collectionBannerAccount';
 import { Box, Grid } from '@mui/material';
 import useBreakpoints from '~/hooks/useBreakpoints';
 
-function CollectionBanner(props) {
-  const { accountNumber, bannerName, bannerDescription, bgImg, mainColor, secondaryColor } = props;
-
+function CollectionBanner({
+  accountNumber,
+  bannerName,
+  bannerDescription,
+  bgImg,
+  mainColor,
+  secondaryColor
+}) {
   const { isSmallDevice } = useBreakpoints();
 
   return (
-    <>
+    <Grid pl="32px" pr="32px">
       <Styled.BannerBackground imgUrl={bgImg}>
         <Styled.BannerStyled bgColor={mainColor}>
           <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
-            <Styled.BannerAvatar />
+            <Styled.BannerAvatar imgUrl={'/collections/user.png'} />
             {!isSmallDevice && (
               <>
                 <Styled.Divider ml="32px" />
@@ -42,7 +47,7 @@ function CollectionBanner(props) {
           </Box>
         </Styled.BannerStyled>
       </Styled.BannerBackground>
-    </>
+    </Grid>
   );
 }
 

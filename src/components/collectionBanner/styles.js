@@ -103,7 +103,10 @@ const BannerAvatar = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl
     height: '80px',
     borderRadius: '40px',
     border: '1px solid #fff',
-    backgroundImage: `url(${imgUrl})`
+    backgroundImage: `url(${imgUrl})`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center'
   })
 );
 
