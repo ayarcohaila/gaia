@@ -11,7 +11,7 @@ import * as Styled from './styles.js';
 
 const ESC_KEY = 27;
 
-const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
+const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch, onSearch = () => {} }) => {
   const searchInput = useRef(null);
   const orderButtonRef = useRef(null);
   const [selectButton, setSelectButton] = useState(null);
@@ -96,17 +96,24 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch }) => {
   const renderInput = useMemo(() => {
     if (isSearching || isMediumDevice) {
       return (
-        <SearchInput
-          placeholder="Search: NFT, Collection, …"
-          styles={{ height: '48px', width: isMediumDevice ? '100%' : '305px' }}
-          inputRef={searchInput}
-          endAdornment={
-            <Styled.SearchButton isSearching onClick={toggleSearchInput}>
-              <SearchIcon />
-            </Styled.SearchButton>
-          }
-          autoFocus={isSearching}
-        />
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            onSearch(searchInput.current.value);
+          }}>
+          <SearchInput
+            placeholder="Search: NFT, Collection, …"
+            styles={{ height: '48px', width: isMediumDevice ? '100%' : '305px' }}
+            inputRef={searchInput}
+            endAdornment={
+              <Styled.SearchButton isSearching onClick={toggleSearchInput}>
+                <SearchIcon />
+              </Styled.SearchButton>
+            }
+            autoFocus={isSearching}
+          />
+          <input type="submit" style={{ position: 'absolute', left: -10000, top: -100 }} />
+        </form>
       );
     }
     return (

@@ -27,6 +27,7 @@ import useBreakpoints from '~/hooks/useBreakpoints.js';
 import * as Styled from '~/styles/profile/styles';
 
 import { ProfileWrapper, PaginationStyled } from '../../components/profile/styled';
+import { Grid } from '@mui/material';
 
 const { Text } = Typography;
 
@@ -36,6 +37,7 @@ const Profile = () => {
   const { id } = router.query;
   const { user } = useAuth();
   const [filter] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const [modalItemId, setModalItemId] = useState(null);
   const [sellModal, setSellModalVisible] = useState(false);
   const [transferModal, setTransferModalVisible] = useState(false);
@@ -47,57 +49,62 @@ const Profile = () => {
   //TODO: Remove fakeNfts on integration
   const fakeNfts = Array.from(Array(9).keys()).map(item => ({
     id: item + 1,
-    img: `${item + 1}.png`
+    img: `${item + 1}.png`,
+    name: `BALLER #${item + 1}`
   }));
 
   useEffect(() => {
     shouldPageBlock();
+    setAssets(fakeNfts);
   }, []);
 
-  const { loading: isLoading } = useSubscription(GET_MY_NFTS_BY_OWNER, {
-    variables: {
-      id
-    },
-    onSubscriptionData: ({
-      subscriptionData: {
-        data: { nft: nfts }
-      }
-    }) => {
-      const mappedAssets = nfts.map(nft => ({
-        asset_id: nft.asset_id,
-        template_id: nft.template.template_id,
-        onSale: nft.is_for_sale,
-        imgURL: nft.template.metadata.image,
-        video: nft.template.metadata?.video,
-        name: nft.template.metadata.name,
-        description: nft.template.metadata.description,
-        creator: nft.collection.author,
-        id: nft.id,
-        mintNumber: nft.mint_number,
-        owner: nft.owner,
-        createdAt: nft.created_at
-      }));
-      setAssets(mappedAssets);
-    }
-  });
+  // const { loading: isLoading } = useSubscription(GET_MY_NFTS_BY_OWNER, {
+  //   variables: {
+  //     id
+  //   },
+  //   onSubscriptionData: ({
+  //     subscriptionData: {
+  //       data: { nft: nfts }
+  //     }
+  //   }) => {
+  //     const mappedAssets = nfts.map(nft => ({
+  //       asset_id: nft.asset_id,
+  //       template_id: nft.template.template_id,
+  //       onSale: nft.is_for_sale,
+  //       imgURL: nft.template.metadata.image,
+  //       video: nft.template.metadata?.video,
+  //       name: nft.template.metadata.name,
+  //       description: nft.template.metadata.description,
+  //       creator: nft.collection.author,
+  //       id: nft.id,
+  //       mintNumber: nft.mint_number,
+  //       owner: nft.owner,
+  //       createdAt: nft.created_at
+  //     }));
+  //     setAssets(mappedAssets);
+  //   }
+  // });
 
   function compareNumbers(a, b) {
     return a - b;
   }
 
   const data = useMemo(() => {
+    const searchedAssets = [...assets].filter(item =>
+      item?.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     if (!filter) {
-      return assets;
+      return searchedAssets;
     }
 
     if (filter === 'mintNumber') {
-      return [...assets].sort((a, b) => compareNumbers(a.mintNumber, b.mintNumber));
+      return [...searchedAssets].sort((a, b) => compareNumbers(a.mintNumber, b.mintNumber));
     }
 
     if (filter === 'createdAt') {
-      return [...assets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      return [...searchedAssets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
-  }, [filter, assets]);
+  }, [filter, assets, searchQuery]);
 
   const sellAsset = token => {
     setModalItemId(token);
@@ -207,14 +214,19 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <ProfileBanner address={id} />
+      <Grid container alignItems="center" justifyContent="center">
+        <Grid item xs={11} alignSelf="center" padding="16px 16px 40px">
+          <CollectionsFilter nftQuantity={data?.length} enableSearch onSearch={setSearchQuery} />
+          <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
+        </Grid>
+      </Grid>
       <Styled.ListWrapper>
-        {/* TODO: Uncomment on integration and refactor to MUI
-        <CollectionsFilter nftQuantity={data?.length} enableSearch />
-        <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} /> */}
         {
-          isLoading
-            ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
-            : fakeNfts.map(nft => <NFTCard key={nft.id} nft={nft} isFake />)
+          // isLoading
+          // ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
+          data.map(nft => (
+            <NFTCard key={nft.id} nft={nft} isFake />
+          ))
           // TODO: Uncomment on integration and refactor to MUI
           // <PaginationStyled
           //   grid={() => PaginationGridOptions(data)}
