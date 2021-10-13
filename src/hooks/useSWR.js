@@ -13,9 +13,7 @@ const useSWR = (url, errorMessage = 'Something went wrong!') => {
     errorRetryCount: 5,
     errorRetryInterval: 60000,
     onError: () => {
-      toast.error(errorMessage, {
-        position: toast.POSITION.BOTTOM_LEFT
-      });
+      toast.error(errorMessage);
     }
   });
 
