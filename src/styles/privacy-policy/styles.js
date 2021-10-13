@@ -13,8 +13,9 @@ export const Content = styled(Grid)(({ theme }) => ({
   gridArea: 'text',
 
   [theme.breakpoints.down('sm')]: {
-    width: '65%',
+    width: '100vw',
     paddingLeft: '20px',
+    paddingRight: '20px',
     ul: {
       paddingLeft: '60px'
     }
