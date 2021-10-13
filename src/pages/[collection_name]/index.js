@@ -1,17 +1,11 @@
 import { CollectionBanner } from '~/components';
 import { Grid } from '@mui/material';
 
-const BANNER_ITEM = [
-  { value: '100K', description: 'Items' },
-  { value: '5.5K', description: 'Owners' },
-  { value: '41.39', description: 'Flor Price', price: true },
-  { value: '161.0K', description: 'Volume Traded', price: true }
-];
-
 function Collection() {
   const accountNumber = '0xc562773b26ade24cd8a33c4870380E774BF8A6DE';
   const bannerName = '@Ballerz';
-  const bannerDescription = "Buy and sell Ballerz NFTs on Gaia, the world's best NFT marketplace";
+  const bannerDescription =
+    "BALLERZ is a basketball-inspired generative NFT set launching on the Flow blockchain. Collect your favorite teams and jersey numbers, and show everyone you're a true baller";
   const bgImg = '/collections/ballerz-1200x630.jpg';
   const mainColor = '#270b5a';
   const secondaryColor = '#4814a6';
@@ -25,7 +19,6 @@ function Collection() {
         bgImg={bgImg}
         mainColor={mainColor}
         secondaryColor={secondaryColor}
-        bannerItems={BANNER_ITEM}
       />
     </Grid>
   );
