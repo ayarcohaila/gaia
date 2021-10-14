@@ -10,7 +10,7 @@ import usePrevious from '~/hooks/usePrevious';
 import { validateEmail } from '~/utils/validations';
 
 import * as Styled from './styles';
-import { COLUMNS, iconStyles } from './constants';
+import { ITEMS, iconStyles } from './constants';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -48,40 +48,39 @@ const Footer = () => {
         width="100%">
         <Grid container flexWrap="wrap" justifyContent="space-between">
           <Box component="form" onSubmit={handleSubmit} width={isMediumDevice ? 'auto' : '35%'}>
-            <Typography color="white" mb="16px" variant="subtitle2">
-              Sign Up to our Newsletter
+            <Typography color="white" mb="16px" variant="subtitle1">
+              Join our newsletter for the latest drops & updates
             </Typography>
             <Styled.Input
               hasError={hasError}
+              isSigned={isSigned}
               endAdornment={<Styled.CustomButton type="submit">Sign Up</Styled.CustomButton>}
               placeholder="Email Address"
               onChange={({ target: { value } }) => setEmail(value)}
-              value={isSigned ? 'You’re signed in!' : email}
+              value={isSigned ? 'Confirmed!' : email}
             />
           </Box>
-          {COLUMNS.map(({ title, items }) => (
-            <Grid key={title} item width="160px">
-              <Typography
-                color="white"
-                mb="12px"
-                mt={isSmallDevice ? '32px' : '0px'}
-                letterSpacing="0.2px"
-                variant="subtitle2">
-                {title}
-              </Typography>
-              {items.map(({ label, href }) => (
-                <Styled.CustomLink
-                  key={label}
-                  fontSize="1rem"
-                  href={href}
-                  mb="4px"
-                  target="_blank"
-                  underline="none">
-                  {label}
-                </Styled.CustomLink>
-              ))}
-            </Grid>
-          ))}
+          <Grid item width="160px">
+            <Typography
+              color="white"
+              mb="12px"
+              mt={isSmallDevice ? '32px' : '0px'}
+              letterSpacing="0.2px"
+              variant="subtitle2">
+              Our Network
+            </Typography>
+            {ITEMS.map(({ label, href }) => (
+              <Styled.CustomLink
+                key={label}
+                fontSize="1rem"
+                href={href}
+                mb="4px"
+                target="_blank"
+                underline="none">
+                {label}
+              </Styled.CustomLink>
+            ))}
+          </Grid>
         </Grid>
 
         <Grid alignItems="flex-end" container justifyContent="space-between" mt="108px">

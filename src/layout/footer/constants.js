@@ -1,51 +1,21 @@
 import muiTheme from '~/themes/materialTheme';
 
-export const COLUMNS = [
+export const ITEMS = [
   {
-    title: 'Our Network',
-    items: [
-      {
-        label: 'Bitcoin Origins',
-        href: 'https://www.btcorigins.com/'
-      },
-      {
-        label: 'NFT Genius',
-        href: 'https://nftgenius.com/'
-      },
-      {
-        label: 'NiftyCap',
-        href: 'https://niftycap.com/'
-      },
-      {
-        label: 'Rebel Rabbits',
-        href: 'https://rebelrabbits.io/'
-      }
-    ]
+    label: 'Bitcoin Origins',
+    href: 'https://www.btcorigins.com/'
   },
   {
-    title: 'Our Investors',
-    items: [
-      {
-        label: 'Mark Cuban',
-        href: 'https://twitter.com/mcuban'
-      },
-      {
-        label: 'Anthony Pompliano',
-        href: 'https://twitter.com/APompliano'
-      },
-      {
-        label: 'Roham Gharegozlou',
-        href: 'https://www.linkedin.com/in/roham/'
-      },
-      {
-        label: 'HOF Capital',
-        href: 'https://www.hofvc.com/'
-      },
-      {
-        label: 'Sound Ventures',
-        href: 'https://www.soundventures.com/'
-      }
-    ]
+    label: 'NFT Genius',
+    href: 'https://nftgenius.com/'
+  },
+  {
+    label: 'NiftyCap',
+    href: 'https://niftycap.com/'
+  },
+  {
+    label: 'Rebel Rabbits',
+    href: 'https://rebelrabbits.io/'
   }
 ];
 
