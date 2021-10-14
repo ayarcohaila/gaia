@@ -32,11 +32,11 @@ const Collection = () => {
 
   useEffect(() => {
     if (data?.length) {
-      setNftList(data.slice(0, cursor * 10));
+      setNftList(data.slice(0, cursor * 40));
     }
   }, [data?.length, cursor]);
 
-  const cursorLimit = useMemo(() => Math.ceil(data?.length / 10), [data]);
+  const cursorLimit = useMemo(() => Math.ceil(data?.length / 40), [data]);
 
   return (
     <Grid>
