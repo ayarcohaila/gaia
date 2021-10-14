@@ -23,7 +23,9 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     const handleRouteChange = url => {
-      ga.logPageView(url);
+      if (process.env.NODE_ENV === 'production') {
+        ga.logPageView(url);
+      }
     };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
