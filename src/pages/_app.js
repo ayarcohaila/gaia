@@ -20,6 +20,7 @@ import * as ga from '~/utils/ga';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+
   useEffect(() => {
     const handleRouteChange = url => {
       ga.logPageView(url);
