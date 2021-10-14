@@ -5,9 +5,9 @@ import { Grid, Button } from '@mui/material';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
 import useAuth from '~/hooks/useAuth';
+import { Dropdown, SearchInput } from '~/base';
 import useToggle from '~/hooks/useToggle';
 import { HeaderModal } from '~/components';
-import { Dropdown, SearchInput } from '~/base';
 import useBreakpoints from '~/hooks/useBreakpoints.js';
 import MenuIcon from '@mui/icons-material/Menu';
 import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
@@ -76,7 +76,7 @@ const Header = () => {
         </Grid>
         {!isMediumDevice && (
           <Styled.SearchWrapper>
-            <SearchInput value={searchQuery} onChange={handleChangeSearch} />
+            <SearchInput hidden value={searchQuery} onChange={handleChangeSearch} />
           </Styled.SearchWrapper>
         )}
         {isMediumDevice ? (
@@ -85,9 +85,9 @@ const Header = () => {
           </Styled.MobileMenuButton>
         ) : (
           <>
-            <Styled.CustomButton isBlack variant="contained">
+            {/* <Styled.CustomButton isBlack variant="contained">
               Sell NFT
-            </Styled.CustomButton>
+            </Styled.CustomButton> */}
             {user?.loggedIn ? (
               <Styled.AvatarButton
                 ref={menuAnchorRef}
