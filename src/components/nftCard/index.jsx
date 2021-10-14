@@ -56,7 +56,7 @@ const NFTCard = ({ nft, isFake }) => {
       <Styled.CustomCard>
         <Styled.CustomCardHeader
           avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
-          title="Ballerz"
+          title="BALLERZ"
         />
         <CardMedia
           sx={{ borderRadius: '20px', maxWidth: '275px' }}

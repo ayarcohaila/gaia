@@ -11,3 +11,4 @@ export { default as NFTList } from './nftList';
 export { default as NFTCard } from './nftCard';
 export { default as CardSkeletonLoader } from './card-skeleton-loader';
 export { default as HeaderModal } from './modal/header-menu';
+export { default as AgreeSetupModal } from './modal/agree-setup';

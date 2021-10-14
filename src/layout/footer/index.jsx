@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { Instagram as InstagramIcon, Twitter as TwitterIcon } from '@mui/icons-material';
+import { Twitter as TwitterIcon } from '@mui/icons-material';
 import { useTheme } from 'styled-components';
 import NextLink from 'next/link';
 
@@ -85,22 +85,21 @@ const Footer = () => {
         </Grid>
 
         <Grid alignItems="flex-end" container justifyContent="space-between" mt="108px">
-          {/* TODO: Set correct links for this section */}
           <Box width={isMediumDevice ? 'auto' : '35%'}>
-            {/* TODO: Change to correct logo */}
             <Logo color="white" />
             <Grid alignItems="center" container mt="24px">
-              <Styled.CustomLink href="#" target="_blank" underline="none">
+              <Styled.CustomLink
+                href="https://nftgenius.com/contact/"
+                target="_blank"
+                underline="none">
                 Contact Us
               </Styled.CustomLink>
-              <Styled.CustomLink href="#" mr="18px" target="_blank" underline="none">
+              <Styled.CustomLink
+                href="https://twitter.com/geniusnft"
+                mr="18px"
+                target="_blank"
+                underline="none">
                 <TwitterIcon sx={iconStyles} />
-              </Styled.CustomLink>
-              <Styled.CustomLink href="#" target="_blank" underline="none">
-                <Styled.DiscordIcon alt="Gaia Discord" src="/icons/discord.svg" />
-              </Styled.CustomLink>
-              <Styled.CustomLink href="#" target="_blank" underline="none">
-                <InstagramIcon sx={iconStyles} />
               </Styled.CustomLink>
             </Grid>
           </Box>
@@ -115,7 +114,7 @@ const Footer = () => {
           </Box>
 
           <Box width="160px">
-            <Styled.CustomLink href="#" target="_blank" underline="none">
+            <Styled.CustomLink href="/" target="_blank" underline="none">
               Terms of Use
             </Styled.CustomLink>
             <NextLink href="/privacy-policy">

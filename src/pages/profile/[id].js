@@ -8,7 +8,7 @@ import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
 import { ProfileBanner, NFTCard } from '~/components';
 import Card from '~/components/asset/Asset';
-import { CollectionsFilter } from '~/components';
+import { CollectionsFilter, CardSkeletonLoader } from '~/components';
 import { Divider } from '~/base';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
@@ -58,32 +58,32 @@ const Profile = () => {
     setAssets(fakeNfts);
   }, []);
 
-  // const { loading: isLoading } = useSubscription(GET_MY_NFTS_BY_OWNER, {
-  //   variables: {
-  //     id
-  //   },
-  //   onSubscriptionData: ({
-  //     subscriptionData: {
-  //       data: { nft: nfts }
-  //     }
-  //   }) => {
-  //     const mappedAssets = nfts.map(nft => ({
-  //       asset_id: nft.asset_id,
-  //       template_id: nft.template.template_id,
-  //       onSale: nft.is_for_sale,
-  //       imgURL: nft.template.metadata.image,
-  //       video: nft.template.metadata?.video,
-  //       name: nft.template.metadata.name,
-  //       description: nft.template.metadata.description,
-  //       creator: nft.collection.author,
-  //       id: nft.id,
-  //       mintNumber: nft.mint_number,
-  //       owner: nft.owner,
-  //       createdAt: nft.created_at
-  //     }));
-  //     setAssets(mappedAssets);
-  //   }
-  // });
+  const { loading: isLoading } = useSubscription(GET_MY_NFTS_BY_OWNER, {
+    variables: {
+      id
+    },
+    onSubscriptionData: ({
+      subscriptionData: {
+        data: { nft: nfts }
+      }
+    }) => {
+      const mappedAssets = nfts.map(nft => ({
+        asset_id: nft.asset_id,
+        template_id: nft.template.template_id,
+        onSale: nft.is_for_sale,
+        imgURL: nft.template.metadata.image,
+        video: nft.template.metadata?.video,
+        name: nft.template.metadata.name,
+        description: nft.template.metadata.description,
+        creator: nft.collection.author,
+        id: nft.id,
+        mintNumber: nft.mint_number,
+        owner: nft.owner,
+        createdAt: nft.created_at
+      }));
+      // setAssets(mappedAssets);
+    }
+  });
 
   function compareNumbers(a, b) {
     return a - b;
@@ -214,19 +214,17 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <ProfileBanner address={id} />
-      <Grid container alignItems="center" justifyContent="center">
-        <Grid item xs={11} alignSelf="center" padding="16px 16px 40px">
-          <CollectionsFilter nftQuantity={data?.length} enableSearch onSearch={setSearchQuery} />
-          <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
-        </Grid>
-      </Grid>
+      <Styled.FiltersContainer>
+        <CollectionsFilter nftQuantity={fakeNfts?.length} enableSearch onSearch={setSearchQuery} />
+        <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
+      </Styled.FiltersContainer>
       <Styled.ListWrapper>
         {
-          // isLoading
-          // ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
-          data.map(nft => (
-            <NFTCard key={nft.id} nft={nft} isFake />
-          ))
+          isLoading
+            ? new Array(isMediumDevice ? 1 : 5)
+                .fill(null)
+                .map((_, index) => <CardSkeletonLoader key={index} />)
+            : data.map(nft => <NFTCard key={nft.id} nft={nft} isFake />)
           // TODO: Uncomment on integration and refactor to MUI
           // <PaginationStyled
           //   grid={() => PaginationGridOptions(data)}
