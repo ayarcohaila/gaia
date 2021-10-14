@@ -1,22 +1,35 @@
-import Head from 'next/head';
 import '../../public/static/fonts/fonts.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'antd/dist/antd.less';
 import 'antd/dist/antd.css';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { ApolloProvider } from '@apollo/client/react';
 import { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 
 import { GlobalStyles } from '~/components/layout/globalStyles';
 import { ToastContainer, toast } from 'react-toastify';
-
 import { Header, Content, Footer } from '~/layout';
 import theme from '~/themes/default';
 import muiTheme from '~/themes/materialTheme';
 import client from '~/config/apollo-client';
 import { AuthProvider } from '~/providers/AuthProvider';
+import * as ga from '~/utils/ga';
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  useEffect(() => {
+    const handleRouteChange = url => {
+      ga.logPageView(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <AuthProvider>
       <ApolloProvider client={client}>
