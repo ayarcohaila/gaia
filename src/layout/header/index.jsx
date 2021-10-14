@@ -1,9 +1,8 @@
 import { useState, useRef } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { Grid, Link, Button } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
-import NextImage from 'next/image';
 
 import useAuth from '~/hooks/useAuth';
 import useToggle from '~/hooks/useToggle';
@@ -28,19 +27,19 @@ const Header = () => {
     setSearchQuery(value);
   };
 
-  const toggleUserMenu = () => {
-    setOpenUserMenu(prevState => !prevState);
+  const handleDropdownMenu = state => {
+    setOpenUserMenu(prevState => (state !== undefined ? state : !prevState));
   };
 
   const handleClick = ({
-    target: {
+    currentTarget: {
       dataset: { id }
     }
   }) => {
     if (stateModalHeader) {
       toggleHeaderModal();
     } else {
-      toggleUserMenu();
+      handleDropdownMenu();
     }
     if (id === USER_MENU_IDS.PROFILE) {
       router.push(`/profile/${user?.addr}`);
@@ -58,9 +57,7 @@ const Header = () => {
     <Styled.HeaderBar position="static">
       <Styled.Container component="section" isMobile={isMediumDevice}>
         <NextLink href="/ballerz">
-          <Link component="a">
-            <NextImage width={90} height={40} src="/static/img/gaia_logo-black.png" />
-          </Link>
+          <Styled.Logo>Gaia</Styled.Logo>
         </NextLink>
         {/* TODO: Remove "hidden" when implement the routes redirection */}
         <Grid component="nav" hidden>
@@ -96,7 +93,9 @@ const Header = () => {
                 ref={menuAnchorRef}
                 disableRipple
                 variant="text"
-                onClick={toggleUserMenu}>
+                onClick={handleClick}
+                onMouseEnter={() => handleDropdownMenu(true)}
+                data-id={USER_MENU_IDS.PROFILE}>
                 <Styled.UserAvatar alt="User Icon" />
                 <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
               </Styled.AvatarButton>
@@ -110,9 +109,11 @@ const Header = () => {
         <Dropdown
           menuAnchorRef={menuAnchorRef}
           isOpen={openUserMenu}
-          onClose={toggleUserMenu}
+          onClose={handleDropdownMenu}
           options={USER_MENU_OPTIONS}
           handleClickOption={handleClick}
+          onMouseLeave={() => handleDropdownMenu(false)}
+          sx={{ width: '164px' }}
         />
       </Styled.Container>
       <HeaderModal open={stateModalHeader} onClose={toggleHeaderModal}>
@@ -123,7 +124,7 @@ const Header = () => {
           justifyContent="center"
           direction="column">
           <Button variant="text" disableRipple onClick={navigateToHome}>
-            <NextImage width={90} height={40} src="/static/img/gaia_logo-black.png" />
+            <Styled.Logo headerModal>Gaia</Styled.Logo>
           </Button>
           {user?.loggedIn ? (
             <>
