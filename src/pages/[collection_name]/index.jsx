@@ -12,7 +12,7 @@ import * as Styled from '~/styles/collection-name/styles';
 
 const DATA = {
   accountNumber: '0x5f14b7e68e0bc3c3',
-  bannerName: '@Ballerz',
+  bannerName: '@BALLERZ',
   bannerDescription:
     "BALLERZ is a basketball-inspired generative NFT set launching on the Flow blockchain. Collect your favorite teams and jersey numbers, and show everyone you're a true baller",
   bgImg: '/collections/ballerz-1200x630.jpg',

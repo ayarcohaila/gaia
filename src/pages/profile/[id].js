@@ -8,7 +8,7 @@ import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
 import { ProfileBanner, NFTCard } from '~/components';
 import Card from '~/components/asset/Asset';
-import { CollectionsFilter } from '~/components';
+import { CollectionsFilter, CardSkeletonLoader } from '~/components';
 import { Divider } from '~/base';
 import useAuth from '~/hooks/useAuth';
 import useBlockPage from '~/hooks/useBlockPage';
@@ -207,13 +207,16 @@ const Profile = () => {
     <ProfileWrapper>
       <Seo title="Profile" />
       <ProfileBanner address={id} />
+      <Styled.FiltersContainer>
+        <CollectionsFilter nftQuantity={fakeNfts?.length} enableSearch />
+        <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
+      </Styled.FiltersContainer>
       <Styled.ListWrapper>
-        {/* TODO: Uncomment on integration and refactor to MUI
-        <CollectionsFilter nftQuantity={data?.length} enableSearch />
-        <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} /> */}
         {
           isLoading
-            ? [...Array(12).keys()].map(index => <CardLoading hasTopBar={false} key={index} />)
+            ? new Array(isMediumDevice ? 1 : 5)
+                .fill(null)
+                .map((_, index) => <CardSkeletonLoader key={index} />)
             : fakeNfts.map(nft => <NFTCard key={nft.id} nft={nft} isFake />)
           // TODO: Uncomment on integration and refactor to MUI
           // <PaginationStyled

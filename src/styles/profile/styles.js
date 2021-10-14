@@ -1,23 +1,24 @@
 import { Grid, styled } from '@mui/material';
 
-export const ListWrapper = styled(Grid, { shouldForwardProp: prop => prop !== 'isMobile' })(
-  ({ theme: { breakpoints } }) => ({
-    boxSizing: 'border-box',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridAutoFlow: 'row',
-    gap: '24px',
-    justifyItems: 'center',
-    padding: '16px 16px 40px',
-    width: '100%',
+export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
+  display: 'flex',
+  gap: '16px',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  padding: '20px 80px 40px',
+  boxSizing: 'border-box',
+  width: '100%',
 
-    [breakpoints.down('md')]: {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      padding: '0 20px'
-    },
+  [breakpoints.down('sm')]: {
+    padding: '25px 20px'
+  }
+}));
 
-    [breakpoints.down('sm')]: {
-      gridTemplateColumns: 'repeat(1, 1fr)'
-    }
-  })
-);
+export const FiltersContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
+  boxSizing: 'border-box',
+  padding: '0 80px',
+
+  [breakpoints.down('sm')]: {
+    padding: '0 20px'
+  }
+}));

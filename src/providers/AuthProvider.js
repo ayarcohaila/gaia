@@ -2,7 +2,7 @@ import { createContext, useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import AuthModal from '~/components/authModal/AuthModal';
-import SetupModal from '~/components/setupModal/SetupModal';
+import { AgreeSetupModal } from '~/components';
 
 import useAuth from '~/hooks/useAuth';
 import useProfile from '~/hooks/useProfile';
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={{ shouldPageBlock, updateUser, user }}>
       {children}
       <AuthModal onDismiss={() => setAuthModalVisible(false)} visible={authModalVisible} />
-      <SetupModal onDismiss={() => setSetupModalVisible(false)} visible={setupModalVisible} />
+      <AgreeSetupModal open={setupModalVisible} onClose={() => setSetupModalVisible(false)} />
     </AuthContext.Provider>
   );
 };
