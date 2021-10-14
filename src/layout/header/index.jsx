@@ -102,7 +102,7 @@ const Header = () => {
               </Styled.AvatarButton>
             ) : (
               <Styled.CustomButton variant="contained" onClick={login}>
-                Sign in
+                Sign In
               </Styled.CustomButton>
             )}
           </>
@@ -139,7 +139,7 @@ const Header = () => {
             </>
           ) : (
             <Styled.CustomButton variant="contained" headerModal onClick={login}>
-              Sign in
+              Sign In
             </Styled.CustomButton>
           )}
         </Grid>
