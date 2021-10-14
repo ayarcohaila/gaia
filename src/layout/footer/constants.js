@@ -9,10 +9,6 @@ export const COLUMNS = [
         href: 'https://www.btcorigins.com/'
       },
       {
-        label: 'Cryptobuds ',
-        href: 'https://twitter.com/buds_crypto'
-      },
-      {
         label: 'NFT Genius',
         href: 'https://nftgenius.com/'
       },
