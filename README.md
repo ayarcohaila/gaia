@@ -2,10 +2,10 @@
   <img width="300" src="./nft_genius.png" />
 </p>
 <p align="center" style="color: black; font-size: 60px;">
-  NFT Genius - Nifty Beats
+  NFT Genius - Gaia Frontend
 </p>
 
-👋 &nbsp;Welcome! This is a marketplace app built with Flow.
+👋 &nbsp;Welcome to Gaia! A marketplace app built with Flow.
 
 # ✨ Getting started
 
@@ -14,13 +14,13 @@
 On your terminal, type in:
 
 ```
-git clone https://github.com/NFT-Genius/nifty-beats
+git clone https://github.com/NFT-Genius/gaia-frontend
 ```
 
 #### 2. Install the dependencies
 
 ```
-cd nifty-beats
+cd gaia-frontend
 yarn
 ```
 
@@ -67,7 +67,7 @@ yarn
 - [Flow](https://www.onflow.org/)
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
-- [Ant Design](https://ant.design/)
+- [Material UI](https://mui.com/)
 - [Axios](https://github.com/axios/axios)
 - [Styled Components](https://styled-components.com/)
 - [Node.js](https://nodejs.org/)
