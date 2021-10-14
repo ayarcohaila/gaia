@@ -15,12 +15,7 @@ const AgreeSetupModal = ({ ...props }) => {
   };
 
   const renderContent = useMemo(
-    () => (
-      <>
-        {' '}
-        <Styled.CustomButton onClick={handleSetup}>I agree</Styled.CustomButton>
-      </>
-    ),
+    () => <Styled.CustomButton onClick={handleSetup}>I agree</Styled.CustomButton>,
     []
   );
 
