@@ -56,7 +56,7 @@ CancelListingModal.defaultProps = {
   asset: {
     id: 1234,
     collectionName: 'BALLERZ',
-    image: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
+    img: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
   }
 };
 

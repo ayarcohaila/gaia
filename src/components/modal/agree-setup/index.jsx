@@ -27,7 +27,7 @@ const AgreeSetupModal = ({ ...props }) => {
       title={'Setting Up'}
       titleSx={{ mt: '96px' }}
       asset={{
-        image: '/collections/user.png'
+        img: '/collections/user.png'
       }}
       {...props}>
       {renderContent}
