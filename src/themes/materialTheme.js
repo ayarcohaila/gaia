@@ -48,7 +48,8 @@ const theme = createTheme({
       700: '#cf111b'
     },
     success: {
-      main: '#0bbd69'
+      main: '#0bbd69',
+      light: '#56ba71'
     }
   }
 });
