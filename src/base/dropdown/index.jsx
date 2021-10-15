@@ -11,7 +11,8 @@ const Dropdown = ({
   onClose,
   handleListKeyDown,
   options,
-  handleClickOption
+  handleClickOption,
+  ...otherProps
 }) => {
   const defaultKeyDownPress = event => {
     if (!handleListKeyDown) {
@@ -24,7 +25,7 @@ const Dropdown = ({
   };
   return (
     <Popper anchorEl={menuAnchorRef?.current} open={isOpen} onClose={onClose}>
-      <Styled.CustomPaper>
+      <Styled.CustomPaper {...otherProps}>
         <ClickAwayListener onClickAway={onClose}>
           <MenuList autoFocus onKeyDown={defaultKeyDownPress}>
             {options.map(option => (

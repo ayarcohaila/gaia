@@ -76,3 +76,16 @@ export const DiscordIcon = styled('img')({
   transform: 'translateY(-3.5px)',
   width: '20px'
 });
+
+export const Logo = styled(Link)(() => ({
+  fontSize: '40px',
+  color: 'white',
+  fontWeight: 'bold',
+  textTransform: 'uppercase',
+  textDecoration: 'none',
+  cursor: 'pointer',
+
+  '&:hover': {
+    color: 'white'
+  }
+}));
