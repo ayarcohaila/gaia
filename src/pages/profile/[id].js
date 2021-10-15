@@ -103,18 +103,18 @@ const Profile = () => {
 
   const data = useMemo(() => {
     const searchedAssets = assets?.filter(item =>
-      item?.name.toLowerCase().includes(searchQuery.toLowerCase())
+      item?.name?.toLowerCase()?.includes(searchQuery?.toLowerCase())
     );
     if (!filter) {
       return searchedAssets;
     }
 
     if (filter === 'mintNumber') {
-      return [...searchedAssets].sort((a, b) => compareNumbers(a.mintNumber, b.mintNumber));
+      return searchedAssets?.sort((a, b) => compareNumbers(a.mintNumber, b.mintNumber));
     }
 
     if (filter === 'createdAt') {
-      return [...searchedAssets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      return searchedAssets?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
   }, [filter, assets, searchQuery]);
 
