@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { Spin, notification } from 'antd';
 
 import { fcl, t } from '../config/config';
 
@@ -102,13 +101,7 @@ export async function createSaleOffer(saleAssetID, salePrice, templateID, creato
         console.log(response);
         return response;
       });
-    notification.open({
-      key: `sale_${saleAssetID}`,
-      icon: <Spin />,
-      message: `Creating an FUSD offer for ID #${saleAssetID}`,
-      description: 'Sending transaction to the blockchain',
-      duration: null
-    });
+
     return fcl.tx(txId).onceSealed();
   } catch (err) {
     console.error(err);

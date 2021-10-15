@@ -1,7 +1,5 @@
 import '../../public/static/fonts/fonts.css';
 import 'react-toastify/dist/ReactToastify.css';
-import 'antd/dist/antd.less';
-import 'antd/dist/antd.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -9,7 +7,7 @@ import { ApolloProvider } from '@apollo/client/react';
 import { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 
-import { GlobalStyles } from '~/components/layout/globalStyles';
+import { GlobalStyles } from '~/styles/globalStyles';
 import { ToastContainer, toast } from 'react-toastify';
 import { Header, Content, Footer } from '~/layout';
 import theme from '~/themes/default';

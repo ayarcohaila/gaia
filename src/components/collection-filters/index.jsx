@@ -3,12 +3,11 @@ import { Tune as TuneIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { Dropdown, SearchInput } from '~/base';
+import { Dropdown, SearchInput, BurstIcon } from '~/base';
 import useBreakpoints from '~/hooks/useBreakpoints.js';
 
 import { BUTTONS, ORDER_MENU_IDS } from './constants';
 import * as Styled from './styles.js';
-import BurstIcon from '../burstIcon';
 
 const ESC_KEY = 27;
 

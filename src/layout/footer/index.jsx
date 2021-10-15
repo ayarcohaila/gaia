@@ -3,8 +3,8 @@ import { Box, Grid, Typography } from '@mui/material';
 import { Twitter as TwitterIcon } from '@mui/icons-material';
 import { useTheme } from 'styled-components';
 import NextLink from 'next/link';
+import NextImage from 'next/image';
 
-import Logo from '~/components/logo/Logo';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import usePrevious from '~/hooks/usePrevious';
 import { validateEmail } from '~/utils/validations';
@@ -85,7 +85,7 @@ const Footer = () => {
 
         <Grid alignItems="flex-end" container justifyContent="space-between" mt="108px">
           <Box width={isMediumDevice ? 'auto' : '35%'}>
-            <Logo color="white" />
+            <NextImage width={90} height={40} src="/static/img/gaia_logo-white.png" />
             <Grid alignItems="center" container mt="24px">
               <Styled.CustomLink
                 href="https://nftgenius.com/contact/"

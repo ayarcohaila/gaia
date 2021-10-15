@@ -1,4 +1,3 @@
-import { notification, Spin } from 'antd';
 import { fcl } from '../config/config';
 
 const TX = fcl.cdc`
@@ -45,12 +44,6 @@ export async function setupFUSD() {
       fcl.limit(100) // set the compute limit
     ])
     .then(fcl.decode);
-  notification.open({
-    key: `setup_fusd`,
-    icon: <Spin />,
-    message: `Setting up your FUSD balance`,
-    description: 'Sending transaction to the blockchain',
-    duration: null
-  });
+
   return fcl.tx(txId).onceSealed();
 }

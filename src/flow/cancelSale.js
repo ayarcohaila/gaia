@@ -1,5 +1,3 @@
-import { Spin, notification } from 'antd';
-
 import { fcl, t } from '../config/config';
 
 const CANCEL_SALE_TX = fcl.cdc`
@@ -32,13 +30,7 @@ export async function cancelSale(saleAssetID) {
         fcl.limit(100)
       ])
       .then(fcl.decode);
-    notification.open({
-      key: `cancel_sale_${saleAssetID}`,
-      icon: <Spin />,
-      message: `Canceling #${saleAssetID} offer`,
-      description: 'Sending transaction to the blockchain',
-      duration: null
-    });
+
     return fcl.tx(txId).onceSealed();
   } catch (err) {
     console.warn(err);
