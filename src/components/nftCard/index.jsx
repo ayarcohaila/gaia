@@ -3,14 +3,13 @@ import { CardActions, CardContent, CardMedia, Avatar, Grid } from '@mui/material
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
-import useToggle from '~/hooks/useToggle';
-import useAuth from '~/hooks/useAuth';
 import {
   SellNftModal,
   TransferNftModal,
   CancelListingModal,
   OrderCompleteModal
 } from '~/components';
+import { useAuth, useToggle } from '~/hooks';
 
 import * as Styled from './styled';
 

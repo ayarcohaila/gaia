@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Address } from '~/components';
-import useBreakpoints from '~/hooks/useBreakpoints.js';
+import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
 

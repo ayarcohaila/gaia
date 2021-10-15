@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { Dropdown, SearchInput, BurstIcon } from '~/base';
-import useBreakpoints from '~/hooks/useBreakpoints.js';
+import { useBreakpoints } from '~/hooks';
 
 import { BUTTONS, ORDER_MENU_IDS } from './constants';
 import * as Styled from './styles.js';

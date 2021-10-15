@@ -4,14 +4,11 @@ import { useRouter } from 'next/router';
 import { useSubscription } from '@apollo/react-hooks';
 import { Grid, Box } from '@mui/material';
 
-import Seo from '~/components/seo/seo';
-import { ProfileBanner, NFTList, CollectionsFilter } from '~/components';
+import { ProfileBanner, NFTList, CollectionsFilter, Seo } from '~/components';
 import { Divider, CardSkeletonLoader } from '~/base';
-
 import { GET_MY_NFTS_BY_OWNER } from '~/store/server/subscriptions';
 import basicAuthCheck from '~/utils/basicAuthCheck';
-import useSWR from '~/hooks/useSWR';
-import useBreakpoints from '~/hooks/useBreakpoints.js';
+import { useSWR, useBreakpoints } from '~/hooks';
 
 import * as Styled from '~/styles/profile/styles';
 

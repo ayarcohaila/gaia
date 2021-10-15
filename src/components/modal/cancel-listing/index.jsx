@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '~/base';
-import useBreakpoints from '~/hooks/useBreakpoints';
+import { useBreakpoints } from '~/hooks';
 
 import Modal from '..';
 import SuccessContent from '../success-content';
