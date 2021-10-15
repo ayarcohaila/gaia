@@ -102,7 +102,7 @@ const Profile = () => {
   }
 
   const data = useMemo(() => {
-    const searchedAssets = [...assets].filter(item =>
+    const searchedAssets = assets?.filter(item =>
       item?.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     if (!filter) {
