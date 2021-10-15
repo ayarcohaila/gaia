@@ -38,6 +38,7 @@ const Profile = () => {
   const { id } = router.query;
   const { user } = useAuth();
   const [filter] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const [modalItemId, setModalItemId] = useState(null);
   const [sellModal, setSellModalVisible] = useState(false);
   const [transferModal, setTransferModalVisible] = useState(false);
@@ -66,6 +67,7 @@ const Profile = () => {
 
   useEffect(() => {
     shouldPageBlock();
+    setAssets(fakeNfts);
   }, []);
 
   const { loading: isLoading } = useSubscription(GET_MY_NFTS_BY_OWNER, {
@@ -91,7 +93,7 @@ const Profile = () => {
         owner: nft.owner,
         createdAt: nft.created_at
       }));
-      setAssets(mappedAssets);
+      // setAssets(mappedAssets);
     }
   });
 
@@ -100,18 +102,21 @@ const Profile = () => {
   }
 
   const data = useMemo(() => {
+    const searchedAssets = [...assets].filter(item =>
+      item?.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     if (!filter) {
-      return assets;
+      return searchedAssets;
     }
 
     if (filter === 'mintNumber') {
-      return [...assets].sort((a, b) => compareNumbers(a.mintNumber, b.mintNumber));
+      return [...searchedAssets].sort((a, b) => compareNumbers(a.mintNumber, b.mintNumber));
     }
 
     if (filter === 'createdAt') {
-      return [...assets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      return [...searchedAssets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
-  }, [filter, assets]);
+  }, [filter, assets, searchQuery]);
 
   const sellAsset = token => {
     setModalItemId(token);
@@ -222,7 +227,7 @@ const Profile = () => {
       <Seo title="Profile" />
       <ProfileBanner address={id} />
       <Styled.FiltersContainer>
-        <CollectionsFilter nftQuantity={fakeNfts?.length} enableSearch />
+        <CollectionsFilter nftQuantity={fakeNfts?.length} enableSearch onSearch={setSearchQuery} />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
       <Styled.ListWrapper>
