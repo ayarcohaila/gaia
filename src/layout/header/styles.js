@@ -17,22 +17,6 @@ export const HeaderBar = styled(AppBar)(({ theme: { palette } }) => ({
   boxShadow: 'none'
 }));
 
-export const Logo = styled(Link, { shouldForwardProp: prop => prop !== 'headerModal' })(
-  ({ theme: { typography, palette }, headerModal }) => ({
-    fontSize: typography.pxToRem(24),
-    color: palette.secondary.main,
-    fontWeight: 'bold',
-    marginRight: headerModal ? 0 : '38px',
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-    cursor: 'pointer',
-
-    '&:hover': {
-      color: palette.secondary.main
-    }
-  })
-);
-
 export const MenuOptionList = styled(Grid)(() => ({
   display: 'flex',
   alignItems: 'center',

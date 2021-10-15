@@ -27,7 +27,7 @@ export const NFTTitle = styled(Typography)(() => ({
 }));
 
 export const NFTText = styled(Typography)(({ theme: { palette } }) => ({
-  fontSize: '20px',
+  fontSize: '16px',
   fontWeight: 700,
   color: palette.secondary.main,
   marginBottom: 8

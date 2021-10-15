@@ -3,10 +3,11 @@ import { useMemo, useState, useEffect } from 'react';
 import { Modal, Form, Typography, Button, InputNumber, Input, Spin, notification } from 'antd';
 import { useRouter } from 'next/router';
 import { useMutation, useSubscription } from '@apollo/react-hooks';
+import { Grid, styled } from '@mui/material';
 
 import { CardLoading } from '~/components/skeleton/CardLoading';
 import Seo from '~/components/seo/seo';
-import { ProfileBanner, NFTCard } from '~/components';
+import { ProfileBanner, NFTList } from '~/components';
 import Card from '~/components/asset/Asset';
 import { CollectionsFilter, CardSkeletonLoader } from '~/components';
 import { Divider } from '~/base';
@@ -23,11 +24,11 @@ import { cancelSaleOffer, checkAndInsertSale, checkAndRemoveSale } from '~/utils
 import { PaginationGridOptions } from '~/utils/paginationGridOptions';
 import config from '~/utils/config';
 import useBreakpoints from '~/hooks/useBreakpoints.js';
+import useSWR from '~/hooks/useSWR';
 
 import * as Styled from '~/styles/profile/styles';
 
 import { ProfileWrapper, PaginationStyled } from '../../components/profile/styled';
-import { Grid } from '@mui/material';
 
 const { Text } = Typography;
 
@@ -46,12 +47,23 @@ const Profile = () => {
   const [updateOwner] = useMutation(UPDATE_OWNER);
   const { isMediumDevice } = useBreakpoints();
   const shouldPageBlock = useBlockPage();
+
   //TODO: Remove fakeNfts on integration
-  const fakeNfts = Array.from(Array(9).keys()).map(item => ({
-    id: item + 1,
-    img: `${item + 1}.png`,
-    name: `BALLER #${item + 1}`
-  }));
+  const [cursor, setCursor] = useState(1);
+  const [nftList, setNftList] = useState([]);
+  const { data: fakeNfts, loading } = useSWR('/templates/templates.json');
+
+  const handleLoadMore = () => {
+    setCursor(prevState => prevState + 1);
+  };
+
+  useEffect(() => {
+    if (fakeNfts?.length) {
+      setNftList(fakeNfts.slice(0, cursor * 40));
+    }
+  }, [fakeNfts?.length, cursor]);
+
+  const cursorLimit = useMemo(() => Math.ceil(fakeNfts?.length / 40), [fakeNfts]);
 
   useEffect(() => {
     shouldPageBlock();
@@ -220,11 +232,13 @@ const Profile = () => {
       </Styled.FiltersContainer>
       <Styled.ListWrapper>
         {
-          isLoading
-            ? new Array(isMediumDevice ? 1 : 5)
-                .fill(null)
-                .map((_, index) => <CardSkeletonLoader key={index} />)
-            : data.map(nft => <NFTCard key={nft.id} nft={nft} isFake />)
+          isLoading ? (
+            new Array(isMediumDevice ? 1 : 5)
+              .fill(null)
+              .map((_, index) => <CardSkeletonLoader key={index} />)
+          ) : (
+            <NFTList nfts={nftList} />
+          )
           // TODO: Uncomment on integration and refactor to MUI
           // <PaginationStyled
           //   grid={() => PaginationGridOptions(data)}
@@ -275,6 +289,11 @@ const Profile = () => {
           // />
         }
       </Styled.ListWrapper>
+      {cursorLimit > cursor && !loading && (
+        <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 64px' }}>
+          <Styled.BlackButton onClick={handleLoadMore}>Load more NFTS</Styled.BlackButton>
+        </Grid>
+      )}
       <Modal
         destroyOnClose
         visible={transferModal}

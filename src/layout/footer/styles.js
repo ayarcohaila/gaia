@@ -2,6 +2,8 @@ import { Link, styled } from '@mui/material';
 
 import { Button, SearchInput } from '~/base';
 
+const INPUT_PROPS = ['hasError', 'isSigned'];
+
 export const CustomLink = styled(Link)(
   ({
     fontSize,
@@ -22,12 +24,15 @@ export const CustomLink = styled(Link)(
   })
 );
 
-export const Input = styled(SearchInput, { shouldForwardProp: prop => prop !== 'hasError' })(
+export const Input = styled(SearchInput, {
+  shouldForwardProp: prop => !INPUT_PROPS.includes(prop)
+})(
   ({
     hasError,
+    isSigned,
     theme: {
       breakpoints,
-      palette: { error, grey }
+      palette: { error, grey, success }
     }
   }) => ({
     backgroundColor: grey[700],
@@ -37,7 +42,7 @@ export const Input = styled(SearchInput, { shouldForwardProp: prop => prop !== '
     minWidth: '405px',
 
     '& > .MuiInput-input': {
-      color: grey[500],
+      color: isSigned ? success.light : grey[500],
       fontSize: '1rem'
     },
 
@@ -71,3 +76,16 @@ export const DiscordIcon = styled('img')({
   transform: 'translateY(-3.5px)',
   width: '20px'
 });
+
+export const Logo = styled(Link)(() => ({
+  fontSize: '40px',
+  color: 'white',
+  fontWeight: 'bold',
+  textTransform: 'uppercase',
+  textDecoration: 'none',
+  cursor: 'pointer',
+
+  '&:hover': {
+    color: 'white'
+  }
+}));

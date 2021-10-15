@@ -8,6 +8,7 @@ import useBreakpoints from '~/hooks/useBreakpoints.js';
 
 import { BUTTONS, ORDER_MENU_IDS } from './constants';
 import * as Styled from './styles.js';
+import BurstIcon from '../burstIcon';
 
 const ESC_KEY = 27;
 
@@ -118,7 +119,7 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch, onSearch = (
   return (
     <Styled.Wrapper isMobile={isMediumDevice}>
       <Styled.Container>
-        <Styled.BurstIcon />
+        <BurstIcon />
         <Styled.Text isMobile={isMediumDevice}>{`${nftQuantity} ${
           enableSearch ? 'owned' : 'available'
         }`}</Styled.Text>

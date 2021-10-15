@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react';
 import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import { Grid, Link, Button } from '@mui/material';
-import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 import NextImage from 'next/image';
+import { useRouter } from 'next/router';
+import { Grid, Button, Link } from '@mui/material';
+import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
 import useAuth from '~/hooks/useAuth';
-import { Dropdown } from '~/base';
+import { Dropdown, SearchInput } from '~/base';
 import useToggle from '~/hooks/useToggle';
 import { HeaderModal } from '~/components';
 import useBreakpoints from '~/hooks/useBreakpoints.js';
@@ -18,24 +18,29 @@ import * as Styled from './styles.js';
 const Header = () => {
   const menuAnchorRef = useRef(null);
   const [stateModalHeader, toggleHeaderModal] = useToggle();
+  const [searchQuery, setSearchQuery] = useState('');
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const { login, user, logout } = useAuth();
   const { isMediumDevice } = useBreakpoints();
   const router = useRouter();
 
-  const toggleUserMenu = () => {
-    setOpenUserMenu(prevState => !prevState);
+  const handleChangeSearch = ({ target: { value } }) => {
+    setSearchQuery(value);
+  };
+
+  const handleDropdownMenu = state => {
+    setOpenUserMenu(prevState => (state !== undefined ? state : !prevState));
   };
 
   const handleClick = ({
-    target: {
+    currentTarget: {
       dataset: { id }
     }
   }) => {
     if (stateModalHeader) {
       toggleHeaderModal();
     } else {
-      toggleUserMenu();
+      handleDropdownMenu();
     }
     if (id === USER_MENU_IDS.PROFILE) {
       router.push(`/profile/${user?.addr}`);
@@ -74,7 +79,7 @@ const Header = () => {
         </Grid>
         {!isMediumDevice && (
           <Styled.SearchWrapper>
-            {/* <SearchInput value={searchQuery} onChange={handleChangeSearch} /> */}
+            <SearchInput hidden value={searchQuery} onChange={handleChangeSearch} />
           </Styled.SearchWrapper>
         )}
         {isMediumDevice ? (
@@ -91,13 +96,15 @@ const Header = () => {
                 ref={menuAnchorRef}
                 disableRipple
                 variant="text"
-                onClick={toggleUserMenu}>
+                onClick={handleClick}
+                onMouseEnter={() => handleDropdownMenu(true)}
+                data-id={USER_MENU_IDS.PROFILE}>
                 <Styled.UserAvatar alt="User Icon" />
                 <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
               </Styled.AvatarButton>
             ) : (
               <Styled.CustomButton variant="contained" onClick={login}>
-                Sign in
+                Sign In
               </Styled.CustomButton>
             )}
           </>
@@ -105,9 +112,11 @@ const Header = () => {
         <Dropdown
           menuAnchorRef={menuAnchorRef}
           isOpen={openUserMenu}
-          onClose={toggleUserMenu}
+          onClose={handleDropdownMenu}
           options={USER_MENU_OPTIONS}
           handleClickOption={handleClick}
+          onMouseLeave={() => handleDropdownMenu(false)}
+          sx={{ width: '164px' }}
         />
       </Styled.Container>
       <HeaderModal open={stateModalHeader} onClose={toggleHeaderModal}>
@@ -134,7 +143,7 @@ const Header = () => {
             </>
           ) : (
             <Styled.CustomButton variant="contained" headerModal onClick={login}>
-              Sign in
+              Sign In
             </Styled.CustomButton>
           )}
         </Grid>
