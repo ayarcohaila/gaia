@@ -4,7 +4,8 @@ export const CustomCard = styled(Card)(() => ({
   padding: '16px 16px 22px',
   borderRadius: 20,
   backgroundColor: 'white',
-  boxShadow: '0 0 0 0'
+  boxShadow: '0 0 0 0',
+  position: 'relative'
 }));
 
 export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => ({
@@ -41,6 +42,7 @@ export const SellButton = styled(Button)(({ theme: { palette } }) => ({
   color: 'white',
   fontWeight: 'bold',
   textTransform: 'none',
+  marginTop: '8px',
 
   ':hover': {
     backgroundColor: palette.primary.hover
@@ -74,6 +76,7 @@ export const TransferButton = styled(Button)(({ theme: { palette } }) => ({
   letterSpacing: '0.2px',
   fontWeight: 'bold',
   textTransform: 'none',
+  marginTop: '8px',
 
   ':hover': {
     backgroundColor: palette.grey[200]
@@ -81,9 +84,10 @@ export const TransferButton = styled(Button)(({ theme: { palette } }) => ({
 }));
 
 export const CancelButtonContainer = styled('div')(({ theme: { palette } }) => ({
-  width: 264,
   height: 48,
   padding: '14px 22px',
+  width: '100%',
+  boxSizing: 'border-box',
   borderRadius: '24px',
   backgroundColor: palette.error.main,
   display: 'flex',
@@ -99,6 +103,7 @@ export const CancelButtonContainer = styled('div')(({ theme: { palette } }) => (
   fontWeight: 'bold',
   lineHeight: '1.14',
   letterSpacing: '0.2px',
+  marginTop: '8px',
 
   ':hover': {
     backgroundColor: palette.error[700]

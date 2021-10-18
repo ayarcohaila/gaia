@@ -15,7 +15,7 @@ export const BurstIcon = styled('div')`
     position: absolute;
   }
 
-  div:nth-child(2n) {
+  div:nth-of-type(2n) {
     background-color: #f4f4f6;
   }
 

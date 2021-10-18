@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
-import { Tune as TuneIcon } from '@mui/icons-material';
+import { Tune as TuneIcon, Search as SearchIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
-import SearchIcon from '@mui/icons-material/Search';
+import { Hidden } from '@mui/material';
 
 import { Dropdown, SearchInput, BurstIcon } from '~/base';
 import { useBreakpoints } from '~/hooks';
@@ -123,19 +123,21 @@ const CollectionsFilter = ({ setNftList, nftQuantity, enableSearch, onSearch = (
           enableSearch ? 'owned' : 'available'
         }`}</Styled.Text>
       </Styled.Container>
-      <Styled.Container space hidden>
-        {Object.values(BUTTONS).map(({ label, id }) => (
-          <Styled.OutlineButton
-            key={id}
-            variant="outline"
-            data-id={id}
-            isSelected={id === selectButton}
-            onClick={handleSelectOption}
-            endIcon={<TuneIcon />}>
-            {label}
-          </Styled.OutlineButton>
-        ))}
-      </Styled.Container>
+      <Hidden xsUp>
+        <Styled.Container space>
+          {Object.values(BUTTONS).map(({ label, id }) => (
+            <Styled.OutlineButton
+              key={id}
+              variant="outline"
+              data-id={id}
+              isSelected={id === selectButton}
+              onClick={handleSelectOption}
+              endIcon={<TuneIcon />}>
+              {label}
+            </Styled.OutlineButton>
+          ))}
+        </Styled.Container>
+      </Hidden>
       {enableSearch ? (
         renderInput
       ) : (

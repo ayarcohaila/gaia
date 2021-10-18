@@ -104,7 +104,7 @@ const Footer = () => {
           </Box>
 
           <Box width="160px" my={isSmallDevice ? '24px' : '0'}>
-            <Typography color={grey[600]} mb="4px" variant="subtitle2">
+            <Typography color={grey[600]} mb="4px" variant="subtitle2" lineHeight="1.54">
               © 2021 Gaia
             </Typography>
             <Typography color={grey[600]} variant="subtitle2">

@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
-import { Grid, Button, Link } from '@mui/material';
+import { Grid, Button, Link, Hidden } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
@@ -77,7 +77,9 @@ const Header = () => {
         </Grid>
         {!isMediumDevice && (
           <Styled.SearchWrapper>
-            <SearchInput hidden value={searchQuery} onChange={handleChangeSearch} />
+            <Hidden xsUp>
+              <SearchInput value={searchQuery} onChange={handleChangeSearch} />
+            </Hidden>
           </Styled.SearchWrapper>
         )}
         {isMediumDevice ? (

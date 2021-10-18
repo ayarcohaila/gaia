@@ -3,7 +3,7 @@ import { Grid, Box, Typography, styled } from '@mui/material';
 const BannerBackground = styled(Grid, { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ theme, imgUrl }) => ({
     width: '100%',
-    minHeight: '420px',
+    height: '420px',
     backgroundImage: `url(${imgUrl})`,
     borderRadius: '40px',
     backgroundSize: 'contain',
@@ -17,7 +17,6 @@ const BannerBackground = styled(Grid, { shouldForwardProp: prop => prop !== 'img
 
 const BannerStyled = styled(Box, { shouldForwardProp: prop => prop !== 'bgColor' })(
   ({ theme, bgColor }) => ({
-    minHeight: '420px',
     padding: '48px',
     backgroundImage: `radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, ${bgColor} 81%)`,
     borderRadius: '40px',
