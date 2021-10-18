@@ -2,10 +2,7 @@ import { createContext, useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { AgreeSetupModal } from '~/components';
-
-import useAuth from '~/hooks/useAuth';
-import useProfile from '~/hooks/useProfile';
-
+import { useAuth, useProfile } from '~/hooks';
 import { URLs } from '~/routes/urls';
 
 export const AuthContext = createContext({});

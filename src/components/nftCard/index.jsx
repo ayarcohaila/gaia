@@ -1,16 +1,15 @@
 import { useState, useMemo } from 'react';
-import { CardActions, CardContent, CardMedia, Avatar, Grid } from '@mui/material';
+import { Grid, CardActions, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
-import useToggle from '~/hooks/useToggle';
-import useAuth from '~/hooks/useAuth';
 import {
   SellNftModal,
   TransferNftModal,
   CancelListingModal,
   OrderCompleteModal
 } from '~/components';
+import { useAuth, useToggle } from '~/hooks';
 
 import * as Styled from './styled';
 
@@ -18,6 +17,7 @@ const NFTCard = ({ nft, isFake }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const [forSale, setForSale] = useState(false);
+  const [displayModals, setDisplayModals] = useState(false);
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
@@ -26,7 +26,9 @@ const NFTCard = ({ nft, isFake }) => {
   const asset = { ...nft, collectionName: 'BALLERZ', img: `/templates/${nft?.img}` };
 
   // TODO: Implement function
-  const handlePurchaseClick = () => {};
+  const handlePurchaseClick = () => {
+    setDisplayModals(true);
+  };
 
   const renderUserCardActions = useMemo(() => {
     return (
@@ -69,11 +71,12 @@ const NFTCard = ({ nft, isFake }) => {
           <Styled.NFTText>{`BALLER #${nft?.id}`}</Styled.NFTText>
         </CardContent>
         {(user?.addr === '0x5f14b7e68e0bc3c3' && route?.asPath === '0x5f14b7e68e0bc3c3') ||
-        isFake ? (
+        isFake ||
+        displayModals ? (
           renderUserCardActions
         ) : (
           <Grid container justifyContent="center">
-            <Styled.PurchaseButton onClick={user ? handlePurchaseClick : login}>
+            <Styled.PurchaseButton onClick={user ? () => handlePurchaseClick() : login}>
               Purchase • $200 USD
             </Styled.PurchaseButton>
           </Grid>

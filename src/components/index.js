@@ -10,5 +10,5 @@ export { default as OrderCompleteModal } from './modal/order-complete';
 export { default as NFTList } from './nftList';
 export { default as NFTCard } from './nftCard';
 export { default as HeaderModal } from './modal/header-menu';
-export { default as Seo } from './seo/seo';
+export { default as Seo } from './seo';
 export { default as AgreeSetupModal } from './modal/agree-setup';
