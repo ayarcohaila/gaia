@@ -2,22 +2,24 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-export const Container = styled(Box)(
-  ({ theme }) => `
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 0 0 8px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background-color: ${theme.palette.purple['100']};
-  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  :hover{
-    border: 1px solid ${theme.palette.grey['100']}};
+export const Container = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  width: '146px',
+  height: '34px',
+  justifyContent: 'center',
+  margin: '0 0 0 8px',
+  padding: '8px 12px',
+  boxSizing: 'border-box',
+  borderRadius: '8px',
+  backgroundColor: theme.palette.purple['100'],
+  boxShadow: '0px 4px 25px rgba(0, 0, 0, 0.1)',
+  cursor: 'pointer',
+
+  ':hover': {
+    border: `1px solid ${theme.palette.grey['100']}`
   }
-`
-);
+}));
 
 export const Text = styled(Typography)(({ theme }) => ({
   width: '100%',
