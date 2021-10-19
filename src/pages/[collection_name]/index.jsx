@@ -1,19 +1,15 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Grid } from '@mui/material';
+import { useSubscription } from '@apollo/react-hooks';
 
 import { CollectionBanner, CollectionsFilter, Seo, NFTList } from '~/components';
 import { Divider, CardSkeletonLoader } from '~/base';
 import { useSWR, useBreakpoints } from '~/hooks';
+import { GET_COLLECTION_BY_NAME } from '~/store/server/queries';
 
 import * as Styled from '~/styles/collection-name/styles';
 
 const DATA = {
-  accountNumber: '0x5f14b7e68e0bc3c3',
-  bannerName: '@BALLERZ',
-  bannerDescription:
-    "BALLERZ is a basketball-inspired generative NFT set launching on the Flow blockchain. Collect your favorite teams and jersey numbers, and show everyone you're a true baller",
-  bgImg: '/collections/ballerz-1200x630.jpg',
-  collectionName: 'BALLERZ',
   mainColor: '#270b5a',
   secondaryColor: '#4814a6'
 };
@@ -21,12 +17,21 @@ const DATA = {
 const Collection = () => {
   const [cursor, setCursor] = useState(1);
   const [nftList, setNftList] = useState([]);
+  const [bannerData, setBannerData] = useState(null);
   const { isMediumDevice } = useBreakpoints();
 
+  const { data: dataFetch, loading: dataFetchLoading } = useSubscription(GET_COLLECTION_BY_NAME, {
+    variables: { id: 'b328974a-bb62-48b8-8c82-b42fd35dec76' }
+  });
+
   const { data, loading } = useSWR('/templates/templates.json');
-  const handleLoadMore = () => {
-    setCursor(prevState => prevState + 1);
-  };
+
+  useEffect(() => {
+    if (!dataFetch) return;
+    const [collectionData] = dataFetch.nft_collection;
+
+    setBannerData({ ...collectionData, ...DATA });
+  }, [dataFetch]);
 
   useEffect(() => {
     if (data?.length) {
@@ -34,19 +39,23 @@ const Collection = () => {
     }
   }, [data?.length, cursor]);
 
+  const handleLoadMore = () => {
+    setCursor(prevState => prevState + 1);
+  };
   const cursorLimit = useMemo(() => Math.ceil(data?.length / 40), [data]);
 
   return (
     <>
-      <Seo title={`${DATA.collectionName} NFT Collection`} />
+      <Seo title={`${bannerData?.name} NFT Collection`} />
       <Grid>
         <CollectionBanner
-          accountNumber={DATA.accountNumber}
-          bannerName={DATA.bannerName}
-          bannerDescription={DATA.bannerDescription}
-          bgImg={DATA.bgImg}
-          mainColor={DATA.mainColor}
-          secondaryColor={DATA.secondaryColor}
+          dataFetchLoading={dataFetchLoading}
+          accountNumber={bannerData?.author}
+          bannerName={bannerData?.name}
+          bannerDescription={bannerData?.description}
+          bgImg={bannerData?.image}
+          mainColor={bannerData?.mainColor}
+          secondaryColor={bannerData?.secondaryColor}
         />
         <Styled.Container>
           <Grid sx={{ margin: '24px 0' }}>
