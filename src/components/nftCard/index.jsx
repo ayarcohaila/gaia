@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Grid, CardActions, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
@@ -10,10 +10,11 @@ import {
   OrderCompleteModal
 } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
+import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 
-const NFTCard = ({ nft, isFake }) => {
+const NFTCard = ({ data, isFake }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const [forSale, setForSale] = useState(false);
@@ -23,7 +24,9 @@ const NFTCard = ({ nft, isFake }) => {
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
 
-  const asset = { ...nft, collectionName: 'BALLERZ', img: `/templates/${nft?.img}` };
+  const img = formatIpfsImg(data?.nft?.nft_template?.metadata?.img);
+
+  const asset = { ...data, collectionName: 'BALLERZ', img };
 
   // TODO: Implement function
   const handlePurchaseClick = () => {
@@ -65,10 +68,10 @@ const NFTCard = ({ nft, isFake }) => {
           component="img"
           alt="ss"
           height="275"
-          src={`/templates/${nft?.img}`}
+          src={img}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>{`BALLER #${nft?.id}`}</Styled.NFTText>
+          <Styled.NFTText>{data?.nft.nft_template.metadata.title}</Styled.NFTText>
         </CardContent>
         {(user?.addr === '0x5f14b7e68e0bc3c3' && route?.asPath === '0x5f14b7e68e0bc3c3') ||
         isFake ||
@@ -77,7 +80,7 @@ const NFTCard = ({ nft, isFake }) => {
         ) : (
           <Grid container justifyContent="center">
             <Styled.PurchaseButton onClick={user ? () => handlePurchaseClick() : login}>
-              Purchase • $200 USD
+              {`Purchase • ${Number(data.price).toFixed(2)}`}
             </Styled.PurchaseButton>
           </Grid>
         )}
@@ -110,7 +113,21 @@ NFTCard.propTypes = {
   //TODO: Remove prop isFake on integration
   isFake: PropTypes.bool,
   sell: PropTypes.bool,
-  transfer: PropTypes.bool
+  transfer: PropTypes.bool,
+  data: PropTypes.shape({
+    id: PropTypes.string,
+    price: PropTypes.string,
+    nft: PropTypes.shape({
+      asset_id: PropTypes.number,
+      nft_template: PropTypes.shape({
+        id: PropTypes.string,
+        metadata: PropTypes.shape({
+          title: PropTypes.string,
+          img: PropTypes.string
+        })
+      })
+    })
+  }).isRequired
 };
 
 NFTCard.defaultProps = {
@@ -119,4 +136,4 @@ NFTCard.defaultProps = {
   transfer: false
 };
 
-export default NFTCard;
+export default React.memo(NFTCard);
