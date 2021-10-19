@@ -1,9 +1,10 @@
-import * as Styled from './styles';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Tooltip from '@mui/material/Tooltip';
-import { truncate } from '~/utils/string';
 import { useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
+import { truncate } from '~/utils/string';
+
+import * as Styled from './styles';
 
 function BannerAccount(props) {
   const defaultTooltipTitle = 'Copy to clipboard';

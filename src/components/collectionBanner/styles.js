@@ -1,13 +1,13 @@
-import { styled } from '@mui/material';
-import { Box, Typography } from '@mui/material';
+import { Grid, Box, Typography, styled } from '@mui/material';
 
-const BannerBackground = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
+const BannerBackground = styled(Grid, { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ theme, imgUrl }) => ({
     width: '100%',
-    minHeight: '420px',
+    height: '420px',
     backgroundImage: `url(${imgUrl})`,
     borderRadius: '40px',
     backgroundSize: 'contain',
+    boxSizing: 'border-box',
 
     [theme.breakpoints.down('sm')]: {
       minHeight: '220px'
@@ -17,8 +17,6 @@ const BannerBackground = styled('div', { shouldForwardProp: prop => prop !== 'im
 
 const BannerStyled = styled(Box, { shouldForwardProp: prop => prop !== 'bgColor' })(
   ({ theme, bgColor }) => ({
-    width: '100%',
-    minHeight: '420px',
     padding: '48px',
     backgroundImage: `radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, ${bgColor} 81%)`,
     borderRadius: '40px',

@@ -1,4 +1,3 @@
-import { Spin, notification } from 'antd';
 import { fcl, t } from '../config/config';
 
 const TRANSFER_NFT_TX = fcl.cdc`
@@ -42,13 +41,7 @@ export async function transferNft(recipient, withdrawID) {
         fcl.limit(100) // set the compute limit
       ])
       .then(fcl.decode);
-    notification.open({
-      key: `transfer_${withdrawID}`,
-      icon: <Spin />,
-      message: `Transferring #${withdrawID} to ${recipient}`,
-      description: 'Sending transaction to the blockchain',
-      duration: null
-    });
+
     return fcl.tx(txId).onceSealed();
   } catch (err) {
     throw new Error(err);

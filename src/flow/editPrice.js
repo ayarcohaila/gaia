@@ -1,4 +1,3 @@
-import { Spin, notification } from 'antd';
 import { fcl, t } from '../config/config';
 
 const EDIT_PRICE_TX = fcl.cdc`
@@ -44,13 +43,7 @@ export async function editPrice(address, saleAssetID, newPrice) {
         fcl.transaction(EDIT_PRICE_TX)
       ])
       .then(fcl.decode);
-    notification.open({
-      key: `edit_sale_${saleAssetID}`,
-      icon: <Spin />,
-      message: `Editing #${saleAssetID} offer`,
-      description: 'Sending transaction to the blockchain',
-      duration: null
-    });
+
     return fcl.tx(txId).onceSealed();
   } catch (err) {
     console.warn(err);

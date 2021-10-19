@@ -1,12 +1,11 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Grid, IconButton, Typography, useTheme } from '@mui/material';
-import { ContentCopy as CopyIcon } from '@mui/icons-material';
 import { toast } from 'react-toastify';
-
-import useBreakpoints from '~/hooks/useBreakpoints';
-import useCopyToClipboard from '~/hooks/useCopyToClipboard';
 import { useRouter } from 'next/router';
+import { ContentCopy as CopyIcon } from '@mui/icons-material';
+import { Box, Grid, IconButton, Typography, useTheme } from '@mui/material';
+
+import { useBreakpoints, useCopyToClipboard } from '~/hooks';
 
 const ModalSuccessContent = ({ address }) => {
   const {

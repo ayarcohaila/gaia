@@ -2,15 +2,13 @@ import { useState, useRef } from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
-import { Grid, Button, Link } from '@mui/material';
+import { Grid, Button, Link, Hidden } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
-import useAuth from '~/hooks/useAuth';
-import { Dropdown, SearchInput } from '~/base';
-import useToggle from '~/hooks/useToggle';
 import { HeaderModal } from '~/components';
-import useBreakpoints from '~/hooks/useBreakpoints.js';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Dropdown, SearchInput } from '~/base';
+import { useBreakpoints, useToggle, useAuth } from '~/hooks';
 import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
 
 import * as Styled from './styles.js';
@@ -79,7 +77,9 @@ const Header = () => {
         </Grid>
         {!isMediumDevice && (
           <Styled.SearchWrapper>
-            <SearchInput hidden value={searchQuery} onChange={handleChangeSearch} />
+            <Hidden xsUp>
+              <SearchInput value={searchQuery} onChange={handleChangeSearch} />
+            </Hidden>
           </Styled.SearchWrapper>
         )}
         {isMediumDevice ? (

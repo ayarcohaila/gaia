@@ -3,8 +3,9 @@ import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { ChevronRight as ArrowRightIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
-import useBreakpoints from '~/hooks/useBreakpoints';
 import { Button } from '~/base';
+import { useBreakpoints } from '~/hooks';
+
 import Modal from '..';
 
 const OrderCompleteModal = ({ asset, blockchainId, onClose, orderId, ...props }) => {

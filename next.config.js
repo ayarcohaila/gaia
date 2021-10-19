@@ -1,17 +1,4 @@
-const withAntdLess = require('next-plugin-antd-less');
-const antvars = require('./antvars');
 const withPlugins = require('next-compose-plugins');
-
-const antdConfig = withAntdLess({
-  modifyVars: antvars,
-
-  reactStrictMode: true,
-  poweredByHeader: false,
-
-  webpack(config) {
-    return config;
-  }
-});
 
 const nextConfig = {
   async redirects() {
@@ -19,9 +6,9 @@ const nextConfig = {
       {
         source: '/',
         destination: '/ballerz',
-        permanent: true,
-      },
-    ]
+        permanent: true
+      }
+    ];
   },
   images: {
     domains: [
@@ -35,4 +22,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withPlugins([[antdConfig]], nextConfig);
+module.exports = withPlugins([], nextConfig);

@@ -1,8 +1,10 @@
 import React from 'react';
-import * as Styled from './styles';
-import BannerAccount from '~/components/collectionBannerAccount';
 import { Box, Grid } from '@mui/material';
-import useBreakpoints from '~/hooks/useBreakpoints';
+
+import BannerAccount from '~/components/collectionBannerAccount';
+import { useBreakpoints } from '~/hooks';
+
+import * as Styled from './styles';
 
 function CollectionBanner({
   accountNumber,
