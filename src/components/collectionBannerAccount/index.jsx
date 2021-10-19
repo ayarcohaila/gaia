@@ -9,7 +9,7 @@ function BannerAccount(props) {
   const [tooltipTitle, setTooltipTitle] = useState(defaultTooltipTitle);
   const { accountNumber, bannerName } = props;
 
-  const secretAccount = accountNumber.substring(0, 5) + '...' + accountNumber.substring(6, 10);
+  const secretAccount = accountNumber?.substring(0, 5) + '...' + accountNumber?.substring(6, 10);
 
   const copyHandler = () => {
     navigator.clipboard.writeText(accountNumber);
@@ -18,7 +18,7 @@ function BannerAccount(props) {
 
   return (
     <Box>
-      <Styled.BannerName>{'@' + bannerName.toUpperCase()}</Styled.BannerName>
+      <Styled.BannerName>{'@' + bannerName?.toUpperCase()}</Styled.BannerName>
       <Tooltip title={tooltipTitle} onOpen={() => setTooltipTitle(defaultTooltipTitle)}>
         <Styled.BannerAccountStyled onClick={copyHandler} bgColor={props.bgColor}>
           <span>{secretAccount}</span>

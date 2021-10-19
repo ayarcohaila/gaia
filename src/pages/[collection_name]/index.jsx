@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Grid } from '@mui/material';
-import { useSubscription } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 
 import { CollectionBanner, CollectionsFilter, Seo, NFTList } from '~/components';
 import { Divider, CardSkeletonLoader } from '~/base';
@@ -20,7 +20,7 @@ const Collection = () => {
   const [bannerData, setBannerData] = useState(null);
   const { isMediumDevice } = useBreakpoints();
 
-  const { data: dataFetch, loading: dataFetchLoading } = useSubscription(GET_COLLECTION_BY_NAME, {
+  const { data: dataFetch } = useQuery(GET_COLLECTION_BY_NAME, {
     variables: { id: 'b328974a-bb62-48b8-8c82-b42fd35dec76' }
   });
 
@@ -46,10 +46,9 @@ const Collection = () => {
 
   return (
     <>
-      <Seo title={`${bannerData?.name} NFT Collection`} />
+      <Seo title={`${bannerData?.name || ''} NFT Collection`} />
       <Grid>
         <CollectionBanner
-          dataFetchLoading={dataFetchLoading}
           accountNumber={bannerData?.author}
           bannerName={bannerData?.name}
           bannerDescription={bannerData?.description}
