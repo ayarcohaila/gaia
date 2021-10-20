@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { Box, Tooltip } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-import { truncate } from '~/utils/string';
-
 import * as Styled from './styles';
 
 function BannerAccount(props) {
@@ -11,7 +9,7 @@ function BannerAccount(props) {
   const [tooltipTitle, setTooltipTitle] = useState(defaultTooltipTitle);
   const { accountNumber, bannerName } = props;
 
-  const secretAccount = truncate(accountNumber, 5, -3, '\u2026');
+  const secretAccount = accountNumber?.substring(0, 5) + '...' + accountNumber?.substring(6, 10);
 
   const copyHandler = () => {
     navigator.clipboard.writeText(accountNumber);
@@ -20,7 +18,7 @@ function BannerAccount(props) {
 
   return (
     <Box>
-      <Styled.BannerName>{bannerName}</Styled.BannerName>
+      <Styled.BannerName>{'@' + bannerName?.toUpperCase()}</Styled.BannerName>
       <Tooltip title={tooltipTitle} onOpen={() => setTooltipTitle(defaultTooltipTitle)}>
         <Styled.BannerAccountStyled onClick={copyHandler} bgColor={props.bgColor}>
           <span>{secretAccount}</span>

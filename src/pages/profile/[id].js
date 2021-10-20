@@ -38,33 +38,6 @@ const Profile = () => {
     setAssets(fakeNfts);
   }, []);
 
-  const { loading: isLoading } = useSubscription(GET_MY_NFTS_BY_OWNER, {
-    variables: {
-      id
-    },
-    onSubscriptionData: ({
-      subscriptionData: {
-        data: { nft: nfts }
-      }
-    }) => {
-      const mappedAssets = nfts.map(nft => ({
-        asset_id: nft.asset_id,
-        template_id: nft.template.template_id,
-        onSale: nft.is_for_sale,
-        imgURL: nft.template.metadata.image,
-        video: nft.template.metadata?.video,
-        name: nft.template.metadata.name,
-        description: nft.template.metadata.description,
-        creator: nft.collection.author,
-        id: nft.id,
-        mintNumber: nft.mint_number,
-        owner: nft.owner,
-        createdAt: nft.created_at
-      }));
-      // setAssets(mappedAssets);
-    }
-  });
-
   const cursorLimit = useMemo(() => Math.ceil(fakeNfts?.length / 40), [fakeNfts]);
 
   return (
@@ -76,7 +49,7 @@ const Profile = () => {
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
       <Styled.ListWrapper>
-        {isLoading ? (
+        {loading ? (
           new Array(isMediumDevice ? 1 : 5)
             .fill(null)
             .map((_, index) => <CardSkeletonLoader key={index} />)

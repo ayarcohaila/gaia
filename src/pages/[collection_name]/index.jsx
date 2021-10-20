@@ -1,56 +1,71 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Grid } from '@mui/material';
+import { useQuery, useSubscription } from '@apollo/react-hooks';
 
 import { CollectionBanner, CollectionsFilter, Seo, NFTList } from '~/components';
 import { Divider, CardSkeletonLoader } from '~/base';
-import { useSWR, useBreakpoints } from '~/hooks';
+import { useBreakpoints } from '~/hooks';
+import { GET_COLLECTION_BY_ID } from '~/store/server/queries';
+import { GET_BALLERZ_NFTS_FOR_SALE } from '~/store/server/subscriptions';
 
 import * as Styled from '~/styles/collection-name/styles';
 
 const DATA = {
-  accountNumber: '0x5f14b7e68e0bc3c3',
-  bannerName: '@BALLERZ',
-  bannerDescription:
-    "BALLERZ is a basketball-inspired generative NFT set launching on the Flow blockchain. Collect your favorite teams and jersey numbers, and show everyone you're a true baller",
-  bgImg: '/collections/ballerz-1200x630.jpg',
-  collectionName: 'BALLERZ',
   mainColor: '#270b5a',
   secondaryColor: '#4814a6'
 };
 
+const BALLERZ_ID = 'b328974a-bb62-48b8-8c82-b42fd35dec76';
+
 const Collection = () => {
   const [cursor, setCursor] = useState(1);
   const [nftList, setNftList] = useState([]);
+  const [bannerData, setBannerData] = useState(null);
   const { isMediumDevice } = useBreakpoints();
 
-  const { data, loading } = useSWR('/templates/templates.json');
+  const { data: dataFetch } = useQuery(GET_COLLECTION_BY_ID, {
+    variables: { id: BALLERZ_ID }
+  });
+
+  const { loading, data: { nft_sale_offer } = { nft_sale_offer: [] } } = useSubscription(
+    GET_BALLERZ_NFTS_FOR_SALE,
+    { variables: { id: BALLERZ_ID } }
+  );
+
+  useEffect(() => {
+    if (!dataFetch) return;
+    const [collectionData] = dataFetch.nft_collection;
+
+    setBannerData({ ...collectionData, ...DATA });
+  }, [dataFetch]);
+
+  useEffect(() => {
+    if (nft_sale_offer?.length) {
+      setNftList(nft_sale_offer.slice(0, cursor * 40));
+    }
+  }, [nft_sale_offer?.length, cursor]);
+
   const handleLoadMore = () => {
     setCursor(prevState => prevState + 1);
   };
 
-  useEffect(() => {
-    if (data?.length) {
-      setNftList(data.slice(0, cursor * 40));
-    }
-  }, [data?.length, cursor]);
-
-  const cursorLimit = useMemo(() => Math.ceil(data?.length / 40), [data]);
+  const cursorLimit = useMemo(() => Math.ceil(nft_sale_offer?.length / 40), [nft_sale_offer]);
 
   return (
     <>
-      <Seo title={`${DATA.collectionName} NFT Collection`} />
+      <Seo title={`${bannerData?.name || ''} NFT Collection`} />
       <Grid>
         <CollectionBanner
-          accountNumber={DATA.accountNumber}
-          bannerName={DATA.bannerName}
-          bannerDescription={DATA.bannerDescription}
-          bgImg={DATA.bgImg}
-          mainColor={DATA.mainColor}
-          secondaryColor={DATA.secondaryColor}
+          accountNumber={bannerData?.author}
+          bannerName={bannerData?.name}
+          bannerDescription={bannerData?.description}
+          bgImg={bannerData?.image}
+          mainColor={bannerData?.mainColor}
+          secondaryColor={bannerData?.secondaryColor}
         />
         <Styled.Container>
           <Grid sx={{ margin: '24px 0' }}>
-            <CollectionsFilter nftQuantity={data?.length} setNftList={setNftList} />
+            <CollectionsFilter nftQuantity={nft_sale_offer?.length} setNftList={setNftList} />
           </Grid>
           <Divider sx={{ marginBottom: '32px' }} />
           <Grid sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -65,7 +80,7 @@ const Collection = () => {
             )}
           </Grid>
           {cursorLimit > cursor && !loading && (
-            <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 64px' }}>
+            <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 0' }}>
               <Styled.BlackButton onClick={handleLoadMore}>Load more NFTS</Styled.BlackButton>
             </Grid>
           )}
@@ -74,4 +89,5 @@ const Collection = () => {
     </>
   );
 };
+
 export default Collection;
