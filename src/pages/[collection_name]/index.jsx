@@ -5,7 +5,7 @@ import { useQuery, useSubscription } from '@apollo/react-hooks';
 import { CollectionBanner, CollectionsFilter, Seo, NFTList } from '~/components';
 import { Divider, CardSkeletonLoader } from '~/base';
 import { useBreakpoints } from '~/hooks';
-import { GET_COLLECTION_BY_NAME } from '~/store/server/queries';
+import { GET_COLLECTION_BY_ID } from '~/store/server/queries';
 import { GET_BALLERZ_NFTS_FOR_SALE } from '~/store/server/subscriptions';
 
 import * as Styled from '~/styles/collection-name/styles';
@@ -23,9 +23,14 @@ const Collection = () => {
   const [bannerData, setBannerData] = useState(null);
   const { isMediumDevice } = useBreakpoints();
 
-  const { data: dataFetch } = useQuery(GET_COLLECTION_BY_NAME, {
+  const { data: dataFetch } = useQuery(GET_COLLECTION_BY_ID, {
     variables: { id: BALLERZ_ID }
   });
+
+  const { loading, data: { nft_sale_offer } = { nft_sale_offer: [] } } = useSubscription(
+    GET_BALLERZ_NFTS_FOR_SALE,
+    { variables: { id: BALLERZ_ID } }
+  );
 
   useEffect(() => {
     if (!dataFetch) return;
@@ -34,23 +39,17 @@ const Collection = () => {
     setBannerData({ ...collectionData, ...DATA });
   }, [dataFetch]);
 
-  const handleLoadMore = () => {
-    setCursor(prevState => prevState + 1);
-  };
-
-  //
-  const { loading, data: { nft_sale_offer } = { nft_sale_offer: [] } } = useSubscription(
-    GET_BALLERZ_NFTS_FOR_SALE,
-    { variables: { id: BALLERZ_ID } }
-  );
-
-  const cursorLimit = useMemo(() => Math.ceil(nft_sale_offer?.length / 40), [nft_sale_offer]);
-
   useEffect(() => {
     if (nft_sale_offer?.length) {
       setNftList(nft_sale_offer.slice(0, cursor * 40));
     }
   }, [nft_sale_offer?.length, cursor]);
+
+  const handleLoadMore = () => {
+    setCursor(prevState => prevState + 1);
+  };
+
+  const cursorLimit = useMemo(() => Math.ceil(nft_sale_offer?.length / 40), [nft_sale_offer]);
 
   return (
     <>
@@ -90,4 +89,5 @@ const Collection = () => {
     </>
   );
 };
+
 export default Collection;

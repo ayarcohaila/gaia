@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-const GET_COLLECTION_BY_NAME = gql`
-  query getCollectionByName($id: uuid!) {
+const GET_COLLECTION_BY_ID = gql`
+  query getCollectionById($id: uuid!) {
     nft_collection(where: { id: { _eq: $id } }) {
       id
       image
@@ -12,4 +12,4 @@ const GET_COLLECTION_BY_NAME = gql`
   }
 `;
 
-export { GET_COLLECTION_BY_NAME };
+export { GET_COLLECTION_BY_ID };

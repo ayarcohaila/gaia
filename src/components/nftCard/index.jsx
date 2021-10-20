@@ -71,7 +71,7 @@ const NFTCard = ({ data, isFake }) => {
           src={img}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>{data?.nft.nft_template.metadata.title}</Styled.NFTText>
+          <Styled.NFTText>{data?.nft?.nft_template.metadata.title}</Styled.NFTText>
         </CardContent>
         {(user?.addr === '0x5f14b7e68e0bc3c3' && route?.asPath === '0x5f14b7e68e0bc3c3') ||
         isFake ||
