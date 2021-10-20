@@ -40,7 +40,7 @@ const Footer = () => {
   }, [email, hasError, previousEmailValue]);
 
   return (
-    <Grid bgcolor={secondary.main} component="footer" width="100%">
+    <Grid bgcolor={secondary.main} mt="64px" component="footer" width="100%">
       <Grid
         maxWidth="1440px"
         p={isSmallDevice ? '32px' : '48px 188px 48px 82px'}
