@@ -24,7 +24,10 @@ const NFTCard = ({ data, isFake }) => {
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
 
-  const img = formatIpfsImg(data?.nft?.nft_template?.metadata?.img);
+  const img =
+    process.env.NEXT_PUBLIC_STOREFRONT_ADDRESS === data.nft.owner
+      ? `/images/mystery-nft-${Math.floor(Math.random() * (4 - 1 + 1)) + 1}.gif`
+      : formatIpfsImg(data?.nft?.nft_template?.metadata?.img);
 
   const asset = { ...data, collectionName: 'BALLERZ', img };
 
@@ -66,7 +69,7 @@ const NFTCard = ({ data, isFake }) => {
         <CardMedia
           sx={{ borderRadius: '20px', maxWidth: '275px' }}
           component="img"
-          alt="ss"
+          alt="NFT image"
           height="275"
           src={img}
         />

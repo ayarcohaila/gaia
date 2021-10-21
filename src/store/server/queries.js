@@ -30,6 +30,7 @@ const GET_BALLERZ_NFTS_FOR_SALE = gql`
       price
       nft {
         asset_id
+        owner
         nft_template {
           id
           metadata
