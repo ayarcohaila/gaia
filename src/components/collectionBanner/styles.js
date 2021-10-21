@@ -3,7 +3,6 @@ import { Grid, Box, Typography, styled } from '@mui/material';
 const BannerBackground = styled(Grid, { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ theme, imgUrl }) => ({
     width: '100%',
-    height: '420px',
     backgroundImage: `url(${imgUrl})`,
     borderRadius: '40px',
     backgroundSize: 'contain',
