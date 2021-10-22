@@ -17,7 +17,8 @@ const nextConfig = {
       'i.picsum.photos',
       'btco.mypinata.cloud',
       //TODO: Remove it
-      'pbs.twimg.com'
+      'pbs.twimg.com',
+      'gateway.ipfs.io'
     ]
   }
 };
