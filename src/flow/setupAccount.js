@@ -1,10 +1,10 @@
 import { fcl } from '../config/config';
 
 const TX = fcl.cdc`
-import NFTStorefront from "../contracts/NFTStorefront.cdc"
-import Profile from "../contracts/Profile.cdc"
-import FlowToken from "../contracts/FlowToken.cdc"
-import FungibleToken from "../contracts/FungibleToken.cdc"
+import NFTStorefront from 0xNFTMarket
+import Profile from 0xProfile
+import FlowToken from 0xFlowToken
+import FungibleToken from 0xFungibleToken
 
 // This transaction installs the Storefront ressource in an account.
 
