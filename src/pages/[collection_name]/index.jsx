@@ -1,12 +1,15 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Grid } from '@mui/material';
-import { useQuery, useSubscription } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { CollectionBanner, CollectionsFilter, Seo, NFTList } from '~/components';
 import { Divider, CardSkeletonLoader } from '~/base';
 import { useBreakpoints } from '~/hooks';
-import { GET_COLLECTION_BY_ID } from '~/store/server/queries';
-import { GET_BALLERZ_NFTS_FOR_SALE } from '~/store/server/subscriptions';
+import {
+  GET_COLLECTION_BY_ID,
+  GET_BALLERZ_NFTS_FOR_SALE,
+  GET_BALLERZ_NFTS_FOR_SALE_COUNT
+} from '~/store/server/queries';
 
 import * as Styled from '~/styles/collection-name/styles';
 
@@ -17,39 +20,80 @@ const DATA = {
 
 const BALLERZ_ID = 'b328974a-bb62-48b8-8c82-b42fd35dec76';
 
+const DEFAULT_LIST_SIZE = 40;
+const DEFAULT_SORT_VARIABLES = { priceSort: 'asc', mintSort: null };
+
 const Collection = () => {
-  const [cursor, setCursor] = useState(1);
-  const [nftList, setNftList] = useState([]);
+  const [cursor, setCursor] = useState(0);
   const [bannerData, setBannerData] = useState(null);
+  const [sort, setSort] = useState(DEFAULT_SORT_VARIABLES);
   const { isMediumDevice } = useBreakpoints();
 
   const { data: dataFetch } = useQuery(GET_COLLECTION_BY_ID, {
     variables: { id: BALLERZ_ID }
   });
 
-  const { loading, data: { nft_sale_offer } = { nft_sale_offer: [] } } = useSubscription(
-    GET_BALLERZ_NFTS_FOR_SALE,
-    { variables: { id: BALLERZ_ID } }
-  );
-
   useEffect(() => {
     if (!dataFetch) return;
     const [collectionData] = dataFetch.nft_collection;
-
     setBannerData({ ...collectionData, ...DATA });
   }, [dataFetch]);
-
-  useEffect(() => {
-    if (nft_sale_offer?.length) {
-      setNftList(nft_sale_offer.slice(0, cursor * 40));
-    }
-  }, [nft_sale_offer?.length, cursor]);
 
   const handleLoadMore = () => {
     setCursor(prevState => prevState + 1);
   };
 
-  const cursorLimit = useMemo(() => Math.ceil(nft_sale_offer?.length / 40), [nft_sale_offer]);
+  const {
+    loading: isLoadingCount,
+    data: {
+      nft_sale_offer_aggregate: {
+        aggregate: { count }
+      }
+    } = {
+      nft_sale_offer_aggregate: { aggregate: { count: 0 } }
+    }
+  } = useQuery(GET_BALLERZ_NFTS_FOR_SALE_COUNT);
+
+  const cursorLimit = useMemo(() => Math.ceil(count / DEFAULT_LIST_SIZE) - 1, [count]);
+
+  const {
+    loading: isLoadingNFTs,
+    data: { nft_sale_offer } = { nft_sale_offer: [] },
+    fetchMore,
+    refetch
+  } = useQuery(GET_BALLERZ_NFTS_FOR_SALE, {
+    variables: {
+      id: BALLERZ_ID,
+      limit: DEFAULT_LIST_SIZE,
+      offset: 0,
+      ...sort
+    }
+  });
+
+  useEffect(() => {
+    if (cursor) {
+      fetchMore({
+        variables: {
+          id: BALLERZ_ID,
+          limit: DEFAULT_LIST_SIZE,
+          offset: cursor * DEFAULT_LIST_SIZE,
+          ...sort
+        }
+      });
+    }
+  }, [cursor, sort]);
+
+  const handleFilter = currentSort => {
+    setCursor(0);
+    refetch({
+      id: BALLERZ_ID,
+      limit: DEFAULT_LIST_SIZE,
+      offset: 0,
+      ...currentSort
+    });
+  };
+
+  const loading = useMemo(() => isLoadingCount || isLoadingNFTs, [isLoadingNFTs, isLoadingCount]);
 
   return (
     <>
@@ -65,7 +109,7 @@ const Collection = () => {
         />
         <Styled.Container>
           <Grid sx={{ margin: '24px 0' }}>
-            <CollectionsFilter nftQuantity={nft_sale_offer?.length} setNftList={setNftList} />
+            <CollectionsFilter nftQuantity={count} setSort={setSort} handleFilter={handleFilter} />
           </Grid>
           <Divider sx={{ marginBottom: '32px' }} />
           <Grid sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -76,7 +120,7 @@ const Collection = () => {
                 ))}
               </>
             ) : (
-              <NFTList nfts={nftList} />
+              <NFTList nfts={nft_sale_offer} />
             )}
           </Grid>
           {cursorLimit > cursor && !loading && (
