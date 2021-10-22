@@ -13,11 +13,13 @@ import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
+import { buy } from '~/flow/buy';
 
 const NFTCard = ({ data, isFake }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const [forSale, setForSale] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [displayModals, setDisplayModals] = useState(false);
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
@@ -30,7 +32,7 @@ const NFTCard = ({ data, isFake }) => {
 
   // TODO: Implement function
   const handlePurchaseClick = () => {
-    setDisplayModals(true);
+    buy(data.nft.asset_id, process.env.NEXT_PUBLIC_STOREFRONT_CONTRACT);
   };
 
   const renderUserCardActions = useMemo(() => {
@@ -79,7 +81,7 @@ const NFTCard = ({ data, isFake }) => {
           renderUserCardActions
         ) : (
           <Grid container justifyContent="center">
-            <Styled.PurchaseButton onClick={user ? () => handlePurchaseClick() : login}>
+            <Styled.PurchaseButton onClick={user ? () => handlePurchaseClick(data) : login}>
               {`Purchase • ${Number(data.price).toFixed(2)}`}
             </Styled.PurchaseButton>
           </Grid>
