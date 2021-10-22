@@ -3,11 +3,11 @@
 import { fcl, t } from '../config/config';
 
 const SALE_NFT_TX = `
-import FungibleToken from "../contracts/FungibleToken.cdc"
-import NonFungibleToken from "../contracts/NonFungibleToken.cdc"
-import FlowToken from "../contracts/FlowToken.cdc"
-import Gaia from "../contracts/Gaia.cdc"
-import NFTStorefront from "../contracts/NFTStorefront.cdc"
+import FungibleToken from 0xFungibleToken
+import NonFungibleToken from 0xNFTContractStorefront
+import FlowToken from 0xFlowToken
+import Gaia from 0xGaiaContract
+import NFTStorefront 0xStorefrontContract
 
 transaction(saleItemID: UInt64, saleItemPrice: UFix64) {
     let flowReceiver: Capability<&{FungibleToken.Receiver}>

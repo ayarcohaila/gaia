@@ -26,7 +26,10 @@ fcl
   .put('0xProfile', process.env.NEXT_PUBLIC_PROFILE_CONTRACT)
   .put('0xNFTInterface', process.env.NEXT_PUBLIC_NFT_INTERFACE)
   .put('0xNFTContract', process.env.NEXT_PUBLIC_NFT_CONTRACT)
-  .put('0xNFTMarket', marketAddress);
+  .put('0xNFTMarket', marketAddress)
+  .put('0xGaiaContract', process.env.NEXT_PUBLIC_GAIA_CONTRACT)
+  .put('0xStorefrontContract', process.env.NEXT_PUBLIC_STOREFRONT_CONTRACT)
+  .put('0xNFTContractStorefront', process.env.NEXT_PUBLIC_NON_FUNGIBLE_TOKEN);
 
 export {
   fcl,

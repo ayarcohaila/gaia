@@ -1,11 +1,11 @@
 import { fcl, t } from '../config/config';
 
 const BUY_NFT_TX = fcl.cdc`
-import FungibleToken from "../contracts/FungibleToken.cdc"
-import NonFungibleToken from "../contracts/NonFungibleToken.cdc"
-import FlowToken from "../contracts/FlowToken.cdc"
-import Gaia from "../contracts/Gaia.cdc"
-import NFTStorefront from "../contracts/NFTStorefront.cdc"
+import FungibleToken from 0xFungibleToken
+import NonFungibleToken from 0xNFTContractStorefront
+import FlowToken from 0xFlowToken
+import Gaia from 0xGaiaContract
+import NFTStorefront 0xStorefrontContract
 
 transaction(listingResourceID: UInt64, storefrontAddress: Address) {
     let paymentVault: @FungibleToken.Vault

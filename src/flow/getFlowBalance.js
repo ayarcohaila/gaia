@@ -7,8 +7,8 @@ export async function getFlowBalance(address) {
     cadence: `
     // This script reads the balance field of an account's FlowToken Balance
 
-    import FungibleToken from "../../contracts/FungibleToken.cdc"
-    import FlowToken from "../../contracts/FlowToken.cdc"
+    import FungibleToken from 0xFungibleToken
+    import FlowToken from 0xFlowToken
     
     pub fun main(account: Address): &FlowToken.Vault{FungibleToken.Receiver} {
     
