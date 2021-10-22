@@ -1,3 +1,4 @@
+import React from 'react';
 import { NFTCard } from '~/components';
 
 const NFTList = ({ nfts }) => {
@@ -10,4 +11,4 @@ const NFTList = ({ nfts }) => {
   );
 };
 
-export default NFTList;
+export default React.memo(NFTList);
