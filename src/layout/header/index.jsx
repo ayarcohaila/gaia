@@ -40,10 +40,17 @@ const Header = () => {
     } else {
       handleDropdownMenu();
     }
-    if (id === USER_MENU_IDS.PROFILE) {
-      router.push(`/profile/${user?.addr}`);
-    } else {
-      logout();
+
+    switch (id) {
+      case USER_MENU_IDS.PROFILE:
+        router.push(`/profile/${user?.addr}`);
+        break;
+      case USER_MENU_IDS.DAPPER_WALLET:
+        window.open('http://staging.dapper.com', '_blank')?.focus();
+        break;
+      default:
+        logout();
+        break;
     }
   };
 
