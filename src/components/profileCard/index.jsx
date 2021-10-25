@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { Grid, CardActions, CardContent, CardMedia, Avatar } from '@mui/material';
+import { CardActions, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
 
 import {
   SellNftModal,
@@ -9,33 +8,24 @@ import {
   CancelListingModal,
   OrderCompleteModal
 } from '~/components';
-import { useAuth, useToggle } from '~/hooks';
+import { useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 
-const NFTCard = ({ data, isFake }) => {
-  const route = useRouter();
-  const { user, login } = useAuth();
+const ProfileCard = ({ data }) => {
+  // @TODO: Only display the data of the current user
+  // const { user, login } = useAuth();
   const [forSale, setForSale] = useState(false);
-  const [displayModals, setDisplayModals] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
 
-  // TODO: Remove random function to let one single mystery image
-  const img =
-    process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true'
-      ? `/images/mystery-nft-${Math.floor(Math.random() * (4 - 1 + 1)) + 1}.gif`
-      : formatIpfsImg(data?.nft?.nft_template?.metadata?.img);
+  const img = formatIpfsImg(data?.template?.metadata?.img);
 
   const asset = { ...data, collectionName: 'BALLERZ', img };
-
-  // TODO: Implement function
-  const handlePurchaseClick = () => {
-    setDisplayModals(true);
-  };
 
   const renderUserCardActions = useMemo(() => {
     return (
@@ -70,24 +60,14 @@ const NFTCard = ({ data, isFake }) => {
         <CardMedia
           sx={{ borderRadius: '20px', maxWidth: '275px' }}
           component="img"
-          alt="NFT image"
+          alt="ss"
           height="275"
           src={img}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
           <Styled.NFTText>{data?.nft?.nft_template?.metadata?.title}</Styled.NFTText>
         </CardContent>
-        {(user?.addr === '0x5f14b7e68e0bc3c3' && route?.asPath === '0x5f14b7e68e0bc3c3') ||
-        isFake ||
-        displayModals ? (
-          renderUserCardActions
-        ) : (
-          <Grid container justifyContent="center">
-            <Styled.PurchaseButton onClick={user ? () => handlePurchaseClick() : login}>
-              {`Purchase • ${Number(data.price).toFixed(2)}`}
-            </Styled.PurchaseButton>
-          </Grid>
-        )}
+        {renderUserCardActions}
       </Styled.CustomCard>
       <SellNftModal
         asset={asset}
@@ -113,7 +93,7 @@ const NFTCard = ({ data, isFake }) => {
   );
 };
 
-NFTCard.propTypes = {
+ProfileCard.propTypes = {
   //TODO: Remove prop isFake on integration
   isFake: PropTypes.bool,
   sell: PropTypes.bool,
@@ -134,10 +114,10 @@ NFTCard.propTypes = {
   }).isRequired
 };
 
-NFTCard.defaultProps = {
+ProfileCard.defaultProps = {
   isFake: false,
   sell: false,
   transfer: false
 };
 
-export default React.memo(NFTCard);
+export default React.memo(ProfileCard);

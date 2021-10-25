@@ -166,8 +166,8 @@ const CollectionsFilter = ({
 
 CollectionsFilter.propTypes = {
   nftQuantity: PropTypes.number,
-  setSort: PropTypes.func.isRequired,
-  handleFilter: PropTypes.func.isRequired,
+  setSort: PropTypes.func,
+  handleFilter: PropTypes.func,
   enableSearch: PropTypes.bool
 };
 

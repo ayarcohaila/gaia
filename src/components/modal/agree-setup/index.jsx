@@ -8,7 +8,7 @@ import { setupAccount } from '~/flow/setupAccount';
 
 const AgreeSetupModal = ({ ...props }) => {
   const handleSetup = async () => {
-    toast.success('Setting up your account');
+    toast.info('Setting up your account...');
     await setupAccount();
     toast.success('Your have successfully set up your account');
     props.onClose();

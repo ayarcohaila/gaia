@@ -12,6 +12,26 @@ const GET_COLLECTION_BY_ID = gql`
   }
 `;
 
+const GET_NFTS_BY_ADDRESS = gql`
+  query getNFTsByAddress($address: String!) {
+    nft(where: { owner: { _eq: $address } }) {
+      asset_id
+      collection {
+        collection_id
+        name
+        market_fee
+        image
+        description
+        author
+      }
+      owner
+      template {
+        metadata
+      }
+    }
+  }
+`;
+
 const GET_BALLERZ_NFTS_FOR_SALE = gql`
   query nft_sale_offer(
     $id: uuid!
@@ -27,11 +47,11 @@ const GET_BALLERZ_NFTS_FOR_SALE = gql`
       order_by: { nft: { asset_id: $mintSort }, price: $priceSort }
     ) {
       id
+      listing_resource_id
       price
       nft {
         asset_id
-        owner
-        nft_template {
+        template {
           id
           metadata
         }
@@ -50,4 +70,9 @@ const GET_BALLERZ_NFTS_FOR_SALE_COUNT = gql`
   }
 `;
 
-export { GET_COLLECTION_BY_ID, GET_BALLERZ_NFTS_FOR_SALE, GET_BALLERZ_NFTS_FOR_SALE_COUNT };
+export {
+  GET_COLLECTION_BY_ID,
+  GET_NFTS_BY_ADDRESS,
+  GET_BALLERZ_NFTS_FOR_SALE,
+  GET_BALLERZ_NFTS_FOR_SALE_COUNT
+};

@@ -31,6 +31,7 @@ const wsLink = process.browser
       uri: process.env.NEXT_PUBLIC_API_WS_URL,
       options: {
         reconnect: true,
+        lazy: true,
         connectionParams: {
           headers: {
             'x-hasura-admin-secret': process.env.NEXT_PUBLIC_API_SECRET

@@ -3,93 +3,66 @@
 import { fcl, t } from '../config/config';
 
 const SALE_NFT_TX = `
-  import FungibleToken from 0xFungibleToken
-  import NonFungibleToken from 0xNFTInterface
-  import Gaia from 0xNFTContract
-  import GaiaMarket from 0xNFTMarket
-  import FUSD from 0xFUSDContract
+import FungibleToken from 0xFungibleToken
+import NonFungibleToken from 0xNFTInterface
+import FlowToken from 0xFlowToken
+import Gaia from 0xGaiaContract
+import NFTStorefront from 0xStorefrontContract
 
+transaction(saleItemID: UInt64, saleItemPrice: UFix64) {
+  let flowReceiver: Capability<&{FungibleToken.Receiver}>
+  let GaiaProvider: Capability<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>
+  let storefront: &NFTStorefront.Storefront
 
-  transaction(saleAssetID: UInt64, salePrice: UFix64, templateID: UInt64, creatorAddress: Address) {
-    let FUSDVault: Capability<&FUSD.Vault{FungibleToken.Receiver}>
-    let GaiaCollection: Capability<&Gaia.Collection{NonFungibleToken.Provider}>
-    let marketCollection: &GaiaMarket.Collection
-    let marketFee: UFix64
-    let creatorFUSDVault: Capability<&FUSD.Vault{FungibleToken.Receiver}>
+  prepare(acct: AuthAccount) {
 
-    
+      // We need a provider capability, but one is not provided by default so we create one if needed.
+      let GaiaCollectionProviderPrivatePath = /private/GaiaCollectionProviderForNFTStorefront
 
-    prepare(signer: AuthAccount) {
-        // we need a provider capability, but one is not provided by default so we create one.
-        let GaiaCollectionProviderPrivatePath = /private/GaiaCollectionProvider
-
-        self.FUSDVault = signer.getCapability<&FUSD.Vault{FungibleToken.Receiver}>(/public/fusdReceiver)!
-        assert(self.FUSDVault.borrow() != nil, message: "Missing or mis-typed FUSD receiver")
-
-
-        self.marketCollection = signer.borrow<&GaiaMarket.Collection>(from: GaiaMarket.CollectionStoragePath)
-            ?? panic("Missing or mis-typed GaiaMarket Collection")
-
-      self.GaiaCollection = signer.getCapability<&Gaia.Collection{NonFungibleToken.Provider}>(GaiaCollectionProviderPrivatePath)!
-      assert(self.GaiaCollection.borrow() != nil, message: "Missing or mis-typed GaiaCollection provider")
-
-    // borrow a reference to the signer's NFT collection
-    let collectionRef = signer.borrow<&Gaia.Collection>(from: Gaia.CollectionStoragePath)
-        ?? panic("Could not borrow a reference to the owner's collection")
-
-    // get asset set id
-    let asset = collectionRef.borrowGaiaAsset(id: saleAssetID)!
-    let setiD = asset.data.setID
-
-    // get market fee by set id
-    self.marketFee = Gaia.getSetMarketFee(setID: setiD)!
-
-    //Get Collection creator vault
-    self.creatorFUSDVault = getAccount(creatorAddress)
-      .getCapability<&FUSD.Vault{FungibleToken.Receiver}>(/public/fusdReceiver)!
-
-    }
-    
+      self.flowReceiver = acct.getCapability<&{FungibleToken.Receiver}>(/public/flowTokenReceiver)
+      assert(self.flowReceiver.borrow() != nil, message: "Missing or mis-typed FlowToken receiver")
       
-    execute {
-      let offer <- GaiaMarket.createSaleOffer (
-        sellerItemProvider: self.GaiaCollection,
-        itemID: saleAssetID,
-        templateID: templateID,
-        sellerPaymentReceiver: self.FUSDVault,
-        marketPaymentReceiver: self.creatorFUSDVault,
-        price: salePrice,
-        marketFee: self.marketFee
-    )
-        self.marketCollection.insert(offer: <-offer)
-    }
+      if !acct.getCapability<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(GaiaCollectionProviderPrivatePath)!.check() {
+          acct.link<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(GaiaCollectionProviderPrivatePath, target: Gaia.CollectionStoragePath)
+      }
+
+      self.GaiaProvider = acct.getCapability<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(GaiaCollectionProviderPrivatePath)
+      assert(self.GaiaProvider.borrow() != nil, message: "Missing or mis-typed Gaia.Collection provider")
+
+      self.storefront = acct.borrow<&NFTStorefront.Storefront>(from: NFTStorefront.StorefrontStoragePath)
+          ?? panic("Missing or mis-typed NFTStorefront Storefront")
+  }
+
+  execute {
+      let saleCut = NFTStorefront.SaleCut(
+          receiver: self.flowReceiver,
+          amount: saleItemPrice
+      )
+      self.storefront.createListing(
+          nftProviderCapability: self.GaiaProvider,
+          nftType: Type<@Gaia.NFT>(),
+          nftID: saleItemID,
+          salePaymentVaultType: Type<@FlowToken.Vault>(),
+          saleCuts: [saleCut]
+      )
+  }
 }
 `;
 
-export async function createSaleOffer(saleAssetID, salePrice, templateID, creatorAddress) {
-  if (saleAssetID == null)
-    throw new Error(
-      'createSaleOffer(saleAssetID, salePrice, marketFee, templateID, marketPaymentReceiver) -- saleAssetID required'
-    );
-  if (salePrice == null)
-    throw new Error(
-      'createSaleOffer(saleAssetID, salePrice, marketFee, templateID, marketPaymentReceiver) -- salePrice required'
-    );
-  if (templateID == null)
-    throw new Error(
-      'createSaleOffer(saleAssetID, salePrice, marketFee, templateID, marketPaymentReceiver) -- templateID required'
-    );
-  const correctSalePrice = Number(salePrice).toFixed(8);
+export async function sellItem(saleItemID, saleItemPrice) {
+  if (saleItemID == null)
+    throw new Error('sellItem(saleItemID, saleItemPrice) -- saleItemID required');
+  if (saleItemPrice == null)
+    throw new Error('sellItem(saleItemID, saleItemPrice) -- saleItemPrice required');
+  const correctSalePrice = Number(saleItemPrice).toFixed(8);
   try {
     const txId = await fcl
       .send([
         fcl.transaction(SALE_NFT_TX),
         //salePrice must have 1. something , INT are not accepted by this transaction
         fcl.args([
-          fcl.arg(Number(saleAssetID), t.UInt64),
-          fcl.arg(Number(correctSalePrice).toFixed(8), t.UFix64),
-          fcl.arg(Number(templateID), t.UInt64),
-          fcl.arg(creatorAddress, t.Address)
+          fcl.arg(Number(saleItemID), t.UInt64),
+          fcl.arg(Number(correctSalePrice).toFixed(8), t.UFix64)
         ]),
         fcl.proposer(fcl.authz),
         fcl.payer(fcl.authz),
