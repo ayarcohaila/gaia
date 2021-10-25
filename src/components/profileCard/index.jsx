@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { CardActions, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
 import {
   SellNftModal,
@@ -8,14 +9,14 @@ import {
   CancelListingModal,
   OrderCompleteModal
 } from '~/components';
-import { useToggle } from '~/hooks';
+import { useToggle, useAuth } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 
 const ProfileCard = ({ data }) => {
-  // @TODO: Only display the data of the current user
-  // const { user, login } = useAuth();
+  const { user } = useAuth();
+  const router = useRouter();
   const [forSale, setForSale] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
@@ -26,6 +27,7 @@ const ProfileCard = ({ data }) => {
   const img = formatIpfsImg(data?.template?.metadata?.img);
 
   const asset = { ...data, collectionName: 'BALLERZ', img };
+  const isMyProfile = router.asPath.includes(user?.adrr);
 
   const renderUserCardActions = useMemo(() => {
     return (
@@ -67,7 +69,7 @@ const ProfileCard = ({ data }) => {
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
           <Styled.NFTText>{data?.nft?.nft_template?.metadata?.title}</Styled.NFTText>
         </CardContent>
-        {renderUserCardActions}
+        {isMyProfile && renderUserCardActions}
       </Styled.CustomCard>
       <SellNftModal
         asset={asset}
