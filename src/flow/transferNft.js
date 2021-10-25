@@ -1,8 +1,8 @@
 import { fcl, t } from '../config/config';
 
 const TRANSFER_NFT_TX = fcl.cdc`
-import Gaia from "../contracts/Gaia.cdc"
-import NonFungibleToken from "../contracts/NonFungibleToken.cdc"
+import Gaia from 0xGaiaContract
+import NonFungibleToken from 0xNFTInterface
 
 // This transaction transfers a Kitty Item from one account to another.
 transaction(recipient: Address, assetID: UInt64) {
