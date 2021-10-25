@@ -41,7 +41,10 @@ const GET_BALLERZ_NFTS_FOR_SALE = gql`
     $priceSort: order_by = null
   ) {
     nft_sale_offer(
-      where: { nft: { collection_id: { _eq: $id } } }
+      where: {
+        nft: { collection_id: { _eq: $id }, is_for_sale: { _eq: true } }
+        status: { _eq: "active" }
+      }
       limit: $limit
       offset: $offset
       order_by: { nft: { asset_id: $mintSort }, price: $priceSort }
@@ -49,8 +52,10 @@ const GET_BALLERZ_NFTS_FOR_SALE = gql`
       id
       listing_resource_id
       price
+      status
       nft {
         asset_id
+        is_for_sale
         template {
           id
           metadata
@@ -61,8 +66,13 @@ const GET_BALLERZ_NFTS_FOR_SALE = gql`
 `;
 
 const GET_BALLERZ_NFTS_FOR_SALE_COUNT = gql`
-  query nft_sale_offer_aggregate {
-    nft_sale_offer_aggregate {
+  query nft_sale_offer_aggregate($id: uuid!) {
+    nft_sale_offer_aggregate(
+      where: {
+        nft: { collection_id: { _eq: $id }, is_for_sale: { _eq: true } }
+        status: { _eq: "active" }
+      }
+    ) {
       aggregate {
         count(distinct: true, columns: id)
       }
