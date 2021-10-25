@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 
 const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, ...props }) => {
   const [value, setValue] = useState('');
+  const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
     useState(hasPostedForSale);
 
@@ -19,13 +20,13 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, ...props }) => {
     toast.info('Please wait, purchase in progress... ');
     try {
       const txResult = await sellItem(props.asset.asset_id, value);
-      toast.success(`Purchase completed successfully. - ${txResult?.txId}`);
+      toast.success(`PPurchase completed successfully. - ${txResult?.events[0]?.transactionId}`);
       if (txResult) {
         onConfirm();
         setHasNftSuccessfullyPostedForSale(true);
+        setTx(txResult?.events[0]?.transactionId);
         setValue('');
       }
-      // @TODO: Include success modal here
     } catch (err) {
       toast.error('Unable to complete purchase.');
       console.error(err);
@@ -44,7 +45,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, ...props }) => {
   return (
     <Modal description={description} onClose={onClose} title={title} {...props}>
       {hasNftSuccessfullyPostedForSale ? (
-        <SuccessContent />
+        <SuccessContent tx={tx} />
       ) : (
         <Styled.Input
           endAdornment={
