@@ -67,7 +67,7 @@ const ProfileCard = ({ data }) => {
           src={img}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>{data?.nft?.template?.metadata?.title}</Styled.NFTText>
+          <Styled.NFTText>{data?.template?.metadata?.title}</Styled.NFTText>
         </CardContent>
         {isMyProfile && renderUserCardActions}
       </Styled.CustomCard>
