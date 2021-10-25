@@ -1,9 +1,11 @@
 import { memo, useState } from 'react';
 import { Typography, useTheme } from '@mui/material';
+import { toast } from 'react-toastify';
 
 import Modal from '..';
 import ModalSuccessContent from '../success-content';
 import * as Styled from './styles';
+import { transferNft } from '../../../flow/transferNft';
 
 const TransferNftModal = ({ ...props }) => {
   const [address, setAddress] = useState('');
@@ -12,10 +14,15 @@ const TransferNftModal = ({ ...props }) => {
     palette: { error }
   } = useTheme();
 
-  const handleSendNft = () => {
-    //TODO: Implement NFT post for sale integration
-    if (address) {
+  const handleSendNft = async address => {
+    toast.info('Please wait, transfer in progress... ');
+    try {
+      const txResult = await transferNft(address, props.asset.asset_id);
+      toast.success(`Transfer completed successfully. - ${txResult?.txId}`);
       setHasNftSuccessfullyTransfered(true);
+    } catch (err) {
+      toast.error('Unable to complete transference.');
+      console.error(err);
     }
   };
 
@@ -40,7 +47,9 @@ const TransferNftModal = ({ ...props }) => {
           </Typography>
           <Styled.Input
             endAdornment={
-              <Styled.CustomButton onClick={handleSendNft}>Send NFT</Styled.CustomButton>
+              <Styled.CustomButton onClick={() => handleSendNft(address)}>
+                Send NFT
+              </Styled.CustomButton>
             }
             placeholder="Enter Wallet Address"
             onChange={({ target: { value } }) => setAddress(value)}
