@@ -40,9 +40,11 @@ const Modal = ({
             <ArrowDownIcon sx={{ color: grey[375], fontSize: 32 }} />
           </IconButton>
         )}
-        <Styled.AssetContainer>
-          <Styled.Asset alt={title} layout="fill" src={asset?.img} />
-        </Styled.AssetContainer>
+        {asset && asset.img && (
+          <Styled.AssetContainer>
+            <Styled.Asset alt={title} layout="fill" src={asset?.img} />
+          </Styled.AssetContainer>
+        )}
         <Styled.InfoContainer>
           <Styled.Title id={title} sx={titleSx}>
             {title}

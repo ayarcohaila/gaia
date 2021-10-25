@@ -3,7 +3,7 @@ import { fcl } from '../config/config';
 const TX = fcl.cdc`
 import FungibleToken from 0xFungibleToken
 import FlowToken from 0xFlowToken
-import NFTStorefront 0xStorefrontContract
+import NFTStorefront from 0xStorefrontContract
 import Profile from 0xProfile
 
 // This transaction installs the Storefront ressource in an account.

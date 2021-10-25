@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { useMemo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useSubscription } from '@apollo/react-hooks';
 import { Grid, Box } from '@mui/material';
+import { useQuery } from '@apollo/client';
 
-import { ProfileBanner, NFTList, CollectionsFilter, Seo } from '~/components';
+import { ProfileBanner, ProfileList, CollectionsFilter, Seo } from '~/components';
 import { Divider, CardSkeletonLoader } from '~/base';
-import { GET_MY_NFTS_BY_OWNER } from '~/store/server/subscriptions';
+import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
 import basicAuthCheck from '~/utils/basicAuthCheck';
-import { useSWR, useBreakpoints } from '~/hooks';
+import { useBreakpoints } from '~/hooks';
 
 import * as Styled from '~/styles/profile/styles';
 
 const Profile = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id: address } = router.query;
   const [searchQuery, setSearchQuery] = useState('');
   const [assets, setAssets] = useState([]);
   const { isMediumDevice } = useBreakpoints();
@@ -22,30 +22,39 @@ const Profile = () => {
   //TODO: Remove fakeNfts on integration
   const [cursor, setCursor] = useState(1);
   const [nftList, setNftList] = useState([]);
-  const { data: fakeNfts, loading } = useSWR('/templates/templates.json');
+  const [loading, setLoading] = useState(false);
+
+  const { data: dataFetch } = useQuery(GET_NFTS_BY_ADDRESS, {
+    variables: { address }
+  });
 
   const handleLoadMore = () => {
     setCursor(prevState => prevState + 1);
   };
 
   useEffect(() => {
-    if (fakeNfts?.length) {
-      setNftList(fakeNfts.slice(0, cursor * 40));
+    if (dataFetch?.nft?.length) {
+      setNftList(dataFetch.nft.slice(0, cursor * 40));
+      setLoading(false);
     }
-  }, [fakeNfts?.length, cursor]);
+  }, [dataFetch?.nft?.length, cursor]);
 
   useEffect(() => {
-    setAssets(fakeNfts);
+    setAssets(dataFetch);
   }, []);
 
-  const cursorLimit = useMemo(() => Math.ceil(fakeNfts?.length / 40), [fakeNfts]);
+  const cursorLimit = useMemo(() => Math.ceil(dataFetch?.length / 40), [dataFetch]);
 
   return (
     <Box>
       <Seo title="Profile" />
-      <ProfileBanner address={id} />
+      <ProfileBanner address={address} />
       <Styled.FiltersContainer>
-        <CollectionsFilter nftQuantity={fakeNfts?.length} enableSearch onSearch={setSearchQuery} />
+        <CollectionsFilter
+          nftQuantity={dataFetch?.nft?.length}
+          enableSearch
+          onSearch={setSearchQuery}
+        />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
       <Styled.ListWrapper>
@@ -54,7 +63,7 @@ const Profile = () => {
             .fill(null)
             .map((_, index) => <CardSkeletonLoader key={index} />)
         ) : (
-          <NFTList nfts={nftList} />
+          <ProfileList nfts={nftList} />
         )}
       </Styled.ListWrapper>
       {cursorLimit > cursor && !loading && (

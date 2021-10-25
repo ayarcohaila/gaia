@@ -1,7 +1,7 @@
 import { fcl, t } from '../config/config';
 
 const CHECK_SETUP_TX = fcl.cdc`
-import Gaia from 0xNFTContract
+import Gaia from 0xGaiaContract
 
 pub fun main(address: Address): Bool {
         

@@ -5,17 +5,30 @@ import Modal from '..';
 import SuccessContent from '../success-content';
 import * as Styled from './styles';
 
+import { sellItem } from '~/flow/sell';
+import { toast } from 'react-toastify';
+
 const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, ...props }) => {
   const [value, setValue] = useState('');
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
     useState(hasPostedForSale);
 
-  const handlePostForSale = () => {
+  const handlePostForSale = async () => {
     //TODO: Implement NFT post for sale integration
-    if (value) {
-      onConfirm();
-      setHasNftSuccessfullyPostedForSale(true);
-      setValue('');
+
+    toast.info('Please wait, purchase in progress... ');
+    try {
+      const txResult = await sellItem(props.asset.asset_id, value);
+      toast.success(`Purchase completed successfully. - ${txResult?.txId}`);
+      if (txResult) {
+        onConfirm();
+        setHasNftSuccessfullyPostedForSale(true);
+        setValue('');
+      }
+      // @TODO: Include success modal here
+    } catch (err) {
+      toast.error('Unable to complete purchase.');
+      console.error(err);
     }
   };
 

@@ -92,8 +92,7 @@ const CollectionsFilter = ({
             onSubmit={e => {
               e.preventDefault();
               onSearch(searchInput.current.value);
-            }}
-          >
+            }}>
             <SearchInput
               placeholder="Search: NFT, Collection, …"
               styles={{ height: '48px', width: isMediumDevice ? '100%' : '305px' }}
@@ -136,8 +135,7 @@ const CollectionsFilter = ({
               data-id={id}
               isSelected={id === selectButton}
               onClick={handleSelectOption}
-              endIcon={<TuneIcon />}
-            >
+              endIcon={<TuneIcon />}>
               {label}
             </Styled.OutlineButton>
           ))}
@@ -151,8 +149,7 @@ const CollectionsFilter = ({
           disableRipple
           onClick={toggleMenuOrder}
           isSelected={isMenuOrderOpen}
-          endIcon={<Styled.ArrowIcon />}
-        >
+          endIcon={<Styled.ArrowIcon />}>
           {orderButton.find(item => item.id === selectedOrderButton)?.label}
         </Styled.OrderButton>
       )}
@@ -169,8 +166,8 @@ const CollectionsFilter = ({
 
 CollectionsFilter.propTypes = {
   nftQuantity: PropTypes.number,
-  setSort: PropTypes.func.isRequired,
-  handleFilter: PropTypes.func.isRequired,
+  setSort: PropTypes.func,
+  handleFilter: PropTypes.func,
   enableSearch: PropTypes.bool
 };
 

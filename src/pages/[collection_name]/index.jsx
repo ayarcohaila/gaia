@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Grid } from '@mui/material';
 import { useQuery } from '@apollo/client';
 
-import { CollectionBanner, CollectionsFilter, Seo, NFTList } from '~/components';
+import { CollectionBanner, CollectionsFilter, Seo, CollectionList } from '~/components';
 import { Divider, CardSkeletonLoader } from '~/base';
 import { useBreakpoints } from '~/hooks';
 import {
@@ -18,7 +18,7 @@ const DATA = {
   secondaryColor: '#4814a6'
 };
 
-const BALLERZ_ID = 'b328974a-bb62-48b8-8c82-b42fd35dec76';
+const BALLERZ_ID = 'db4ccc58-4398-4a66-87cd-5b0f6c6c21f3';
 
 const DEFAULT_LIST_SIZE = 40;
 const DEFAULT_SORT_VARIABLES = { priceSort: 'asc', mintSort: null };
@@ -120,7 +120,7 @@ const Collection = () => {
                 ))}
               </>
             ) : (
-              <NFTList nfts={nft_sale_offer} />
+              <CollectionList nfts={nft_sale_offer} />
             )}
           </Grid>
           {cursorLimit > cursor && !loading && (

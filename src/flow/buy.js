@@ -2,10 +2,10 @@ import { fcl, t } from '../config/config';
 
 const BUY_NFT_TX = fcl.cdc`
 import FungibleToken from 0xFungibleToken
-import NonFungibleToken from 0xNFTContractStorefront
+import NonFungibleToken from 0xNFTInterface
 import FlowToken from 0xFlowToken
 import Gaia from 0xGaiaContract
-import NFTStorefront 0xStorefrontContract
+import NFTStorefront from 0xStorefrontContract
 
 transaction(listingResourceID: UInt64, storefrontAddress: Address) {
     let paymentVault: @FungibleToken.Vault
@@ -61,8 +61,12 @@ export async function buy(listingResourceID, storefrontAddress) {
         fcl.limit(1000)
       ])
       .then(fcl.decode);
-    return fcl.tx(txId).onceSealed();
+    const sealedTx = await fcl.tx(txId).onceSealed();
+    return {
+      txId,
+      sealedTx
+    };
   } catch (err) {
-    throw new Error(`Error on trying to buy: ${err.message}`);
+    throw new Error(err);
   }
 }
