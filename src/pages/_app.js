@@ -71,7 +71,7 @@ function MyApp({ Component, pageProps }) {
               <Component {...pageProps} />
             </Content>
             <Footer />
-            <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
+            <ToastContainer pauseOnFocusLoss={false} position={toast.POSITION.BOTTOM_LEFT} />
           </ApolloProvider>
         </AuthProvider>
       </ThemeProvider>

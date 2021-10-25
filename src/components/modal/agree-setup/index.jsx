@@ -1,22 +1,39 @@
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
+import { CircularProgress } from '@mui/material';
+
+import { useAuth } from '~/hooks';
+import { setupAccount } from '~/flow/setupAccount';
 
 import Modal from '..';
 import * as Styled from './styles';
 
-import { setupAccount } from '~/flow/setupAccount';
-
 const AgreeSetupModal = ({ ...props }) => {
+  const { logout } = useAuth();
+
+  const [loading, setLoading] = useState(false);
   const handleSetup = async () => {
-    toast.info('Setting up your account...');
-    await setupAccount();
-    toast.success('Your have successfully set up your account');
-    props.onClose();
+    try {
+      setLoading(true);
+      toast.info('Setting up your account...', { isLoading: loading });
+      await setupAccount();
+      toast.success('Your have successfully set up your account');
+      setLoading(false);
+      props.onClose();
+    } catch (err) {
+      setLoading(false);
+      logout();
+      toast.error('Error on setting up your account');
+    }
   };
 
   const renderContent = useMemo(
-    () => <Styled.CustomButton onClick={handleSetup}>I agree</Styled.CustomButton>,
-    []
+    () => (
+      <Styled.CustomButton onClick={handleSetup}>
+        {loading ? <CircularProgress size={32} color="white" /> : 'I agree'}
+      </Styled.CustomButton>
+    ),
+    [loading]
   );
 
   return (
@@ -29,7 +46,8 @@ const AgreeSetupModal = ({ ...props }) => {
       asset={{
         img: '/collections/user.png'
       }}
-      {...props}>
+      {...props}
+      onClose={logout}>
       {renderContent}
     </Modal>
   );

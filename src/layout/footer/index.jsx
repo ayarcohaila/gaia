@@ -48,7 +48,7 @@ const Footer = () => {
         width="100%">
         <Grid container flexWrap="wrap" justifyContent="space-between">
           <Box component="form" onSubmit={handleSubmit} width={isMediumDevice ? 'auto' : '35%'}>
-            <Typography color="white" mb="16px" variant="subtitle1">
+            <Typography color="white.main" mb="16px" variant="subtitle1">
               Join our newsletter for the latest drops & updates
             </Typography>
             <Styled.Input
@@ -62,7 +62,7 @@ const Footer = () => {
           </Box>
           <Grid item width="160px">
             <Typography
-              color="white"
+              color="white.main"
               mb="12px"
               mt={isSmallDevice ? '32px' : '0px'}
               letterSpacing="0.2px"
