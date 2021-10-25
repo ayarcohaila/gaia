@@ -16,6 +16,7 @@ const GET_NFTS_BY_ADDRESS = gql`
   query getNFTsByAddress($address: String!) {
     nft(where: { owner: { _eq: $address } }) {
       asset_id
+      is_for_sale
       collection {
         collection_id
         name

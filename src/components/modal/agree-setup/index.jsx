@@ -43,6 +43,7 @@ const AgreeSetupModal = ({ ...props }) => {
       height="382px"
       title={'Setting Up'}
       titleSx={{ mt: '96px' }}
+      onClose={logout}
       asset={{
         img: '/collections/user.png'
       }}

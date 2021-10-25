@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [authModalVisible, setAuthModalVisible] = useState(false);
   const [setupModalVisible, setSetupModalVisible] = useState(false);
   const router = useRouter();
-  const { user, updateUser, checkedAuth } = useAuth();
+  const { user, updateUser, checkedAuth, logout } = useAuth();
 
   const { hasSetup } = useProfile(user?.addr);
 
@@ -28,18 +28,28 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user, checkedAuth]);
 
-  useEffect(async () => {
-    const initializedAccount = await hasSetup();
-
-    if (user?.addr && !initializedAccount) {
-      setSetupModalVisible(true);
+  useEffect(() => {
+    const handleSetup = async () => {
+      const initializedAccount = await hasSetup();
+      if (!initializedAccount) {
+        setSetupModalVisible(true);
+      }
+    };
+    if (user?.addr) {
+      handleSetup();
+    } else {
+      setSetupModalVisible(false);
     }
   }, [user, hasSetup]);
+
+  const handleClose = useCallback(() => {
+    logout();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ shouldPageBlock, updateUser, user }}>
       {children}
-      <AgreeSetupModal open={setupModalVisible} onClose={() => setSetupModalVisible(false)} />
+      <AgreeSetupModal open={setupModalVisible} onClose={handleClose} />
     </AuthContext.Provider>
   );
 };
