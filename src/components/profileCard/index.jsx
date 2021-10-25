@@ -27,7 +27,7 @@ const ProfileCard = ({ data }) => {
   const img = formatIpfsImg(data?.template?.metadata?.img);
 
   const asset = { ...data, collectionName: 'BALLERZ', img };
-  const isMyProfile = router.asPath.includes(user?.adrr);
+  const isMyProfile = router.asPath.includes(user?.addr);
 
   const renderUserCardActions = useMemo(() => {
     return (
