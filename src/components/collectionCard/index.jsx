@@ -39,8 +39,10 @@ const CollectionCard = ({ data, isFake }) => {
     toast.info('Please wait, purchase in progress... ');
     try {
       setLoadingPurchase(true);
-      const txResult = await buy(data.listing_resource_id, process.env.NEXT_PUBLIC_MARKET_OWNER);
-      toast.success(`Purchase completed successfully. - ${txResult?.txId}`);
+      await buy(data.listing_resource_id, process.env.NEXT_PUBLIC_MARKET_OWNER);
+      toast.success(
+        `Purchase completed successfully. In few minutes it will be available on your profile`
+      );
       setLoadingPurchase(false);
       route.push(`/profile/${user?.addr}`);
     } catch (err) {
