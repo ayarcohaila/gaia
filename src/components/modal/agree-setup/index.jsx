@@ -2,12 +2,15 @@ import { memo, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { CircularProgress } from '@mui/material';
 
+import { useAuth } from '~/hooks';
 import { setupAccount } from '~/flow/setupAccount';
 
 import Modal from '..';
 import * as Styled from './styles';
 
 const AgreeSetupModal = ({ ...props }) => {
+  const { logout } = useAuth();
+
   const [loading, setLoading] = useState(false);
   const handleSetup = async () => {
     try {
@@ -18,6 +21,7 @@ const AgreeSetupModal = ({ ...props }) => {
       setLoading(false);
       props.onClose();
     } catch (err) {
+      logout();
       setLoading(false);
       toast.error('Error on setting up your account');
     }

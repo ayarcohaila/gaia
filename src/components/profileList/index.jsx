@@ -10,7 +10,7 @@ const ProfileList = ({ nfts }) => {
         nfts.map(nft => <ProfileCard key={nft.asset_id} data={nft} />)
       ) : (
         <Typography mt="42px" variant="body">
-          Unfortunately, you don&apos;t have any Nft. You can check the current offers on{' '}
+          Unfortunately, this profile doesn&apos;t have any nft. You can check the current offers on{' '}
           <NextLink href="/ballerz">marketplace</NextLink>.
         </Typography>
       )}
