@@ -27,7 +27,11 @@ const CollectionCard = ({ data, isFake }) => {
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
 
-  const img = formatIpfsImg(data?.nft?.template?.metadata?.img);
+  // TODO: Remove random function to let one single mystery image
+  const img =
+    process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true'
+      ? `/images/mystery-nft-${Math.floor(Math.random() * (4 - 1 + 1)) + 1}.gif`
+      : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
   const asset = { ...data, collectionName: 'BALLERZ', img };
 
@@ -78,7 +82,7 @@ const CollectionCard = ({ data, isFake }) => {
         <CardMedia
           sx={{ borderRadius: '20px', maxWidth: '275px' }}
           component="img"
-          alt="ss"
+          alt="NFT image"
           height="275"
           src={img}
         />
