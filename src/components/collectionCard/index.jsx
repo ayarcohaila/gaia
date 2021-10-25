@@ -1,9 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Grid, CardActions, CardContent, CardMedia, Avatar } from '@mui/material';
+import { Grid, CardActions, CardContent, CardMedia, Avatar, CircularProgress } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-
 import {
   SellNftModal,
   TransferNftModal,
@@ -20,6 +19,7 @@ const CollectionCard = ({ data, isFake }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const [forSale, setForSale] = useState(false);
+  const [loadingPurchase, setLoadingPurchase] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [displayModals, setDisplayModals] = useState(false);
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
@@ -27,10 +27,9 @@ const CollectionCard = ({ data, isFake }) => {
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
 
-  // TODO: Remove random function to let one single mystery image
   const img =
     process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true'
-      ? `/images/mystery-nft-${Math.floor(Math.random() * (4 - 1 + 1)) + 1}.gif`
+      ? `/images/mystery-nft-2.gif`
       : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
   const asset = { ...data, collectionName: 'BALLERZ', img };
@@ -39,13 +38,15 @@ const CollectionCard = ({ data, isFake }) => {
   const handlePurchaseClick = async () => {
     toast.info('Please wait, purchase in progress... ');
     try {
+      setLoadingPurchase(true);
       const txResult = await buy(data.listing_resource_id, process.env.NEXT_PUBLIC_MARKET_OWNER);
       toast.success(`Purchase completed successfully. - ${txResult?.txId}`);
-      // console.log(txResult);
-      // @TODO: Include success modal here
+      setLoadingPurchase(false);
+      route.push(`/profile/${user?.addr}`);
     } catch (err) {
       toast.error('Unable to complete purchase.');
       console.error(err);
+      setLoadingPurchase(false);
     }
   };
 
@@ -87,7 +88,7 @@ const CollectionCard = ({ data, isFake }) => {
           src={img}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>{data?.nft?.nft_template?.metadata?.title}</Styled.NFTText>
+          <Styled.NFTText>{data?.nft?.template?.metadata?.title}</Styled.NFTText>
         </CardContent>
         {(user?.addr === '0x5f14b7e68e0bc3c3' && route?.asPath === '0x5f14b7e68e0bc3c3') ||
         isFake ||
@@ -95,8 +96,14 @@ const CollectionCard = ({ data, isFake }) => {
           renderUserCardActions
         ) : (
           <Grid container justifyContent="center">
-            <Styled.PurchaseButton onClick={user ? () => handlePurchaseClick(data) : login}>
-              {`Purchase • ${Number(data.price).toFixed(2)}`}
+            <Styled.PurchaseButton
+              onClick={user ? () => handlePurchaseClick(data) : login}
+              disabled={loadingPurchase}>
+              {loadingPurchase ? (
+                <CircularProgress size={32} color="white" />
+              ) : (
+                `Purchase • ${Number(data.price).toFixed(2)}`
+              )}
             </Styled.PurchaseButton>
           </Grid>
         )}
