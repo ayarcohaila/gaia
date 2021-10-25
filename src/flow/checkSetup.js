@@ -2,10 +2,12 @@ import { fcl, t } from '../config/config';
 
 const CHECK_SETUP_TX = fcl.cdc`
 import Gaia from 0xGaiaContract
+import NonFungibleToken from 0xNFTInterface
 
 pub fun main(address: Address): Bool {
-        
-  return Gaia.checkSetup(address)
+  return getAccount(address)
+    .getCapability<&{Gaia.CollectionPublic}>(Gaia.CollectionPublicPath)
+    .check()
 }
 `;
 

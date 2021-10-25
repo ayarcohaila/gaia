@@ -1,0 +1,8 @@
+{
+    "name": "Ballerz",
+    "description": "A basketball-inspired generative NFT living on the Flow blockchain", 
+    "website": "/collection/ballerz",
+    "image": "ballerz-1200x630.jpg",
+    "creator": "0x5f14b7e68e0bc3c3",
+    "marketFee": "0.05"
+}

@@ -5,6 +5,7 @@ import FungibleToken from 0xFungibleToken
 import FlowToken from 0xFlowToken
 import NFTStorefront from 0xStorefrontContract
 import Profile from 0xProfile
+import Gaia from 0xGaiaContract
 
 // This transaction installs the Storefront ressource in an account.
 
@@ -21,6 +22,12 @@ transaction {
 
             // This creates the public capability that lets applications read the profiles info
             acct.link<&Profile.Base{Profile.Public}>(Profile.publicPath, target: Profile.privatePath)
+          }
+
+          if acct.borrow<&Gaia.Collection>(from: Gaia.CollectionStoragePath) == nil {
+            let collection <- Gaia.createEmptyCollection() as! @Gaia.Collection
+            acct.save(<-collection, to: Gaia.CollectionStoragePath)
+            acct.link<&{Gaia.CollectionPublic}>(Gaia.CollectionPublicPath, target: Gaia.CollectionStoragePath)
           }
           
           // If the account doesn't already have a Storefront
