@@ -21,8 +21,8 @@ const AgreeSetupModal = ({ ...props }) => {
       setLoading(false);
       props.onClose();
     } catch (err) {
-      logout();
       setLoading(false);
+      logout();
       toast.error('Error on setting up your account');
     }
   };
@@ -43,11 +43,11 @@ const AgreeSetupModal = ({ ...props }) => {
       height="382px"
       title={'Setting Up'}
       titleSx={{ mt: '96px' }}
-      onClose={logout}
       asset={{
         img: '/collections/user.png'
       }}
-      {...props}>
+      {...props}
+      onClose={logout}>
       {renderContent}
     </Modal>
   );
