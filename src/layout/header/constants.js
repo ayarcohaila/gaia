@@ -9,11 +9,13 @@ export const MENU_OPTIONS = [
 
 export const USER_MENU_IDS = {
   PROFILE: 'profile',
-  SIGN_OUT: 'logout'
+  SIGN_OUT: 'logout',
+  DAPPER_WALLET: 'dapperWallet'
 };
 
 export const USER_MENU_OPTIONS = [
   { id: USER_MENU_IDS.PROFILE, label: 'Profile' },
+  { id: USER_MENU_IDS.DAPPER_WALLET, label: 'My Dapper Wallet' },
   {
     id: USER_MENU_IDS.SIGN_OUT,
     label: 'Sign Out',
