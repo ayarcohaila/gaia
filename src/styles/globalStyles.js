@@ -11,6 +11,10 @@ const GlobalStyles = createGlobalStyle`
     background-color: #f4f4f6
   }
 
+  .Toastify__toast-container {
+    width: unset;
+  }
+
   #__next { width: 100%; height: 100% }
 `;
 

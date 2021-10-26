@@ -22,9 +22,8 @@ const Profile = () => {
   //TODO: Remove fakeNfts on integration
   const [cursor, setCursor] = useState(1);
   const [nftList, setNftList] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  const { data: dataFetch } = useQuery(GET_NFTS_BY_ADDRESS, {
+  const { data: dataFetch, loading } = useQuery(GET_NFTS_BY_ADDRESS, {
     variables: { address }
   });
 
@@ -35,7 +34,6 @@ const Profile = () => {
   useEffect(() => {
     if (dataFetch?.nft?.length) {
       setNftList(dataFetch.nft.slice(0, cursor * 40));
-      setLoading(false);
     }
   }, [dataFetch?.nft?.length, cursor]);
 

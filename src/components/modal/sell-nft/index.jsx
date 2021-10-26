@@ -20,7 +20,9 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, ...props }) => {
     toast.info('Please wait, purchase in progress... ');
     try {
       const txResult = await sellItem(props.asset.asset_id, value);
-      toast.success(`PPurchase completed successfully. - ${txResult?.events[0]?.transactionId}`);
+      toast.success(
+        `Purchase completed successfully. In few minutes it will be available on the market`
+      );
       if (txResult) {
         onConfirm();
         setHasNftSuccessfullyPostedForSale(true);

@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
-import { Grid, Button, Link, Hidden } from '@mui/material';
+import { Grid, Button, Hidden } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
@@ -63,9 +63,9 @@ const Header = () => {
     <Styled.HeaderBar position="static">
       <Styled.Container component="section" isMobile={isMediumDevice}>
         <NextLink href="/ballerz">
-          <Link component="a">
+          <Styled.LogoImage component="a">
             <NextImage width={100} height={40} src="/static/img/gaia_logo-black.png" />
-          </Link>
+          </Styled.LogoImage>
         </NextLink>
         {/* TODO: Remove "hidden" when implement the routes redirection */}
         <Grid component="nav" hidden>
