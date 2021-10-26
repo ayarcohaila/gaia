@@ -71,7 +71,6 @@ export async function sellItem(saleItemID, saleItemPrice) {
       ])
       .then(async a => {
         let response = await fcl.decode(a);
-        console.log(response);
         return response;
       });
 
