@@ -121,3 +121,7 @@ export const ButtonText = styled(Button)(({ theme: { palette } }) => ({
   letterSpacing: '0.2px',
   width: '100%'
 }));
+
+export const LogoImage = styled(Link)(() => ({
+  cursor: 'pointer'
+}));

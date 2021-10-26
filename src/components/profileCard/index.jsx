@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { CardActions, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
 import {
   SellNftModal,
@@ -8,15 +9,14 @@ import {
   CancelListingModal,
   OrderCompleteModal
 } from '~/components';
-import { useToggle } from '~/hooks';
+import { useToggle, useAuth } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 
 const ProfileCard = ({ data }) => {
-  // @TODO: Only display the data of the current user
-  // const { user, login } = useAuth();
-  const [forSale, setForSale] = useState(false);
+  const { user } = useAuth();
+  const router = useRouter();
   // eslint-disable-next-line no-unused-vars
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
@@ -26,11 +26,12 @@ const ProfileCard = ({ data }) => {
   const img = formatIpfsImg(data?.template?.metadata?.img);
 
   const asset = { ...data, collectionName: 'BALLERZ', img };
+  const isMyProfile = router.asPath.includes(user?.addr);
 
   const renderUserCardActions = useMemo(() => {
     return (
       <CardActions>
-        {forSale ? (
+        {data?.is_for_sale ? (
           <Styled.CancelButtonContainer>
             <Styled.ListedText>Listed for sale</Styled.ListedText>
             <Styled.CancelButtonDivider />
@@ -48,7 +49,7 @@ const ProfileCard = ({ data }) => {
         )}
       </CardActions>
     );
-  }, [toggleSellNftModal, toggleTransferNftModal, toggleCancelListingModal, forSale]);
+  }, [toggleSellNftModal, toggleTransferNftModal, toggleCancelListingModal, data?.is_for_sale]);
 
   return (
     <>
@@ -65,16 +66,16 @@ const ProfileCard = ({ data }) => {
           src={img}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>{data?.nft?.nft_template?.metadata?.title}</Styled.NFTText>
+          <Styled.NFTText>{data?.template?.metadata?.title}</Styled.NFTText>
         </CardContent>
-        {renderUserCardActions}
+        {isMyProfile && renderUserCardActions}
       </Styled.CustomCard>
       <SellNftModal
         asset={asset}
-        hasPostedForSale={forSale}
+        hasPostedForSale={data?.is_for_sale}
         open={isSellNftModalOpen}
         onClose={toggleSellNftModal}
-        onConfirm={() => setForSale(true)}
+        onConfirm={() => {}} // Implement logic to  confirm
       />
       <TransferNftModal
         asset={asset}
@@ -83,10 +84,10 @@ const ProfileCard = ({ data }) => {
       />
       <CancelListingModal
         asset={asset}
-        hasPostedForSale={forSale}
+        hasPostedForSale={data?.is_for_sale}
         open={isCancelListingModalOpen}
         onClose={toggleCancelListingModal}
-        onConfirm={() => setForSale(false)}
+        onConfirm={() => {}} // For cancel confirmation
       />
       <OrderCompleteModal open={isOrderCompleteModalOpen} onClose={toggleOrderCompleteModal} />
     </>

@@ -52,7 +52,9 @@ const Collection = () => {
     } = {
       nft_sale_offer_aggregate: { aggregate: { count: 0 } }
     }
-  } = useQuery(GET_BALLERZ_NFTS_FOR_SALE_COUNT);
+  } = useQuery(GET_BALLERZ_NFTS_FOR_SALE_COUNT, {
+    variables: { id: BALLERZ_ID }
+  });
 
   const cursorLimit = useMemo(() => Math.ceil(count / DEFAULT_LIST_SIZE) - 1, [count]);
 

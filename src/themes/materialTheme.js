@@ -50,7 +50,8 @@ const theme = createTheme({
     success: {
       main: '#0bbd69',
       light: '#56ba71'
-    }
+    },
+    white: { main: '#fff' }
   }
 });
 
