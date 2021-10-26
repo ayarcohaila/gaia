@@ -17,8 +17,8 @@ const TransferNftModal = ({ ...props }) => {
 
   const handleSendNft = async address => {
     toast.info('Please wait, transfer in progress... ');
+    setLoadingTransfer(true);
     try {
-      setLoadingTransfer(true);
       const txResult = await transferNft(address, props.asset.asset_id);
       toast.success(`Transfer completed successfully. - ${txResult?.txId}`);
       setLoadingTransfer(false);
