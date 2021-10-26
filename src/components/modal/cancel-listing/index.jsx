@@ -17,7 +17,6 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
   const [loadingCancel, setLoadingCancel] = useState(false);
 
   // console.log(asset);
-
   const handleCancelListing = async () => {
     if (asset?.sale_offers && asset?.sale_offers.length > 0) {
       const activeOffers = asset.sale_offers.filter(offer => offer.status !== 'finished');
@@ -26,8 +25,8 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
           try {
             setLoadingCancel(true);
             const txResult = await cancelSale(offer.listing_resource_id);
-            setLoadingCancel(false);
             if (txResult) {
+              setLoadingCancel(false);
               onConfirm();
               setHasListingSuccessfullyCancelled(true);
             }
@@ -48,7 +47,7 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
   const title = hasListingSuccessfullyCancelled ? 'Cancelled' : 'Cancel Listing';
   const description = hasListingSuccessfullyCancelled
     ? 'Your listing has been successfully cancelled'
-    : `This will take down your listing for ${asset?.collectionName} #${asset?.template?.metadata?.number}`;
+    : `This will take down your listing for ${asset?.collectionName} #${asset?.template?.metadata?.id}`;
 
   useEffect(() => {
     setHasListingSuccessfullyCancelled(!hasPostedForSale);
