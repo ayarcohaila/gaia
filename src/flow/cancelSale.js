@@ -30,7 +30,11 @@ export async function cancelSale(listingResourceID) {
       ])
       .then(fcl.decode);
 
-    return fcl.tx(txId).onceSealed();
+    const sealedTx = await fcl.tx(txId).onceSealed();
+    return {
+      txId,
+      sealedTx
+    };
   } catch (err) {
     console.warn(err);
     throw new Error(err);

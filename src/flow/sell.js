@@ -74,7 +74,11 @@ export async function sellItem(saleItemID, saleItemPrice) {
         return response;
       });
 
-    return fcl.tx(txId).onceSealed();
+    const sealedTx = await fcl.tx(txId).onceSealed();
+    return {
+      txId,
+      sealedTx
+    };
   } catch (err) {
     console.error(err);
     throw new Error(err);

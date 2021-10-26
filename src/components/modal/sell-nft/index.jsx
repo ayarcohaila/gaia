@@ -30,7 +30,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
       if (txResult) {
         onConfirm();
         setHasNftSuccessfullyPostedForSale(true);
-        setTx(txResult?.events[0]?.transactionId);
+        setTx(txResult?.txId);
         setValue('');
         router.push('/ballerz');
       }
