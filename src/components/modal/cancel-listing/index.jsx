@@ -1,5 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { CircularProgress } from '@mui/material';
+import { toast } from 'react-toastify';
 
 import { Button } from '~/base';
 import { useBreakpoints } from '~/hooks';
@@ -12,6 +14,7 @@ import { cancelSale } from '~/flow/cancelSale';
 const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
   const [hasListingSuccessfullyCancelled, setHasListingSuccessfullyCancelled] = useState(false);
+  const [loadingCancel, setLoadingCancel] = useState(false);
 
   // console.log(asset);
 
@@ -21,24 +24,23 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
       if (activeOffers.length > 0) {
         for (let offer of activeOffers) {
           try {
+            setLoadingCancel(true);
             const txResult = await cancelSale(offer.listing_resource_id);
+            setLoadingCancel(false);
             if (txResult) {
-              // @TODO: Add loading indicator
               onConfirm();
               setHasListingSuccessfullyCancelled(true);
             }
           } catch (err) {
-            // @TODO: Add error message here - Transaction failed
+            toast.error('Transaction failed');
             console.error(err);
           }
         }
       } else {
-        // @TODO: Add error message here - No active offers
-        console.error('No active offers');
+        toast.error('No active offers');
       }
     } else {
-      // @TODO: Add error message here - No active offers
-      console.error('No active offers');
+      toast.error('No active offers');
     }
   };
 
@@ -60,12 +62,13 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
       onClose={onClose}
       title={title}
       titleSx={{ mt: isExtraSmallDevice ? '120px' : '84px' }}
-      {...props}
-    >
+      {...props}>
       {hasListingSuccessfullyCancelled ? (
         <SuccessContent />
       ) : (
-        <Button onClick={handleCancelListing}>Confirm</Button>
+        <Button onClick={handleCancelListing} disabled={loadingCancel}>
+          {loadingCancel ? <CircularProgress size={32} color="white" /> : 'Confirm'}
+        </Button>
       )}
     </Modal>
   );
