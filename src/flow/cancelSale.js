@@ -1,24 +1,23 @@
 import { fcl, t } from '../config/config';
 
 const CANCEL_SALE_TX = fcl.cdc`
-import GaiaMarket from 0xNFTMarket
+import NFTStorefront from 0xStorefrontContract
 
-transaction(saleAssetID: UInt64) {
-    let marketCollection: &GaiaMarket.Collection
+transaction(listingResourceID: UInt64) {
+    let storefront: &NFTStorefront.Storefront{NFTStorefront.StorefrontManager}
 
-    prepare(signer: AuthAccount) {
-        self.marketCollection = signer.borrow<&GaiaMarket.Collection>(from: GaiaMarket.CollectionStoragePath)
-            ?? panic("Missing or mis-typed GaiaMarket Collection")
+    prepare(acct: AuthAccount) {
+        self.storefront = acct.borrow<&NFTStorefront.Storefront{NFTStorefront.StorefrontManager}>(from: NFTStorefront.StorefrontStoragePath)
+            ?? panic("Missing or mis-typed NFTStorefront.Storefront")
     }
 
     execute {
-        let offer <-self.marketCollection.remove(itemID: saleAssetID)
-        destroy offer
+        self.storefront.removeListing(listingResourceID: listingResourceID)
     }
 }
 `;
 
-export async function cancelSale(saleAssetID) {
+export async function cancelSale(listingResourceID) {
   try {
     const txId = await fcl
       .send([
@@ -26,7 +25,7 @@ export async function cancelSale(saleAssetID) {
         fcl.payer(fcl.authz),
         fcl.proposer(fcl.authz),
         fcl.authorizations([fcl.authz]),
-        fcl.args([fcl.arg(Number(saleAssetID), t.UInt64)]),
+        fcl.args([fcl.arg(Number(listingResourceID), t.UInt64)]),
         fcl.limit(100)
       ])
       .then(fcl.decode);
@@ -34,8 +33,6 @@ export async function cancelSale(saleAssetID) {
     return fcl.tx(txId).onceSealed();
   } catch (err) {
     console.warn(err);
-    throw new Error(
-      'createSaleOffer(saleAssetID, salePrice, marketFee, templateID, marketPaymentReceiver) -- templateID required'
-    );
+    throw new Error(err);
   }
 }

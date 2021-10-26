@@ -1,5 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { CircularProgress } from '@mui/material';
+import { toast } from 'react-toastify';
 
 import { Button } from '~/base';
 import { useBreakpoints } from '~/hooks';
@@ -7,20 +9,45 @@ import { useBreakpoints } from '~/hooks';
 import Modal from '..';
 import SuccessContent from '../success-content';
 
+import { cancelSale } from '~/flow/cancelSale';
+
 const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
   const [hasListingSuccessfullyCancelled, setHasListingSuccessfullyCancelled] = useState(false);
+  const [loadingCancel, setLoadingCancel] = useState(false);
 
-  const handleCancelListing = () => {
-    //TODO: Implement cancel listing integration
-    onConfirm();
-    setHasListingSuccessfullyCancelled(true);
+  // console.log(asset);
+  const handleCancelListing = async () => {
+    if (asset?.sale_offers && asset?.sale_offers.length > 0) {
+      const activeOffers = asset.sale_offers.filter(offer => offer.status !== 'finished');
+      if (activeOffers.length > 0) {
+        for (let offer of activeOffers) {
+          try {
+            setLoadingCancel(true);
+            const txResult = await cancelSale(offer.listing_resource_id);
+            if (txResult) {
+              setLoadingCancel(false);
+              onConfirm();
+              setHasListingSuccessfullyCancelled(true);
+            }
+          } catch (err) {
+            setLoadingCancel(false);
+            toast.error('Transaction failed');
+            console.error(err);
+          }
+        }
+      } else {
+        toast.error('No active offers');
+      }
+    } else {
+      toast.error('No active offers');
+    }
   };
 
   const title = hasListingSuccessfullyCancelled ? 'Cancelled' : 'Cancel Listing';
   const description = hasListingSuccessfullyCancelled
     ? 'Your listing has been successfully cancelled'
-    : `This will take down your listing for ${asset?.collectionName} #${asset?.id}`;
+    : `This will take down your listing for ${asset?.collectionName} #${asset?.template?.metadata?.id}`;
 
   useEffect(() => {
     setHasListingSuccessfullyCancelled(!hasPostedForSale);
@@ -39,7 +66,9 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
       {hasListingSuccessfullyCancelled ? (
         <SuccessContent />
       ) : (
-        <Button onClick={handleCancelListing}>Confirm</Button>
+        <Button onClick={handleCancelListing} disabled={loadingCancel}>
+          {loadingCancel ? <CircularProgress size={32} color="white" /> : 'Confirm'}
+        </Button>
       )}
     </Modal>
   );

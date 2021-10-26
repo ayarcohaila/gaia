@@ -127,7 +127,7 @@ const CollectionCard = ({ data, isFake }) => {
         hasPostedForSale={forSale}
         open={isCancelListingModalOpen}
         onClose={toggleCancelListingModal}
-        onConfirm={() => setForSale(false)}
+        onConfirm={() => setForSale(true)}
       />
       <OrderCompleteModal open={isOrderCompleteModalOpen} onClose={toggleOrderCompleteModal} />
     </>
