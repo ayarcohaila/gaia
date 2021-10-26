@@ -155,7 +155,7 @@ const CollectionsFilter = ({
       )}
       <Dropdown
         menuAnchorRef={orderButtonRef}
-        isOpen={isMenuOrderOpen}
+        isOpen={!!isMenuOrderOpen}
         onClose={toggleMenuOrder}
         handleClickOption={handleClickOption}
         options={orderButton.filter(option => option.id !== selectedOrderButton)}

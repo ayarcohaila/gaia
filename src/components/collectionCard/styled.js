@@ -92,7 +92,7 @@ export const CancelButtonContainer = styled('div')(({ theme: { palette } }) => (
   backgroundColor: palette.error.main,
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   alignItems: 'center',
 
   transition: 'ease-in-out',
@@ -103,7 +103,7 @@ export const CancelButtonContainer = styled('div')(({ theme: { palette } }) => (
   fontWeight: 'bold',
   lineHeight: '1.14',
   letterSpacing: '0.2px',
-  marginTop: '8px',
+  marginTop: '24px',
 
   ':hover': {
     backgroundColor: palette.error[700]

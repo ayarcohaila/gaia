@@ -23,7 +23,11 @@ const Profile = () => {
   const [cursor, setCursor] = useState(1);
   const [nftList, setNftList] = useState([]);
 
-  const { data: dataFetch, loading } = useQuery(GET_NFTS_BY_ADDRESS, {
+  const {
+    data: dataFetch,
+    loading,
+    refetch
+  } = useQuery(GET_NFTS_BY_ADDRESS, {
     variables: { address }
   });
 
@@ -43,6 +47,12 @@ const Profile = () => {
 
   const cursorLimit = useMemo(() => Math.ceil(dataFetch?.length / 40), [dataFetch]);
 
+  const handleRefetch = () => {
+    refetch({
+      variables: { address }
+    });
+  };
+
   return (
     <Box>
       <Seo title="Profile" />
@@ -61,7 +71,7 @@ const Profile = () => {
             .fill(null)
             .map((_, index) => <CardSkeletonLoader key={index} />)
         ) : (
-          <ProfileList nfts={nftList} />
+          <ProfileList nfts={nftList} refetchNfts={handleRefetch} />
         )}
       </Styled.ListWrapper>
       {cursorLimit > cursor && !loading && (

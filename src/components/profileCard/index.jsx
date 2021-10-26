@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { CardActions, CardContent, CardMedia, Avatar } from '@mui/material';
+import { CardActions, CardContent, CardMedia, Avatar, Skeleton } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
@@ -14,9 +14,12 @@ import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 
-const ProfileCard = ({ data }) => {
+const ProfileCard = ({ data, refetchNfts }) => {
   const { user } = useAuth();
   const router = useRouter();
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   // eslint-disable-next-line no-unused-vars
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
@@ -34,16 +37,21 @@ const ProfileCard = ({ data }) => {
       <CardActions>
         {isForSale ? (
           <Styled.CancelButtonContainer>
-            <Styled.ListedText>Listed for sale</Styled.ListedText>
+            <Styled.ListedText disabled={loading}>Listed for sale</Styled.ListedText>
             <Styled.CancelButtonDivider />
-            <Styled.CancelButton variant="text" onClick={() => toggleCancelListingModal()}>
+            <Styled.CancelButton
+              disabled={loading}
+              variant="text"
+              onClick={() => toggleCancelListingModal()}>
               Cancel
             </Styled.CancelButton>
           </Styled.CancelButtonContainer>
         ) : (
           <>
-            <Styled.SellButton onClick={() => toggleSellNftModal()}>Sell</Styled.SellButton>
-            <Styled.TransferButton onClick={() => toggleTransferNftModal()}>
+            <Styled.SellButton disabled={loading} onClick={() => toggleSellNftModal()}>
+              Sell
+            </Styled.SellButton>
+            <Styled.TransferButton disabled={loading} onClick={() => toggleTransferNftModal()}>
               Transfer
             </Styled.TransferButton>
           </>
@@ -59,11 +67,18 @@ const ProfileCard = ({ data }) => {
           avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
           title="BALLERZ"
         />
+        <Skeleton
+          variant="rect"
+          width="275px"
+          height={275}
+          sx={{ borderRadius: '20px', display: imgLoaded && 'none' }}
+        />
         <CardMedia
-          sx={{ borderRadius: '20px', maxWidth: '275px' }}
+          sx={{ borderRadius: '20px', maxWidth: '275px', display: !imgLoaded && 'none' }}
           component="img"
-          alt="ss"
+          alt="Nft asset"
           height="275"
+          onLoad={() => setImgLoaded(true)}
           src={img}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
@@ -76,7 +91,9 @@ const ProfileCard = ({ data }) => {
         hasPostedForSale={data?.is_for_sale}
         open={isSellNftModalOpen}
         onClose={toggleSellNftModal}
-        onConfirm={() => {}} // Implement logic to  confirm
+        onConfirm={refetchNfts}
+        setLoading={setLoading}
+        loading={loading}
       />
       <TransferNftModal
         asset={asset}

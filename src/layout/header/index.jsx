@@ -118,7 +118,7 @@ const Header = () => {
         )}
         <Dropdown
           menuAnchorRef={menuAnchorRef}
-          isOpen={openUserMenu}
+          isOpen={!!openUserMenu}
           onClose={handleDropdownMenu}
           options={USER_MENU_OPTIONS}
           handleClickOption={handleClick}

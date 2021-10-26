@@ -1,5 +1,13 @@
-import { memo } from 'react';
-import { Fade, IconButton, Modal as MuiModal, SwipeableDrawer, useTheme } from '@mui/material';
+import { memo, useState } from 'react';
+import {
+  Fade,
+  IconButton,
+  Modal as MuiModal,
+  SwipeableDrawer,
+  Grid,
+  CircularProgress,
+  useTheme
+} from '@mui/material';
 import { Close as CloseIcon, KeyboardArrowDown as ArrowDownIcon } from '@mui/icons-material';
 import { Global } from '@emotion/react';
 import PropTypes from 'prop-types';
@@ -30,6 +38,12 @@ const Modal = ({
     palette: { grey }
   } = useTheme();
 
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  const handleLoad = () => {
+    setImgLoaded(true);
+  };
+
   const renderContent = () => (
     <Styled.Container mobileHeight={mobileHeight}>
       <Styled.Content height={isSmallDevice ? mobileHeight : height} {...containerProps}>
@@ -40,11 +54,32 @@ const Modal = ({
             <ArrowDownIcon sx={{ color: grey[375], fontSize: 32 }} />
           </IconButton>
         )}
-        {asset && asset.img && (
+        {asset?.img && (
           <Styled.AssetContainer>
-            <Styled.Asset alt={title} layout="fill" src={asset?.img} />
+            <Grid sx={{ display: !imgLoaded && 'none' }}>
+              <Styled.Asset
+                alt={title}
+                layout="fill"
+                src={asset?.img}
+                onLoad={() => handleLoad()}
+              />
+            </Grid>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              sx={{
+                width: '180px',
+                height: '180px',
+                borderRadius: '12.2px',
+                background: grey[375],
+                display: imgLoaded && 'none'
+              }}>
+              <CircularProgress size={32} color="white" />
+            </Grid>
           </Styled.AssetContainer>
         )}
+
         <Styled.InfoContainer>
           <Styled.Title id={title} sx={titleSx}>
             {title}

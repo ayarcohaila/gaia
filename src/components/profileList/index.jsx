@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { ProfileCard } from '~/components';
 import { useAuth } from '~/hooks';
 
-const ProfileList = ({ nfts }) => {
+const ProfileList = ({ nfts, refetchNfts }) => {
   const { user } = useAuth();
   const router = useRouter();
   const isMyProfile = router.asPath.includes(user?.addr);
@@ -14,7 +14,7 @@ const ProfileList = ({ nfts }) => {
   return (
     <>
       {nfts.length > 0 ? (
-        nfts.map(nft => <ProfileCard key={nft.asset_id} data={nft} />)
+        nfts.map(nft => <ProfileCard key={nft.asset_id} data={nft} refetchNfts={refetchNfts} />)
       ) : (
         <Typography mt="42px" variant="body">
           {`Unfortunately, ${

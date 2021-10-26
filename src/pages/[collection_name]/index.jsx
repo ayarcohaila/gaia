@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Grid } from '@mui/material';
 import { useQuery } from '@apollo/client';
-
 import { CollectionBanner, CollectionsFilter, Seo, CollectionList } from '~/components';
 import { Divider, CardSkeletonLoader } from '~/base';
 import { useBreakpoints } from '~/hooks';

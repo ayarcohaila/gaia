@@ -1,15 +1,18 @@
 import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import Modal from '..';
+import { toast } from 'react-toastify';
+import { CircularProgress } from '@mui/material';
+import { useRouter } from 'next/router';
+import { sellItem } from '~/flow/sell';
 import SuccessContent from '../success-content';
+import Modal from '..';
+
 import * as Styled from './styles';
 
-import { sellItem } from '~/flow/sell';
-import { toast } from 'react-toastify';
-
-const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, ...props }) => {
+const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loading, ...props }) => {
   const [value, setValue] = useState('');
+
+  const router = useRouter();
   const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
     useState(hasPostedForSale);
@@ -19,20 +22,23 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, ...props }) => {
 
     toast.info('Please wait, purchase in progress... ');
     try {
+      setLoading(true);
       const txResult = await sellItem(props.asset.asset_id, value);
       toast.success(
-        `Purchase completed successfully. In few minutes it will be available on the market`
+        'Purchase completed successfully. In few minutes it will be available on the market'
       );
       if (txResult) {
         onConfirm();
         setHasNftSuccessfullyPostedForSale(true);
         setTx(txResult?.events[0]?.transactionId);
         setValue('');
+        router.push('/ballerz');
       }
     } catch (err) {
       toast.error('Unable to complete purchase.');
       console.error(err);
     }
+    setLoading(false);
   };
 
   const title = hasNftSuccessfullyPostedForSale ? 'Posted for  sale!' : 'Sell NFT';
@@ -51,7 +57,9 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, ...props }) => {
       ) : (
         <Styled.Input
           endAdornment={
-            <Styled.CustomButton onClick={handlePostForSale}>Post For Sale</Styled.CustomButton>
+            <Styled.CustomButton onClick={handlePostForSale} disabled={loading}>
+              {loading ? <CircularProgress size={32} color="white" /> : 'Post For Sale'}
+            </Styled.CustomButton>
           }
           placeholder="Enter FLOW value"
           onChange={({ target: { value: targetValue } }) => setValue(targetValue)}
@@ -66,7 +74,14 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, ...props }) => {
 SellNftModal.propTypes = {
   hasPostedForSale: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired
+  onConfirm: PropTypes.func.isRequired,
+  setLoading: PropTypes.func,
+  loading: PropTypes.bool
+};
+
+SellNftModal.defaultProps = {
+  setLoading: () => {},
+  loading: false
 };
 
 export default memo(SellNftModal);
