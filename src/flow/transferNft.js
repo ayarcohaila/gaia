@@ -41,7 +41,11 @@ export async function transferNft(recipient, withdrawID) {
       ])
       .then(fcl.decode);
 
-    return fcl.tx(txId).onceSealed();
+    const sealedTx = await fcl.tx(txId).onceSealed();
+    return {
+      txId,
+      sealedTx
+    };
   } catch (err) {
     throw new Error(err);
   }
