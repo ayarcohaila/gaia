@@ -7,20 +7,45 @@ import { useBreakpoints } from '~/hooks';
 import Modal from '..';
 import SuccessContent from '../success-content';
 
+import { cancelSale } from '~/flow/cancelSale';
+
 const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
   const [hasListingSuccessfullyCancelled, setHasListingSuccessfullyCancelled] = useState(false);
 
-  const handleCancelListing = () => {
-    //TODO: Implement cancel listing integration
-    onConfirm();
-    setHasListingSuccessfullyCancelled(true);
+  // console.log(asset);
+
+  const handleCancelListing = async () => {
+    if (asset?.sale_offers && asset?.sale_offers.length > 0) {
+      const activeOffers = asset.sale_offers.filter(offer => offer.status !== 'finished');
+      if (activeOffers.length > 0) {
+        for (let offer of activeOffers) {
+          try {
+            const txResult = await cancelSale(offer.listing_resource_id);
+            if (txResult) {
+              // @TODO: Add loading indicator
+              onConfirm();
+              setHasListingSuccessfullyCancelled(true);
+            }
+          } catch (err) {
+            // @TODO: Add error message here - Transaction failed
+            console.error(err);
+          }
+        }
+      } else {
+        // @TODO: Add error message here - No active offers
+        console.error('No active offers');
+      }
+    } else {
+      // @TODO: Add error message here - No active offers
+      console.error('No active offers');
+    }
   };
 
   const title = hasListingSuccessfullyCancelled ? 'Cancelled' : 'Cancel Listing';
   const description = hasListingSuccessfullyCancelled
     ? 'Your listing has been successfully cancelled'
-    : `This will take down your listing for ${asset?.collectionName} #${asset?.id}`;
+    : `This will take down your listing for ${asset?.collectionName} #${asset?.template?.metadata?.number}`;
 
   useEffect(() => {
     setHasListingSuccessfullyCancelled(!hasPostedForSale);
@@ -35,7 +60,8 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
       onClose={onClose}
       title={title}
       titleSx={{ mt: isExtraSmallDevice ? '120px' : '84px' }}
-      {...props}>
+      {...props}
+    >
       {hasListingSuccessfullyCancelled ? (
         <SuccessContent />
       ) : (

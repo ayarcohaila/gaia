@@ -29,6 +29,11 @@ const GET_NFTS_BY_ADDRESS = gql`
       template {
         metadata
       }
+      sale_offers {
+        listing_resource_id
+        price
+        status
+      }
     }
   }
 `;
