@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { CardActions, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
@@ -22,6 +22,7 @@ const ProfileCard = ({ data }) => {
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
+  const [isForSale, setIsForSale] = useState(data?.is_for_sale);
 
   const img = formatIpfsImg(data?.template?.metadata?.img);
 
@@ -31,7 +32,7 @@ const ProfileCard = ({ data }) => {
   const renderUserCardActions = useMemo(() => {
     return (
       <CardActions>
-        {data?.is_for_sale ? (
+        {isForSale ? (
           <Styled.CancelButtonContainer>
             <Styled.ListedText>Listed for sale</Styled.ListedText>
             <Styled.CancelButtonDivider />
@@ -49,7 +50,7 @@ const ProfileCard = ({ data }) => {
         )}
       </CardActions>
     );
-  }, [toggleSellNftModal, toggleTransferNftModal, toggleCancelListingModal, data?.is_for_sale]);
+  }, [toggleSellNftModal, toggleTransferNftModal, toggleCancelListingModal, isForSale]);
 
   return (
     <>
@@ -87,7 +88,9 @@ const ProfileCard = ({ data }) => {
         hasPostedForSale={data?.is_for_sale}
         open={isCancelListingModalOpen}
         onClose={toggleCancelListingModal}
-        onConfirm={() => {}} // For cancel confirmation
+        onConfirm={() => {
+          setIsForSale(false);
+        }} // For cancel confirmation
       />
       <OrderCompleteModal open={isOrderCompleteModalOpen} onClose={toggleOrderCompleteModal} />
     </>

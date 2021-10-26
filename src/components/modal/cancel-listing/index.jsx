@@ -32,6 +32,7 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
               setHasListingSuccessfullyCancelled(true);
             }
           } catch (err) {
+            setLoadingCancel(false);
             toast.error('Transaction failed');
             console.error(err);
           }
