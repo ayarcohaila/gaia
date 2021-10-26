@@ -9,6 +9,7 @@ import { transferNft } from '../../../flow/transferNft';
 
 const TransferNftModal = ({ ...props }) => {
   const [address, setAddress] = useState('');
+  const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyTransfered, setHasNftSuccessfullyTransfered] = useState(false);
   const [loadingTransfer, setLoadingTransfer] = useState(false);
   const {
@@ -21,6 +22,7 @@ const TransferNftModal = ({ ...props }) => {
     try {
       const txResult = await transferNft(address, props.asset.asset_id);
       toast.success(`Transfer completed successfully. - ${txResult?.txId}`);
+      setTx(txResult?.txId);
       setLoadingTransfer(false);
       setHasNftSuccessfullyTransfered(true);
     } catch (err) {
@@ -43,7 +45,7 @@ const TransferNftModal = ({ ...props }) => {
       titleSx={{ mt: '96px' }}
       {...props}>
       {hasNftSuccessfullyTransfered ? (
-        <ModalSuccessContent address={address} />
+        <ModalSuccessContent address={address} tx={tx} />
       ) : (
         <>
           <Typography color={error?.light} fontWeight="600" mb="24px" variant="subtitle1">
