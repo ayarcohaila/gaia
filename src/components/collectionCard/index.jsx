@@ -10,20 +10,19 @@ import formatIpfsImg from '~/utils/formatIpfsImg';
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
 
+const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
+
 const CollectionCard = ({ data }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const [loaded, setLoaded] = useState(false);
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const [displayModals, setDisplayModals] = useState(false);
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
 
-  const img =
-    process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true'
-      ? '/images/mystery-nft.gif'
-      : formatIpfsImg(data?.nft?.template?.metadata?.img);
+  const img = SHOULD_HIDE_DATA
+    ? '/images/mystery-nft.gif'
+    : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
   // TODO: Implement function
   const handlePurchaseClick = async () => {
@@ -75,7 +74,9 @@ const CollectionCard = ({ data }) => {
           src={img}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>{data?.nft?.template?.metadata?.title}</Styled.NFTText>
+          <Styled.NFTText>
+            {SHOULD_HIDE_DATA ? 'BALLER #????' : data?.nft?.template?.metadata?.title}
+          </Styled.NFTText>
         </CardContent>
         {data?.nft?.owner === user?.addr ? (
           <Styled.CancelButtonContainer>
