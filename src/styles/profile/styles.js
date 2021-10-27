@@ -15,8 +15,8 @@ export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
 }));
 
 export const FiltersContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
+  padding: '0 40px',
   boxSizing: 'border-box',
-  padding: '0 80px',
 
   [breakpoints.down('sm')]: {
     padding: '0 20px'
