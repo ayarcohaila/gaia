@@ -3,7 +3,8 @@ import { Grid, CardContent, CardMedia, Avatar, CircularProgress, Skeleton } from
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import { useAuth } from '~/hooks';
+import { PurchaseNFTModal } from '~/components';
+import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
@@ -14,6 +15,10 @@ const CollectionCard = ({ data }) => {
   const { user, login } = useAuth();
   const [loaded, setLoaded] = useState(false);
   const [loadingPurchase, setLoadingPurchase] = useState(false);
+  const [purchaseTxId, setPurchaseTxId] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [displayModals, setDisplayModals] = useState(false);
+  const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
 
   const img =
     process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true'
@@ -25,17 +30,27 @@ const CollectionCard = ({ data }) => {
     toast.info('Please wait, purchase in progress... ');
     try {
       setLoadingPurchase(true);
-      await buy(data.listing_resource_id, data.nft.owner);
-      toast.success(
-        `Purchase completed successfully. In few minutes it will be available on your profile`
-      );
-      setLoadingPurchase(false);
-      route.push(`/profile/${user?.addr}`);
+      const txResult = await buy(data.listing_resource_id, process.env.NEXT_PUBLIC_MARKET_OWNER);
+
+      if (txResult) {
+        setPurchaseTxId(txResult?.txId);
+        togglePurchaseNftModal();
+        toast.success(
+          `Purchase completed successfully. In few minutes it will be available on your profile`
+        );
+        setLoadingPurchase(false);
+      }
     } catch (err) {
       toast.error('Unable to complete purchase.');
       console.error(err);
       setLoadingPurchase(false);
     }
+  };
+
+  const handleClosePurchaseModal = () => {
+    togglePurchaseNftModal();
+    setPurchaseTxId(null);
+    route.push(`/profile/${user?.addr}`);
   };
 
   return (
@@ -80,6 +95,12 @@ const CollectionCard = ({ data }) => {
           </Grid>
         )}
       </Styled.CustomCard>
+      <PurchaseNFTModal
+        asset={{ ...data, img }}
+        open={isPurchaseNftModalOpen}
+        onClose={handleClosePurchaseModal}
+        tx={purchaseTxId}
+      />
     </>
   );
 };
