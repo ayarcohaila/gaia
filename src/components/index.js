@@ -7,6 +7,7 @@ export { default as SellNftModal } from './modal/sell-nft';
 export { default as CancelListingModal } from './modal/cancel-listing';
 export { default as TransferNftModal } from './modal/transfer-nft';
 export { default as OrderCompleteModal } from './modal/order-complete';
+export { default as PurchaseNFTModal } from './modal/purchase-nft';
 export { default as CollectionList } from './collectionList';
 export { default as ProfileList } from './profileList';
 export { default as CollectionCard } from './collectionCard';
