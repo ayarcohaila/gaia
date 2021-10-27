@@ -2,6 +2,10 @@ import muiTheme from '~/themes/materialTheme';
 
 export const ITEMS = [
   {
+    label: 'BALLERZ',
+    href: 'https://www.ballerz.xyz/'
+  },
+  {
     label: 'Bitcoin Origins',
     href: 'https://www.btcorigins.com/'
   },

@@ -40,7 +40,7 @@ SEO.propTypes = {
 SEO.defaultProps = {
   description:
     'The world’s largest digital marketplace for crypto collectibles and non-fungible tokens (NFTs). Buy, sell, and discover exclusive digital assets.',
-  siteTitle: 'GAIA',
+  siteTitle: 'gaia',
   imgURL: '/static/img/main-unfurl.png'
 };
 

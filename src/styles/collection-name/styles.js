@@ -20,7 +20,8 @@ export const BlackButton = styled(Button)(({ theme: { typography, palette } }) =
 }));
 
 export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
-  padding: '0 80px',
+  padding: '0 40px',
+  boxSizing: 'border-box',
 
   [breakpoints.down('md')]: {
     padding: '0 20px'

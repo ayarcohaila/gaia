@@ -64,7 +64,7 @@ const Header = () => {
       <Styled.Container component="section" isMobile={isMediumDevice}>
         <NextLink href="/ballerz">
           <Styled.LogoImage component="a">
-            <NextImage width={100} height={40} src="/static/img/gaia_logo-black.png" />
+            <NextImage width={102.4} height={40} src="/static/img/gaia_logo-black.png" />
           </Styled.LogoImage>
         </NextLink>
         {/* TODO: Remove "hidden" when implement the routes redirection */}

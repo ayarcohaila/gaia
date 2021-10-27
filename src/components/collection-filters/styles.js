@@ -16,7 +16,7 @@ export const Wrapper = styled(Grid, { shouldForwardProp: prop => prop !== 'isMob
     width: '100%',
     borderSizing: 'border-box',
     display: 'flex',
-    flexDirection: isMobile ? 'column-reverse' : 'row',
+    flexDirection: isMobile ? 'column' : 'row',
     gap: isMobile && '16px',
     alignItems: 'center',
     justifyContent: 'space-between'
