@@ -76,7 +76,7 @@ const Profile = () => {
       </Styled.ListWrapper>
       {cursorLimit > cursor && !loading && (
         <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 64px' }}>
-          <Styled.BlackButton onClick={handleLoadMore}>Load more NFTS</Styled.BlackButton>
+          <Styled.BlackButton onClick={handleLoadMore}>Load more</Styled.BlackButton>
         </Grid>
       )}
     </Box>
