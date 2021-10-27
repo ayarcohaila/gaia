@@ -5,7 +5,7 @@ export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
   gap: '16px',
   flexWrap: 'wrap',
   justifyContent: 'center',
-  padding: '20px 80px 0px',
+  padding: '20px 40px 0px',
   boxSizing: 'border-box',
   width: '100%',
 
