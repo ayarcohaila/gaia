@@ -30,7 +30,7 @@ const CollectionCard = ({ data }) => {
     toast.info('Please wait, purchase in progress... ');
     try {
       setLoadingPurchase(true);
-      const txResult = await buy(data.listing_resource_id, process.env.NEXT_PUBLIC_MARKET_OWNER);
+      const txResult = await buy(data.listing_resource_id, data?.nft?.owner);
 
       if (txResult) {
         setPurchaseTxId(txResult?.txId);
