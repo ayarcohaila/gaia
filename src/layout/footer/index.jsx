@@ -85,7 +85,7 @@ const Footer = () => {
 
         <Grid alignItems="flex-end" container justifyContent="space-between" mt="108px">
           <Box width={isMediumDevice ? 'auto' : '35%'}>
-            <NextImage width="100%" height={40} src="/static/img/gaia_logo-white.png" />
+            <NextImage width={102.4} height={40} src="/static/img/gaia_logo-white.png" />
             <Grid alignItems="center" container mt="24px">
               <Styled.CustomLink
                 href="https://nftgenius.com/contact/"
