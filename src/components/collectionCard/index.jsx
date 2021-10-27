@@ -74,7 +74,7 @@ const CollectionCard = ({ data }) => {
               {loadingPurchase ? (
                 <CircularProgress size={32} color="white" />
               ) : (
-                `Purchase • ${Number(data.price).toFixed(2)}`
+                `Purchase • $${Number(data.price).toFixed(2)}`
               )}
             </Styled.PurchaseButton>
           </Grid>
