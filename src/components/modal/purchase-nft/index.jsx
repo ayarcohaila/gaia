@@ -8,12 +8,14 @@ import SuccessContent from '../success-content';
 
 import { useAuth, useBreakpoints } from '~/hooks';
 
+const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
+
 const PurchaseNFTModal = ({ asset, onClose, tx, ...props }) => {
   const { user } = useAuth();
   const title = 'Order Complete!';
   const { isSmallDevice } = useBreakpoints();
-  const description = `Congratulations, you are now the 
-  proud owner of ${asset?.nft?.template?.metadata?.title}`;
+  const description = `Congratulations, you are now the
+  proud owner of ${SHOULD_HIDE_DATA ? 'BALLER #????' : asset?.nft?.template?.metadata?.title}`;
 
   return (
     <Modal
@@ -40,9 +42,14 @@ const PurchaseNFTModal = ({ asset, onClose, tx, ...props }) => {
 
 PurchaseNFTModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  tx: PropTypes.string.isRequired,
+  onConfirm: PropTypes.func,
+  tx: PropTypes.string,
   asset: PropTypes.object.isRequired
+};
+
+PurchaseNFTModal.defaultProps = {
+  onConfirm: () => {},
+  tx: ''
 };
 
 export default memo(PurchaseNFTModal);

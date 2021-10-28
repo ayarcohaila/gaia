@@ -38,7 +38,6 @@ export const SellButton = styled(Button)(({ theme: { palette } }) => ({
   height: 48,
   padding: '15px 22px 17px',
   borderRadius: '24px',
-  backgroundColor: palette.primary.main,
   color: 'white',
   fontWeight: 'bold',
   textTransform: 'none',
@@ -62,6 +61,10 @@ export const PurchaseButton = styled(Button)(({ theme: { palette } }) => ({
 
   ':hover': {
     backgroundColor: palette.primary.hover
+  },
+
+  ':disabled': {
+    backgroundColor: palette.grey[400]
   }
 }));
 

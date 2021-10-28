@@ -1,9 +1,8 @@
 import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 
-import { Button } from '~/base';
+import { Button, Loader } from '~/base';
 import { useBreakpoints } from '~/hooks';
 
 import Modal from '..';
@@ -67,7 +66,7 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
         <SuccessContent />
       ) : (
         <Button onClick={handleCancelListing} disabled={loadingCancel}>
-          {loadingCancel ? <CircularProgress size={32} color="white" /> : 'Confirm'}
+          {loadingCancel ? <Loader /> : 'Confirm'}
         </Button>
       )}
     </Modal>
