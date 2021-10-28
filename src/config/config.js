@@ -36,6 +36,7 @@ fcl
   .put('0xProfile', process.env.NEXT_PUBLIC_PROFILE_CONTRACT)
   .put('0xNFTInterface', process.env.NEXT_PUBLIC_NFT_INTERFACE)
   .put('0xNFTContract', process.env.NEXT_PUBLIC_NFT_CONTRACT)
+  .put('0xDapperUtilityCoin', process.env.NEXT_PUBLIC_DAPPER_UTILITY_COIN)
   // @TODO: Remove this variable
   .put('0xNFTMarket', marketAddress)
   .put('0xGaiaContract', process.env.NEXT_PUBLIC_GAIA_CONTRACT)
