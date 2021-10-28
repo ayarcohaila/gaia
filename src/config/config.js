@@ -1,5 +1,6 @@
 import * as fcl from '@onflow/fcl';
 import * as t from '@onflow/types';
+import { isDapper } from '../utils/currencyCheck';
 
 const ipfsApiKey = process.env.NEXT_PUBLIC_PINATA_API_KEY;
 const ipfsPrivateKey = process.env.NEXT_PUBLIC_PINATA_PRIVATE_API_KEY;
@@ -17,10 +18,18 @@ const users = [
   }
 ];
 
+const discovery = isDapper
+  ? {
+      'discovery.wallet': process.env.NEXT_PUBLIC_DAPPER_WALLET_DISCOVERY,
+      'discovery.wallet.method': process.env.NEXT_PUBLIC_DAPPER_WALLET_DISCOVERY_METHOD
+    }
+  : {
+      'challenge.handshake': process.env.NEXT_PUBLIC_WALLET_DISCOVERY
+    };
+
 fcl
-  .config()
+  .config(discovery)
   .put('accessNode.api', process.env.NEXT_PUBLIC_ACCESS_NODE)
-  .put('challenge.handshake', process.env.NEXT_PUBLIC_WALLET_DISCOVERY)
   .put('0xFungibleToken', process.env.NEXT_PUBLIC_FUNGIBLE_TOKEN)
   .put('0xFlowToken', process.env.NEXT_PUBLIC_FLOW_TOKEN)
   .put('0xFUSDContract', process.env.NEXT_PUBLIC_FUSD)

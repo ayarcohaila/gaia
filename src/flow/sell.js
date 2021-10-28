@@ -1,8 +1,11 @@
 /* eslint-disable no-console */
 
 import { fcl, t } from '../config/config';
+import { isDapper } from '../utils/currencyCheck';
 
-const SALE_NFT_TX = `
+const SALE_NFT_TX = isDapper
+  ? `` //duc transaction
+  : `
 import FungibleToken from 0xFungibleToken
 import NonFungibleToken from 0xNFTInterface
 import FlowToken from 0xFlowToken

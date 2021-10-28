@@ -1,6 +1,9 @@
 import { fcl, t } from '../config/config';
+import { isDapper } from '../utils/currencyCheck';
 
-const BUY_NFT_TX = fcl.cdc`
+const BUY_NFT_TX = isDapper
+  ? fcl.cdc`` //flowTokenCode
+  : fcl.cdc`
 import FungibleToken from 0xFungibleToken
 import NonFungibleToken from 0xNFTInterface
 import FlowToken from 0xFlowToken

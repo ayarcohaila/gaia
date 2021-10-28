@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "export NODE_ENV=test && next dev",
+    "dapper": "export NEXT_PUBLIC_ISDAPPER=true NODE_ENV=test && next dev",
     "dev-windows": "set NODE_ENV=test | next dev",
     "build": "next build",
     "start": "next start",
@@ -23,7 +24,7 @@
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.1",
     "@mui/material": "^5.0.2",
-    "@onflow/fcl": "^0.0.76",
+    "@onflow/fcl": "^0.0.77",
     "@onflow/types": "^0.0.5",
     "axios": "^0.21.1",
     "elliptic": "^6.5.4",
