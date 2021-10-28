@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function SEO({ description, title, siteTitle, imgURL, label1, label2, data1, data2 }) {
   return (
     <Head>
-      <title>{`${title} | ${siteTitle}`}</title>
+      <title>{`${title ? `${title} | ` : ''}${siteTitle}`}</title>
       <meta name="description" content={description} />
       <meta property="og:locale" content="en_US" />
       <meta property="og:type" content="website" />
