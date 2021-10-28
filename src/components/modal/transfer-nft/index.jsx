@@ -1,11 +1,13 @@
 import { memo, useState } from 'react';
-import { CircularProgress, Typography, useTheme } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
 
+import { Loader } from '~/base';
 import Modal from '..';
-import ModalSuccessContent from '../success-content';
-import * as Styled from './styles';
 import { transferNft } from '../../../flow/transferNft';
+import ModalSuccessContent from '../success-content';
+
+import * as Styled from './styles';
 
 const TransferNftModal = ({ ...props }) => {
   const [address, setAddress] = useState('');
@@ -55,8 +57,9 @@ const TransferNftModal = ({ ...props }) => {
             endAdornment={
               <Styled.CustomButton
                 onClick={() => handleSendNft(address)}
+                sx={{ width: loadingTransfer ? '240px' : '180px' }}
                 disabled={loadingTransfer}>
-                {loadingTransfer ? <CircularProgress size={32} color="white" /> : 'Send NFT'}
+                {loadingTransfer ? <Loader /> : 'Send NFT'}
               </Styled.CustomButton>
             }
             placeholder="Enter Wallet Address"

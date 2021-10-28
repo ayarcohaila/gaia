@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Grid, CardContent, CardMedia, Avatar, CircularProgress, Skeleton } from '@mui/material';
+import { Grid, CardContent, CardMedia, Avatar, Skeleton } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+
+import { Loader } from '~/base';
 import { PurchaseNFTModal } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
@@ -87,11 +89,7 @@ const CollectionCard = ({ data }) => {
             <Styled.PurchaseButton
               onClick={user ? () => handlePurchaseClick(data) : login}
               disabled={loadingPurchase}>
-              {loadingPurchase ? (
-                <CircularProgress size={32} color="white" />
-              ) : (
-                `Purchase • $${Number(data.price).toFixed(2)}`
-              )}
+              {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
             </Styled.PurchaseButton>
           </Grid>
         )}
