@@ -28,7 +28,7 @@ const ProfileList = ({ nfts, refetchNfts }) => {
           </Typography>
           <Button
             onClick={handleClick}
-            sx={{ padding: '16px 40px', letterSpacing: '0.6px', mt: 20 }}>
+            sx={{ padding: '16px 40px', letterSpacing: '0.6px', margin: '20px 0 0 0' }}>
             Visit Marketplace
           </Button>
         </Grid>
