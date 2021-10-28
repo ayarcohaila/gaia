@@ -19,7 +19,6 @@ const Profile = () => {
   const [assets, setAssets] = useState([]);
   const { isMediumDevice } = useBreakpoints();
 
-  //TODO: Remove fakeNfts on integration
   const [cursor, setCursor] = useState(1);
   const [nftList, setNftList] = useState([]);
 
@@ -76,7 +75,7 @@ const Profile = () => {
       </Styled.ListWrapper>
       {cursorLimit > cursor && !loading && (
         <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 64px' }}>
-          <Styled.BlackButton onClick={handleLoadMore}>Load more</Styled.BlackButton>
+          <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
         </Grid>
       )}
     </Box>

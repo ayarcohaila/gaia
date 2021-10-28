@@ -10,14 +10,14 @@ import FlowToken from 0xFlowToken
 import Gaia from 0xGaiaContract
 import NFTStorefront from 0xStorefrontContract
 
-transaction(listingResourceID: UInt64, storefrontAddress: Address) {
+transaction(listingResourceID: UInt64, ownerAddress: Address) {
     let paymentVault: @FungibleToken.Vault
     let GaiaCollection: &Gaia.Collection{NonFungibleToken.Receiver}
     let storefront: &NFTStorefront.Storefront{NFTStorefront.StorefrontPublic}
     let listing: &NFTStorefront.Listing{NFTStorefront.ListingPublic}
 
     prepare(acct: AuthAccount) {
-        self.storefront = getAccount(storefrontAddress)
+        self.storefront = getAccount(ownerAddress)
             .getCapability<&NFTStorefront.Storefront{NFTStorefront.StorefrontPublic}>(
                 NFTStorefront.StorefrontPublicPath
             )!
@@ -48,11 +48,11 @@ transaction(listingResourceID: UInt64, storefrontAddress: Address) {
 }
 `;
 
-export async function buy(listingResourceID, storefrontAddress) {
+export async function buy(listingResourceID, ownerAddress) {
   if (listingResourceID == null)
-    throw new Error('buy(listingResourceID, storefrontAddress) -- listingResourceID required');
-  if (storefrontAddress == null)
-    throw new Error('buy(listingResourceID, storefrontAddress) -- storefrontAddress required');
+    throw new Error('buy(listingResourceID, ownerAddress) -- listingResourceID required');
+  if (ownerAddress == null)
+    throw new Error('buy(listingResourceID, ownerAddress) -- ownerAddress required');
   try {
     const txId = await fcl
       .send([
@@ -60,7 +60,7 @@ export async function buy(listingResourceID, storefrontAddress) {
         fcl.payer(fcl.authz),
         fcl.proposer(fcl.authz),
         fcl.authorizations([fcl.authz]),
-        fcl.args([fcl.arg(listingResourceID, t.UInt64), fcl.arg(storefrontAddress, t.Address)]),
+        fcl.args([fcl.arg(listingResourceID, t.UInt64), fcl.arg(ownerAddress, t.Address)]),
         fcl.limit(1000)
       ])
       .then(fcl.decode);
