@@ -126,7 +126,7 @@ const Collection = () => {
           </Grid>
           {cursorLimit > cursor && !loading && (
             <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 0' }}>
-              <Styled.BlackButton onClick={handleLoadMore}>Load more</Styled.BlackButton>
+              <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
             </Grid>
           )}
         </Styled.Container>

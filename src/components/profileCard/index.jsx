@@ -14,6 +14,8 @@ import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 
+const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
+
 const ProfileCard = ({ data, refetchNfts }) => {
   const { user } = useAuth();
   const router = useRouter();
@@ -27,7 +29,9 @@ const ProfileCard = ({ data, refetchNfts }) => {
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
   const [isForSale, setIsForSale] = useState(data?.is_for_sale);
 
-  const img = formatIpfsImg(data?.template?.metadata?.img);
+  const img = SHOULD_HIDE_DATA
+    ? '/images/mystery-nft.gif'
+    : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
   const asset = { ...data, collectionName: 'BALLERZ', img };
   const isMyProfile = router.asPath.includes(user?.addr);
@@ -82,7 +86,9 @@ const ProfileCard = ({ data, refetchNfts }) => {
           src={img}
         />
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>{data?.template?.metadata?.title}</Styled.NFTText>
+          <Styled.NFTText>
+            {SHOULD_HIDE_DATA ? 'BALLER #????' : data?.template?.metadata?.title}
+          </Styled.NFTText>
         </CardContent>
         {isMyProfile && renderUserCardActions}
       </Styled.CustomCard>

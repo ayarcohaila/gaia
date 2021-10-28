@@ -4,8 +4,9 @@ export const BUTTONS = {
 };
 
 export const ORDER_MENU_IDS = {
-  LOWEST_PRICE: 1,
-  HIGHEST_PRICE: 2,
-  LOWEST_MINT: 3,
-  HIGHEST_MINT: 4
+  SORT_BY: 1,
+  LOWEST_PRICE: 2,
+  HIGHEST_PRICE: 3,
+  LOWEST_MINT: 4,
+  HIGHEST_MINT: 5
 };

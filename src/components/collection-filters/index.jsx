@@ -11,11 +11,14 @@ import * as Styled from './styles.js';
 
 const ESC_KEY = 27;
 const SORT_OPTIONS = {
+  [ORDER_MENU_IDS.SORT_BY]: { priceSort: null, mintSort: null },
   [ORDER_MENU_IDS.LOWEST_PRICE]: { priceSort: 'asc', mintSort: null },
   [ORDER_MENU_IDS.HIGHEST_PRICE]: { priceSort: 'desc', mintSort: null },
   [ORDER_MENU_IDS.LOWEST_MINT]: { priceSort: null, mintSort: 'asc' },
   [ORDER_MENU_IDS.HIGHEST_MINT]: { priceSort: null, mintSort: 'desc' }
 };
+
+const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 
 const CollectionsFilter = ({
   setSort,
@@ -28,7 +31,7 @@ const CollectionsFilter = ({
   const orderButtonRef = useRef(null);
   const [selectButton, setSelectButton] = useState(null);
   const [isMenuOrderOpen, setIsMenuOrderOpen] = useState(false);
-  const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWEST_PRICE);
+  const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.SORT_BY);
   const [isSearching, setIsSearching] = useState(false);
   const { isMediumDevice } = useBreakpoints();
 
@@ -60,12 +63,19 @@ const CollectionsFilter = ({
     [setSelectedOrderButton, toggleMenuOrder, setSort]
   );
 
-  const orderButton = [
-    { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Lowest Price' },
-    { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' },
-    { id: ORDER_MENU_IDS.LOWEST_MINT, label: 'Lowest Mint' },
-    { id: ORDER_MENU_IDS.HIGHEST_MINT, label: 'Highest Mint' }
-  ];
+  const orderButton = useMemo(() => {
+    const defaultOptions = [
+      { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Lowest Price' },
+      { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' }
+    ];
+    return SHOULD_HIDE_DATA
+      ? defaultOptions
+      : [
+          ...defaultOptions,
+          { id: ORDER_MENU_IDS.LOWEST_MINT, label: 'Lowest Mint' },
+          { id: ORDER_MENU_IDS.HIGHEST_MINT, label: 'Highest Mint' }
+        ];
+  }, [SHOULD_HIDE_DATA]);
 
   const toggleSearchInput = () => {
     setIsSearching(prevState => !prevState);
@@ -150,7 +160,7 @@ const CollectionsFilter = ({
           onClick={toggleMenuOrder}
           isSelected={isMenuOrderOpen}
           endIcon={<Styled.ArrowIcon />}>
-          {orderButton.find(item => item.id === selectedOrderButton)?.label}
+          {orderButton.find(item => item.id === selectedOrderButton)?.label || 'Sort By'}
         </Styled.OrderButton>
       )}
       <Dropdown
