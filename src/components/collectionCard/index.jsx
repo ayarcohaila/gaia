@@ -5,7 +5,13 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 import { Loader } from '~/base';
-import { PurchaseNFTModal, PurchaseErrorModal, InsufficientFundsModal } from '~/components';
+import {
+  PurchaseNFTModal,
+  PurchaseErrorModal,
+  InsufficientFundsModal,
+  NoLongerAvailable, // TODO: Remove before merge de PR
+  CheckoutUnavailable // TODO: Remove before merge de PR
+} from '~/components';
 import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
@@ -25,6 +31,9 @@ const CollectionCard = ({ data }) => {
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
   const [isPurchaseErrorOpen, togglePurchaseErrorOpen] = useToggle();
   const [isFundsErrorOpen, toggleFundsErrorOpen] = useToggle();
+  /* TODO: Remove before merge de PR */
+  const [isNoAvailableOpen, toggleNoAvailableOpen] = useToggle();
+  const [isCheckoutUnavailable, toggleCheckoutUnavailable] = useToggle();
 
   const img = SHOULD_HIDE_DATA
     ? '/images/mystery-nft.gif'
@@ -64,6 +73,13 @@ const CollectionCard = ({ data }) => {
   return (
     <>
       <Styled.CustomCard>
+        {/* TODO: Remove before merge de PR */}
+        <button type="button" onClick={toggleNoAvailableOpen}>
+          No Longer
+        </button>
+        <button type="button" onClick={toggleCheckoutUnavailable}>
+          Checkout
+        </button>
         <Styled.CustomCardHeader
           avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
           title="BALLERZ"
@@ -107,6 +123,9 @@ const CollectionCard = ({ data }) => {
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
       />
+      {/* TODO: Remove before merge de PR */}
+      <NoLongerAvailable open={isNoAvailableOpen} onClose={toggleNoAvailableOpen} />
+      <CheckoutUnavailable open={isCheckoutUnavailable} onClose={toggleCheckoutUnavailable} />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseErrorOpen} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsErrorOpen} />
     </>
