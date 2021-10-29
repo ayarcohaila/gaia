@@ -17,7 +17,7 @@ function CollectionBanner({
   const { isSmallDevice } = useBreakpoints();
 
   return (
-    <Grid pl="32px" pr="32px">
+    <Grid pl={isSmallDevice ? '20px' : '32px'} pr={isSmallDevice ? '20px' : '32px'}>
       <Styled.BannerBackground imgUrl={bgImg}>
         <Styled.BannerStyled bgColor={mainColor}>
           <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
@@ -28,15 +28,16 @@ function CollectionBanner({
                 <BannerAccount
                   bannerName={bannerName}
                   accountNumber={accountNumber}
-                  bgColor={secondaryColor}></BannerAccount>
+                  bgColor={secondaryColor}
+                />
               </>
             )}
           </Box>
-          <Box width="100%" color="#fff" mt={isSmallDevice ? '60px' : '115px'}>
+          <Box width="100%" color="#fff" mt={isSmallDevice ? '56px' : '115px'}>
             {!isSmallDevice && (
               <Styled.BannerDescription>{bannerDescription}</Styled.BannerDescription>
             )}
-            <Grid container pt="32px">
+            <Grid container pt={!isSmallDevice && '32px'}>
               {isSmallDevice && (
                 <Grid item xs={6}>
                   <BannerAccount

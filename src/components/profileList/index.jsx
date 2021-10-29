@@ -1,27 +1,37 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import NextLink from 'next/link';
+import { Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import { ProfileCard } from '~/components';
-import { useAuth } from '~/hooks';
+import { Button } from '~/base';
 
 const ProfileList = ({ nfts, refetchNfts }) => {
-  const { user } = useAuth();
   const router = useRouter();
-  const isMyProfile = router.asPath.includes(user?.addr);
+
+  const handleClick = () => {
+    router.push('/ballerz');
+  };
 
   return (
     <>
       {nfts.length > 0 ? (
         nfts.map(nft => <ProfileCard key={nft.asset_id} data={nft} refetchNfts={refetchNfts} />)
       ) : (
-        <Typography mt="42px" variant="body">
-          {`Unfortunately, ${
-            isMyProfile ? "you don't" : "this profile doesn't"
-          } have any nft. You can check the current offers on `}
-          <NextLink href="/ballerz">marketplace</NextLink>.
-        </Typography>
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ width: '100%', height: 300 }}>
+          <Typography variant="body" sx={{ fontSize: '20px' }}>
+            There are no Flow NFTs in this wallet from any Gaia collections
+          </Typography>
+          <Button
+            onClick={handleClick}
+            sx={{ padding: '16px 40px', letterSpacing: '0.6px', margin: '20px 0 0 0' }}>
+            Visit Marketplace
+          </Button>
+        </Grid>
       )}
     </>
   );

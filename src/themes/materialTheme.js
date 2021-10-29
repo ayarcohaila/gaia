@@ -51,7 +51,8 @@ const theme = createTheme({
       main: '#0bbd69',
       light: '#56ba71'
     },
-    white: { main: '#fff' }
+    white: { main: '#fff' },
+    loader: { main: '#6c7283' }
   }
 });
 

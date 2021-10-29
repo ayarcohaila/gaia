@@ -98,7 +98,7 @@ const Collection = () => {
 
   return (
     <>
-      <Seo title={`${bannerData?.name || ''} NFT Collection`} />
+      <Seo title={bannerData?.name || ''} />
       <Grid>
         <CollectionBanner
           accountNumber={bannerData?.author}

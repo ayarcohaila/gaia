@@ -19,7 +19,10 @@ export const Input = styled(SearchInput)(
       ...typography.subtitle1,
       color: grey[700],
       fontFamily: 'IBMPlexMono',
-      fontWeight: '600'
+      fontWeight: '600',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap'
     },
 
     '& > .MuiInput-input::placeholder': {

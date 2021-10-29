@@ -1,7 +1,7 @@
 import { memo, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { CircularProgress } from '@mui/material';
 
+import { Loader } from '~/base';
 import { useAuth } from '~/hooks';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { isDapper } from '~/utils/currencyCheck';
@@ -36,8 +36,8 @@ const AgreeSetupModal = ({ ...props }) => {
 
   const renderContent = useMemo(
     () => (
-      <Styled.CustomButton onClick={handleSetup}>
-        {loading ? <CircularProgress size={32} color="white" /> : 'I agree'}
+      <Styled.CustomButton onClick={handleSetup} disabled={loading}>
+        {loading ? <Loader /> : 'Continue'}
       </Styled.CustomButton>
     ),
     [loading]
@@ -45,13 +45,15 @@ const AgreeSetupModal = ({ ...props }) => {
 
   return (
     <Modal
-      description={'You must first agree on setting up your account'}
-      descriptionSx={{ m: '8px 0 4px', maxWidth: '270px', textAlign: 'center' }}
+      description={
+        'This will create an account on Gaia that is associated with your wallet, allowing you to buy, sell, and transfer your NFTs on this site.'
+      }
+      descriptionSx={{ m: '8px 0 4px', width: '90%', fontWeight: '600', textAlign: 'center' }}
       height="382px"
-      title={'Setting Up'}
-      titleSx={{ mt: '96px' }}
+      title={'One-Time Account Setup'}
+      titleSx={{ mt: '55px' }}
       asset={{
-        img: '/collections/user.png'
+        img: '/collections/gaia.png'
       }}
       {...props}
       onClose={logout}>

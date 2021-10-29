@@ -8,6 +8,8 @@ export { default as CancelListingModal } from './modal/cancel-listing';
 export { default as TransferNftModal } from './modal/transfer-nft';
 export { default as OrderCompleteModal } from './modal/order-complete';
 export { default as PurchaseNFTModal } from './modal/purchase-nft';
+export { default as PurchaseErrorModal } from './modal/purchase-error';
+export { default as InsufficientFundsModal } from './modal/insufficient-funds';
 export { default as CollectionList } from './collectionList';
 export { default as ProfileList } from './profileList';
 export { default as CollectionCard } from './collectionCard';

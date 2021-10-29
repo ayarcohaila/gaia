@@ -6,10 +6,12 @@ const BannerBackground = styled(Grid, { shouldForwardProp: prop => prop !== 'img
     backgroundImage: `url(${imgUrl})`,
     borderRadius: '40px',
     backgroundSize: 'contain',
+    backgroundPosition: 'right',
     boxSizing: 'border-box',
 
     [theme.breakpoints.down('sm')]: {
-      minHeight: '220px'
+      height: '220px',
+      backgroundSize: 'cover'
     }
   })
 );
@@ -17,6 +19,7 @@ const BannerBackground = styled(Grid, { shouldForwardProp: prop => prop !== 'img
 const BannerStyled = styled(Box, { shouldForwardProp: prop => prop !== 'bgColor' })(
   ({ theme, bgColor }) => ({
     padding: '48px',
+    boxSizing: 'border-box',
     backgroundImage: `radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, ${bgColor} 81%)`,
     borderRadius: '40px',
     display: 'flex',
@@ -24,7 +27,8 @@ const BannerStyled = styled(Box, { shouldForwardProp: prop => prop !== 'bgColor'
     alignItems: 'stretch',
 
     [theme.breakpoints.down('sm')]: {
-      minHeight: '220px'
+      height: '220px',
+      padding: '24px'
     }
   })
 );
@@ -95,7 +99,7 @@ const BannerItemValue = styled(Typography)(({ theme }) => ({
 }));
 
 const BannerAvatar = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
-  ({ imgUrl }) => ({
+  ({ theme, imgUrl }) => ({
     width: '80px',
     height: '80px',
     borderRadius: '40px',
@@ -103,7 +107,12 @@ const BannerAvatar = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl
     backgroundImage: `url(${imgUrl})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center center'
+    backgroundPosition: 'center center',
+
+    [theme.breakpoints.down('sm')]: {
+      width: '46px',
+      height: '46px'
+    }
   })
 );
 
