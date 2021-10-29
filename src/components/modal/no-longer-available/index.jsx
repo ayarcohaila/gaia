@@ -2,9 +2,12 @@ import { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from '..';
+import { useBreakpoints } from '~/hooks';
 
 const NoLongerAvailable = ({ onClose, ...props }) => {
+  const { isMediumDevice } = useBreakpoints();
   const title = 'No Longer Available';
+
   const description = useMemo(() => {
     return (
       <>
@@ -21,7 +24,7 @@ const NoLongerAvailable = ({ onClose, ...props }) => {
       description={description}
       onClose={onClose}
       title={title}
-      descriptionSx={{ maxWidth: '360px', textAlign: 'center', mb: 0 }}
+      descriptionSx={{ maxWidth: isMediumDevice ? '300px' : '360px', textAlign: 'center', mb: 0 }}
       height="318px"
       mobileHeight="50vh"
       titleSx={{ mt: 0, mb: '20px' }}

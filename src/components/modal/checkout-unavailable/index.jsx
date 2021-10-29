@@ -1,10 +1,14 @@
 import { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
+
 import Modal from '..';
+import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styled';
 
 const CheckoutUnavailable = ({ onClose, ...props }) => {
+  const { isMediumDevice } = useBreakpoints();
+
   const title = 'Checkout Temporarily Unavailable';
   const description = useMemo(() => {
     return (
@@ -29,10 +33,10 @@ const CheckoutUnavailable = ({ onClose, ...props }) => {
       description={description}
       onClose={onClose}
       title={title}
-      descriptionSx={{ maxWidth: '480px', textAlign: 'center', mb: 0 }}
+      descriptionSx={{ maxWidth: isMediumDevice ? '310px' : '480px', textAlign: 'center', mb: 0 }}
       height="318px"
       mobileHeight="50vh"
-      titleSx={{ mt: 0, mb: '20px' }}
+      titleSx={{ mt: 0, mb: '20px', textAlign: 'center', lineHeight: '1.2' }}
       asset={{}}
       {...props}
     />
