@@ -1,8 +1,6 @@
-# Your pr title
-
 ## Solves
 
-- card title (card url)
+- [card title](card url)
 
 ### What was added
 
@@ -12,8 +10,4 @@
 
 - [ ] List what is still missing to do
 
-### Trello
-
-[title](url)
-
-### Recorded gif/screenshot/piece of code
+### Recorded/Screenshot

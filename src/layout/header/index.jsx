@@ -45,9 +45,13 @@ const Header = () => {
       case USER_MENU_IDS.PROFILE:
         router.push(`/profile/${user?.addr}`);
         break;
-      case USER_MENU_IDS.DAPPER_WALLET:
-        window.open('http://staging.dapper.com', '_blank')?.focus();
+      case USER_MENU_IDS.DAPPER_WALLET: {
+        const address = `https://${
+          process.env.NODE_ENV !== 'production' ? 'staging.' : ''
+        }accounts.meetdapper.com/home`;
+        window.open(address, '_blank')?.focus();
         break;
+      }
       default:
         logout();
         break;
