@@ -12,14 +12,7 @@ import SuccessContent from '../success-content';
 import { cancelSale } from '~/flow/cancelSale';
 import { loadTransaction } from '~/utils/transactionsLoader';
 
-const CancelListingModal = ({
-  asset,
-  hasPostedForSale,
-  onClose,
-  onConfirm,
-  transaction,
-  ...props
-}) => {
+const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
   const [hasListingSuccessfullyCancelled, setHasListingSuccessfullyCancelled] = useState(false);
   const [loadingCancel, setLoadingCancel] = useState(false);
@@ -32,7 +25,11 @@ const CancelListingModal = ({
         for (let offer of activeOffers) {
           try {
             setLoadingCancel(true);
-            const txResult = await cancelSale(transaction, offer.listing_resource_id);
+            const transaction = await loadTransaction(window.location.origin, 'cancel_sale');
+            const txResult = await cancelSale(
+              transaction.transactionScript,
+              offer.listing_resource_id
+            );
             if (txResult) {
               setLoadingCancel(false);
               onConfirm();
@@ -96,12 +93,5 @@ CancelListingModal.defaultProps = {
     img: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
   }
 };
-
-export async function getServerSideProps() {
-  const transaction = loadTransaction('cancel_sale');
-  return {
-    props: { transaction }
-  };
-}
 
 export default memo(CancelListingModal);

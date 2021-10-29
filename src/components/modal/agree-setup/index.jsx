@@ -11,7 +11,7 @@ import { setupAccount } from '~/flow/setupAccount';
 import Modal from '..';
 import * as Styled from './styles';
 
-const AgreeSetupModal = ({ transaction, ...props }) => {
+const AgreeSetupModal = ({ ...props }) => {
   const { logout } = useAuth();
 
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,11 @@ const AgreeSetupModal = ({ transaction, ...props }) => {
     try {
       setLoading(true);
       toast.info('Setting up your account...', { isLoading: loading });
-      await setupAccount(transaction);
+      const transaction = await loadTransaction(
+        window.location.origin,
+        isDapper ? 'setup_account' : 'setup_account_flow_token'
+      );
+      await setupAccount(transaction.transactionScript);
       toast.success('Your have successfully set up your account');
       setLoading(false);
       props.onClose();
@@ -56,10 +60,4 @@ const AgreeSetupModal = ({ transaction, ...props }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const transaction = loadTransaction(isDapper ? 'setup_account' : 'setup_account_flowtoken');
-  return {
-    props: { transaction }
-  };
-}
 export default memo(AgreeSetupModal);

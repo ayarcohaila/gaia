@@ -12,15 +12,7 @@ import Modal from '..';
 
 import * as Styled from './styles';
 
-const SellNftModal = ({
-  hasPostedForSale,
-  onClose,
-  onConfirm,
-  setLoading,
-  loading,
-  transaction,
-  ...props
-}) => {
+const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loading, ...props }) => {
   const [value, setValue] = useState('');
 
   const router = useRouter();
@@ -34,7 +26,11 @@ const SellNftModal = ({
     toast.info('Please wait, purchase in progress... ');
     try {
       setLoading(true);
-      const txResult = await sellItem(transaction, props.asset.asset_id, value);
+      const transaction = await loadTransaction(
+        window.location.origin,
+        isDapper ? 'sell' : 'sell_flowtoken'
+      );
+      const txResult = await sellItem(transaction.transactionScript, props.asset.asset_id, value);
       toast.success(
         'Purchase completed successfully. In few minutes it will be available on the market'
       );
@@ -94,12 +90,5 @@ SellNftModal.defaultProps = {
   setLoading: () => {},
   loading: false
 };
-
-export async function getServerSideProps() {
-  const transaction = loadTransaction(isDapper ? 'sell' : 'sell_flowtoken');
-  return {
-    props: { transaction }
-  };
-}
 
 export default memo(SellNftModal);
