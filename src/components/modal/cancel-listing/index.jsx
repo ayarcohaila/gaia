@@ -9,6 +9,7 @@ import Modal from '..';
 import SuccessContent from '../success-content';
 
 import { cancelSale } from '~/flow/cancelSale';
+import { loadTransaction } from '~/utils/transactionsLoader';
 
 const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
@@ -23,7 +24,11 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
         for (let offer of activeOffers) {
           try {
             setLoadingCancel(true);
-            const txResult = await cancelSale(offer.listing_resource_id);
+            const transaction = await loadTransaction(window.location.origin, 'cancel_sale');
+            const txResult = await cancelSale(
+              transaction.transactionScript,
+              offer.listing_resource_id
+            );
             if (txResult) {
               setLoadingCancel(false);
               onConfirm();

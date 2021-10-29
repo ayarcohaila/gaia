@@ -82,7 +82,6 @@ const Profile = () => {
   );
 };
 
-export default Profile;
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   await basicAuthCheck(req, res);
@@ -91,3 +90,4 @@ export async function getServerSideProps(ctx) {
     props: {}
   };
 }
+export default Profile;

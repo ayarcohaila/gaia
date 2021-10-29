@@ -8,13 +8,15 @@
   },
   "scripts": {
     "dev": "export NODE_ENV=test && next dev",
+    "dapper": "export NEXT_PUBLIC_ISDAPPER=true NODE_ENV=test && next dev",
     "dev-windows": "set NODE_ENV=test | next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint 'src/**/*.{js,jsx}' --fix",
     "format": "prettier --write 'src/**/*.{js,jsx,css,scss,less}'",
     "dev:wallet": "env PK=c1083c9fa9e9cd92415809f2a2572bc41adf93d431109376c1335eacacb55d05 SERVICE_ADDR=f8d6e0586b0a20c7 fcl-wallet",
-    "dev:emulator": "cross-os start:emulator"
+    "dev:emulator": "cross-os start:emulator",
+    "hash:checker": "nodemon --exec babel-node src/utils/cadenceHashChecker.js"
   },
   "dependencies": {
     "@apollo/client": "^3.3.15",
@@ -23,7 +25,7 @@
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.1",
     "@mui/material": "^5.0.2",
-    "@onflow/fcl": "^0.0.76",
+    "@onflow/fcl": "^0.0.77",
     "@onflow/types": "^0.0.5",
     "axios": "^0.21.1",
     "elliptic": "^6.5.4",

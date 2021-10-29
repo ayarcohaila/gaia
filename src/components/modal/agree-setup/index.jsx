@@ -3,6 +3,9 @@ import { toast } from 'react-toastify';
 
 import { Loader } from '~/base';
 import { useAuth } from '~/hooks';
+import { loadTransaction } from '~/utils/transactionsLoader';
+import { isDapper } from '~/utils/currencyCheck';
+
 import { setupAccount } from '~/flow/setupAccount';
 
 import Modal from '..';
@@ -16,7 +19,11 @@ const AgreeSetupModal = ({ ...props }) => {
     try {
       setLoading(true);
       toast.info('Setting up your account...', { isLoading: loading });
-      await setupAccount();
+      const transaction = await loadTransaction(
+        window.location.origin,
+        isDapper ? 'setup_account' : 'setup_account_flow_token'
+      );
+      await setupAccount(transaction.transactionScript);
       toast.success('Your have successfully set up your account');
       setLoading(false);
       props.onClose();

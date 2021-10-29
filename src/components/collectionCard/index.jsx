@@ -8,6 +8,8 @@ import { Loader } from '~/base';
 import { PurchaseNFTModal, PurchaseErrorModal, InsufficientFundsModal } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+import { isDapper } from '~/utils/currencyCheck';
+import { loadTransaction } from '~/utils/transactionsLoader';
 
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
@@ -35,7 +37,16 @@ const CollectionCard = ({ data }) => {
     toast.info('Please wait, purchase in progress... ');
     try {
       setLoadingPurchase(true);
-      const txResult = await buy(data.listing_resource_id, data?.nft?.owner);
+      const transaction = await loadTransaction(
+        window.location.origin,
+        isDapper ? 'buy' : 'buy_flowtoken'
+      );
+
+      const txResult = await buy(
+        transaction.transactionScript,
+        data.listing_resource_id,
+        data?.nft?.owner
+      );
 
       if (txResult) {
         setPurchaseTxId(txResult?.txId);

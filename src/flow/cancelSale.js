@@ -1,27 +1,10 @@
 import { fcl, t } from '../config/config';
 
-const CANCEL_SALE_TX = fcl.cdc`
-import NFTStorefront from 0xStorefrontContract
-
-transaction(listingResourceID: UInt64) {
-    let storefront: &NFTStorefront.Storefront{NFTStorefront.StorefrontManager}
-
-    prepare(acct: AuthAccount) {
-        self.storefront = acct.borrow<&NFTStorefront.Storefront{NFTStorefront.StorefrontManager}>(from: NFTStorefront.StorefrontStoragePath)
-            ?? panic("Missing or mis-typed NFTStorefront.Storefront")
-    }
-
-    execute {
-        self.storefront.removeListing(listingResourceID: listingResourceID)
-    }
-}
-`;
-
-export async function cancelSale(listingResourceID) {
+export async function cancelSale(tx, listingResourceID) {
   try {
     const txId = await fcl
       .send([
-        fcl.transaction(CANCEL_SALE_TX),
+        fcl.transaction(tx),
         fcl.payer(fcl.authz),
         fcl.proposer(fcl.authz),
         fcl.authorizations([fcl.authz]),
