@@ -6,8 +6,9 @@ import Modal from '..';
 import ModalSuccessContent from '../success-content';
 import * as Styled from './styles';
 import { transferNft } from '../../../flow/transferNft';
+import { loadTransaction } from '~/utils/transactionsLoader';
 
-const TransferNftModal = ({ ...props }) => {
+const TransferNftModal = ({ transaction, ...props }) => {
   const [address, setAddress] = useState('');
   const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyTransfered, setHasNftSuccessfullyTransfered] = useState(false);
@@ -20,7 +21,7 @@ const TransferNftModal = ({ ...props }) => {
     toast.info('Please wait, transfer in progress... ');
     setLoadingTransfer(true);
     try {
-      const txResult = await transferNft(address, props.asset.asset_id);
+      const txResult = await transferNft(transaction, address, props.asset.asset_id);
       toast.success(`Transfer completed successfully. - ${txResult?.txId}`);
       setTx(txResult?.txId);
       setLoadingTransfer(false);
@@ -68,5 +69,12 @@ const TransferNftModal = ({ ...props }) => {
     </Modal>
   );
 };
+
+export async function getServerSideProps() {
+  const transaction = loadTransaction('transfer_nft');
+  return {
+    props: { transaction }
+  };
+}
 
 export default memo(TransferNftModal);

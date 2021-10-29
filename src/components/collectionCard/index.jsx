@@ -12,7 +12,7 @@ import { buy } from '~/flow/buy';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 
-const CollectionCard = ({ data }) => {
+const CollectionCard = ({ data, transaction }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const [loaded, setLoaded] = useState(false);
@@ -29,7 +29,7 @@ const CollectionCard = ({ data }) => {
     toast.info('Please wait, purchase in progress... ');
     try {
       setLoadingPurchase(true);
-      const txResult = await buy(data.listing_resource_id, data?.nft?.owner);
+      const txResult = await buy(transaction, data.listing_resource_id, data?.nft?.owner);
 
       if (txResult) {
         setPurchaseTxId(txResult?.txId);

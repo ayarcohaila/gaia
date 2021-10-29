@@ -3,12 +3,15 @@ import { toast } from 'react-toastify';
 import { CircularProgress } from '@mui/material';
 
 import { useAuth } from '~/hooks';
+import { loadTransaction } from '~/utils/transactionsLoader';
+import { isDapper } from '~/utils/currencyCheck';
+
 import { setupAccount } from '~/flow/setupAccount';
 
 import Modal from '..';
 import * as Styled from './styles';
 
-const AgreeSetupModal = ({ ...props }) => {
+const AgreeSetupModal = ({ transaction, ...props }) => {
   const { logout } = useAuth();
 
   const [loading, setLoading] = useState(false);
@@ -16,7 +19,7 @@ const AgreeSetupModal = ({ ...props }) => {
     try {
       setLoading(true);
       toast.info('Setting up your account...', { isLoading: loading });
-      await setupAccount();
+      await setupAccount(transaction);
       toast.success('Your have successfully set up your account');
       setLoading(false);
       props.onClose();
@@ -53,4 +56,10 @@ const AgreeSetupModal = ({ ...props }) => {
   );
 };
 
+export async function getServerSideProps() {
+  const transaction = loadTransaction(isDapper ? 'setup_account' : 'setup_account_flowtoken');
+  return {
+    props: { transaction }
+  };
+}
 export default memo(AgreeSetupModal);
