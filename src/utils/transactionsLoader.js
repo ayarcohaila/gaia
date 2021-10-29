@@ -1,13 +1,11 @@
 import { createHash } from 'crypto';
-import fs from 'fs';
-import path from 'path';
-
 import hashes from './transactionsHashes';
 import { isDapper } from '../utils/currencyCheck';
 
-export const loadTransaction = transaction => {
-  const result = loadScript(`${transaction}.cdc`);
+export const loadTransaction = async (currentPath, transaction) => {
+  const result = await loadScript(currentPath, `${transaction}.cdc`);
   const hashScript = createHash('sha256').update(result).digest('hex');
+
   let matches = false;
   if (!isDapper) {
     matches = hashes[transaction] === hashScript;
@@ -23,9 +21,10 @@ export const loadAllTransactions = async () => {
     .map(transaction => loadTransaction(transaction));
 };
 
-function loadScript(fileName) {
-  return fs
-    .readFileSync(path.join(__dirname, '../flow/transactions', fileName), 'utf8')
+const loadScript = async (currentPath, fileName) => {
+  const response = await fetch(`${currentPath}/transactions/${fileName}`);
+  const file = await response.text();
+  return file
     .replace('accessNode.api', process.env.NEXT_PUBLIC_ACCESS_NODE)
     .replace('0xFungibleToken', process.env.NEXT_PUBLIC_FUNGIBLE_TOKEN)
     .replace('0xFlowToken', process.env.NEXT_PUBLIC_FLOW_TOKEN)
@@ -37,6 +36,6 @@ function loadScript(fileName) {
     .replace('0xGaiaContract', process.env.NEXT_PUBLIC_GAIA_CONTRACT)
     .replace('0xStorefrontContract', process.env.NEXT_PUBLIC_STOREFRONT_CONTRACT)
     .replace('0xNFTContractStorefront', process.env.NEXT_PUBLIC_NON_FUNGIBLE_TOKEN);
-}
+};
 
 export default { loadTransaction, loadAllTransactions };

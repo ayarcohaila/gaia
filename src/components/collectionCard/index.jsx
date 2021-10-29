@@ -6,13 +6,15 @@ import { toast } from 'react-toastify';
 import { PurchaseNFTModal } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+import { isDapper } from '~/utils/currencyCheck';
+import { loadTransaction } from '~/utils/transactionsLoader';
 
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 
-const CollectionCard = ({ data, transaction }) => {
+const CollectionCard = ({ data }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const [loaded, setLoaded] = useState(false);
@@ -29,7 +31,16 @@ const CollectionCard = ({ data, transaction }) => {
     toast.info('Please wait, purchase in progress... ');
     try {
       setLoadingPurchase(true);
-      const txResult = await buy(transaction, data.listing_resource_id, data?.nft?.owner);
+      const transaction = await loadTransaction(
+        window.location.origin,
+        isDapper ? 'buy' : 'buy_flowtoken'
+      );
+
+      const txResult = await buy(
+        transaction.transactionScript,
+        data.listing_resource_id,
+        data?.nft?.owner
+      );
 
       if (txResult) {
         setPurchaseTxId(txResult?.txId);

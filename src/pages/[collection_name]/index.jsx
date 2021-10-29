@@ -9,8 +9,6 @@ import {
   GET_BALLERZ_NFTS_FOR_SALE,
   GET_BALLERZ_NFTS_FOR_SALE_COUNT
 } from '~/store/server/queries';
-import { isDapper } from '~/utils/currencyCheck';
-import { loadTransaction } from '~/utils/transactionsLoader';
 
 import * as Styled from '~/styles/collection-name/styles';
 
@@ -138,9 +136,3 @@ const Collection = () => {
 };
 
 export default Collection;
-export async function getServerSideProps() {
-  const transaction = loadTransaction(isDapper ? 'buy' : 'buy_flowtoken');
-  return {
-    props: { transaction }
-  };
-}
