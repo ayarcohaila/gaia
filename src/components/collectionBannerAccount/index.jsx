@@ -22,10 +22,7 @@ function BannerAccount(props) {
       <Tooltip title={tooltipTitle} onOpen={() => setTooltipTitle(defaultTooltipTitle)}>
         <Styled.BannerAccountStyled onClick={copyHandler} bgColor={props.bgColor}>
           <span>{secretAccount}</span>
-          <ContentCopyIcon
-            style={{ color: '#fff', transform: 'rotateY(170deg)' }}
-            fontSize="12px"
-          />
+          <ContentCopyIcon style={{ width: '12px', color: '#fff', transform: 'rotateY(170deg)' }} />
         </Styled.BannerAccountStyled>
       </Tooltip>
     </Box>

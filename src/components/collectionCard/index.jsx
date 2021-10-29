@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 import { Loader } from '~/base';
-import { PurchaseNFTModal } from '~/components';
+import { PurchaseNFTModal, PurchaseErrorModal, InsufficientFundsModal } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
@@ -13,6 +13,8 @@ import * as Styled from './styled';
 import { buy } from '~/flow/buy';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
+const INSUFFICIENT_FUNDS =
+  'Amount withdrawn must be less than or equal than the balance of the Vault';
 
 const CollectionCard = ({ data }) => {
   const route = useRouter();
@@ -21,6 +23,8 @@ const CollectionCard = ({ data }) => {
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
+  const [isPurchaseErrorOpen, togglePurchaseErrorOpen] = useToggle();
+  const [isFundsErrorOpen, toggleFundsErrorOpen] = useToggle();
 
   const img = SHOULD_HIDE_DATA
     ? '/images/mystery-nft.gif'
@@ -42,8 +46,11 @@ const CollectionCard = ({ data }) => {
         setLoadingPurchase(false);
       }
     } catch (err) {
-      toast.error('Unable to complete purchase.');
-      console.error(err);
+      if (err?.message?.includes(INSUFFICIENT_FUNDS)) {
+        toggleFundsErrorOpen();
+      } else {
+        togglePurchaseErrorOpen();
+      }
       setLoadingPurchase(false);
     }
   };
@@ -100,6 +107,8 @@ const CollectionCard = ({ data }) => {
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
       />
+      <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseErrorOpen} />
+      <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsErrorOpen} />
     </>
   );
 };

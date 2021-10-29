@@ -1,11 +1,11 @@
 import { styled, Typography } from '@mui/material';
 
 const BannerAccountStyled = styled('div', { shouldForwardProp: prop => prop !== 'bgColor' })(
-  ({ bgColor }) => ({
-    width: '113px',
+  ({ theme, bgColor }) => ({
     height: '24px',
     margin: '8px 0 0',
     padding: '4px 8px',
+    boxSizing: 'border-box',
     borderRadius: '6px',
     backgroundColor: bgColor,
     display: 'flex',
@@ -24,18 +24,23 @@ const BannerAccountStyled = styled('div', { shouldForwardProp: prop => prop !== 
       fontStyle: 'normal',
       lineHeight: 1.33,
       letterSpacing: '0.3px'
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      width: '124px'
     }
   })
 );
 
-const BannerName = styled(Typography)(() => ({
+const BannerName = styled(Typography)(({ theme }) => ({
   fontSize: '20px',
   fontWeight: 'bold',
-  fontStretch: 'normal',
-  fontStyle: 'normal',
   lineHeight: 1.6,
-  letterspacing: 'normal',
-  color: '#fff'
+  color: '#fff',
+
+  [theme.breakpoints.down('sm')]: {
+    lineHeight: 1.2
+  }
 }));
 
 export { BannerAccountStyled, BannerName };
