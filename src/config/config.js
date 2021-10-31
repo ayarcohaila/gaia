@@ -6,11 +6,11 @@ const ipfsApiKey = process.env.NEXT_PUBLIC_PINATA_API_KEY;
 const ipfsPrivateKey = process.env.NEXT_PUBLIC_PINATA_PRIVATE_API_KEY;
 const ipfsPostUrl = process.env.NEXT_PUBLIC_PINATA_POST_URL;
 const ipfsGateway = process.env.NEXT_PUBLIC_PINATA_GATEWAY;
-// @TODO: Remove
 const marketAddress = process.env.NEXT_PUBLIC_NFTMARKET_CONTRACT;
 const landingOnly = process.env.NEXT_PUBLIC_LANDING_ONLY === 'true';
 const appName = process.env.NEXT_PUBLIC_APP_NAME;
 const needsAuth = process.env.APPLICATION_NEEDS_AUTH === 'true';
+const ballerzCollection = process.env.NEXT_PUBLIC_BALLERZ_COLLECTION;
 const users = [
   {
     user: process.env.APPLICATION_USER,
@@ -29,6 +29,8 @@ const discovery = isDapper
 
 fcl
   .config(discovery)
+  .put('app.detail.title', 'Gaia Marketplace')
+  .put('app.detail.icon', 'https://ongaia.com/logo192.png')
   .put('accessNode.api', process.env.NEXT_PUBLIC_ACCESS_NODE)
   .put('0xFungibleToken', process.env.NEXT_PUBLIC_FUNGIBLE_TOKEN)
   .put('0xFlowToken', process.env.NEXT_PUBLIC_FLOW_TOKEN)
@@ -54,5 +56,6 @@ export {
   landingOnly,
   appName,
   needsAuth,
-  users
+  users,
+  ballerzCollection
 };

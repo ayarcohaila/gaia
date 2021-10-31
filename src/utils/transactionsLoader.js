@@ -7,7 +7,7 @@ export const loadTransaction = async (currentPath, transaction) => {
   const hashScript = createHash('sha256').update(result).digest('hex');
 
   let matches = false;
-  if (!isDapper) {
+  if (isDapper) {
     matches = hashes[transaction] === hashScript;
     return { transaction, transactionScript: result, hashScript, matches };
   }
