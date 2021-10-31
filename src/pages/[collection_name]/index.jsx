@@ -9,6 +9,7 @@ import {
   GET_BALLERZ_NFTS_FOR_SALE,
   GET_BALLERZ_NFTS_FOR_SALE_COUNT
 } from '~/store/server/queries';
+import { ballerzCollection } from '../../config/config';
 
 import * as Styled from '~/styles/collection-name/styles';
 
@@ -17,7 +18,7 @@ const DATA = {
   secondaryColor: '#4814a6'
 };
 
-const BALLERZ_ID = 'db4ccc58-4398-4a66-87cd-5b0f6c6c21f3';
+const BALLERZ_ID = ballerzCollection || 'db4ccc58-4398-4a66-87cd-5b0f6c6c21f3';
 
 const DEFAULT_LIST_SIZE = 40;
 const DEFAULT_SORT_VARIABLES = { priceSort: 'asc', mintSort: null };

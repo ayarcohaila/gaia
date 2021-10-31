@@ -10,6 +10,7 @@ const marketAddress = process.env.NEXT_PUBLIC_NFTMARKET_CONTRACT;
 const landingOnly = process.env.NEXT_PUBLIC_LANDING_ONLY === 'true';
 const appName = process.env.NEXT_PUBLIC_APP_NAME;
 const needsAuth = process.env.APPLICATION_NEEDS_AUTH === 'true';
+const ballerzCollection = process.env.NEXT_PUBLIC_BALLERZ_COLLECTION;
 const users = [
   {
     user: process.env.APPLICATION_USER,
@@ -55,5 +56,6 @@ export {
   landingOnly,
   appName,
   needsAuth,
-  users
+  users,
+  ballerzCollection
 };
