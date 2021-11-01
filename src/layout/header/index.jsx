@@ -6,7 +6,7 @@ import { Grid, Button, Hidden } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
-import { HeaderModal } from '~/components';
+import { HeaderModal, StayTunedModal } from '~/components';
 import { Dropdown, SearchInput } from '~/base';
 import { useBreakpoints, useToggle, useAuth } from '~/hooks';
 import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
@@ -16,6 +16,7 @@ import * as Styled from './styles.js';
 const Header = () => {
   const menuAnchorRef = useRef(null);
   const [stateModalHeader, toggleHeaderModal] = useToggle();
+  const [stateTunedModal, toggleTunedModal] = useToggle();
   const [searchQuery, setSearchQuery] = useState('');
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const { login, user, logout } = useAuth();
@@ -103,9 +104,9 @@ const Header = () => {
           </Styled.MobileMenuButton>
         ) : (
           <>
-            {/* <Styled.CustomButton isBlack variant="contained">
+            <Styled.CustomButton isTransparent variant="ghost" onClick={toggleTunedModal}>
               Sell NFT
-            </Styled.CustomButton> */}
+            </Styled.CustomButton>
             {user?.loggedIn ? (
               <Styled.AvatarButton
                 ref={menuAnchorRef}
@@ -163,6 +164,7 @@ const Header = () => {
           )}
         </Grid>
       </HeaderModal>
+      <StayTunedModal open={stateTunedModal} onClose={toggleTunedModal} />
     </Styled.HeaderBar>
   );
 };
