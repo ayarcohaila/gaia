@@ -65,8 +65,8 @@ export const PurchaseButton = styled(Button)(({ theme: { palette } }) => ({
   }
 }));
 
-export const TransferButton = styled(Button)(({ theme: { palette } }) => ({
-  width: 126,
+export const TransferButton = styled(Button)(({ theme: { palette }, solo }) => ({
+  width: solo ? 256 : 126,
   height: 48,
   padding: '15px 22px 17px',
   borderRadius: '24px',
