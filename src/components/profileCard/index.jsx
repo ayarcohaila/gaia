@@ -36,6 +36,8 @@ const ProfileCard = ({ data, refetchNfts }) => {
   const asset = { ...data, collectionName: 'BALLERZ', img };
   const isMyProfile = router.asPath.includes(user?.addr);
 
+  const showSellButton = process.env.NEXT_PUBLIC_HAS_SELL_BUTTON === 'true';
+
   const renderUserCardActions = useMemo(() => {
     return (
       <CardActions>
@@ -52,9 +54,11 @@ const ProfileCard = ({ data, refetchNfts }) => {
           </Styled.CancelButtonContainer>
         ) : (
           <>
-            <Styled.SellButton disabled={loading} onClick={() => toggleSellNftModal()}>
-              Sell
-            </Styled.SellButton>
+            {showSellButton && (
+              <Styled.SellButton disabled={loading} onClick={() => toggleSellNftModal()}>
+                Sell
+              </Styled.SellButton>
+            )}
             <Styled.TransferButton disabled={loading} onClick={() => toggleTransferNftModal()}>
               Transfer
             </Styled.TransferButton>
