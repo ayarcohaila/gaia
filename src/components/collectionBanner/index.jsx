@@ -17,7 +17,7 @@ function CollectionBanner({
   const { isSmallDevice } = useBreakpoints();
 
   return (
-    <Grid pl={isSmallDevice ? '20px' : '32px'} pr={isSmallDevice ? '20px' : '32px'}>
+    <Grid pl={isSmallDevice ? '12px' : '20px'} pr={isSmallDevice ? '20px' : '32px'}>
       <Styled.BannerBackground imgUrl={bgImg}>
         <Styled.BannerStyled bgColor={mainColor}>
           <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
