@@ -45,7 +45,9 @@ const CollectionCard = ({ data }) => {
       const txResult = await buy(
         transaction.transactionScript,
         data.listing_resource_id,
-        data?.nft?.owner
+        data?.nft?.owner,
+        data?.price,
+        user?.addr
       );
 
       if (txResult) {
