@@ -64,7 +64,7 @@ export const PurchaseButton = styled(Button)(({ theme: { palette } }) => ({
     backgroundColor: palette.primary.hover
   }
 }));
-//256
+
 export const TransferButton = styled(Button)(({ theme: { palette }, solo }) => ({
   width: solo ? 256 : 126,
   height: 48,
