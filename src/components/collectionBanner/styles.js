@@ -5,8 +5,9 @@ const BannerBackground = styled(Grid, { shouldForwardProp: prop => prop !== 'img
     width: '100%',
     backgroundImage: `url(${imgUrl})`,
     borderRadius: '40px',
-    backgroundSize: 'contain',
+    backgroundSize: 'auto 100%',
     backgroundPosition: 'right',
+    backgroundRepeat: 'repeat-x',
     boxSizing: 'border-box',
 
     [theme.breakpoints.down('sm')]: {

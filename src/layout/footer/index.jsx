@@ -87,10 +87,7 @@ const Footer = () => {
           <Box width={isMediumDevice ? 'auto' : '35%'}>
             <NextImage width={102.4} height={40} src="/static/img/gaia_logo-white.png" />
             <Grid alignItems="center" container mt="24px">
-              <Styled.CustomLink
-                href="https://nftgenius.com/contact/"
-                target="_blank"
-                underline="none">
+              <Styled.CustomLink href="mailto:info@nftgenius.com" target="_blank" underline="none">
                 Contact Us
               </Styled.CustomLink>
               <Styled.CustomLink
