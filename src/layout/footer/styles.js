@@ -18,6 +18,7 @@ export const CustomLink = styled(Link)(
     fontSize: fontSize ? fontSize : typography.subtitle2.fontSize,
     letterSpacing: '0.2px',
     lineHeight: '1.5',
+    cursor: 'pointer',
 
     '&:hover': {
       color: 'white'

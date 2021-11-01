@@ -136,7 +136,7 @@ Modal.propTypes = {
   asset: PropTypes.object,
   children: PropTypes.node,
   containerProps: PropTypes.object,
-  description: PropTypes.string,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   descriptionSx: PropTypes.object,
   height: PropTypes.string,
   mobileHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
