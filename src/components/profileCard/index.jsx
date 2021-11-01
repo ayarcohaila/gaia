@@ -59,7 +59,10 @@ const ProfileCard = ({ data, refetchNfts }) => {
                 Sell
               </Styled.SellButton>
             )}
-            <Styled.TransferButton disabled={loading} onClick={() => toggleTransferNftModal()}>
+            <Styled.TransferButton
+              solo={!showSellButton}
+              disabled={loading}
+              onClick={() => toggleTransferNftModal()}>
               Transfer
             </Styled.TransferButton>
           </>
