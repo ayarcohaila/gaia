@@ -22,7 +22,7 @@ const SectionOne = () => {
             This Terms of Use, along with our separately stated{' '}
             <NextLink href="/privacy-policy" passHref={true}>
               <Styled.CustomLink target="_blank">Privacy Policy</Styled.CustomLink>
-            </NextLink>
+            </NextLink>{' '}
             and{' '}
             <NextLink href="/" passHref={true}>
               <Styled.CustomLink target="_blank">Copyright Policy</Styled.CustomLink>
