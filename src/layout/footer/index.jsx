@@ -116,7 +116,7 @@ const Footer = () => {
             <Styled.CustomLink href="/" target="_blank" underline="none">
               Terms of Use
             </Styled.CustomLink>
-            <NextLink href="/privacy-policy">
+            <NextLink scroll href="/privacy-policy">
               <Styled.CustomLink underline="none">Privacy Policy</Styled.CustomLink>
             </NextLink>
           </Box>

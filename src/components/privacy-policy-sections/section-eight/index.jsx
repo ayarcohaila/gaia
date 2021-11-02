@@ -26,7 +26,7 @@ const SectionEight = () => {
         </NextLink>
         .
         <ol>
-          <Styled.Heading component="li">Exception for California Residents</Styled.Heading>
+          <Styled.SubHeading component="li">Exception for California Residents</Styled.SubHeading>
           <Styled.Text>
             As an exception to the foregoing, under California’s “Shine the Light” law, California
             residents who provide Personally Identifiable Information in obtaining products or
@@ -49,9 +49,9 @@ const SectionEight = () => {
             and we are not responsible for notices that are not labeled properly, delivered
             properly, or that do not have the complete information as requested herein.
           </Styled.Text>
-          <Styled.Heading component="li">
+          <Styled.SubHeading component="li">
             Summary of Your Rights if You are a Resident of California or Nevada
-          </Styled.Heading>
+          </Styled.SubHeading>
           <Styled.Text>
             Notwithstanding the foregoing, the following applies to California residents:
           </Styled.Text>
@@ -202,18 +202,18 @@ const SectionEight = () => {
                 </Styled.CustomCell>
               </Styled.CustomRow>
               <Styled.CustomRow>
-                <Styled.CustomCell>
+                <Styled.CustomCell sx={{ width: '50%' }}>
                   You have the right to correct the collected data
                 </Styled.CustomCell>
-                <Styled.CustomCell>
+                <Styled.CustomCell sx={{ width: '50%' }}>
                   Please email privacy@nftgenius.com to correct your data.
                 </Styled.CustomCell>
               </Styled.CustomRow>
               <Styled.CustomRow>
-                <Styled.CustomCell>
+                <Styled.CustomCell sx={{ width: '50%' }}>
                   Please email privacy@nftgenius.com to correct your data.
                 </Styled.CustomCell>
-                <Styled.CustomCell>
+                <Styled.CustomCell sx={{ width: '50%' }}>
                   You can opt out of data sharing by pressing “button”
                 </Styled.CustomCell>
               </Styled.CustomRow>

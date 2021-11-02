@@ -5,11 +5,9 @@ const GlobalStyles = createGlobalStyle`
   ${normalize}
   html, body {
     font-family: Work Sans;
-    width: 100vw;
-    height: 100vh;
     overflow-y: overlay;
-    background-color: #f4f4f6
-  }
+    background-color: #f4f4f6;
+  };
 
   .Toastify__toast-container {
     width: unset;
@@ -58,27 +56,6 @@ const GlobalStyles = createGlobalStyle`
   li ol > li:before {
     content: counters(item, ".") " ";
   }
-
-  ol > p > ol {
-    padding-left: 32px;
-  }
-
-  ol > p > ol > p > ol {
-    padding-left: 64px;
-  }
-
-  ol > p > ol > p {
-    margin-left: -32px !important;
-  }
-
-  ol > p > ol > p > ol > p {
-    margin-left: -64px !important;
-  }
-
-  ol > ol > ol > ol > p {
-    margin-left: -96px !important;
-  }
-
 `;
 
 export { GlobalStyles };

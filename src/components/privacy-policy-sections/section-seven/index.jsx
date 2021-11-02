@@ -19,7 +19,7 @@ const SectionSeven = () => {
         Information from a child under 13 years of age or unauthorized minor under 18 years of age,
         we will take reasonable steps to delete such information from our databases.
         <ol>
-          <Styled.Heading component="li">Note to Parents and Guardians</Styled.Heading>
+          <Styled.SubHeading component="li">Note to Parents and Guardians</Styled.SubHeading>
           <Styled.Text>
             Because it is difficult for us to verify a person’s age online, it is entirely YOUR
             responsibility to supervise your child’s online activities at all times. Parental
