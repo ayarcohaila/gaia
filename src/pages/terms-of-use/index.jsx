@@ -38,7 +38,7 @@ const TermsOfUse = () => {
             {paragraphDivider}
             BEFORE YOU USE THE PLATFORM IN ANY WAY, CAREFULLY READ ALL OF THE FOLLOWING TERMS
             CONCERNING YOUR LEGAL RIGHTS AND LIMITATIONS AND PLEASE ASK ANY QUESTIONS YOU MAY HAVE
-            BY WRITING US AN EMAIL TO: info@nftgenius.com{' '}
+            BY WRITING US AN EMAIL TO:{' '}
             <NextLink href="mailto:info@nftgenius.com" passHref={true}>
               <Styled.CustomLink>info@nftgenius.com</Styled.CustomLink>
             </NextLink>
