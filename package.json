@@ -27,6 +27,7 @@
     "@mui/material": "^5.0.2",
     "@onflow/fcl": "^0.0.77",
     "@onflow/types": "^0.0.5",
+    "@sentry/nextjs": "^6.13.3",
     "axios": "^0.21.1",
     "elliptic": "^6.5.4",
     "graphql": "^15.5.0",
