@@ -15,7 +15,7 @@ const SectionOne = () => {
       <Styled.Heading component="li">AGREEMENT TO USE THE PLATFORM</Styled.Heading>
       <Styled.Text>
         <ol>
-          <Styled.SubHeading ml="32px" component="li">
+          <Styled.SubHeading component="li">
             You Accept the Agreement by Using the Platform
           </Styled.SubHeading>
           <Styled.Text>
@@ -41,7 +41,7 @@ const SectionOne = () => {
             IF YOU DO NOT AGREE TO THE ENTIRE AGREEMENT OR ARE INCAPABLE OF COMPLYING WITH IT, OR
             ANY PART OF IT, YOU ARE NOT ALLOWED TO ACCESS OR USE THE PLATFORM IN ANY WAY.
           </Styled.Text>
-          <Styled.SubHeading ml="32px" component="li">
+          <Styled.SubHeading component="li">
             Location Where the Agreement is Executed and Performed
           </Styled.SubHeading>
           <Styled.Text>
@@ -57,9 +57,7 @@ const SectionOne = () => {
             ACCESS TO THIS SITE OR ITS CONTENT IS APPROPRIATE, AVAILABLE FOR USE, OR EVEN LEGAL IN
             CERTAIN LOCATIONS OUTSIDE THE BUSINESS LOCATION.
           </Styled.Text>
-          <Styled.SubHeading ml="32px" component="li">
-            Future Changes to the Agreement
-          </Styled.SubHeading>
+          <Styled.SubHeading component="li">Future Changes to the Agreement</Styled.SubHeading>
           <Styled.Text>
             The Company may modify, amend, supplement, or otherwise change this Terms of Use as well
             as other parts of the Agreement, in whole or in part, at any time and at its sole
@@ -73,9 +71,7 @@ const SectionOne = () => {
             practicality, you may not change any terms in the Agreement without our prior written
             consent.
           </Styled.Text>
-          <Styled.SubHeading ml="32px" component="li">
-            Future Changes to the Platform
-          </Styled.SubHeading>
+          <Styled.SubHeading component="li">Future Changes to the Platform</Styled.SubHeading>
           <Styled.Text>
             The Company may modify, withdraw, suspend or discontinue at any time in our sole
             discretion, with or without reason or notice, your access to and use of the Platform or
