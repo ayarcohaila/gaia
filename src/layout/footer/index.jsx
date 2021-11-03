@@ -97,8 +97,8 @@ const Footer = () => {
         </Grid>
 
         <Grid
-          alignItems="flex-end"
           container
+          flexDirection={isSmallDevice ? 'column' : 'row'}
           justifyContent="space-between"
           mt={isSmallDevice ? '24px' : '108px'}>
           <Box width="160px" my={isSmallDevice ? '24px' : '0'}>
