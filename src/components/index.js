@@ -12,6 +12,8 @@ export { default as PurchaseErrorModal } from './modal/purchase-error';
 export { default as InsufficientFundsModal } from './modal/insufficient-funds';
 export { default as NoLongerAvailable } from './modal/no-longer-available';
 export { default as CheckoutUnavailable } from './modal/checkout-unavailable';
+export { default as MaximumPurchaseLimit } from './modal/maximum-nft-limit';
+export { default as OrderProcessing } from './modal/order-processing';
 export { default as CollectionList } from './collectionList';
 export { default as ProfileList } from './profileList';
 export { default as CollectionCard } from './collectionCard';
