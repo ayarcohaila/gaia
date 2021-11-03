@@ -26,7 +26,7 @@
     "@mui/icons-material": "^5.0.1",
     "@mui/material": "^5.0.2",
     "@mui/system": "^5.0.6",
-    "@onflow/fcl": "^0.0.77",
+    "@onflow/fcl": "0.0.78-alpha.3",
     "@onflow/types": "^0.0.5",
     "axios": "^0.21.1",
     "elliptic": "^6.5.4",
