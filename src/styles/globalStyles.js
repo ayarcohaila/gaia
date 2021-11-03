@@ -15,12 +15,12 @@ const GlobalStyles = createGlobalStyle`
 
   #__next { width: 100%; height: 100% }
 
-  ol#alpha {
+  ol#alpha, ol#roman {
     counter-reset: alphaItem;
     margin-left: 32px
   }
 
-  ol#alpha > li {
+  ol#alpha > li, ol#roman > li {
     display: table;
     counter-increment: alphaItem;
     margin-bottom: 12px;
@@ -28,6 +28,10 @@ const GlobalStyles = createGlobalStyle`
 
   ol#alpha > li:before {
     content: "(" counter(alphaItem, lower-alpha) ") ";
+  }
+
+   ol#roman > li:before {
+    content: "(" counter(alphaItem, lower-roman) ") ";
   }
 
   ol {
