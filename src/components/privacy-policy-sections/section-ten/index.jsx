@@ -10,9 +10,9 @@ const SectionTen = () => {
         We recognize that certain users have relatively higher privacy concerns, and we make several
         opt-out options to accommodate as follows.
         <ol>
-          <Styled.Heading component="li">
+          <Styled.SubHeading component="li">
             Change or Removal of Personally Identifiable Information
-          </Styled.Heading>
+          </Styled.SubHeading>
           <Styled.Text>
             You may update or change the Personally Identifiable Information you have provided to us
             by logging into the Platform and providing such additional information where applicable.
@@ -25,9 +25,9 @@ const SectionTen = () => {
             </NextLink>
             .
           </Styled.Text>
-          <Styled.Heading component="li">
+          <Styled.SubHeading component="li">
             Marketing Communications Opt-Out (Unsubscribe)
-          </Styled.Heading>
+          </Styled.SubHeading>
           <Styled.Text>
             Where you have provided us with the appropriate permissions, or where we are legally
             entitled to do so, we will provide you with marketing materials by email or other
@@ -39,7 +39,7 @@ const SectionTen = () => {
             , or follow the unsubscribe instructions that can normally be found at the bottom
             (footer) of each marketing email or correspondence.
           </Styled.Text>
-          <Styled.Heading component="li">Third Parties Opt-Out</Styled.Heading>
+          <Styled.SubHeading component="li">Third Parties Opt-Out</Styled.SubHeading>
           <Styled.Text>
             Requests to opt-out of transfers of your information to our business partners will also
             be considered, but technical and other limitations on data sharing may make it difficult
