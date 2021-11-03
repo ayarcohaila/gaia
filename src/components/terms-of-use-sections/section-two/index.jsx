@@ -8,7 +8,7 @@ const SectionTwo = () => {
         Except as otherwise expressly restricted below, anyone may use the Platform in accordance
         with the Agreement and all provisions of the Agreement apply to all users of the Platform.
         <ol>
-          <Styled.Heading component="li">Age Restrictions</Styled.Heading>
+          <Styled.SubHeading component="li">Age Restrictions</Styled.SubHeading>
           <Styled.Text>
             The Platform is intended for persons eighteen (18) years of age or older. If you are
             between thirteen (13) and seventeen (17) years of age, you may use the Platform under
@@ -16,7 +16,7 @@ const SectionTwo = () => {
             and agrees to be bound to it on your behalf. YOU MAY NOT USE THE PLATFORM IF YOU ARE
             UNDER THIRTEEN (13) YEARS OF AGE.
           </Styled.Text>
-          <Styled.Heading component="li">Geographic Restrictions</Styled.Heading>
+          <Styled.SubHeading component="li">Geographic Restrictions</Styled.SubHeading>
           <Styled.Text>
             If you access the Platform from outside the Business Location, beware that the Platform
             may contain content, references, or links to other websites, webpages, products, or
@@ -24,7 +24,7 @@ const SectionTwo = () => {
             territory, or jurisdiction. YOU MAY NOT USE THE PLATFORM IN ANY JURISDICTION THAT DOES
             NOT GIVE EFFECT TO ALL PROVISIONS OF THESE TERMS OF USE.
           </Styled.Text>
-          <Styled.Heading component="li">Commercial User Restrictions</Styled.Heading>
+          <Styled.SubHeading component="li">Commercial User Restrictions</Styled.SubHeading>
           <Styled.Text>
             The Company may require certain users who provide content, advertisements, or other
             commercial material (collectively, “Commercial Users”) to enter into a special
