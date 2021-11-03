@@ -32,6 +32,7 @@ fcl
   .put('app.detail.title', 'Gaia Marketplace')
   .put('app.detail.icon', 'https://ongaia.com/logo192.png')
   .put('accessNode.api', process.env.NEXT_PUBLIC_ACCESS_NODE)
+  .put('grpc.metadata', { api_key: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY })
   .put('0xFungibleToken', process.env.NEXT_PUBLIC_FUNGIBLE_TOKEN)
   .put('0xFlowToken', process.env.NEXT_PUBLIC_FLOW_TOKEN)
   .put('0xFUSDContract', process.env.NEXT_PUBLIC_FUSD)
