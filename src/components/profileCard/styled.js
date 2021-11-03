@@ -1,4 +1,4 @@
-import { styled, Card, Typography, Button, CardHeader } from '@mui/material';
+import { styled, Grid, Card, Typography, Button, CardHeader } from '@mui/material';
 
 export const CustomCard = styled(Card)(() => ({
   padding: '16px 16px 22px',
@@ -65,8 +65,20 @@ export const PurchaseButton = styled(Button)(({ theme: { palette } }) => ({
   }
 }));
 
-export const TransferButton = styled(Button)(({ theme: { palette }, solo }) => ({
-  width: solo ? 256 : 126,
+export const ComingSoon = styled(Grid)(({ theme: { palette } }) => ({
+  width: 256,
+  height: 48,
+  marginTop: 16,
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  backgroundColor: palette.grey[400],
+  color: palette.grey[600],
+  fontSize: '14px',
+  fontWeight: 'bold'
+}));
+
+export const TransferButton = styled(Button)(({ theme: { palette } }) => ({
+  width: 126,
   height: 48,
   padding: '15px 22px 17px',
   borderRadius: '24px',

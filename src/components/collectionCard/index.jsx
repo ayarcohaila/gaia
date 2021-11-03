@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { Grid, CardContent, CardMedia, Avatar, Skeleton } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
 
 import { Loader } from '~/base';
-import { PurchaseNFTModal, PurchaseErrorModal, InsufficientFundsModal } from '~/components';
+import {
+  PurchaseNFTModal,
+  PurchaseErrorModal,
+  InsufficientFundsModal,
+  BlockLayer
+} from '~/components';
 import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { isDapper } from '~/utils/currencyCheck';
@@ -34,7 +38,6 @@ const CollectionCard = ({ data }) => {
 
   // TODO: Implement function
   const handlePurchaseClick = async () => {
-    toast.info('Please wait, purchase in progress... ');
     try {
       setLoadingPurchase(true);
       const transaction = await loadTransaction(
@@ -53,9 +56,6 @@ const CollectionCard = ({ data }) => {
       if (txResult) {
         setPurchaseTxId(txResult?.txId);
         togglePurchaseNftModal();
-        toast.success(
-          `Purchase completed successfully. In few minutes it will be available on your profile`
-        );
         setLoadingPurchase(false);
       }
     } catch (err) {
@@ -122,6 +122,7 @@ const CollectionCard = ({ data }) => {
       />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseErrorOpen} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsErrorOpen} />
+      <BlockLayer active={loadingPurchase} />
     </>
   );
 };

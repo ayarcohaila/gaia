@@ -20,3 +20,4 @@ export { default as HeaderModal } from './modal/header-menu';
 export { default as Seo } from './seo';
 export { default as AgreeSetupModal } from './modal/agree-setup';
 export { default as StayTunedModal } from './modal/stay-tuned';
+export { default as BlockLayer } from './block-layer';
