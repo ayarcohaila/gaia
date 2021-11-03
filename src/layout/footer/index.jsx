@@ -78,7 +78,7 @@ const Footer = () => {
               </Styled.CustomLink>
             </Grid>
           </Box>
-          <Grid item mt={isSmallDevice ? '32px' : 0} width={isSmallDevice ? '300px' : '160px'}>
+          <Grid item mt={isSmallDevice ? '32px' : 0} width={isSmallDevice ? '90%' : '160px'}>
             <Typography color="white.main" mb="12px" letterSpacing="0.2px" variant="subtitle2">
               Our Network
             </Typography>
