@@ -9,7 +9,7 @@ import * as Styled from './styles';
 function CollectionBanner({
   accountNumber,
   bannerName,
-  bannerDescription,
+  // bannerDescription,
   bgImg,
   mainColor,
   secondaryColor
@@ -35,7 +35,12 @@ function CollectionBanner({
           </Box>
           <Box width="100%" color="#fff" mt={isSmallDevice ? '56px' : '115px'}>
             {!isSmallDevice && (
-              <Styled.BannerDescription>{bannerDescription}</Styled.BannerDescription>
+              <Styled.BannerDescription>
+                {/* TODO: Change later to use bannerDescription prop like the line below instead of hardcoded */}
+                {/* {bannerDescription} */}
+                BALLERZ is a league of 10,000 randomly-generated basketball players, ready to flex
+                on the Flow blockchain. Limit 3 per wallet. BALLERZ reveal on Monday, November 8.
+              </Styled.BannerDescription>
             )}
             <Grid container pt={!isSmallDevice && '32px'}>
               {isSmallDevice && (
