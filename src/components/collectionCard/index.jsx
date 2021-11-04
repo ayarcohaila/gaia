@@ -15,7 +15,7 @@ import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
-
+import { useAppContext } from '~/context';
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
 
@@ -23,9 +23,10 @@ const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
-const CollectionCard = ({ data, nftFullList }) => {
+const CollectionCard = ({ data }) => {
   const route = useRouter();
   const { user, login } = useAuth();
+  const { appData } = useAppContext();
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
@@ -40,7 +41,7 @@ const CollectionCard = ({ data, nftFullList }) => {
 
   // TODO: Implement function
   const handlePurchaseClick = async () => {
-    const ownNFTs = nftFullList.filter(nft => nft.owner === user?.addr);
+    const ownNFTs = appData?.allNfts?.filter(nft => nft.owner === user?.addr);
 
     if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
       toggleMaximumModal();

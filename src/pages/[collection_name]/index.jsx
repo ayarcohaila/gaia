@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Grid } from '@mui/material';
-import { CollectionBanner, CollectionsFilter, Seo, CollectionList } from '~/components';
-import { Divider } from '~/base';
-import { gqlClient } from '~/config/apollo-client';
 
+import { Divider } from '~/base';
+import { useAppContext } from '~/context';
+import { ballerzCollection } from '~/config/config';
+import { gqlClient } from '~/config/apollo-client';
 import { GET_COLLECTION_BY_ID, GET_BALLERZ_NFTS_FOR_SALE, GET_NFTS } from '~/store/server/queries';
-import { ballerzCollection } from '../../config/config';
+import { CollectionBanner, CollectionsFilter, Seo, CollectionList } from '~/components';
 
 import * as Styled from '~/styles/collection-name/styles';
 
@@ -17,10 +18,16 @@ const DATA = {
 const DEFAULT_LIST_SIZE = 40;
 const BALLERZ_ID = ballerzCollection || 'db4ccc58-4398-4a66-87cd-5b0f6c6c21f3';
 
-const Collection = ({ nft_sale_offer, nft_collection, getNFTs }) => {
+const Collection = ({ nft_sale_offer, nft_collection, allNfts }) => {
   const [cursor, setCursor] = useState(0);
   const [bannerData, setBannerData] = useState(null);
   const [nftList, setNftList] = useState([]);
+
+  const { handleAppData } = useAppContext();
+
+  useEffect(() => {
+    handleAppData({ allNfts });
+  }, []);
 
   useEffect(() => {
     if (nft_collection?.length) {
@@ -67,7 +74,7 @@ const Collection = ({ nft_sale_offer, nft_collection, getNFTs }) => {
           </Grid>
           <Divider sx={{ marginBottom: '32px' }} />
           <Grid sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <CollectionList nfts={nftList} nftFullList={getNFTs} />
+            <CollectionList nfts={nftList} />
           </Grid>
           {cursorLimit > cursor && (
             <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 0' }}>
@@ -88,7 +95,7 @@ export async function getServerSideProps() {
   const { nft } = await gqlClient.request(GET_NFTS);
 
   return {
-    props: { getNFTs: nft, nft_sale_offer, nft_collection }
+    props: { allNfts: nft, nft_sale_offer, nft_collection }
   };
 }
 
