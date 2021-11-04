@@ -29,6 +29,7 @@ const Modal = ({
   mobileHeight,
   open,
   onClose,
+  shouldHaveCloseButton,
   title,
   titleSx,
   ...props
@@ -89,7 +90,7 @@ const Modal = ({
           </Styled.Description>
           {children}
         </Styled.InfoContainer>
-        {!isSmallDevice && onClose && (
+        {!isSmallDevice && shouldHaveCloseButton && (
           <Styled.CloseButton startIcon={<CloseIcon sx={{ color: '#bcbfc8' }} />} onClick={onClose}>
             Close Window
           </Styled.CloseButton>
@@ -142,6 +143,7 @@ Modal.propTypes = {
   mobileHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   open: PropTypes.bool,
   onClose: PropTypes.func,
+  shouldHaveCloseButton: PropTypes.bool,
   title: PropTypes.string,
   titleSx: PropTypes.object
 };
@@ -157,6 +159,7 @@ Modal.defaultProps = {
   descriptionSx: {},
   height: '358px',
   mobileHeight: '58vh',
+  shouldHaveCloseButton: true,
   title: '',
   titleSx: {}
 };

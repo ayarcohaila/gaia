@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react';
 
 import Modal from '..';
 
-const OrderProcessing = ({ onClose, open }) => {
+const OrderProcessing = ({ open, ...props }) => {
   const title = 'Transaction Being Processed...';
   const description = useMemo(() => {
     return (
@@ -28,8 +28,8 @@ const OrderProcessing = ({ onClose, open }) => {
       mobileHeight="50vh"
       titleSx={{ mt: 0, mb: '20px', textAlign: 'center' }}
       asset={{}}
-      onClose={onClose}
       open={open}
+      {...props}
     />
   );
 };
