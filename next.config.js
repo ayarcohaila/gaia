@@ -1,4 +1,5 @@
 const withPlugins = require('next-compose-plugins');
+const { withSentryConfig } = require('@sentry/nextjs');
 
 const nextConfig = {
   async redirects() {
@@ -24,4 +25,9 @@ const nextConfig = {
   }
 };
 
-module.exports = withPlugins([], nextConfig);
+const sentryWebpackPluginOptions = {
+  include: '.',
+  ignore: ['node_modules']
+};
+
+module.exports = withSentryConfig(withPlugins([], nextConfig), sentryWebpackPluginOptions);
