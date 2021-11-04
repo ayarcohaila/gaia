@@ -65,23 +65,25 @@ export const PurchaseButton = styled(Button)(({ theme: { palette } }) => ({
   }
 }));
 
-export const TransferButton = styled(Button)(({ theme: { palette }, solo }) => ({
-  width: solo ? 256 : 126,
-  height: 48,
-  padding: '15px 22px 17px',
-  borderRadius: '24px',
-  border: `solid 2px ${palette.grey[300]}`,
-  color: palette.secondary.main,
-  fontSize: '14px',
-  letterSpacing: '0.2px',
-  fontWeight: 'bold',
-  textTransform: 'none',
-  marginTop: '8px',
+export const TransferButton = styled(Button, { shouldForwardProp: prop => prop !== 'solo' })(
+  ({ theme: { palette }, solo }) => ({
+    width: solo ? 256 : 126,
+    height: 48,
+    padding: '15px 22px 17px',
+    borderRadius: '24px',
+    border: `solid 2px ${palette.grey[300]}`,
+    color: palette.secondary.main,
+    fontSize: '14px',
+    letterSpacing: '0.2px',
+    fontWeight: 'bold',
+    textTransform: 'none',
+    marginTop: '8px',
 
-  ':hover': {
-    backgroundColor: palette.grey[200]
-  }
-}));
+    ':hover': {
+      backgroundColor: palette.grey[200]
+    }
+  })
+);
 
 export const CancelButtonContainer = styled('div')(({ theme: { palette } }) => ({
   height: 48,

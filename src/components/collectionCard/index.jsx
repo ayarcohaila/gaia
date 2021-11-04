@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Grid, CardContent, CardMedia, Avatar, Skeleton } from '@mui/material';
+import { Grid, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/client';
 
 import { Loader } from '~/base';
 import {
@@ -16,7 +15,6 @@ import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
-import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
 
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
@@ -25,10 +23,9 @@ const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
-const CollectionCard = ({ data }) => {
+const CollectionCard = ({ data, nftFullList }) => {
   const route = useRouter();
   const { user, login } = useAuth();
-  const [loaded, setLoaded] = useState(false);
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
@@ -37,27 +34,25 @@ const CollectionCard = ({ data }) => {
   const [isMaximumModalOpen, toggleMaximumModal] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
 
-  const { data: userNFTs } = useQuery(GET_NFTS_BY_ADDRESS, {
-    variables: { address: user?.addr }
-  });
-
   const img = SHOULD_HIDE_DATA
     ? '/images/mystery-nft.gif'
     : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
   // TODO: Implement function
   const handlePurchaseClick = async () => {
-    if (userNFTs.nft.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
+    const ownNFTs = nftFullList.filter(nft => nft.owner === user?.addr);
+
+    if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
       toggleMaximumModal();
       return;
     }
     try {
       setLoadingPurchase(true);
-      toggleProcessingModal();
       const transaction = await loadTransaction(
         window.location.origin,
         isDapper ? 'buy' : 'buy_flowtoken'
       );
+      toggleProcessingModal();
 
       const txResult = await buy(
         transaction.transactionScript,
@@ -97,20 +92,15 @@ const CollectionCard = ({ data }) => {
           avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
           title="BALLERZ"
         />
-        <Skeleton
-          variant="rect"
-          width="275px"
-          height={275}
-          sx={{ borderRadius: '20px', display: loaded && 'none' }}
-        />
+        {/* TODO: Implement logic to display skeleton loading */}
         <CardMedia
-          sx={{ borderRadius: '20px', maxWidth: '275px', display: !loaded && 'none' }}
+          sx={{ borderRadius: '20px', maxWidth: '275px' }}
           component="img"
           alt="NFT image"
           height="275"
-          onLoad={() => setLoaded(true)}
           src={img}
         />
+
         <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
           <Styled.NFTText>
             {SHOULD_HIDE_DATA ? 'BALLER #????' : data?.nft?.template?.metadata?.title}

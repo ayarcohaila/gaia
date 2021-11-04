@@ -1,11 +1,11 @@
 import React from 'react';
 import { CollectionCard } from '~/components';
 
-const CollectionList = ({ nfts }) => {
+const CollectionList = ({ nfts, nftFullList }) => {
   return (
     <>
       {nfts.map(nft => (
-        <CollectionCard key={nft.id} data={nft} />
+        <CollectionCard key={nft.id} data={nft} nftFullList={nftFullList} />
       ))}
     </>
   );
