@@ -141,7 +141,7 @@ const CollectionCard = ({ data }) => {
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />
       <MaximumPurchaseLimit open={isMaximumModalOpen} onClose={toggleMaximumModal} />
-      <OrderProcessing open={isProcessingModalOpen} />
+      <OrderProcessing open={isProcessingModalOpen} onClose={toggleProcessingModal} />
     </>
   );
 };
