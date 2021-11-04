@@ -50,7 +50,7 @@ const Modal = ({
         {isSmallDevice && (
           <IconButton
             onClick={onClose}
-            sx={{ position: 'absolute', left: '50%', marginLeft: '-16px', top: -120 }}>
+            sx={{ position: 'absolute', left: '50%', marginLeft: '-16px', top: -135 }}>
             <ArrowDownIcon sx={{ color: grey[375], fontSize: 32 }} />
           </IconButton>
         )}

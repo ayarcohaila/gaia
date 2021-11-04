@@ -1,19 +1,21 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import { Typography, useTheme } from '@mui/material';
 import { ChevronRight as ArrowRightIcon } from '@mui/icons-material';
 
 import { Button } from '~/base';
-import Modal from '..';
-import SuccessContent from '../success-content';
+import { useBreakpoints } from '~/hooks';
 
-import { useAuth, useBreakpoints } from '~/hooks';
+import Modal from '..';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 
-const PurchaseNFTModal = ({ asset, onClose, tx, ...props }) => {
-  const { user } = useAuth();
+const PurchaseNFTModal = ({ asset, onClose, ...props }) => {
   const title = 'Order Complete!';
-  const { isSmallDevice } = useBreakpoints();
+  const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
+  const {
+    palette: { grey }
+  } = useTheme();
   const description = `Congratulations, you are now the
   proud owner of ${SHOULD_HIDE_DATA ? 'BALLER #????' : asset?.nft?.template?.metadata?.title}`;
 
@@ -23,19 +25,38 @@ const PurchaseNFTModal = ({ asset, onClose, tx, ...props }) => {
       description={description}
       onClose={onClose}
       title={title}
-      descriptionSx={{ maxWidth: '280px', mt: '16px', textAlign: 'center' }}
+      descriptionSx={{ fontWeight: '600', maxWidth: '280px', mt: '16px', textAlign: 'center' }}
       height="518px"
-      mobileHeight="77.5vh"
-      titleSx={{ mt: '108px' }}
+      mobileHeight={isExtraSmallDevice ? '77.5vh' : '70vh'}
+      titleSx={{ mt: isSmallDevice ? '108px' : '24px' }}
       {...props}>
-      <SuccessContent address={user?.addr} tx={tx} />
+      <Typography
+        sx={{
+          color: grey[600],
+          fontWeight: '600',
+          m: '8px 0 24px',
+          maxWidth: '80%',
+          textAlign: 'center'
+        }}
+        variant="h5">
+        <Typography
+          component="span"
+          sx={{ color: grey[600], fontWeight: '600', textDecoration: 'underline' }}
+          variant="h5">
+          Please Note
+        </Typography>
+        : To ensure fairness, BALLERZ listings have been randomized for everyone. The identity of
+        your BALLER will be revealed on Wednesday, November 10.
+      </Typography>
       <Button
         endIcon={<ArrowRightIcon />}
         onClick={onClose}
         sx={{
           height: isSmallDevice ? 'auto' : '40px',
           mt: '24px'
-        }}>{`Go to My Ballerz`}</Button>
+        }}>
+        Go to My Account
+      </Button>
     </Modal>
   );
 };
@@ -43,13 +64,11 @@ const PurchaseNFTModal = ({ asset, onClose, tx, ...props }) => {
 PurchaseNFTModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func,
-  tx: PropTypes.string,
   asset: PropTypes.object.isRequired
 };
 
 PurchaseNFTModal.defaultProps = {
-  onConfirm: () => {},
-  tx: ''
+  onConfirm: () => {}
 };
 
 export default memo(PurchaseNFTModal);

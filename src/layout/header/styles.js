@@ -48,7 +48,8 @@ export const MoreButton = styled(Button)(({ theme: { typography, palette } }) =>
 }));
 
 export const CustomButton = styled(Button, {
-  shouldForwardProp: prop => prop !== 'isBlack' && prop !== 'headerModal'
+  shouldForwardProp: prop =>
+    prop !== 'isBlack' && prop !== 'headerModal' && prop !== 'isTransparent'
 })(({ theme: { typography, palette }, isBlack, headerModal, isTransparent }) => ({
   ...typography.subtitle1,
   marginLeft: headerModal ? 0 : '12px',

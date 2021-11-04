@@ -14,6 +14,16 @@ const GET_COLLECTION_BY_ID = gql`
   }
 `;
 
+const GET_NFTS = gql`
+  query getNFTs {
+    nft {
+      asset_id
+      owner
+      id
+    }
+  }
+`;
+
 const GET_NFTS_BY_ADDRESS = SHOULD_HIDE_DATA
   ? gql`
       query getNFTsByAddress($address: String!) {
@@ -65,21 +75,12 @@ const GET_NFTS_BY_ADDRESS = SHOULD_HIDE_DATA
 
 const GET_BALLERZ_NFTS_FOR_SALE = SHOULD_HIDE_DATA
   ? gql`
-      query nft_sale_offer(
-        $id: uuid!
-        $limit: Int!
-        $offset: Int!
-        $mintSort: order_by = null
-        $priceSort: order_by = null
-      ) {
+      query nft_sale_offer($id: uuid!) {
         nft_sale_offer(
           where: {
             nft: { collection_id: { _eq: $id }, is_for_sale: { _eq: true } }
             status: { _eq: "active" }
           }
-          limit: $limit
-          offset: $offset
-          order_by: { nft: { asset_id: $mintSort }, price: $priceSort }
         ) {
           id
           listing_resource_id
@@ -97,21 +98,12 @@ const GET_BALLERZ_NFTS_FOR_SALE = SHOULD_HIDE_DATA
       }
     `
   : gql`
-      query nft_sale_offer(
-        $id: uuid!
-        $limit: Int!
-        $offset: Int!
-        $mintSort: order_by = null
-        $priceSort: order_by = null
-      ) {
+      query nft_sale_offer($id: uuid!) {
         nft_sale_offer(
           where: {
             nft: { collection_id: { _eq: $id }, is_for_sale: { _eq: true } }
             status: { _eq: "active" }
           }
-          limit: $limit
-          offset: $offset
-          order_by: { nft: { asset_id: $mintSort }, price: $priceSort }
         ) {
           id
           listing_resource_id
@@ -130,24 +122,4 @@ const GET_BALLERZ_NFTS_FOR_SALE = SHOULD_HIDE_DATA
       }
     `;
 
-const GET_BALLERZ_NFTS_FOR_SALE_COUNT = gql`
-  query nft_sale_offer_aggregate($id: uuid!) {
-    nft_sale_offer_aggregate(
-      where: {
-        nft: { collection_id: { _eq: $id }, is_for_sale: { _eq: true } }
-        status: { _eq: "active" }
-      }
-    ) {
-      aggregate {
-        count(distinct: true, columns: id)
-      }
-    }
-  }
-`;
-
-export {
-  GET_COLLECTION_BY_ID,
-  GET_NFTS_BY_ADDRESS,
-  GET_BALLERZ_NFTS_FOR_SALE,
-  GET_BALLERZ_NFTS_FOR_SALE_COUNT
-};
+export { GET_NFTS, GET_COLLECTION_BY_ID, GET_NFTS_BY_ADDRESS, GET_BALLERZ_NFTS_FOR_SALE };

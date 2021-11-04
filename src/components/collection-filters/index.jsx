@@ -10,23 +10,10 @@ import { BUTTONS, ORDER_MENU_IDS } from './constants';
 import * as Styled from './styles.js';
 
 const ESC_KEY = 27;
-const SORT_OPTIONS = {
-  [ORDER_MENU_IDS.SORT_BY]: { priceSort: null, mintSort: null },
-  [ORDER_MENU_IDS.LOWEST_PRICE]: { priceSort: 'asc', mintSort: null },
-  [ORDER_MENU_IDS.HIGHEST_PRICE]: { priceSort: 'desc', mintSort: null },
-  [ORDER_MENU_IDS.LOWEST_MINT]: { priceSort: null, mintSort: 'asc' },
-  [ORDER_MENU_IDS.HIGHEST_MINT]: { priceSort: null, mintSort: 'desc' }
-};
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 
-const CollectionsFilter = ({
-  setSort,
-  nftQuantity,
-  enableSearch,
-  handleFilter,
-  onSearch = () => {}
-}) => {
+const CollectionsFilter = ({ nftQuantity, enableSearch, setNftList, onSearch = () => {} }) => {
   const searchInput = useRef(null);
   const orderButtonRef = useRef(null);
   const [selectButton, setSelectButton] = useState(null);
@@ -55,12 +42,26 @@ const CollectionsFilter = ({
       }
     }) => {
       const currentId = Number(id);
-      setSort(SORT_OPTIONS[currentId]);
+      setNftList(prevState => {
+        switch (currentId) {
+          case ORDER_MENU_IDS.LOWEST_PRICE:
+            return [...prevState.sort((a, b) => Number(a?.price) - Number(b?.price))];
+          case ORDER_MENU_IDS.HIGHEST_PRICE:
+            return [...prevState.sort((a, b) => Number(b?.price) - Number(a?.price))];
+          case ORDER_MENU_IDS.LOWEST_MINT:
+            return [...prevState.sort((a, b) => Number(a?.mint) - Number(b?.mint))];
+          case ORDER_MENU_IDS.HIGHEST_MINT:
+            return [...prevState.sort((a, b) => Number(b?.mint) - Number(a?.mint))];
+          default:
+            return prevState;
+        }
+      });
       setSelectedOrderButton(currentId);
       toggleMenuOrder();
-      handleFilter(SORT_OPTIONS[currentId]);
+      setSelectedOrderButton(currentId);
+      toggleMenuOrder();
     },
-    [setSelectedOrderButton, toggleMenuOrder, setSort]
+    [setSelectedOrderButton, toggleMenuOrder]
   );
 
   const orderButton = useMemo(() => {

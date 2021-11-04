@@ -2,78 +2,60 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Grid, Box } from '@mui/material';
-import { useQuery } from '@apollo/client';
+import { gqlClient } from '~/config/apollo-client';
 
 import { ProfileBanner, ProfileList, CollectionsFilter, Seo } from '~/components';
-import { Divider, CardSkeletonLoader } from '~/base';
+
+import { Divider } from '~/base';
 import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import { useBreakpoints } from '~/hooks';
 
 import * as Styled from '~/styles/profile/styles';
 
-const Profile = () => {
+const DEFAULT_LIST_SIZE = 40;
+
+const Profile = ({ userNFTs }) => {
   const router = useRouter();
   const { id: address } = router.query;
   const [searchQuery, setSearchQuery] = useState('');
-  const [assets, setAssets] = useState([]);
   const { isMediumDevice } = useBreakpoints();
 
-  const [cursor, setCursor] = useState(1);
+  const [cursor, setCursor] = useState(0);
   const [nftList, setNftList] = useState([]);
 
-  const {
-    data: dataFetch,
-    loading,
-    refetch
-  } = useQuery(GET_NFTS_BY_ADDRESS, {
-    variables: { address }
-  });
+  useEffect(() => {
+    const list = [...userNFTs];
+    setNftList(list?.splice(0, DEFAULT_LIST_SIZE));
+  }, []);
+
+  useEffect(() => {
+    if (cursor) {
+      const list = [...userNFTs];
+      setNftList(list?.splice(0, DEFAULT_LIST_SIZE * (cursor + 1)));
+    }
+  }, [cursor]);
 
   const handleLoadMore = () => {
     setCursor(prevState => prevState + 1);
   };
 
-  useEffect(() => {
-    if (dataFetch?.nft?.length) {
-      setNftList(dataFetch.nft.slice(0, cursor * 40));
-    }
-  }, [dataFetch?.nft?.length, cursor]);
-
-  useEffect(() => {
-    setAssets(dataFetch);
-  }, []);
-
-  const cursorLimit = useMemo(() => Math.ceil(dataFetch?.length / 40), [dataFetch]);
-
-  const handleRefetch = () => {
-    refetch({
-      variables: { address }
-    });
-  };
+  const cursorLimit = useMemo(() => {
+    return Math.ceil(userNFTs.length / DEFAULT_LIST_SIZE) - 1;
+  }, [userNFTs]);
 
   return (
     <Box>
       <Seo title="Profile" />
       <ProfileBanner address={address} />
       <Styled.FiltersContainer>
-        <CollectionsFilter
-          nftQuantity={dataFetch?.nft?.length}
-          enableSearch
-          onSearch={setSearchQuery}
-        />
+        <CollectionsFilter nftQuantity={userNFTs.length} enableSearch onSearch={setSearchQuery} />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
       <Styled.ListWrapper>
-        {loading ? (
-          new Array(isMediumDevice ? 1 : 5)
-            .fill(null)
-            .map((_, index) => <CardSkeletonLoader key={index} />)
-        ) : (
-          <ProfileList nfts={nftList} refetchNfts={handleRefetch} />
-        )}
+        <ProfileList nfts={nftList} refetchNfts={() => {}} />
       </Styled.ListWrapper>
-      {cursorLimit > cursor && !loading && (
+      {cursorLimit > cursor && (
         <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 64px' }}>
           <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
         </Grid>
@@ -83,11 +65,17 @@ const Profile = () => {
 };
 
 export async function getServerSideProps(ctx) {
-  const { req, res } = ctx;
+  const {
+    req,
+    res,
+    query: { id }
+  } = ctx;
   await basicAuthCheck(req, res);
 
+  const { nft: userNFTs } = await gqlClient.request(GET_NFTS_BY_ADDRESS, { address: id });
+
   return {
-    props: {}
+    props: { userNFTs }
   };
 }
 export default Profile;
