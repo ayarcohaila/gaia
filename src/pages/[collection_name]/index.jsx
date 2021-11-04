@@ -64,7 +64,7 @@ const Collection = ({ nft_sale_offer, nft_collection, allNfts }) => {
           accountNumber={bannerData?.author}
           bannerName={bannerData?.name}
           bannerDescription={bannerData?.description}
-          bgImg={bannerData?.image}
+          bgImg={'/templates/collections/ballerz.png' || bannerData?.image}
           mainColor={bannerData?.mainColor}
           secondaryColor={bannerData?.secondaryColor}
         />
