@@ -100,13 +100,6 @@ const Collection = () => {
   return (
     <>
       <Seo title={bannerData?.name || ''} />
-      <button
-        type="button"
-        onClick={() => {
-          throw new Error('Sentry Frontend Error');
-        }}>
-        Throw error
-      </button>
       <Grid>
         <CollectionBanner
           accountNumber={bannerData?.author}
