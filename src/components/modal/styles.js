@@ -70,13 +70,20 @@ export const InfoContainer = styled(Box)(() => ({
 export const Title = styled(Typography)(
   ({
     theme: {
+      breakpoints,
       palette: { secondary }
     }
   }) => ({
     color: secondary.main,
     fontSize: '1.5rem',
     fontWeight: 'bold',
-    marginTop: '72px'
+    marginTop: '72px',
+
+    [breakpoints.down('sm')]: {
+      textAlign: 'center',
+      maxWidth: '90%',
+      lineHeight: '1.5'
+    }
   })
 );
 
