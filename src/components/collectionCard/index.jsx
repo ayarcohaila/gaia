@@ -8,10 +8,11 @@ import {
   PurchaseNFTModal,
   PurchaseErrorModal,
   InsufficientFundsModal,
+  BlockLayer,
   MaximumPurchaseLimit,
   OrderProcessing
 } from '~/components';
-import { useAuth, useToggle } from '~/hooks';
+import { useAuth, useBreakpoints, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
@@ -26,6 +27,7 @@ const INSUFFICIENT_FUNDS =
 const CollectionCard = ({ data }) => {
   const route = useRouter();
   const { user, login } = useAuth();
+  const { isSmallDevice } = useBreakpoints();
   const { appData } = useAppContext();
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
@@ -126,10 +128,14 @@ const CollectionCard = ({ data }) => {
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
       />
+      <BlockLayer active={loadingPurchase} />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />
       <MaximumPurchaseLimit open={isMaximumModalOpen} onClose={toggleMaximumModal} />
-      <OrderProcessing open={isProcessingModalOpen} />
+      <OrderProcessing
+        open={isProcessingModalOpen}
+        onClose={isSmallDevice ? toggleProcessingModal : null}
+      />
     </>
   );
 };

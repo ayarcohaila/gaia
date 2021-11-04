@@ -18,7 +18,6 @@ const AgreeSetupModal = ({ ...props }) => {
   const handleSetup = async () => {
     try {
       setLoading(true);
-      toast.info('Setting up your account...', { isLoading: loading });
       const transaction = await loadTransaction(
         window.location.origin,
         isDapper ? 'setup_account' : 'setup_account_flow_token'

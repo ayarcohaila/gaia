@@ -54,17 +54,20 @@ const ProfileCard = ({ data, refetchNfts }) => {
           </Styled.CancelButtonContainer>
         ) : (
           <>
-            {showSellButton && (
-              <Styled.SellButton disabled={loading} onClick={() => toggleSellNftModal()}>
-                Sell
-              </Styled.SellButton>
+            {showSellButton ? (
+              <>
+                <Styled.SellButton disabled={loading} onClick={() => toggleSellNftModal()}>
+                  Sell
+                </Styled.SellButton>
+                <Styled.TransferButton disabled={loading} onClick={() => toggleTransferNftModal()}>
+                  Transfer
+                </Styled.TransferButton>
+              </>
+            ) : (
+              <Styled.ComingSoon container justifyContent="center" align="center">
+                Sell & Transfer Coming Soon
+              </Styled.ComingSoon>
             )}
-            <Styled.TransferButton
-              solo={!showSellButton}
-              disabled={loading}
-              onClick={() => toggleTransferNftModal()}>
-              Transfer
-            </Styled.TransferButton>
           </>
         )}
       </CardActions>
