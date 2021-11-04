@@ -16,9 +16,9 @@ import { useAuth, useBreakpoints, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
-import { useAppContext } from '~/context';
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
+import { listNfts } from '~/flow/listNfts';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 const INSUFFICIENT_FUNDS =
@@ -28,7 +28,6 @@ const CollectionCard = ({ data }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const { isSmallDevice } = useBreakpoints();
-  const { appData } = useAppContext();
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
@@ -42,13 +41,13 @@ const CollectionCard = ({ data }) => {
     : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
   const handlePurchaseClick = async () => {
-    const ownNFTs = appData?.allNfts?.filter(nft => nft.owner === user?.addr);
-
-    if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
-      toggleMaximumModal();
-      return;
-    }
     try {
+      const ownNFTs = await listNfts(user?.addr);
+
+      if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
+        toggleMaximumModal();
+        return;
+      }
       setLoadingPurchase(true);
       const transaction = await loadTransaction(
         window.location.origin,
