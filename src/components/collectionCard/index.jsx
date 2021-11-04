@@ -39,7 +39,6 @@ const CollectionCard = ({ data }) => {
     ? '/images/mystery-nft.gif'
     : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
-  // TODO: Implement function
   const handlePurchaseClick = async () => {
     const ownNFTs = appData?.allNfts?.filter(nft => nft.owner === user?.addr);
 

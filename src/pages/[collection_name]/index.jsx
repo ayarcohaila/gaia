@@ -88,6 +88,23 @@ const Collection = ({ nft_sale_offer, nft_collection, allNfts }) => {
 };
 
 export async function getServerSideProps() {
+  function shuffleArray(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+  }
+
   const { nft_collection } = await gqlClient.request(GET_COLLECTION_BY_ID, { id: BALLERZ_ID });
 
   const { nft_sale_offer } = await gqlClient.request(GET_BALLERZ_NFTS_FOR_SALE, { id: BALLERZ_ID });
@@ -95,7 +112,7 @@ export async function getServerSideProps() {
   const { nft } = await gqlClient.request(GET_NFTS);
 
   return {
-    props: { allNfts: nft, nft_sale_offer, nft_collection }
+    props: { allNfts: nft, nft_sale_offer: shuffleArray(nft_sale_offer), nft_collection }
   };
 }
 
