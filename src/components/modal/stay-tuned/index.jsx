@@ -9,10 +9,6 @@ const StayTunedModal = ({ onClose, ...props }) => {
       Want to sell an NFT you purchased on Gaia?
     Stay tuned -- our secondary marketplace is coming
     in December!
-    
-    In the meantime, you can transfer NFTs by going to
-    My Account, clicking “Transfer” on the desired NFT,
-    and entering the wallet address of the recipient.
   `;
 
   return (
@@ -21,7 +17,7 @@ const StayTunedModal = ({ onClose, ...props }) => {
       onClose={onClose}
       title={title}
       descriptionSx={{ maxWidth: '440px', whiteSpace: 'pre', textAlign: 'center', mb: 0 }}
-      height="318px"
+      height="256px"
       mobileHeight="50vh"
       titleSx={{ mt: 0, mb: '20px' }}
       asset={{}}

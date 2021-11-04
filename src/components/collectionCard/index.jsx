@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import { Grid, CardContent, CardMedia, Avatar, Skeleton } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import { useQuery } from '@apollo/client';
 
 import { Loader } from '~/base';
 import {
   PurchaseNFTModal,
   PurchaseErrorModal,
   InsufficientFundsModal,
-  BlockLayer
+  BlockLayer,
+  MaximumPurchaseLimit,
+  OrderProcessing
 } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
+import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
 
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
@@ -29,8 +33,14 @@ const CollectionCard = ({ data }) => {
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
-  const [isPurchaseErrorOpen, togglePurchaseErrorOpen] = useToggle();
-  const [isFundsErrorOpen, toggleFundsErrorOpen] = useToggle();
+  const [isPurchaseErrorOpen, togglePurchaseError] = useToggle();
+  const [isFundsErrorOpen, toggleFundsError] = useToggle();
+  const [isMaximumModalOpen, toggleMaximumModal] = useToggle();
+  const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
+
+  const { data: userNFTs } = useQuery(GET_NFTS_BY_ADDRESS, {
+    variables: { address: user?.addr }
+  });
 
   const img = SHOULD_HIDE_DATA
     ? '/images/mystery-nft.gif'
@@ -38,8 +48,13 @@ const CollectionCard = ({ data }) => {
 
   // TODO: Implement function
   const handlePurchaseClick = async () => {
+    if (userNFTs.nft.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
+      toggleMaximumModal();
+      return;
+    }
     try {
       setLoadingPurchase(true);
+      toggleProcessingModal();
       const transaction = await loadTransaction(
         window.location.origin,
         isDapper ? 'buy' : 'buy_flowtoken'
@@ -55,14 +70,16 @@ const CollectionCard = ({ data }) => {
 
       if (txResult) {
         setPurchaseTxId(txResult?.txId);
+        toggleProcessingModal();
         togglePurchaseNftModal();
         setLoadingPurchase(false);
       }
     } catch (err) {
+      toggleProcessingModal();
       if (err?.message?.includes(INSUFFICIENT_FUNDS)) {
-        toggleFundsErrorOpen();
+        toggleFundsError();
       } else {
-        togglePurchaseErrorOpen();
+        togglePurchaseError();
       }
       setLoadingPurchase(false);
     }
@@ -120,9 +137,11 @@ const CollectionCard = ({ data }) => {
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
       />
-      <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseErrorOpen} />
-      <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsErrorOpen} />
       <BlockLayer active={loadingPurchase} />
+      <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
+      <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />
+      <MaximumPurchaseLimit open={isMaximumModalOpen} onClose={toggleMaximumModal} />
+      <OrderProcessing open={isProcessingModalOpen} />
     </>
   );
 };

@@ -39,7 +39,8 @@ function CollectionBanner({
                 {/* TODO: Change later to use bannerDescription prop like the line below instead of hardcoded */}
                 {/* {bannerDescription} */}
                 BALLERZ is a league of 10,000 randomly-generated basketball players, ready to flex
-                on the Flow blockchain. Limit 3 per wallet. BALLERZ reveal on Monday, November 8.
+                on the Flow blockchain. Limit 3 per wallet. BALLERZ reveal on Wednesday, November
+                10.
               </Styled.BannerDescription>
             )}
             <Grid container pt={!isSmallDevice && '32px'}>
