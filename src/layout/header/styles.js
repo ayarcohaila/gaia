@@ -49,19 +49,24 @@ export const MoreButton = styled(Button)(({ theme: { typography, palette } }) =>
 
 export const CustomButton = styled(Button, {
   shouldForwardProp: prop => prop !== 'isBlack' && prop !== 'headerModal'
-})(({ theme: { typography, palette }, isBlack, headerModal }) => ({
+})(({ theme: { typography, palette }, isBlack, headerModal, isTransparent }) => ({
   ...typography.subtitle1,
   marginLeft: headerModal ? 0 : '12px',
   borderRadius: '20px',
   height: '40px',
   backgroundColor: isBlack && 'black',
+  color: isTransparent && 'black',
   fontWeight: headerModal ? 400 : 'bold',
   textTransform: 'unset',
   letterSpacing: '0.2px',
   width: headerModal && '100%',
 
   '&:hover': {
-    backgroundColor: isBlack ? palette.grey[600] : palette.primary.hover
+    backgroundColor: isBlack
+      ? palette.grey[600]
+      : isTransparent
+      ? palette.secondary.hover
+      : palette.primary.hover
   }
 }));
 

@@ -89,7 +89,7 @@ const Modal = ({
           </Styled.Description>
           {children}
         </Styled.InfoContainer>
-        {!isSmallDevice && (
+        {!isSmallDevice && onClose && (
           <Styled.CloseButton startIcon={<CloseIcon sx={{ color: '#bcbfc8' }} />} onClick={onClose}>
             Close Window
           </Styled.CloseButton>
@@ -136,12 +136,12 @@ Modal.propTypes = {
   asset: PropTypes.object,
   children: PropTypes.node,
   containerProps: PropTypes.object,
-  description: PropTypes.string,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   descriptionSx: PropTypes.object,
   height: PropTypes.string,
   mobileHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   open: PropTypes.bool,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   title: PropTypes.string,
   titleSx: PropTypes.object
 };
@@ -151,6 +151,7 @@ Modal.defaultProps = {
     img: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
   },
   children: null,
+  onClose: undefined,
   containerProps: {},
   description: '',
   descriptionSx: {},
