@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { ProfileCard } from '~/components';
 import { Button } from '~/base';
 
-const ProfileList = ({ nfts, refetchNfts }) => {
+const ProfileList = ({ nfts }) => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -15,7 +15,7 @@ const ProfileList = ({ nfts, refetchNfts }) => {
   return (
     <>
       {nfts.length > 0 ? (
-        nfts.map(nft => <ProfileCard key={nft.asset_id} data={nft} refetchNfts={refetchNfts} />)
+        nfts.map((nft, i) => <ProfileCard key={i} data={nft} />)
       ) : (
         <Grid
           container

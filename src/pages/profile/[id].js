@@ -6,10 +6,13 @@ import { gqlClient } from '~/config/apollo-client';
 
 import { ProfileBanner, ProfileList, CollectionsFilter, Seo } from '~/components';
 
-import { Divider } from '~/base';
+import { CardSkeletonLoader, Divider } from '~/base';
 import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import { useBreakpoints } from '~/hooks';
+import { useToggle } from '~/hooks';
+import { listNfts } from '~/flow/listNfts';
+import { Modal } from '~/components';
 
 import * as Styled from '~/styles/profile/styles';
 
@@ -20,46 +23,72 @@ const Profile = ({ userNFTs }) => {
   const { id: address } = router.query;
   const [searchQuery, setSearchQuery] = useState('');
   const { isMediumDevice } = useBreakpoints();
-
-  const [cursor, setCursor] = useState(0);
+  const [cursor, setCursor] = useState(1);
   const [nftList, setNftList] = useState([]);
-
-  useEffect(() => {
-    const list = [...userNFTs];
-    setNftList(list?.splice(0, DEFAULT_LIST_SIZE));
-  }, []);
-
-  useEffect(() => {
-    if (cursor) {
-      const list = [...userNFTs];
-      setNftList(list?.splice(0, DEFAULT_LIST_SIZE * (cursor + 1)));
-    }
-  }, [cursor]);
+  const [openModal, toggleOpenModal] = useToggle();
+  const [loading, setLoading] = useState(false);
 
   const handleLoadMore = () => {
     setCursor(prevState => prevState + 1);
   };
 
-  const cursorLimit = useMemo(() => {
-    return Math.ceil(userNFTs.length / DEFAULT_LIST_SIZE) - 1;
-  }, [userNFTs]);
+  useEffect(() => {
+    const loadNfts = async () => {
+      try {
+        setLoading(true);
+        const data = await listNfts(address);
+        setNftList(data);
+      } catch {
+        setNftList([]);
+        toggleOpenModal();
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadNfts();
+  }, []);
+
+  const onHandleCloseModal = () => {
+    toggleOpenModal();
+    router.push('/ballerz');
+  };
+
+  //const cursorLimit = useMemo(() => {
+  //  return Math.ceil(userNFTs.length / DEFAULT_LIST_SIZE) - 1;
+  //}, [userNFTs]);
 
   return (
     <Box>
       <Seo title="Profile" />
       <ProfileBanner address={address} />
       <Styled.FiltersContainer>
-        <CollectionsFilter nftQuantity={userNFTs.length} enableSearch onSearch={setSearchQuery} />
+        <CollectionsFilter nftQuantity={nftList?.length} enableSearch onSearch={setSearchQuery} />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
       <Styled.ListWrapper>
-        <ProfileList nfts={nftList} refetchNfts={() => {}} />
+        {loading ? (
+          new Array(isMediumDevice ? 1 : 5)
+            .fill(null)
+            .map((_, index) => <CardSkeletonLoader key={index} />)
+        ) : (
+          <ProfileList nfts={nftList} />
+        )}
       </Styled.ListWrapper>
-      {cursorLimit > cursor && (
+      {/*nftList?.length > 0 && (
         <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 64px' }}>
           <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
         </Grid>
-      )}
+      )*/}
+      <Modal
+        title="Cannot Load Inventory"
+        description="Something went wrong while checking your inventory. Please try again later."
+        open={openModal}
+        onClose={onHandleCloseModal}
+        descriptionSx={{ maxWidth: '360px', textAlign: 'center', mb: 0 }}
+        titleSx={{ mt: 0, mb: '20px' }}
+        height="250px"
+        asset={{}}
+      />
     </Box>
   );
 };
