@@ -101,12 +101,9 @@ const Footer = () => {
           flexDirection={isSmallDevice ? 'column' : 'row'}
           justifyContent="space-between"
           mt={isSmallDevice ? '24px' : '108px'}>
-          <Box width="160px" my={isSmallDevice ? '24px' : '0'}>
-            <Typography color={grey[600]} mb="4px" variant="subtitle2" lineHeight="1.54">
-              © 2021 Gaia
-            </Typography>
-            <Typography color={grey[600]} variant="subtitle2">
-              An NFT Genius company
+          <Box width="170px" my={isSmallDevice ? '24px' : '0'}>
+            <Typography color={grey[600]} variant="subtitle2" lineHeight="1.54">
+              © 2021 – NFT Genius Inc. All rights reserved.
             </Typography>
           </Box>
 
