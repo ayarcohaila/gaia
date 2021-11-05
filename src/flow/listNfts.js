@@ -19,7 +19,7 @@ const LIST_NFTS_SCRIPT = fcl.cdc`
           }
         }
 
-        pub fun main(address: Address): [NFTData] {
+        pub fun main(address: Address, setID: UInt64): [NFTData] {
             let account = getAccount(address)
         
             let collectionRef = account.getCapability(Gaia.CollectionPublicPath)
@@ -31,28 +31,35 @@ const LIST_NFTS_SCRIPT = fcl.cdc`
             for assetID in ids {
 
               let asset = collectionRef.borrowGaiaNFT(id: assetID)!
-              let templateMetadata = Gaia.getTemplateMetaData(templateID: asset.data.templateID)
-              let id = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "id")
-              let title = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "title")
-              let imageURL = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "img")!
-              
-              let nftData = NFTData(
-                id: id,
-                name: title,
-                imageURL: "https://ipfs.fleek.co/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length))
-              )
+
+              if asset.data.setID == setID {
+                let templateMetadata = Gaia.getTemplateMetaData(templateID: asset.data.templateID)
+                let id = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "id")
+                let title = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "title")
+                let imageURL = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "img")!
                 
-              assets.append(nftData)
-                
+                let nftData = NFTData(
+                  id: id,
+                  name: title,
+                  imageURL: "https://ipfs.fleek.co/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length))
+                )
+                  
+                assets.append(nftData)
+              } 
             }
         
             return assets
         }
 `;
 
-export async function listNfts(address) {
+// @TODO: Match the setID to the current collection
+// @INFO: This is a temporary solution to get the NFTs in the ballerz collection
+export async function listNfts(address, setID = 2) {
   if (address == null) throw new Error('listNfts(address) -- address required');
   return fcl
-    .send([fcl.script(LIST_NFTS_SCRIPT), fcl.args([fcl.arg(address, t.Address)])])
+    .send([
+      fcl.script(LIST_NFTS_SCRIPT),
+      fcl.args([fcl.arg(address, t.Address), fcl.arg(parseInt(setID, 10), t.UInt64)])
+    ])
     .then(fcl.decode);
 }
