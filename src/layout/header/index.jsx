@@ -67,13 +67,6 @@ const Header = () => {
   return (
     <Styled.HeaderBar position="static">
       <Styled.Container component="section" isMobile={isMediumDevice}>
-        <button
-          type="button"
-          onClick={() => {
-            throw new Error('Sentry Frontend Error');
-          }}>
-          Throw error
-        </button>
         <NextLink href="/ballerz">
           <Styled.LogoImage component="a">
             <NextImage
