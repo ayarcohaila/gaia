@@ -21,33 +21,37 @@ const LIST_NFTS_SCRIPT = fcl.cdc`
 
         pub fun main(address: Address, setID: UInt64): [NFTData] {
             let account = getAccount(address)
-        
-            let collectionRef = account.getCapability(Gaia.CollectionPublicPath)
-                                    .borrow<&{Gaia.CollectionPublic}>()!
-        
-            let ids = collectionRef.getIDs()
             let assets: [NFTData] = []
+            let accountSetup = account
+              .getCapability<&{Gaia.CollectionPublic}>(Gaia.CollectionPublicPath)
+              .check()
         
-            for assetID in ids {
-
-              let asset = collectionRef.borrowGaiaNFT(id: assetID)!
-
-              if asset.data.setID == setID {
-                let templateMetadata = Gaia.getTemplateMetaData(templateID: asset.data.templateID)
-                let id = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "id")
-                let title = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "title")
-                let imageURL = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "img")!
-                
-                let nftData = NFTData(
-                  id: id,
-                  name: title,
-                  imageURL: "https://ipfs.fleek.co/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length))
-                )
+            if accountSetup {
+              let collectionRef = account.getCapability(Gaia.CollectionPublicPath)
+                                      .borrow<&{Gaia.CollectionPublic}>()!
+          
+              let ids = collectionRef.getIDs()
+          
+              for assetID in ids {
+  
+                let asset = collectionRef.borrowGaiaNFT(id: assetID)!
+  
+                if asset.data.setID == setID {
+                  let templateMetadata = Gaia.getTemplateMetaData(templateID: asset.data.templateID)
+                  let id = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "id")
+                  let title = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "title")
+                  let imageURL = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "img")!
                   
-                assets.append(nftData)
-              } 
-            }
-        
+                  let nftData = NFTData(
+                    id: id,
+                    name: title,
+                    imageURL: "https://ipfs.fleek.co/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length))
+                  )
+                    
+                  assets.append(nftData)
+                } 
+              }
+            } 
             return assets
         }
 `;
