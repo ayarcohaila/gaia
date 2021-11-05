@@ -42,12 +42,12 @@ const AgreeSetupModal = ({ ...props }) => {
   useEffect(() => {
     (async () => {
       const tx = await loadTransaction(
-        window.location.origin,
+        window?.location?.origin,
         isDapper ? 'setup_account' : 'setup_account_flow_token'
       );
       setTransaction(tx);
     })();
-  }, []);
+  }, [isDapper]);
 
   return (
     <Modal
