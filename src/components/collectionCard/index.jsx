@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
@@ -31,6 +31,8 @@ const CollectionCard = ({ data }) => {
   const { isSmallDevice } = useBreakpoints();
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
+  const [ownNFTs, setOwnNFTs] = useState([]);
+  const [transaction, setTransaction] = useState(null);
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
   const [isPurchaseErrorOpen, togglePurchaseError] = useToggle();
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
@@ -43,19 +45,12 @@ const CollectionCard = ({ data }) => {
 
   const handlePurchaseClick = async () => {
     try {
-      const ownNFTs = await listNfts(user?.addr, SET_ID);
-
       if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
         toggleMaximumModal();
         return;
       }
       setLoadingPurchase(true);
-      const transaction = await loadTransaction(
-        window.location.origin,
-        isDapper ? 'buy' : 'buy_flowtoken'
-      );
       toggleProcessingModal();
-
       const txResult = await buy(
         transaction.transactionScript,
         data.listing_resource_id,
@@ -63,7 +58,6 @@ const CollectionCard = ({ data }) => {
         data?.price,
         user?.addr
       );
-
       if (txResult) {
         setPurchaseTxId(txResult?.txId);
         toggleProcessingModal();
@@ -86,6 +80,20 @@ const CollectionCard = ({ data }) => {
     setPurchaseTxId(null);
     route.push(`/profile/${user?.addr}`);
   };
+
+  useEffect(() => {
+    (async () => {
+      if (!!user && Object.keys(user).length) {
+        const NFTs = await listNfts(user?.addr, SET_ID);
+        const tx = await loadTransaction(
+          window.location.origin,
+          isDapper ? 'buy' : 'buy_flowtoken'
+        );
+        setTransaction(tx);
+        setOwnNFTs(NFTs);
+      }
+    })();
+  }, [user]);
 
   return (
     <>
