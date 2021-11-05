@@ -21,7 +21,8 @@ const SectionSix = () => {
           <Styled.Text>
             The Company may allow or provide, or authorize certain Commercial Users or third parties
             to provide, advertisements, links, or API’s on or through the Platform to websites,
-            webpages, applications, services, products, software, documents, materials, and other
+            webpages, social media platforms (i.e., Twitter, Facebook, Instagram, YouTube, and
+            others), applications, services, products, software, documents, materials, and other
             resources operated by a party(s) other than the Company (“Third Party Offerings”). These
             Third Part Offerings may include (without limitation) blockchain protocols such as the
             Flow network and Wallets such as The Dapper Wallet. Company is NOT endorsing any such

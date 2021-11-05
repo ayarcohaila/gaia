@@ -1,4 +1,6 @@
 import NextLink from 'next/link';
+import { Grid } from '@mui/material';
+
 import { Divider } from '~/base';
 import * as Styled from '~/styles/privacy-policy/styles.js';
 import {
@@ -60,6 +62,11 @@ const TermsOfUse = () => {
             <SectionTwelve />
             <SectionThirteen />
           </ol>
+          <Grid sx={{ marginTop: '24px' }}>
+            <Styled.Text variant="p" sx={{ fontWeight: 'bold' }}>
+              Last Modified: November 4, 2021
+            </Styled.Text>
+          </Grid>
         </Styled.Content>
       </Styled.Container>
     </>
