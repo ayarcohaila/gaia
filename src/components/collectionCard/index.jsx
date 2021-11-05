@@ -21,6 +21,7 @@ import { buy } from '~/flow/buy';
 import { listNfts } from '~/flow/listNfts';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
+const SET_ID = process.env.NEXT_PUBLIC_BALLERZ_SETID;
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
@@ -42,7 +43,7 @@ const CollectionCard = ({ data }) => {
 
   const handlePurchaseClick = async () => {
     try {
-      const ownNFTs = await listNfts(user?.addr);
+      const ownNFTs = await listNfts(user?.addr, SET_ID);
 
       if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
         toggleMaximumModal();

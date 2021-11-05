@@ -105,6 +105,11 @@ const ProfileCard = ({ data }) => {
         open={isSellNftModalOpen}
         onClose={toggleSellNftModal}
         setLoading={setLoading}
+        onConfirm={() => {
+          // @TODO: This logic must be validated, only added to remove a warning on console
+          setIsForSale(true);
+          toggleSellNftModal();
+        }}
         loading={loading}
       />
       <TransferNftModal

@@ -17,6 +17,7 @@ import { Modal } from '~/components';
 import * as Styled from '~/styles/profile/styles';
 
 const DEFAULT_LIST_SIZE = 40;
+const SET_ID = process.env.NEXT_PUBLIC_BALLERZ_SETID;
 
 const Profile = ({ userNFTs }) => {
   const router = useRouter();
@@ -36,7 +37,7 @@ const Profile = ({ userNFTs }) => {
     const loadNfts = async () => {
       try {
         setLoading(true);
-        const data = await listNfts(address);
+        const data = await listNfts(address, SET_ID);
         setNftList(data);
       } catch {
         setNftList([]);
