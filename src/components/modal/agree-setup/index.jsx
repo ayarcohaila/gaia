@@ -47,7 +47,7 @@ const AgreeSetupModal = ({ ...props }) => {
       );
       setTransaction(tx);
     })();
-  }, [isDapper]);
+  }, [isDapper, loadTransaction]);
 
   return (
     <Modal
