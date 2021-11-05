@@ -1,5 +1,4 @@
-import { memo, useMemo, useState } from 'react';
-import { toast } from 'react-toastify';
+import { memo, useMemo, useState, useEffect } from 'react';
 
 import { Loader } from '~/base';
 import { useAuth } from '~/hooks';
@@ -11,34 +10,43 @@ import { setupAccount } from '~/flow/setupAccount';
 import Modal from '..';
 import * as Styled from './styles';
 
-const AgreeSetupModal = ({ ...props }) => {
+const AgreeSetupModal = ({ onClose, ...props }) => {
   const { logout } = useAuth();
+  const [transaction, setTransaction] = useState(null);
 
   const [loading, setLoading] = useState(false);
+
+  const loadTx = async () => {
+    const response = await loadTransaction(
+      window.location.origin,
+      isDapper ? 'setup_account' : 'setup_account_flow_token'
+    );
+    setTransaction(response);
+  };
+
   const handleSetup = async () => {
     try {
       setLoading(true);
-      const transaction = await loadTransaction(
-        window.location.origin,
-        isDapper ? 'setup_account' : 'setup_account_flow_token'
-      );
       await setupAccount(transaction.transactionScript);
       setLoading(false);
-      props.onClose();
+      onClose();
     } catch (err) {
       setLoading(false);
       logout();
-      toast.error('Error on setting up your account');
     }
   };
+
+  useEffect(() => {
+    loadTx();
+  }, [loadTx]);
 
   const renderContent = useMemo(
     () => (
       <Styled.CustomButton onClick={handleSetup} disabled={loading}>
-        {loading ? <Loader /> : 'Continue'}
+        {loading || !transaction?.transactionScript ? <Loader /> : 'Continue'}
       </Styled.CustomButton>
     ),
-    [loading]
+    [loading, transaction?.transactionScript]
   );
 
   return (

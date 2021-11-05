@@ -93,7 +93,7 @@ const CollectionCard = ({ data }) => {
         setOwnNFTs(NFTs);
       }
     })();
-  }, [user]);
+  }, [user, listNfts, loadTransaction, isDapper]);
 
   return (
     <>
