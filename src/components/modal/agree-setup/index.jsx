@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Loader } from '~/base';
@@ -15,12 +15,14 @@ const AgreeSetupModal = ({ ...props }) => {
   const { logout } = useAuth();
 
   const [loading, setLoading] = useState(false);
-  const [transaction, setTransaction] = useState(null);
-
   const handleSetup = async () => {
     try {
       setLoading(true);
-      await setupAccount(transaction?.transactionScript);
+      const transaction = await loadTransaction(
+        window.location.origin,
+        isDapper ? 'setup_account' : 'setup_account_flow_token'
+      );
+      await setupAccount(transaction.transactionScript);
       setLoading(false);
       props.onClose();
     } catch (err) {
@@ -38,16 +40,6 @@ const AgreeSetupModal = ({ ...props }) => {
     ),
     [loading]
   );
-
-  useEffect(() => {
-    (async () => {
-      const tx = await loadTransaction(
-        window?.location?.origin,
-        isDapper ? 'setup_account' : 'setup_account_flow_token'
-      );
-      setTransaction(tx);
-    })();
-  }, [isDapper, loadTransaction]);
 
   return (
     <Modal
