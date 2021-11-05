@@ -10,12 +10,13 @@ const SectionThree = () => {
         Subject to all conditions, restrictions, and eligibility requirements described herein, we
         hereby grant you a limited, personal, non-transferrable, non-exclusive, royalty-free,
         worldwide, revocable license to access the Platform, create a user account (“Account”) and
-        profile, to enjoy services we will provide you including opportunities to view proprietary
-        videos and other valuable content, and to use the Platform and Account for your own lawful
-        purposes. This license is not a sale and does not grant you any ownership rights, title,
-        interest, or any other rights in the Platform. Nothing on the Platform may be construed as
-        granting, by implication, estoppel, or otherwise, any license or right to use the Site or
-        the Content except as explicitly permitted or consented by these Terms of Use.
+        profile which you can thereafter access and update via “My Account” button on the Platform,
+        to enjoy services we will provide you including opportunities to view proprietary videos and
+        other valuable content, and to use the Platform and Account for your own lawful purposes.
+        This license is not a sale and does not grant you any ownership rights, title, interest, or
+        any other rights in the Platform. Nothing on the Platform may be construed as granting, by
+        implication, estoppel, or otherwise, any license or right to use the Site or the Content
+        except as explicitly permitted or consented by these Terms of Use.
         <ol>
           <Styled.SubHeading component="li">Your User Account</Styled.SubHeading>
           <Styled.Text>
@@ -99,10 +100,15 @@ const SectionThree = () => {
           <Styled.Text>
             To mint (create), transfer (buy or sell) or store (hold) non-fungible tokens (“NFT’s) on
             or in relation to the Platform, you will need to install a web browser (such as Chrome,
-            Firefox, or Brave) and an electronic cryptocurrency wallet (“Wallet”), such as the
-            Dapper Wallet, that is compatible with the NFT-standard on the Flow blockchain or any
-            other Platform-compatible blockchain, now known or as hereinafter may be developed and
-            announced as Platform-compatible.
+            Firefox, or Brave), log in to your Account, and link an electronic cryptocurrency wallet
+            (“Wallet”) to your Account, such as your individual ‘Dapper’ Wallet that is compatible
+            with the NFT-standard on the Flow blockchain or any other Platform-compatible
+            blockchain, now known or as hereinafter may be developed and announced as
+            Platform-compatible. To enable you to share a link to your NFT collection in your Wallet
+            with friends, family, and others (i.e., via social media pages or otherwise), you hereby
+            agree that we may (at our sole discretion) enable public display and/or public
+            performance of any NFT’s held in your Wallet via a unique URL-address linked to your
+            Wallet.
           </Styled.Text>
           <Styled.SubHeading component="li">API Security</Styled.SubHeading>
           <Styled.Text>
@@ -117,6 +123,12 @@ const SectionThree = () => {
             decide to charge monetary fees for various features and services that we offer, add, or
             change, and we will notify you of all such charges at the time that we offer you those
             features or services for a fee so that you may decide to opt-in to pay for such service.
+            To purchase NFT’s through the Platform, you can log in to your Account and buy NFT’s
+            that are listed in the GAIA marketplace for sale using a Platform-compatible credit card
+            or debit card, cryptocurrency (such as, at the time of this writing: BTC, ETH, BCH, DAI,
+            USDC, and/or others that may be Platform-compatible in the future), or Dapper Balance
+            (i.e., the positive balance of U.S. Dollars held in your Dapper Wallet, which can also
+            be filled via credit or debit card via your third-party issued Dapper Wallet).
           </Styled.Text>
           <Styled.SubHeading component="li">
             Information About You and Your Account

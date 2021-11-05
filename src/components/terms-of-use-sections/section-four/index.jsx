@@ -16,8 +16,8 @@ const SectionFour = () => {
         clip, music, jingle, spoken word, performance, speech, audio-visual work, interactive work,
         game, video game, movie, film, show, video, video clip, commercial, infomercial,
         advertisement, and all other material, feature, or function that may be reproduced on,
-        posted to, distributed, delivered, streamed, displayed, or otherwise made available on or
-        through the Platform.
+        posted to, distributed, delivered, streamed, displayed, or otherwise made available on,
+        through, or from the Platform.
         <ol>
           <Styled.SubHeading component="li">You are Responsible for Your Content</Styled.SubHeading>
           <Styled.Text>
