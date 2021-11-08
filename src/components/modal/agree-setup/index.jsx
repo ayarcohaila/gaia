@@ -56,6 +56,7 @@ const AgreeSetupModal = ({ onClose, ...props }) => {
       }
       descriptionSx={{ m: '8px 0 4px', width: '90%', fontWeight: '600', textAlign: 'center' }}
       height="382px"
+      mobileHeight="65vh"
       title={'One-Time Account Setup'}
       titleSx={{ mt: '55px' }}
       asset={{

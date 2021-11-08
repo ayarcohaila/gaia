@@ -47,9 +47,9 @@ export const AssetContainer = styled(Box)(({ theme: { breakpoints } }) => ({
   top: -90,
 
   [breakpoints.down('sm')]: {
-    height: 160,
-    marginLeft: -80,
-    width: 160
+    height: 140,
+    marginLeft: -70,
+    width: 140
   }
 }));
 
