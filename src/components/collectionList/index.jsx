@@ -4,11 +4,11 @@ import { Grid, Typography, Link } from '@mui/material';
 import { CollectionCard } from '~/components';
 import useBreakpoints from '~/hooks/useBreakpoints';
 
-const CollectionList = ({ nfts }) => {
+const CollectionList = ({ nfts, hasNftsForSale }) => {
   const { isMediumDevice } = useBreakpoints();
   return (
     <>
-      {nfts.length > 0 ? (
+      {hasNftsForSale ? (
         nfts.map(nft => <CollectionCard key={nft.id} data={nft} />)
       ) : (
         <Grid

@@ -66,7 +66,7 @@ const Footer = () => {
           <Box width={isMediumDevice ? 'auto' : '35%'}>
             <NextImage
               width={isMediumDevice ? 75 : 102.4}
-              height={isMediumDevice ? 27 : 40}
+              height={isMediumDevice ? 29.3 : 40}
               src="/static/img/gaia_logo-white.png"
             />
             <Grid alignItems="center" container mt="24px">
