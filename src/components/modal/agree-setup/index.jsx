@@ -38,7 +38,7 @@ const AgreeSetupModal = ({ onClose, ...props }) => {
 
   useEffect(() => {
     loadTx();
-  }, [loadTx]);
+  }, []);
 
   const renderContent = useMemo(
     () => (
