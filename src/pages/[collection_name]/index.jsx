@@ -58,7 +58,7 @@ const Collection = ({ nft_sale_offer, nft_collection, allNfts }) => {
 
   return (
     <>
-      <Seo title={bannerData?.name || ''} />
+      <Seo title={bannerData?.name.toUpperCase() || ''} />
       <Grid>
         <CollectionBanner
           accountNumber={bannerData?.author}
