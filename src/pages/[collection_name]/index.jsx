@@ -58,7 +58,7 @@ const Collection = ({ nft_sale_offer, nft_collection, allNfts }) => {
 
   return (
     <>
-      <Seo title={bannerData?.name || ''} />
+      <Seo title={bannerData?.name.toUpperCase() || ''} />
       <Grid>
         <CollectionBanner
           accountNumber={bannerData?.author}
@@ -74,7 +74,7 @@ const Collection = ({ nft_sale_offer, nft_collection, allNfts }) => {
           </Grid>
           <Divider sx={{ marginBottom: '32px' }} />
           <Grid sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <CollectionList nfts={nftList} />
+            <CollectionList nfts={nftList} hasNftsForSale={!!nft_sale_offer.length} />
           </Grid>
           {cursorLimit > cursor && (
             <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 0' }}>
