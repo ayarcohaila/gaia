@@ -29,7 +29,7 @@ const ProductDetailsTopSection = () => {
         </IconButton>
       </Grid>
     ),
-    []
+    [isSmallDevice]
   );
 
   const renderCollectionInfo = useMemo(
