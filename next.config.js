@@ -19,8 +19,7 @@ const nextConfig = {
       'btco.mypinata.cloud',
       //TODO: Remove it
       'pbs.twimg.com',
-      'gateway.ipfs.io',
-      'ipfs.fleek.co'
+      'https://images.ongaia.com/ipfs'
     ]
   }
 };

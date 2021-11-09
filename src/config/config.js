@@ -5,7 +5,7 @@ import { isDapper } from '../utils/currencyCheck';
 const ipfsApiKey = process.env.NEXT_PUBLIC_PINATA_API_KEY;
 const ipfsPrivateKey = process.env.NEXT_PUBLIC_PINATA_PRIVATE_API_KEY;
 const ipfsPostUrl = process.env.NEXT_PUBLIC_PINATA_POST_URL;
-const ipfsGateway = process.env.NEXT_PUBLIC_PINATA_GATEWAY;
+const ipfsGateway = process.env.NEXT_PUBLIC_IPFS_GATEWAY;
 const marketAddress = process.env.NEXT_PUBLIC_NFTMARKET_CONTRACT;
 const landingOnly = process.env.NEXT_PUBLIC_LANDING_ONLY === 'true';
 const appName = process.env.NEXT_PUBLIC_APP_NAME;
