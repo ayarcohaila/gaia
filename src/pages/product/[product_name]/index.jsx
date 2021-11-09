@@ -43,11 +43,13 @@ const ProductDetail = () => {
             </Box>
 
             <Grid item>
-              <IconButton sx={{ bgcolor: grey[200], mr: 1.5 }}>
-                <ShareIcon fontSize="small" htmlColor={grey[600]} />
+              <IconButton
+                sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
+                <ShareIcon htmlColor={grey[600]} />
               </IconButton>
-              <IconButton sx={{ bgcolor: grey[200] }}>
-                <FavoriteIcon fontSize="small" htmlColor={grey[600]} />
+              <IconButton
+                sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '20px' } }}>
+                <FavoriteIcon htmlColor={grey[600]} />
               </IconButton>
             </Grid>
           </Grid>
