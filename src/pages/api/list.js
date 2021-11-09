@@ -50,7 +50,7 @@ pub fun main(address: Address, setID: UInt64): [NFTData] {
           let nftData = NFTData(
             id: id,
             name: title,
-            imageURL: "https://ipfs.fleek.co/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length))
+            imageURL: "https://images.ongaia.com/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length))
           )
             
           assets.append(nftData)
