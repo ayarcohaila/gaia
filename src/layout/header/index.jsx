@@ -153,6 +153,12 @@ const Header = () => {
                 data-id={USER_MENU_IDS.PROFILE}>
                 Profile
               </Styled.ButtonText>
+              <Styled.ButtonText
+                variant="text"
+                onClick={handleClick}
+                data-id={USER_MENU_IDS.DAPPER_WALLET}>
+                My Wallet
+              </Styled.ButtonText>
               <Styled.ButtonText variant="text" onClick={handleClick}>
                 Sign Out
               </Styled.ButtonText>
