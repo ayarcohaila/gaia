@@ -2,11 +2,13 @@ import { styled, Typography } from '@mui/material';
 
 export const CustomCard = styled('div')(() => ({
   display: 'flex',
+  padding: '0',
   flexDirection: 'column',
   alignItems: 'flex-start',
   justifyContent: 'center',
   fontFamily: 'arial',
   maxWidth: '100%',
+
   img: {
     width: '100%',
     height: '280px',
