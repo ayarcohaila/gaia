@@ -6,9 +6,12 @@ export const CustomCard = styled('div')(() => ({
   alignItems: 'flex-start',
   justifyContent: 'center',
   fontFamily: 'arial',
+  maxWidth: '100%',
   img: {
-    width: '416px',
-    borderRadius: '20px'
+    width: '100%',
+    height: '280px',
+    borderRadius: '20px',
+    boxShadow: '0 25px 14px -23px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)'
   }
 }));
 export const CardTitle = styled(Typography)(() => ({}));

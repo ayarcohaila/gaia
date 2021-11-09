@@ -28,9 +28,9 @@ const Home = () => {
   return (
     <>
       <h1>New To NFTs?</h1>
-      <Grid xs={12} container item>
+      <Grid xs={12} container item paddingLeft="80px" paddingRight="80px" spacing={6}>
         {NewNFTs.map((card, index) => (
-          <Grid key={index} item xs={3}>
+          <Grid key={index} item xs={12} sm={6} md={4}>
             <NewToNFTCard data={card} />
           </Grid>
         ))}
