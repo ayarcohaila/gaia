@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Avatar, Box, Grid, IconButton, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, Divider, Grid, IconButton, Typography, useTheme } from '@mui/material';
 import {
   Favorite as FavoriteIcon,
   IosShare as ShareIcon,
@@ -20,7 +20,7 @@ const ProductDetailsTopSection = () => {
 
   const renderIconButtons = useMemo(
     () => (
-      <Grid item mt={isSmallDevice ? 4 : 0}>
+      <Grid item mt={isSmallDevice ? '32px' : '0'}>
         <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
           <ShareIcon htmlColor={grey[600]} />
         </IconButton>
@@ -28,6 +28,26 @@ const ProductDetailsTopSection = () => {
           <FavoriteIcon htmlColor={grey[600]} />
         </IconButton>
       </Grid>
+    ),
+    []
+  );
+
+  const renderCollectionInfo = useMemo(
+    () => (
+      <>
+        <Avatar alt="product name" src="/collections/user.png" />
+        <Box ml={1.5} mr="auto">
+          <Typography variant="h6" fontWeight="bold">
+            BALLERZ
+          </Typography>
+          <Grid alignItems="center" container>
+            <Typography color={grey[600]} mr={1} variant="subtitle1">
+              @BALLERZ
+            </Typography>
+            <VerifiedIcon htmlColor={primary.main} fontSize="1rem" />
+          </Grid>
+        </Box>
+      </>
     ),
     []
   );
@@ -56,18 +76,7 @@ const ProductDetailsTopSection = () => {
           width={isSmallDevice ? '100%' : '41%'}>
           {!isSmallDevice && (
             <Grid alignItems="center" container justifyContent="space-between">
-              <Avatar alt="product name" src="/collections/user.png" />
-              <Box ml={1.5} mr="auto">
-                <Typography variant="h6" fontWeight="bold">
-                  BALLERZ
-                </Typography>
-                <Grid alignItems="center" container>
-                  <Typography color={grey[600]} mr={1} variant="subtitle1">
-                    @BALLERZ
-                  </Typography>
-                  <VerifiedIcon htmlColor={primary.main} fontSize="1rem" />
-                </Grid>
-              </Box>
+              {renderCollectionInfo}
               {renderIconButtons}
             </Grid>
           )}
@@ -95,10 +104,20 @@ const ProductDetailsTopSection = () => {
                 View All Editions
               </Button>
             </Grid>
-
             {!!isSmallDevice && renderIconButtons}
-
-            <Accordion dividerSx={{ mt: 5 }} sx={{ my: 3 }} title="Blockchain History">
+            {!!isSmallDevice && (
+              <Box mt={5} width="100%">
+                <Divider />
+                <Grid container my="18px">
+                  {renderCollectionInfo}
+                </Grid>
+                <Divider />
+              </Box>
+            )}
+            <Accordion
+              dividerSx={{ mt: isSmallDevice ? 0 : 5 }}
+              sx={{ my: 3 }}
+              title="Blockchain History">
               <BlockchainHistory />
             </Accordion>
             <Accordion sx={{ mt: 3 }} title="Additional Details">
