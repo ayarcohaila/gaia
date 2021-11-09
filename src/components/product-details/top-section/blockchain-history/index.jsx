@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
+import { useBreakpoints } from '~/hooks';
 import {
   convertCamelCaseToSentenceCase,
   formatDate,
@@ -12,6 +13,7 @@ const BlockchainHistory = ({ data }) => {
   const {
     palette: { grey }
   } = useTheme();
+  const { isSmallDevice } = useBreakpoints();
 
   const parsedData = {
     ...data,
@@ -21,7 +23,10 @@ const BlockchainHistory = ({ data }) => {
   };
 
   return (
-    <Box bgcolor={grey[200]} borderRadius="14px" p="20px 100px 20px 24px">
+    <Box
+      bgcolor={grey[200]}
+      borderRadius="14px"
+      p={isSmallDevice ? '24px 22px' : '20px 100px 20px 24px'}>
       {Object.entries(parsedData).map(([key, value], index) => (
         <Grid
           alignItems="center"

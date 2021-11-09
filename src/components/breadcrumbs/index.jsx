@@ -51,8 +51,8 @@ Breadcrumbs.defaultProps = {
       href: '/ballerz'
     },
     {
-      label: 'The Matrix Ressurections',
-      href: '/product/the-matrix-ressurections'
+      label: 'Baller #73',
+      href: '/ballerz/baller-73'
     }
   ]
 };

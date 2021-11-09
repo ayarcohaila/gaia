@@ -5,18 +5,20 @@ import {
   Verified as VerifiedIcon
 } from '@mui/icons-material';
 
-import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs, Seo } from '~/components';
+import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/components';
 import { Button } from '~/base';
-import * as Styled from '~/components/product-detail/top-section/styles';
+import { useBreakpoints } from '~/hooks';
 
-const ProductDetail = () => {
+import * as Styled from './styles';
+
+const ProductDetailsTopSection = () => {
   const {
     palette: { grey, primary }
   } = useTheme();
+  const { isSmallDevice } = useBreakpoints();
 
   return (
-    <Box bgcolor={grey[200]} m="0 auto" maxWidth="1280px">
-      <Seo title="Product Detail" />
+    <>
       <Breadcrumbs />
       <Grid
         bgcolor="#fff"
@@ -25,18 +27,24 @@ const ProductDetail = () => {
         justifyContent="space-between"
         mt="16px"
         p="42px 56px 38px 132px">
-        <Styled.Image alt="product name" width="424px" height="100%" src="/collections/user.png" />
+        <Box
+          borderRadius="16px"
+          height={isSmallDevice ? '335px' : '586px'}
+          position="relative"
+          width="424px">
+          <Styled.Image alt="product name" layout="fill" src="/collections/user.png" />
+        </Box>
         <Box width="41%">
           <Grid alignItems="center" container justifyContent="space-between">
             <Avatar alt="product name" src="/collections/user.png" />
 
             <Box ml={1.5} mr="auto">
               <Typography variant="h6" fontWeight="bold">
-                The Matrix Resurrection
+                BALLERZ
               </Typography>
               <Grid alignItems="center" container>
                 <Typography color={grey[600]} mr={1} variant="subtitle1">
-                  @TheMatrixResurrection
+                  @BALLERZ
                 </Typography>
                 <VerifiedIcon htmlColor={primary.main} fontSize="1rem" />
               </Grid>
@@ -62,7 +70,7 @@ const ProductDetail = () => {
 
           <Box>
             <Typography m="12px 0 20px" variant="h3">
-              Falling Through Time
+              Baller #73
             </Typography>
             <Typography color={grey[600]} variant="h6">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam sodales libero,
@@ -87,8 +95,8 @@ const ProductDetail = () => {
           </Box>
         </Box>
       </Grid>
-    </Box>
+    </>
   );
 };
 
-export default ProductDetail;
+export default ProductDetailsTopSection;
