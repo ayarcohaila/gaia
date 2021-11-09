@@ -11,7 +11,6 @@ const Breadcrumbs = ({ links }) => {
   return (
     <Styled.Breadcrumbs
       aria-label="breadcrumb"
-      component="ul"
       separator={<NavigateNextIcon htmlColor="#6a6c73" fontSize="small" />}>
       {links?.map(link => {
         const { href, label } = link;
