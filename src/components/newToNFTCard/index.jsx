@@ -1,13 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
+import { Typography, useTheme } from '@mui/material';
 
 import * as Styled from './styled';
 
 const NewToNFTCard = ({ data }) => {
+  const {
+    palette: { grey }
+  } = useTheme();
   return (
     <>
       <Styled.CustomCard>
-        <Styled.CardTitle>{data?.title}</Styled.CardTitle>
+        <img src={data.image} alt={data.title} />
+        <Typography variant="h5" marginTop="20px">
+          {data.title}
+        </Typography>
+        <Typography color={grey[600]} variant="subtitle1">
+          {data.description}
+        </Typography>
+        <Link href={data.link}>
+          <Styled.CardLink>
+            <Typography variant="h5">Read More</Typography>
+            <KeyboardArrowRightIcon />
+          </Styled.CardLink>
+        </Link>
       </Styled.CustomCard>
     </>
   );
