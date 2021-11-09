@@ -6,7 +6,8 @@ import {
 } from '@mui/icons-material';
 import Image from 'next/image';
 
-import { Breadcrumbs, Seo } from '~/components';
+import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs, Seo } from '~/components';
+import { Button, Divider } from '~/base';
 
 const ProductDetail = () => {
   return (
@@ -53,6 +54,29 @@ const ProductDetail = () => {
             <Typography color="#6c7283" variant="body1">
               #73 / 500
             </Typography>
+          </Box>
+
+          <Box>
+            <Typography>Falling Through Time</Typography>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam sodales libero,
+              id auctor tortor pharetra at. Curabitur nec neque efficitur ligula auctor dapibus.
+              Etiam cursus lectus eget libero cursus ultrices. Aliquam id ipsum et sapien congue
+              vulputate ut ac elit...
+            </Typography>
+            <Grid mt="52px">
+              <Button>Buy for $180.00</Button>
+              <Button>View All Editions</Button>
+            </Grid>
+
+            <Divider sx={{ mt: 5 }} />
+            <Accordion sx={{ my: 3 }}>
+              <BlockchainHistory />
+            </Accordion>
+            <Divider />
+            <Accordion sx={{ mt: 3 }}>
+              <AdditionalDetails />
+            </Accordion>
           </Box>
         </Box>
       </Grid>

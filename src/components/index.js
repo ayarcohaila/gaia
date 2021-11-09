@@ -23,4 +23,7 @@ export { default as Seo } from './seo';
 export { default as AgreeSetupModal } from './modal/agree-setup';
 export { default as StayTunedModal } from './modal/stay-tuned';
 export { default as BlockLayer } from './block-layer';
+export { default as Accordion } from './accordion';
 export { default as Breadcrumbs } from './breadcrumbs';
+export { default as AdditionalDetails } from './product-detail/top-section/additional-details';
+export { default as BlockchainHistory } from './product-detail/top-section/blockchain-history';
