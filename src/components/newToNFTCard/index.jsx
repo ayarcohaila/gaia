@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as styled from './styled';
+import * as Styled from './styled';
 
 const NewToNFTCard = ({ data }) => {
   return (
-    <styled.CustomCard>
-      <styled.Title>{data?.title}</styled.Title>
-    </styled.CustomCard>
+    <>
+      <Styled.CustomCard>
+        <Styled.CardTitle>{data?.title}</Styled.CardTitle>
+      </Styled.CustomCard>
+    </>
   );
 };
 
