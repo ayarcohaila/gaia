@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Avatar, Box, Grid, IconButton, Typography, useTheme } from '@mui/material';
 import {
   Favorite as FavoriteIcon,
@@ -17,50 +18,59 @@ const ProductDetailsTopSection = () => {
   } = useTheme();
   const { isSmallDevice } = useBreakpoints();
 
+  const renderIconButtons = useMemo(
+    () => (
+      <Grid item mt={isSmallDevice ? 4 : 0}>
+        <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
+          <ShareIcon htmlColor={grey[600]} />
+        </IconButton>
+        <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '20px' } }}>
+          <FavoriteIcon htmlColor={grey[600]} />
+        </IconButton>
+      </Grid>
+    ),
+    []
+  );
+
   return (
     <>
       <Breadcrumbs />
       <Grid
         bgcolor="#fff"
         borderRadius="20px"
-        container
+        container={!isSmallDevice}
         justifyContent="space-between"
-        mt="16px"
-        p="42px 56px 38px 132px">
+        mt={isSmallDevice ? '0' : '16px'}
+        p={isSmallDevice ? 2.5 : '42px 56px 38px 132px'}>
         <Box
           borderRadius="16px"
           height={isSmallDevice ? '335px' : '586px'}
           position="relative"
-          width="424px">
+          width={isSmallDevice ? '100%' : '424px'}>
           <Styled.Image alt="product name" layout="fill" src="/collections/user.png" />
         </Box>
-        <Box width="41%">
-          <Grid alignItems="center" container justifyContent="space-between">
-            <Avatar alt="product name" src="/collections/user.png" />
-
-            <Box ml={1.5} mr="auto">
-              <Typography variant="h6" fontWeight="bold">
-                BALLERZ
-              </Typography>
-              <Grid alignItems="center" container>
-                <Typography color={grey[600]} mr={1} variant="subtitle1">
-                  @BALLERZ
+        <Grid
+          alignItems={isSmallDevice ? 'center' : 'stretch'}
+          container
+          flexDirection="column"
+          width={isSmallDevice ? '100%' : '41%'}>
+          {!isSmallDevice && (
+            <Grid alignItems="center" container justifyContent="space-between">
+              <Avatar alt="product name" src="/collections/user.png" />
+              <Box ml={1.5} mr="auto">
+                <Typography variant="h6" fontWeight="bold">
+                  BALLERZ
                 </Typography>
-                <VerifiedIcon htmlColor={primary.main} fontSize="1rem" />
-              </Grid>
-            </Box>
-
-            <Grid item>
-              <IconButton
-                sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
-                <ShareIcon htmlColor={grey[600]} />
-              </IconButton>
-              <IconButton
-                sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '20px' } }}>
-                <FavoriteIcon htmlColor={grey[600]} />
-              </IconButton>
+                <Grid alignItems="center" container>
+                  <Typography color={grey[600]} mr={1} variant="subtitle1">
+                    @BALLERZ
+                  </Typography>
+                  <VerifiedIcon htmlColor={primary.main} fontSize="1rem" />
+                </Grid>
+              </Box>
+              {renderIconButtons}
             </Grid>
-          </Grid>
+          )}
 
           <Box bgcolor={grey[200]} borderRadius="10px" mt="52px" p="2px 6px" width="fit-content">
             <Typography color={grey[600]} variant="body1">
@@ -68,7 +78,7 @@ const ProductDetailsTopSection = () => {
             </Typography>
           </Box>
 
-          <Box>
+          <Grid alignItems={isSmallDevice ? 'center' : 'stretch'} container flexDirection="column">
             <Typography m="12px 0 20px" variant="h3">
               Baller #73
             </Typography>
@@ -79,12 +89,14 @@ const ProductDetailsTopSection = () => {
               vulputate ut ac elit...
             </Typography>
 
-            <Grid mt="52px">
+            <Grid container={!isSmallDevice} mt="52px">
               <Button>Buy for $180.00</Button>
               <Button sx={{ ml: 0.5 }} variant="outlined">
                 View All Editions
               </Button>
             </Grid>
+
+            {!!isSmallDevice && renderIconButtons}
 
             <Accordion dividerSx={{ mt: 5 }} sx={{ my: 3 }} title="Blockchain History">
               <BlockchainHistory />
@@ -92,8 +104,8 @@ const ProductDetailsTopSection = () => {
             <Accordion sx={{ mt: 3 }} title="Additional Details">
               <AdditionalDetails />
             </Accordion>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </Grid>
     </>
   );
