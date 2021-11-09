@@ -14,8 +14,17 @@ export const CustomCard = styled('div')(() => ({
     boxShadow: '0 25px 14px -23px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)'
   }
 }));
-export const CardTitle = styled(Typography)(() => ({}));
-export const CardDescription = styled(Typography)(() => ({}));
+
+export const CardDescription = styled(Typography)(() => ({
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  maxWidth: '360px',
+  maxHeight: '40px',
+  display: '-webkit-box',
+  '-webkit-line-clamp': '2',
+  '-webkit-box-orient': 'vertical'
+}));
+
 export const CardLink = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',

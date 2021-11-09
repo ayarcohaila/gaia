@@ -11,6 +11,7 @@ const NewToNFTCard = ({ data }) => {
   const {
     palette: { grey }
   } = useTheme();
+
   return (
     <>
       <Styled.CustomCard>
@@ -18,9 +19,9 @@ const NewToNFTCard = ({ data }) => {
         <Typography variant="h5" marginTop="20px">
           {data.title}
         </Typography>
-        <Typography color={grey[600]} variant="subtitle1">
+        <Styled.CardDescription color={grey[600]} variant="subtitle1">
           {data.description}
-        </Typography>
+        </Styled.CardDescription>
         <Link href={data.link}>
           <Styled.CardLink>
             <Typography variant="h5">Read More</Typography>
