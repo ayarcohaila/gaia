@@ -10,7 +10,6 @@ const listTx = `import NonFungibleToken from 0xNFTInterface
 import Gaia from 0xGaiaContract
 
 // Print the NFTs owned by account.
-// pub fun main(address: Address): [UInt64] {
 
 pub struct NFTData {
   pub let id: String?
