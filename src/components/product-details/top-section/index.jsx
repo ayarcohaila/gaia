@@ -33,10 +33,6 @@ const ProductDetailsTopSection = ({ nft }) => {
   const breadcrumbsLinks = useMemo(
     () => [
       {
-        label: 'Home',
-        href: '/'
-      },
-      {
         label: nft.collection.name,
         href: `/${nft?.collection?.name?.toLowerCase()}`
       },
