@@ -6,20 +6,21 @@ import 'slick-carousel/slick/slick-theme.css';
 const settings = {
   dots: true,
   infinite: true,
-  speed: 500,
+  speed: 1500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  autoplay: false,
+  autoplay: true,
+  autoplaySpeed: 5000,
   centerMode: true,
-  centerPadding: '90px',
+  centerPadding: '100px',
   arrows: true,
   responsive: [
     {
       breakpoint: 1135,
       settings: {
-        centerPadding: 0,
+        centerPadding: '30px',
         arrows: false,
-        centerMode: false
+        centerMode: true
       }
     }
   ]

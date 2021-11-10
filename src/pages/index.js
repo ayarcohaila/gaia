@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       <HomepageCarousel />
-      <Box paddingLeft="80px" paddingRight="80px">
+      <Box paddingLeft="80px" paddingRight="80px" mt="50px">
         <NewToNFTSection />
       </Box>
     </>

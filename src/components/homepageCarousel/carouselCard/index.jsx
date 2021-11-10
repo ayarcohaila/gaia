@@ -2,15 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Typography } from '@mui/material';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
+import { useBreakpoints } from '~/hooks';
 import * as Styled from './styled';
 
 const CarouselCard = ({ data }) => {
+  const { isMediumDevice } = useBreakpoints();
+
   function handleBuyNow() {}
 
   return (
     <Styled.Container>
-      <Styled.TypographyWithOpacity variant="h4">{data.title}</Styled.TypographyWithOpacity>
+      {isMediumDevice && <Styled.Logo src={data.logo} alt="logo" />}
+      <Styled.TypographyWithOpacity variant="h4" mt={isMediumDevice ? '132px' : '0'}>
+        {data.title}
+      </Styled.TypographyWithOpacity>
       <Typography
         variant="h1"
         fontSize="42px"
@@ -20,15 +27,17 @@ const CarouselCard = ({ data }) => {
         mt="8px">
         {data.description}
       </Typography>
-      <Styled.CardButton onClick={handleBuyNow}>
-        <Typography variant="subtitle1" fontWeight="bold">
-          Buy Now
-        </Typography>
-      </Styled.CardButton>
+      {!isMediumDevice && (
+        <Styled.CardButton onClick={handleBuyNow}>
+          <Typography variant="subtitle1" fontWeight="bold">
+            Buy Now
+          </Typography>
+        </Styled.CardButton>
+      )}
       <Styled.Divider />
       <Styled.CardFooter>
-        <img src={data.logo} alt="logo" />
-        <Typography variant="subtitle1" fontWeight="bold" mr="6px">
+        {!isMediumDevice ?? <Styled.Logo src={data.logo} alt="logo" />}
+        <Typography variant="subtitle1" fontWeight="bold" mr={isMediumDevice ? '12px' : '6px'}>
           {data.cardsAmount} cards
         </Typography>
         <span>&sdot;</span>
@@ -38,6 +47,12 @@ const CarouselCard = ({ data }) => {
         <Styled.TypographyWithOpacity variant="subtitle1" fontWeight="bold">
           &nbsp;and up
         </Styled.TypographyWithOpacity>
+
+        {isMediumDevice && (
+          <Styled.CardButton onClick={handleBuyNow}>
+            <KeyboardArrowRightIcon />
+          </Styled.CardButton>
+        )}
       </Styled.CardFooter>
     </Styled.Container>
   );
