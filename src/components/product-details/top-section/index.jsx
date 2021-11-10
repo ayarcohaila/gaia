@@ -61,11 +61,13 @@ const ProductDetailsTopSection = ({ nft }) => {
   const renderCollectionInfo = useMemo(
     () => (
       <>
-        <Avatar alt="product name" src="/collections/user.png" />
+        <Avatar
+          alt="product name"
+          src="/collections/user.png"
+          sx={{ height: isSmallDevice ? '56px' : '48px', width: isSmallDevice ? '56px' : '48px' }}
+        />
         <Box ml={1.5} mr="auto">
-          <Typography variant="h6" fontWeight="bold">
-            {nft?.collection?.name}
-          </Typography>
+          <Typography variant="h5">{nft?.collection?.name}</Typography>
           <Grid alignItems="center" container>
             <Typography color={grey[600]} mr={1} variant="subtitle1">
               @{nft?.collection?.name}
@@ -87,7 +89,13 @@ const ProductDetailsTopSection = ({ nft }) => {
           title="Blockchain History">
           <BlockchainHistory data={blockchainHistoryData} />
         </Accordion>
-        <Accordion sx={{ mt: 3 }} title="Additional Details">
+        <Accordion
+          dividerSx={{
+            margin: isSmallDevice ? '0 auto' : '0',
+            width: isSmallDevice ? '90%' : 'auto'
+          }}
+          sx={{ mt: 3 }}
+          title="Additional Details">
           <AdditionalDetails data={metadata} />
         </Accordion>
       </>
@@ -135,7 +143,7 @@ const ProductDetailsTopSection = ({ nft }) => {
             {!!isSmallDevice && (
               <Box mt={5} width="100%">
                 <Divider sx={{ border: '0', borderTop: `2px solid ${grey[200]}` }} />
-                <Grid container my="18px" px={2.5}>
+                <Grid alignItems="center" container my="18px" px={2.5}>
                   {renderCollectionInfo}
                 </Grid>
               </Box>

@@ -37,7 +37,7 @@ const BlockchainHistory = ({ data }) => {
           justifyContent="space-between"
           mt={index ? 3.5 : 0}>
           <Typography color={grey[500]} variant="subtitle1" fontWeight="normal">
-            {convertCamelCaseToSentenceCase(key)}
+            {convertCamelCaseToSentenceCase(key)}:
           </Typography>
           <Box width="150px">
             <Typography color={grey[600]} variant="subtitle1" textAlign="left">
