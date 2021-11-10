@@ -3,12 +3,14 @@ import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { ProductDetailsTopSection, Seo } from '~/components';
 
 import { gqlClient } from '~/config/apollo-client';
+import { useBreakpoints } from '~/hooks';
 import { GET_BALLERZ_NFT_BY_ID } from '~/store/server/queries';
 
 const ProductDetails = ({ nft }) => {
   const {
     palette: { grey }
   } = useTheme();
+  const { isSmallDevice } = useBreakpoints();
 
   const title = nft?.template?.metadata?.title;
   const description = nft?.template?.metadata?.description;
@@ -22,9 +24,11 @@ const ProductDetails = ({ nft }) => {
   }
 
   return (
-    <Box bgcolor={grey[200]} m="0 auto" maxWidth="1280px">
+    <Box bgcolor={grey[200]}>
       <Seo title={title} description={description} />
-      <ProductDetailsTopSection nft={nft} />
+      <Grid m="0 auto" maxWidth="1280px" width={isSmallDevice ? '100%' : '90%'}>
+        <ProductDetailsTopSection nft={nft} />
+      </Grid>
     </Box>
   );
 };
