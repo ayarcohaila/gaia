@@ -88,7 +88,7 @@ const ProfileCard = ({ data }) => {
   }, [toggleSellNftModal, toggleTransferNftModal, toggleCancelListingModal, isForSale]);
 
   const renderContent = () => (
-    <Styled.CustomCard>
+    <Styled.CustomCard sx={{ cursor: SHOULD_HIDE_DATA ? 'auto' : 'pointer' }}>
       <Styled.CustomCardHeader
         avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
         title="BALLERZ"
