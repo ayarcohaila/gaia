@@ -25,17 +25,19 @@ export const ImageContainer = styled(Box)(({ theme: { breakpoints } }) => ({
   width: '424px',
 
   [breakpoints.down(1066)]: {
-    width: '50%'
+    width: '52%'
   },
 
   [breakpoints.down('md')]: {
-    height: '275px',
-    width: '275px',
-    margin: '0 auto 16px'
+    height: '320px',
+    margin: '0 auto 16px',
+    width: '320px'
   },
 
   [breakpoints.down('sm')]: {
-    margin: '0 auto'
+    height: '275px',
+    margin: '0 auto',
+    width: '275px'
   }
 }));
 
