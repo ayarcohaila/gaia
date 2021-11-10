@@ -119,7 +119,7 @@ const ProfileCard = ({ data }) => {
       {SHOULD_HIDE_DATA ? (
         renderContent()
       ) : (
-        <Link href={`/ballerz/${data?.name?.replace(/\D/g, '')}`} passHref>
+        <Link href={`/ballerz/${data?.id}`} passHref>
           {renderContent()}
         </Link>
       )}

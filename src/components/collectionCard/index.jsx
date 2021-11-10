@@ -43,9 +43,8 @@ const CollectionCard = ({ data }) => {
     ? '/images/mystery-nft.gif'
     : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
-  const handlePurchaseClick = async event => {
+  const handlePurchaseClick = async () => {
     try {
-      event?.stopPropagation();
       if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
         toggleMaximumModal();
         return;
@@ -110,7 +109,10 @@ const CollectionCard = ({ data }) => {
           <Styled.PurchaseButton
             onClick={
               user
-                ? () => handlePurchaseClick(data)
+                ? event => {
+                    event?.stopPropagation();
+                    handlePurchaseClick(data);
+                  }
                 : event => {
                     event?.stopPropagation();
                     login();
@@ -145,7 +147,7 @@ const CollectionCard = ({ data }) => {
         renderContent()
       ) : (
         <Link
-          href={`/ballerz/${data?.nft?.template?.metadata?.title?.replace(/\D/g, '')}`}
+          href={`/${route.query.collection_name}/${data?.nft?.template?.metadata?.id}`}
           passHref>
           {renderContent()}
         </Link>

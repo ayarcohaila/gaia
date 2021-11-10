@@ -15,7 +15,6 @@ const ProductDetailsTopSection = ({ nft }) => {
   const { isSmallDevice } = useBreakpoints();
 
   const { metadata } = nft.template;
-
   //TODO: Uncomment on future implementation
   // const activeSaleOffer = nft.sale_offers.find(offer => offer?.status === 'active');
 
@@ -41,7 +40,7 @@ const ProductDetailsTopSection = ({ nft }) => {
         href: `/${nft?.collection?.name?.toLowerCase()}/${metadata?.id}`
       }
     ],
-    [nft]
+    [nft?.collection]
   );
 
   //TODO: Uncomment on future implementation of share/favorite NFTs
@@ -76,7 +75,7 @@ const ProductDetailsTopSection = ({ nft }) => {
         </Box>
       </>
     ),
-    []
+    [nft?.collection, primary]
   );
 
   const renderAccordions = useMemo(
