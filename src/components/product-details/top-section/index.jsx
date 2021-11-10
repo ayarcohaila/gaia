@@ -77,7 +77,7 @@ const ProductDetailsTopSection = ({ nft }) => {
         </Box>
       </>
     ),
-    [nft?.collection, primary]
+    [nft?.collection, isSmallDevice, primary]
   );
 
   const renderAccordions = useMemo(
