@@ -1,27 +1,29 @@
 import { styled, Button, Typography } from '@mui/material';
 
-export const Container = styled('div')(({ theme: { breakpoints } }) => ({
-  display: 'flex',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  paddingLeft: '72px',
-  paddingTop: '156px',
-  paddingBottom: '56px',
-  width: '90%',
-  maxHeight: '618px',
-  background: '#001',
-  borderRadius: '40px',
-  color: '#fff',
-  marginLeft: '2%',
+export const Container = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
+  ({ theme: { breakpoints }, imgUrl }) => ({
+    backgroundImage: `url(${imgUrl})`,
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    paddingLeft: '72px',
+    paddingTop: '156px',
+    paddingBottom: '56px',
+    width: '90%',
+    maxHeight: '618px',
+    borderRadius: '40px',
+    color: '#fff',
+    marginLeft: '2%',
 
-  [breakpoints.down('md')]: {
-    padding: '28px',
-    paddingBottom: '24px',
-    width: '84%',
-    marginLeft: '1%'
-  }
-}));
+    [breakpoints.down('md')]: {
+      padding: '28px',
+      paddingBottom: '24px',
+      width: '84%',
+      marginLeft: '1%'
+    }
+  })
+);
 
 export const TypographyWithOpacity = styled(Typography)(() => ({
   opacity: '0.64'

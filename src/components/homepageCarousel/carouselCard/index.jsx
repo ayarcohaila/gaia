@@ -13,7 +13,7 @@ const CarouselCard = ({ data }) => {
   function handleBuyNow() {}
 
   return (
-    <Styled.Container>
+    <Styled.Container imgUrl={data.background}>
       {isMediumDevice && <Styled.Logo src={data.logo} alt="logo" />}
       <Styled.TypographyWithOpacity variant="h4" mt={isMediumDevice ? '132px' : '0'}>
         {data.title}
@@ -36,7 +36,7 @@ const CarouselCard = ({ data }) => {
       )}
       <Styled.Divider />
       <Styled.CardFooter>
-        {!isMediumDevice ?? <Styled.Logo src={data.logo} alt="logo" />}
+        {!isMediumDevice && <Styled.Logo src={data.logo} alt="logo" />}
         <Typography variant="subtitle1" fontWeight="bold" mr={isMediumDevice ? '12px' : '6px'}>
           {data.cardsAmount} cards
         </Typography>
@@ -60,6 +60,7 @@ const CarouselCard = ({ data }) => {
 
 CarouselCard.propTypes = {
   data: PropTypes.shape({
+    background: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
     cardsAmount: PropTypes.number,
