@@ -15,7 +15,7 @@ const Breadcrumbs = ({ links, ...props }) => {
       {...props}>
       {links?.map(link => {
         const { href, label } = link;
-        if (asPath === href) {
+        if (asPath === href || !href) {
           return (
             <Styled.Text key={href} color="text.primary">
               {label}

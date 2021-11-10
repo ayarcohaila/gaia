@@ -32,6 +32,13 @@ const ProductDetailsTopSection = ({ nft }) => {
   const breadcrumbsLinks = useMemo(
     () => [
       {
+        label: 'Home',
+        href: '/'
+      },
+      {
+        label: 'Collections'
+      },
+      {
         label: nft.collection.name,
         href: `/${nft?.collection?.name?.toLowerCase()}`
       },
@@ -105,7 +112,7 @@ const ProductDetailsTopSection = ({ nft }) => {
 
   return (
     <>
-      <Breadcrumbs links={breadcrumbsLinks} sx={{ ml: isMediumDevice ? 2 : 0 }} />
+      <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: isMediumDevice ? 1 : 0 }} />
       <Styled.Container container={!isMediumDevice} justifyContent="space-between">
         <Styled.ImageContainer>
           <Styled.Image

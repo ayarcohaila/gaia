@@ -23,6 +23,7 @@ export const Button = styled(MuiButton)(
     color: grey[600],
     fontFamily: 'Work Sans, Roboto',
     fontWeight: 'bold',
+    minWidth: 'auto',
     padding: 0,
     textTransform: 'none',
 

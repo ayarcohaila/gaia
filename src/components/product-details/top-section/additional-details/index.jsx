@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useBreakpoints } from '~/hooks';
 import { filterFieldsFromObject } from '~/utils/object';
 import { convertCamelCaseToSentenceCase } from '~/utils/string';
+import { ATTRIBUTES_ORDER } from '~/utils/constants';
 
 const AdditionalDetails = ({ data }) => {
   const {
@@ -15,12 +16,16 @@ const AdditionalDetails = ({ data }) => {
 
   const filteredData = filterFieldsFromObject(excludeAdditionalFields, data);
 
+  const parsedData = Object.entries(filteredData).sort(
+    ([a], [b]) => ATTRIBUTES_ORDER.indexOf(a) - ATTRIBUTES_ORDER.indexOf(b)
+  );
+
   return (
     <Box
       bgcolor={grey[200]}
       borderRadius="14px"
       p={isSmallDevice ? '24px 22px' : '20px 40px 20px 24px'}>
-      {Object.entries(filteredData).map(
+      {parsedData.map(
         ([key, value], index) =>
           value !== '' && (
             <Box key={key} mt={index ? 3.5 : 0}>
