@@ -124,7 +124,7 @@ const CollectionCard = ({ data }) => {
           <Grid container justifyContent="center">
             <Styled.PurchaseButton
               onClick={user ? () => handlePurchaseClick(data) : login}
-              disabled={loadingPurchase}>
+              disabled={loadingPurchase || (user && !user.hasSetup)}>
               {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
             </Styled.PurchaseButton>
           </Grid>
