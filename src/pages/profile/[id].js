@@ -1,18 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { useMemo, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Grid, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { gqlClient } from '~/config/apollo-client';
 
-import { ProfileBanner, ProfileList, CollectionsFilter, Seo } from '~/components';
+import { ProfileBanner, ProfileList, CollectionsFilter, Seo, Modal } from '~/components';
 
 import { CardSkeletonLoader, Divider } from '~/base';
 import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
 import basicAuthCheck from '~/utils/basicAuthCheck';
-import { useBreakpoints } from '~/hooks';
-import { useToggle } from '~/hooks';
-import { listNfts } from '~/flow/listNfts';
-import { Modal } from '~/components';
+import { useBreakpoints, useToggle } from '~/hooks';
+import axios from 'axios';
 
 import * as Styled from '~/styles/profile/styles';
 
@@ -37,8 +35,8 @@ const Profile = ({ userNFTs }) => {
     const loadNfts = async () => {
       try {
         setLoading(true);
-        const data = await listNfts(address, SET_ID);
-        setNftList(data);
+        const result = await axios.get(`/api/list?address=${address}`);
+        setNftList(result.data);
       } catch {
         setNftList([]);
         toggleOpenModal();
