@@ -98,7 +98,7 @@ const ProductDetailsTopSection = ({ nft }) => {
 
   return (
     <>
-      <Breadcrumbs links={breadcrumbsLinks} />
+      <Breadcrumbs links={breadcrumbsLinks} sx={{ ml: isSmallDevice ? 2 : 0 }} />
       <Styled.Container container={!isSmallDevice} justifyContent="space-between">
         <Styled.ImageContainer>
           <Styled.Image

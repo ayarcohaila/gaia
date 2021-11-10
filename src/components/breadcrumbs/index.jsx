@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 
 import * as Styled from './styles';
 
-const Breadcrumbs = ({ links }) => {
+const Breadcrumbs = ({ links, ...props }) => {
   const { asPath } = useRouter();
 
   return (
     <Styled.Breadcrumbs
       aria-label="breadcrumb"
-      separator={<NavigateNextIcon htmlColor="#6a6c73" fontSize="small" />}>
+      separator={<NavigateNextIcon htmlColor="#6a6c73" fontSize="small" />}
+      {...props}>
       {links?.map(link => {
         const { href, label } = link;
         if (asPath === href) {
