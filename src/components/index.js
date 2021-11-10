@@ -25,3 +25,6 @@ export { default as StayTunedModal } from './modal/stay-tuned';
 export { default as BlockLayer } from './block-layer';
 export { default as NewToNFTCard } from './newToNFTCard';
 export { default as NewToNFTSection } from './newToNFTSection';
+export { default as HomepageCarousel } from './homepageCarousel';
+export { default as CarouselCard } from './homepageCarousel/carouselCard';
+export { default as Carousel } from './homepageCarousel/carousel';

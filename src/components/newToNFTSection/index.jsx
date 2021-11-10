@@ -24,7 +24,7 @@ const NewNFTs = [
   }
 ];
 
-export function NewToNFTSection() {
+export default function NewToNFTSection() {
   return (
     <>
       <Typography variant="h4">New To NFTs?</Typography>

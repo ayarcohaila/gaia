@@ -23,8 +23,8 @@ export const CardDescription = styled(Typography)(() => ({
   maxWidth: '360px',
   maxHeight: '40px',
   display: '-webkit-box',
-  '-webkit-line-clamp': '2',
-  '-webkit-box-orient': 'vertical'
+  WebkitLineClamp: '2',
+  WebkitBoxOrient: 'vertical'
 }));
 
 export const CardLink = styled('div')(() => ({
