@@ -33,11 +33,9 @@ export default function NewToNFTSection() {
       <Typography variant="h4">New To NFTs?</Typography>
       <Grid xs={12} container item columnSpacing={6} mt="20px">
         {NewNFTs.map((card, index) => (
-          <>
-            <Grid key={index} item xs={12} sm={6} md={4} mt={isMediumDevice ? '30px' : '0px'}>
-              <NewToNFTCard data={card} />
-            </Grid>
-          </>
+          <Grid key={index} item xs={12} sm={6} md={4} mt={isMediumDevice ? '30px' : '0px'}>
+            <NewToNFTCard data={card} />
+          </Grid>
         ))}
       </Grid>
     </>
