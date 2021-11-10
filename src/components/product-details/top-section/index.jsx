@@ -12,10 +12,36 @@ import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
 
-const ProductDetailsTopSection = () => {
+const ProductDetailsTopSection = props => {
   const {
     palette: { grey, primary }
   } = useTheme();
+  const { nft } = props;
+  const { metadata } = nft.template;
+
+  const blockchainHistoryData = {
+    creator: nft.collection.author,
+    owner: nft.owner,
+    mintDate: new Date(nft.created_at).getTime(),
+    lastActivity: new Date(nft.updated_at).getTime(),
+    contract: process.env.NEXT_PUBLIC_NFT_CONTRACT
+  };
+  const breadCrumbsLinks = [
+    {
+      label: 'Home',
+      href: '/'
+    },
+    {
+      label: nft.collection.name,
+      href: `/${nft.collection.name.toLowerCase()}`
+    },
+    {
+      label: metadata.title,
+      href: `/${nft.collection.name.toLowerCase()}/${metadata.id}`
+    }
+  ];
+  const activeSaleOffer = nft.sale_offers.find(offer => offer.status === 'active');
+
   const { isSmallDevice } = useBreakpoints();
 
   const renderIconButtons = useMemo(
@@ -38,11 +64,11 @@ const ProductDetailsTopSection = () => {
         <Avatar alt="product name" src="/collections/user.png" />
         <Box ml={1.5} mr="auto">
           <Typography variant="h6" fontWeight="bold">
-            BALLERZ
+            {nft.collection.name}
           </Typography>
           <Grid alignItems="center" container>
             <Typography color={grey[600]} mr={1} variant="subtitle1">
-              @BALLERZ
+              @{nft.collection.name}
             </Typography>
             <VerifiedIcon htmlColor={primary.main} fontSize="1rem" />
           </Grid>
@@ -54,7 +80,7 @@ const ProductDetailsTopSection = () => {
 
   return (
     <>
-      <Breadcrumbs />
+      <Breadcrumbs links={breadCrumbsLinks} />
       <Grid
         bgcolor="#fff"
         borderRadius="20px"
@@ -67,7 +93,13 @@ const ProductDetailsTopSection = () => {
           height={isSmallDevice ? '335px' : '586px'}
           position="relative"
           width={isSmallDevice ? '100%' : '424px'}>
-          <Styled.Image alt="product name" layout="fill" src="/collections/user.png" />
+          <Styled.Image
+            alt="product name"
+            layout="fill"
+            src={`https://images.ongaia.com/ipfs/`.concat(
+              metadata.img.slice(7, metadata.img.length)
+            )}
+          />
         </Box>
         <Grid
           alignItems={isSmallDevice ? 'center' : 'stretch'}
@@ -83,27 +115,25 @@ const ProductDetailsTopSection = () => {
 
           <Box bgcolor={grey[200]} borderRadius="10px" mt="52px" p="2px 6px" width="fit-content">
             <Typography color={grey[600]} variant="body1">
-              #73 / 500
+              #{metadata.id} / 10000
             </Typography>
           </Box>
 
           <Grid alignItems={isSmallDevice ? 'center' : 'stretch'} container flexDirection="column">
             <Typography m="12px 0 20px" variant="h3">
-              Baller #73
+              {metadata.title}
             </Typography>
             <Typography color={grey[600]} variant="h6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam sodales libero,
-              id auctor tortor pharetra at. Curabitur nec neque efficitur ligula auctor dapibus.
-              Etiam cursus lectus eget libero cursus ultrices. Aliquam id ipsum et sapien congue
-              vulputate ut ac elit...
+              {metadata.description}
             </Typography>
-
-            <Grid container={!isSmallDevice} mt="52px">
-              <Button>Buy for $180.00</Button>
-              <Button sx={{ ml: 0.5 }} variant="outlined">
-                View All Editions
-              </Button>
-            </Grid>
+            {activeSaleOffer && (
+              <Grid container={!isSmallDevice} mt="52px">
+                <Button>Buy for ${parseFloat(activeSaleOffer.price).toFixed(2)}</Button>
+                <Button sx={{ ml: 0.5 }} variant="outlined">
+                  View All Editions
+                </Button>
+              </Grid>
+            )}
             {!!isSmallDevice && renderIconButtons}
             {!!isSmallDevice && (
               <Box mt={5} width="100%">
@@ -118,10 +148,10 @@ const ProductDetailsTopSection = () => {
               dividerSx={{ mt: isSmallDevice ? 0 : 5 }}
               sx={{ my: 3 }}
               title="Blockchain History">
-              <BlockchainHistory />
+              <BlockchainHistory data={blockchainHistoryData} />
             </Accordion>
             <Accordion sx={{ mt: 3 }} title="Additional Details">
-              <AdditionalDetails />
+              <AdditionalDetails data={metadata} />
             </Accordion>
           </Grid>
         </Grid>
