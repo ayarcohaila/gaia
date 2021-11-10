@@ -8,7 +8,6 @@ import {
   PurchaseNFTModal,
   PurchaseErrorModal,
   InsufficientFundsModal,
-  BlockLayer,
   MaximumPurchaseLimit,
   OrderProcessing
 } from '~/components';
@@ -136,7 +135,6 @@ const CollectionCard = ({ data }) => {
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
       />
-      <BlockLayer active={loadingPurchase} />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />
       <MaximumPurchaseLimit open={isMaximumModalOpen} onClose={toggleMaximumModal} />
