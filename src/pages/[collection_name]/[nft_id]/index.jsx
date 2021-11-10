@@ -5,15 +5,18 @@ import { ProductDetailsTopSection, Seo } from '~/components';
 import { gqlClient } from '~/config/apollo-client';
 import { GET_BALLERZ_NFT_BY_ID } from '~/store/server/queries';
 
-const ProductDetails = props => {
+const ProductDetails = ({ nft }) => {
   const {
     palette: { grey }
   } = useTheme();
 
+  const title = nft?.template?.metadata?.title;
+  const description = nft?.template?.metadata?.description;
+
   return (
     <Box bgcolor={grey[200]} m="0 auto" maxWidth="1280px">
-      <Seo title="Product Details" />
-      <ProductDetailsTopSection nft={props.nft} />
+      <Seo title={title} description={description} />
+      <ProductDetailsTopSection nft={nft} />
     </Box>
   );
 };

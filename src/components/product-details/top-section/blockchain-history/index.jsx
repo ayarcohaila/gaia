@@ -17,10 +17,11 @@ const BlockchainHistory = ({ data }) => {
   const { isSmallDevice } = useBreakpoints();
 
   const parsedData = {
-    ...data,
-    mintDate: formatDate(data.mintDate),
-    lastActivity: formatDate(data.lastActivity),
-    contract: parseStringWithEllipsis(data.contract, 5, 3)
+    creator: parseStringWithEllipsis(data?.creator, 5, 3),
+    owner: parseStringWithEllipsis(data?.owner, 5, 3),
+    mintDate: formatDate(data?.mintDate),
+    lastActivity: formatDate(data?.lastActivity),
+    contract: parseStringWithEllipsis(data?.contract, 5, 3)
   };
 
   return (
@@ -56,17 +57,7 @@ BlockchainHistory.propTypes = {
     mintDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     lastActivity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     contract: PropTypes.string
-  })
-};
-
-BlockchainHistory.defaultProps = {
-  data: {
-    creator: 'WarnerBrosStudios',
-    owner: 'WarnerBrosStudios',
-    mintDate: 1635792844000,
-    lastActivity: 1637780044000,
-    contract: '0x495aiosda928kadase93'
-  }
+  }).isRequired
 };
 
 export default memo(BlockchainHistory);

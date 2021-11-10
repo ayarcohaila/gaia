@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { CardActions, CardContent, CardMedia, Avatar, Skeleton } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import {
   SellNftModal,
@@ -47,7 +48,10 @@ const ProfileCard = ({ data }) => {
             <Styled.CancelButton
               disabled={loading}
               variant="text"
-              onClick={() => toggleCancelListingModal()}>
+              onClick={event => {
+                event?.stopPropagation();
+                toggleCancelListingModal();
+              }}>
               Cancel
             </Styled.CancelButton>
           </Styled.CancelButtonContainer>
@@ -55,10 +59,20 @@ const ProfileCard = ({ data }) => {
           <>
             {showSellButton ? (
               <>
-                <Styled.SellButton disabled={loading} onClick={() => toggleSellNftModal()}>
+                <Styled.SellButton
+                  disabled={loading}
+                  onClick={event => {
+                    event?.stopPropagation();
+                    toggleSellNftModal();
+                  }}>
                   Sell
                 </Styled.SellButton>
-                <Styled.TransferButton disabled={loading} onClick={() => toggleTransferNftModal()}>
+                <Styled.TransferButton
+                  disabled={loading}
+                  onClick={event => {
+                    event?.stopPropagation();
+                    toggleTransferNftModal();
+                  }}>
                   Transfer
                 </Styled.TransferButton>
               </>
@@ -73,32 +87,42 @@ const ProfileCard = ({ data }) => {
     );
   }, [toggleSellNftModal, toggleTransferNftModal, toggleCancelListingModal, isForSale]);
 
+  const renderContent = () => (
+    <Styled.CustomCard>
+      <Styled.CustomCardHeader
+        avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
+        title="BALLERZ"
+      />
+      <Skeleton
+        variant="rect"
+        width="275px"
+        height={275}
+        sx={{ borderRadius: '20px', display: imgLoaded && 'none' }}
+      />
+      <CardMedia
+        sx={{ borderRadius: '20px', maxWidth: '275px', display: !imgLoaded && 'none' }}
+        component="img"
+        alt="Nft asset"
+        height="275"
+        onLoad={() => setImgLoaded(true)}
+        src={img}
+      />
+      <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
+        <Styled.NFTText>{SHOULD_HIDE_DATA ? 'BALLER #????' : data?.name}</Styled.NFTText>
+      </CardContent>
+      {isMyProfile && renderUserCardActions}
+    </Styled.CustomCard>
+  );
+
   return (
     <>
-      <Styled.CustomCard>
-        <Styled.CustomCardHeader
-          avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
-          title="BALLERZ"
-        />
-        <Skeleton
-          variant="rect"
-          width="275px"
-          height={275}
-          sx={{ borderRadius: '20px', display: imgLoaded && 'none' }}
-        />
-        <CardMedia
-          sx={{ borderRadius: '20px', maxWidth: '275px', display: !imgLoaded && 'none' }}
-          component="img"
-          alt="Nft asset"
-          height="275"
-          onLoad={() => setImgLoaded(true)}
-          src={img}
-        />
-        <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>{SHOULD_HIDE_DATA ? 'BALLER #????' : data?.name}</Styled.NFTText>
-        </CardContent>
-        {isMyProfile && renderUserCardActions}
-      </Styled.CustomCard>
+      {SHOULD_HIDE_DATA ? (
+        renderContent()
+      ) : (
+        <Link href={`/ballerz/${data?.name?.replace(/\D/g, '')}`} passHref>
+          {renderContent()}
+        </Link>
+      )}
       <SellNftModal
         asset={asset}
         hasPostedForSale={data?.is_for_sale || false}

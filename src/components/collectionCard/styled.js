@@ -1,6 +1,7 @@
 import { styled, Card, Typography, Button, CardHeader } from '@mui/material';
 
 export const CustomCard = styled(Card)(() => ({
+  cursor: 'pointer',
   padding: '16px 16px 22px',
   borderRadius: 20,
   backgroundColor: 'white',
