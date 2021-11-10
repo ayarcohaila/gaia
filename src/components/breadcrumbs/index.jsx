@@ -37,24 +37,7 @@ Breadcrumbs.propTypes = {
       label: PropTypes.string.isRequired,
       href: PropTypes.string.isRequired
     })
-  )
-};
-
-Breadcrumbs.defaultProps = {
-  links: [
-    {
-      label: 'Home',
-      href: '/'
-    },
-    {
-      label: 'Ballerz',
-      href: '/ballerz'
-    },
-    {
-      label: 'Baller #73',
-      href: '/ballerz/baller-73'
-    }
-  ]
+  ).isRequired
 };
 
 export default Breadcrumbs;
