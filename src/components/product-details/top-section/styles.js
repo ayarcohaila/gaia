@@ -7,6 +7,11 @@ export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   marginTop: '16px',
   padding: '42px 56px 38px 132px',
 
+  [breakpoints.down('md')]: {
+    marginTop: '0',
+    padding: '24px'
+  },
+
   [breakpoints.down('sm')]: {
     marginTop: '0',
     padding: '20px 0'
@@ -19,10 +24,10 @@ export const ImageContainer = styled(Box)(({ theme: { breakpoints } }) => ({
   position: 'relative',
   width: '424px',
 
-  [breakpoints.down('sm')]: {
-    margin: '0 auto',
-    height: '335px',
-    width: '90%'
+  [breakpoints.down('md')]: {
+    height: '275px',
+    width: '275px',
+    margin: '0 auto 16px'
   }
 }));
 

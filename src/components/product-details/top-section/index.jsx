@@ -12,7 +12,7 @@ const ProductDetailsTopSection = ({ nft }) => {
   const {
     palette: { grey, primary }
   } = useTheme();
-  const { isSmallDevice } = useBreakpoints();
+  const { isMediumDevice, isSmallDevice } = useBreakpoints();
 
   const { metadata } = nft.template;
   //TODO: Uncomment on future implementation
@@ -46,7 +46,7 @@ const ProductDetailsTopSection = ({ nft }) => {
   //TODO: Uncomment on future implementation of share/favorite NFTs
   // const renderIconButtons = useMemo(
   //   () => (
-  //     <Grid item mt={isSmallDevice ? '32px' : '0'}>
+  //     <Grid item mt={isMediumDevice ? '32px' : '0'}>
   //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
   //         <ShareIcon htmlColor={grey[600]} />
   //       </IconButton>
@@ -55,7 +55,7 @@ const ProductDetailsTopSection = ({ nft }) => {
   //       </IconButton>
   //     </Grid>
   //   ),
-  //   [isSmallDevice]
+  //   [isMediumDevice]
   // );
 
   const renderCollectionInfo = useMemo(
@@ -64,7 +64,7 @@ const ProductDetailsTopSection = ({ nft }) => {
         <Avatar
           alt="product name"
           src="/collections/user.png"
-          sx={{ height: isSmallDevice ? '56px' : '48px', width: isSmallDevice ? '56px' : '48px' }}
+          sx={{ height: isMediumDevice ? '56px' : '48px', width: isMediumDevice ? '56px' : '48px' }}
         />
         <Box ml={1.5} mr="auto">
           <Typography variant="h5">{nft?.collection?.name}</Typography>
@@ -77,14 +77,14 @@ const ProductDetailsTopSection = ({ nft }) => {
         </Box>
       </>
     ),
-    [nft?.collection, isSmallDevice, primary]
+    [nft?.collection, isMediumDevice, primary]
   );
 
   const renderAccordions = useMemo(
     () => (
       <>
         <Accordion
-          dividerSx={{ mt: isSmallDevice ? 0 : 5 }}
+          dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
           sx={{ my: 3 }}
           title="Blockchain History">
           <BlockchainHistory data={blockchainHistoryData} />
@@ -100,13 +100,13 @@ const ProductDetailsTopSection = ({ nft }) => {
         </Accordion>
       </>
     ),
-    [blockchainHistoryData, isSmallDevice, metadata]
+    [blockchainHistoryData, isMediumDevice, isSmallDevice, metadata]
   );
 
   return (
     <>
-      <Breadcrumbs links={breadcrumbsLinks} sx={{ ml: isSmallDevice ? 2 : 0 }} />
-      <Styled.Container container={!isSmallDevice} justifyContent="space-between">
+      <Breadcrumbs links={breadcrumbsLinks} sx={{ ml: isMediumDevice ? 2 : 0 }} />
+      <Styled.Container container={!isMediumDevice} justifyContent="space-between">
         <Styled.ImageContainer>
           <Styled.Image
             alt={metadata.title}
@@ -117,11 +117,11 @@ const ProductDetailsTopSection = ({ nft }) => {
           />
         </Styled.ImageContainer>
         <Grid
-          alignItems={isSmallDevice ? 'center' : 'stretch'}
+          alignItems={isMediumDevice ? 'center' : 'stretch'}
           container
           flexDirection="column"
-          width={isSmallDevice ? '100%' : '45%'}>
-          {!isSmallDevice && (
+          width={isMediumDevice ? '100%' : '45%'}>
+          {!isMediumDevice && (
             <Grid alignItems="center" container justifyContent="space-between">
               {renderCollectionInfo}
             </Grid>
@@ -131,7 +131,7 @@ const ProductDetailsTopSection = ({ nft }) => {
               #{metadata.id} / 10000
             </Typography>
           </Styled.NumberContainer>
-          <Grid alignItems={isSmallDevice ? 'center' : 'stretch'} container flexDirection="column">
+          <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">
             <Styled.Title>{metadata.title}</Styled.Title>
             <Styled.Description>{metadata.description}</Styled.Description>
             {/* TODO: Uncomment on future implementation
@@ -140,7 +140,7 @@ const ProductDetailsTopSection = ({ nft }) => {
                 Buy for ${parseFloat(activeSaleOffer.price).toFixed(2)}
               </Button>
             )} */}
-            {!!isSmallDevice && (
+            {!!isMediumDevice && (
               <Box mt={5} width="100%">
                 <Divider sx={{ border: '0', borderTop: `2px solid ${grey[200]}` }} />
                 <Grid alignItems="center" container my="18px" px={2.5}>
@@ -148,10 +148,10 @@ const ProductDetailsTopSection = ({ nft }) => {
                 </Grid>
               </Box>
             )}
-            {!isSmallDevice && renderAccordions}
+            {!isMediumDevice && renderAccordions}
           </Grid>
         </Grid>
-        {!!isSmallDevice && renderAccordions}
+        {!!isMediumDevice && renderAccordions}
       </Styled.Container>
     </>
   );
