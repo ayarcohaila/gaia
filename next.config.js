@@ -21,7 +21,8 @@ const nextConfig = {
       'pbs.twimg.com',
       'gateway.ipfs.io',
       'ipfs.fleek.co',
-      'images.ongaia.com'
+      'images.ongaia.com',
+      'https://images.ongaia.com/ipfs'
     ]
   }
 };

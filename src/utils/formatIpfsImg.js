@@ -1,5 +1,7 @@
+import { ipfsGateway } from '~/config/config';
+
 const formatIpfsImg = ipfs => {
-  return ipfs ? ipfs.replace('ipfs://', 'https://ipfs.fleek.co/ipfs/') : '';
+  return ipfs ? ipfs.replace('ipfs://', ipfsGateway) : '';
 };
 
 export default formatIpfsImg;

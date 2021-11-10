@@ -15,7 +15,7 @@ export const USER_MENU_IDS = {
 
 export const USER_MENU_OPTIONS = [
   { id: USER_MENU_IDS.PROFILE, label: 'Profile' },
-  { id: USER_MENU_IDS.DAPPER_WALLET, label: 'My Dapper Wallet' },
+  { id: USER_MENU_IDS.DAPPER_WALLET, label: 'My Wallet' },
   {
     id: USER_MENU_IDS.SIGN_OUT,
     label: 'Sign Out',
