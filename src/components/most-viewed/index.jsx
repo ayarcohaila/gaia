@@ -3,6 +3,7 @@ import * as Styled from './styled.js';
 import { CollectionCard } from '~/components';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { MOCKED_LIST } from './constant';
+
 const MostViewed = () => {
   return (
     <Styled.Container>

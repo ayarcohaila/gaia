@@ -8,9 +8,12 @@ export const Title = styled(Typography)(({ theme: { palette } }) => ({
   color: palette.grey[550]
 }));
 
-export const Container = styled(Grid)(() => ({
+export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   padding: '80px',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  [breakpoints.down('sm')]: {
+    padding: '20px'
+  }
 }));
 
 export const ListContainer = styled(Grid)(() => ({
