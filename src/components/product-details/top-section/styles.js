@@ -20,12 +20,14 @@ export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
 
 export const ImageContainer = styled(Box)(({ theme: { breakpoints } }) => ({
   borderRadius: '16px',
-  maxHeight: '444px',
+  height: '424px',
   position: 'relative',
+  margin: 'auto 0',
   width: '424px',
 
   [breakpoints.down(1066)]: {
-    width: '52%'
+    height: '380px',
+    width: '380px'
   },
 
   [breakpoints.down('md')]: {
