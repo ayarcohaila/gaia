@@ -22,7 +22,7 @@ export const ImageContainer = styled(Box)(({ theme: { breakpoints } }) => ({
   borderRadius: '16px',
   height: '424px',
   position: 'relative',
-  margin: 'auto 0',
+  marginTop: '20px',
   width: '424px',
 
   [breakpoints.down(1066)]: {
