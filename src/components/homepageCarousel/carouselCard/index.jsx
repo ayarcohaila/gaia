@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
+import { BurstIcon } from '~/base';
 import { useBreakpoints } from '~/hooks';
 import * as Styled from './styled';
 
@@ -37,6 +38,7 @@ const CarouselCard = ({ data }) => {
       <Styled.Divider />
       <Styled.CardFooter>
         {!isMediumDevice && <Styled.Logo src={data.logo} alt="logo" />}
+        <BurstIcon isWhite />
         <Typography variant="subtitle1" fontWeight="bold" mr={isMediumDevice ? '12px' : '6px'}>
           {data.cardsAmount} cards
         </Typography>
