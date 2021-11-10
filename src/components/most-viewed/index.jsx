@@ -2,8 +2,8 @@ import NextLink from 'next/link';
 import * as Styled from './styled.js';
 import { CollectionCard } from '~/components';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-
-const MostViewed = ({ list }) => {
+import { MOCKED_LIST } from './constant';
+const MostViewed = () => {
   return (
     <Styled.Container>
       <Styled.ContainerHeader>
@@ -14,8 +14,8 @@ const MostViewed = ({ list }) => {
         </Styled.LinkContent>
       </Styled.ContainerHeader>
       <Styled.ListContainer>
-        {list?.map(item => (
-          <CollectionCard key={item.id} data={item} />
+        {MOCKED_LIST.map((item, index) => (
+          <CollectionCard key={`${item?.id}-${index}`} data={item} />
         ))}
       </Styled.ListContainer>
     </Styled.Container>
