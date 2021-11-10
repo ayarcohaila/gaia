@@ -14,6 +14,34 @@ const GET_COLLECTION_BY_ID = gql`
   }
 `;
 
+const GET_BALLERZ_NFT_BY_ID = gql`
+  query getBallerzNftById($id: jsonb) {
+    nft(where: { template: { metadata: { _contains: $id } } }) {
+      asset_id
+      is_for_sale
+      created_at
+      updated_at
+      collection {
+        collection_id
+        name
+        market_fee
+        image
+        description
+        author
+      }
+      owner
+      template {
+        metadata
+      }
+      sale_offers {
+        listing_resource_id
+        price
+        status
+      }
+    }
+  }
+`;
+
 const GET_NFTS = gql`
   query getNFTs {
     nft {
@@ -122,4 +150,10 @@ const GET_BALLERZ_NFTS_FOR_SALE = SHOULD_HIDE_DATA
       }
     `;
 
-export { GET_NFTS, GET_COLLECTION_BY_ID, GET_NFTS_BY_ADDRESS, GET_BALLERZ_NFTS_FOR_SALE };
+export {
+  GET_NFTS,
+  GET_BALLERZ_NFT_BY_ID,
+  GET_COLLECTION_BY_ID,
+  GET_NFTS_BY_ADDRESS,
+  GET_BALLERZ_NFTS_FOR_SALE
+};

@@ -13,6 +13,7 @@ const BlockchainHistory = ({ data }) => {
   const {
     palette: { grey }
   } = useTheme();
+
   const { isSmallDevice } = useBreakpoints();
 
   const parsedData = {
