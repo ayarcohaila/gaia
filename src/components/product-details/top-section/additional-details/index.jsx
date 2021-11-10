@@ -25,7 +25,7 @@ const AdditionalDetails = ({ data }) => {
           value !== '' && (
             <Box key={key} mt={index ? 3.5 : 0}>
               <Typography color={grey[500]} variant="subtitle1" fontWeight="normal">
-                {convertCamelCaseToSentenceCase(key)}
+                {convertCamelCaseToSentenceCase(key)}:
               </Typography>
               <Typography color={grey[600]} mt={0.75} variant="subtitle1" textAlign="left">
                 {value}
