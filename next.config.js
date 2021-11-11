@@ -20,7 +20,9 @@ const nextConfig = {
       //TODO: Remove it
       'pbs.twimg.com',
       'gateway.ipfs.io',
-      'ipfs.fleek.co'
+      'ipfs.fleek.co',
+      'images.ongaia.com',
+      'https://images.ongaia.com/ipfs'
     ]
   }
 };

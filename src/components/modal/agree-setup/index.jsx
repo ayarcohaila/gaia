@@ -1,4 +1,4 @@
-import { memo, useMemo, useState, useEffect } from 'react';
+import { memo, useMemo, useState, useEffect, useContext } from 'react';
 
 import { Loader } from '~/base';
 import { useAuth } from '~/hooks';
@@ -9,12 +9,13 @@ import { setupAccount } from '~/flow/setupAccount';
 
 import Modal from '..';
 import * as Styled from './styles';
+import { AuthContext } from '~/providers/AuthProvider';
 
 const AgreeSetupModal = ({ onClose, ...props }) => {
   const { logout } = useAuth();
   const [transaction, setTransaction] = useState(null);
-
   const [loading, setLoading] = useState(false);
+  const { setHasSetup } = useContext(AuthContext);
 
   const loadTx = async () => {
     const response = await loadTransaction(
@@ -28,6 +29,7 @@ const AgreeSetupModal = ({ onClose, ...props }) => {
     try {
       setLoading(true);
       await setupAccount(transaction.transactionScript);
+      setHasSetup(true);
       setLoading(false);
       onClose();
     } catch (err) {
@@ -38,7 +40,7 @@ const AgreeSetupModal = ({ onClose, ...props }) => {
 
   useEffect(() => {
     loadTx();
-  }, [loadTx]);
+  }, []);
 
   const renderContent = useMemo(
     () => (

@@ -71,7 +71,7 @@ const Header = () => {
           <Styled.LogoImage component="a">
             <NextImage
               width={isMediumDevice ? 75 : 102.4}
-              height={isMediumDevice ? 27 : 40}
+              height={isMediumDevice ? 29.3 : 40}
               src="/static/img/gaia_logo-black.png"
             />
           </Styled.LogoImage>
@@ -143,7 +143,7 @@ const Header = () => {
           justifyContent="center"
           direction="column">
           <Button variant="text" disableRipple onClick={navigateToHome}>
-            <NextImage width={90} height={40} src="/static/img/gaia_logo-black.png" />
+            <NextImage width={102.4} height={40} src="/static/img/gaia_logo-black.png" />
           </Button>
           {user?.loggedIn ? (
             <>
@@ -152,6 +152,12 @@ const Header = () => {
                 onClick={handleClick}
                 data-id={USER_MENU_IDS.PROFILE}>
                 Profile
+              </Styled.ButtonText>
+              <Styled.ButtonText
+                variant="text"
+                onClick={handleClick}
+                data-id={USER_MENU_IDS.DAPPER_WALLET}>
+                My Wallet
               </Styled.ButtonText>
               <Styled.ButtonText variant="text" onClick={handleClick}>
                 Sign Out
