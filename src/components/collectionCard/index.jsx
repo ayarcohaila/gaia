@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Grid, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
@@ -18,6 +18,7 @@ import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
+import { AuthContext } from '~/providers/AuthProvider';
 import axios from 'axios';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
@@ -37,6 +38,7 @@ const CollectionCard = ({ data }) => {
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
   const [isMaximumModalOpen, toggleMaximumModal] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
+  const { hasSetup } = useContext(AuthContext);
 
   const img = SHOULD_HIDE_DATA
     ? '/images/mystery-nft.gif'
@@ -124,7 +126,7 @@ const CollectionCard = ({ data }) => {
           <Grid container justifyContent="center">
             <Styled.PurchaseButton
               onClick={user ? () => handlePurchaseClick(data) : login}
-              disabled={loadingPurchase}>
+              disabled={loadingPurchase || (user && !hasSetup)}>
               {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
             </Styled.PurchaseButton>
           </Grid>
