@@ -35,9 +35,11 @@ const AdditionalDetails = ({ data }) => {
               <Typography color={grey[500]} variant="subtitle1" fontWeight="normal">
                 {convertCamelCaseToSentenceCase(key)}:
               </Typography>
-              <Typography color={grey[600]} variant="subtitle1" textAlign="left">
-                {value}
-              </Typography>
+              <Box width="35%">
+                <Typography color={grey[600]} variant="subtitle1" textAlign="left">
+                  {value}
+                </Typography>
+              </Box>
             </Grid>
           )
       )}
