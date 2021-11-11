@@ -5,7 +5,7 @@ export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   backgroundColor: '#fff',
   borderRadius: '20px',
   marginTop: '16px',
-  padding: '42px 56px 38px',
+  padding: '42px 90px 38px',
 
   [breakpoints.down('md')]: {
     marginTop: '0',
