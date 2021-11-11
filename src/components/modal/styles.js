@@ -1,5 +1,4 @@
-import { Box, Button, Typography, styled } from '@mui/material';
-import Image from 'next/image';
+import { Box, Grid, Button, Typography, styled } from '@mui/material';
 
 export const Container = styled(Box)(({ theme: { breakpoints } }) => ({
   left: '50%',
@@ -36,7 +35,7 @@ export const Content = styled(Box)(
   })
 );
 
-export const AssetContainer = styled(Box)(({ theme: { breakpoints } }) => ({
+export const AssetContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
   backgroundColor: 'transparent',
   boxShadow: '0 26px 14px -24px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)',
   height: 180,
@@ -53,9 +52,11 @@ export const AssetContainer = styled(Box)(({ theme: { breakpoints } }) => ({
   }
 }));
 
-export const Asset = styled(Image)(() => ({
+export const Asset = styled('img')(() => ({
   borderRadius: 12.2,
-  boxShadow: '0 26px 14px -24px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)'
+  boxShadow: '0 26px 14px -24px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)',
+  width: '100%',
+  height: '100%'
 }));
 
 export const InfoContainer = styled(Box)(() => ({

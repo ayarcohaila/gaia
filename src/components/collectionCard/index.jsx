@@ -13,7 +13,7 @@ import {
   MaximumPurchaseLimit,
   OrderProcessing
 } from '~/components';
-import { useAuth, useBreakpoints, useToggle } from '~/hooks';
+import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
@@ -29,7 +29,6 @@ const INSUFFICIENT_FUNDS =
 const CollectionCard = ({ data }) => {
   const route = useRouter();
   const { user, login } = useAuth();
-  const { isSmallDevice } = useBreakpoints();
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
   const [ownNFTs, setOwnNFTs] = useState([]);
@@ -161,10 +160,7 @@ const CollectionCard = ({ data }) => {
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />
       <MaximumPurchaseLimit open={isMaximumModalOpen} onClose={toggleMaximumModal} />
-      <OrderProcessing
-        open={isProcessingModalOpen}
-        onClose={isSmallDevice ? toggleProcessingModal : null}
-      />
+      <OrderProcessing open={isProcessingModalOpen} onClose={toggleProcessingModal} />
     </>
   );
 };
