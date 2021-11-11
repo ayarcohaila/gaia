@@ -5,13 +5,13 @@ import { AgreeSetupModal } from '~/components';
 import { useAuth, useProfile } from '~/hooks';
 import { URLs } from '~/routes/urls';
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [authModalVisible, setAuthModalVisible] = useState(false);
   const [setupModalVisible, setSetupModalVisible] = useState(false);
   const router = useRouter();
-  const { user, updateUser, checkedAuth } = useAuth();
+  const { user, updateUser, checkedAuth, dispatch, authReduce } = useAuth();
 
   const { hasSetup } = useProfile(user?.addr);
 
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   }, [user?.addr, handleSetup, setSetupModalVisible]);
 
   return (
-    <AuthContext.Provider value={{ shouldPageBlock, updateUser, user }}>
+    <AuthContext.Provider value={{ shouldPageBlock, updateUser, user, dispatch, authReduce }}>
       {children}
       <AgreeSetupModal open={setupModalVisible} onClose={() => setSetupModalVisible(false)} />
     </AuthContext.Provider>
