@@ -3,7 +3,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-import { BurstIcon } from '~/base';
+import { BurstIconWhite } from '~/base';
 import { useBreakpoints } from '~/hooks';
 import * as Styled from './styled';
 
@@ -13,10 +13,10 @@ const bannerData = {
   cardsAmount: 127,
   price: '₣500',
   logo: 'static/img/nba-top-shot.png',
-  background: 'static/img/home-banner.webp'
+  background: ''
 };
 
-export default function HomepageCarousel() {
+export default function HomepageBanner() {
   const { isMediumDevice } = useBreakpoints();
 
   function handleBuyNow() {}
@@ -46,7 +46,7 @@ export default function HomepageCarousel() {
       <Styled.Divider />
       <Styled.CardFooter>
         {!isMediumDevice && <Styled.Logo src={bannerData.logo} alt="logo" />}
-        <BurstIcon />
+        <BurstIconWhite />
         <Typography variant="subtitle1" fontWeight="bold" mr={isMediumDevice ? '12px' : '6px'}>
           {bannerData.cardsAmount} cards
         </Typography>

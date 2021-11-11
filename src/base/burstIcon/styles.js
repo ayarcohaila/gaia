@@ -50,3 +50,21 @@ export const BurstIcon = styled('div')`
     z-index: 6;
   }
 `;
+
+export const BurstIconWhite = styled(BurstIcon)`
+  div:nth-of-type(2n) {
+    background-color: grey;
+  }
+
+  .icon-1 {
+    background-color: #fff;
+  }
+
+  .icon-3 {
+    background-color: #fff;
+  }
+
+  .icon-5 {
+    background-color: #fff;
+  }
+`;

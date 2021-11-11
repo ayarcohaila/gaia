@@ -1,7 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import { NewToNFTCard } from '~/components';
-
-import { useBreakpoints } from '~/hooks';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const NewNFTs = [
   {
@@ -27,13 +26,21 @@ const NewNFTs = [
 ];
 
 export default function NewToNFTSection() {
-  const { isMediumDevice } = useBreakpoints();
+  const isMediumDevice = useMediaQuery('(max-width:1080px)');
   return (
     <>
       <Typography variant="h4">New To NFTs?</Typography>
-      <Grid xs={12} container item columnSpacing="16px" mt="20px">
+      <Grid xs={12} container item columnSpacing="16px" mt={isMediumDevice ? '0px' : '20px'}>
         {NewNFTs.map((card, index) => (
-          <Grid key={index} item xs={12} sm={6} md={4} mt={isMediumDevice ? '30px' : '0px'}>
+          <Grid
+            key={index}
+            item
+            sm={12}
+            md={4}
+            mt={isMediumDevice ? '30px' : '0px'}
+            display="flex"
+            alignItems="center"
+            justifyContent="center">
             <NewToNFTCard data={card} />
           </Grid>
         ))}
