@@ -1,24 +1,12 @@
-import { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect } from 'react';
 import { fcl } from '~/config/config';
 import { checkSetup } from '~/flow/checkSetup';
 import { checkStorefrontSetup } from '~/flow/checkStorefrontSetup';
-import {} from './';
-
-const initialState = { user: null, hasSetup: false };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'SET_HAS_SETUP':
-      return { ...state, hasSetup: action.payload };
-    default:
-      throw new Error();
-  }
-}
 
 export default function useAuth() {
   const [user, setUser] = useState(null);
   const [checkedAuth, setCheckedAuth] = useState(false);
-  const [authReduce, dispatch] = useReducer(reducer, initialState);
+  const [hasSetup, setHasSetup] = useState(false);
 
   const updateUser = () =>
     fcl.currentUser().subscribe(async u => {
@@ -27,7 +15,7 @@ export default function useAuth() {
         let storefrontSetup = await checkStorefrontSetup(u?.addr);
 
         const hasSetup = nftSetup && storefrontSetup;
-        dispatch({ type: 'SET_HAS_SETUP', payload: hasSetup });
+        setHasSetup(hasSetup);
         setUser(u);
       } else {
         setUser(null);
@@ -44,8 +32,8 @@ export default function useAuth() {
     user,
     updateUser,
     checkedAuth,
-    authReduce,
-    dispatch,
+    hasSetup,
+    setHasSetup,
     login: fcl.logIn,
     logout: fcl.unauthenticate,
     signup: fcl.signUp

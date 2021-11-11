@@ -15,7 +15,7 @@ const AgreeSetupModal = ({ onClose, ...props }) => {
   const { logout } = useAuth();
   const [transaction, setTransaction] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { dispatch } = useContext(AuthContext);
+  const { setHasSetup } = useContext(AuthContext);
 
   const loadTx = async () => {
     const response = await loadTransaction(
@@ -29,7 +29,7 @@ const AgreeSetupModal = ({ onClose, ...props }) => {
     try {
       setLoading(true);
       await setupAccount(transaction.transactionScript);
-      dispatch({ type: 'SET_HAS_SETUP', payload: true });
+      setHasSetup(true);
       setLoading(false);
       onClose();
     } catch (err) {

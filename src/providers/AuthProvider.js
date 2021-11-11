@@ -2,18 +2,16 @@ import { createContext, useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { AgreeSetupModal } from '~/components';
-import { useAuth, useProfile } from '~/hooks';
+import { useAuth } from '~/hooks';
 import { URLs } from '~/routes/urls';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [authModalVisible, setAuthModalVisible] = useState(false);
+  const { user, updateUser, checkedAuth, hasSetup, setHasSetup } = useAuth();
   const [setupModalVisible, setSetupModalVisible] = useState(false);
+  const [authModalVisible, setAuthModalVisible] = useState(false);
   const router = useRouter();
-  const { user, updateUser, checkedAuth, dispatch, authReduce } = useAuth();
-
-  const { hasSetup } = useProfile(user?.addr);
 
   const shouldPageBlock = useCallback(() => {
     if (checkedAuth && !user?.addr) {
@@ -29,8 +27,7 @@ export const AuthProvider = ({ children }) => {
   }, [user, checkedAuth]);
 
   const handleSetup = useCallback(async () => {
-    const initializedAccount = await hasSetup();
-    if (!initializedAccount) {
+    if (!hasSetup) {
       setSetupModalVisible(true);
     }
   }, [setSetupModalVisible, hasSetup]);
@@ -44,7 +41,7 @@ export const AuthProvider = ({ children }) => {
   }, [user?.addr, handleSetup, setSetupModalVisible]);
 
   return (
-    <AuthContext.Provider value={{ shouldPageBlock, updateUser, user, dispatch, authReduce }}>
+    <AuthContext.Provider value={{ shouldPageBlock, updateUser, user, hasSetup, setHasSetup }}>
       {children}
       <AgreeSetupModal open={setupModalVisible} onClose={() => setSetupModalVisible(false)} />
     </AuthContext.Provider>

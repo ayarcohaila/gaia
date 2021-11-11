@@ -39,9 +39,7 @@ const CollectionCard = ({ data }) => {
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
   const [isMaximumModalOpen, toggleMaximumModal] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
-  const {
-    authReduce: { hasSetup }
-  } = useContext(AuthContext);
+  const { hasSetup } = useContext(AuthContext);
 
   const img = SHOULD_HIDE_DATA
     ? '/images/mystery-nft.gif'
