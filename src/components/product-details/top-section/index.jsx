@@ -32,7 +32,7 @@ const ProductDetailsTopSection = ({ nft }) => {
     () => [
       {
         label: 'Home',
-        href: '/'
+        href: `/${nft?.collection?.name?.toLowerCase()}`
       },
       {
         label: 'Collections'
