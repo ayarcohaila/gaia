@@ -11,7 +11,7 @@ const AdditionalDetails = ({ data }) => {
   const {
     palette: { grey }
   } = useTheme();
-  const { isMediumDevice, isSmallDevice } = useBreakpoints();
+  const { isSmallDevice } = useBreakpoints();
   const excludeAdditionalFields = ['id', 'img', 'uri', 'title', 'description'];
 
   const filteredData = filterFieldsFromObject(excludeAdditionalFields, data);
@@ -31,7 +31,7 @@ const AdditionalDetails = ({ data }) => {
               justifyContent="space-between"
               key={key}
               mt={index ? 2.8 : 0}
-              width={isMediumDevice ? '90%' : '72%'}>
+              width="90%">
               <Typography color={grey[500]} variant="subtitle1" fontWeight="normal">
                 {convertCamelCaseToSentenceCase(key)}:
               </Typography>
