@@ -5,7 +5,6 @@ import { CollectionCard } from '~/components';
 import useBreakpoints from '~/hooks/useBreakpoints';
 
 const CollectionList = ({ nfts, hasNftsForSale }) => {
-  hasNftsForSale = false;
   const { isMediumDevice } = useBreakpoints();
   return (
     <>
