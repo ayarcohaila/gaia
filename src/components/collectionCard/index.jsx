@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Grid, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { Loader } from '~/base';
 import {
@@ -44,7 +45,8 @@ const CollectionCard = ({ data }) => {
     ? '/images/mystery-nft.gif'
     : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
-  const handlePurchaseClick = async () => {
+  const handlePurchaseClick = async event => {
+    event?.stopPropagation();
     try {
       if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
         toggleMaximumModal();
@@ -82,6 +84,47 @@ const CollectionCard = ({ data }) => {
     route.push(`/profile/${user?.addr}`);
   };
 
+  const handleLogin = event => {
+    event?.stopPropagation();
+    login();
+  };
+
+  const renderContent = () => (
+    <Styled.CustomCard sx={{ cursor: SHOULD_HIDE_DATA ? 'auto' : 'pointer' }}>
+      <Styled.CustomCardHeader
+        avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
+        title="BALLERZ"
+      />
+      {/* TODO: Implement logic to display skeleton loading */}
+      <CardMedia
+        sx={{ borderRadius: '20px', maxWidth: '275px' }}
+        component="img"
+        alt="NFT image"
+        height="275"
+        src={img}
+      />
+
+      <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
+        <Styled.NFTText>
+          {SHOULD_HIDE_DATA ? 'BALLER #????' : data?.nft?.template?.metadata?.title}
+        </Styled.NFTText>
+      </CardContent>
+      {data?.nft?.owner === user?.addr ? (
+        <Styled.CancelButtonContainer>
+          <Styled.ListedText>Listed for sale</Styled.ListedText>
+        </Styled.CancelButtonContainer>
+      ) : (
+        <Grid container justifyContent="center">
+          <Styled.PurchaseButton
+            onClick={user ? handlePurchaseClick : handleLogin}
+            disabled={loadingPurchase || (user && !hasSetup)}>
+            {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
+          </Styled.PurchaseButton>
+        </Grid>
+      )}
+    </Styled.CustomCard>
+  );
+
   useEffect(() => {
     (async () => {
       if (!!user && Object.keys(user).length) {
@@ -99,39 +142,15 @@ const CollectionCard = ({ data }) => {
 
   return (
     <>
-      <Styled.CustomCard>
-        <Styled.CustomCardHeader
-          avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
-          title="BALLERZ"
-        />
-        {/* TODO: Implement logic to display skeleton loading */}
-        <CardMedia
-          sx={{ borderRadius: '20px', maxWidth: '275px' }}
-          component="img"
-          alt="NFT image"
-          height="275"
-          src={img}
-        />
-
-        <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-          <Styled.NFTText>
-            {SHOULD_HIDE_DATA ? 'BALLER #????' : data?.nft?.template?.metadata?.title}
-          </Styled.NFTText>
-        </CardContent>
-        {data?.nft?.owner === user?.addr ? (
-          <Styled.CancelButtonContainer>
-            <Styled.ListedText>Listed for sale</Styled.ListedText>
-          </Styled.CancelButtonContainer>
-        ) : (
-          <Grid container justifyContent="center">
-            <Styled.PurchaseButton
-              onClick={user ? () => handlePurchaseClick(data) : login}
-              disabled={loadingPurchase || (user && !hasSetup)}>
-              {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
-            </Styled.PurchaseButton>
-          </Grid>
-        )}
-      </Styled.CustomCard>
+      {SHOULD_HIDE_DATA ? (
+        renderContent()
+      ) : (
+        <Link
+          href={`/${route.query.collection_name}/${data?.nft?.template?.metadata?.id}`}
+          passHref>
+          {renderContent()}
+        </Link>
+      )}
       <PurchaseNFTModal
         asset={{ ...data, img }}
         open={isPurchaseNftModalOpen}
