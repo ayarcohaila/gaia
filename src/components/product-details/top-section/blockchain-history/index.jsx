@@ -14,8 +14,7 @@ const BlockchainHistory = ({ data }) => {
   const parsedData = useMemo(
     () => ({
       ...data,
-      mintDate: formatDate(data?.mintDate),
-      lastActivity: formatDate(data?.lastActivity)
+      mintDate: formatDate(data?.mintDate)
     }),
     [formatDate, data]
   );
@@ -49,7 +48,6 @@ BlockchainHistory.propTypes = {
     creator: PropTypes.string,
     owner: PropTypes.string,
     mintDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    lastActivity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     contract: PropTypes.string
   }).isRequired
 };

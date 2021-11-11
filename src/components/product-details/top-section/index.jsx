@@ -23,7 +23,6 @@ const ProductDetailsTopSection = ({ nft }) => {
       creator: nft.collection.author,
       owner: nft.owner,
       mintDate: new Date(nft.created_at)?.getTime(),
-      lastActivity: new Date(nft.updated_at)?.getTime(),
       contract: process.env.NEXT_PUBLIC_NFT_CONTRACT
     }),
     [nft]
@@ -69,12 +68,14 @@ const ProductDetailsTopSection = ({ nft }) => {
     () => (
       <>
         <Accordion
+          defaultExpanded
           dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
           sx={{ my: 3 }}
           title="Additional Details">
           <AdditionalDetails data={metadata} />
         </Accordion>
         <Accordion
+          defaultExpanded
           dividerSx={{
             margin: isSmallDevice ? '0 auto' : '0',
             width: isSmallDevice ? '90%' : 'auto'

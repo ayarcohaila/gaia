@@ -52,6 +52,14 @@ const GET_NFTS = gql`
   }
 `;
 
+const GET_BALLERZ_NFTS_IDS = gql`
+  query getMetadataIDs {
+    nft_template {
+      id: metadata(path: "$.id")
+    }
+  }
+`;
+
 const GET_NFTS_BY_ADDRESS = SHOULD_HIDE_DATA
   ? gql`
       query getNFTsByAddress($address: String!) {
@@ -152,6 +160,7 @@ const GET_BALLERZ_NFTS_FOR_SALE = SHOULD_HIDE_DATA
 
 export {
   GET_NFTS,
+  GET_BALLERZ_NFTS_IDS,
   GET_BALLERZ_NFT_BY_ID,
   GET_COLLECTION_BY_ID,
   GET_NFTS_BY_ADDRESS,
