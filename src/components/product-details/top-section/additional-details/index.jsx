@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
@@ -16,8 +16,12 @@ const AdditionalDetails = ({ data }) => {
 
   const filteredData = filterFieldsFromObject(excludeAdditionalFields, data);
 
-  const parsedData = Object.entries(filteredData).sort(
-    ([a], [b]) => ATTRIBUTES_ORDER.indexOf(a) - ATTRIBUTES_ORDER.indexOf(b)
+  const parsedData = useMemo(
+    () =>
+      Object.entries(filteredData).sort(
+        ([a], [b]) => ATTRIBUTES_ORDER.indexOf(a) - ATTRIBUTES_ORDER.indexOf(b)
+      ),
+    [filteredData]
   );
 
   return (

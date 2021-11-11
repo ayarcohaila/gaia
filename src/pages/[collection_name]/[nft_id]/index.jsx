@@ -37,15 +37,18 @@ export async function getServerSideProps(ctx) {
     query: { nft_id }
   } = ctx;
 
-  const { nft } = await gqlClient.request(GET_BALLERZ_NFT_BY_ID, { id: { id: nft_id } });
-
-  if (!nft?.length) {
+  try {
+    const { nft } = await gqlClient.request(GET_BALLERZ_NFT_BY_ID, { id: { id: nft_id } });
+    if (!nft?.length) {
+      return { props: { nft: null } };
+    }
+    return {
+      props: { nft: nft[0] }
+    };
+  } catch (error) {
+    console.error(error);
     return { props: { nft: null } };
   }
-
-  return {
-    props: { nft: nft[0] }
-  };
 }
 
 export default ProductDetails;

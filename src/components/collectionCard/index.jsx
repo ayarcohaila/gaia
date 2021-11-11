@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Grid, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
@@ -19,6 +19,7 @@ import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
+import { AuthContext } from '~/providers/AuthProvider';
 import axios from 'axios';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
@@ -38,13 +39,15 @@ const CollectionCard = ({ data }) => {
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
   const [isMaximumModalOpen, toggleMaximumModal] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
+  const { hasSetup } = useContext(AuthContext);
 
   const img = SHOULD_HIDE_DATA
     ? '/images/mystery-nft.gif'
     : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
-  const handlePurchaseClick = async () => {
+  const handlePurchaseClick = async event => {
     try {
+      event?.stopPropagation();
       if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
         toggleMaximumModal();
         return;
@@ -81,8 +84,13 @@ const CollectionCard = ({ data }) => {
     route.push(`/profile/${user?.addr}`);
   };
 
+  const handleLogin = event => {
+    event?.stopPropagation();
+    login();
+  };
+
   const renderContent = () => (
-    <Styled.CustomCard sx={{ cursor: SHOULD_HIDE_DATA ? 'auto' : 'pointer' }}>
+    <Styled.CustomCard>
       <Styled.CustomCardHeader
         avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
         title="BALLERZ"
@@ -95,6 +103,7 @@ const CollectionCard = ({ data }) => {
         height="275"
         src={img}
       />
+
       <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
         <Styled.NFTText>
           {SHOULD_HIDE_DATA ? 'BALLER #????' : data?.nft?.template?.metadata?.title}
@@ -107,18 +116,8 @@ const CollectionCard = ({ data }) => {
       ) : (
         <Grid container justifyContent="center">
           <Styled.PurchaseButton
-            onClick={
-              user
-                ? event => {
-                    event?.stopPropagation();
-                    handlePurchaseClick(data);
-                  }
-                : event => {
-                    event?.stopPropagation();
-                    login();
-                  }
-            }
-            disabled={loadingPurchase}>
+            onClick={user ? handlePurchaseClick : handleLogin}
+            disabled={loadingPurchase || (user && !hasSetup)}>
             {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
           </Styled.PurchaseButton>
         </Grid>

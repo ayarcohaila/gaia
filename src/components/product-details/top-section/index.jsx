@@ -1,16 +1,16 @@
 import { memo, useMemo } from 'react';
-import { Avatar, Box, Divider, Grid, Typography, useTheme } from '@mui/material';
-import { Verified as VerifiedIcon } from '@mui/icons-material';
+import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/components';
 import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
+import CollectionInfo from './collection-info';
 
 const ProductDetailsTopSection = ({ nft }) => {
   const {
-    palette: { grey, primary }
+    palette: { grey }
   } = useTheme();
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
 
@@ -65,28 +65,6 @@ const ProductDetailsTopSection = ({ nft }) => {
   //   [isMediumDevice]
   // );
 
-  const renderCollectionInfo = useMemo(
-    () => (
-      <>
-        <Avatar
-          alt="product name"
-          src="/collections/user.png"
-          sx={{ height: isMediumDevice ? '56px' : '48px', width: isMediumDevice ? '56px' : '48px' }}
-        />
-        <Box ml={1.5} mr="auto">
-          <Typography variant="h5">{nft?.collection?.name}</Typography>
-          <Grid alignItems="center" container>
-            <Typography color={grey[600]} mr={1} variant="subtitle1">
-              @{nft?.collection?.name}
-            </Typography>
-            <VerifiedIcon htmlColor={primary.main} fontSize="1rem" />
-          </Grid>
-        </Box>
-      </>
-    ),
-    [nft?.collection, isMediumDevice, primary]
-  );
-
   const renderAccordions = useMemo(
     () => (
       <>
@@ -130,7 +108,7 @@ const ProductDetailsTopSection = ({ nft }) => {
           width={isMediumDevice ? '100%' : '45%'}>
           {!isMediumDevice && (
             <Grid alignItems="center" container justifyContent="space-between">
-              {renderCollectionInfo}
+              <CollectionInfo name={nft?.collection?.name} />
             </Grid>
           )}
           <Styled.NumberContainer>
@@ -151,7 +129,7 @@ const ProductDetailsTopSection = ({ nft }) => {
               <Box mt={5} width="100%">
                 <Divider sx={{ border: '0', borderTop: `2px solid ${grey[200]}` }} />
                 <Grid alignItems="center" container my="18px" px={2.5}>
-                  {renderCollectionInfo}
+                  <CollectionInfo name={nft?.collection?.name} />
                 </Grid>
               </Box>
             )}

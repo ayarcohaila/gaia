@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
@@ -11,11 +11,14 @@ const BlockchainHistory = ({ data }) => {
   } = useTheme();
   const { isSmallDevice } = useBreakpoints();
 
-  const parsedData = {
-    ...data,
-    mintDate: formatDate(data?.mintDate),
-    lastActivity: formatDate(data?.lastActivity)
-  };
+  const parsedData = useMemo(
+    () => ({
+      ...data,
+      mintDate: formatDate(data?.mintDate),
+      lastActivity: formatDate(data?.lastActivity)
+    }),
+    [formatDate, data]
+  );
 
   return (
     <Box bgcolor={grey[200]} borderRadius="14px" p={isSmallDevice ? '24px 22px' : '20px 32px'}>

@@ -25,10 +25,9 @@ const CollectionList = ({ nfts, hasNftsForSale }) => {
               lineHeight: isMediumDevice ? '1.2' : '22px'
             }}>
             Sold out! Join us on <Link url="https://twitter.com/ballerz_nft ">Twitter</Link> and{' '}
-            <Link url="https://discord.com/invite/ballerznft ">Discord</Link> for the BALLERZ reveal
-            on Wednesday, November 10 (exact time TBD). If you weren’t able to purchase – the Gaia
-            Marketplace will open in December, where you can buy & sell BALLERZ from other
-            collectors.
+            <Link url="https://discord.com/invite/ballerznft ">Discord</Link> for more BALLERZ info.
+            If you weren’t able to purchase – the Gaia Marketplace will open in December, where you
+            can buy & sell BALLERZ from other collectors.
           </Typography>
         </Grid>
       )}
