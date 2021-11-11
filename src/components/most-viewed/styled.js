@@ -1,33 +1,45 @@
 import { styled, Grid, Typography } from '@mui/material';
 
-export const Title = styled(Typography)(({ theme: { palette } }) => ({
+export const Title = styled(Typography)(({ theme: { palette, breakpoints } }) => ({
   fontSize: '20px',
   fontWeight: 'bold',
   lineHeight: '1.2',
   letterSpacing: '0.2px',
-  color: palette.grey[550]
-}));
+  color: palette.grey[550],
 
-export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
-  padding: '80px',
-  boxSizing: 'border-box',
-  [breakpoints.down('sm')]: {
-    padding: '20px'
+  [breakpoints.down('md')]: {
+    fontSize: '18px',
+    lineHeight: '1.33'
   }
 }));
 
-export const ListContainer = styled(Grid)(() => ({
+export const Container = styled(Grid)(() => ({}));
+
+export const ListContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
   display: 'flex',
   gap: '16px',
   flexWrap: 'wrap',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  padding: '0 80px',
+  boxSizing: 'border-box',
+
+  [breakpoints.down('md')]: {
+    flexWrap: 'nowrap',
+    padding: '0 20px'
+  }
 }));
 
-export const ContainerHeader = styled(Grid)(() => ({
+export const ContainerHeader = styled(Grid)(({ theme: { breakpoints } }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginBottom: '20px'
+  marginBottom: '20px',
+  padding: '0 80px',
+  boxSizing: 'border-box',
+
+  [breakpoints.down('md')]: {
+    padding: '0 20px'
+  }
 }));
 
 export const LinkContent = styled(Grid)(({ theme: { palette } }) => ({
@@ -42,5 +54,19 @@ export const LinkContent = styled(Grid)(({ theme: { palette } }) => ({
     fontWeight: 'bold',
     lineHeight: 1.14,
     letterSpacing: '0.2px'
+  },
+
+  '& > svg': {
+    width: '18px',
+    marginTop: '2px'
+  }
+}));
+
+export const SliderContainer = styled(Grid)(() => ({
+  padding: '0 20px',
+  boxSizing: 'border-box',
+
+  '& > .slick-slider .slick-list': {
+    overflow: 'visible'
   }
 }));
