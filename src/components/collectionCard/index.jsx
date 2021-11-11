@@ -113,7 +113,7 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
         <Grid container justifyContent="center">
           <Styled.PurchaseButton
             onClick={user ? handlePurchaseClick : handleLogin}
-            disabled={loadingPurchase || (user && !hasSetup) || !transaction}>
+            disabled={loadingPurchase || (user && !hasSetup)}>
             {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
           </Styled.PurchaseButton>
         </Grid>
