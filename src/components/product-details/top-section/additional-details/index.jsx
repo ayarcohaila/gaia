@@ -21,28 +21,27 @@ const AdditionalDetails = ({ data }) => {
   );
 
   return (
-    <Grid
-      bgcolor={grey[200]}
-      borderRadius="14px"
-      display="grid"
-      gridAutoFlow="row"
-      gridTemplateColumns="1fr 1fr"
-      p={isSmallDevice ? '24px 22px' : '20px 24px 20px 32px'}
-      rowGap={3.5}>
+    <Box bgcolor={grey[200]} borderRadius="14px" p={isSmallDevice ? '24px 22px' : '20px 32px'}>
       {parsedData.map(
-        ([key, value]) =>
+        ([key, value], index) =>
           value !== '' && (
-            <Box key={key}>
+            <Grid
+              alignItems="center"
+              container
+              justifyContent="space-between"
+              key={key}
+              mt={index ? 2.8 : 0}
+              width="65%">
               <Typography color={grey[500]} variant="subtitle1" fontWeight="normal">
                 {convertCamelCaseToSentenceCase(key)}:
               </Typography>
-              <Typography color={grey[600]} mt={0.75} variant="subtitle1" textAlign="left">
+              <Typography color={grey[600]} variant="subtitle1" textAlign="left">
                 {value}
               </Typography>
-            </Box>
+            </Grid>
           )
       )}
-    </Grid>
+    </Box>
   );
 };
 

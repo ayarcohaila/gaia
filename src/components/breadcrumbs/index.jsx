@@ -17,7 +17,7 @@ const Breadcrumbs = ({ links, ...props }) => {
         const { href, label } = link;
         if (asPath === href || !href) {
           return (
-            <Styled.Text key={href} color="text.primary">
+            <Styled.Text key={href || label} color="text.primary">
               {label}
             </Styled.Text>
           );
@@ -35,8 +35,8 @@ const Breadcrumbs = ({ links, ...props }) => {
 Breadcrumbs.propTypes = {
   links: PropTypes.arrayOf(
     PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      href: PropTypes.string.isRequired
+      label: PropTypes.string,
+      href: PropTypes.string
     })
   ).isRequired
 };
