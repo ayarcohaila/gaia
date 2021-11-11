@@ -16,14 +16,13 @@ export const BurstIcon = styled('div')`
   }
 
   div:nth-of-type(2n) {
-    background-color: ${props => (props.isWhite ? 'gray' : '#f4f4f6')};
+    background-color: #f4f4f6;
   }
 
   .icon-1 {
-    background-color: ${props => (props.isWhite ? '#f4f4f6' : 'gray')};
+    background-color: gray;
 
     left: 0;
-
     z-index: 10;
   }
 
@@ -33,7 +32,7 @@ export const BurstIcon = styled('div')`
   }
 
   .icon-3 {
-    background-color: ${props => (props.isWhite ? '#f4f4f6' : 'gray')};
+    background-color: gray;
 
     left: 4px;
     z-index: 8;
@@ -45,7 +44,7 @@ export const BurstIcon = styled('div')`
   }
 
   .icon-5 {
-    background-color: ${props => (props.isWhite ? '#f4f4f6' : 'gray')};
+    background-color: gray;
 
     left: 8px;
     z-index: 6;

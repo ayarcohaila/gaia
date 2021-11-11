@@ -10,17 +10,14 @@ export const Container = styled('div', { shouldForwardProp: prop => prop !== 'im
     paddingLeft: '72px',
     paddingTop: '156px',
     paddingBottom: '56px',
-    width: '90%',
+    width: '100%',
     maxHeight: '618px',
     borderRadius: '40px',
     color: '#fff',
-    marginLeft: '2%',
 
     [breakpoints.down('md')]: {
       padding: '28px',
-      paddingBottom: '24px',
-      width: '84%',
-      marginLeft: '1%'
+      paddingBottom: '24px'
     }
   })
 );

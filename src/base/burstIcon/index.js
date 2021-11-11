@@ -1,8 +1,8 @@
 import * as Styled from './styles';
 
-const BurstIcon = ({ isWhite = false }) => {
+const BurstIcon = () => {
   return (
-    <Styled.BurstIcon isWhite={isWhite}>
+    <Styled.BurstIcon>
       <div className="icon-1"></div>
       <div className="icon-2"></div>
       <div className="icon-3"></div>

@@ -1,10 +1,13 @@
-import { Box } from '@mui/material';
-import { NewToNFTSection, HomepageCarousel } from '~/components';
+import { Box, Grid } from '@mui/material';
+import { NewToNFTSection, HomepageBanner, Seo } from '~/components';
 
 const Home = () => {
   return (
     <>
-      <HomepageCarousel />
+      <Seo title="Home" />
+      <Grid container paddingLeft="32px" paddingRight="32px">
+        <HomepageBanner />
+      </Grid>
       <Box paddingLeft="80px" paddingRight="80px" mt="50px">
         <NewToNFTSection />
       </Box>

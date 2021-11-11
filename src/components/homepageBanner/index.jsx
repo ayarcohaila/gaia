@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Typography } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -8,16 +7,25 @@ import { BurstIcon } from '~/base';
 import { useBreakpoints } from '~/hooks';
 import * as Styled from './styled';
 
-const CarouselCard = ({ data }) => {
+const bannerData = {
+  title: 'New Drop',
+  description: 'NBA Top Shot Legendary Collection Available Now!',
+  cardsAmount: 127,
+  price: '₣500',
+  logo: 'static/img/nba-top-shot.png',
+  background: 'static/img/home-banner.webp'
+};
+
+export default function HomepageCarousel() {
   const { isMediumDevice } = useBreakpoints();
 
   function handleBuyNow() {}
 
   return (
-    <Styled.Container imgUrl={data.background}>
-      {isMediumDevice && <Styled.Logo src={data.logo} alt="logo" />}
+    <Styled.Container imgUrl={bannerData.background}>
+      {isMediumDevice && <Styled.Logo src={bannerData.logo} alt="logo" />}
       <Styled.TypographyWithOpacity variant="h4" mt={isMediumDevice ? '132px' : '0'}>
-        {data.title}
+        {bannerData.title}
       </Styled.TypographyWithOpacity>
       <Typography
         variant="h1"
@@ -26,7 +34,7 @@ const CarouselCard = ({ data }) => {
         lineHeight="1.14"
         letterSpacing="-0.8px"
         mt="8px">
-        {data.description}
+        {bannerData.description}
       </Typography>
       {!isMediumDevice && (
         <Styled.CardButton onClick={handleBuyNow}>
@@ -37,14 +45,14 @@ const CarouselCard = ({ data }) => {
       )}
       <Styled.Divider />
       <Styled.CardFooter>
-        {!isMediumDevice && <Styled.Logo src={data.logo} alt="logo" />}
-        <BurstIcon isWhite />
+        {!isMediumDevice && <Styled.Logo src={bannerData.logo} alt="logo" />}
+        <BurstIcon />
         <Typography variant="subtitle1" fontWeight="bold" mr={isMediumDevice ? '12px' : '6px'}>
-          {data.cardsAmount} cards
+          {bannerData.cardsAmount} cards
         </Typography>
         <span>&sdot;</span>
         <Typography variant="subtitle1" fontWeight="bold" ml="6px">
-          {data.price}{' '}
+          {bannerData.price}{' '}
         </Typography>
         <Styled.TypographyWithOpacity variant="subtitle1" fontWeight="bold">
           &nbsp;and up
@@ -58,17 +66,4 @@ const CarouselCard = ({ data }) => {
       </Styled.CardFooter>
     </Styled.Container>
   );
-};
-
-CarouselCard.propTypes = {
-  data: PropTypes.shape({
-    background: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    cardsAmount: PropTypes.number,
-    price: PropTypes.string,
-    logo: PropTypes.string
-  }).isRequired
-};
-
-export default React.memo(CarouselCard);
+}
