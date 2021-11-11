@@ -1,7 +1,6 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 
 import { ProductDetailsTopSection, Seo } from '~/components';
-
 import { gqlClient } from '~/config/apollo-client';
 import { useBreakpoints } from '~/hooks';
 import { GET_BALLERZ_NFT_BY_ID } from '~/store/server/queries';
@@ -25,7 +24,7 @@ const ProductDetails = ({ nft }) => {
 
   return (
     <Box bgcolor={grey[200]}>
-      <Seo title={title} description={description} />
+      <Seo title={`${title} | ${nft.collection.name} NFT Collection`} description={description} />
       <Grid m="0 auto" maxWidth="1280px" width={isSmallDevice ? '100%' : '90%'}>
         <ProductDetailsTopSection nft={nft} />
       </Grid>

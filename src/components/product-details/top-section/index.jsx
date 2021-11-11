@@ -39,7 +39,7 @@ const ProductDetailsTopSection = ({ nft }) => {
         label: 'Collections'
       },
       {
-        label: nft.collection.name,
+        label: `${nft?.collection?.name} NFTs`,
         href: `/${nft?.collection?.name?.toLowerCase()}`
       },
       {
@@ -93,8 +93,8 @@ const ProductDetailsTopSection = ({ nft }) => {
         <Accordion
           dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
           sx={{ my: 3 }}
-          title="Blockchain History">
-          <BlockchainHistory data={blockchainHistoryData} />
+          title="Additional Details">
+          <AdditionalDetails data={metadata} />
         </Accordion>
         <Accordion
           dividerSx={{
@@ -102,8 +102,8 @@ const ProductDetailsTopSection = ({ nft }) => {
             width: isSmallDevice ? '90%' : 'auto'
           }}
           sx={{ mt: 3 }}
-          title="Additional Details">
-          <AdditionalDetails data={metadata} />
+          title="Blockchain History">
+          <BlockchainHistory data={blockchainHistoryData} />
         </Accordion>
       </>
     ),

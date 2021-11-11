@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import { useBreakpoints } from '~/hooks';
@@ -21,14 +21,18 @@ const AdditionalDetails = ({ data }) => {
   );
 
   return (
-    <Box
+    <Grid
       bgcolor={grey[200]}
       borderRadius="14px"
-      p={isSmallDevice ? '24px 22px' : '20px 40px 20px 24px'}>
+      display="grid"
+      gridAutoFlow="row"
+      gridTemplateColumns="1fr 1fr"
+      p={isSmallDevice ? '24px 22px' : '20px 24px 20px 32px'}
+      rowGap={3.5}>
       {parsedData.map(
-        ([key, value], index) =>
+        ([key, value]) =>
           value !== '' && (
-            <Box key={key} mt={index ? 3.5 : 0}>
+            <Box key={key}>
               <Typography color={grey[500]} variant="subtitle1" fontWeight="normal">
                 {convertCamelCaseToSentenceCase(key)}:
               </Typography>
@@ -38,7 +42,7 @@ const AdditionalDetails = ({ data }) => {
             </Box>
           )
       )}
-    </Box>
+    </Grid>
   );
 };
 

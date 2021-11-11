@@ -20,9 +20,9 @@ export const Button = styled(MuiButton)(
     }
   }) => ({
     ...typography.subtitle2,
-    color: grey[600],
+    color: grey[450],
     fontFamily: 'Work Sans, Roboto',
-    fontWeight: 'bold',
+    fontWeight: '500',
     minWidth: 'auto',
     padding: 0,
     textTransform: 'none',
