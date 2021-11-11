@@ -46,8 +46,8 @@ const CollectionCard = ({ data }) => {
     : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
   const handlePurchaseClick = async event => {
+    event?.stopPropagation();
     try {
-      event?.stopPropagation();
       if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
         toggleMaximumModal();
         return;
@@ -90,7 +90,7 @@ const CollectionCard = ({ data }) => {
   };
 
   const renderContent = () => (
-    <Styled.CustomCard>
+    <Styled.CustomCard sx={{ cursor: SHOULD_HIDE_DATA ? 'auto' : 'pointer' }}>
       <Styled.CustomCardHeader
         avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
         title="BALLERZ"
