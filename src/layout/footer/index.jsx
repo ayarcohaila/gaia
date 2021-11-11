@@ -64,13 +64,17 @@ const Footer = () => {
           </Box> */
           }
           <Box width={isMediumDevice ? 'auto' : '35%'}>
-            <NextImage width={102.4} height={40} src="/static/img/gaia_logo-white.png" />
+            <NextImage
+              width={isMediumDevice ? 75 : 102.4}
+              height={isMediumDevice ? 29.3 : 40}
+              src="/static/img/gaia_logo-white.png"
+            />
             <Grid alignItems="center" container mt="24px">
               <Styled.CustomLink href="mailto:info@nftgenius.com" target="_blank" underline="none">
                 Contact Us
               </Styled.CustomLink>
               <Styled.CustomLink
-                href="https://twitter.com/geniusnft"
+                href="https://twitter.com/gaia_nfts"
                 mr="18px"
                 target="_blank"
                 underline="none">
