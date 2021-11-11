@@ -31,6 +31,7 @@ const Modal = ({
   onClose,
   title,
   titleSx,
+  disableCloseButton,
   ...props
 }) => {
   const { isSmallDevice } = useBreakpoints();
@@ -56,7 +57,7 @@ const Modal = ({
         )}
         {asset?.img && (
           <Styled.AssetContainer>
-            <Grid sx={{ display: !imgLoaded && 'none' }}>
+            <Grid sx={{ display: !imgLoaded && 'none', position: 'relative' }}>
               <Styled.Asset
                 alt={title}
                 layout="fill"
@@ -89,7 +90,7 @@ const Modal = ({
           </Styled.Description>
           {children}
         </Styled.InfoContainer>
-        {!isSmallDevice && onClose && (
+        {!isSmallDevice && !disableCloseButton && (
           <Styled.CloseButton startIcon={<CloseIcon sx={{ color: '#bcbfc8' }} />} onClick={onClose}>
             Close Window
           </Styled.CloseButton>
@@ -141,9 +142,10 @@ Modal.propTypes = {
   height: PropTypes.string,
   mobileHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   open: PropTypes.bool,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
-  titleSx: PropTypes.object
+  titleSx: PropTypes.object,
+  disableCloseButton: PropTypes.bool
 };
 
 Modal.defaultProps = {
@@ -151,14 +153,14 @@ Modal.defaultProps = {
     img: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
   },
   children: null,
-  onClose: undefined,
   containerProps: {},
   description: '',
   descriptionSx: {},
   height: '358px',
   mobileHeight: '58vh',
   title: '',
-  titleSx: {}
+  titleSx: {},
+  disableCloseButton: false
 };
 
 export default memo(Modal);

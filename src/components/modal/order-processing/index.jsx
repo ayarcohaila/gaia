@@ -1,8 +1,11 @@
 import { memo, useMemo } from 'react';
 
+import { useBreakpoints } from '~/hooks';
 import Modal from '..';
 
 const OrderProcessing = ({ open, ...props }) => {
+  const { isSmallDevice } = useBreakpoints();
+
   const title = 'Transaction Being Processed...';
   const description = useMemo(() => {
     return (
@@ -29,6 +32,7 @@ const OrderProcessing = ({ open, ...props }) => {
       titleSx={{ mt: 0, mb: '20px', textAlign: 'center' }}
       asset={{}}
       open={open}
+      disableCloseButton={!isSmallDevice}
       {...props}
     />
   );
