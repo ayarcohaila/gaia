@@ -18,11 +18,10 @@ import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
-import { listNfts } from '~/flow/listNfts';
 import { AuthContext } from '~/providers/AuthProvider';
+import axios from 'axios';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
-const SET_ID = process.env.NEXT_PUBLIC_BALLERZ_SETID;
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
@@ -86,7 +85,8 @@ const CollectionCard = ({ data }) => {
   useEffect(() => {
     (async () => {
       if (!!user && Object.keys(user).length) {
-        const NFTs = await listNfts(user?.addr, SET_ID);
+        const result = await axios.get(`/api/list?address=${user?.addr}`);
+        const NFTs = result.data;
         const tx = await loadTransaction(
           window.location.origin,
           isDapper ? 'buy' : 'buy_flowtoken'
@@ -95,7 +95,7 @@ const CollectionCard = ({ data }) => {
         setOwnNFTs(NFTs);
       }
     })();
-  }, [user, listNfts, loadTransaction, isDapper]);
+  }, [user, loadTransaction, isDapper]);
 
   return (
     <>
