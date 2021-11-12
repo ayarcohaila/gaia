@@ -96,7 +96,11 @@ const ProductDetailsTopSection = ({ nft }) => {
         <Styled.ImageContainer>
           <Styled.Image
             alt={metadata.title}
+            blurDataURL={`https://images.ongaia.com/ipfs/`.concat(
+              metadata.img.slice(7, metadata.img.length)
+            )}
             layout="fill"
+            placeholder="blur"
             src={`https://images.ongaia.com/ipfs/`.concat(
               metadata.img.slice(7, metadata.img.length)
             )}
