@@ -37,7 +37,6 @@ export default function NewToNFTSection() {
           <Styled.CustomGrid
             key={index}
             item
-            // sm={12}
             md={4}
             mt={isMediumDevice ? '30px' : '0px'}
             display="flex"

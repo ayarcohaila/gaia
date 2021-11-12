@@ -27,13 +27,7 @@ export default function HomepageBanner() {
       <Styled.TypographyWithOpacity variant="h4" mt={isMediumDevice ? '132px' : '0'}>
         {bannerData.title}
       </Styled.TypographyWithOpacity>
-      <Typography
-        variant="h1"
-        fontSize="42px"
-        maxWidth="450px"
-        lineHeight="1.14"
-        letterSpacing="-0.8px"
-        mt="8px">
+      <Typography variant="h2" maxWidth="450px" lineHeight="1.14" letterSpacing="-0.8px" mt="8px">
         {bannerData.description}
       </Typography>
       {!isMediumDevice && (
