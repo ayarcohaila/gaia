@@ -63,6 +63,7 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
         setLoadingPurchase(false);
       }
     } catch (err) {
+      console.warn(err);
       toggleProcessingModal();
       if (err?.message?.includes(INSUFFICIENT_FUNDS)) {
         toggleFundsError();
