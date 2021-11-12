@@ -26,6 +26,7 @@ export { default as BlockLayer } from './block-layer';
 export { default as NewToNFTCard } from './newToNFTCard';
 export { default as NewToNFTSection } from './newToNFTSection';
 export { default as HomepageBanner } from './homepageBanner';
+export { default as MostViewed } from './most-viewed';
 export { default as Accordion } from './accordion';
 export { default as Breadcrumbs } from './breadcrumbs';
 export { default as AdditionalDetails } from './product-details/top-section/additional-details';

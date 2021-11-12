@@ -8,6 +8,5 @@ const SENTRY_DSN = process.env.NODE_ENV == 'production' ? process.env.NEXT_PUBLI
 
 Sentry.init({
   dsn: SENTRY_DSN,
-  tracesSampleRate: 1.0,
-  environment: 'production'
+  tracesSampleRate: 1.0
 });

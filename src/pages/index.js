@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material';
-import { NewToNFTSection, HomepageBanner, Seo } from '~/components';
+import { NewToNFTSection, HomepageBanner, Seo, MostViewed } from '~/components';
 
 import { useBreakpoints } from '~/hooks';
 
@@ -14,6 +14,7 @@ const Home = () => {
         paddingRight={isMediumDevice ? '12px' : '32px'}>
         <HomepageBanner />
       </Grid>
+      <MostViewed />
       <Box paddingLeft="80px" paddingRight="80px" mt="50px">
         <NewToNFTSection />
       </Box>
