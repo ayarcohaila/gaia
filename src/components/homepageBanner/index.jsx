@@ -13,7 +13,7 @@ const bannerData = {
   cardsAmount: 127,
   price: '₣500',
   logo: 'static/img/nba-top-shot.png',
-  background: ''
+  background: 'collections/ballerz.png'
 };
 
 export default function HomepageBanner() {

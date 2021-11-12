@@ -14,7 +14,8 @@ export const Container = styled('div', { shouldForwardProp: prop => prop !== 'im
     maxHeight: '618px',
     borderRadius: '40px',
     color: '#fff',
-    background: '#000',
+    backgroundSize: 'cover',
+    // background: '#000',
 
     [breakpoints.down('md')]: {
       padding: '28px',
