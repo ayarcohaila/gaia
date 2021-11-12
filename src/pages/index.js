@@ -11,7 +11,8 @@ const Home = () => {
       <Grid
         container
         paddingLeft={isMediumDevice ? '12px' : '32px'}
-        paddingRight={isMediumDevice ? '12px' : '32px'}>
+        paddingRight={isMediumDevice ? '12px' : '32px'}
+        marginBottom="58px">
         <HomepageBanner />
       </Grid>
       <MostViewed />
