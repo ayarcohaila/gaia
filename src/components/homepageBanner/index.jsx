@@ -3,7 +3,6 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-import { BurstIconWhite } from '~/base';
 import { useBreakpoints } from '~/hooks';
 import * as Styled from './styled';
 
@@ -46,7 +45,7 @@ export default function HomepageBanner() {
       <Styled.Divider />
       <Styled.CardFooter>
         {!isMediumDevice && <Styled.Logo src={bannerData.logo} alt="logo" />}
-        <BurstIconWhite />
+        <img src="icons/stack.svg" alt="stack" width="19px" height="14px" />
         <Typography variant="subtitle1" fontWeight="bold" mr={isMediumDevice ? '12px' : '6px'}>
           {bannerData.cardsAmount} cards
         </Typography>
