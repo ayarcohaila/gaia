@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import NextLink from 'next/link';
 
 import { useBreakpoints } from '~/hooks';
@@ -8,7 +9,14 @@ import { MOCKED_LIST } from './constant';
 import * as Styled from './styled.js';
 
 const MostViewed = () => {
-  const { isSmallDevice } = useBreakpoints();
+  const { isSmallDevice, isMediumDevice } = useBreakpoints();
+
+  const list = useMemo(() => {
+    if (isSmallDevice || isMediumDevice) {
+      return MOCKED_LIST.slice(0, isSmallDevice ? 4 : 6);
+    }
+    return MOCKED_LIST;
+  }, [isSmallDevice, isMediumDevice]);
 
   return (
     <Styled.Container>
@@ -23,7 +31,7 @@ const MostViewed = () => {
       </Styled.ContainerHeader>
 
       <Styled.ListContainer>
-        {MOCKED_LIST.map((item, index) => (
+        {list.map((item, index) => (
           <CollectionCard key={`${item?.id}-${index}`} data={item} />
         ))}
         {isSmallDevice && (
