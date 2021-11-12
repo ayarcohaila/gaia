@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Grid, CardContent, CardMedia, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
@@ -15,30 +15,26 @@ import {
 } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-import { isDapper } from '~/utils/currencyCheck';
-import { loadTransaction } from '~/utils/transactionsLoader';
+
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
 import { AuthContext } from '~/providers/AuthProvider';
-import axios from 'axios';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
-const CollectionCard = ({ data }) => {
+const CollectionCard = ({ data, ownNFTs, transaction }) => {
   const route = useRouter();
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
-  const [ownNFTs, setOwnNFTs] = useState([]);
-  const [transaction, setTransaction] = useState(null);
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
   const [isPurchaseErrorOpen, togglePurchaseError] = useToggle();
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
   const [isMaximumModalOpen, toggleMaximumModal] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
-  const { hasSetup } = useContext(AuthContext);
+  const { hasSetup, user } = useContext(AuthContext);
 
   const img = SHOULD_HIDE_DATA
     ? '/images/mystery-nft.gif'
@@ -67,6 +63,7 @@ const CollectionCard = ({ data }) => {
         setLoadingPurchase(false);
       }
     } catch (err) {
+      console.warn(err);
       toggleProcessingModal();
       if (err?.message?.includes(INSUFFICIENT_FUNDS)) {
         toggleFundsError();
@@ -116,28 +113,13 @@ const CollectionCard = ({ data }) => {
         <Grid container justifyContent="center">
           <Styled.PurchaseButton
             onClick={user ? handlePurchaseClick : handleLogin}
-            disabled={loadingPurchase || (user && !hasSetup)}>
+            disabled={loadingPurchase || (user && !hasSetup) || (user && !transaction)}>
             {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
           </Styled.PurchaseButton>
         </Grid>
       )}
     </Styled.CustomCard>
   );
-
-  useEffect(() => {
-    (async () => {
-      if (!!user && Object.keys(user).length) {
-        const result = await axios.get(`/api/list?address=${user?.addr}`);
-        const NFTs = result.data;
-        const tx = await loadTransaction(
-          window.location.origin,
-          isDapper ? 'buy' : 'buy_flowtoken'
-        );
-        setTransaction(tx);
-        setOwnNFTs(NFTs);
-      }
-    })();
-  }, [user, loadTransaction, isDapper]);
 
   return (
     <>

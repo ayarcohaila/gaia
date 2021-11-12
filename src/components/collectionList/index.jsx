@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Grid, Typography, Link } from '@mui/material';
+import axios from 'axios';
 
 import { CollectionCard } from '~/components';
 import useBreakpoints from '~/hooks/useBreakpoints';
+import { AuthContext } from '~/providers/AuthProvider';
+import { isDapper } from '~/utils/currencyCheck';
+import { loadTransaction } from '~/utils/transactionsLoader';
 
 const CollectionList = ({ nfts, hasNftsForSale }) => {
   const { isMediumDevice } = useBreakpoints();
+  const [ownNFTs, setOwnNFTs] = useState([]);
+  const [transaction, setTransaction] = useState(null);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    (async () => {
+      if (!!user && Object.keys(user).length) {
+        const result = await axios.get(`/api/list?address=${user?.addr}`);
+        const NFTs = result.data;
+        const tx = await loadTransaction(
+          window.location.origin,
+          isDapper ? 'buy' : 'buy_flowtoken'
+        );
+        setTransaction(tx);
+        setOwnNFTs(NFTs);
+      }
+    })();
+  }, [user, loadTransaction, isDapper]);
+
   return (
     <>
       {hasNftsForSale ? (
-        nfts.map(nft => <CollectionCard key={nft.id} data={nft} />)
+        nfts.map(nft => (
+          <CollectionCard key={nft.id} data={nft} ownNFTs={ownNFTs} transaction={transaction} />
+        ))
       ) : (
         <Grid
           container
