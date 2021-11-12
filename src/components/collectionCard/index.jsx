@@ -26,7 +26,7 @@ const INSUFFICIENT_FUNDS =
 
 const CollectionCard = ({ data, ownNFTs, transaction }) => {
   const route = useRouter();
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const { isSmallDevice } = useBreakpoints();
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
@@ -35,7 +35,7 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
   const [isMaximumModalOpen, toggleMaximumModal] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
-  const { hasSetup } = useContext(AuthContext);
+  const { hasSetup, user } = useContext(AuthContext);
 
   const img = SHOULD_HIDE_DATA
     ? '/images/mystery-nft.gif'
@@ -113,7 +113,7 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
         <Grid container justifyContent="center">
           <Styled.PurchaseButton
             onClick={user ? handlePurchaseClick : handleLogin}
-            disabled={loadingPurchase || (user && !hasSetup)}>
+            disabled={loadingPurchase || (user && !hasSetup) || (user && !transaction)}>
             {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
           </Styled.PurchaseButton>
         </Grid>
