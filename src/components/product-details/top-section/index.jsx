@@ -2,8 +2,15 @@ import { memo, useMemo } from 'react';
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/components';
+import {
+  Accordion,
+  AdditionalDetails,
+  BlockchainHistory,
+  Breadcrumbs,
+  VideoPlayer
+} from '~/components';
 import { useBreakpoints } from '~/hooks';
+import { isVideo } from '~/utils/string';
 
 import * as Styled from './styles';
 import CollectionInfo from './collection-info';
@@ -15,8 +22,25 @@ const ProductDetailsTopSection = ({ nft }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
 
   const { metadata } = nft.template;
+
   //TODO: Uncomment on future implementation
   // const activeSaleOffer = nft.sale_offers.find(offer => offer?.status === 'active');
+  //TODO: Uncomment on future implementation of share/favorite NFTs
+  // const renderIconButtons = useMemo(
+  //   () => (
+  //     <Grid item mt={isMediumDevice ? '32px' : '0'}>
+  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
+  //         <ShareIcon htmlColor={grey[600]} />
+  //       </IconButton>
+  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '20px' } }}>
+  //         <FavoriteIcon htmlColor={grey[600]} />
+  //       </IconButton>
+  //     </Grid>
+  //   ),
+  //   [isMediumDevice]
+  // );
+
+  const isVideoAsset = useMemo(() => isVideo(metadata?.img), [metadata?.img]);
 
   const blockchainHistoryData = useMemo(
     () => ({
@@ -49,21 +73,6 @@ const ProductDetailsTopSection = ({ nft }) => {
     [nft?.collection]
   );
 
-  //TODO: Uncomment on future implementation of share/favorite NFTs
-  // const renderIconButtons = useMemo(
-  //   () => (
-  //     <Grid item mt={isMediumDevice ? '32px' : '0'}>
-  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
-  //         <ShareIcon htmlColor={grey[600]} />
-  //       </IconButton>
-  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '20px' } }}>
-  //         <FavoriteIcon htmlColor={grey[600]} />
-  //       </IconButton>
-  //     </Grid>
-  //   ),
-  //   [isMediumDevice]
-  // );
-
   const renderAccordions = useMemo(
     () => (
       <>
@@ -89,23 +98,31 @@ const ProductDetailsTopSection = ({ nft }) => {
     [blockchainHistoryData, isMediumDevice, isSmallDevice, metadata]
   );
 
+  const renderAsset = useMemo(() => {
+    if (!isVideoAsset) {
+      return <VideoPlayer src={metadata.img} />;
+    }
+
+    return (
+      <Styled.ImageContainer>
+        <Styled.Image
+          alt={metadata.title}
+          blurDataURL={`https://images.ongaia.com/ipfs/`.concat(
+            metadata.img.slice(7, metadata.img.length)
+          )}
+          layout="fill"
+          placeholder="blur"
+          src={`https://images.ongaia.com/ipfs/`.concat(metadata.img.slice(7, metadata.img.length))}
+        />
+      </Styled.ImageContainer>
+    );
+  }, [metadata, isVideoAsset]);
+
   return (
     <>
       <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} />
       <Styled.Container container={!isMediumDevice} justifyContent="space-between">
-        <Styled.ImageContainer>
-          <Styled.Image
-            alt={metadata.title}
-            blurDataURL={`https://images.ongaia.com/ipfs/`.concat(
-              metadata.img.slice(7, metadata.img.length)
-            )}
-            layout="fill"
-            placeholder="blur"
-            src={`https://images.ongaia.com/ipfs/`.concat(
-              metadata.img.slice(7, metadata.img.length)
-            )}
-          />
-        </Styled.ImageContainer>
+        {renderAsset}
         <Grid
           alignItems={isMediumDevice ? 'center' : 'stretch'}
           container

@@ -35,3 +35,14 @@ export const convertCamelCaseToSentenceCase = text => {
   const result = parsedText.charAt(0).toUpperCase() + parsedText.slice(1);
   return result;
 };
+
+export const IMG_REGEX = /\.(jpe?g|png|gif|bmp|webp)$/i;
+
+export const isImage = url => IMG_REGEX.test(url);
+
+export const VIDEO_REGEX = /\.(mp4|mov|avi|wmv|flv|3gp|mkv|webm)$/i;
+
+export const isVideo = url => VIDEO_REGEX.test(url);
+
+export const replaceFileExtension = (url, extension) =>
+  url?.substr(0, url?.lastIndexOf('.')) + extension;
