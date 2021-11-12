@@ -23,7 +23,7 @@ const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
-const CollectionCard = ({ data, containerProps }) => {
+const CollectionCard = ({ data }) => {
   const route = useRouter();
   const { user, login } = useAuth();
   const { isSmallDevice } = useBreakpoints();
@@ -95,7 +95,7 @@ const CollectionCard = ({ data, containerProps }) => {
   }, [user, loadTransaction, isDapper]);
 
   return (
-    <Grid {...containerProps}>
+    <Grid>
       <Styled.CustomCard>
         <Styled.CustomCardHeader
           avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
@@ -147,7 +147,6 @@ const CollectionCard = ({ data, containerProps }) => {
 };
 
 CollectionCard.propTypes = {
-  containerProps: PropTypes.shape({}),
   data: PropTypes.shape({
     id: PropTypes.string,
     price: PropTypes.string,
@@ -162,10 +161,6 @@ CollectionCard.propTypes = {
       })
     })
   }).isRequired
-};
-
-CollectionCard.defaultProps = {
-  containerProps: {}
 };
 
 export default React.memo(CollectionCard);

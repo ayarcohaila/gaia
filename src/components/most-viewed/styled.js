@@ -13,13 +13,7 @@ export const Title = styled(Typography)(({ theme: { palette, breakpoints } }) =>
   }
 }));
 
-export const Container = styled(Grid)(() => ({}));
-
-export const ListContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
-  display: 'flex',
-  gap: '16px',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
+export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   padding: '0 80px',
   boxSizing: 'border-box',
 
@@ -29,20 +23,21 @@ export const ListContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
   }
 }));
 
-export const ContainerHeader = styled(Grid)(({ theme: { breakpoints } }) => ({
+export const ListContainer = styled(Grid)(() => ({
+  display: 'flex',
+  gap: '16px',
+  flexWrap: 'wrap',
+  justifyContent: 'center'
+}));
+
+export const ContainerHeader = styled(Grid)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginBottom: '20px',
-  padding: '0 80px',
-  boxSizing: 'border-box',
-
-  [breakpoints.down('md')]: {
-    padding: '0 20px'
-  }
+  marginBottom: '20px'
 }));
 
-export const LinkContent = styled(Grid)(({ theme: { palette } }) => ({
+export const LinkContent = styled(Grid)(({ theme: { palette, breakpoints } }) => ({
   display: 'flex',
   alignItems: 'center',
   color: palette.primary.main,
@@ -59,14 +54,9 @@ export const LinkContent = styled(Grid)(({ theme: { palette } }) => ({
   '& > svg': {
     width: '18px',
     marginTop: '2px'
-  }
-}));
+  },
 
-export const SliderContainer = styled(Grid)(() => ({
-  padding: '0 20px',
-  boxSizing: 'border-box',
-
-  '& > .slick-slider .slick-list': {
-    overflow: 'visible'
+  [breakpoints.down('sm')]: {
+    marginTop: '16px'
   }
 }));
