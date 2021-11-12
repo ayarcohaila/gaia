@@ -4,7 +4,7 @@ const breakpoints = {
   values: {
     xs: 375,
     sm: 640,
-    md: 1024,
+    md: 1025,
     lg: 1200,
     xl: 1536
   }
@@ -24,9 +24,11 @@ const theme = createTheme({
     grey: {
       800: '#1c202a',
       700: '#272a36',
+      650: '#42454d',
       600: '#6c7283',
       550: '#42454d',
       500: '#9a9fac',
+      450: '#a6a7ac',
       400: '#bcbfc8',
       375: '#d8d8d8',
       350: '#dddfe3',
