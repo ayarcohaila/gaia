@@ -1,5 +1,11 @@
+import { MostViewed } from '~/components';
+
 const Home = () => {
-  return <></>;
+  return (
+    <>
+      <MostViewed />
+    </>
+  );
 };
 
 export default Home;
