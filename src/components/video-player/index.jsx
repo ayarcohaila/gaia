@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { replaceFileExtension } from '~/utils/string';
 
-const VideoPlayer = ({ containerSx, src }) => {
+const VideoPlayer = ({ containerSx, poster, src }) => {
   const {
     palette: { secondary, grey }
   } = useTheme();
@@ -29,7 +29,14 @@ const VideoPlayer = ({ containerSx, src }) => {
       position="relative"
       width="424px"
       sx={containerSx}>
-      <video autoPlay={false} controls={false} ref={playerRef} src={src}>
+      <video
+        autoPlay={false}
+        height="100%"
+        width="100%"
+        controls={false}
+        poster={poster}
+        ref={playerRef}
+        src={src}>
         <track default kind="captions" srcLang="en" src={replaceFileExtension(src, 'vtt')} />
         Sorry, your browser have no support to embedded videos.
       </video>
@@ -58,12 +65,14 @@ const VideoPlayer = ({ containerSx, src }) => {
 
 VideoPlayer.propTypes = {
   containerSx: PropTypes.object,
+  poster: PropTypes.string,
   src: PropTypes.string
 };
 
 VideoPlayer.defaultProps = {
   containerSx: {},
-  //TODO: Remove it when finishing the task
+  //TODO: Remove it when finishing the task,
+  poster: 'https://images.ongaia.com/ipfs/QmZ6dDfmAzbKq7V37DyUeB8uxbn7yHA4LtP1tyFCwMkF3x/66.png',
   src: 'https://rebelrabbits.io/static/videos/new_cta.mp4'
 };
 
