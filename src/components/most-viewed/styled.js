@@ -23,11 +23,16 @@ export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   }
 }));
 
-export const ListContainer = styled(Grid)(() => ({
+export const ListContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
   display: 'flex',
   gap: '16px',
   flexWrap: 'wrap',
-  justifyContent: 'center'
+  justifyContent: 'center',
+
+  [breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'center'
+  }
 }));
 
 export const ContainerHeader = styled(Grid)(() => ({
