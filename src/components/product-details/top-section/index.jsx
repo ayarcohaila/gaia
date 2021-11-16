@@ -2,17 +2,11 @@ import { memo, useMemo } from 'react';
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import {
-  Accordion,
-  AdditionalDetails,
-  BlockchainHistory,
-  Breadcrumbs,
-  VideoPlayer
-} from '~/components';
+import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/components';
 import { useBreakpoints } from '~/hooks';
-import { isVideo } from '~/utils/string';
 
 import * as Styled from './styles';
+import Asset from './asset';
 import CollectionInfo from './collection-info';
 
 const ProductDetailsTopSection = ({ nft }) => {
@@ -39,8 +33,6 @@ const ProductDetailsTopSection = ({ nft }) => {
   //   ),
   //   [isMediumDevice]
   // );
-
-  const isVideoAsset = useMemo(() => isVideo(metadata?.img), [metadata?.img]);
 
   const blockchainHistoryData = useMemo(
     () => ({
@@ -98,31 +90,11 @@ const ProductDetailsTopSection = ({ nft }) => {
     [blockchainHistoryData, isMediumDevice, isSmallDevice, metadata]
   );
 
-  const renderAsset = useMemo(() => {
-    if (!isVideoAsset) {
-      return <VideoPlayer />;
-    }
-
-    return (
-      <Styled.ImageContainer>
-        <Styled.Image
-          alt={metadata.title}
-          blurDataURL={`https://images.ongaia.com/ipfs/`.concat(
-            metadata.img.slice(7, metadata.img.length)
-          )}
-          layout="fill"
-          placeholder="blur"
-          src={`https://images.ongaia.com/ipfs/`.concat(metadata.img.slice(7, metadata.img.length))}
-        />
-      </Styled.ImageContainer>
-    );
-  }, [metadata, isVideoAsset]);
-
   return (
     <>
       <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} />
       <Styled.Container container={!isMediumDevice} justifyContent="space-between">
-        {renderAsset}
+        <Asset metadata={metadata} />
         <Grid
           alignItems={isMediumDevice ? 'center' : 'stretch'}
           container
