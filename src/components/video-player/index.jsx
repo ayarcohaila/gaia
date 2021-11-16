@@ -1,6 +1,11 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import { memo, useEffect, useRef, useState } from 'react';
-import { Pause as PauseIcon, PlayArrow as PlayIcon } from '@mui/icons-material';
+import {
+  Pause as PauseIcon,
+  PlayArrow as PlayIcon,
+  VolumeOff as MutedIcon,
+  VolumeUp as SoundIcon
+} from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
 import * as Styled from './styles';
@@ -8,6 +13,7 @@ import * as Styled from './styles';
 const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) => {
   const playerRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     const player = playerRef?.current;
@@ -18,16 +24,25 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
 
   return (
     <Styled.VideoContainer $height={height} $width={width} {...containerProps}>
-      <Styled.Video poster={poster} ref={playerRef} src={src} {...props}>
+      <Styled.Video muted={isMuted} poster={poster} ref={playerRef} src={src} {...props}>
         Sorry, your browser have no support to embedded videos.
       </Styled.Video>
-      <Styled.PlayButton onClick={() => setIsPlaying(prevState => !prevState)}>
-        {isPlaying ? (
-          <PauseIcon color="white" fontSize="small" />
-        ) : (
-          <PlayIcon color="white" fontSize="small" />
-        )}
-      </Styled.PlayButton>
+      <Styled.ActionsContainer>
+        <Styled.PlayButton onClick={() => setIsPlaying(prevState => !prevState)}>
+          {isPlaying ? (
+            <PauseIcon color="white" fontSize="small" />
+          ) : (
+            <PlayIcon color="white" fontSize="small" />
+          )}
+        </Styled.PlayButton>
+        <Styled.MuteButton onClick={() => setIsMuted(prevState => !prevState)}>
+          {isMuted ? (
+            <MutedIcon color="white" fontSize="small" />
+          ) : (
+            <SoundIcon color="white" fontSize="small" />
+          )}
+        </Styled.MuteButton>
+      </Styled.ActionsContainer>
     </Styled.VideoContainer>
   );
 };

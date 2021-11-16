@@ -1,4 +1,4 @@
-import { Box, IconButton, styled } from '@mui/material';
+import { Box, Grid, IconButton, styled } from '@mui/material';
 
 export const VideoContainer = styled(Box, {
   shouldForwardProp: prop => prop !== '$height ' && prop !== '$width'
@@ -34,6 +34,16 @@ export const Video = styled('video')(() => ({
   width: '100%'
 }));
 
+export const ActionsContainer = styled(Grid)(() => ({
+  alignItems: 'center',
+  bottom: '20px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  position: 'absolute',
+  padding: '0 20px',
+  width: '100%'
+}));
+
 export const PlayButton = styled(IconButton)(
   ({
     theme: {
@@ -43,10 +53,7 @@ export const PlayButton = styled(IconButton)(
   }) => ({
     backgroundColor: secondary.main,
     borderRadius: '10px',
-    bottom: '20px',
-    left: '20px',
     padding: '27px 25px 26px',
-    position: 'absolute',
 
     '&:hover': {
       backgroundColor: grey[700]
@@ -54,6 +61,27 @@ export const PlayButton = styled(IconButton)(
 
     [breakpoints.down('md')]: {
       padding: '20px 23px 19px'
+    },
+
+    [breakpoints.down('sm')]: {
+      padding: '17px 15px 16px'
+    }
+  })
+);
+
+export const MuteButton = styled(IconButton)(
+  ({
+    theme: {
+      breakpoints,
+      palette: { grey, secondary }
+    }
+  }) => ({
+    backgroundColor: secondary.main,
+    borderRadius: '10px',
+    padding: '12px',
+
+    '&:hover': {
+      backgroundColor: grey[700]
     },
 
     [breakpoints.down('sm')]: {
