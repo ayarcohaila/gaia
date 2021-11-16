@@ -6,7 +6,7 @@ export const CustomCard = styled('div')(() => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   justifyContent: 'center',
-  maxWidth: '100%',
+  maxWidth: '460px',
 
   img: {
     width: '100%',
