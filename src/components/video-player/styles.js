@@ -44,7 +44,7 @@ export const ActionsContainer = styled(Grid)(() => ({
   width: '100%'
 }));
 
-export const PlayButton = styled(IconButton)(
+export const Button = styled(IconButton)(
   ({
     theme: {
       breakpoints,
@@ -61,27 +61,6 @@ export const PlayButton = styled(IconButton)(
 
     [breakpoints.down('md')]: {
       padding: '20px 23px 19px'
-    },
-
-    [breakpoints.down('sm')]: {
-      padding: '17px 15px 16px'
-    }
-  })
-);
-
-export const MuteButton = styled(IconButton)(
-  ({
-    theme: {
-      breakpoints,
-      palette: { grey, secondary }
-    }
-  }) => ({
-    backgroundColor: secondary.main,
-    borderRadius: '10px',
-    padding: '12px',
-
-    '&:hover': {
-      backgroundColor: grey[700]
     },
 
     [breakpoints.down('sm')]: {

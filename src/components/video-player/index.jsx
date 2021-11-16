@@ -28,20 +28,20 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
         Sorry, your browser have no support to embedded videos.
       </Styled.Video>
       <Styled.ActionsContainer>
-        <Styled.PlayButton onClick={() => setIsPlaying(prevState => !prevState)}>
+        <Styled.Button onClick={() => setIsPlaying(prevState => !prevState)}>
           {isPlaying ? (
             <PauseIcon color="white" fontSize="small" />
           ) : (
             <PlayIcon color="white" fontSize="small" />
           )}
-        </Styled.PlayButton>
-        <Styled.MuteButton onClick={() => setIsMuted(prevState => !prevState)}>
+        </Styled.Button>
+        <Styled.Button onClick={() => setIsMuted(prevState => !prevState)}>
           {isMuted ? (
             <MutedIcon color="white" fontSize="small" />
           ) : (
             <SoundIcon color="white" fontSize="small" />
           )}
-        </Styled.MuteButton>
+        </Styled.Button>
       </Styled.ActionsContainer>
     </Styled.VideoContainer>
   );
