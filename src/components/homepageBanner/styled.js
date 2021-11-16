@@ -18,7 +18,8 @@ export const Container = styled('div', { shouldForwardProp: prop => prop !== 'im
 
     [breakpoints.down('md')]: {
       padding: '28px',
-      paddingBottom: '24px'
+      paddingBottom: '24px',
+      height: '430px'
     }
   })
 );
@@ -33,14 +34,22 @@ export const CardButton = styled(Button)(({ theme: { breakpoints } }) => ({
   height: '38px',
   borderRadius: '24px',
   backgroundColor: '#215cf1',
-  marginTop: '40px',
+  marginTop: '20px',
   textTransform: 'none',
 
   [breakpoints.down('md')]: {
     width: '48px',
     height: '48px',
     minWidth: '48px',
-    marginTop: '0px',
+    marginTop: 'auto',
     marginLeft: 'auto'
   }
 }));
+
+export const Divider = styled('div')({
+  width: '100%',
+  background: '#fff',
+  height: '2px',
+  opacity: '0.16',
+  borderRadius: '24px'
+});

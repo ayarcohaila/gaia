@@ -9,29 +9,35 @@ import * as Styled from './styled';
 const bannerData = {
   drop: 'Exclusive Drop',
   title: 'Bryson Dechambeau',
-  description: 'Las Vegas Thanksgiving NFT + VIP Raffle',
+  description: 'Vegas, Baby! Collectible NFT + VIP Raffle',
   background: 'images/header/bryson_header.jpg'
 };
 
 export default function HomepageBanner() {
-  const { isMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
 
   function handleBuyNow() {}
 
   return (
     <Styled.Container imgUrl={bannerData.background}>
       <Styled.TypographyWithOpacity
-        variant="h4"
+        variant={isMediumDevice ? 'h5' : 'h4'}
         fontWeight="normal"
-        mt={isMediumDevice ? '132px' : '0'}>
+        lineHeight="24px"
+        mt={isExtraSmallDevice ? '200px' : isMediumDevice && '250px'}>
         {bannerData.drop}
       </Styled.TypographyWithOpacity>
-      <Typography variant="h2" fontWeight="bold" maxWidth="450px" mt="8px">
+      <Typography variant="h2" fontWeight="bold" maxWidth="450px" mt="10px">
         {bannerData.title}
       </Typography>
-      <Typography variant="h3" fontWeight="normal" mt="8px">
+      <Typography
+        variant={isMediumDevice ? 'subtitle1' : 'h4'}
+        fontWeight="normal"
+        mt="10px"
+        mb={isMediumDevice && '24px'}>
         {bannerData.description}
       </Typography>
+      {isMediumDevice && <Styled.Divider />}
       <Styled.CardButton onClick={handleBuyNow}>
         {isMediumDevice ? (
           <KeyboardArrowRightIcon />

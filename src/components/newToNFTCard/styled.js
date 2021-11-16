@@ -18,12 +18,7 @@ export const CustomCard = styled('div')(() => ({
 
 export const CardDescription = styled(Typography)(() => ({
   textOverflow: 'ellipsis',
-  overflow: 'hidden',
-  maxWidth: '360px',
-  maxHeight: '40px',
-  display: '-webkit-box',
-  WebkitLineClamp: '2',
-  WebkitBoxOrient: 'vertical'
+  overflow: 'hidden'
 }));
 
 export const CardLink = styled('div')(() => ({

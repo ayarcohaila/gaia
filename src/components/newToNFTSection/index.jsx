@@ -11,7 +11,7 @@ const NewNFTs = [
       'The first of a  series of drops highlighting his basketball career, family, and recovery from heart surgery.',
     image: 'images/newToNFT/shareef.jpg',
     link: 'https://twitter.com/SSJreef',
-    linkText: 'Fallow on Twitter'
+    linkText: 'Follow on Twitter'
   },
   {
     title: 'Introducing BALLERZ',
@@ -19,7 +19,7 @@ const NewNFTs = [
       'Generative PFP basketball collection on Flow -- SOLD OUT! Marketplace coming soon.',
     image: 'images/newToNFT/ballerz.jpg',
     link: 'https://twitter.com/ballerz_nft',
-    linkText: 'Fallow on Twitter'
+    linkText: 'Follow on Twitter'
   },
   {
     title: 'About The Team',
