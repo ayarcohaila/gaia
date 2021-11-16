@@ -29,3 +29,4 @@ export { default as Breadcrumbs } from './breadcrumbs';
 export { default as AdditionalDetails } from './product-details/top-section/additional-details';
 export { default as BlockchainHistory } from './product-details/top-section/blockchain-history';
 export { default as ProductDetailsTopSection } from './product-details/top-section';
+export { default as VideoPlayer } from './video-player';

@@ -6,6 +6,7 @@ import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/
 import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
+import Asset from './asset';
 import CollectionInfo from './collection-info';
 
 const ProductDetailsTopSection = ({ nft }) => {
@@ -15,8 +16,23 @@ const ProductDetailsTopSection = ({ nft }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
 
   const { metadata } = nft.template;
+
   //TODO: Uncomment on future implementation
   // const activeSaleOffer = nft.sale_offers.find(offer => offer?.status === 'active');
+  //TODO: Uncomment on future implementation of share/favorite NFTs
+  // const renderIconButtons = useMemo(
+  //   () => (
+  //     <Grid item mt={isMediumDevice ? '32px' : '0'}>
+  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
+  //         <ShareIcon htmlColor={grey[600]} />
+  //       </IconButton>
+  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '20px' } }}>
+  //         <FavoriteIcon htmlColor={grey[600]} />
+  //       </IconButton>
+  //     </Grid>
+  //   ),
+  //   [isMediumDevice]
+  // );
 
   const blockchainHistoryData = useMemo(
     () => ({
@@ -49,21 +65,6 @@ const ProductDetailsTopSection = ({ nft }) => {
     [nft?.collection]
   );
 
-  //TODO: Uncomment on future implementation of share/favorite NFTs
-  // const renderIconButtons = useMemo(
-  //   () => (
-  //     <Grid item mt={isMediumDevice ? '32px' : '0'}>
-  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
-  //         <ShareIcon htmlColor={grey[600]} />
-  //       </IconButton>
-  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '20px' } }}>
-  //         <FavoriteIcon htmlColor={grey[600]} />
-  //       </IconButton>
-  //     </Grid>
-  //   ),
-  //   [isMediumDevice]
-  // );
-
   const renderAccordions = useMemo(
     () => (
       <>
@@ -93,19 +94,7 @@ const ProductDetailsTopSection = ({ nft }) => {
     <>
       <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} />
       <Styled.Container container={!isMediumDevice} justifyContent="space-between">
-        <Styled.ImageContainer>
-          <Styled.Image
-            alt={metadata.title}
-            blurDataURL={`https://images.ongaia.com/ipfs/`.concat(
-              metadata.img.slice(7, metadata.img.length)
-            )}
-            layout="fill"
-            placeholder="blur"
-            src={`https://images.ongaia.com/ipfs/`.concat(
-              metadata.img.slice(7, metadata.img.length)
-            )}
-          />
-        </Styled.ImageContainer>
+        <Asset metadata={metadata} />
         <Grid
           alignItems={isMediumDevice ? 'center' : 'stretch'}
           container
