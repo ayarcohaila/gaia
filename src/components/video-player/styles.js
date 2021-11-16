@@ -53,18 +53,18 @@ export const Button = styled(IconButton)(
   }) => ({
     backgroundColor: secondary.main,
     borderRadius: '10px',
-    padding: '27px 25px 26px',
+    padding: '16px',
 
     '&:hover': {
       backgroundColor: grey[700]
     },
 
     [breakpoints.down('md')]: {
-      padding: '20px 23px 19px'
+      padding: '14px'
     },
 
     [breakpoints.down('sm')]: {
-      padding: '17px 15px 16px'
+      padding: '12px'
     }
   })
 );
