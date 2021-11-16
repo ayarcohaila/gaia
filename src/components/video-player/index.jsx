@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import * as Styled from './styles';
 
-const VideoPlayer = ({ containerSx, height, poster, src, width }) => {
+const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) => {
   const playerRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -17,8 +17,8 @@ const VideoPlayer = ({ containerSx, height, poster, src, width }) => {
   }, [isPlaying, playerRef]);
 
   return (
-    <Styled.VideoContainer $height={height} $width={width} sx={containerSx}>
-      <Styled.Video poster={poster} ref={playerRef} src={src}>
+    <Styled.VideoContainer $height={height} $width={width} {...containerProps}>
+      <Styled.Video poster={poster} ref={playerRef} src={src} {...props}>
         Sorry, your browser have no support to embedded videos.
       </Styled.Video>
       <Styled.PlayButton onClick={() => setIsPlaying(prevState => !prevState)}>
@@ -33,7 +33,7 @@ const VideoPlayer = ({ containerSx, height, poster, src, width }) => {
 };
 
 VideoPlayer.propTypes = {
-  containerSx: PropTypes.object,
+  containerProps: PropTypes.object,
   height: PropTypes.arrayOf(PropTypes.string),
   poster: PropTypes.string,
   src: PropTypes.string,
@@ -41,12 +41,11 @@ VideoPlayer.propTypes = {
 };
 
 VideoPlayer.defaultProps = {
-  containerSx: {},
+  containerProps: {},
   height: ['424px', '380px', '320px', '275px'],
-  width: ['424px', '380px', '320px', '275px'],
-  //TODO: Remove it when finishing the task,
   poster: 'https://images.ongaia.com/ipfs/QmZ6dDfmAzbKq7V37DyUeB8uxbn7yHA4LtP1tyFCwMkF3x/66.png',
-  src: 'https://rebelrabbits.io/static/videos/new_cta.mp4'
+  src: 'https://rebelrabbits.io/static/videos/new_cta.mp4',
+  width: ['424px', '380px', '320px', '275px']
 };
 
 export default memo(VideoPlayer);

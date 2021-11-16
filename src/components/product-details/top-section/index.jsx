@@ -100,7 +100,7 @@ const ProductDetailsTopSection = ({ nft }) => {
 
   const renderAsset = useMemo(() => {
     if (!isVideoAsset) {
-      return <VideoPlayer />;
+      return <VideoPlayer muted />;
     }
 
     return (
