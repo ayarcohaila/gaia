@@ -8,12 +8,18 @@ import {
 } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
+import { useEventListener, useHover } from '~/hooks';
+
 import * as Styled from './styles';
 
 const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) => {
+  const containerRef = useRef();
   const playerRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const isVideoHovered = useHover(containerRef);
+
+  useEventListener('ended', () => setIsPlaying(false), playerRef);
 
   useEffect(() => {
     const player = playerRef?.current;
@@ -23,26 +29,28 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
   }, [isPlaying, playerRef]);
 
   return (
-    <Styled.VideoContainer $height={height} $width={width} {...containerProps}>
+    <Styled.VideoContainer $height={height} $width={width} ref={containerRef} {...containerProps}>
       <Styled.Video muted={isMuted} poster={poster} ref={playerRef} src={src} {...props}>
         Sorry, your browser have no support to embedded videos.
       </Styled.Video>
-      <Styled.ActionsContainer>
-        <Styled.Button onClick={() => setIsPlaying(prevState => !prevState)}>
-          {isPlaying ? (
-            <PauseIcon color="white" fontSize="small" />
-          ) : (
-            <PlayIcon color="white" fontSize="small" />
-          )}
-        </Styled.Button>
-        <Styled.Button onClick={() => setIsMuted(prevState => !prevState)}>
-          {isMuted ? (
-            <MutedIcon color="white" fontSize="small" />
-          ) : (
-            <SoundIcon color="white" fontSize="small" />
-          )}
-        </Styled.Button>
-      </Styled.ActionsContainer>
+      {((!!isPlaying && isVideoHovered) || !isPlaying) && (
+        <Styled.ActionsContainer>
+          <Styled.Button onClick={() => setIsPlaying(prevState => !prevState)}>
+            {isPlaying ? (
+              <PauseIcon color="white" fontSize="small" />
+            ) : (
+              <PlayIcon color="white" fontSize="small" />
+            )}
+          </Styled.Button>
+          <Styled.Button onClick={() => setIsMuted(prevState => !prevState)}>
+            {isMuted ? (
+              <MutedIcon color="white" fontSize="small" />
+            ) : (
+              <SoundIcon color="white" fontSize="small" />
+            )}
+          </Styled.Button>
+        </Styled.ActionsContainer>
+      )}
     </Styled.VideoContainer>
   );
 };
@@ -58,8 +66,8 @@ VideoPlayer.propTypes = {
 VideoPlayer.defaultProps = {
   containerProps: {},
   height: ['424px', '380px', '320px', '275px'],
-  poster: 'https://images.ongaia.com/ipfs/QmZ6dDfmAzbKq7V37DyUeB8uxbn7yHA4LtP1tyFCwMkF3x/66.png',
-  src: 'https://rebelrabbits.io/static/videos/new_cta.mp4',
+  poster: '/collections/de-chambeau-poster.jpeg',
+  src: '/collections/de-chambeau-video.mp4',
   width: ['424px', '380px', '320px', '275px']
 };
 
