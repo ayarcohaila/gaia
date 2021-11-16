@@ -10,13 +10,19 @@ import SuccessContent from '../success-content';
 
 import { cancelSale } from '~/flow/cancelSale';
 import { loadTransaction } from '~/utils/transactionsLoader';
+import preval from 'preval.macro';
 
 const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
   const [hasListingSuccessfullyCancelled, setHasListingSuccessfullyCancelled] = useState(false);
   const [loadingCancel, setLoadingCancel] = useState(false);
 
-  // console.log(asset);
+  const cancelSaleTx = preval`
+  const fs = require('fs')
+  const path = require('path'),   
+  filePath = path.join(__dirname, "../../../flow/transactions/cancel_sale.cdc");
+  module.exports = fs.readFileSync(filePath, 'utf8')
+  `;
   const handleCancelListing = async () => {
     if (asset?.sale_offers && asset?.sale_offers.length > 0) {
       const activeOffers = asset.sale_offers.filter(offer => offer.status !== 'finished');
@@ -24,7 +30,7 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
         for (let offer of activeOffers) {
           try {
             setLoadingCancel(true);
-            const transaction = await loadTransaction(window.location.origin, 'cancel_sale');
+            const transaction = await loadTransaction(cancelSaleTx);
             const txResult = await cancelSale(
               transaction.transactionScript,
               offer.listing_resource_id

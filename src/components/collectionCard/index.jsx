@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Grid, CardContent, CardMedia, Avatar } from '@mui/material';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -143,23 +142,6 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
       <OrderProcessing open={isProcessingModalOpen} onClose={toggleProcessingModal} />
     </>
   );
-};
-
-CollectionCard.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.string,
-    price: PropTypes.string,
-    nft: PropTypes.shape({
-      asset_id: PropTypes.number,
-      nft_template: PropTypes.shape({
-        id: PropTypes.string,
-        metadata: PropTypes.shape({
-          title: PropTypes.string,
-          img: PropTypes.string
-        })
-      })
-    })
-  }).isRequired
 };
 
 export default React.memo(CollectionCard);

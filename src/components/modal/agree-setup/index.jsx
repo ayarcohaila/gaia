@@ -4,6 +4,7 @@ import { Loader } from '~/base';
 import { useAuth } from '~/hooks';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { isDapper } from '~/utils/currencyCheck';
+import preval from 'preval.macro';
 
 import { setupAccount } from '~/flow/setupAccount';
 
@@ -17,11 +18,22 @@ const AgreeSetupModal = ({ onClose, ...props }) => {
   const [loading, setLoading] = useState(false);
   const { setHasSetup } = useContext(AuthContext);
 
+  const setupTx = isDapper
+    ? preval`
+    const fs = require('fs')
+    const path = require('path'),   
+    filePath = path.join(__dirname, "../../../flow/transactions/dapper/setup_account.cdc");
+    module.exports = fs.readFileSync(filePath, 'utf8')
+    `
+    : preval`
+    const fs = require('fs')
+    const path = require('path'),   
+    filePath = path.join(__dirname, "../../../flow/transactions/flowToken/setup_account.cdc");
+    module.exports = fs.readFileSync(filePath, 'utf8')
+    `;
+
   const loadTx = async () => {
-    const response = await loadTransaction(
-      window.location.origin,
-      isDapper ? 'setup_account' : 'setup_account_flow_token'
-    );
+    const response = await loadTransaction(setupTx);
     setTransaction(response);
   };
 

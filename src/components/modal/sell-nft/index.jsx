@@ -11,6 +11,7 @@ import SuccessContent from '../success-content';
 import Modal from '..';
 
 import * as Styled from './styles';
+import preval from 'preval.macro';
 
 const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loading, ...props }) => {
   const [value, setValue] = useState('');
@@ -19,17 +20,26 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
   const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
     useState(hasPostedForSale);
-
+  const sellTx = isDapper
+    ? preval`
+    const fs = require('fs')
+    const path = require('path'),   
+    filePath = path.join(__dirname, "../../../flow/transactions/dapper/sell.cdc");
+    module.exports = fs.readFileSync(filePath, 'utf8')
+    `
+    : preval`
+    const fs = require('fs')
+    const path = require('path'),   
+    filePath = path.join(__dirname, "../../../flow/transactions/flowToken/sell.cdc");
+    module.exports = fs.readFileSync(filePath, 'utf8')
+    `;
   const handlePostForSale = async () => {
     //TODO: Implement NFT post for sale integration
 
     toast.info('Please wait, purchase in progress... ');
     try {
       setLoading(true);
-      const transaction = await loadTransaction(
-        window.location.origin,
-        isDapper ? 'sell' : 'sell_flowtoken'
-      );
+      const transaction = await loadTransaction(sellTx);
       const txResult = await sellItem(transaction.transactionScript, props.asset.asset_id, value);
       toast.success(
         'Purchase completed successfully. In few minutes it will be available on the market'

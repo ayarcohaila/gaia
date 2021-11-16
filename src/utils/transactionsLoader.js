@@ -2,10 +2,9 @@ import { createHash } from 'crypto';
 import hashes from './transactionsHashes';
 import { isDapper } from '../utils/currencyCheck';
 
-export const loadTransaction = async (currentPath, transaction) => {
-  const result = await loadScript(currentPath, `${transaction}.cdc`);
+export const loadTransaction = async transaction => {
+  const result = await loadScript(transaction);
   const hashScript = createHash('sha256').update(result).digest('hex');
-
   let matches = false;
   if (isDapper) {
     matches = hashes[transaction] === hashScript;
@@ -21,10 +20,8 @@ export const loadAllTransactions = async () => {
     .map(transaction => loadTransaction(transaction));
 };
 
-const loadScript = async (currentPath, fileName) => {
-  const response = await fetch(`${currentPath}/transactions/${fileName}`);
-  const file = await response.text();
-  return file
+const loadScript = async transaction => {
+  return transaction
     .replace('accessNode.api', process.env.NEXT_PUBLIC_ACCESS_NODE)
     .replace('0xFungibleToken', process.env.NEXT_PUBLIC_FUNGIBLE_TOKEN)
     .replace('0xFlowToken', process.env.NEXT_PUBLIC_FLOW_TOKEN)
