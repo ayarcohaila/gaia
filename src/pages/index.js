@@ -1,5 +1,5 @@
-import { Box, Grid } from '@mui/material';
-import { NewToNFTSection, HomepageBanner, Seo, MostViewed } from '~/components';
+import { Box } from '@mui/material';
+import { NewToNFTSection, HomepageBanner, Seo } from '~/components';
 
 import { useBreakpoints } from '~/hooks';
 
@@ -8,15 +8,10 @@ const Home = () => {
   return (
     <>
       <Seo title="Home" />
-      <Grid
-        container
-        paddingLeft={isMediumDevice ? '12px' : '32px'}
-        paddingRight={isMediumDevice ? '12px' : '32px'}
-        marginBottom="58px">
+      <Box
+        paddingLeft={isMediumDevice ? '20px' : '50px'}
+        paddingRight={isMediumDevice ? '20px' : '50px'}>
         <HomepageBanner />
-      </Grid>
-      <MostViewed />
-      <Box paddingLeft="80px" paddingRight="80px" mt="50px">
         <NewToNFTSection />
       </Box>
     </>

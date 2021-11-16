@@ -9,13 +9,12 @@ export const Container = styled('div', { shouldForwardProp: prop => prop !== 'im
     flexDirection: 'column',
     paddingLeft: '72px',
     paddingTop: '156px',
-    paddingBottom: '56px',
-    width: '100%',
+    paddingBottom: '156px',
     maxHeight: '618px',
     borderRadius: '40px',
     color: '#fff',
     backgroundSize: 'cover',
-    // background: '#000',
+    backgroundPosition: 'center center',
 
     [breakpoints.down('md')]: {
       padding: '28px',
@@ -30,8 +29,8 @@ export const TypographyWithOpacity = styled(Typography)(() => ({
 
 export const CardButton = styled(Button)(({ theme: { breakpoints } }) => ({
   color: '#fff',
-  width: '103px',
-  height: '48px',
+  width: '150px',
+  height: '38px',
   borderRadius: '24px',
   backgroundColor: '#215cf1',
   marginTop: '40px',
@@ -43,45 +42,5 @@ export const CardButton = styled(Button)(({ theme: { breakpoints } }) => ({
     minWidth: '48px',
     marginTop: '0px',
     marginLeft: 'auto'
-  }
-}));
-
-export const Divider = styled('div')(({ theme: { breakpoints } }) => ({
-  height: '2px',
-  width: '40%',
-  opacity: '0.16',
-  borderRadius: '24px',
-  backgroundColor: '#fff',
-  marginTop: '72px',
-
-  [breakpoints.down('md')]: {
-    width: '100%',
-    marginTop: '24px'
-  }
-}));
-
-export const Logo = styled('img')(() => ({
-  width: '80px',
-  height: '40px',
-  marginRight: '32px'
-}));
-
-export const CardFooter = styled('div')(({ theme: { breakpoints } }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  flexDirection: 'row',
-  color: '#fff',
-  width: '40%',
-  marginTop: '28px',
-
-  'span:last-child': {
-    opacity: '0.64'
-  },
-
-  [breakpoints.down('md')]: {
-    width: '100%',
-    maxHeight: '48px',
-    marginTop: '12px'
   }
 }));
