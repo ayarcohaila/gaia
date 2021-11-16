@@ -8,7 +8,7 @@ import {
 } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
-import { useEventListener, useHover } from '~/hooks';
+import { useHover } from '~/hooks';
 
 import * as Styled from './styles';
 
@@ -19,8 +19,6 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
   const [isMuted, setIsMuted] = useState(true);
   const isVideoHovered = useHover(containerRef);
 
-  useEventListener('ended', () => setIsPlaying(false), playerRef);
-
   useEffect(() => {
     const player = playerRef?.current;
     if (player) {
@@ -30,7 +28,13 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
 
   return (
     <Styled.VideoContainer $height={height} $width={width} ref={containerRef} {...containerProps}>
-      <Styled.Video muted={isMuted} poster={poster} ref={playerRef} src={src} {...props}>
+      <Styled.Video
+        muted={isMuted}
+        onEnded={() => setIsPlaying(false)}
+        poster={poster}
+        ref={playerRef}
+        src={src}
+        {...props}>
         Sorry, your browser have no support to embedded videos.
       </Styled.Video>
       {((!!isPlaying && isVideoHovered) || !isPlaying) && (
