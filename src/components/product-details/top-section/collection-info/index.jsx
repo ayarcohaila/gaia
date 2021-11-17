@@ -1,7 +1,9 @@
 import { Avatar, Box, Grid, Typography, useTheme } from '@mui/material';
 import { Verified as VerifiedIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
+import { COLLECTIONS } from '~/constant';
 import { useBreakpoints } from '~/hooks';
 
 const CollectionInfo = ({ name }) => {
@@ -9,12 +11,16 @@ const CollectionInfo = ({ name }) => {
     palette: { grey, primary }
   } = useTheme();
   const { isMediumDevice } = useBreakpoints();
+  const {
+    query: { collection_name }
+  } = useRouter();
+  const isBallerzCollection = collection_name === COLLECTIONS.BALLERZ;
 
   return (
     <>
       <Avatar
         alt="product name"
-        src="/collections/user.png"
+        src={isBallerzCollection ? '/collections/user.png' : '/collections/bryson/avatar.webp'}
         sx={{ height: isMediumDevice ? '56px' : '48px', width: isMediumDevice ? '56px' : '48px' }}
       />
       <Box ml={1.5} mr="auto">
