@@ -1,6 +1,6 @@
 import { Link, Typography } from '@mui/material';
 
-const DeChambeauCollectionDescription = () => {
+const BrysonCollectionDescription = () => {
   return (
     <>
       <Typography variant="h6">
@@ -18,4 +18,4 @@ const DeChambeauCollectionDescription = () => {
   );
 };
 
-export default DeChambeauCollectionDescription;
+export default BrysonCollectionDescription;

@@ -5,7 +5,7 @@ import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
 
-const DeChambeauCollectionContent = () => {
+const BrysonCollectionContent = () => {
   const { isMediumDevice } = useBreakpoints();
   const {
     palette: { grey }
@@ -14,10 +14,7 @@ const DeChambeauCollectionContent = () => {
   return (
     <>
       <Styled.Container container>
-        <Styled.Image
-          alt="DeChambeau vs Koepka poster"
-          src="/collections/de-chambeau/poster.webp"
-        />
+        <Styled.Image alt="Poster" src="/collections/bryson/poster.webp" />
         <Box mx="auto" width={isMediumDevice ? '90%' : '40%'}>
           <Typography fontWeight="normal" mt={isMediumDevice ? 2 : 0} variant="h4">
             Bryson DeChambeau
@@ -47,10 +44,10 @@ const DeChambeauCollectionContent = () => {
         </Box>
       </Styled.Container>
       <Grid alignItems="center" container justifyContent="center" width="100%">
-        <Styled.BottomImage alt="Las Vegas Sign" src="/collections/de-chambeau/las-vegas.webp" />
+        <Styled.BottomImage alt="Las Vegas Sign" src="/collections/bryson/las-vegas.webp" />
       </Grid>
     </>
   );
 };
 
-export default DeChambeauCollectionContent;
+export default BrysonCollectionContent;

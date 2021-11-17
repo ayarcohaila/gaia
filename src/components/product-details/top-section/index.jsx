@@ -3,18 +3,22 @@ import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/components';
+import { COLLECTION_TOTAL_NUMBER } from '~/constant';
 import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
 import Asset from './asset';
 import CollectionInfo from './collection-info';
+import { useRouter } from 'next/router';
 
 const ProductDetailsTopSection = ({ nft }) => {
   const {
     palette: { grey }
   } = useTheme();
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
-
+  const {
+    query: { collection_name }
+  } = useRouter();
   const { metadata } = nft.template;
 
   //TODO: Uncomment on future implementation
@@ -107,7 +111,7 @@ const ProductDetailsTopSection = ({ nft }) => {
           )}
           <Styled.NumberContainer>
             <Typography color={grey[600]} variant="body1">
-              #{metadata.id} / 10000
+              #{metadata?.id || nft?.mint_number} / {COLLECTION_TOTAL_NUMBER[collection_name]}
             </Typography>
           </Styled.NumberContainer>
           <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">
