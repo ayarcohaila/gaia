@@ -52,18 +52,18 @@ const ProductDetailsTopSection = ({ nft }) => {
     () => [
       {
         label: 'Home',
-        href: `/${nft?.collection?.name?.toLowerCase()}`
+        href: '/'
       },
       {
         label: 'Collections'
       },
       {
         label: `${nft?.collection?.name} NFTs`,
-        href: `/${nft?.collection?.name?.toLowerCase()}`
+        href: `/${collection_name}`
       },
       {
         label: metadata.title,
-        href: `/${nft?.collection?.name?.toLowerCase()}/${metadata?.id || nft?.mint_number}`
+        href: `/${collection_name}/${metadata?.id || nft?.mint_number}`
       }
     ],
     [nft?.collection]
