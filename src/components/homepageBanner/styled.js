@@ -1,25 +1,34 @@
 import { styled, Button, Typography } from '@mui/material';
 
-export const Container = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
-  ({ theme: { breakpoints }, imgUrl }) => ({
+export const ContainerBackground = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
+  ({ imgUrl }) => ({
     backgroundImage: `url(${imgUrl})`,
+    maxHeight: '420px',
+    borderRadius: '40px',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+    backgroundRepeat: 'no-repeat',
+    boxSizing: 'border-box'
+  })
+);
+
+export const Container = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
+  ({ theme: { breakpoints } }) => ({
+    backgroundImage:
+      'radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, #517FB1 81%)',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
     flexDirection: 'column',
     paddingLeft: '72px',
-    paddingTop: '156px',
-    paddingBottom: '156px',
-    maxHeight: '618px',
+    paddingTop: '150px',
+    paddingBottom: '100px',
+    height: '100%',
     borderRadius: '40px',
     color: '#fff',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center center',
-
     [breakpoints.down('md')]: {
       padding: '28px',
-      paddingBottom: '24px',
-      height: '430px'
+      paddingBottom: '24px'
     }
   })
 );
@@ -28,7 +37,7 @@ export const TypographyWithOpacity = styled(Typography)(() => ({
   opacity: '0.64'
 }));
 
-export const CardButton = styled(Button)(({ theme: { breakpoints } }) => ({
+export const CardButton = styled(Button)(({ theme: { breakpoints, palette } }) => ({
   color: '#fff',
   width: '150px',
   height: '38px',
@@ -43,6 +52,10 @@ export const CardButton = styled(Button)(({ theme: { breakpoints } }) => ({
     minWidth: '48px',
     marginTop: 'auto',
     marginLeft: 'auto'
+  },
+
+  '&:hover': {
+    backgroundColor: palette.primary.hover
   }
 }));
 
@@ -51,5 +64,6 @@ export const Divider = styled('div')({
   background: '#fff',
   height: '2px',
   opacity: '0.16',
-  borderRadius: '24px'
+  borderRadius: '24px',
+  marginBottom: '24px'
 });

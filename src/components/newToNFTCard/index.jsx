@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { Typography, useTheme } from '@mui/material';
@@ -15,21 +14,23 @@ const NewToNFTCard = ({ data }) => {
   return (
     <>
       <Styled.CustomCard>
-        <img src={data.image} alt={data.title} />
+        <Styled.CustomLink target="_blank" href={data.link} rel="noreferrer">
+          <img src={data.image} alt={data.title} />
+        </Styled.CustomLink>
         <Typography variant="h5" marginTop="20px">
           {data.title}
         </Typography>
         <Styled.CardDescription color={grey[600]} variant="subtitle1">
           {data.description}
         </Styled.CardDescription>
-        <Link href={data.link}>
+        <a target="_blank" href={data.link} rel="noreferrer">
           <Styled.CardLink>
             <Typography variant="subtitle1" fontWeight="600">
               {data.linkText}
             </Typography>
             <KeyboardArrowRightIcon />
           </Styled.CardLink>
-        </Link>
+        </a>
       </Styled.CustomCard>
     </>
   );

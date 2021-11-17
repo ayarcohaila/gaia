@@ -23,13 +23,26 @@ export const CustomCard = styled('div')(({ theme: { breakpoints } }) => ({
     boxShadow: '0 25px 14px -23px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)',
 
     [breakpoints.down('sm')]: {
-      height: '225px'
+      height: 'auto'
+    },
+
+    [breakpoints.up('mdx')]: {
+      height: 'auto'
     }
+  },
+
+  a: {
+    textDecoration: 'none'
   }
 }));
 
+export const CustomLink = styled('a')(() => ({
+  width: '100%'
+}));
+
 export const CardDescription = styled(Typography)(() => ({
-  height: '32px'
+  height: '32px',
+  lineHeight: '20px'
 }));
 
 export const CardLink = styled('div')(() => ({
