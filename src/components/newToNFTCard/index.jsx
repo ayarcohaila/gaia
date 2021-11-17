@@ -24,7 +24,9 @@ const NewToNFTCard = ({ data }) => {
         </Styled.CardDescription>
         <Link href={data.link}>
           <Styled.CardLink>
-            <Typography variant="subtitle1">{data.linkText}</Typography>
+            <Typography variant="subtitle1" fontWeight="600">
+              {data.linkText}
+            </Typography>
             <KeyboardArrowRightIcon />
           </Styled.CardLink>
         </Link>

@@ -1,6 +1,6 @@
 import { styled, Typography } from '@mui/material';
 
-export const CustomCard = styled('div')(() => ({
+export const CustomCard = styled('div')(({ theme: { breakpoints } }) => ({
   display: 'flex',
   padding: '0',
   flexDirection: 'column',
@@ -12,13 +12,15 @@ export const CustomCard = styled('div')(() => ({
     width: '100%',
     height: '280px',
     borderRadius: '20px',
-    boxShadow: '0 25px 14px -23px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)'
+    boxShadow: '0 25px 14px -23px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)',
+
+    [breakpoints.down('sm')]: {
+      height: '225px'
+    }
   }
 }));
 
 export const CardDescription = styled(Typography)(() => ({
-  textOverflow: 'ellipsis',
-  overflow: 'hidden',
   height: '32px'
 }));
 
