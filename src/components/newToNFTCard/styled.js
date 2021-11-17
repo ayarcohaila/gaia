@@ -12,7 +12,7 @@ export const CustomCard = styled('div')(({ theme: { breakpoints } }) => ({
     width: '460px'
   },
 
-  [breakpoints.up('xl')]: {
+  [breakpoints.up('mdx')]: {
     width: '100%'
   },
 
