@@ -93,7 +93,7 @@ const Header = () => {
         </Grid>
         {!isMediumDevice && (
           <Styled.SearchWrapper>
-            <Hidden xsUp>
+            <Hidden xlDown>
               <SearchInput value={searchQuery} onChange={handleChangeSearch} />
             </Hidden>
           </Styled.SearchWrapper>

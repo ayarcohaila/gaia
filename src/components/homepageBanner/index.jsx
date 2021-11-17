@@ -10,7 +10,7 @@ const bannerData = {
   drop: 'Exclusive Drop',
   title: 'Bryson Dechambeau',
   description: 'Vegas, Baby! Collectible NFT + VIP Raffle',
-  background: 'images/header/bryson_header_v2.jpg'
+  background: 'images/header/bryson_header_v3.jpg'
 };
 
 export default function HomepageBanner() {
