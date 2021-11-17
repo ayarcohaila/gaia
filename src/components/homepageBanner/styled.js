@@ -28,7 +28,7 @@ export const Container = styled('div', { shouldForwardProp: prop => prop !== 'im
     color: '#fff',
     [breakpoints.down('md')]: {
       padding: '28px',
-      paddingBottom: '24px'
+      paddingBottom: '20px'
     }
   })
 );

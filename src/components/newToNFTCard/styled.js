@@ -44,8 +44,8 @@ export const CardDescription = styled(Typography)(({ theme: { breakpoints } }) =
   height: '32px',
   lineHeight: '20px',
 
-  [breakpoints.down('sm')]: {
-    height: '45px'
+  [breakpoints.down('lgm')]: {
+    height: '40px'
   }
 }));
 
