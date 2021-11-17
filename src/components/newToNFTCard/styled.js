@@ -12,6 +12,10 @@ export const CustomCard = styled('div')(({ theme: { breakpoints } }) => ({
     width: '460px'
   },
 
+  [breakpoints.up('xl')]: {
+    width: '100%'
+  },
+
   img: {
     width: '100%',
     height: '280px',
