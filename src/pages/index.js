@@ -8,11 +8,17 @@ const Home = () => {
   return (
     <>
       <Seo title="Home" />
-      <Box display="flex" alignItems="center" justifyContent="center">
+      <Box
+        paddingLeft={isMediumDevice && '20px'}
+        paddingRight={isMediumDevice && '20px'}
+        display="flex"
+        alignItems="center"
+        justifyContent="center">
         <Box
           paddingLeft={isMediumDevice ? '20px' : '50px'}
           paddingRight={isMediumDevice ? '20px' : '50px'}
-          maxWidth="1800px">
+          maxWidth="1800px"
+          width="100%">
           <HomepageBanner />
           <NewToNFTSection />
         </Box>
