@@ -120,13 +120,12 @@ const Collection = ({ nft_sale_offer, nft_collection, allNfts }) => {
               width="100%">
               <img
                 alt="DeChambeau vs Koepka poster"
-                height="400px"
                 src="/collections/de-chambeau/poster.webp"
                 style={{
                   borderRadius: '24px',
                   margin: '0 auto',
-                  height: isMediumDevice ? '300px' : 'auto',
-                  maxWidth: '400px',
+                  height: isMediumDevice ? '300px' : '370px',
+                  maxWidth: '370px',
                   width: '95%'
                 }}
               />
