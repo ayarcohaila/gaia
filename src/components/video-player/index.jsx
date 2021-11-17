@@ -66,8 +66,8 @@ VideoPlayer.propTypes = {
 VideoPlayer.defaultProps = {
   containerProps: {},
   height: ['424px', '380px', '320px', '275px'],
-  poster: '/collections/de-chambeau-poster.jpeg',
-  src: '/collections/de-chambeau-video.mp4',
+  poster: '/collections/de-chambeau/video-poster.webp',
+  src: '/collections/de-chambeau/video.mp4',
   width: ['424px', '380px', '320px', '275px']
 };
 

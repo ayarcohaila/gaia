@@ -13,7 +13,13 @@ const ESC_KEY = 27;
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 
-const CollectionsFilter = ({ nftQuantity, enableSearch, setNftList, onSearch = () => {} }) => {
+const CollectionsFilter = ({
+  nftQuantity,
+  enableSort,
+  enableSearch,
+  setNftList,
+  onSearch = () => {}
+}) => {
   const searchInput = useRef(null);
   const orderButtonRef = useRef(null);
   const [selectButton, setSelectButton] = useState(null);
@@ -152,18 +158,18 @@ const CollectionsFilter = ({ nftQuantity, enableSearch, setNftList, onSearch = (
           ))}
         </Styled.Container>
       </Hidden>
-      {enableSearch ? (
-        renderInput
-      ) : (
-        <Styled.OrderButton
-          ref={orderButtonRef}
-          disableRipple
-          onClick={toggleMenuOrder}
-          isSelected={isMenuOrderOpen}
-          endIcon={<Styled.ArrowIcon />}>
-          {orderButton.find(item => item.id === selectedOrderButton)?.label || 'Sort By'}
-        </Styled.OrderButton>
-      )}
+      {enableSearch
+        ? renderInput
+        : enableSort && (
+            <Styled.OrderButton
+              ref={orderButtonRef}
+              disableRipple
+              onClick={toggleMenuOrder}
+              isSelected={isMenuOrderOpen}
+              endIcon={<Styled.ArrowIcon />}>
+              {orderButton.find(item => item.id === selectedOrderButton)?.label || 'Sort By'}
+            </Styled.OrderButton>
+          )}
       <Dropdown
         menuAnchorRef={orderButtonRef}
         isOpen={!!isMenuOrderOpen}
@@ -179,12 +185,14 @@ CollectionsFilter.propTypes = {
   nftQuantity: PropTypes.number,
   setSort: PropTypes.func,
   handleFilter: PropTypes.func,
-  enableSearch: PropTypes.bool
+  enableSearch: PropTypes.bool,
+  enableSort: PropTypes.bool
 };
 
 CollectionsFilter.defaultProps = {
+  nftQuantity: 0,
   enableSearch: false,
-  nftQuantity: 0
+  enableSort: true
 };
 
 export default React.memo(CollectionsFilter);
