@@ -6,7 +6,11 @@ export const CustomCard = styled('div')(({ theme: { breakpoints } }) => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   justifyContent: 'center',
-  maxWidth: '460px',
+  width: '423px',
+
+  [breakpoints.down('sm')]: {
+    width: '460px'
+  },
 
   img: {
     width: '100%',
