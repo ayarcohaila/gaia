@@ -2,12 +2,12 @@ import { useState, useRef } from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
-import { Grid, Button, Hidden } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
 import { HeaderModal, StayTunedModal } from '~/components';
-import { Dropdown, SearchInput } from '~/base';
+import { Dropdown } from '~/base';
 import { useBreakpoints, useToggle, useAuth } from '~/hooks';
 import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
 
@@ -17,15 +17,15 @@ const Header = () => {
   const menuAnchorRef = useRef(null);
   const [stateModalHeader, toggleHeaderModal] = useToggle();
   const [stateTunedModal, toggleTunedModal] = useToggle();
-  const [searchQuery, setSearchQuery] = useState('');
+  // const [searchQuery, setSearchQuery] = useState('');
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const { login, user, logout } = useAuth();
   const { isMediumDevice } = useBreakpoints();
   const router = useRouter();
 
-  const handleChangeSearch = ({ target: { value } }) => {
-    setSearchQuery(value);
-  };
+  // const handleChangeSearch = ({ target: { value } }) => {
+  //   setSearchQuery(value);
+  // };
 
   const handleDropdownMenu = state => {
     setOpenUserMenu(prevState => (state !== undefined ? state : !prevState));
@@ -76,7 +76,7 @@ const Header = () => {
             />
           </Styled.LogoImage>
         </NextLink>
-        {/* TODO: Remove "hidden" when implement the routes redirection */}
+        {/* TODO: Uncomment "hidden" when implement the routes redirection */}
         <Grid component="nav" hidden>
           <Styled.MenuOptionList component="ul">
             {MENU_OPTIONS.map(option => (
@@ -93,9 +93,9 @@ const Header = () => {
         </Grid>
         {!isMediumDevice && (
           <Styled.SearchWrapper>
-            <Hidden xsUp>
+            {/* <Hidden xlDown>
               <SearchInput value={searchQuery} onChange={handleChangeSearch} />
-            </Hidden>
+            </Hidden> */}
           </Styled.SearchWrapper>
         )}
         {isMediumDevice ? (

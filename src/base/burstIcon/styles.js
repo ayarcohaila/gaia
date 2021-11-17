@@ -23,7 +23,6 @@ export const BurstIcon = styled('div')`
     background-color: gray;
 
     left: 0;
-
     z-index: 10;
   }
 
@@ -49,5 +48,23 @@ export const BurstIcon = styled('div')`
 
     left: 8px;
     z-index: 6;
+  }
+`;
+
+export const BurstIconWhite = styled(BurstIcon)`
+  div:nth-of-type(2n) {
+    background-color: grey;
+  }
+
+  .icon-1 {
+    background-color: #fff;
+  }
+
+  .icon-3 {
+    background-color: #fff;
+  }
+
+  .icon-5 {
+    background-color: #fff;
   }
 `;

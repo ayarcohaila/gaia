@@ -2,6 +2,15 @@ const withPlugins = require('next-compose-plugins');
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const nextConfig = {
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/ballerz',
+  //       permanent: true
+  //     }
+  //   ];
+  // },
   images: {
     domains: [
       'gateway.pinata.cloud',
