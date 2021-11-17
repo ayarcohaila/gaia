@@ -35,6 +35,7 @@ export default function HomepageBanner() {
           variant={isMediumDevice ? 'subtitle1' : 'h4'}
           fontWeight="normal"
           mt="10px"
+          lineHeight={isMediumDevice && '20px'}
           mb={isMediumDevice && '24px'}>
           {bannerData.description}
         </Typography>
