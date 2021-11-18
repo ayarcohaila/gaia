@@ -118,6 +118,33 @@ export const UPDATE_SALE_PRICE = gql`
   }
 `;
 
+export const UPDATE_SALE_OFFER_STATUS = gql`
+  mutation updateSaleOfferStatus($listing_resource_id: bigint!) {
+    update_nft_sale_offer(
+      where: { listing_resource_id: { _eq: $listing_resource_id } }
+      _set: { status: "processing" }
+    ) {
+      returning {
+        updated_at
+        status
+        price
+        nft_id
+        listing_resource_id
+        id
+        nft {
+          asset_id
+          mint_number
+          owner
+          is_for_sale
+          template {
+            metadata
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const LOCK_COLLECTION = gql`
   mutation lockSet($authorizedAddr: String!, $setID: bigint!) {
     lockSet(arg1: { authorizedAddr: $authorizedAddr, setID: $setID }) {

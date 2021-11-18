@@ -19,7 +19,7 @@ import { buy } from '~/flow/buy';
 import { AuthContext } from '~/providers/AuthProvider';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
-const INSUFFICIENT_FUNDS =
+export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
 const CollectionCard = ({ data, ownNFTs, transaction }) => {

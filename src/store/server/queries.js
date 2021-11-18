@@ -198,25 +198,20 @@ const GET_NFTS_FOR_SALE = SHOULD_HIDE_DATA
     `;
 
 const GET_SINGLE_NFTS_FOR_SALE = gql`
-  query nft_sale_offer($id: uuid!) {
-    nft_sale_offer(
-      where: {
-        nft: { collection_id: { _eq: $id }, is_for_sale: { _eq: true } }
-        status: { _eq: "active" }
-      }
-    ) {
-      mint_number
+  query getSingleNFTsForSal($id: uuid!) {
+    nft_sale_offer(where: { status: { _eq: "active" }, nft: { collection_id: { _eq: $id } } }) {
       listing_resource_id
-      price
-      status
       nft {
         asset_id
+        mint_number
         is_for_sale
         owner
         template {
-          img
+          metadata
         }
       }
+      price
+      status
     }
   }
 `;

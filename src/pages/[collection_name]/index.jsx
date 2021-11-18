@@ -4,7 +4,12 @@ import { Grid, Typography } from '@mui/material';
 import { Divider } from '~/base';
 import { useAppContext } from '~/context';
 import { gqlClient } from '~/config/apollo-client';
-import { GET_COLLECTION_BY_ID, GET_NFTS_FOR_SALE, GET_NFTS } from '~/store/server/queries';
+import {
+  GET_COLLECTION_BY_ID,
+  GET_NFTS_FOR_SALE,
+  GET_NFTS,
+  GET_SINGLE_NFTS_FOR_SALE
+} from '~/store/server/queries';
 import {
   CollectionBanner,
   CollectionsFilter,
@@ -25,7 +30,7 @@ const DATA = {
 
 const DEFAULT_LIST_SIZE = 40;
 
-const Collection = ({ nft_sale_offer, nft_collection, allNfts }) => {
+const Collection = ({ nft_sale_offer, nft_collection, allNfts, pickedOffer }) => {
   const [cursor, setCursor] = useState(0);
   const [bannerData, setBannerData] = useState(null);
   const [nftList, setNftList] = useState([]);
@@ -101,7 +106,7 @@ const Collection = ({ nft_sale_offer, nft_collection, allNfts }) => {
               />
             </Grid>
             <Divider sx={{ marginBottom: '32px' }} />
-            <BrysonContent />
+            <BrysonContent data={pickedOffer} />
           </Styled.Container>
         </Grid>
       </>
@@ -150,13 +155,26 @@ export async function getServerSideProps({ query }) {
     const { nft_collection } = await gqlClient.request(GET_COLLECTION_BY_ID, {
       id: COLLECTION_ID[query?.collection_name]
     });
+    const { nft } = await gqlClient.request(GET_NFTS);
+
+    if (query.collection_name === COLLECTIONS.BRYSON) {
+      const { nft_sale_offer } = await gqlClient.request(GET_SINGLE_NFTS_FOR_SALE, {
+        id: COLLECTION_ID[query?.collection_name]
+      });
+      const randomizedSalesOffers = shuffleArray(nft_sale_offer);
+      return {
+        props: {
+          allNfts: nft,
+          nft_sale_offer: randomizedSalesOffers,
+          nft_collection,
+          pickedOffer: randomizedSalesOffers[0]
+        }
+      };
+    }
 
     const { nft_sale_offer } = await gqlClient.request(GET_NFTS_FOR_SALE, {
       id: COLLECTION_ID[query?.collection_name]
     });
-
-    const { nft } = await gqlClient.request(GET_NFTS);
-
     return {
       props: { allNfts: nft, nft_sale_offer: shuffleArray(nft_sale_offer), nft_collection }
     };
