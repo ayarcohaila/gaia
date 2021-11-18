@@ -42,16 +42,18 @@ const BrysonCollectionContent = () => {
             </Link>
             .
           </Typography>
-          <Button
-            sx={{
-              display: 'block',
-              fontFamily: 'Work Sans',
-              margin: isSmallDevice ? '0 auto' : '0',
-              mt: 2,
-              padding: '16px 40px'
-            }}>
-            Purchase • $ 100.00
-          </Button>
+          <Grid container justifyContent="center" alignItems="center">
+            <Button
+              sx={{
+                display: 'block',
+                fontFamily: 'Work Sans',
+                margin: isSmallDevice ? '0 auto' : '0',
+                mt: 2,
+                padding: '16px 40px'
+              }}>
+              Purchase • $ 100.00
+            </Button>
+          </Grid>
           <Typography color={grey[600]} fontWeight="normal" mt={2} variant="subtitle1">
             Winner will be selected on November 22. Event will be held on November 26 in Las Vegas,
             NV. By purchasing, you agree to be contacted by Dapper Labs if you are selected as the
