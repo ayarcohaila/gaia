@@ -1,3 +1,5 @@
+import { randomInt } from 'crypto';
+
 export const shuffleArray = array => {
   let currentIndex = array.length,
     randomIndex;
@@ -5,7 +7,7 @@ export const shuffleArray = array => {
   // While there remain elements to shuffle...
   while (currentIndex != 0) {
     // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
+    randomIndex = randomInt(0, currentIndex);
     currentIndex--;
 
     // And swap it with the current element.

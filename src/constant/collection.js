@@ -32,4 +32,13 @@ export const BUY_TX = isDapper
   module.exports = fs.readFileSync(filePath, 'utf8')
 `;
 
+export const BUY_BRYSON_TX =
+  isDapper &&
+  preval`
+  const fs = require('fs')
+  const path = require('path'),
+  filePath = path.join(__dirname, "../flow/transactions/dapper/buy_bryson.cdc");
+  module.exports = fs.readFileSync(filePath, 'utf8')
+`;
+
 export const isBrysonSaleEnabled = process.env.NEXT_PUBLIC_ENABLE_BRYSON_SALE === 'true';

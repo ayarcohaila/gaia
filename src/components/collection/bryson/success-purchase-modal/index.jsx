@@ -35,7 +35,7 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
 SuccessPurchaseNFTModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  tx: PropTypes.string.isRequired
+  tx: PropTypes.string
 };
 
 export default memo(SuccessPurchaseNFTModal);

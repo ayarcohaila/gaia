@@ -10,7 +10,6 @@ export const loadTransaction = async transaction => {
     matches = hashes[transaction] === hashScript;
     return { transaction, transactionScript: result, hashScript, matches };
   }
-
   return { transaction, transactionScript: result, hashScript };
 };
 
