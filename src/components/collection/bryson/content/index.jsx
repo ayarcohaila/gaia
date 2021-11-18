@@ -1,5 +1,5 @@
 import { Box, Grid, Link, Typography, useTheme } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { Button } from '~/base';
@@ -81,6 +81,25 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
     login();
   };
 
+  const shouldDisablePurchaseButton = useMemo(
+    () =>
+      loadingPurchase ||
+      (user && !hasSetup) ||
+      (user && !transaction) ||
+      !isBrysonSaleEnabled ||
+      !totalAvailable,
+    [loadingPurchase, hasSetup, isBrysonSaleEnabled, user, transaction, totalAvailable]
+  );
+
+  const purchaseButtonTitle = useMemo(() => {
+    if (!totalAvailable) {
+      return 'Sold Out';
+    }
+    return isBrysonSaleEnabled
+      ? `Purchase • $ ${Number(data?.price)?.toFixed(2)}`
+      : 'On Sale Nov 19 at 1pm PT';
+  }, [data, isBrysonSaleEnabled, totalAvailable]);
+
   useEffect(() => {
     (async () => {
       const tx = await loadTransaction(BUY_TX);
@@ -118,13 +137,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
           <Grid container justifyContent="center" alignItems="center">
             <Button
               onClick={user ? handlePurchaseClick : handleLogin}
-              disabled={
-                loadingPurchase ||
-                (user && !hasSetup) ||
-                (user && !transaction) ||
-                !isBrysonSaleEnabled ||
-                !totalAvailable
-              }
+              disabled={shouldDisablePurchaseButton}
               sx={{
                 display: 'block',
                 fontFamily: 'Work Sans',
@@ -132,11 +145,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
                 mt: 2,
                 padding: '16px 40px'
               }}>
-              {isBrysonSaleEnabled
-                ? totalAvailable > 0
-                  ? `Purchase • $ ${Number(data?.price)?.toFixed(2)}`
-                  : 'Sold out'
-                : 'Sale starts Nov 19, 2PM EST'}
+              {purchaseButtonTitle}
             </Button>
           </Grid>
           <Typography color={grey[600]} fontWeight="normal" mt={2} variant="subtitle1">
