@@ -20,7 +20,7 @@ import * as Styled from './styles';
 import SuccessPurchaseModal from '../success-purchase-modal';
 import { isBrysonSaleEnabled } from '~/constant/collection';
 
-const BrysonCollectionContent = ({ data }) => {
+const BrysonCollectionContent = ({ data, totalAvailable }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const {
     palette: { grey }
@@ -122,7 +122,8 @@ const BrysonCollectionContent = ({ data }) => {
                 loadingPurchase ||
                 (user && !hasSetup) ||
                 (user && !transaction) ||
-                !isBrysonSaleEnabled
+                !isBrysonSaleEnabled ||
+                !totalAvailable
               }
               sx={{
                 display: 'block',
@@ -132,7 +133,9 @@ const BrysonCollectionContent = ({ data }) => {
                 padding: '16px 40px'
               }}>
               {isBrysonSaleEnabled
-                ? `Purchase • $ ${Number(data?.price)?.toFixed(2)}`
+                ? totalAvailable > 0
+                  ? `Purchase • $ ${Number(data?.price)?.toFixed(2)}`
+                  : 'Sold out'
                 : 'Sale starts Nov 19, 2PM EST'}
             </Button>
           </Grid>
