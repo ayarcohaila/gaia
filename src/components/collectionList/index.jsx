@@ -33,7 +33,9 @@ const CollectionList = ({ nfts, hasNftsForSale }) => {
     (async () => {
       if (!!user && Object.keys(user).length) {
         const result = await axios.get(`/api/list?address=${user?.addr}`);
-        const NFTs = result.data;
+        const ballerzNFTs = result.data.ballerz;
+        const brysonNFTs = result.data.bryson;
+        const NFTs = ballerzNFTs.concat(brysonNFTs);
         const tx = await loadTransaction(buyTx);
         setTransaction(tx);
         setOwnNFTs(NFTs);

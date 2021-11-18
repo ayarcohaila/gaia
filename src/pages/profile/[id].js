@@ -36,7 +36,10 @@ const Profile = ({ userNFTs }) => {
       try {
         setLoading(true);
         const result = await axios.get(`/api/list?address=${address}`);
-        setNftList(result.data);
+        const ballerzList = result.data.ballerz;
+        const brysonList = result.data.bryson;
+        const combinedList = ballerzList.concat(brysonList);
+        setNftList(combinedList);
       } catch {
         setNftList([]);
         toggleOpenModal();

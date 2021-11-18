@@ -161,7 +161,7 @@ ProfileCard.propTypes = {
   sell: PropTypes.bool,
   transfer: PropTypes.bool,
   data: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     price: PropTypes.string,
     nft: PropTypes.shape({
       asset_id: PropTypes.number,
