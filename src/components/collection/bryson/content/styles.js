@@ -26,10 +26,14 @@ export const Image = styled('img')(({ theme: { breakpoints } }) => ({
   }
 }));
 
-export const BottomImage = styled('img')(() => ({
+export const BottomImage = styled('img')(({ theme: { breakpoints } }) => ({
   borderRadius: '24px',
   margin: '24px 0',
-  maxHeight: '650px',
+  maxHeight: 'auto',
   maxWidth: '1800px',
-  width: '95%'
+  width: '100%',
+
+  [breakpoints.down(1500)]: {
+    maxHeight: '700px'
+  }
 }));

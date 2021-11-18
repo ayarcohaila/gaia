@@ -7,7 +7,7 @@ import { useBreakpoints } from '~/hooks';
 import * as Styled from './styles';
 
 const BrysonCollectionContent = () => {
-  const { isMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const {
     palette: { grey }
   } = useTheme();
@@ -24,8 +24,8 @@ const BrysonCollectionContent = () => {
             Vegas Baby!
           </Typography>
           <Typography color={grey[700]} variant="h6">
-            One lucky person will win the trip of a lifetime to join Bryson DeChambeau at the Wynn
-            Golf Course in Las Vegas, as he takes on Brooks Koepka in the ultimate showdown!
+            One lucky winner will receive a trip for 2 to join Bryson DeChambeau at the Wynn Golf
+            Course in Las Vegas, as he takes on Brooks Koepka in the ultimate showdown!
           </Typography>
           <Typography color={grey[700]} my={3} variant="h6">
             This is also the first in a series of Bryson DeChambeau collectibles on Gaia -- with
@@ -42,7 +42,14 @@ const BrysonCollectionContent = () => {
             </Link>
             .
           </Typography>
-          <Button sx={{ display: 'block', fontFamily: 'Work Sans', mt: 2, padding: '16px 40px' }}>
+          <Button
+            sx={{
+              display: 'block',
+              fontFamily: 'Work Sans',
+              margin: isSmallDevice ? '0 auto' : '0',
+              mt: 2,
+              padding: '16px 40px'
+            }}>
             Purchase • $ 100.00
           </Button>
           <Typography color={grey[600]} fontWeight="normal" mt={2} variant="subtitle1">
