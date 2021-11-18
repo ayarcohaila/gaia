@@ -8,9 +8,9 @@ import { useBreakpoints } from '~/hooks';
 import * as Styled from './styled';
 
 const bannerData = {
-  drop: 'Exclusive Drop',
-  title: 'Bryson Dechambeau',
-  description: 'Vegas, Baby! Collectible NFT + VIP Raffle',
+  drop: 'Vegas, Baby!',
+  title: 'Bryson DeChambeau',
+  description: 'Collectible NFT + Las Vegas Travel Sweepstakes',
   background: 'images/header/bryson_header_v3.jpg'
 };
 
