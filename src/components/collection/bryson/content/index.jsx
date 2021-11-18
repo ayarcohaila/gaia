@@ -39,7 +39,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
 
   const handlePurchaseClick = async event => {
     event?.stopPropagation();
-    if (!isBrysonSaleEnabled) {
+    if (!isBrysonSaleEnabled || !totalAvailable) {
       return;
     }
     try {
