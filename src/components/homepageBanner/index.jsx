@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Typography } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { useRouter } from 'next/router';
 
 import { useBreakpoints } from '~/hooks';
 import * as Styled from './styled';
@@ -15,8 +16,10 @@ const bannerData = {
 
 export default function HomepageBanner() {
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
-
-  function handleBuyNow() {}
+  const router = useRouter();
+  const handleBuyNow = () => {
+    router.push('/bryson');
+  };
 
   return (
     <Styled.ContainerBackground imgUrl={bannerData.background}>

@@ -19,6 +19,16 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
   const [isMuted, setIsMuted] = useState(true);
   const isVideoHovered = useHover(containerRef);
 
+  const togglePlay = event => {
+    event.stopPropagation();
+    setIsPlaying(prevState => !prevState);
+  };
+
+  const toggleMute = event => {
+    event.stopPropagation();
+    setIsMuted(prevState => !prevState);
+  };
+
   useEffect(() => {
     const player = playerRef?.current;
     if (player) {
@@ -39,14 +49,14 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
       </Styled.Video>
       {((!!isPlaying && isVideoHovered) || !isPlaying) && (
         <Styled.ActionsContainer>
-          <Styled.Button onClick={() => setIsPlaying(prevState => !prevState)}>
+          <Styled.Button onClick={togglePlay}>
             {isPlaying ? (
               <PauseIcon color="white" fontSize="small" />
             ) : (
               <PlayIcon color="white" fontSize="small" />
             )}
           </Styled.Button>
-          <Styled.Button onClick={() => setIsMuted(prevState => !prevState)}>
+          <Styled.Button onClick={toggleMute}>
             {isMuted ? (
               <MutedIcon color="white" fontSize="small" />
             ) : (
