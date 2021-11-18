@@ -4,7 +4,7 @@ import * as Styled from './styles';
 function BannerAccount({ bannerName }) {
   return (
     <Box my="auto">
-      <Styled.BannerName>{'@' + bannerName?.toUpperCase()}</Styled.BannerName>
+      <Styled.BannerName>{'@' + bannerName}</Styled.BannerName>
     </Box>
   );
 }

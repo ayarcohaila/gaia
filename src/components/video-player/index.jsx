@@ -63,15 +63,14 @@ VideoPlayer.propTypes = {
   containerProps: PropTypes.object,
   height: PropTypes.arrayOf(PropTypes.string),
   poster: PropTypes.string,
-  src: PropTypes.string,
+  src: PropTypes.string.isRequired,
   width: PropTypes.arrayOf(PropTypes.string)
 };
 
 VideoPlayer.defaultProps = {
   containerProps: {},
   height: ['424px', '380px', '320px', '275px'],
-  poster: '/collections/de-chambeau-poster.jpeg',
-  src: '/collections/de-chambeau-video.mp4',
+  poster: null,
   width: ['424px', '380px', '320px', '275px']
 };
 
