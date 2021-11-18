@@ -36,8 +36,17 @@ const Profile = ({ userNFTs }) => {
       try {
         setLoading(true);
         const result = await axios.get(`/api/list?address=${address}`);
-        const ballerzList = result.data.ballerz;
-        const brysonList = result.data.bryson;
+        const ballerzList = result.data.ballerz?.map(item => ({
+          ...item,
+          collection_name: 'ballerz',
+          collection_picture: '/collections/user.png'
+        }));
+        const brysonList = result.data.bryson?.map(item => ({
+          ...item,
+          collection_name: 'bryson',
+          collection_picture: '/collections/bryson/avatar.webp',
+          name: `${item.name} #${item.id}`
+        }));
         const combinedList = ballerzList.concat(brysonList);
         setNftList(combinedList);
       } catch {
@@ -54,10 +63,6 @@ const Profile = ({ userNFTs }) => {
     toggleOpenModal();
     router.push('/ballerz');
   };
-
-  //const cursorLimit = useMemo(() => {
-  //  return Math.ceil(userNFTs.length / DEFAULT_LIST_SIZE) - 1;
-  //}, [userNFTs]);
 
   return (
     <Box>
@@ -76,11 +81,7 @@ const Profile = ({ userNFTs }) => {
           <ProfileList nfts={nftList} />
         )}
       </Styled.ListWrapper>
-      {/*nftList?.length > 0 && (
-        <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 64px' }}>
-          <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
-        </Grid>
-      )*/}
+
       <Modal
         title="Cannot Load Inventory"
         description="Something went wrong while checking your inventory. Please try again later."
