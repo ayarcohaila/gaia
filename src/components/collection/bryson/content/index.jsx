@@ -97,7 +97,7 @@ const BrysonCollectionContent = ({ data }) => {
             Bryson DeChambeau
           </Typography>
           <Typography fontWeight="600" m="8px 0 20px" variant="h3">
-            Vegas Baby!
+            Vegas, Baby!
           </Typography>
           <Typography color={grey[700]} variant="h6">
             This is the first in a series of Bryson DeChambeau collectibles on Gaia -- and with
