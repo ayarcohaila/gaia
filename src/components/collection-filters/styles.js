@@ -80,6 +80,7 @@ export const OrderButton = styled(Button, { shouldForwardProp: prop => prop !== 
     boxSizing: 'border-box',
     borderRadius: '7px',
     textTransform: 'capitalize',
+    display: 'none',
 
     '& > span': {
       transform: isSelected && 'rotate(180deg)',
