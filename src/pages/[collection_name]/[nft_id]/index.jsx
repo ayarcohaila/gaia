@@ -67,7 +67,7 @@ export async function getStaticProps({ params }) {
       }
       return {
         props: { nft: nft[0] },
-        revalidate: 60 * 60 // 1 hour
+        revalidate: 60 * 7.5 // 7.5 minutes
       };
     }
 
