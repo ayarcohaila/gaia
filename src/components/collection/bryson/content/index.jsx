@@ -98,7 +98,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
     }
     return isBrysonSaleEnabled
       ? `Purchase • $ ${Number(data?.price)?.toFixed(2)}`
-      : 'On Sale Nov 19 at 1pm PT';
+      : 'On Sale Fri Nov 19 at 6pm PT';
   }, [data, isBrysonSaleEnabled, totalAvailable]);
 
   useEffect(() => {
@@ -112,8 +112,8 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
     <>
       <Styled.Container container>
         <VideoPlayer
-          poster={formatIpfsImg(data.nft.template.metadata.img)}
-          src={formatIpfsImg(data.nft.template.metadata.video)}
+          poster={formatIpfsImg(data?.nft?.template?.metadata?.img)}
+          src={formatIpfsImg(data?.nft?.template?.metadata?.video)}
         />
         <Box mx="auto" width={isMediumDevice ? '90%' : '40%'}>
           <Typography fontWeight="normal" mt={isMediumDevice ? 2 : 0} variant="h4">

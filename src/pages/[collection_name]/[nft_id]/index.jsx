@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, useTheme } from '@mui/material';
+import { Box, Grid, useTheme } from '@mui/material';
 
 import { ProductDetailsTopSection, Seo } from '~/components';
 import { gqlClient } from '~/config/apollo-client';
@@ -10,6 +10,7 @@ import {
   GET_NFT_BY_MINT_NUMBER
 } from '~/store/server/queries';
 import { COLLECTIONS, COLLECTION_ID } from '~/constant';
+import { isBrysonSaleEnabled } from '~/constant/collection';
 
 const ProductDetails = ({ nft }) => {
   const {
@@ -19,14 +20,6 @@ const ProductDetails = ({ nft }) => {
 
   const title = nft?.template?.metadata?.title;
   const description = nft?.template?.metadata?.description;
-
-  if (!nft) {
-    return (
-      <Grid alignItems="center" bgcolor={grey[200]} container height="40vh" justifyContent="center">
-        <Typography variant="h4">Page not found</Typography>
-      </Grid>
-    );
-  }
 
   return (
     <Box bgcolor={grey[200]}>
@@ -62,8 +55,8 @@ export async function getStaticProps({ params }) {
         collection_id: COLLECTION_ID[collection_name],
         mint_number: nft_id
       });
-      if (!nft?.length) {
-        return { props: { nft: null } };
+      if (!nft?.length || !isBrysonSaleEnabled) {
+        return { notFound: true };
       }
       return {
         props: { nft: nft[0] },
@@ -73,14 +66,14 @@ export async function getStaticProps({ params }) {
 
     const { nft } = await gqlClient.request(GET_NFT_BY_ID, { id: { id: params?.nft_id } });
     if (!nft?.length) {
-      return { props: { nft: null } };
+      return { notFound: true };
     }
     return {
       props: { nft: nft[0] },
       revalidate: 60 * 60 // 1 hour
     };
   } catch {
-    return { props: { nft: null } };
+    return { notFound: true };
   }
 }
 
