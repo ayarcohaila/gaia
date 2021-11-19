@@ -75,7 +75,7 @@ const ProductDetailsTopSection = ({ nft }) => {
         <Accordion
           defaultExpanded
           dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
-          sx={{ my: 3 }}
+          sx={{ my: 3, width: '100%' }}
           title="Additional Details">
           <AdditionalDetails data={metadata} />
         </Accordion>
@@ -85,7 +85,7 @@ const ProductDetailsTopSection = ({ nft }) => {
             margin: isSmallDevice ? '0 auto' : '0',
             width: isSmallDevice ? '90%' : 'auto'
           }}
-          sx={{ mt: 3 }}
+          sx={{ mt: 3, width: '100%' }}
           title="Blockchain History">
           <BlockchainHistory data={blockchainHistoryData} />
         </Accordion>

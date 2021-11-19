@@ -12,7 +12,6 @@ import {
   OrderProcessing
 } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
-import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
@@ -34,9 +33,7 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
   const { hasSetup, user } = useContext(AuthContext);
 
-  const img = SHOULD_HIDE_DATA
-    ? '/images/mystery-nft.gif'
-    : formatIpfsImg(data?.nft?.template?.metadata?.img);
+  const img = SHOULD_HIDE_DATA ? '/images/mystery-nft.gif' : data?.nft?.template?.metadata?.img;
 
   const handlePurchaseClick = async event => {
     event?.stopPropagation();

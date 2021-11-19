@@ -2,9 +2,10 @@ import React from 'react';
 
 import { Typography } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { useRouter } from 'next/router';
 
 import { useBreakpoints } from '~/hooks';
+import { isBrysonSaleEnabled } from '~/constant/collection';
+
 import * as Styled from './styled';
 
 const bannerData = {
@@ -16,10 +17,6 @@ const bannerData = {
 
 export default function HomepageBanner() {
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
-  const router = useRouter();
-  const handleBuyNow = () => {
-    router.push('/bryson');
-  };
 
   return (
     <Styled.ContainerBackground imgUrl={bannerData.background}>
@@ -43,11 +40,13 @@ export default function HomepageBanner() {
           {bannerData.description}
         </Typography>
         {isMediumDevice && <Styled.Divider />}
-        <Styled.CardButton onClick={handleBuyNow}>
+        <Styled.CardButton component="a" href="/bryson" disabled={!isBrysonSaleEnabled}>
           {isMediumDevice ? (
             <KeyboardArrowRightIcon />
           ) : (
-            <Typography variant="subtitle1">Buy Now</Typography>
+            <Typography variant="subtitle1">
+              {isBrysonSaleEnabled ? 'Buy Now' : 'On Sale Nov 19 at 1pm PT'}
+            </Typography>
           )}
         </Styled.CardButton>
       </Styled.Container>
