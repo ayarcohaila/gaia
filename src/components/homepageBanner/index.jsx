@@ -40,7 +40,10 @@ export default function HomepageBanner() {
           {bannerData.description}
         </Typography>
         {isMediumDevice && <Styled.Divider />}
-        <Styled.CardButton component="a" href="/bryson" disabled={!isBrysonSaleEnabled}>
+        <Styled.CardButton
+          component="a"
+          href={isBrysonSaleEnabled ? '/bryson' : 'javascript:void(0)'}
+          disabled={!isBrysonSaleEnabled}>
           {isMediumDevice ? (
             <KeyboardArrowRightIcon />
           ) : (
