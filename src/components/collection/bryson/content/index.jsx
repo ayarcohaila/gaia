@@ -10,7 +10,7 @@ import {
   VideoPlayer
 } from '~/components';
 import { INSUFFICIENT_FUNDS } from '~/components/collectionCard';
-import { BUY_TX } from '~/constant';
+import { BUY_BRYSON_TX } from '~/constant';
 import { buy } from '~/flow/buy';
 import { useAuth, useBreakpoints, useToggle } from '~/hooks';
 import { AuthContext } from '~/providers/AuthProvider';
@@ -102,10 +102,10 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
 
   useEffect(() => {
     (async () => {
-      const tx = await loadTransaction(BUY_TX);
+      const tx = await loadTransaction(BUY_BRYSON_TX);
       setTransaction(tx);
     })();
-  }, [BUY_TX, loadTransaction]);
+  }, [BUY_BRYSON_TX, loadTransaction]);
 
   return (
     <>

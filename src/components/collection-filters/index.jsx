@@ -120,14 +120,7 @@ const CollectionsFilter = ({
         </Hidden>
       );
     }
-    return (
-      <Hidden xsUp>
-        <Styled.SearchButton onClick={toggleSearchInput}>
-          <SearchIcon />
-        </Styled.SearchButton>
-      </Hidden>
-    );
-  }, [isSearching, setIsSearching, toggleSearchInput]);
+  }, [isSearching, toggleSearchInput]);
 
   return (
     <Styled.Wrapper isMobile={isMediumDevice} sx={sx}>

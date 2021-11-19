@@ -42,7 +42,7 @@ const Divider = styled('div')(() => ({
   backgroundColor: '#fff'
 }));
 
-const BannerDescription = styled(Typography)(() => ({
+const BannerDescription = styled(Grid)(() => ({
   maxWidth: '400px',
   opacity: '0.8',
   fontSize: '16px',
