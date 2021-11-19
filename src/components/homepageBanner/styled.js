@@ -40,7 +40,7 @@ export const TypographyWithOpacity = styled(Typography)(() => ({
 export const CardButton = styled(Button, { shouldForwardProp: prop => prop !== 'disabled' })(
   ({ theme: { breakpoints, palette }, disabled }) => ({
     color: disabled ? palette.grey[600] : '#fff',
-    width: disabled ? '200px' : '150px',
+    width: disabled ? '225px' : '150px',
     height: '38px',
     borderRadius: '24px',
     backgroundColor: disabled ? palette.grey[400] : '#215cf1',
