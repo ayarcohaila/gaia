@@ -82,11 +82,13 @@ pub struct NFTData {
   pub let id: UInt64
   pub let name: String?
   pub let imageURL: String
+  pub let videoURL: String
   
-  init(id: UInt64, name: String?, imageURL: String) {
+  init(id: UInt64, name: String?, imageURL: String, videoURL: String) {
       self.id = id
       self.name = name
       self.imageURL = imageURL
+      self.videoURL = videoURL
   }
 }
 
@@ -112,11 +114,13 @@ pub fun main(address: Address, setID: UInt64): [NFTData] {
           let id = asset.data.mintNumber!
           let title = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "title")
           let imageURL = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "img")!
+          let videoURL = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "video")!
           
           let nftData = NFTData(
             id: id,
             name: title,
-            imageURL: "https://images.ongaia.com/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length))
+            imageURL: "https://images.ongaia.com/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length)),
+            videoURL: "https://images.ongaia.com/ipfs/".concat(videoURL.slice(from: 7, upTo: videoURL.length))
           )
             
           assets.append(nftData)
