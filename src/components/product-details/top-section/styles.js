@@ -1,5 +1,4 @@
 import { styled, Box, Grid, Typography } from '@mui/material';
-import NextImage from 'next/image';
 
 export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   backgroundColor: '#fff',
@@ -16,35 +15,6 @@ export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
     marginTop: '0',
     padding: '20px 0'
   }
-}));
-
-export const ImageContainer = styled(Box)(({ theme: { breakpoints } }) => ({
-  borderRadius: '16px',
-  height: '424px',
-  position: 'relative',
-  margin: '0 auto',
-  width: '424px',
-
-  [breakpoints.down(1066)]: {
-    height: '380px',
-    width: '380px'
-  },
-
-  [breakpoints.down('md')]: {
-    height: '320px',
-    margin: '0 auto 16px',
-    width: '320px'
-  },
-
-  [breakpoints.down('sm')]: {
-    height: '275px',
-    margin: '0 auto',
-    width: '275px'
-  }
-}));
-
-export const Image = styled(NextImage)(() => ({
-  borderRadius: '16px'
 }));
 
 export const Title = styled(Typography)(({ theme: { breakpoints, typography } }) => ({

@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Grid, CardContent, CardMedia, Avatar } from '@mui/material';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -13,14 +12,13 @@ import {
   OrderProcessing
 } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
-import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
 import { AuthContext } from '~/providers/AuthProvider';
 
 const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
-const INSUFFICIENT_FUNDS =
+export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
 const CollectionCard = ({ data, ownNFTs, transaction }) => {
@@ -35,9 +33,7 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
   const { hasSetup, user } = useContext(AuthContext);
 
-  const img = SHOULD_HIDE_DATA
-    ? '/images/mystery-nft.gif'
-    : formatIpfsImg(data?.nft?.template?.metadata?.img);
+  const img = SHOULD_HIDE_DATA ? '/images/mystery-nft.gif' : data?.nft?.template?.metadata?.img;
 
   const handlePurchaseClick = async event => {
     event?.stopPropagation();
@@ -143,23 +139,6 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
       <OrderProcessing open={isProcessingModalOpen} onClose={toggleProcessingModal} />
     </>
   );
-};
-
-CollectionCard.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.string,
-    price: PropTypes.string,
-    nft: PropTypes.shape({
-      asset_id: PropTypes.number,
-      nft_template: PropTypes.shape({
-        id: PropTypes.string,
-        metadata: PropTypes.shape({
-          title: PropTypes.string,
-          img: PropTypes.string
-        })
-      })
-    })
-  }).isRequired
 };
 
 export default React.memo(CollectionCard);

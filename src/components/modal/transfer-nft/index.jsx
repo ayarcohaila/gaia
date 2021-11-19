@@ -9,6 +9,7 @@ import ModalSuccessContent from '../success-content';
 
 import * as Styled from './styles';
 import { loadTransaction } from '~/utils/transactionsLoader';
+import preval from 'preval.macro';
 
 const TransferNftModal = ({ ...props }) => {
   const [address, setAddress] = useState('');
@@ -19,11 +20,18 @@ const TransferNftModal = ({ ...props }) => {
     palette: { error }
   } = useTheme();
 
+  const transferTx = preval`
+    const fs = require('fs')
+    const path = require('path'),   
+    filePath = path.join(__dirname, "../../../flow/transactions/transfer_nft.cdc");
+    module.exports = fs.readFileSync(filePath, 'utf8')
+    `;
+
   const handleSendNft = async address => {
     toast.info('Please wait, transfer in progress... ');
     setLoadingTransfer(true);
     try {
-      const transaction = await loadTransaction(window.location.origin, 'transfer_nft');
+      const transaction = await loadTransaction(transferTx);
       const txResult = await transferNft(
         transaction.transactionScript,
         address,

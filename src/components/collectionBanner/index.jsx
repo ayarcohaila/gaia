@@ -8,20 +8,22 @@ import * as Styled from './styles';
 
 function CollectionBanner({
   accountNumber,
+  bannerAvatar,
   bannerName,
-  // bannerDescription,
+  bannerDescription,
   bgImg,
   mainColor,
-  secondaryColor
+  secondaryColor,
+  ...props
 }) {
   const { isSmallDevice } = useBreakpoints();
 
   return (
     <Grid px={isSmallDevice ? '20px' : '32px'}>
-      <Styled.BannerBackground imgUrl={bgImg}>
+      <Styled.BannerBackground imgUrl={bgImg} {...props}>
         <Styled.BannerStyled bgColor={mainColor}>
           <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
-            <Styled.BannerAvatar imgUrl={'/collections/user.png'} />
+            <Styled.BannerAvatar imgUrl={bannerAvatar} />
             {!isSmallDevice && (
               <>
                 <Styled.Divider ml="32px" />
@@ -35,13 +37,7 @@ function CollectionBanner({
           </Box>
           <Box width="100%" color="#fff" mt={isSmallDevice ? '56px' : '115px'}>
             {!isSmallDevice && (
-              <Styled.BannerDescription>
-                {/* TODO: Change later to use bannerDescription prop like the line below instead of hardcoded */}
-                {/* {bannerDescription} */}
-                BALLERZ is a league of 10,000 randomly-generated basketball players, ready to flex
-                on the Flow blockchain. Limit 7 per wallet. BALLERZ reveal on Wednesday, November
-                10.
-              </Styled.BannerDescription>
+              <Styled.BannerDescription>{bannerDescription}</Styled.BannerDescription>
             )}
             <Grid container pt={!isSmallDevice && '32px'}>
               {isSmallDevice && (

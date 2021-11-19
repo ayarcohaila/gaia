@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { CardActions, CardContent, CardMedia, Avatar, Skeleton } from '@mui/material';
+import React, { useMemo, useState, useEffect } from 'react';
+import { CardActions, CardContent, CardMedia, Avatar, Skeleton, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -8,10 +8,10 @@ import {
   SellNftModal,
   TransferNftModal,
   CancelListingModal,
-  OrderCompleteModal
+  OrderCompleteModal,
+  VideoPlayer
 } from '~/components';
 import { useToggle, useAuth } from '~/hooks';
-import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 
@@ -28,15 +28,30 @@ const ProfileCard = ({ data }) => {
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
+
   //TODO: replace this for the real data
   const [isForSale, setIsForSale] = useState(false);
 
-  const img = SHOULD_HIDE_DATA ? '/images/mystery-nft.gif' : formatIpfsImg(data?.imageURL);
+  const img = SHOULD_HIDE_DATA ? '/images/mystery-nft.gif' : data?.imageURL;
 
-  const asset = { ...data, collectionName: 'BALLERZ', img };
+  const asset = { ...data, collectionName: data?.collection_name?.toUpperCase(), img };
   const isMyProfile = router.asPath.includes(user?.addr);
 
   const showSellButton = process.env.NEXT_PUBLIC_HAS_SELL_BUTTON === 'true';
+  const videoElement = document.getElementById(`video-${data.id}`);
+
+  const handleVideoLoad = () => {
+    setImgLoaded(true);
+  };
+
+  useEffect(() => {
+    if (videoElement) {
+      videoElement?.addEventListener('loadeddata', handleVideoLoad());
+    }
+    return () => {
+      videoElement?.removeEventListener('loadeddata', handleVideoLoad());
+    };
+  }, [videoElement]);
 
   const renderUserCardActions = useMemo(() => {
     return (
@@ -90,8 +105,8 @@ const ProfileCard = ({ data }) => {
   const renderContent = () => (
     <Styled.CustomCard sx={{ cursor: SHOULD_HIDE_DATA ? 'auto' : 'pointer' }}>
       <Styled.CustomCardHeader
-        avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
-        title="BALLERZ"
+        avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}
+        title={data.collection_name.toUpperCase()}
       />
       <Skeleton
         variant="rect"
@@ -99,14 +114,26 @@ const ProfileCard = ({ data }) => {
         height={275}
         sx={{ borderRadius: '20px', display: imgLoaded && 'none' }}
       />
-      <CardMedia
-        sx={{ borderRadius: '20px', maxWidth: '275px', display: !imgLoaded && 'none' }}
-        component="img"
-        alt="Nft asset"
-        height="275"
-        onLoad={() => setImgLoaded(true)}
-        src={img}
-      />
+      {data.collection_name === 'bryson' && !SHOULD_HIDE_DATA ? (
+        <Grid sx={{ display: !imgLoaded && 'none' }}>
+          <VideoPlayer
+            src={data?.videoURL}
+            poster={data?.imageURL}
+            height={['275px', '275px', '275px', '275px']}
+            width={['275px', '275px', '275px', '275px']}
+            id={`video-${data.id}`}
+          />
+        </Grid>
+      ) : (
+        <CardMedia
+          sx={{ borderRadius: '20px', maxWidth: '275px', display: !imgLoaded && 'none' }}
+          component="img"
+          alt="Nft asset"
+          height="275"
+          onLoad={() => setImgLoaded(true)}
+          src={img}
+        />
+      )}
       <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
         <Styled.NFTText>{SHOULD_HIDE_DATA ? 'BALLER #????' : data?.name}</Styled.NFTText>
       </CardContent>
@@ -119,7 +146,7 @@ const ProfileCard = ({ data }) => {
       {SHOULD_HIDE_DATA ? (
         renderContent()
       ) : (
-        <Link href={`/ballerz/${data?.id}`} passHref>
+        <Link href={`/${data.collection_name}/${data?.id}`} passHref>
           {renderContent()}
         </Link>
       )}
@@ -161,7 +188,7 @@ ProfileCard.propTypes = {
   sell: PropTypes.bool,
   transfer: PropTypes.bool,
   data: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     price: PropTypes.string,
     nft: PropTypes.shape({
       asset_id: PropTypes.number,
