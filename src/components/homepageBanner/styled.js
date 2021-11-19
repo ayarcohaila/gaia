@@ -37,27 +37,30 @@ export const TypographyWithOpacity = styled(Typography)(() => ({
   opacity: '0.64'
 }));
 
-export const CardButton = styled(Button)(({ theme: { breakpoints, palette } }) => ({
-  color: '#fff',
-  width: '150px',
-  height: '38px',
-  borderRadius: '24px',
-  backgroundColor: '#215cf1',
-  marginTop: '20px',
-  textTransform: 'none',
+export const CardButton = styled(Button, { shouldForwardProp: prop => prop !== 'disabled' })(
+  ({ theme: { breakpoints, palette }, disabled }) => ({
+    color: '#fff',
+    width: disabled ? '200px' : '150px',
+    height: '38px',
+    borderRadius: '24px',
+    backgroundColor: '#215cf1',
+    marginTop: '20px',
+    textTransform: 'none',
+    cursor: !disabled ? 'pointer' : 'default',
 
-  [breakpoints.down('md')]: {
-    width: '48px',
-    height: '48px',
-    minWidth: '48px',
-    marginTop: 'auto',
-    marginLeft: 'auto'
-  },
+    [breakpoints.down('md')]: {
+      width: '48px',
+      height: '48px',
+      minWidth: '48px',
+      marginTop: 'auto',
+      marginLeft: 'auto'
+    },
 
-  '&:hover': {
-    backgroundColor: palette.primary.hover
-  }
-}));
+    '&:hover': {
+      backgroundColor: disabled ? '#215cf1' : palette.primary.hover
+    }
+  })
+);
 
 export const Divider = styled('div')({
   width: '100%',

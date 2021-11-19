@@ -12,7 +12,6 @@ import {
   VideoPlayer
 } from '~/components';
 import { useToggle, useAuth } from '~/hooks';
-import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styled';
 
@@ -33,7 +32,7 @@ const ProfileCard = ({ data }) => {
   //TODO: replace this for the real data
   const [isForSale, setIsForSale] = useState(false);
 
-  const img = SHOULD_HIDE_DATA ? '/images/mystery-nft.gif' : formatIpfsImg(data?.imageURL);
+  const img = SHOULD_HIDE_DATA ? '/images/mystery-nft.gif' : data?.imageURL;
 
   const asset = { ...data, collectionName: data?.collection_name?.toUpperCase(), img };
   const isMyProfile = router.asPath.includes(user?.addr);
@@ -115,10 +114,11 @@ const ProfileCard = ({ data }) => {
         height={275}
         sx={{ borderRadius: '20px', display: imgLoaded && 'none' }}
       />
-      {data.collection_name === 'bryson' ? (
+      {data.collection_name === 'bryson' && !SHOULD_HIDE_DATA ? (
         <Grid sx={{ display: !imgLoaded && 'none' }}>
           <VideoPlayer
-            src={img}
+            src={data?.videoURL}
+            poster={data?.imageURL}
             height={['275px', '275px', '275px', '275px']}
             width={['275px', '275px', '275px', '275px']}
             id={`video-${data.id}`}

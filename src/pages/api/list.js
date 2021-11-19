@@ -16,7 +16,7 @@ pub struct NFTData {
   pub let id: String?
   pub let name: String?
   pub let imageURL: String
-  
+
   init(id: String?, name: String?, imageURL: String) {
       self.id = id
       self.name = name
@@ -34,9 +34,9 @@ pub fun main(address: Address, setID: UInt64): [NFTData] {
     if accountSetup {
       let collectionRef = account.getCapability(Gaia.CollectionPublicPath)
                               .borrow<&{Gaia.CollectionPublic}>()!
-  
+
       let ids = collectionRef.getIDs()
-  
+
       for assetID in ids {
 
         let asset = collectionRef.borrowGaiaNFT(id: assetID)!
@@ -46,17 +46,17 @@ pub fun main(address: Address, setID: UInt64): [NFTData] {
           let id = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "id")
           let title = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "title")
           let imageURL = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "img")!
-          
+
           let nftData = NFTData(
             id: id,
             name: title,
             imageURL: "https://images.ongaia.com/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length))
           )
-            
+
           assets.append(nftData)
-        } 
+        }
       }
-    } 
+    }
     return assets
 }`;
 
@@ -83,7 +83,7 @@ pub struct NFTData {
   pub let name: String?
   pub let imageURL: String
   pub let videoURL: String
-  
+
   init(id: UInt64, name: String?, imageURL: String, videoURL: String) {
       self.id = id
       self.name = name
@@ -102,9 +102,9 @@ pub fun main(address: Address, setID: UInt64): [NFTData] {
     if accountSetup {
       let collectionRef = account.getCapability(Gaia.CollectionPublicPath)
                               .borrow<&{Gaia.CollectionPublic}>()!
-  
+
       let ids = collectionRef.getIDs()
-  
+
       for assetID in ids {
 
         let asset = collectionRef.borrowGaiaNFT(id: assetID)!
@@ -115,18 +115,18 @@ pub fun main(address: Address, setID: UInt64): [NFTData] {
           let title = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "title")
           let imageURL = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "img")!
           let videoURL = Gaia.getTemplateMetaDataByField(templateID: asset.data.templateID, field: "video")!
-          
+
           let nftData = NFTData(
             id: id,
             name: title,
             imageURL: "https://images.ongaia.com/ipfs/".concat(imageURL.slice(from: 7, upTo: imageURL.length)),
             videoURL: "https://images.ongaia.com/ipfs/".concat(videoURL.slice(from: 7, upTo: videoURL.length))
           )
-            
+
           assets.append(nftData)
-        } 
+        }
       }
-    } 
+    }
     return assets
 }`;
 

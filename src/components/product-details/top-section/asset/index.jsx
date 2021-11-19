@@ -1,12 +1,13 @@
 import { memo, useMemo } from 'react';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import { VideoPlayer } from '~/components';
+import { COLLECTIONS } from '~/constant';
 import { isVideo } from '~/utils/string';
+import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
-import { COLLECTIONS } from '~/constant';
-import { useRouter } from 'next/router';
 
 const Asset = ({ metadata }) => {
   const {
@@ -16,23 +17,21 @@ const Asset = ({ metadata }) => {
     () => isVideo(metadata?.img) || collection_name === COLLECTIONS.BRYSON,
     [metadata?.img]
   );
-  const url = useMemo(
-    () => `https://images.ongaia.com/ipfs/`.concat(metadata?.img?.slice(7, metadata?.img?.length)),
-    [metadata?.img]
-  );
 
   if (isVideoAsset) {
-    return <VideoPlayer src={url} />;
+    return (
+      <VideoPlayer poster={formatIpfsImg(metadata.img)} src={formatIpfsImg(metadata?.video)} />
+    );
   }
 
   return (
     <Styled.ImageContainer>
       <Styled.Image
         alt={metadata?.title}
-        blurDataURL={url}
+        blurDataURL={formatIpfsImg(metadata.img)}
         layout="fill"
         placeholder="blur"
-        src={url}
+        src={formatIpfsImg(metadata.img)}
       />
     </Styled.ImageContainer>
   );

@@ -15,6 +15,7 @@ import { buy } from '~/flow/buy';
 import { useAuth, useBreakpoints, useToggle } from '~/hooks';
 import { AuthContext } from '~/providers/AuthProvider';
 import { loadTransaction } from '~/utils/transactionsLoader';
+import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
 import SuccessPurchaseModal from '../success-purchase-modal';
@@ -110,7 +111,10 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
   return (
     <>
       <Styled.Container container>
-        <VideoPlayer src="https://images.ongaia.com/ipfs/QmeAtfCsWmqdEiXjYy98aTuZcRyiArKqrDm89McinZaitW" />
+        <VideoPlayer
+          poster={formatIpfsImg(data.nft.template.metadata.img)}
+          src={formatIpfsImg(data.nft.template.metadata.video)}
+        />
         <Box mx="auto" width={isMediumDevice ? '90%' : '40%'}>
           <Typography fontWeight="normal" mt={isMediumDevice ? 2 : 0} variant="h4">
             Bryson DeChambeau
