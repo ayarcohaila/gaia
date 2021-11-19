@@ -43,7 +43,7 @@ const Modal = ({
   const [imgLoaded, setImgLoaded] = useState(false);
 
   const handleLoad = () => {
-    setImgLoaded(false);
+    setImgLoaded(true);
   };
 
   const renderContent = () => (

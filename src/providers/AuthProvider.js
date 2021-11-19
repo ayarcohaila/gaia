@@ -29,7 +29,6 @@ export const AuthProvider = ({ children }) => {
   const handleSetup = useCallback(async () => {
     if (!hasSetup) {
       setSetupModalVisible(true);
-      setupModalVisible;
     }
   }, [setSetupModalVisible, hasSetup]);
 
@@ -44,7 +43,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{ shouldPageBlock, updateUser, user, hasSetup, setHasSetup }}>
       {children}
-      <AgreeSetupModal open={true} onClose={() => setSetupModalVisible(false)} />
+      <AgreeSetupModal open={setupModalVisible} onClose={() => setSetupModalVisible(false)} />
     </AuthContext.Provider>
   );
 };
