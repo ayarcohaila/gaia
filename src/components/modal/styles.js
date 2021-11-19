@@ -1,4 +1,4 @@
-import { Box, Grid, Button, Typography, styled } from '@mui/material';
+import { Box, Grid, Button, Typography, styled, Skeleton } from '@mui/material';
 
 export const Container = styled(Box)(({ theme: { breakpoints } }) => ({
   left: '50%',
@@ -114,4 +114,16 @@ export const CloseButton = styled(Button)(({ theme: { typography } }) => ({
   padding: '0',
   position: 'absolute',
   textTransform: 'none'
+}));
+
+export const AssetSkeleton = styled(Skeleton)(({ theme: { breakpoints } }) => ({
+  width: 180,
+  height: 180,
+  backgroundColor: '#BDBDBD',
+  borderRadius: 12.2,
+
+  [breakpoints.down('sm')]: {
+    height: 140,
+    width: 140
+  }
 }));
