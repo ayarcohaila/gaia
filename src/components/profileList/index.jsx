@@ -9,7 +9,7 @@ const ProfileList = ({ nfts }) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/ballerz');
+    router.push('/');
   };
 
   return (

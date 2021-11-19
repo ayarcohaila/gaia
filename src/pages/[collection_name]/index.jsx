@@ -141,15 +141,6 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
 
 export async function getServerSideProps({ query }) {
   try {
-    if (query.collection_name === COLLECTIONS.BRYSON && !isBrysonSaleEnabled) {
-      return {
-        props: {
-          nft_collection: null
-        },
-        notFound: true
-      };
-    }
-
     const { nft_collection } = await gqlClient.request(GET_COLLECTION_BY_ID, {
       id: COLLECTION_ID[query?.collection_name]
     });
@@ -159,6 +150,15 @@ export async function getServerSideProps({ query }) {
         id: COLLECTION_ID[query?.collection_name]
       });
       const randomizedSalesOffers = shuffleArray(nft_sale_offer);
+
+      if (!isBrysonSaleEnabled) {
+        return {
+          props: {
+            offerCount: randomizedSalesOffers.length,
+            pickedOffer: randomizedSalesOffers[0]
+          }
+        };
+      }
       return {
         props: {
           nft_sale_offer: [],

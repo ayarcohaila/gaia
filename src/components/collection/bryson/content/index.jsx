@@ -111,10 +111,18 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
   return (
     <>
       <Styled.Container container>
-        <VideoPlayer
-          poster={formatIpfsImg(data?.nft?.template?.metadata?.img)}
-          src={formatIpfsImg(data?.nft?.template?.metadata?.video)}
-        />
+        {isBrysonSaleEnabled ? (
+          <VideoPlayer
+            poster={formatIpfsImg(data?.nft?.template?.metadata?.img)}
+            src={formatIpfsImg(data?.nft?.template?.metadata?.video)}
+          />
+        ) : (
+          <Styled.CustomCardMedia
+            component="img"
+            alt="NFT image"
+            src={'/collections/bryson/nft-placeholder.jpeg'}
+          />
+        )}
         <Box mx="auto" width={isMediumDevice ? '90%' : '40%'}>
           <Typography fontWeight="normal" mt={isMediumDevice ? 2 : 0} variant="h4">
             Bryson DeChambeau

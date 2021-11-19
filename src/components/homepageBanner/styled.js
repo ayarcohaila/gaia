@@ -37,30 +37,30 @@ export const TypographyWithOpacity = styled(Typography)(() => ({
   opacity: '0.64'
 }));
 
-export const CardButton = styled(Button, { shouldForwardProp: prop => prop !== 'disabled' })(
-  ({ theme: { breakpoints, palette }, disabled }) => ({
-    color: disabled ? palette.grey[600] : '#fff',
-    width: disabled ? '225px' : '150px',
-    height: '38px',
-    borderRadius: '24px',
-    backgroundColor: disabled ? palette.grey[400] : '#215cf1',
-    marginTop: '20px',
-    textTransform: 'none',
-    cursor: !disabled ? 'pointer' : 'default',
+export const CardButton = styled(Button, {
+  shouldForwardProp: prop => prop !== 'isBrysonSaleEnabled'
+})(({ theme: { breakpoints, palette }, isBrysonSaleEnabled }) => ({
+  color: '#fff',
+  width: isBrysonSaleEnabled ? '225px' : '150px',
+  height: '38px',
+  borderRadius: '24px',
+  backgroundColor: '#215cf1',
+  marginTop: '20px',
+  textTransform: 'none',
+  cursor: 'pointer',
 
-    [breakpoints.down('md')]: {
-      width: '48px',
-      height: '48px',
-      minWidth: '48px',
-      marginTop: 'auto',
-      marginLeft: 'auto'
-    },
+  [breakpoints.down('md')]: {
+    width: '48px',
+    height: '48px',
+    minWidth: '48px',
+    marginTop: 'auto',
+    marginLeft: 'auto'
+  },
 
-    '&:hover': {
-      backgroundColor: disabled ? palette.grey[400] : palette.primary.hover
-    }
-  })
-);
+  '&:hover': {
+    backgroundColor: palette.primary.hover
+  }
+}));
 
 export const Divider = styled('div')({
   width: '100%',

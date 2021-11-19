@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { Link, useTheme } from '@mui/material';
 
 import { Modal } from '~/components';
+import { Button } from '~/base';
 
 const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
   const {
-    palette: { grey }
+    palette: { white }
   } = useTheme();
 
   return (
@@ -19,15 +20,17 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
       title="Purchase Successful"
       titleSx={{ my: 4 }}>
       <Link
+        component={Button}
         href={`https://flowscan.org/transaction/${tx}`}
         sx={{
-          color: grey[600],
           maxWidth: '80%',
           textAlign: 'center',
-          wordBreak: 'break-word'
+          wordBreak: 'break-word',
+          color: white.main
         }}
-        target="_blank"
-        underline="hover">{`https://flowscan.org/transaction/${tx}`}</Link>
+        target="_blank">
+        {'View on Flowscan'}
+      </Link>
     </Modal>
   );
 };
