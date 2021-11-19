@@ -95,7 +95,7 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
               />
             </Grid>
             <Divider sx={{ margin: '0 auto', maxWidth: '1800px', marginBottom: '32px' }} />
-            <BrysonContent data={pickedOffer} totalAvailable={nft_sale_offer?.length} />
+            <BrysonContent data={pickedOffer} totalAvailable={offerCount} />
           </Styled.Container>
         </Grid>
       </>
