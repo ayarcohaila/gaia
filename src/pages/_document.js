@@ -31,6 +31,23 @@ export default class _Document extends Document {
     return (
       <Html>
         <Head>
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content="default-src 'self';
+            script-src 'report-sample' 'self' https://www.googletagmanager.com/gtag/js;
+            style-src 'report-sample' 'self';
+            object-src 'none';
+            base-uri 'self';
+            connect-src 'self' https://flow-testnet.g.alchemy.com https://o189304.ingest.sentry.io https://staging.accounts.meetdapper.com https://www.google-analytics.com https://accounts.meetdapper.com https://flow-mainnet.g.alchemy.com;
+            font-src 'self' https://fonts.gstatic.com;
+            frame-src 'self';
+            img-src 'self' data: https://images.ongaia.com;
+            manifest-src 'self';
+            media-src 'self' https://images.ongaia.com;
+            report-uri https://6197fef357efdeabc05d2204.endpoint.csper.io/?v=0;
+            worker-src 'none';"
+          />
+
           {process.env.NODE_ENV === 'production' && (
             <>
               <script
