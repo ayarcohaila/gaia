@@ -28,7 +28,9 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
           wordBreak: 'break-word',
           color: white.main
         }}
-        target="_blank">{`https://flowscan.org/transaction/${tx}`}</Link>
+        target="_blank">
+        {'View on Flowscan'}
+      </Link>
     </Modal>
   );
 };
