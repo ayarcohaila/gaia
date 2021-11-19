@@ -45,7 +45,7 @@ export default function HomepageBanner() {
             <KeyboardArrowRightIcon />
           ) : (
             <Typography variant="subtitle1">
-              {isBrysonSaleEnabled ? 'Buy Now' : 'On Sale Nov 19 at 1pm PT'}
+              {isBrysonSaleEnabled ? 'Buy Now' : 'On Sale Fri Nov 19 at 6pm PT'}
             </Typography>
           )}
         </Styled.CardButton>

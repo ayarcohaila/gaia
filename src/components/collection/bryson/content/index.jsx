@@ -98,7 +98,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
     }
     return isBrysonSaleEnabled
       ? `Purchase • $ ${Number(data?.price)?.toFixed(2)}`
-      : 'On Sale Nov 19 at 1pm PT';
+      : 'On Sale Fri Nov 19 at 6pm PT';
   }, [data, isBrysonSaleEnabled, totalAvailable]);
 
   useEffect(() => {
