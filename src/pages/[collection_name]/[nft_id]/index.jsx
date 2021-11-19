@@ -10,6 +10,7 @@ import {
   GET_NFT_BY_MINT_NUMBER
 } from '~/store/server/queries';
 import { COLLECTIONS, COLLECTION_ID } from '~/constant';
+import { isBrysonSaleEnabled } from '~/constant/collection';
 
 const ProductDetails = ({ nft }) => {
   const {
@@ -62,7 +63,7 @@ export async function getStaticProps({ params }) {
         collection_id: COLLECTION_ID[collection_name],
         mint_number: nft_id
       });
-      if (!nft?.length) {
+      if (!nft?.length || !isBrysonSaleEnabled) {
         return { props: { nft: null } };
       }
       return {

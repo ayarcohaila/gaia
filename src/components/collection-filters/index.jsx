@@ -21,7 +21,8 @@ const CollectionsFilter = ({
   enableSort,
   enableSearch,
   setNftList,
-  onSearch = () => {}
+  onSearch = () => {},
+  sx
 }) => {
   const searchInput = useRef(null);
   const orderButtonRef = useRef(null);
@@ -129,7 +130,7 @@ const CollectionsFilter = ({
   }, [isSearching, setIsSearching, toggleSearchInput]);
 
   return (
-    <Styled.Wrapper isMobile={isMediumDevice}>
+    <Styled.Wrapper isMobile={isMediumDevice} sx={sx}>
       <Styled.Container>
         <BurstIcon />
         <Styled.Text isMobile={isMediumDevice}>{`${nftQuantity} ${

@@ -22,6 +22,7 @@ import * as Styled from '~/styles/collection-name/styles';
 import { useRouter } from 'next/router';
 import { shuffleArray } from '~/utils/array';
 import { COLLECTIONS, COLLECTION_ID } from '~/constant';
+import { isBrysonSaleEnabled } from '~/constant/collection';
 
 const DATA = {
   mainColor: '#270b5a',
@@ -95,7 +96,13 @@ const Collection = ({ nft_sale_offer, nft_collection, allNfts, pickedOffer }) =>
             bgImg="/collections/bryson/video-poster.webp"
             mainColor="#517fb1"
             secondaryColor="#517fb1"
-            sx={{ backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
+            sx={{
+              backgroundPosition: '0% 0%',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              margin: '0 auto',
+              maxWidth: '1800px'
+            }}
           />
           <Styled.Container>
             <Grid sx={{ margin: '24px 0' }}>
@@ -103,9 +110,10 @@ const Collection = ({ nft_sale_offer, nft_collection, allNfts, pickedOffer }) =>
                 enableSort={false}
                 nftQuantity={nft_sale_offer?.length}
                 setNftList={setNftList}
+                sx={{ margin: '0 auto', maxWidth: '1800px' }}
               />
             </Grid>
-            <Divider sx={{ marginBottom: '32px' }} />
+            <Divider sx={{ margin: '0 auto', maxWidth: '1800px', marginBottom: '32px' }} />
             <BrysonContent data={pickedOffer} totalAvailable={nft_sale_offer?.length} />
           </Styled.Container>
         </Grid>
@@ -158,6 +166,14 @@ export async function getServerSideProps({ query }) {
     const { nft } = await gqlClient.request(GET_NFTS);
 
     if (query.collection_name === COLLECTIONS.BRYSON) {
+      if (!isBrysonSaleEnabled) {
+        return {
+          props: {
+            nft_collection: null,
+            allNfts: null
+          }
+        };
+      }
       const { nft_sale_offer } = await gqlClient.request(GET_SINGLE_NFTS_FOR_SALE, {
         id: COLLECTION_ID[query?.collection_name]
       });
