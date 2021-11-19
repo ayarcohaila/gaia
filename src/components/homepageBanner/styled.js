@@ -46,12 +46,22 @@ export const CardButton = styled(Button)(({ theme: { breakpoints, palette } }) =
   marginTop: '20px',
   textTransform: 'none',
 
+  '&:disabled': {
+    width: '200px',
+    color: 'white'
+  },
+
   [breakpoints.down('md')]: {
     width: '48px',
     height: '48px',
     minWidth: '48px',
     marginTop: 'auto',
-    marginLeft: 'auto'
+    marginLeft: 'auto',
+
+    '&:disabled': {
+      width: '48px',
+      color: 'white'
+    }
   },
 
   '&:hover': {
