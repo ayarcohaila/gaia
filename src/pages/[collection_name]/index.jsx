@@ -20,6 +20,7 @@ import * as Styled from '~/styles/collection-name/styles';
 import { useRouter } from 'next/router';
 import { shuffleArray } from '~/utils/array';
 import { COLLECTIONS, COLLECTION_ID } from '~/constant';
+import { isBrysonSaleEnabled } from '~/constant/collection';
 
 const DATA = {
   mainColor: '#270b5a',
@@ -76,7 +77,13 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
             bgImg="/collections/bryson/video-poster.webp"
             mainColor="#517fb1"
             secondaryColor="#517fb1"
-            sx={{ backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
+            sx={{
+              backgroundPosition: '0% 0%',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              margin: '0 auto',
+              maxWidth: '1800px'
+            }}
           />
           <Styled.Container>
             <Grid sx={{ margin: '24px 0' }}>
@@ -84,9 +91,10 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
                 enableSort={false}
                 nftQuantity={offerCount}
                 setNftList={setNftList}
+                sx={{ margin: '0 auto', maxWidth: '1800px' }}
               />
             </Grid>
-            <Divider sx={{ marginBottom: '32px' }} />
+            <Divider sx={{ margin: '0 auto', maxWidth: '1800px', marginBottom: '32px' }} />
             <BrysonContent data={pickedOffer} totalAvailable={offerCount} />
           </Styled.Container>
         </Grid>
@@ -133,6 +141,15 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
 
 export async function getServerSideProps({ query }) {
   try {
+    if (query.collection_name === COLLECTIONS.BRYSON && !isBrysonSaleEnabled) {
+      return {
+        props: {
+          nft_collection: null
+        },
+        notFound: true
+      };
+    }
+
     const { nft_collection } = await gqlClient.request(GET_COLLECTION_BY_ID, {
       id: COLLECTION_ID[query?.collection_name]
     });

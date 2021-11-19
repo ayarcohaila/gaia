@@ -8,6 +8,7 @@ import {
   CircularProgress,
   useTheme
 } from '@mui/material';
+
 import { Close as CloseIcon, KeyboardArrowDown as ArrowDownIcon } from '@mui/icons-material';
 import { Global } from '@emotion/react';
 import PropTypes from 'prop-types';
@@ -56,29 +57,36 @@ const Modal = ({
           </IconButton>
         )}
         {asset?.img && (
-          <Styled.AssetContainer>
-            <Grid sx={{ display: !imgLoaded && 'none', position: 'relative' }}>
-              <Styled.Asset
-                alt={title}
-                layout="fill"
-                src={asset?.img}
-                onLoad={() => handleLoad()}
-              />
-            </Grid>
-            <Grid
-              container
-              justifyContent="center"
-              alignItems="center"
-              sx={{
-                width: '180px',
-                height: '180px',
-                borderRadius: '12.2px',
-                background: grey[375],
-                display: imgLoaded && 'none'
-              }}>
-              <CircularProgress size={32} color="white" />
-            </Grid>
-          </Styled.AssetContainer>
+          <>
+            {!imgLoaded ? (
+              <Styled.AssetContainer>
+                <Styled.AssetSkeleton animation="wave" variant="rectangular" />
+              </Styled.AssetContainer>
+            ) : undefined}
+            <Styled.AssetContainer display={!imgLoaded && 'none'}>
+              <Grid sx={{ display: !imgLoaded && 'none', position: 'relative' }}>
+                <Styled.Asset
+                  alt={title}
+                  layout="fill"
+                  src={asset?.img}
+                  onLoad={() => handleLoad()}
+                />
+              </Grid>
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                sx={{
+                  width: '180px',
+                  height: '180px',
+                  borderRadius: '12.2px',
+                  background: grey[375],
+                  display: imgLoaded && 'none'
+                }}>
+                <CircularProgress size={32} color="white" />
+              </Grid>
+            </Styled.AssetContainer>
+          </>
         )}
 
         <Styled.InfoContainer>
