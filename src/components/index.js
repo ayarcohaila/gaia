@@ -35,3 +35,4 @@ export { default as ProductDetailsTopSection } from './product-details/top-secti
 export { default as VideoPlayer } from './video-player';
 export { default as BrysonContent } from './collection/bryson/content';
 export { default as BrysonDescription } from './collection/bryson/description';
+export { default as Filters } from './filters';
