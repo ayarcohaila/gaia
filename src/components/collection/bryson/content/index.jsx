@@ -113,6 +113,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
       <Styled.Container container>
         {isBrysonSaleEnabled ? (
           <VideoPlayer
+            loop
             poster={formatIpfsImg(data?.nft?.template?.metadata?.img)}
             src={formatIpfsImg(data?.nft?.template?.metadata?.video)}
           />
