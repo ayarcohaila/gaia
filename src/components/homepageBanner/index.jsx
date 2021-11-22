@@ -50,6 +50,7 @@ export default function HomepageBanner() {
           )}
         </Styled.CardButton>
       </Styled.Container>
+      <Styled.BannerLink href="/bryson" />
     </Styled.ContainerBackground>
   );
 }

@@ -1,4 +1,4 @@
-import { styled, Button, Typography } from '@mui/material';
+import { styled, Button, Typography, Link } from '@mui/material';
 
 export const ContainerBackground = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ imgUrl }) => ({
@@ -8,7 +8,8 @@ export const ContainerBackground = styled('div', { shouldForwardProp: prop => pr
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    position: 'relative'
   })
 );
 
@@ -48,6 +49,7 @@ export const CardButton = styled(Button, {
   marginTop: '20px',
   textTransform: 'none',
   cursor: 'pointer',
+  zIndex: 3,
 
   [breakpoints.down('md')]: {
     width: '48px',
@@ -69,4 +71,14 @@ export const Divider = styled('div')({
   opacity: '0.16',
   borderRadius: '24px',
   marginBottom: '24px'
+});
+
+export const BannerLink = styled(Link)({
+  bottom: '0',
+  left: '0',
+  height: '100%',
+  position: 'absolute',
+  textDecoration: 'none',
+  width: '100%',
+  zIndex: 2
 });
