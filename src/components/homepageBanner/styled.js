@@ -49,6 +49,7 @@ export const CardButton = styled(Button, {
   marginTop: '20px',
   textTransform: 'none',
   cursor: 'pointer',
+  zIndex: 3,
 
   [breakpoints.down('md')]: {
     width: '48px',
@@ -78,5 +79,6 @@ export const BannerLink = styled(Link)({
   height: '100%',
   position: 'absolute',
   textDecoration: 'none',
-  width: '100%'
+  width: '100%',
+  zIndex: 2
 });
