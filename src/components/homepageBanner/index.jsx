@@ -11,7 +11,7 @@ import * as Styled from './styled';
 const bannerData = {
   drop: 'Vegas, Baby!',
   title: 'Bryson DeChambeau',
-  description: 'Collection NFT Commemorating Las Vegas Showdown',
+  description: 'Collectible NFT Commemorating Las Vegas Showdown',
   background: 'images/header/bryson_header_v3.jpg'
 };
 
