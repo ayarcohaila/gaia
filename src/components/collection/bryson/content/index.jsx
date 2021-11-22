@@ -1,4 +1,4 @@
-import { Box, Grid, Link, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
@@ -134,18 +134,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
             This is the first in a series of Bryson DeChambeau collectibles on Gaia -- and with
             ownership comes additional rewards and access in future drops.
           </Typography>
-          <Typography color={grey[700]} my={3} variant="h6">
-            One lucky winner will receive 2 VIP Passes to a Hospitality Suite at the invite-only
-            Bryson DeChambeau vs. Brooks Koepka Showdown at the Wynn Golf Course in Las Vegas. Prize
-            includes $2,000 travel voucher.
-          </Typography>
-          <Typography color={grey[700]} component="span" variant="h6">
-            CONTEST ELIGIBLE FOR U.S. RESIDENTS ONLY.{' '}
-            <Link color={grey[700]} href="/collections/bryson/rules.pdf" target="_blank">
-              See full rules
-            </Link>
-            .
-          </Typography>
+
           <Grid container justifyContent="center" alignItems="center">
             <Button
               onClick={user ? handlePurchaseClick : handleLogin}
@@ -160,11 +149,6 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
               {purchaseButtonTitle}
             </Button>
           </Grid>
-          <Typography color={grey[600]} fontWeight="normal" mt={2} variant="subtitle1">
-            Winner will be selected on November 22. Event will be held on November 26 in Las Vegas,
-            NV. Vaccination rules & restrictions apply. By purchasing, you agree to be contacted by
-            Dapper Labs if you are selected as the winning entry.
-          </Typography>
         </Box>
       </Styled.Container>
       <Grid alignItems="center" container justifyContent="center" width="100%">
