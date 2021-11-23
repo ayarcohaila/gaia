@@ -20,7 +20,7 @@ const ProductDetailsTopSection = ({ nft }) => {
     query: { collection_name }
   } = useRouter();
   const { metadata } = nft.template;
-  const { config } = useCollectionConfig;
+  const { config } = useCollectionConfig();
 
   //TODO: Uncomment on future implementation
   // const activeSaleOffer = nft.sale_offers.find(offer => offer?.status === 'active');
@@ -113,7 +113,7 @@ const ProductDetailsTopSection = ({ nft }) => {
           <Styled.NumberContainer>
             {/* TODO: Refactor for backend total number */}
             <Typography color={grey[600]} variant="body1">
-              #{metadata?.id || nft?.mint_number} / {config?.[collection_name]?.collectionSize}
+              #{metadata?.id || nft?.mint_number} / {config?.collectionSize}
             </Typography>
           </Styled.NumberContainer>
           <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">

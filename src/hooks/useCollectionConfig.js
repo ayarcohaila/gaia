@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import collections, {
   COLLECTION_STATUS,
@@ -6,11 +7,17 @@ import collections, {
 } from '../../collections_setup';
 
 export default function useCollectionConfig(id) {
-  const router = useRouter();
+  const {
+    query: { collection_name }
+  } = useRouter();
 
-  const config = id
-    ? Object.values(collections).find(collection => collection.id === id)
-    : collections[router?.query?.collection_name];
+  const config = useMemo(
+    () =>
+      id
+        ? Object.values(collections).find(collection => collection.id === id)
+        : collections[collection_name],
+    [id, collection_name]
+  );
 
   return {
     config,
