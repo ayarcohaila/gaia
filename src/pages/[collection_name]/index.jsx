@@ -78,10 +78,10 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
         <Grid>
           <CollectionBanner
             accountNumber={bannerData?.author}
-            bannerAvatar={config.avatar}
+            bannerAvatar={config?.avatar}
             bannerName="BrysonDeChambeau"
             bannerDescription={<BrysonDescription />}
-            bgImg="/collections/bryson/video-poster.webp"
+            bgImg={config?.banner || bannerData?.image}
             mainColor="#517fb1"
             secondaryColor="#517fb1"
             sx={{
@@ -114,11 +114,11 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
       <Seo title={bannerData?.name.toUpperCase() || ''} />
       <Grid>
         <CollectionBanner
-          bannerAvatar={config.avatar}
+          bannerAvatar={config?.avatar}
           accountNumber={bannerData?.author}
           bannerName={bannerData?.name}
           bannerDescription={bannerData?.description}
-          bgImg={config.banner || bannerData?.image}
+          bgImg={config?.banner || bannerData?.image}
           mainColor={bannerData?.mainColor}
           secondaryColor={bannerData?.secondaryColor}
         />

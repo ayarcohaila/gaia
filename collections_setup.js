@@ -22,7 +22,7 @@ export const COLLECTION_LIST_CONFIG = {
     wallet: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION,
     nftName: 'baller',
     collectionName: COLLECTIONS_NAME.BALLERZ,
-    status: COLLECTION_STATUS.PAUSED,
+    status: COLLECTION_STATUS.SALE,
     saleType: COLLECTION_SALE_TYPE.MULTIPLE,
     mystery: false,
     buyLimit: 7,
@@ -39,7 +39,7 @@ export const COLLECTION_LIST_CONFIG = {
     mystery: false,
     buyLimit: 0,
     avatar: '/collections/bryson/avatar.webp',
-    banner: ''
+    banner: '/collections/bryson/video-poster.webp'
   }
 };
 

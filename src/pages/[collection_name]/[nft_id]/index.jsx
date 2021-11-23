@@ -60,7 +60,7 @@ export async function getStaticProps({ params }) {
         collection_id: brysonConfig.wallet,
         mint_number: nft_id
       });
-      if (!nft?.length || !(brysonConfig.sale === COLLECTION_STATUS.SALE)) {
+      if (!nft?.length || !(brysonConfig.status === COLLECTION_STATUS.SALE)) {
         return { notFound: true };
       }
       return {
