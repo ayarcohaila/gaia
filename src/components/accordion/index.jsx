@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import * as Styled from './styles';
 
-const Accordion = ({ children, dividerSx, title, ...props }) => {
+const Accordion = ({ contentSx, children, dividerSx, title, ...props }) => {
   const {
     palette: { grey }
   } = useTheme();
@@ -21,19 +21,21 @@ const Accordion = ({ children, dividerSx, title, ...props }) => {
             {title}
           </Typography>
         </AccordionSummary>
-        <AccordionDetails>{children}</AccordionDetails>
+        <AccordionDetails sx={contentSx}>{children}</AccordionDetails>
       </Styled.Accordion>
     </>
   );
 };
 
 Accordion.propTypes = {
+  contentSx: PropTypes.object,
   children: PropTypes.node,
   dividerSx: PropTypes.object,
   title: PropTypes.string
 };
 
 Accordion.defaultProps = {
+  contentSx: {},
   children: null,
   dividerSx: {},
   title: ''

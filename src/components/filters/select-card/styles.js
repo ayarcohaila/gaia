@@ -7,7 +7,21 @@ export const Container = styled(Grid)(() => ({
   padding: '10px 12px'
 }));
 
-export const Checkbox = styled(MuiCheckbox)(() => ({}));
+export const Checkbox = styled(MuiCheckbox)(
+  ({
+    theme: {
+      palette: { grey, white }
+    }
+  }) => ({
+    color: grey[400],
+    height: '14px',
+    width: '14px',
+
+    '&.Mui-checked': {
+      color: white.main
+    }
+  })
+);
 
 export const IconContainer = styled(Box)(
   ({

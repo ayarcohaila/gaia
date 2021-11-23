@@ -1,14 +1,31 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import * as Styled from './styles';
 
-const SelectCard = ({ containerProps, isSelected, label, labelProps, renderIcon, ...props }) => {
+const SelectCard = ({
+  containerProps,
+  id,
+  label,
+  labelProps,
+  renderIcon,
+  selectedOptions,
+  setSelectedOptions,
+  ...props
+}) => {
   const {
     palette: { grey, primary, white }
   } = useTheme();
+
+  const isSelected = selectedOptions.includes(id);
   const iconColor = isSelected ? primary.main : grey[400];
+
+  const handleSelect = useCallback(() => {
+    setSelectedOptions(prevState =>
+      prevState.includes(id) ? prevState.filter(filter => filter !== id) : [...prevState, id]
+    );
+  }, [id]);
 
   return (
     <Styled.Container
@@ -29,24 +46,27 @@ const SelectCard = ({ containerProps, isSelected, label, labelProps, renderIcon,
           {label}
         </Typography>
       </Grid>
-      <Styled.Checkbox checked={isSelected} {...props} />
+      <Styled.Checkbox checked={isSelected} onChange={handleSelect} {...props} />
     </Styled.Container>
   );
 };
 
 SelectCard.propTypes = {
   containerProps: PropTypes.object,
-  renderIcon: PropTypes.func,
+  id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   labelProps: PropTypes.object,
-  isSelected: PropTypes.bool
+  renderIcon: PropTypes.func,
+  selectedOptions: PropTypes.arrayOf(PropTypes.string),
+  setSelectedOptions: PropTypes.func
 };
 
 SelectCard.defaultProps = {
   containerProps: {},
   labelProps: {},
   renderIcon: () => null,
-  isSelected: false
+  selectedOptions: [],
+  setSelectedOptions: () => {}
 };
 
 export default memo(SelectCard);
