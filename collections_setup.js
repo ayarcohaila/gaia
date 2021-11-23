@@ -27,7 +27,8 @@ export const COLLECTION_LIST_CONFIG = {
     mystery: false,
     buyLimit: 7,
     avatar: '/collections/ballerz/avatar.png',
-    banner: '/collections/ballerz/banner.png'
+    banner: '/collections/ballerz/banner.png',
+    collectionSize: 10000
   },
   [COLLECTIONS_NAME.BRYSON]: {
     id: 4,
@@ -39,7 +40,8 @@ export const COLLECTION_LIST_CONFIG = {
     mystery: false,
     buyLimit: 0,
     avatar: '/collections/bryson/avatar.webp',
-    banner: '/collections/bryson/video-poster.webp'
+    banner: '/collections/bryson/video-poster.webp',
+    collectionSize: 5000
   }
 };
 

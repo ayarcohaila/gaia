@@ -1,12 +1,6 @@
 import preval from 'preval.macro';
 
 import { isDapper } from '~/utils/currencyCheck';
-import { COLLECTIONS_NAME } from '../../collections_setup';
-
-export const COLLECTION_TOTAL_NUMBER = {
-  [COLLECTIONS_NAME.BALLERZ]: 10000,
-  [COLLECTIONS_NAME.BRYSON]: 5000
-};
 
 export const BUY_TX = isDapper
   ? preval`
