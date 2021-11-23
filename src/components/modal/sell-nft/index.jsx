@@ -61,7 +61,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
   const title = hasNftSuccessfullyPostedForSale ? 'Posted for  sale!' : 'Sell NFT';
   const description = hasNftSuccessfullyPostedForSale
     ? 'Your NFT has been successfully posted for sale:'
-    : 'Enter sale price in FLOW';
+    : 'Enter sale price in USD';
 
   useEffect(() => {
     setHasNftSuccessfullyPostedForSale(hasPostedForSale);
@@ -79,7 +79,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
                 {loading ? <CircularProgress size={32} color="white" /> : 'Post For Sale'}
               </Styled.CustomButton>
             }
-            placeholder="Enter FLOW value"
+            placeholder="USD Sale Price"
             onChange={({ target: { value: targetValue } }) => setValue(targetValue)}
             type="number"
             value={value}
