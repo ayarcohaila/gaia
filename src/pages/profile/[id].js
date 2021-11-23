@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import { useBreakpoints, useToggle } from '~/hooks';
 import { gqlClient } from '~/config/apollo-client';
@@ -21,32 +21,36 @@ const Profile = () => {
   const [openModal, toggleOpenModal] = useToggle();
   const [loading, setLoading] = useState(false);
 
+  const loadNfts = useCallback(async () => {
+    try {
+      setLoading(true);
+      const result = await axios.get(`/api/list?address=${address}`);
+      const ballerzList = result.data.ballerz?.map(item => ({
+        ...item,
+        collection_name: 'ballerz',
+        collection_picture: '/collections/user.png'
+      }));
+      const brysonList = result.data.bryson?.map(item => ({
+        ...item,
+        collection_name: 'bryson',
+        collection_picture: '/collections/bryson/avatar.webp',
+        name: `${item.name} #${item.id}`
+      }));
+      const combinedList = ballerzList.concat(brysonList);
+      setNftList(combinedList);
+    } catch {
+      setNftList([]);
+      toggleOpenModal();
+    } finally {
+      setLoading(false);
+    }
+  }, [setLoading, setNftList, toggleOpenModal, address]);
+
   useEffect(() => {
-    const loadNfts = async () => {
-      try {
-        setLoading(true);
-        const result = await axios.get(`/api/list?address=${address}`);
-        const ballerzList = result.data.ballerz?.map(item => ({
-          ...item,
-          collection_name: 'ballerz',
-          collection_picture: '/collections/ballerz/avatar.png'
-        }));
-        const brysonList = result.data.bryson?.map(item => ({
-          ...item,
-          collection_name: 'bryson',
-          collection_picture: '/collections/bryson/avatar.webp'
-        }));
-        const combinedList = ballerzList.concat(brysonList);
-        setNftList(combinedList);
-      } catch {
-        setNftList([]);
-        toggleOpenModal();
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadNfts();
-  }, []);
+    if (address) {
+      loadNfts();
+    }
+  }, [address]);
 
   const onHandleCloseModal = () => {
     toggleOpenModal();
