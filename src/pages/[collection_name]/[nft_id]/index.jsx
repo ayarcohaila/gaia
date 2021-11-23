@@ -42,7 +42,7 @@ export async function getStaticPaths() {
   }));
 
   const { nft_collection } = await gqlClient.request(GET_NFTS_MINT_NUMBER, {
-    collection_id: COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON].wallet
+    collection_id: COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON].id
   });
   const { nfts } = nft_collection[0];
   const brysonCollectionPaths = nfts.map(nft => ({
