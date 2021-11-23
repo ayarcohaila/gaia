@@ -3,9 +3,10 @@ const fcl = require('@onflow/fcl');
 const ACCESS_NODE = process.env.NEXT_PUBLIC_ACCESS_NODE;
 const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
 const GAIA_CONTRACT = process.env.NEXT_PUBLIC_GAIA_CONTRACT;
-const BALLERZ_SET_ID = process.env.NEXT_PUBLIC_BALLERZ_SETID || '2';
-const BRYSON_SET_ID = process.env.NEXT_PUBLIC_BRYSON_SETID || '4';
-const MYSTERY_IMAGE = process.env.NEXT_PUBLIC_MYSTERY_IMAGE || 'true';
+const BALLERZ_SET_ID = process.env.NEXT_PUBLIC_BALLERZ_SETID;
+const BRYSON_SET_ID = process.env.NEXT_PUBLIC_BRYSON_SETID;
+
+import { COLLECTION_LIST_CONFIG } from '../../../collections_setup';
 
 const listBallerzTx = `import NonFungibleToken from 0xNFTInterface
 import Gaia from 0xGaiaContract
@@ -145,19 +146,28 @@ export default async function handler(req, res) {
     try {
       const ballerzList = await listBallerzNFTs(address, parseInt(BALLERZ_SET_ID, 10));
       const brysonList = await listBrysonNFTs(address, parseInt(BRYSON_SET_ID, 10));
-      let parsedNFTList;
-      if (MYSTERY_IMAGE === 'true') {
-        parsedNFTList = ballerzList.map((nft, idx) => {
-          return {
-            id: idx,
-            name: 'Ballerz #????',
-            imageURL: '/images/mystery-nft.gif'
-          };
-        });
-      } else {
-        parsedNFTList = ballerzList;
-      }
-      res.status(200).json({ ballerz: parsedNFTList, bryson: brysonList });
+      const parsedBallerzList = ballerzList.map((nft, index) =>
+        COLLECTION_LIST_CONFIG.ballerz.mystery
+          ? {
+              id: index,
+              imageURL: '/images/mystery-nft.gif',
+              name: 'BALLER #????',
+              mystery: true
+            }
+          : { ...nft }
+      );
+      const parsedBrysonList = brysonList.map((nft, index) =>
+        COLLECTION_LIST_CONFIG.bryson.mystery
+          ? {
+              id: index,
+              imageURL: '/images/mystery-nft.gif',
+              name: 'BRYSON #????',
+              mystery: true
+            }
+          : { ...nft, name: `${nft.name} #${nft.id}` }
+      );
+
+      res.status(200).json({ ballerz: parsedBallerzList, bryson: parsedBrysonList });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: `Can't query NFT List` });
