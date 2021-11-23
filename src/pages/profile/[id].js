@@ -28,13 +28,12 @@ const Profile = () => {
       const ballerzList = result.data.ballerz?.map(item => ({
         ...item,
         collection_name: 'ballerz',
-        collection_picture: '/collections/user.png'
+        collection_picture: '/collections/ballerz/avatar.png'
       }));
       const brysonList = result.data.bryson?.map(item => ({
         ...item,
         collection_name: 'bryson',
-        collection_picture: '/collections/bryson/avatar.webp',
-        name: `${item.name} #${item.id}`
+        collection_picture: '/collections/bryson/avatar.webp'
       }));
       const combinedList = ballerzList.concat(brysonList);
       setNftList(combinedList);
