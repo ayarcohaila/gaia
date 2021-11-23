@@ -1,21 +1,11 @@
 import preval from 'preval.macro';
 
-import { ballerzCollection, brisonCollection } from '~/config/config';
 import { isDapper } from '~/utils/currencyCheck';
-
-export const COLLECTIONS = {
-  BALLERZ: 'ballerz',
-  BRYSON: 'bryson'
-};
-
-export const COLLECTION_ID = {
-  [COLLECTIONS.BALLERZ]: ballerzCollection,
-  [COLLECTIONS.BRYSON]: brisonCollection
-};
+import { COLLECTIONS_NAME } from '../../collections_setup';
 
 export const COLLECTION_TOTAL_NUMBER = {
-  [COLLECTIONS.BALLERZ]: 10000,
-  [COLLECTIONS.BRYSON]: 5000
+  [COLLECTIONS_NAME.BALLERZ]: 10000,
+  [COLLECTIONS_NAME.BRYSON]: 5000
 };
 
 export const BUY_TX = isDapper
@@ -40,5 +30,3 @@ export const BUY_BRYSON_TX =
   filePath = path.join(__dirname, "../flow/transactions/dapper/buy_bryson.cdc");
   module.exports = fs.readFileSync(filePath, 'utf8')
 `;
-
-export const isBrysonSaleEnabled = process.env.NEXT_PUBLIC_ENABLE_BRYSON_SALE === 'true';

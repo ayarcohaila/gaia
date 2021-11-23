@@ -110,6 +110,7 @@ const ProductDetailsTopSection = ({ nft }) => {
             </Grid>
           )}
           <Styled.NumberContainer>
+            {/* TODO: Refactor for backend total number */}
             <Typography color={grey[600]} variant="body1">
               #{metadata?.id || nft?.mint_number} / {COLLECTION_TOTAL_NUMBER[collection_name]}
             </Typography>

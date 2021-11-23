@@ -4,7 +4,6 @@ import { Typography } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { useBreakpoints } from '~/hooks';
-import { isBrysonSaleEnabled } from '~/constant/collection';
 
 import * as Styled from './styled';
 
@@ -40,13 +39,11 @@ export default function HomepageBanner() {
           {bannerData.description}
         </Typography>
         {isMediumDevice && <Styled.Divider />}
-        <Styled.CardButton component="a" href="/bryson" isBrysonSaleEnabled>
+        <Styled.CardButton component="a" href="/bryson">
           {isMediumDevice ? (
             <KeyboardArrowRightIcon />
           ) : (
-            <Typography variant="subtitle1">
-              {isBrysonSaleEnabled ? 'Buy Now' : 'On Sale Fri Nov 19 at 6pm PT'}
-            </Typography>
+            <Typography variant="subtitle1">{'Buy Now'}</Typography>
           )}
         </Styled.CardButton>
       </Styled.Container>
