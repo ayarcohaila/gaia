@@ -1,5 +1,11 @@
-import { Box, styled } from '@mui/material';
+import { styled } from '@mui/material';
 
-export const Container = styled(Box)({
-  display: 'flex'
+import { Button } from '~/base';
+
+export const FloatButton = styled(Button)({
+  bottom: '24px',
+  left: '50%',
+  marginLeft: '-75px',
+  position: 'fixed',
+  width: '150px'
 });

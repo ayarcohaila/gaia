@@ -1,6 +1,7 @@
 import { memo, useCallback } from 'react';
 import { Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
+import { Check as CheckedIcon } from '@mui/icons-material';
 
 import * as Styled from './styles';
 
@@ -46,7 +47,12 @@ const CheckboxCard = ({
           {label}
         </Typography>
       </Grid>
-      <Styled.Checkbox checked={isSelected} onChange={handleSelect} {...props} />
+      <Styled.Checkbox
+        checkedIcon={<CheckedIcon fontSize="4px" />}
+        checked={isSelected}
+        onChange={handleSelect}
+        {...props}
+      />
       <Styled.ClickableArea onClick={handleSelect} />
     </Styled.Container>
   );

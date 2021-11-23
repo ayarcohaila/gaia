@@ -88,14 +88,17 @@ const Modal = ({
             </Styled.AssetContainer>
           </>
         )}
-
         <Styled.InfoContainer>
-          <Styled.Title id={title} sx={titleSx}>
-            {title}
-          </Styled.Title>
-          <Styled.Description id={description} sx={descriptionSx}>
-            {description}
-          </Styled.Description>
+          {!!title && (
+            <Styled.Title id={title} sx={titleSx}>
+              {title}
+            </Styled.Title>
+          )}
+          {!!description && (
+            <Styled.Description id={description} sx={descriptionSx}>
+              {description}
+            </Styled.Description>
+          )}
           {children}
         </Styled.InfoContainer>
         {!isSmallDevice && !disableCloseButton && (
