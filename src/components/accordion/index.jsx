@@ -4,14 +4,17 @@ import PropTypes from 'prop-types';
 
 import * as Styled from './styles';
 
-const Accordion = ({ contentSx, children, dividerSx, title, ...props }) => {
+const Accordion = ({ contentSx, children, dividerSx, hasDivider, title, ...props }) => {
   const {
     palette: { grey }
   } = useTheme();
 
   return (
     <>
-      <Divider sx={{ border: 0, borderTop: `2px solid ${grey[200]}`, ...dividerSx }} />
+      {hasDivider && (
+        <Divider sx={{ border: 0, borderTop: `2px solid ${grey[200]}`, ...dividerSx }} />
+      )}
+
       <Styled.Accordion {...props}>
         <AccordionSummary
           aria-controls={title}
@@ -31,6 +34,7 @@ Accordion.propTypes = {
   contentSx: PropTypes.object,
   children: PropTypes.node,
   dividerSx: PropTypes.object,
+  hasDivider: PropTypes.bool,
   title: PropTypes.string
 };
 
@@ -38,6 +42,7 @@ Accordion.defaultProps = {
   contentSx: {},
   children: null,
   dividerSx: {},
+  hasDivider: true,
   title: ''
 };
 

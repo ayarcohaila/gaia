@@ -9,7 +9,7 @@ export const Input = styled(MuiInput)(
   }) => ({
     backgroundColor: grey[200],
     borderRadius: '10px',
-    minHeight: '48px',
+    height: '48px',
     MozAppearance: 'textfield',
     margin: '0 8px 8px 0',
     padding: '16px 23px 16px 24px',

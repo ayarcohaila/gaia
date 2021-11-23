@@ -1,10 +1,11 @@
-import { Box, Checkbox as MuiCheckbox, Grid, styled } from '@mui/material';
+import { Box, Button, Checkbox as MuiCheckbox, Grid, styled } from '@mui/material';
 
 export const Container = styled(Grid)(() => ({
   alignItems: 'center',
   borderRadius: '10px',
   justifyContent: 'space-between',
-  padding: '10px 12px'
+  padding: '10px 12px',
+  position: 'relative'
 }));
 
 export const Checkbox = styled(MuiCheckbox)(
@@ -37,3 +38,12 @@ export const IconContainer = styled(Box)(
     padding: '6px'
   })
 );
+
+export const ClickableArea = styled(Button)(() => ({
+  backgroundColor: 'transparent',
+  height: '100%',
+  maxHeight: '100%',
+  maxWidth: '100%',
+  position: 'absolute',
+  width: '95%'
+}));

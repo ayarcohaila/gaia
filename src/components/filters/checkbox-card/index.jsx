@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import * as Styled from './styles';
 
-const SelectCard = ({
+const CheckboxCard = ({
   containerProps,
   id,
   label,
@@ -47,11 +47,12 @@ const SelectCard = ({
         </Typography>
       </Grid>
       <Styled.Checkbox checked={isSelected} onChange={handleSelect} {...props} />
+      <Styled.ClickableArea onClick={handleSelect} />
     </Styled.Container>
   );
 };
 
-SelectCard.propTypes = {
+CheckboxCard.propTypes = {
   containerProps: PropTypes.object,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -61,7 +62,7 @@ SelectCard.propTypes = {
   setSelectedOptions: PropTypes.func
 };
 
-SelectCard.defaultProps = {
+CheckboxCard.defaultProps = {
   containerProps: {},
   labelProps: {},
   renderIcon: () => null,
@@ -69,4 +70,4 @@ SelectCard.defaultProps = {
   setSelectedOptions: () => {}
 };
 
-export default memo(SelectCard);
+export default memo(CheckboxCard);

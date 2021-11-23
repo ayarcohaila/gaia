@@ -2,69 +2,54 @@ import { memo, useCallback, useState } from 'react';
 import { Box, Grid } from '@mui/material';
 
 import { Accordion } from '..';
-import { Button, Input } from '~/base';
 
 import { FILTERS } from './constants';
-import SelectCard from './select-card';
+import CheckboxCard from './checkbox-card';
+import InputRangeGroup from './input-range-group';
 
 const Filters = () => {
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCollections, setSelectedCollections] = useState([]);
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
 
   const renderFilterContent = useCallback(
     ({ id, options }) => {
-      switch (id) {
-        case 'category':
-          return options.map(({ id, ...props }) => (
-            <SelectCard
-              key={id}
-              containerProps={{ sx: { mb: 1 } }}
-              id={id}
-              selectedOptions={selectedCategories}
-              setSelectedOptions={setSelectedCategories}
-              {...props}
-            />
-          ));
-
-        case 'price':
-          return (
-            <Box>
-              <Grid alignItems="center" container wrap="nowrap">
-                <Input
-                  inputMode="numeric"
-                  onChange={({ target }) => setMinPrice(target.value)}
-                  placeholder="(Flow) Min"
-                  type="number"
-                  value={minPrice}
-                />
-                <Input
-                  inputMode="numeric"
-                  ml={1}
-                  onChange={({ target }) => setMaxPrice(target.value)}
-                  placeholder="(Flow) Max"
-                  type="number"
-                  value={maxPrice}
-                />
-              </Grid>
-              <Button disabled={!minPrice && !maxPrice} fullWidth>
-                Apply
-              </Button>
-            </Box>
-          );
-
-        default:
-          null;
+      if (id === 'collection') {
+        return options.map(option => (
+          <CheckboxCard
+            key={option?.id}
+            containerProps={{ sx: { mb: 1 } }}
+            id={option?.id}
+            label={option?.label}
+            selectedOptions={selectedCollections}
+            setSelectedOptions={setSelectedCollections}
+          />
+        ));
       }
+
+      return (
+        <InputRangeGroup
+          max={maxPrice}
+          min={minPrice}
+          maxPlaceholder="(Flow) Max"
+          minPlaceholder="(Flow) Min"
+          setMax={setMaxPrice}
+          setMin={setMinPrice}
+        />
+      );
     },
-    [selectedCategories, setSelectedCategories, minPrice, maxPrice]
+    [selectedCollections, setSelectedCollections, minPrice, maxPrice]
   );
 
   return (
     <Box bgcolor="#fff" borderRadius="16px" maxWidth="302px" ml={6} mt={6}>
       <Grid p="20px 22px 20px 12px">
-        {FILTERS.map(filter => (
-          <Accordion key={filter?.id} contentSx={{ p: 0 }} title={filter?.label}>
+        {FILTERS.map((filter, index) => (
+          <Accordion
+            key={filter?.id}
+            contentSx={{ p: 0 }}
+            hasDivider={!!index}
+            title={filter?.label}>
             {renderFilterContent(filter)}
           </Accordion>
         ))}
