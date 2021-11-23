@@ -19,8 +19,12 @@ import {
 import * as Styled from '~/styles/collection-name/styles';
 import { useRouter } from 'next/router';
 import { shuffleArray } from '~/utils/array';
-import { COLLECTIONS, COLLECTION_ID } from '~/constant';
-import { isBrysonSaleEnabled } from '~/constant/collection';
+import { useCollectionConfig } from '~/hooks';
+import {
+  COLLECTION_LIST_CONFIG,
+  COLLECTIONS_NAME,
+  COLLECTION_STATUS
+} from '../../../collections_setup';
 
 const DATA = {
   mainColor: '#270b5a',
@@ -33,10 +37,13 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
   const [cursor, setCursor] = useState(0);
   const [bannerData, setBannerData] = useState(null);
   const [nftList, setNftList] = useState([]);
+  const { collectionsNames } = useCollectionConfig();
+
   const {
     query: { collection_name }
   } = useRouter();
-  const isBrysonCollection = collection_name === COLLECTIONS.BRYSON;
+
+  const isBrysonCollection = collection_name === collectionsNames.BRYSON;
 
   useEffect(() => {
     if (nft_collection?.length) {
@@ -141,17 +148,18 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
 
 export async function getServerSideProps({ query }) {
   try {
+    const collectionConfig = COLLECTION_LIST_CONFIG[query?.collection_name];
     const { nft_collection } = await gqlClient.request(GET_COLLECTION_BY_ID, {
-      id: COLLECTION_ID[query?.collection_name]
+      id: collectionConfig?.wallet
     });
 
-    if (query.collection_name === COLLECTIONS.BRYSON) {
+    if (query.collection_name === COLLECTIONS_NAME.BRYSON) {
       const { nft_sale_offer } = await gqlClient.request(GET_SINGLE_NFTS_FOR_SALE, {
-        id: COLLECTION_ID[query?.collection_name]
+        id: collectionConfig?.wallet
       });
       const randomizedSalesOffers = shuffleArray(nft_sale_offer);
 
-      if (!isBrysonSaleEnabled) {
+      if (!(collectionConfig?.status === COLLECTION_STATUS.SALE)) {
         return {
           props: {
             offerCount: randomizedSalesOffers.length,
@@ -170,7 +178,7 @@ export async function getServerSideProps({ query }) {
     }
 
     const { nft_sale_offer } = await gqlClient.request(GET_NFTS_FOR_SALE, {
-      id: COLLECTION_ID[query?.collection_name]
+      id: collectionConfig?.wallet
     });
     const randomizedSalesOffers = shuffleArray(nft_sale_offer);
     return {
