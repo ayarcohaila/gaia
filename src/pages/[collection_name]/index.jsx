@@ -143,6 +143,10 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
 
 export async function getServerSideProps({ query }) {
   try {
+    if (!Object.values(COLLECTIONS_NAME).includes(query?.collection_name)) {
+      return { notFound: true };
+    }
+
     const collectionConfig = COLLECTION_LIST_CONFIG[query?.collection_name];
     const { nft_collection } = await gqlClient.request(GET_COLLECTION_BY_ID, {
       id: collectionConfig?.wallet
