@@ -24,7 +24,6 @@ const ProfileCard = ({ data }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
@@ -155,8 +154,7 @@ const ProfileCard = ({ data }) => {
       <SellNftModal
         asset={asset}
         hasPostedForSale={data?.is_for_sale || false}
-        // TODO: Remove after test
-        open={true}
+        open={isSellNftModalOpen}
         onClose={toggleSellNftModal}
         setLoading={setLoading}
         onConfirm={() => {
