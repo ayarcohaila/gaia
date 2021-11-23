@@ -18,21 +18,17 @@ import { useToggle, useAuth } from '~/hooks';
 
 import * as Styled from './styled';
 
-const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
-
 const ProfileCard = ({ data }) => {
   const { user } = useAuth();
   const router = useRouter();
   const [imgLoaded, setImgLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
 
-  //TODO: replace this for the real data
   const [isForSale, setIsForSale] = useState(false);
 
   const asset = {
@@ -148,7 +144,7 @@ const ProfileCard = ({ data }) => {
 
   return (
     <>
-      {SHOULD_HIDE_DATA ? (
+      {data?.mystery ? (
         renderContent()
       ) : (
         <Link href={`/${data.collection_name}/${data?.id}`} passHref>

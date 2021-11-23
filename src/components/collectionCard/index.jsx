@@ -89,7 +89,7 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
     <Styled.CustomCard sx={{ cursor: config?.mystery ? 'auto' : 'pointer' }}>
       <Styled.CustomCardHeader
         avatar={<Avatar alt="ss" src={config.avatar} sx={{ width: 28, height: 28 }} />}
-        title={config?.nftName?.toUpperCase()}
+        title={config?.collectionName?.toUpperCase()}
       />
       {/* TODO: Implement logic to display skeleton loading */}
       <CardMedia

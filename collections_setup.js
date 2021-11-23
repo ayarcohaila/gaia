@@ -20,7 +20,8 @@ export const COLLECTION_LIST_CONFIG = {
   [COLLECTIONS_NAME.BALLERZ]: {
     id: 2,
     wallet: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION,
-    nftName: 'Ballerz',
+    nftName: 'baller',
+    collectionName: COLLECTIONS_NAME.BALLERZ,
     status: COLLECTION_STATUS.PAUSED,
     saleType: COLLECTION_SALE_TYPE.MULTIPLE,
     mystery: false,
@@ -31,7 +32,8 @@ export const COLLECTION_LIST_CONFIG = {
   [COLLECTIONS_NAME.BRYSON]: {
     id: 4,
     wallet: process.env.NEXT_PUBLIC_BRYSON_COLLECTION,
-    nftName: 'Bryson',
+    nftName: COLLECTIONS_NAME.BRYSON,
+    collectionName: COLLECTIONS_NAME.BRYSON,
     status: COLLECTION_STATUS.SALE,
     saleType: COLLECTION_SALE_TYPE.SINGLE,
     mystery: false,
