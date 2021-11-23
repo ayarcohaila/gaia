@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 import { loadTransaction } from '../../../utils/transactionsLoader';
 import { isDapper } from '~/utils/currencyCheck';
@@ -23,13 +23,13 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
   const sellTx = isDapper
     ? preval`
     const fs = require('fs')
-    const path = require('path'),   
+    const path = require('path'),
     filePath = path.join(__dirname, "../../../flow/transactions/dapper/sell.cdc");
     module.exports = fs.readFileSync(filePath, 'utf8')
     `
     : preval`
     const fs = require('fs')
-    const path = require('path'),   
+    const path = require('path'),
     filePath = path.join(__dirname, "../../../flow/transactions/flowToken/sell.cdc");
     module.exports = fs.readFileSync(filePath, 'utf8')
     `;
@@ -72,17 +72,25 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
       {hasNftSuccessfullyPostedForSale ? (
         <SuccessContent tx={tx} />
       ) : (
-        <Styled.Input
-          endAdornment={
-            <Styled.CustomButton onClick={handlePostForSale} disabled={loading}>
-              {loading ? <CircularProgress size={32} color="white" /> : 'Post For Sale'}
-            </Styled.CustomButton>
-          }
-          placeholder="Enter FLOW value"
-          onChange={({ target: { value: targetValue } }) => setValue(targetValue)}
-          type="number"
-          value={value}
-        />
+        <Grid container alignItems="center" justifyContent="center" direction="column">
+          <Styled.Input
+            endAdornment={
+              <Styled.CustomButton onClick={handlePostForSale} disabled={loading}>
+                {loading ? <CircularProgress size={32} color="white" /> : 'Post For Sale'}
+              </Styled.CustomButton>
+            }
+            placeholder="Enter FLOW value"
+            onChange={({ target: { value: targetValue } }) => setValue(targetValue)}
+            type="number"
+            value={value}
+          />
+          <Styled.FeesContent>
+            <Styled.FeeText>Marketplace Fee</Styled.FeeText>
+            <Styled.FeeText feeValue>2.5%</Styled.FeeText>
+            <Styled.FeeText>Creator Royalty</Styled.FeeText>
+            <Styled.FeeText feeValue>10.0%</Styled.FeeText>
+          </Styled.FeesContent>
+        </Grid>
       )}
     </Modal>
   );
