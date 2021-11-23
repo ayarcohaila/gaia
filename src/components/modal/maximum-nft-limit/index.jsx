@@ -1,12 +1,14 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 
+import { useCollectionConfig } from '~/hooks';
 import Modal from '..';
 
 const MaximumPurchaseLimit = props => {
   const title = 'Maximum Purchase Limit Reached';
+  const { config } = useCollectionConfig();
 
-  const description = `In order to allow more collectors to own BALLERZ, we’ve limited purchases to ${process.env.NEXT_PUBLIC_USER_NFTS_LIMIT} per wallet.`;
+  const description = `In order to allow more collectors to own BALLERZ, we’ve limited purchases to ${config?.buyLimit} per wallet.`;
 
   return (
     <Modal

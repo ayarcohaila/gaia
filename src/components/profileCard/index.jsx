@@ -11,11 +11,12 @@ import {
   OrderCompleteModal,
   VideoPlayer
 } from '~/components';
+
+import { COLLECTIONS_NAME } from '../../../collections_setup';
+
 import { useToggle, useAuth } from '~/hooks';
 
 import * as Styled from './styled';
-
-const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 
 const ProfileCard = ({ data }) => {
   const { user } = useAuth();
@@ -23,18 +24,18 @@ const ProfileCard = ({ data }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
 
-  //TODO: replace this for the real data
   const [isForSale, setIsForSale] = useState(false);
 
-  const img = SHOULD_HIDE_DATA ? '/images/mystery-nft.gif' : data?.imageURL;
-
-  const asset = { ...data, collectionName: data?.collection_name?.toUpperCase(), img };
+  const asset = {
+    ...data,
+    collectionName: data?.collection_name?.toUpperCase(),
+    img: data?.imageURL
+  };
   const isMyProfile = router.asPath.includes(user?.addr);
 
   const showSellButton = process.env.NEXT_PUBLIC_HAS_SELL_BUTTON === 'true';
@@ -103,7 +104,7 @@ const ProfileCard = ({ data }) => {
   }, [toggleSellNftModal, toggleTransferNftModal, toggleCancelListingModal, isForSale]);
 
   const renderContent = () => (
-    <Styled.CustomCard sx={{ cursor: SHOULD_HIDE_DATA ? 'auto' : 'pointer' }}>
+    <Styled.CustomCard sx={{ cursor: data.mystery ? 'auto' : 'pointer' }}>
       <Styled.CustomCardHeader
         avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}
         title={data.collection_name.toUpperCase()}
@@ -114,7 +115,7 @@ const ProfileCard = ({ data }) => {
         height={275}
         sx={{ borderRadius: '20px', display: imgLoaded && 'none' }}
       />
-      {data.collection_name === 'bryson' && !SHOULD_HIDE_DATA ? (
+      {data.collection_name === COLLECTIONS_NAME.BRYSON && !data.mystery ? (
         <Grid sx={{ display: !imgLoaded && 'none' }}>
           <VideoPlayer
             src={data?.videoURL}
@@ -131,11 +132,11 @@ const ProfileCard = ({ data }) => {
           alt="Nft asset"
           height="275"
           onLoad={() => setImgLoaded(true)}
-          src={img}
+          src={data?.imageURL}
         />
       )}
       <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-        <Styled.NFTText>{SHOULD_HIDE_DATA ? 'BALLER #????' : data?.name}</Styled.NFTText>
+        <Styled.NFTText>{data?.name}</Styled.NFTText>
       </CardContent>
       {isMyProfile && renderUserCardActions}
     </Styled.CustomCard>
@@ -143,7 +144,7 @@ const ProfileCard = ({ data }) => {
 
   return (
     <>
-      {SHOULD_HIDE_DATA ? (
+      {data?.mystery ? (
         renderContent()
       ) : (
         <Link href={`/${data.collection_name}/${data?.id}`} passHref>

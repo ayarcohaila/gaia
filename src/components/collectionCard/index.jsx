@@ -16,8 +16,9 @@ import { useAuth, useToggle } from '~/hooks';
 import * as Styled from './styled';
 import { buy } from '~/flow/buy';
 import { AuthContext } from '~/providers/AuthProvider';
+import { useCollectionConfig } from '~/hooks';
+import formatIpfsImg from '~/utils/formatIpfsImg';
 
-const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
@@ -33,12 +34,16 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
   const { hasSetup, user } = useContext(AuthContext);
 
-  const img = SHOULD_HIDE_DATA ? '/images/mystery-nft.gif' : data?.nft?.template?.metadata?.img;
+  const { config } = useCollectionConfig();
+
+  const img = config?.mystery
+    ? '/images/mystery-nft.gif'
+    : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
   const handlePurchaseClick = async event => {
     event?.stopPropagation();
     try {
-      if (ownNFTs.length >= Number(process.env.NEXT_PUBLIC_USER_NFTS_LIMIT)) {
+      if (config.buyLimit && ownNFTs.length >= Number(config.buyLimit)) {
         toggleMaximumModal();
         return;
       }
@@ -81,10 +86,10 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
   };
 
   const renderContent = () => (
-    <Styled.CustomCard sx={{ cursor: SHOULD_HIDE_DATA ? 'auto' : 'pointer' }}>
+    <Styled.CustomCard sx={{ cursor: config?.mystery ? 'auto' : 'pointer' }}>
       <Styled.CustomCardHeader
-        avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
-        title="BALLERZ"
+        avatar={<Avatar alt="ss" src={config.avatar} sx={{ width: 28, height: 28 }} />}
+        title={config?.collectionName?.toUpperCase()}
       />
       {/* TODO: Implement logic to display skeleton loading */}
       <CardMedia
@@ -97,7 +102,9 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
 
       <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
         <Styled.NFTText>
-          {SHOULD_HIDE_DATA ? 'BALLER #????' : data?.nft?.template?.metadata?.title}
+          {config.mystery
+            ? `${config?.name?.toUpperCase()} #????`
+            : data?.nft?.template?.metadata?.title}
         </Styled.NFTText>
       </CardContent>
       {data?.nft?.owner === user?.addr ? (
@@ -118,7 +125,7 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
 
   return (
     <>
-      {SHOULD_HIDE_DATA ? (
+      {config?.mystery ? (
         renderContent()
       ) : (
         <Link

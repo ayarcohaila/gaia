@@ -1,9 +1,3 @@
-import {
-  COLLECTIONS,
-  COLLECTION_ID,
-  COLLECTION_TOTAL_NUMBER,
-  BUY_TX,
-  BUY_BRYSON_TX
-} from './collection';
+import { BUY_TX, BUY_BRYSON_TX } from './collection';
 
-export { COLLECTIONS, COLLECTION_ID, COLLECTION_TOTAL_NUMBER, BUY_TX, BUY_BRYSON_TX };
+export { BUY_TX, BUY_BRYSON_TX };

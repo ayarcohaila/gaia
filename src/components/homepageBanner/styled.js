@@ -38,11 +38,9 @@ export const TypographyWithOpacity = styled(Typography)(() => ({
   opacity: '0.64'
 }));
 
-export const CardButton = styled(Button, {
-  shouldForwardProp: prop => prop !== 'isBrysonSaleEnabled'
-})(({ theme: { breakpoints, palette }, isBrysonSaleEnabled }) => ({
+export const CardButton = styled(Button)(({ theme: { breakpoints, palette } }) => ({
   color: '#fff',
-  width: isBrysonSaleEnabled ? '225px' : '150px',
+  width: '150px',
   height: '38px',
   borderRadius: '24px',
   backgroundColor: '#215cf1',
