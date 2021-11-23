@@ -7,3 +7,4 @@ export { default as usePrevious } from './usePrevious';
 export { default as useProfile } from './useProfile';
 export { default as useSWR } from './useSWR';
 export { default as useToggle } from './useToggle';
+export { default as useCollectionConfig } from './useCollectionConfig';
