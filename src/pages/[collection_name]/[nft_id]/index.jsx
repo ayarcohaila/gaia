@@ -13,7 +13,7 @@ import {
   COLLECTION_LIST_CONFIG,
   COLLECTIONS_NAME,
   COLLECTION_STATUS
-} from '../../../collections_setup';
+} from '../../../../collections_setup';
 
 const ProductDetails = ({ nft }) => {
   const {

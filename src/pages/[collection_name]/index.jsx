@@ -37,7 +37,7 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
   const [cursor, setCursor] = useState(0);
   const [bannerData, setBannerData] = useState(null);
   const [nftList, setNftList] = useState([]);
-  const { collectionsNames } = useCollectionConfig();
+  const { config, collectionsNames } = useCollectionConfig();
 
   const {
     query: { collection_name }
@@ -78,7 +78,7 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
         <Grid>
           <CollectionBanner
             accountNumber={bannerData?.author}
-            bannerAvatar="/collections/bryson/avatar.webp"
+            bannerAvatar={config.avatar}
             bannerName="BrysonDeChambeau"
             bannerDescription={<BrysonDescription />}
             bgImg="/collections/bryson/video-poster.webp"
@@ -114,16 +114,11 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
       <Seo title={bannerData?.name.toUpperCase() || ''} />
       <Grid>
         <CollectionBanner
-          bannerAvatar="/collections/user.png"
+          bannerAvatar={config.avatar}
           accountNumber={bannerData?.author}
           bannerName={bannerData?.name}
-          bannerDescription={
-            bannerData?.description ||
-            `BALLERZ is a league of 10,000 randomly-generated basketball players, ready to flex
-          on the Flow blockchain. Limit 7 per wallet. BALLERZ reveal on Wednesday, November
-          10.`
-          }
-          bgImg={'/templates/collections/ballerz.png' || bannerData?.image}
+          bannerDescription={bannerData?.description}
+          bgImg={config.banner || bannerData?.image}
           mainColor={bannerData?.mainColor}
           secondaryColor={bannerData?.secondaryColor}
         />

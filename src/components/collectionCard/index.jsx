@@ -17,6 +17,7 @@ import * as Styled from './styled';
 import { buy } from '~/flow/buy';
 import { AuthContext } from '~/providers/AuthProvider';
 import { useCollectionConfig } from '~/hooks';
+import formatIpfsImg from '~/utils/formatIpfsImg';
 
 export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
@@ -35,7 +36,9 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
 
   const { config } = useCollectionConfig();
 
-  const img = config?.mystery ? '/images/mystery-nft.gif' : data?.nft?.template?.metadata?.img;
+  const img = config?.mystery
+    ? '/images/mystery-nft.gif'
+    : formatIpfsImg(data?.nft?.template?.metadata?.img);
 
   const handlePurchaseClick = async event => {
     event?.stopPropagation();
@@ -85,8 +88,8 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
   const renderContent = () => (
     <Styled.CustomCard sx={{ cursor: config?.mystery ? 'auto' : 'pointer' }}>
       <Styled.CustomCardHeader
-        avatar={<Avatar alt="ss" src={'/collections/user.png'} sx={{ width: 28, height: 28 }} />}
-        title={config?.name?.toUpperCase()}
+        avatar={<Avatar alt="ss" src={config.avatar} sx={{ width: 28, height: 28 }} />}
+        title={config?.nftName?.toUpperCase()}
       />
       {/* TODO: Implement logic to display skeleton loading */}
       <CardMedia
