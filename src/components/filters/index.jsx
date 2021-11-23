@@ -32,12 +32,14 @@ const Filters = () => {
             <Box>
               <Grid alignItems="center" container wrap="nowrap">
                 <Input
+                  inputMode="numeric"
                   onChange={({ target }) => setMinPrice(target.value)}
                   placeholder="(Flow) Min"
                   type="number"
                   value={minPrice}
                 />
                 <Input
+                  inputMode="numeric"
                   ml={1}
                   onChange={({ target }) => setMaxPrice(target.value)}
                   placeholder="(Flow) Max"
