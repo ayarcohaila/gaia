@@ -9,8 +9,11 @@ import {
   GET_NFT_BY_ID,
   GET_NFT_BY_MINT_NUMBER
 } from '~/store/server/queries';
-import { COLLECTIONS, COLLECTION_ID } from '~/constant';
-import { isBrysonSaleEnabled } from '~/constant/collection';
+import {
+  COLLECTION_LIST_CONFIG,
+  COLLECTIONS_NAME,
+  COLLECTION_STATUS
+} from '../../../../collections_setup';
 
 const ProductDetails = ({ nft }) => {
   const {
@@ -33,29 +36,31 @@ const ProductDetails = ({ nft }) => {
 
 export async function getStaticPaths() {
   const { nft_template } = await gqlClient.request(GET_NFTS_IDS);
+
   const ballerzCollectionPaths = nft_template.map(nft => ({
-    params: { collection_name: COLLECTIONS.BALLERZ, nft_id: String(nft?.id) }
+    params: { collection_name: COLLECTIONS_NAME.BALLERZ, nft_id: String(nft?.id) }
   }));
 
   const { nft_collection } = await gqlClient.request(GET_NFTS_MINT_NUMBER, {
-    collection_id: COLLECTION_ID[COLLECTIONS.BRYSON]
+    collection_id: COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON].wallet
   });
   const { nfts } = nft_collection[0];
   const brysonCollectionPaths = nfts.map(nft => ({
-    params: { collection_name: COLLECTIONS.BRYSON, nft_id: String(nft?.mint_number) }
+    params: { collection_name: COLLECTIONS_NAME.BRYSON, nft_id: String(nft?.mint_number) }
   }));
   return { paths: [...ballerzCollectionPaths, ...brysonCollectionPaths], fallback: false };
 }
 
 export async function getStaticProps({ params }) {
   const { collection_name, nft_id } = params;
+  const brysonConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON];
   try {
-    if (collection_name === COLLECTIONS.BRYSON) {
+    if (collection_name === COLLECTIONS_NAME.BRYSON) {
       const { nft } = await gqlClient.request(GET_NFT_BY_MINT_NUMBER, {
-        collection_id: COLLECTION_ID[collection_name],
+        collection_id: brysonConfig.wallet,
         mint_number: nft_id
       });
-      if (!nft?.length || !isBrysonSaleEnabled) {
+      if (!nft?.length || !(brysonConfig.status === COLLECTION_STATUS.SALE)) {
         return { notFound: true };
       }
       return {

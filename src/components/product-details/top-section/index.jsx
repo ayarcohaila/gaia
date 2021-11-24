@@ -3,13 +3,13 @@ import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/components';
-import { COLLECTION_TOTAL_NUMBER } from '~/constant';
 import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
 import Asset from './asset';
 import CollectionInfo from './collection-info';
 import { useRouter } from 'next/router';
+import { useCollectionConfig } from '~/hooks';
 
 const ProductDetailsTopSection = ({ nft }) => {
   const {
@@ -20,6 +20,7 @@ const ProductDetailsTopSection = ({ nft }) => {
     query: { collection_name }
   } = useRouter();
   const { metadata } = nft.template;
+  const { config } = useCollectionConfig();
 
   //TODO: Uncomment on future implementation
   // const activeSaleOffer = nft.sale_offers.find(offer => offer?.status === 'active');
@@ -110,8 +111,9 @@ const ProductDetailsTopSection = ({ nft }) => {
             </Grid>
           )}
           <Styled.NumberContainer>
+            {/* TODO: Refactor for backend total number */}
             <Typography color={grey[600]} variant="body1">
-              #{metadata?.id || nft?.mint_number} / {COLLECTION_TOTAL_NUMBER[collection_name]}
+              #{metadata?.id || nft?.mint_number} / {config?.collectionSize}
             </Typography>
           </Styled.NumberContainer>
           <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">

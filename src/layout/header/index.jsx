@@ -17,15 +17,10 @@ const Header = () => {
   const menuAnchorRef = useRef(null);
   const [stateModalHeader, toggleHeaderModal] = useToggle();
   const [stateTunedModal, toggleTunedModal] = useToggle();
-  // const [searchQuery, setSearchQuery] = useState('');
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const { login, user, logout } = useAuth();
   const { isMediumDevice } = useBreakpoints();
   const router = useRouter();
-
-  // const handleChangeSearch = ({ target: { value } }) => {
-  //   setSearchQuery(value);
-  // };
 
   const handleDropdownMenu = state => {
     setOpenUserMenu(prevState => (state !== undefined ? state : !prevState));
@@ -76,7 +71,6 @@ const Header = () => {
             />
           </Styled.LogoImage>
         </NextLink>
-        {/* TODO: Uncomment "hidden" when implement the routes redirection */}
         <Grid component="nav" hidden>
           <Styled.MenuOptionList component="ul">
             {MENU_OPTIONS.map(option => (

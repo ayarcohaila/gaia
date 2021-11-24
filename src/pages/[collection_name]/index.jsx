@@ -19,8 +19,12 @@ import {
 import * as Styled from '~/styles/collection-name/styles';
 import { useRouter } from 'next/router';
 import { shuffleArray } from '~/utils/array';
-import { COLLECTIONS, COLLECTION_ID } from '~/constant';
-import { isBrysonSaleEnabled } from '~/constant/collection';
+import { useCollectionConfig } from '~/hooks';
+import {
+  COLLECTION_LIST_CONFIG,
+  COLLECTIONS_NAME,
+  COLLECTION_STATUS
+} from '../../../collections_setup';
 
 const DATA = {
   mainColor: '#270b5a',
@@ -33,10 +37,13 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
   const [cursor, setCursor] = useState(0);
   const [bannerData, setBannerData] = useState(null);
   const [nftList, setNftList] = useState([]);
+  const { config, collectionsNames } = useCollectionConfig();
+
   const {
     query: { collection_name }
   } = useRouter();
-  const isBrysonCollection = collection_name === COLLECTIONS.BRYSON;
+
+  const isBrysonCollection = collection_name === collectionsNames.BRYSON;
 
   useEffect(() => {
     if (nft_collection?.length) {
@@ -71,10 +78,10 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
         <Grid>
           <CollectionBanner
             accountNumber={bannerData?.author}
-            bannerAvatar="/collections/bryson/avatar.webp"
+            bannerAvatar={config?.avatar}
             bannerName="BrysonDeChambeau"
             bannerDescription={<BrysonDescription />}
-            bgImg="/collections/bryson/video-poster.webp"
+            bgImg={config?.banner || bannerData?.image}
             mainColor="#517fb1"
             secondaryColor="#517fb1"
             sx={{
@@ -107,16 +114,11 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
       <Seo title={bannerData?.name.toUpperCase() || ''} />
       <Grid>
         <CollectionBanner
-          bannerAvatar="/collections/user.png"
+          bannerAvatar={config?.avatar}
           accountNumber={bannerData?.author}
           bannerName={bannerData?.name}
-          bannerDescription={
-            bannerData?.description ||
-            `BALLERZ is a league of 10,000 randomly-generated basketball players, ready to flex
-          on the Flow blockchain. Limit 7 per wallet. BALLERZ reveal on Wednesday, November
-          10.`
-          }
-          bgImg={'/templates/collections/ballerz.png' || bannerData?.image}
+          bannerDescription={bannerData?.description}
+          bgImg={config?.banner || bannerData?.image}
           mainColor={bannerData?.mainColor}
           secondaryColor={bannerData?.secondaryColor}
         />
@@ -141,17 +143,22 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
 
 export async function getServerSideProps({ query }) {
   try {
+    if (!Object.values(COLLECTIONS_NAME).includes(query?.collection_name)) {
+      return { notFound: true };
+    }
+
+    const collectionConfig = COLLECTION_LIST_CONFIG[query?.collection_name];
     const { nft_collection } = await gqlClient.request(GET_COLLECTION_BY_ID, {
-      id: COLLECTION_ID[query?.collection_name]
+      id: collectionConfig?.wallet
     });
 
-    if (query.collection_name === COLLECTIONS.BRYSON) {
+    if (query.collection_name === COLLECTIONS_NAME.BRYSON) {
       const { nft_sale_offer } = await gqlClient.request(GET_SINGLE_NFTS_FOR_SALE, {
-        id: COLLECTION_ID[query?.collection_name]
+        id: collectionConfig?.wallet
       });
       const randomizedSalesOffers = shuffleArray(nft_sale_offer);
 
-      if (!isBrysonSaleEnabled) {
+      if (!(collectionConfig?.status === COLLECTION_STATUS.SALE)) {
         return {
           props: {
             offerCount: randomizedSalesOffers.length,
@@ -170,7 +177,7 @@ export async function getServerSideProps({ query }) {
     }
 
     const { nft_sale_offer } = await gqlClient.request(GET_NFTS_FOR_SALE, {
-      id: COLLECTION_ID[query?.collection_name]
+      id: collectionConfig?.wallet
     });
     const randomizedSalesOffers = shuffleArray(nft_sale_offer);
     return {

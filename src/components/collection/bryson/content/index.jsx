@@ -19,13 +19,14 @@ import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
 import SuccessPurchaseModal from '../success-purchase-modal';
-import { isBrysonSaleEnabled } from '~/constant/collection';
+import { useCollectionConfig } from '~/hooks';
 
 const BrysonCollectionContent = ({ data, totalAvailable }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const {
     palette: { grey }
   } = useTheme();
+  const { config } = useCollectionConfig();
   const route = useRouter();
   const { login } = useAuth();
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
@@ -40,7 +41,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
 
   const handlePurchaseClick = async event => {
     event?.stopPropagation();
-    if (!isBrysonSaleEnabled || !totalAvailable) {
+    if (!totalAvailable) {
       return;
     }
     try {
@@ -83,23 +84,16 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
   };
 
   const shouldDisablePurchaseButton = useMemo(
-    () =>
-      loadingPurchase ||
-      (user && !hasSetup) ||
-      (user && !transaction) ||
-      !isBrysonSaleEnabled ||
-      !totalAvailable,
-    [loadingPurchase, hasSetup, isBrysonSaleEnabled, user, transaction, totalAvailable]
+    () => loadingPurchase || (user && !hasSetup) || (user && !transaction) || !totalAvailable,
+    [loadingPurchase, hasSetup, user, transaction, totalAvailable]
   );
 
   const purchaseButtonTitle = useMemo(() => {
     if (!totalAvailable) {
       return 'Sold Out';
     }
-    return isBrysonSaleEnabled
-      ? `Purchase • $ ${Number(data?.price)?.toFixed(2)}`
-      : 'On Sale Fri Nov 19 at 6pm PT';
-  }, [data, isBrysonSaleEnabled, totalAvailable]);
+    return `Purchase • $ ${Number(data?.price)?.toFixed(2)}`;
+  }, [data, totalAvailable]);
 
   useEffect(() => {
     (async () => {
@@ -111,7 +105,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
   return (
     <>
       <Styled.Container container>
-        {isBrysonSaleEnabled ? (
+        {config.mystery ? (
           <VideoPlayer
             loop
             poster={formatIpfsImg(data?.nft?.template?.metadata?.img)}

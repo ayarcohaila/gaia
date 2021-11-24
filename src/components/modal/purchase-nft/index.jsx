@@ -4,20 +4,22 @@ import { Typography, useTheme } from '@mui/material';
 import { ChevronRight as ArrowRightIcon } from '@mui/icons-material';
 
 import { Button } from '~/base';
-import { useBreakpoints } from '~/hooks';
+import { useBreakpoints, useCollectionConfig } from '~/hooks';
 
 import Modal from '..';
 
-const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
-
 const PurchaseNFTModal = ({ asset, onClose, ...props }) => {
+  const { config } = useCollectionConfig();
   const title = 'Order Complete!';
+
   const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
   const {
     palette: { grey }
   } = useTheme();
   const description = `Congratulations, you are now the
-  proud owner of ${SHOULD_HIDE_DATA ? 'BALLER #????' : asset?.nft?.template?.metadata?.title}`;
+  proud owner of ${
+    config.mystery ? `${config.nftName.toUpperCase()} #????` : asset?.nft?.template?.metadata?.title
+  }`;
 
   return (
     <Modal

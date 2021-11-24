@@ -1,35 +1,25 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import axios from 'axios';
 import { Box } from '@mui/material';
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+
+import { useBreakpoints, useToggle } from '~/hooks';
 import { gqlClient } from '~/config/apollo-client';
-
-import { ProfileBanner, ProfileList, CollectionsFilter, Seo, Modal } from '~/components';
-
+import basicAuthCheck from '~/utils/basicAuthCheck';
 import { CardSkeletonLoader, Divider } from '~/base';
 import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
-import basicAuthCheck from '~/utils/basicAuthCheck';
-import { useBreakpoints, useToggle } from '~/hooks';
-import axios from 'axios';
+import { ProfileBanner, ProfileList, CollectionsFilter, Seo, Modal } from '~/components';
 
 import * as Styled from '~/styles/profile/styles';
 
-const DEFAULT_LIST_SIZE = 40;
-const SET_ID = process.env.NEXT_PUBLIC_BALLERZ_SETID;
-
-const Profile = ({ userNFTs }) => {
+const Profile = () => {
   const router = useRouter();
   const { id: address } = router.query;
-  const [searchQuery, setSearchQuery] = useState('');
   const { isMediumDevice } = useBreakpoints();
-  const [cursor, setCursor] = useState(1);
   const [nftList, setNftList] = useState([]);
   const [openModal, toggleOpenModal] = useToggle();
   const [loading, setLoading] = useState(false);
-
-  const handleLoadMore = () => {
-    setCursor(prevState => prevState + 1);
-  };
 
   useEffect(() => {
     const loadNfts = async () => {
@@ -39,13 +29,12 @@ const Profile = ({ userNFTs }) => {
         const ballerzList = result.data.ballerz?.map(item => ({
           ...item,
           collection_name: 'ballerz',
-          collection_picture: '/collections/user.png'
+          collection_picture: '/collections/ballerz/avatar.png'
         }));
         const brysonList = result.data.bryson?.map(item => ({
           ...item,
           collection_name: 'bryson',
-          collection_picture: '/collections/bryson/avatar.webp',
-          name: `${item.name} #${item.id}`
+          collection_picture: '/collections/bryson/avatar.webp'
         }));
         const combinedList = ballerzList.concat(brysonList);
         setNftList(combinedList);
@@ -69,7 +58,7 @@ const Profile = ({ userNFTs }) => {
       <Seo title="Profile" />
       <ProfileBanner address={address} />
       <Styled.FiltersContainer>
-        <CollectionsFilter nftQuantity={nftList?.length} enableSearch onSearch={setSearchQuery} />
+        <CollectionsFilter nftQuantity={nftList?.length} enableSearch />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
       <Styled.ListWrapper>
