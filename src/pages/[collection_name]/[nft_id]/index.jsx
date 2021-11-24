@@ -42,7 +42,7 @@ export async function getStaticPaths() {
   }));
 
   const { nft_collection } = await gqlClient.request(GET_NFTS_MINT_NUMBER, {
-    collection_id: COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON].wallet
+    collection_id: COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON].id
   });
   const { nfts } = nft_collection[0];
   const brysonCollectionPaths = nfts.map(nft => ({
@@ -57,7 +57,7 @@ export async function getStaticProps({ params }) {
   try {
     if (collection_name === COLLECTIONS_NAME.BRYSON) {
       const { nft } = await gqlClient.request(GET_NFT_BY_MINT_NUMBER, {
-        collection_id: brysonConfig.wallet,
+        collection_id: brysonConfig.id,
         mint_number: nft_id
       });
       if (!nft?.length || !(brysonConfig.status === COLLECTION_STATUS.SALE)) {

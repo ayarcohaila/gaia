@@ -18,8 +18,7 @@ export const COLLECTIONS_NAME = {
 
 export const COLLECTION_LIST_CONFIG = {
   [COLLECTIONS_NAME.BALLERZ]: {
-    id: 2,
-    wallet: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION,
+    id: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION,
     nftName: 'baller',
     collectionName: COLLECTIONS_NAME.BALLERZ,
     status: COLLECTION_STATUS.SALE,
@@ -31,8 +30,7 @@ export const COLLECTION_LIST_CONFIG = {
     collectionSize: 10000
   },
   [COLLECTIONS_NAME.BRYSON]: {
-    id: 4,
-    wallet: process.env.NEXT_PUBLIC_BRYSON_COLLECTION,
+    id: process.env.NEXT_PUBLIC_BRYSON_COLLECTION,
     nftName: COLLECTIONS_NAME.BRYSON,
     collectionName: COLLECTIONS_NAME.BRYSON,
     status: COLLECTION_STATUS.SALE,

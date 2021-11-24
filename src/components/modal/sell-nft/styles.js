@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { Grid, Typography, styled } from '@mui/material';
 
 import { Button, SearchInput } from '~/base';
 
@@ -47,3 +47,22 @@ export const CustomButton = styled(Button)({
   transform: 'translateX(8px)',
   width: '180px'
 });
+
+export const FeesContent = styled(Grid)({
+  marginTop: '32px',
+  display: 'grid',
+  gridTemplateColumns: 'auto auto',
+  gridColumnGap: '16px',
+  gridRowGap: '8px'
+});
+
+export const FeeText = styled(Typography, { shouldForwardProp: prop => prop !== 'feeValue' })(
+  ({ theme: { palette, typography }, feeValue }) => ({
+    ...typography.body1,
+    textAlign: feeValue ? 'right' : 'left',
+    color: palette.grey[600],
+    fontWeight: '400',
+    letterSpacing: 0,
+    fontSize: '16px'
+  })
+);
