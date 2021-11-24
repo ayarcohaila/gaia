@@ -28,6 +28,6 @@ export function reducer(state, action) {
       return { ...state, [filter]: value };
     }
     default:
-      return;
+      return state;
   }
 }
