@@ -27,6 +27,7 @@ export default class _Document extends Document {
       sheet.seal();
     }
   }
+
   render() {
     return (
       <Html>
@@ -68,10 +69,6 @@ export default class _Document extends Document {
           )}
         </Head>
         <body>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0"
-          />
           <Main />
           <NextScript />
         </body>
