@@ -51,7 +51,7 @@ export const CardButton = styled(Button)(({ theme: { breakpoints, palette } }) =
   cursor: 'pointer',
   zIndex: 3,
 
-  [breakpoints.down('md')]: {
+  [breakpoints.down('sm')]: {
     margin: '0 auto'
   },
 
