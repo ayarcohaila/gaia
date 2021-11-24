@@ -149,12 +149,12 @@ export async function getServerSideProps({ query }) {
 
     const collectionConfig = COLLECTION_LIST_CONFIG[query?.collection_name];
     const { nft_collection } = await gqlClient.request(GET_COLLECTION_BY_ID, {
-      id: collectionConfig?.wallet
+      id: collectionConfig?.id
     });
 
     if (query.collection_name === COLLECTIONS_NAME.BRYSON) {
       const { nft_sale_offer } = await gqlClient.request(GET_SINGLE_NFTS_FOR_SALE, {
-        id: collectionConfig?.wallet
+        id: collectionConfig?.id
       });
       const randomizedSalesOffers = shuffleArray(nft_sale_offer);
 
@@ -177,7 +177,7 @@ export async function getServerSideProps({ query }) {
     }
 
     const { nft_sale_offer } = await gqlClient.request(GET_NFTS_FOR_SALE, {
-      id: collectionConfig?.wallet
+      id: collectionConfig?.id
     });
     const randomizedSalesOffers = shuffleArray(nft_sale_offer);
     return {
