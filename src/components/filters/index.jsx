@@ -131,7 +131,7 @@ const Filters = () => {
           arrowSx={{ top: -70 }}
           asset={null}
           contentSx={{ justifyContent: 'flex-start' }}
-          mobileHeight={isExtraSmallDevice ? '85vh' : '73vh'}
+          mobileHeight={isExtraSmallDevice ? '85vh' : '75vh'}
           open={isMobileModalOpen}
           onClose={toggleMobileModal}>
           {renderMobileContent}
