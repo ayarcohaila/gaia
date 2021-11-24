@@ -4,29 +4,36 @@ import PropTypes from 'prop-types';
 import { Check as CheckedIcon } from '@mui/icons-material';
 
 import * as Styled from './styles';
+import { ACTION_TYPE } from '../reducer';
 
 const CheckboxCard = ({
   containerProps,
+  dispatch,
   id,
+  filterName,
   label,
   labelProps,
   renderIcon,
   selectedOptions,
-  setSelectedOptions,
   ...props
 }) => {
   const {
     palette: { grey, primary, white }
   } = useTheme();
-
   const isSelected = selectedOptions.includes(id);
   const iconColor = isSelected ? primary.main : grey[400];
 
   const handleSelect = useCallback(() => {
-    setSelectedOptions(prevState =>
-      prevState.includes(id) ? prevState.filter(filter => filter !== id) : [...prevState, id]
-    );
-  }, [id]);
+    dispatch({
+      type: ACTION_TYPE.SET_FILTER,
+      payload: {
+        filter: filterName,
+        value: selectedOptions.includes(id)
+          ? selectedOptions.filter(filter => filter !== id)
+          : [...selectedOptions, id]
+      }
+    });
+  }, [filterName, id, selectedOptions]);
 
   return (
     <Styled.Container
@@ -60,20 +67,20 @@ const CheckboxCard = ({
 
 CheckboxCard.propTypes = {
   containerProps: PropTypes.object,
+  filterName: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   labelProps: PropTypes.object,
   renderIcon: PropTypes.func,
-  selectedOptions: PropTypes.arrayOf(PropTypes.string),
-  setSelectedOptions: PropTypes.func
+  selectedOptions: PropTypes.arrayOf(PropTypes.string)
 };
 
 CheckboxCard.defaultProps = {
   containerProps: {},
+  filterName: '',
   labelProps: {},
   renderIcon: () => null,
-  selectedOptions: [],
-  setSelectedOptions: () => {}
+  selectedOptions: []
 };
 
 export default memo(CheckboxCard);

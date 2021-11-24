@@ -1,4 +1,4 @@
-import { Fragment, memo, useCallback, useMemo, useState } from 'react';
+import { Fragment, memo, useCallback, useMemo, useReducer } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FilterList as FiltersIcon } from '@mui/icons-material';
 
@@ -9,29 +9,32 @@ import { Accordion, Modal } from '..';
 import { FILTERS } from './constants';
 import CheckboxCard from './checkbox-card';
 import InputRangeGroup from './input-range-group';
+import { ACTION_TYPE, reducer, initialState } from './reducer';
 import * as Styled from './styles';
 
 const Filters = () => {
   const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
-  const [selectedCollections, setSelectedCollections] = useState([]);
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [appliedFiltersCount, setAppliedFiltersCount] = useState(0);
-
-  const handleClearFilters = useCallback(() => {
-    setSelectedCollections([]);
-    setMinPrice('');
-    setMaxPrice('');
-    setAppliedFiltersCount(0);
-  }, []);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { appliedFiltersCount, minPrice, maxPrice, selectedCollections } = state;
 
   const handleApplyFilters = useCallback(() => {
-    const priceCount = minPrice || maxPrice ? 1 : 0;
-    const collectionCount = selectedCollections.length ? 1 : 0;
-    setAppliedFiltersCount(priceCount + collectionCount);
+    dispatch({ type: ACTION_TYPE.APPLY_FILTERS });
     toggleMobileModal();
-  }, [minPrice, maxPrice, selectedCollections]);
+  }, [dispatch, toggleMobileModal]);
+
+  const setFilter = useCallback(
+    (filter, value) => {
+      dispatch({
+        type: ACTION_TYPE.SET_FILTER,
+        payload: {
+          filter,
+          value
+        }
+      });
+    },
+    [dispatch]
+  );
 
   const renderFilterContent = useCallback(
     ({ id, options }) => {
@@ -40,10 +43,11 @@ const Filters = () => {
           <Box key={option?.id} mx="auto" width={isSmallDevice ? '90%' : '100%'}>
             <CheckboxCard
               containerProps={{ sx: { mb: 1 } }}
+              dispatch={dispatch}
+              filterName="selectedCollections"
               id={option?.id}
               label={option?.label}
               selectedOptions={selectedCollections}
-              setSelectedOptions={setSelectedCollections}
             />
           </Box>
         ));
@@ -56,13 +60,13 @@ const Filters = () => {
             min={minPrice}
             maxPlaceholder="(Flow) Max"
             minPlaceholder="(Flow) Min"
-            setMax={setMaxPrice}
-            setMin={setMinPrice}
+            setMax={value => setFilter('maxPrice', value)}
+            setMin={value => setFilter('minPrice', value)}
           />
         </Box>
       );
     },
-    [isSmallDevice, selectedCollections, setSelectedCollections, minPrice, maxPrice]
+    [isSmallDevice, minPrice, maxPrice, selectedCollections]
   );
 
   const renderContent = useMemo(
@@ -96,7 +100,9 @@ const Filters = () => {
             {renderFilterContent(filter)}
           </Box>
           <Styled.BottomBar container>
-            <Styled.ClearButton onClick={handleClearFilters}>Clear</Styled.ClearButton>
+            <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
+              Clear
+            </Styled.ClearButton>
             <Button onClick={handleApplyFilters}>Apply</Button>
             <Styled.CloseButton onClick={toggleMobileModal}>Close</Styled.CloseButton>
           </Styled.BottomBar>
