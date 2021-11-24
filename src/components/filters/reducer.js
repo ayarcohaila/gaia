@@ -27,6 +27,7 @@ export function reducer(state, action) {
       const { filter, value } = action.payload;
       return { ...state, [filter]: value };
     }
+
     default:
       return state;
   }
