@@ -71,20 +71,22 @@ const Header = () => {
             />
           </Styled.LogoImage>
         </NextLink>
-        <Grid component="nav" hidden>
-          <Styled.MenuOptionList component="ul">
-            {MENU_OPTIONS.map(option => (
-              <Grid key={option.label} item component="li">
-                <Styled.MenuOption href={option.href}>{option.label}</Styled.MenuOption>
-              </Grid>
-            ))}
-            {MENU_OPTIONS.length > 4 && (
-              <Styled.MoreButton disableRipple variant="text" endIcon={<ArrowDropDownIcon />}>
-                More
-              </Styled.MoreButton>
-            )}
-          </Styled.MenuOptionList>
-        </Grid>
+        {!isMediumDevice && (
+          <Grid component="nav" ml="47px">
+            <Styled.MenuOptionList component="ul">
+              {MENU_OPTIONS.map(option => (
+                <Grid key={option.label} item component="li">
+                  <Styled.MenuOption href={option.href}>{option.label}</Styled.MenuOption>
+                </Grid>
+              ))}
+              {MENU_OPTIONS.length > 4 && (
+                <Styled.MoreButton disableRipple variant="text" endIcon={<ArrowDropDownIcon />}>
+                  More
+                </Styled.MoreButton>
+              )}
+            </Styled.MenuOptionList>
+          </Grid>
+        )}
         {!isMediumDevice && (
           <Styled.SearchWrapper>
             {/* <Hidden xlDown>

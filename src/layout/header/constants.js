@@ -1,11 +1,6 @@
 import { LockOpenOutlined as LockOpenOutlinedIcon } from '@mui/icons-material';
 
-export const MENU_OPTIONS = [
-  { label: 'Sports', href: '/sports' },
-  { label: 'Movies', href: '/movies' },
-  { label: 'Music', href: '/music' },
-  { label: 'Pop Culture', href: '/pop-culture' }
-];
+export const MENU_OPTIONS = [{ label: 'Browse ALL NFTs', href: '/browse' }];
 
 export const USER_MENU_IDS = {
   PROFILE: 'profile',
