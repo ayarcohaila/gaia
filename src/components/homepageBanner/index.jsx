@@ -7,7 +7,7 @@ import { useBreakpoints } from '~/hooks';
 import * as Styled from './styled';
 
 const bannerData = {
-  drop: 'BALLERZ',
+  drop: 'Featured Collection',
   title: 'The Home of BALLERZ',
   description:
     'Be a part of the emerging basketball NFT community! Secondary marketplace coming soon. ',
@@ -35,7 +35,8 @@ export default function HomepageBanner() {
           fontWeight="normal"
           mt="10px"
           lineHeight={isMediumDevice && '20px'}
-          mb={isMediumDevice && '24px'}>
+          mb={isMediumDevice && '24px'}
+          sx={{ maxWidth: '600px' }}>
           {bannerData.description}
         </Typography>
         <Grid container sx={{ gap: '12px' }}>
