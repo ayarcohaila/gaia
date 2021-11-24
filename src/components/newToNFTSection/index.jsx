@@ -14,12 +14,11 @@ const NewNFTs = [
     linkText: 'Follow on Twitter'
   },
   {
-    title: 'Introducing BALLERZ',
-    description:
-      'Generative PFP basketball collection on Flow -- SOLD OUT! Marketplace coming soon.',
-    image: 'images/newToNFT/ballerz.jpg',
-    link: 'https://twitter.com/ballerz_nft',
-    linkText: 'Follow on Twitter'
+    title: 'Bryson DeChambeau - Vegas, Baby!',
+    description: 'Collectible NFT commemorating Las Vegas Showdown',
+    image: 'images/newToNFT/bryson_banner.jpg',
+    link: '/bryson',
+    linkText: 'Buy Now'
   },
   {
     title: 'About The Team',
