@@ -67,6 +67,7 @@ const CheckboxCard = ({
 
 CheckboxCard.propTypes = {
   containerProps: PropTypes.object,
+  dispatch: PropTypes.func.isRequired,
   filterName: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
