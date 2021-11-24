@@ -21,9 +21,11 @@ import * as Styled from './styles';
 export const DRAWER_BLEEDING = 56;
 
 const Modal = ({
+  arrowSx,
   asset,
   children,
   containerProps,
+  contentSx,
   description,
   descriptionSx,
   height,
@@ -52,7 +54,7 @@ const Modal = ({
         {isSmallDevice && (
           <IconButton
             onClick={onClose}
-            sx={{ position: 'absolute', left: '50%', marginLeft: '-16px', top: -135 }}>
+            sx={{ position: 'absolute', left: '50%', marginLeft: '-16px', top: -135, ...arrowSx }}>
             <ArrowDownIcon sx={{ color: grey[375], fontSize: 32 }} />
           </IconButton>
         )}
@@ -88,7 +90,7 @@ const Modal = ({
             </Styled.AssetContainer>
           </>
         )}
-        <Styled.InfoContainer>
+        <Styled.InfoContainer sx={contentSx}>
           {!!title && (
             <Styled.Title id={title} sx={titleSx}>
               {title}
@@ -145,9 +147,11 @@ const Modal = ({
 };
 
 Modal.propTypes = {
+  arrowSx: PropTypes.object,
   asset: PropTypes.object,
   children: PropTypes.node,
   containerProps: PropTypes.object,
+  contentSx: PropTypes.object,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   descriptionSx: PropTypes.object,
   height: PropTypes.string,
@@ -160,11 +164,13 @@ Modal.propTypes = {
 };
 
 Modal.defaultProps = {
+  arrowSx: {},
   asset: {
     img: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
   },
   children: null,
   containerProps: {},
+  contentSx: {},
   description: '',
   descriptionSx: {},
   height: '358px',

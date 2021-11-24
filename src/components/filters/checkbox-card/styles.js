@@ -4,6 +4,7 @@ export const Container = styled(Grid)(() => ({
   alignItems: 'center',
   borderRadius: '10px',
   justifyContent: 'space-between',
+  minHeight: '48px',
   padding: '10px 12px',
   position: 'relative'
 }));
