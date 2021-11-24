@@ -36,7 +36,7 @@ export default function HomepageBanner() {
           mt="10px"
           lineHeight={isMediumDevice && '20px'}
           mb={isMediumDevice && '24px'}
-          sx={{ maxWidth: '600px', lineHeight: '30px' }}>
+          sx={{ maxWidth: '600px', lineHeight: !isMediumDevice && '30px' }}>
           {bannerData.description}
         </Typography>
         <Grid container sx={{ gap: '12px' }}>
