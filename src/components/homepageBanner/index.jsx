@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { Typography } from '@mui/material';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { Typography, Grid } from '@mui/material';
 
 import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styled';
 
 const bannerData = {
-  drop: 'Vegas, Baby!',
-  title: 'Bryson DeChambeau',
-  description: 'Collectible NFT Commemorating Las Vegas Showdown',
-  background: 'images/header/bryson_header_v3.jpg'
+  drop: 'BALLERZ',
+  title: 'The Home of BALLERZ',
+  description:
+    'Be a part of the emerging basketball NFT community! Secondary marketplace coming soon. ',
+  background: '/collections/ballerz/banner.png'
 };
 
 export default function HomepageBanner() {
@@ -24,7 +24,7 @@ export default function HomepageBanner() {
           variant={isMediumDevice ? 'h5' : 'h4'}
           fontWeight="normal"
           lineHeight="24px"
-          mt={isExtraSmallDevice ? '140px' : isMediumDevice && '180px'}>
+          mt={isExtraSmallDevice ? '80px' : isMediumDevice && '120px'}>
           {bannerData.drop}
         </Styled.TypographyWithOpacity>
         <Typography variant="h2" fontWeight="bold" maxWidth="450px" mt="10px">
@@ -38,16 +38,24 @@ export default function HomepageBanner() {
           mb={isMediumDevice && '24px'}>
           {bannerData.description}
         </Typography>
-        {isMediumDevice && <Styled.Divider />}
-        <Styled.CardButton component="a" href="/bryson">
-          {isMediumDevice ? (
-            <KeyboardArrowRightIcon />
-          ) : (
-            <Typography variant="subtitle1">{'Buy Now'}</Typography>
-          )}
-        </Styled.CardButton>
+        <Grid container sx={{ gap: '12px' }}>
+          <Styled.CardButton
+            component="a"
+            href="https://twitter.com/ballerz_nft"
+            target="_blank"
+            rel="noopener noreferrer">
+            <Typography variant="subtitle1">Follow on Twitter</Typography>
+          </Styled.CardButton>
+          <Styled.CardButton
+            component="a"
+            href="https://discord.com/invite/ballerznft"
+            target="_blank"
+            rel="noopener noreferrer">
+            <Typography variant="subtitle1">Join Discord</Typography>
+          </Styled.CardButton>
+        </Grid>
       </Styled.Container>
-      <Styled.BannerLink href="/bryson" />
+      <Styled.BannerLink href="/ballerz" />
     </Styled.ContainerBackground>
   );
 }
