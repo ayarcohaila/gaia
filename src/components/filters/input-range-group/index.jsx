@@ -14,6 +14,7 @@ const InputRangeGroup = ({ max, min, maxPlaceholder, minPlaceholder, setMax, set
         <Input
           inputMode="numeric"
           onChange={({ target }) => setMin(target.value)}
+          pattern="[0-9]"
           placeholder={minPlaceholder}
           type="number"
           value={min}
@@ -22,6 +23,7 @@ const InputRangeGroup = ({ max, min, maxPlaceholder, minPlaceholder, setMax, set
           inputMode="numeric"
           ml={1}
           onChange={({ target }) => setMax(target.value)}
+          pattern="[0-9]"
           placeholder={maxPlaceholder}
           type="number"
           value={max}
