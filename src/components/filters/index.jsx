@@ -43,11 +43,17 @@ const Filters = () => {
           <Box key={option?.id} mx="auto" width={isSmallDevice ? '90%' : '100%'}>
             <CheckboxCard
               containerProps={{ sx: { mb: 1 } }}
-              dispatch={dispatch}
-              filterName="selectedCollections"
               id={option?.id}
+              isSelected={selectedCollections.includes(option?.id)}
+              onChange={() =>
+                setFilter(
+                  'selectedCollections',
+                  selectedCollections.includes(option?.id)
+                    ? selectedCollections.filter(filter => filter !== option?.id)
+                    : [...selectedCollections, option?.id]
+                )
+              }
               label={option?.label}
-              selectedOptions={selectedCollections}
             />
           </Box>
         ));
