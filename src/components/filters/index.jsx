@@ -77,7 +77,7 @@ const Filters = () => {
 
   const renderContent = useMemo(
     () => (
-      <Styled.Content width={isSmallDevice ? '80%' : 'auto'}>
+      <Styled.Content height="fit-content" width={isSmallDevice ? '80%' : 'auto'}>
         <Grid p="20px 22px 20px 12px">
           {FILTERS.map((filter, index) => (
             <Accordion

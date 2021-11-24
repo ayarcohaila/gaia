@@ -17,6 +17,11 @@ export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => (
     lineHeight: '1.23',
     letterSpacing: 'normal',
     color: palette.grey[600]
+  },
+
+  svg: {
+    color: palette.grey[600],
+    marginRight: 16
   }
 }));
 
@@ -31,6 +36,22 @@ export const NFTText = styled(Typography)(({ theme: { palette } }) => ({
   fontWeight: 700,
   color: palette.secondary.main,
   marginBottom: 8
+}));
+
+export const NFTDescription = styled(Typography)(({ theme: { palette } }) => ({
+  fontSize: '13px',
+  fontWeight: 500,
+  lineHeight: '1.23',
+  color: palette.grey[600],
+  marginTop: '2px'
+}));
+
+export const NFTPrice = styled(Typography)(() => ({
+  fontSize: '14px',
+  fontWeight: 'bold',
+  lineHeight: '1.14',
+  color: '#003aac',
+  marginTop: '13px'
 }));
 
 export const SellButton = styled(Button)(({ theme: { palette } }) => ({

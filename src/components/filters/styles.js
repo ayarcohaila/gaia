@@ -7,7 +7,8 @@ export const FloatButton = styled(Button)({
   left: '50%',
   marginLeft: '-75px',
   position: 'fixed',
-  width: '150px'
+  width: '150px',
+  zIndex: 2
 });
 
 export const BottomBar = styled(Grid)(() => ({
@@ -26,6 +27,7 @@ export const BottomBar = styled(Grid)(() => ({
 export const Content = styled(Box)(() => ({
   backgroundColor: '#fff',
   borderRadius: '16px',
+  marginRight: '22px',
   maxWidth: '302px'
 }));
 
