@@ -13,7 +13,7 @@ import { ACTION_TYPE, reducer, initialState } from './reducer';
 import * as Styled from './styles';
 
 const Filters = () => {
-  const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
+  const { isExtraSmallDevice, isMediumDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { appliedFiltersCount, minPrice, maxPrice, selectedCollections } = state;
@@ -40,7 +40,7 @@ const Filters = () => {
     ({ id, options }) => {
       if (id === 'collection') {
         return options.map(option => (
-          <Box key={option?.id} mx="auto" width={isSmallDevice ? '90%' : '100%'}>
+          <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
             <CheckboxCard
               containerProps={{ sx: { mb: 1 } }}
               id={option?.id}
@@ -60,7 +60,11 @@ const Filters = () => {
       }
 
       return (
-        <Box mx="auto" width={isSmallDevice ? '90%' : '100%'}>
+        <Box
+          mx="auto"
+          width={isMediumDevice ? '90%' : '100%'}
+          display="flex"
+          justifyContent="center">
           <InputRangeGroup
             max={maxPrice}
             min={minPrice}
@@ -72,12 +76,12 @@ const Filters = () => {
         </Box>
       );
     },
-    [isSmallDevice, minPrice, maxPrice, selectedCollections]
+    [isMediumDevice, minPrice, maxPrice, selectedCollections]
   );
 
   const renderContent = useMemo(
     () => (
-      <Styled.Content height="fit-content" width={isSmallDevice ? '80%' : 'auto'}>
+      <Styled.Content height="fit-content" width={isMediumDevice ? '80%' : 'auto'}>
         <Grid p="20px 22px 20px 12px">
           {FILTERS.map((filter, index) => (
             <Accordion
@@ -91,7 +95,7 @@ const Filters = () => {
         </Grid>
       </Styled.Content>
     ),
-    [isSmallDevice, renderFilterContent]
+    [isMediumDevice, renderFilterContent]
   );
 
   const renderMobileContent = useMemo(() => {
@@ -119,21 +123,23 @@ const Filters = () => {
 
   return (
     <>
-      {isSmallDevice ? (
+      {isMediumDevice ? (
         <Styled.FloatButton endIcon={<FiltersIcon />} onClick={toggleMobileModal}>
           Filters {!!appliedFiltersCount && `(${appliedFiltersCount})`}
         </Styled.FloatButton>
       ) : (
         renderContent
       )}
-      {isSmallDevice && (
+      {isMediumDevice && (
         <Modal
           arrowSx={{ top: -70 }}
           asset={null}
           contentSx={{ justifyContent: 'flex-start' }}
           mobileHeight={isExtraSmallDevice ? '85vh' : '75vh'}
+          height={isMediumDevice ? '464px' : '358px'}
           open={isMobileModalOpen}
-          onClose={toggleMobileModal}>
+          onClose={toggleMobileModal}
+          marginTop="188px">
           {renderMobileContent}
         </Modal>
       )}

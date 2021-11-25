@@ -102,7 +102,7 @@ const Browse = () => {
       <BrowseHeader handleShowFilters={handleShowFilters} />
       <Grid container alignItems="center" justifyContent="center" mt={isMediumDevice && '24px'}>
         <Styled.Container>
-          {!!showFilter && <Filters />}
+          {Boolean(!!showFilter || isMediumDevice) && <Filters />}
           <Grid
             item
             container
