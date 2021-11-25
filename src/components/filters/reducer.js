@@ -2,7 +2,8 @@ export const initialState = {
   appliedFiltersCount: 0,
   minPrice: '',
   maxPrice: '',
-  selectedCollections: []
+  selectedCollections: [],
+  selectedProperties: []
 };
 
 export const ACTION_TYPE = {
