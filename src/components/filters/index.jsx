@@ -159,7 +159,7 @@ const Filters = () => {
         {!!selectedCollectionWithProperties && (
           <>
             <Divider sx={{ mt: 4 }} />
-            <Typography my={4} variant="h4" textAlign="center">
+            <Typography my={3} variant="h4" textAlign="center">
               Properties
             </Typography>
             {Object.keys(selectedCollectionWithProperties.properties).map(property => (
