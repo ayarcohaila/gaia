@@ -54,6 +54,9 @@ const Filters = () => {
             ? filterArray.filter(item => item.id !== option?.id)
             : [...filterArray, option]
         );
+        if (filterName === 'selectedCollections' && option?.id === 'ballerz') {
+          setFilter('selectedProperties', []);
+        }
         return;
       }
       setFilter(
