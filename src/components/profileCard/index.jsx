@@ -17,7 +17,7 @@ import * as Styled from './styled';
 import { COLLECTIONS_NAME } from '../../../collections_setup';
 
 const ProfileCard = ({ data, isFromBrowser }) => {
-  const { isMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const { user } = useAuth();
   const router = useRouter();
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -110,7 +110,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
     <Styled.CustomCard
       sx={{
         cursor: data.mystery ? 'auto' : 'pointer',
-        width: isMediumDevice ? '100%' : '365px'
+        width: isSmallDevice ? '100%' : '308px'
       }}>
       <Styled.CustomCardHeader
         avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}

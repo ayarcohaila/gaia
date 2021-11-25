@@ -85,7 +85,7 @@ const Browse = () => {
   const [loading, setLoading] = useState(true);
   const [nftList, setNftList] = useState([]);
   const [showFilter, setShowFilter] = useState(true);
-  const { isMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isSmallDevice } = useBreakpoints();
 
   useEffect(() => {
     setLoading(false);
@@ -131,7 +131,7 @@ const Browse = () => {
                     ml={0}
                     xs={12}
                     md={4}
-                    sm={6}
+                    sm={isSmallDevice ? 4 : 6}
                     lg={showFilter ? 4 : 3}
                     xl={showFilter ? 3 : 2.4}
                     key={index}>
