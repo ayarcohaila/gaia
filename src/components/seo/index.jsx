@@ -22,6 +22,10 @@ function SEO({ description, title, siteTitle, imgURL, label1, label2, data1, dat
       <meta name="twitter:data2" value={data2} />
       <meta name="twitter:image" content={imgURL} />
       <meta name="twitter:image:src" content={imgURL} />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0"
+      />
     </Head>
   );
 }

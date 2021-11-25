@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import CardSkeletonLoader from '~/base/card-skeleton-loader';
-import { BrowseHeader, ProfileCard } from '~/components';
+import { BrowseHeader, Filters, ProfileCard, Seo } from '~/components';
 import { useBreakpoints } from '~/hooks';
 
 import * as Styled from '~/styles/browse-page/styles';
@@ -98,20 +98,11 @@ const Browse = () => {
 
   return (
     <>
+      <Seo title="Browse All NFTs" />
       <BrowseHeader handleShowFilters={handleShowFilters} />
       <Grid container alignItems="center" justifyContent="center" mt={isMediumDevice && '24px'}>
         <Styled.Container>
-          {Boolean(showFilter & !isMediumDevice) && (
-            // The filter component goes here
-            <div
-              style={{
-                width: '320px',
-                height: '720px',
-                background: '#fff',
-                marginRight: '22px',
-                borderRadius: '16px'
-              }}></div>
-          )}
+          {!!showFilter && <Filters />}
           <Grid
             item
             container

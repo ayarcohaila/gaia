@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
-import { NewToNFTSection, HomepageBanner, Seo } from '~/components';
 
+import { NewToNFTSection, HomepageBanner, Seo } from '~/components';
 import { useBreakpoints } from '~/hooks';
 
 const Home = () => {

@@ -27,6 +27,7 @@ export default class _Document extends Document {
       sheet.seal();
     }
   }
+
   render() {
     return (
       <Html>

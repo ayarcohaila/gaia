@@ -48,6 +48,10 @@ const Header = () => {
         window.open(address, '_blank')?.focus();
         break;
       }
+      case USER_MENU_IDS.BROWSE: {
+        router.push('/browse');
+        break;
+      }
       default:
         logout();
         break;
@@ -148,6 +152,12 @@ const Header = () => {
                 onClick={handleClick}
                 data-id={USER_MENU_IDS.PROFILE}>
                 Profile
+              </Styled.ButtonText>
+              <Styled.ButtonText
+                variant="text"
+                onClick={handleClick}
+                data-id={USER_MENU_IDS.BROWSE}>
+                Browse All NFTs
               </Styled.ButtonText>
               <Styled.ButtonText
                 variant="text"
