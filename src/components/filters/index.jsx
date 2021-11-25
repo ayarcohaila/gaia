@@ -159,24 +159,26 @@ const Filters = () => {
         {!!selectedCollectionWithProperties && (
           <>
             <Divider sx={{ mt: 4 }} />
-            <Typography my={3} variant="h4" textAlign="center">
+            <Typography mt={2} variant="h4" textAlign="center">
               Properties
             </Typography>
-            {Object.keys(selectedCollectionWithProperties.properties).map(property => (
-              <Accordion key={property} title={capitalize(property)}>
-                <Styled.ValuesContainer>
-                  {selectedCollectionWithProperties.properties[property].map(option => (
-                    <CheckboxCard
-                      key={`${property}-${option}`}
-                      containerProps={{ sx: { mb: 1 } }}
-                      isSelected={!!selectedProperties.find(item => item === option)}
-                      label={option}
-                      onChange={() => handleCheck('selectedProperties', option)}
-                    />
-                  ))}
-                </Styled.ValuesContainer>
-              </Accordion>
-            ))}
+            <Box py="16px">
+              {Object.keys(selectedCollectionWithProperties.properties).map(property => (
+                <Accordion key={property} title={capitalize(property)}>
+                  <Styled.ValuesContainer>
+                    {selectedCollectionWithProperties.properties[property].map(option => (
+                      <CheckboxCard
+                        key={`${property}-${option}`}
+                        containerProps={{ sx: { mb: 1 } }}
+                        isSelected={!!selectedProperties.find(item => item === option)}
+                        label={option}
+                        onChange={() => handleCheck('selectedProperties', option)}
+                      />
+                    ))}
+                  </Styled.ValuesContainer>
+                </Accordion>
+              ))}
+            </Box>
           </>
         )}
         <Box height="88px" />
