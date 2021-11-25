@@ -176,13 +176,7 @@ const Filters = () => {
             ))}
           </>
         )}
-        <Styled.BottomBar container>
-          <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
-            Clear
-          </Styled.ClearButton>
-          <Button onClick={handleApplyFilters}>Apply</Button>
-          <Styled.CloseButton onClick={toggleMobileModal}>Close</Styled.CloseButton>
-        </Styled.BottomBar>
+        <Box height="88px" />
       </Box>
     ),
     [renderFilterContent, selectedCollectionWithProperties, selectedProperties]
@@ -206,6 +200,13 @@ const Filters = () => {
           open={isMobileModalOpen}
           onClose={toggleMobileModal}>
           {renderMobileContent}
+          <Styled.BottomBar container>
+            <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
+              Clear
+            </Styled.ClearButton>
+            <Button onClick={handleApplyFilters}>Apply</Button>
+            <Styled.CloseButton onClick={toggleMobileModal}>Close</Styled.CloseButton>
+          </Styled.BottomBar>
         </Modal>
       )}
     </>
