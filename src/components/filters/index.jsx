@@ -11,12 +11,18 @@ import CheckboxCard from './checkbox-card';
 import InputRangeGroup from './input-range-group';
 import { ACTION_TYPE, reducer, initialState } from './reducer';
 import * as Styled from './styles';
+import { capitalize } from 'lodash';
 
 const Filters = () => {
   const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { appliedFiltersCount, minPrice, maxPrice, selectedCollections } = state;
+
+  const selectedCollectionWithProperties = useMemo(
+    () => selectedCollections.find(collection => !!collection.properties),
+    [selectedCollections]
+  );
 
   const handleApplyFilters = useCallback(() => {
     dispatch({ type: ACTION_TYPE.APPLY_FILTERS });
@@ -43,14 +49,13 @@ const Filters = () => {
           <Box key={option?.id} mx="auto" width={isSmallDevice ? '90%' : '100%'}>
             <CheckboxCard
               containerProps={{ sx: { mb: 1 } }}
-              id={option?.id}
-              isSelected={selectedCollections.includes(option?.id)}
+              isSelected={!!selectedCollections.find(collection => collection.id === option?.id)}
               onChange={() =>
                 setFilter(
                   'selectedCollections',
-                  selectedCollections.includes(option?.id)
-                    ? selectedCollections.filter(filter => filter !== option?.id)
-                    : [...selectedCollections, option?.id]
+                  selectedCollections.find(collection => collection.id === option?.id)
+                    ? selectedCollections.filter(collection => collection.id !== option?.id)
+                    : [...selectedCollections, option]
                 )
               }
               label={option?.label}
@@ -88,10 +93,36 @@ const Filters = () => {
               {renderFilterContent(filter)}
             </Accordion>
           ))}
+          {!!selectedCollectionWithProperties && (
+            <Accordion title="Properties">
+              {Object.keys(selectedCollectionWithProperties.properties).map(property => (
+                <Accordion key={property} title={capitalize(property)}>
+                  {selectedCollectionWithProperties.properties[property].map(option => (
+                    <CheckboxCard
+                      key={`${property}-${option}`}
+                      containerProps={{ sx: { mb: 1 } }}
+                      // isSelected={selectedCollections.find(({ id }) => id === option?.id)}
+                      isSelected
+                      label={option}
+                      // onChange={() =>
+                      //   setFilter(
+                      //     'selectedCollections',
+                      //     selectedCollections.find(({ id }) => id === option?.id)
+                      //       ? selectedCollections.filter(({ id }) => id !== option?.id)
+                      //       : [...selectedCollections, option]
+                      //   )
+                      // }
+                      onChange={() => {}}
+                    />
+                  ))}
+                </Accordion>
+              ))}
+            </Accordion>
+          )}
         </Grid>
       </Styled.Content>
     ),
-    [isSmallDevice, renderFilterContent]
+    [isSmallDevice, renderFilterContent, selectedCollectionWithProperties]
   );
 
   const renderMobileContent = useMemo(() => {
