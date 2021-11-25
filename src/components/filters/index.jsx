@@ -141,28 +141,52 @@ const Filters = () => {
     ]
   );
 
-  const renderMobileContent = useMemo(() => {
-    {
-      return FILTERS.map((filter, index) => (
-        <Fragment key={filter?.id}>
-          <Box width="100%">
+  const renderMobileContent = useMemo(
+    () => (
+      <Box>
+        {FILTERS.map((filter, index) => (
+          <Box key={filter.id} width="100%">
             {!!index && <Divider sx={{ mt: 4 }} />}
             <Typography my={4} variant="h4" textAlign="center">
               {filter?.label}
             </Typography>
             {renderFilterContent(filter)}
           </Box>
-          <Styled.BottomBar container>
-            <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
-              Clear
-            </Styled.ClearButton>
-            <Button onClick={handleApplyFilters}>Apply</Button>
-            <Styled.CloseButton onClick={toggleMobileModal}>Close</Styled.CloseButton>
-          </Styled.BottomBar>
-        </Fragment>
-      ));
-    }
-  }, [renderFilterContent]);
+        ))}
+        {!!selectedCollectionWithProperties && (
+          <>
+            <Divider sx={{ mt: 4 }} />
+            <Typography my={4} variant="h4" textAlign="center">
+              Properties
+            </Typography>
+            {Object.keys(selectedCollectionWithProperties.properties).map(property => (
+              <Accordion key={property} title={capitalize(property)}>
+                <Styled.ValuesContainer>
+                  {selectedCollectionWithProperties.properties[property].map(option => (
+                    <CheckboxCard
+                      key={`${property}-${option}`}
+                      containerProps={{ sx: { mb: 1 } }}
+                      isSelected={!!selectedProperties.find(item => item === option)}
+                      label={option}
+                      onChange={() => handleCheck('selectedProperties', option)}
+                    />
+                  ))}
+                </Styled.ValuesContainer>
+              </Accordion>
+            ))}
+          </>
+        )}
+        <Styled.BottomBar container>
+          <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
+            Clear
+          </Styled.ClearButton>
+          <Button onClick={handleApplyFilters}>Apply</Button>
+          <Styled.CloseButton onClick={toggleMobileModal}>Close</Styled.CloseButton>
+        </Styled.BottomBar>
+      </Box>
+    ),
+    [renderFilterContent, selectedCollectionWithProperties, selectedProperties]
+  );
 
   return (
     <>
@@ -178,7 +202,7 @@ const Filters = () => {
           arrowSx={{ top: -70 }}
           asset={null}
           contentSx={{ justifyContent: 'flex-start' }}
-          mobileHeight={isExtraSmallDevice ? '85vh' : '75vh'}
+          mobileHeight={isExtraSmallDevice ? '85vh' : '77.5vh'}
           open={isMobileModalOpen}
           onClose={toggleMobileModal}>
           {renderMobileContent}

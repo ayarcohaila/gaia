@@ -65,6 +65,8 @@ export const InfoContainer = styled(Box)(() => ({
   flexDirection: 'column',
   height: '100%',
   justifyContent: 'center',
+  overflowY: 'auto',
+  overflowX: 'hidden',
   width: '100%'
 }));
 
