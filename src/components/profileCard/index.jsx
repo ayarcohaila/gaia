@@ -110,7 +110,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
     <Styled.CustomCard
       sx={{
         cursor: data.mystery ? 'auto' : 'pointer',
-        width: isMediumDevice ? '335px' : '365px'
+        width: isMediumDevice ? '100%' : '365px'
       }}>
       <Styled.CustomCardHeader
         avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}
@@ -119,7 +119,6 @@ const ProfileCard = ({ data, isFromBrowser }) => {
       />
       <Skeleton
         variant="rect"
-        // width="275px"
         height={275}
         sx={{ borderRadius: '20px', display: imgLoaded && 'none' }}
       />
