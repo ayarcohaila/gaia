@@ -201,7 +201,8 @@ const Filters = () => {
           contentSx={{ justifyContent: 'flex-start' }}
           mobileHeight={isExtraSmallDevice ? '85vh' : '77.5vh'}
           open={isMobileModalOpen}
-          onClose={toggleMobileModal}>
+          onClose={toggleMobileModal}
+          shouldRenderSwiperOnMobile>
           {renderMobileContent}
           <Styled.BottomBar container>
             <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
