@@ -57,7 +57,7 @@ const Modal = ({
         marginTop={marginTop}
         height={isSmallDevice ? mobileHeight : height}
         {...containerProps}>
-        {Boolean(isSmallDevice || isMediumDevice) && (
+        {(isSmallDevice || isMediumDevice) && (
           <IconButton
             onClick={onClose}
             sx={{ position: 'absolute', left: '50%', marginLeft: '-24px', top: -135, ...arrowSx }}>
