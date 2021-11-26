@@ -19,14 +19,12 @@ import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
 import SuccessPurchaseModal from '../success-purchase-modal';
-import { useCollectionConfig } from '~/hooks';
 
 const BrysonCollectionContent = ({ data, totalAvailable }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const {
     palette: { grey }
   } = useTheme();
-  const { config } = useCollectionConfig();
   const route = useRouter();
   const { login } = useAuth();
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
@@ -105,19 +103,12 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
   return (
     <>
       <Styled.Container container>
-        {config.mystery ? (
-          <VideoPlayer
-            loop
-            poster={formatIpfsImg(data?.nft?.template?.metadata?.img)}
-            src={formatIpfsImg(data?.nft?.template?.metadata?.video)}
-          />
-        ) : (
-          <Styled.CustomCardMedia
-            component="img"
-            alt="NFT image"
-            src={'/collections/bryson/nft-placeholder.jpeg'}
-          />
-        )}
+        <VideoPlayer
+          loop
+          poster={formatIpfsImg(data?.nft?.template?.metadata?.img)}
+          src={formatIpfsImg(data?.nft?.template?.metadata?.video)}
+        />
+
         <Box mx="auto" width={isMediumDevice ? '90%' : '40%'}>
           <Typography fontWeight="normal" mt={isMediumDevice ? 2 : 0} variant="h4">
             Bryson DeChambeau
