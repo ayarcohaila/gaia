@@ -13,13 +13,13 @@ const cache = new InMemoryCache({
 });
 
 const httpLink = new HttpLink({
-  uri: process.env.NEXT_PUBLIC_API_URL
+  uri: process.env.API_URL
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      'x-hasura-admin-secret': process.env.NEXT_PUBLIC_API_SECRET
+      'x-hasura-admin-secret': process.env.API_SECRET
     }
   });
 
@@ -34,7 +34,7 @@ const wsLink = process.browser
         lazy: true,
         connectionParams: {
           headers: {
-            'x-hasura-admin-secret': process.env.NEXT_PUBLIC_API_SECRET
+            'x-hasura-admin-secret': process.env.API_SECRET
           }
         }
       }
@@ -57,10 +57,10 @@ const client = new ApolloClient({
   cache
 });
 
-export const gqlClient = new GraphQLClient(process.env.NEXT_PUBLIC_API_URL);
+export const gqlClient = new GraphQLClient(process.env.API_URL);
 
-if (process.env.NEXT_PUBLIC_API_SECRET) {
-  gqlClient.setHeader('x-hasura-admin-secret', process.env.NEXT_PUBLIC_API_SECRET);
+if (process.env.API_SECRET) {
+  gqlClient.setHeader('x-hasura-admin-secret', process.env.API_SECRET);
 }
 
 export default client;

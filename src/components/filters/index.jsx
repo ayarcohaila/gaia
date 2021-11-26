@@ -6,7 +6,7 @@ import { Button } from '~/base';
 import { useBreakpoints, useToggle } from '~/hooks';
 import { Accordion, Modal } from '..';
 
-import { FILTERS } from './constants';
+import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from './constants';
 import CheckboxCard from './checkbox-card';
 import InputRangeGroup from './input-range-group';
 import { ACTION_TYPE, reducer, initialState } from './reducer';
@@ -14,16 +14,10 @@ import * as Styled from './styles';
 import { capitalize } from 'lodash';
 
 const Filters = () => {
-  const { isExtraSmallDevice, isMediumDevice } = useBreakpoints();
+  const { isExtraSmallDevice, isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { appliedFiltersCount, minPrice, maxPrice, selectedCollections, selectedProperties } =
-    state;
-
-  const selectedCollectionWithProperties = useMemo(
-    () => selectedCollections.find(collection => !!collection.properties),
-    [selectedCollections]
-  );
+  const { appliedFiltersCount, minPrice, maxPrice, collections, properties } = state;
 
   const handleApplyFilters = useCallback(() => {
     dispatch({ type: ACTION_TYPE.APPLY_FILTERS });
@@ -43,7 +37,20 @@ const Filters = () => {
     [dispatch]
   );
 
-  const handleCheck = useCallback(
+  const handleSingleCheck = useCallback(
+    (filter, value) => {
+      dispatch({
+        type: ACTION_TYPE.SET_FILTER,
+        payload: {
+          filter,
+          value
+        }
+      });
+    },
+    [dispatch]
+  );
+
+  const handleMultipleCheck = useCallback(
     (filterName, option) => {
       const isOptionAnObject = !!option?.id;
       const filterArray = state[filterName];
@@ -69,39 +76,66 @@ const Filters = () => {
     [setFilter, state]
   );
 
-  const renderFilterContent = useCallback(
-    ({ id, options }) => {
-      if (id === 'collection') {
-        return options.map(option => (
-          <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
-            <CheckboxCard
-              containerProps={{ sx: { mb: 1 } }}
-              isSelected={!!selectedCollections.find(collection => collection.id === option?.id)}
-              onChange={() => handleCheck('selectedCollections', option)}
-              label={option?.label}
-            />
-          </Box>
-        ));
-      }
-
-      return (
-        <Box
-          mx="auto"
-          width={isMediumDevice ? '90%' : '100%'}
-          display="flex"
-          justifyContent="center">
-          <InputRangeGroup
-            max={maxPrice}
-            min={minPrice}
-            maxPlaceholder="(Flow) Max"
-            minPlaceholder="(Flow) Min"
-            setMax={value => setFilter('maxPrice', value)}
-            setMin={value => setFilter('minPrice', value)}
-          />
-        </Box>
-      );
+  const handleCheckProperties = useCallback(
+    (collection, property, value) => {
+      setFilter(FILTERS_IDS.PROPERTIES, {
+        ...properties,
+        [collection]: {
+          ...properties?.[collection],
+          [property]: {
+            ...properties[collection]?.[property],
+            [value]: !properties[collection]?.[property]?.[value]
+          }
+        }
+      });
     },
-    [isMediumDevice, minPrice, maxPrice, selectedCollections]
+    [properties]
+  );
+
+  const renderFilterContent = useCallback(
+    ({ id, type, options }) => {
+      switch (type) {
+        case FILTERS_TYPES.RANGE:
+          return (
+            <Box mx="auto" width={isSmallDevice ? '90%' : '100%'}>
+              <InputRangeGroup
+                max={maxPrice}
+                min={minPrice}
+                maxPlaceholder="(Flow) Max"
+                minPlaceholder="(Flow) Min"
+                setMax={value => setFilter('maxPrice', value)}
+                setMin={value => setFilter('minPrice', value)}
+              />
+            </Box>
+          );
+
+        case FILTERS_TYPES.SINGLE:
+          return options.map(option => (
+            <Box key={option?.id} mx="auto" width={isSmallDevice ? '90%' : '100%'}>
+              <CheckboxCard
+                containerProps={{ sx: { mb: 1 } }}
+                isSelected={state[id] === option?.id}
+                onChange={() => handleSingleCheck(id, option.id)}
+                label={option?.label}
+              />
+            </Box>
+          ));
+        case FILTERS_TYPES.MULTI:
+          return options.map(option => (
+            <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
+              <CheckboxCard
+                containerProps={{ sx: { mb: 1 } }}
+                isSelected={!!state[id].find(collection => collection.id === option?.id)}
+                onChange={() => handleMultipleCheck(id, option)}
+                label={option?.label}
+              />
+            </Box>
+          ));
+        default:
+          break;
+      }
+    },
+    [isMediumDevice, maxPrice, minPrice, collections, state]
   );
 
   const renderContent = useMemo(
@@ -117,35 +151,40 @@ const Filters = () => {
               {renderFilterContent(filter)}
             </Accordion>
           ))}
-          {!!selectedCollectionWithProperties && (
-            <Accordion title="Properties">
-              {Object.keys(selectedCollectionWithProperties.properties).map(property => (
-                <Accordion key={property} title={capitalize(property)}>
-                  <Styled.ValuesContainer>
-                    {selectedCollectionWithProperties.properties[property].map(option => (
-                      <CheckboxCard
-                        key={`${property}-${option}`}
-                        containerProps={{ sx: { mb: 1 } }}
-                        isSelected={!!selectedProperties.find(item => item === option)}
-                        label={option}
-                        onChange={() => handleCheck('selectedProperties', option)}
-                      />
-                    ))}
-                  </Styled.ValuesContainer>
+          {collections.map(collection => {
+            const currentCollection = FILTERS.find(
+              item => item.id === FILTERS_IDS.COLLECTIONS
+            )?.options?.find(option => option.id === collection.id);
+            return (
+              !!currentCollection.properties && (
+                <Accordion
+                  key={`properties-${currentCollection?.id}`}
+                  title={`${capitalize(currentCollection?.id)} Properties`}>
+                  {Object.keys(currentCollection.properties).map(property => (
+                    <Accordion key={property} title={capitalize(property)}>
+                      <Styled.ValuesContainer>
+                        {currentCollection.properties[property].map(option => (
+                          <CheckboxCard
+                            key={`${property}-${option}`}
+                            containerProps={{ sx: { mb: 1 } }}
+                            isSelected={!!properties?.[currentCollection?.id]?.[property]?.[option]}
+                            label={option}
+                            onChange={() =>
+                              handleCheckProperties(currentCollection.id, property, option)
+                            }
+                          />
+                        ))}
+                      </Styled.ValuesContainer>
+                    </Accordion>
+                  ))}
                 </Accordion>
-              ))}
-            </Accordion>
-          )}
+              )
+            );
+          })}
         </Grid>
       </Styled.Content>
     ),
-    [
-      isMediumDevice,
-      handleCheck,
-      renderFilterContent,
-      selectedCollectionWithProperties,
-      selectedProperties
-    ]
+    [isMediumDevice, renderFilterContent, properties, collections]
   );
 
   const renderMobileContent = useMemo(
@@ -160,35 +199,44 @@ const Filters = () => {
             {renderFilterContent(filter)}
           </Box>
         ))}
-        {!!selectedCollectionWithProperties && (
-          <>
-            <Divider sx={{ mt: 4 }} />
-            <Typography mt={2} variant="h4" textAlign="center">
-              Properties
-            </Typography>
-            <Box py="16px">
-              {Object.keys(selectedCollectionWithProperties.properties).map(property => (
-                <Accordion key={property} title={capitalize(property)}>
-                  <Styled.ValuesContainer>
-                    {selectedCollectionWithProperties.properties[property].map(option => (
-                      <CheckboxCard
-                        key={`${property}-${option}`}
-                        containerProps={{ sx: { mb: 1 } }}
-                        isSelected={!!selectedProperties.find(item => item === option)}
-                        label={option}
-                        onChange={() => handleCheck('selectedProperties', option)}
-                      />
-                    ))}
-                  </Styled.ValuesContainer>
-                </Accordion>
-              ))}
-            </Box>
-          </>
-        )}
-        <Box height="88px" />
+        {collections.map(collection => {
+          const currentCollection = FILTERS.find(
+            item => item.id === FILTERS_IDS.COLLECTIONS
+          )?.options?.find(option => option.id === collection.id);
+
+          return (
+            !!currentCollection.properties && (
+              <>
+                <Divider sx={{ mt: 4 }} />
+                <Typography mt={2} variant="h4" textAlign="center">
+                  {`${capitalize(currentCollection.id)} Properties`}
+                </Typography>
+                <Box py="16px">
+                  {Object.keys(currentCollection.properties).map(property => (
+                    <Accordion key={property} title={capitalize(property)}>
+                      <Styled.ValuesContainer>
+                        {currentCollection.properties[property].map(option => (
+                          <CheckboxCard
+                            key={`mobile-${currentCollection.id}-${property}-${option}`}
+                            containerProps={{ sx: { mb: 1 } }}
+                            isSelected={!!properties?.[currentCollection?.id]?.[property]?.[option]}
+                            label={option}
+                            onChange={() =>
+                              handleCheckProperties(currentCollection.id, property, option)
+                            }
+                          />
+                        ))}
+                      </Styled.ValuesContainer>
+                    </Accordion>
+                  ))}
+                </Box>
+              </>
+            )
+          );
+        })}
       </Box>
     ),
-    [renderFilterContent, selectedCollectionWithProperties, selectedProperties]
+    [renderFilterContent, collections, properties]
   );
 
   return (

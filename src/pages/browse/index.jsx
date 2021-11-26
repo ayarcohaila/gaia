@@ -13,8 +13,8 @@ const NFTList = [
     name: 'Giannis Antetokoumpo - Block',
     description: 'Base Set (Series 2)',
     price: '$140.00',
-    imageURL: '/collections/ballerz.png',
-    collection_picture: '/collections/ballerz.png',
+    imageURL: '/collections/ballerz/avatar.png',
+    collection_picture: '/collections/ballerz/avatar.png',
     id: 'ballerz',
     is_for_sale: true
   },
@@ -23,8 +23,8 @@ const NFTList = [
     name: 'Giannis Antetokoumpo - Block',
     description: 'Base Set (Series 2)',
     price: '$140.00',
-    imageURL: '/collections/ballerz.png',
-    collection_picture: '/collections/ballerz.png',
+    imageURL: '/collections/ballerz/avatar.png',
+    collection_picture: '/collections/ballerz/avatar.png',
     id: 'ballerz',
     is_for_sale: true
   },
@@ -33,8 +33,8 @@ const NFTList = [
     name: 'Giannis Antetokoumpo - Block',
     description: 'Base Set (Series 2)',
     price: '$140.00',
-    imageURL: '/collections/ballerz.png',
-    collection_picture: '/collections/ballerz.png',
+    imageURL: '/collections/ballerz/avatar.png',
+    collection_picture: '/collections/ballerz/avatar.png',
     id: 'ballerz',
     is_for_sale: true
   },
@@ -43,8 +43,8 @@ const NFTList = [
     name: 'Giannis Antetokoumpo - Block',
     description: 'Base Set (Series 2)',
     price: '$140.00',
-    imageURL: '/collections/ballerz.png',
-    collection_picture: '/collections/ballerz.png',
+    imageURL: '/collections/ballerz/avatar.png',
+    collection_picture: '/collections/ballerz/avatar.png',
     id: 'ballerz',
     is_for_sale: true
   },
@@ -53,8 +53,8 @@ const NFTList = [
     name: 'Giannis Antetokoumpo - Block',
     description: 'Base Set (Series 2)',
     price: '$140.00',
-    imageURL: '/collections/ballerz.png',
-    collection_picture: '/collections/ballerz.png',
+    imageURL: '/collections/ballerz/avatar.png',
+    collection_picture: '/collections/ballerz/avatar.png',
     id: 'ballerz',
     is_for_sale: true
   },
@@ -63,8 +63,8 @@ const NFTList = [
     name: 'Giannis Antetokoumpo - Block',
     description: 'Base Set (Series 2)',
     price: '$140.00',
-    imageURL: '/collections/ballerz.png',
-    collection_picture: '/collections/ballerz.png',
+    imageURL: '/collections/ballerz/avatar.png',
+    collection_picture: '/collections/ballerz/avatar.png',
     id: 'ballerz',
     is_for_sale: true
   },
@@ -73,8 +73,8 @@ const NFTList = [
     name: 'Giannis Antetokoumpo - Block',
     description: 'Base Set (Series 2)',
     price: '$140.00',
-    imageURL: '/collections/ballerz.png',
-    collection_picture: '/collections/ballerz.png',
+    imageURL: '/collections/ballerz/avatar.png',
+    collection_picture: '/collections/ballerz/avatar.png',
     id: 'ballerz',
     is_for_sale: true
   }

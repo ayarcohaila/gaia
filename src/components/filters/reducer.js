@@ -1,9 +1,18 @@
+const FILTERS_CONSTANTS = {
+  MIN_PRICE: 'minPrice',
+  MAX_PRICE: 'maxPrice',
+  COLLECTIONS: 'collections',
+  PROPERTIES: 'properties',
+  STATUS: 'status'
+};
+
 export const initialState = {
   appliedFiltersCount: 0,
-  minPrice: '',
-  maxPrice: '',
-  selectedCollections: [],
-  selectedProperties: []
+  [FILTERS_CONSTANTS.MIN_PRICE]: '',
+  [FILTERS_CONSTANTS.MAX_PRICE]: '',
+  [FILTERS_CONSTANTS.COLLECTIONS]: [],
+  [FILTERS_CONSTANTS.PROPERTIES]: {},
+  [FILTERS_CONSTANTS.STATUS]: 'buyNow'
 };
 
 export const ACTION_TYPE = {
@@ -15,12 +24,12 @@ export const ACTION_TYPE = {
 export function reducer(state, action) {
   switch (action.type) {
     case ACTION_TYPE.APPLY_FILTERS: {
-      const { maxPrice, minPrice, selectedCollections, selectedProperties } = state;
+      const { minPrice, maxPrice, collections, properties } = state;
       const priceCount = minPrice || maxPrice ? 1 : 0;
-      const collectionCount = selectedCollections.length ? 1 : 0;
+      const collectionCount = collections.length ? 1 : 0;
       return {
         ...state,
-        appliedFiltersCount: priceCount + collectionCount + selectedProperties.length
+        appliedFiltersCount: priceCount + collectionCount + properties.length + 1
       };
     }
 
