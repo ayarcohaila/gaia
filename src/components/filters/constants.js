@@ -6,25 +6,27 @@
 //   SportsBasketball as SportsIcon,
 //   Theaters as MoviesIcon
 // } from '@mui/icons-material';
+import { BALLERZ_PROPERTIES } from '~/utils/constants';
 
 export const FILTERS = [
+  {
+    id: 'price',
+    label: 'Price'
+  },
   {
     id: 'collection',
     label: 'Collection',
     options: [
       {
         id: 'ballerz',
-        label: 'BALLERZ'
+        label: 'BALLERZ',
+        properties: BALLERZ_PROPERTIES
       },
       {
         id: 'bryson',
         label: 'Bryson DeChambeau'
       }
     ]
-  },
-  {
-    id: 'price',
-    label: 'Price'
   }
   //TODO: Uncomment when we have more filters
   // {

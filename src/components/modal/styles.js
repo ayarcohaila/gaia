@@ -63,7 +63,6 @@ export const InfoContainer = styled(Box)(() => ({
   alignItems: 'center',
   display: 'flex',
   flexDirection: 'column',
-  height: '100%',
   justifyContent: 'center',
   width: '100%'
 }));

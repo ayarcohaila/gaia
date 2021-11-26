@@ -17,6 +17,7 @@ export const Checkbox = styled(MuiCheckbox)(
   }) => ({
     color: grey[400],
     height: '14px',
+    marginLeft: '8px',
     width: '14px',
 
     '&.Mui-checked': {

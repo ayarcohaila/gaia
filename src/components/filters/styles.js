@@ -58,3 +58,13 @@ export const CloseButton = styled(MuiButton)(
     textTransform: 'none'
   })
 );
+
+export const ValuesContainer = styled(Box)(() => ({
+  maxHeight: '200px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+
+  '&::-webkit-scrollbar': {
+    display: 'none'
+  }
+}));
