@@ -140,9 +140,8 @@ const Filters = () => {
       </Styled.Content>
     ),
     [
-     isMediumDevice,
+      isMediumDevice,
       handleCheck,
-      isSmallDevice,
       renderFilterContent,
       selectedCollectionWithProperties,
       selectedProperties
