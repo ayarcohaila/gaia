@@ -13,7 +13,8 @@ export const COLLECTION_SALE_TYPE = {
 
 export const COLLECTIONS_NAME = {
   BALLERZ: 'ballerz',
-  BRYSON: 'bryson'
+  BRYSON: 'bryson',
+  BROWSE: 'browse'
 };
 
 export const COLLECTION_LIST_CONFIG = {
@@ -40,6 +41,18 @@ export const COLLECTION_LIST_CONFIG = {
     avatar: '/collections/bryson/avatar.webp',
     banner: '/collections/bryson/video-poster.webp',
     collectionSize: 5000
+  },
+  [COLLECTIONS_NAME.BROWSE]: {
+    id: process.env.NEXT_PUBLIC_BRYSON_COLLECTION,
+    nftName: COLLECTIONS_NAME.BROWSE,
+    collectionName: COLLECTIONS_NAME.BROWSE,
+    status: COLLECTION_STATUS.SALE,
+    saleType: COLLECTION_SALE_TYPE.SINGLE,
+    mystery: false,
+    buyLimit: 0,
+    avatar: '/collections/bryson/avatar.webp',
+    banner: '/collections/bryson/video-poster.webp',
+    collectionSize: 10
   }
 };
 

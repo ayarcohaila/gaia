@@ -1,7 +1,6 @@
 import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import CardSkeletonLoader from '~/base/card-skeleton-loader';
 import { BrowseHeader, Filters, ProfileCard, Seo } from '~/components';
 import { useBreakpoints } from '~/hooks';
 
@@ -82,13 +81,11 @@ const NFTList = [
 ];
 
 const Browse = () => {
-  const [loading, setLoading] = useState(true);
   const [nftList, setNftList] = useState([]);
   const [showFilter, setShowFilter] = useState(true);
-  const { isMediumDevice, isSmallDevice } = useBreakpoints();
+  const { isMediumDevice } = useBreakpoints();
 
   useEffect(() => {
-    setLoading(false);
     setNftList(NFTList);
   }, []);
 
@@ -104,40 +101,16 @@ const Browse = () => {
         <Styled.Container>
           {Boolean(!!showFilter || isMediumDevice) && <Filters />}
           <Grid
-            item
-            container
-            direction="row"
-            spacing="16px"
-            justifyContent="center"
-            alignItems="center">
-            {loading
-              ? new Array(10).fill(null).map((_, index) => (
-                  <Grid
-                    item
-                    xs={12}
-                    md={4}
-                    sm={6}
-                    lg={showFilter ? 4 : 3}
-                    xl={showFilter ? 3 : 2.4}
-                    key={index}>
-                    <CardSkeletonLoader />
-                  </Grid>
-                ))
-              : nftList.map((nft, index) => (
-                  <Grid
-                    item
-                    container
-                    justifyContent="center"
-                    ml={0}
-                    xs={12}
-                    md={4}
-                    sm={isSmallDevice ? 4 : 6}
-                    lg={showFilter ? 4 : 3}
-                    xl={showFilter ? 3 : 2.4}
-                    key={index}>
-                    <ProfileCard data={nft} isFromBrowser />
-                  </Grid>
-                ))}
+            xs={!showFilter || isMediumDevice ? 12 : 9}
+            sx={{
+              display: 'flex',
+              gap: '16px',
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}>
+            {nftList.map((nft, index) => (
+              <ProfileCard data={nft} isFromBrowser key={index} />
+            ))}
           </Grid>
         </Styled.Container>
       </Grid>
