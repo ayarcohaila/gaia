@@ -172,8 +172,7 @@ Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   titleSx: PropTypes.object,
-  disableCloseButton: PropTypes.bool,
-  marginTop: PropTypes.string
+  marginTop: PropTypes.string,
   shouldRenderSwiperOnMobile: PropTypes.bool
 };
 
@@ -193,9 +192,7 @@ Modal.defaultProps = {
   shouldRenderSwiperOnMobile: true,
   title: '',
   titleSx: {},
-  disableCloseButton: false,
   marginTop: '0px'
-  titleSx: {}
 };
 
 export default memo(Modal);
