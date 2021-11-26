@@ -8,14 +8,44 @@
 // } from '@mui/icons-material';
 import { BALLERZ_PROPERTIES } from '~/utils/constants';
 
+export const FILTERS_TYPES = {
+  SINGLE: 'single',
+  MULTI: 'multi',
+  RANGE: 'range'
+};
+
+export const FILTERS_IDS = {
+  PRICE: 'price',
+  STATUS: 'status',
+  COLLECTIONS: 'collections',
+  PROPERTIES: 'properties'
+};
+
 export const FILTERS = [
   {
-    id: 'price',
-    label: 'Price'
+    id: FILTERS_IDS.PRICE,
+    label: 'Price',
+    type: FILTERS_TYPES.RANGE
   },
   {
-    id: 'collection',
+    id: FILTERS_IDS.STATUS,
+    label: 'Status',
+    type: FILTERS_TYPES.SINGLE,
+    options: [
+      {
+        id: 'buyNow',
+        label: 'Buy Now'
+      },
+      {
+        id: 'viewAll',
+        label: 'View All'
+      }
+    ]
+  },
+  {
+    id: FILTERS_IDS.COLLECTIONS,
     label: 'Collection',
+    type: FILTERS_TYPES.MULTI,
     options: [
       {
         id: 'ballerz',
@@ -28,6 +58,7 @@ export const FILTERS = [
       }
     ]
   }
+
   //TODO: Uncomment when we have more filters
   // {
   //   id: 'category',
