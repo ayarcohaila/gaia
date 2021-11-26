@@ -6,7 +6,8 @@ import {
   SwipeableDrawer,
   Grid,
   CircularProgress,
-  useTheme
+  useTheme,
+  Dialog
 } from '@mui/material';
 
 import { Close as CloseIcon, KeyboardArrowDown as ArrowDownIcon } from '@mui/icons-material';
@@ -32,6 +33,7 @@ const Modal = ({
   mobileHeight,
   open,
   onClose,
+  shouldRenderSwiperOnMobile,
   title,
   titleSx,
   disableCloseButton,
@@ -113,7 +115,7 @@ const Modal = ({
   );
 
   if (isSmallDevice) {
-    return (
+    if (shouldRenderSwiperOnMobile) {
       <>
         <Global
           styles={{
@@ -133,7 +135,12 @@ const Modal = ({
           ModalProps={DRAWER_MODAL_PROPS}>
           {renderContent()}
         </SwipeableDrawer>
-      </>
+      </>;
+    }
+    return (
+      <Dialog open={open} onClose={onClose} fullScreen>
+        {renderContent()}
+      </Dialog>
     );
   }
 
@@ -154,13 +161,14 @@ Modal.propTypes = {
   contentSx: PropTypes.object,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   descriptionSx: PropTypes.object,
+  disableCloseButton: PropTypes.bool,
   height: PropTypes.string,
   mobileHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   titleSx: PropTypes.object,
-  disableCloseButton: PropTypes.bool
+  shouldRenderSwiperOnMobile: PropTypes.bool
 };
 
 Modal.defaultProps = {
@@ -173,11 +181,12 @@ Modal.defaultProps = {
   contentSx: {},
   description: '',
   descriptionSx: {},
+  disableCloseButton: false,
   height: '358px',
   mobileHeight: '58vh',
+  shouldRenderSwiperOnMobile: true,
   title: '',
-  titleSx: {},
-  disableCloseButton: false
+  titleSx: {}
 };
 
 export default memo(Modal);

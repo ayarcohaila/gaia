@@ -103,13 +103,7 @@ const Browse = () => {
       <Grid container alignItems="center" justifyContent="center" mt={isMediumDevice && '24px'}>
         <Styled.Container>
           {!!showFilter && <Filters />}
-          <Grid
-            item
-            container
-            direction="row"
-            spacing="16px"
-            justifyContent="center"
-            alignItems="center">
+          <Grid item container direction="row" spacing="16px" height="fit-content">
             {loading
               ? new Array(10).fill(null).map((_, index) => (
                   <Grid

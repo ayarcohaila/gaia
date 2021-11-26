@@ -2,7 +2,8 @@ export const initialState = {
   appliedFiltersCount: 0,
   minPrice: '',
   maxPrice: '',
-  selectedCollections: []
+  selectedCollections: [],
+  selectedProperties: []
 };
 
 export const ACTION_TYPE = {
@@ -14,10 +15,13 @@ export const ACTION_TYPE = {
 export function reducer(state, action) {
   switch (action.type) {
     case ACTION_TYPE.APPLY_FILTERS: {
-      const { maxPrice, minPrice, selectedCollections } = state;
+      const { maxPrice, minPrice, selectedCollections, selectedProperties } = state;
       const priceCount = minPrice || maxPrice ? 1 : 0;
       const collectionCount = selectedCollections.length ? 1 : 0;
-      return { ...state, appliedFiltersCount: priceCount + collectionCount };
+      return {
+        ...state,
+        appliedFiltersCount: priceCount + collectionCount + selectedProperties.length
+      };
     }
 
     case ACTION_TYPE.CLEAR_FILTERS:

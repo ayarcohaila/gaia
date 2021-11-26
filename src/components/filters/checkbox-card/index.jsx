@@ -52,7 +52,7 @@ const CheckboxCard = ({
 CheckboxCard.propTypes = {
   containerProps: PropTypes.object,
   isSelected: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   labelProps: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   renderIcon: PropTypes.func
