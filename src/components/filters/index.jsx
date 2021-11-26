@@ -37,7 +37,7 @@ const Filters = () => {
     [dispatch]
   );
 
-  const handleCheckSingle = useCallback(
+  const handleSingleCheck = useCallback(
     (filter, value) => {
       dispatch({
         type: ACTION_TYPE.SET_FILTER,
@@ -50,7 +50,7 @@ const Filters = () => {
     [dispatch]
   );
 
-  const handleCheckMulti = useCallback(
+  const handleMultipleCheck = useCallback(
     (filterName, option) => {
       const isOptionAnObject = !!option?.id;
       const filterArray = state[filterName];
@@ -115,7 +115,7 @@ const Filters = () => {
               <CheckboxCard
                 containerProps={{ sx: { mb: 1 } }}
                 isSelected={state[id] === option?.id}
-                onChange={() => handleCheckSingle(id, option.id)}
+                onChange={() => handleSingleCheck(id, option.id)}
                 label={option?.label}
               />
             </Box>
@@ -126,7 +126,7 @@ const Filters = () => {
               <CheckboxCard
                 containerProps={{ sx: { mb: 1 } }}
                 isSelected={!!state[id].find(collection => collection.id === option?.id)}
-                onChange={() => handleCheckMulti(id, option)}
+                onChange={() => handleMultipleCheck(id, option)}
                 label={option?.label}
               />
             </Box>
