@@ -56,8 +56,12 @@ const Header = ({ handleShowFilters, showFilter, totalShowing }) => {
 
 Header.propTypes = {
   handleShowFilters: PropTypes.func.isRequired,
-  totalShowing: PropTypes.number.isRequired,
+  totalShowing: PropTypes.number,
   showFilter: PropTypes.bool.isRequired
+};
+
+Header.defaultProps = {
+  totalShowing: 0
 };
 
 export default React.memo(Header);
