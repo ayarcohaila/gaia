@@ -168,8 +168,8 @@ const GET_SINGLE_NFTS_FOR_SALE = gql`
 `;
 
 const GET_MARKETPLACE_NFTS = gql`
-  query getMarketplaceNFTs($offset: Int!, $limit: Int!) {
-    nft(where: {}, offset: $offset, limit: $limit) {
+  query getMarketplaceNFTs {
+    nft {
       asset_id
       mint_number
       owner
