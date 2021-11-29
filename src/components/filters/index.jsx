@@ -14,7 +14,7 @@ import * as Styled from './styles';
 import { capitalize } from 'lodash';
 
 const Filters = () => {
-  const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
+  const { isExtraSmallDevice, isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { appliedFiltersCount, minPrice, maxPrice, collections, properties } = state;
@@ -122,7 +122,7 @@ const Filters = () => {
           ));
         case FILTERS_TYPES.MULTI:
           return options.map(option => (
-            <Box key={option?.id} mx="auto" width={isSmallDevice ? '90%' : '100%'}>
+            <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
               <CheckboxCard
                 containerProps={{ sx: { mb: 1 } }}
                 isSelected={!!state[id].find(collection => collection.id === option?.id)}
@@ -135,12 +135,12 @@ const Filters = () => {
           break;
       }
     },
-    [isSmallDevice, maxPrice, minPrice, collections, state]
+    [isMediumDevice, maxPrice, minPrice, collections, state]
   );
 
   const renderContent = useMemo(
     () => (
-      <Styled.Content height="fit-content" width={isSmallDevice ? '80%' : 'auto'}>
+      <Styled.Content height="fit-content" width={isMediumDevice ? '80%' : 'auto'}>
         <Grid p="20px 22px 20px 12px">
           {FILTERS.map((filter, index) => (
             <Accordion
@@ -184,7 +184,7 @@ const Filters = () => {
         </Grid>
       </Styled.Content>
     ),
-    [isSmallDevice, renderFilterContent, properties, collections]
+    [isMediumDevice, renderFilterContent, properties, collections]
   );
 
   const renderMobileContent = useMemo(
@@ -241,22 +241,24 @@ const Filters = () => {
 
   return (
     <>
-      {isSmallDevice ? (
+      {isMediumDevice ? (
         <Styled.FloatButton endIcon={<FiltersIcon />} onClick={toggleMobileModal}>
           Filters {!!appliedFiltersCount && `(${appliedFiltersCount})`}
         </Styled.FloatButton>
       ) : (
         renderContent
       )}
-      {isSmallDevice && (
+      {isMediumDevice && (
         <Modal
           arrowSx={{ top: -70 }}
           asset={null}
           contentSx={{ justifyContent: 'flex-start' }}
           mobileHeight={isExtraSmallDevice ? '85vh' : '77.5vh'}
+          height={isMediumDevice ? '464px' : '358px'}
           open={isMobileModalOpen}
           onClose={toggleMobileModal}
-          shouldRenderSwiperOnMobile>
+          shouldRenderSwiperOnMobile
+          marginTop="188px">
           {renderMobileContent}
           <Styled.BottomBar container>
             <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>

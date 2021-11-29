@@ -7,7 +7,7 @@ export const Container = styled('div')(({ theme }) => ({
   padding: '0 80px',
   maxWidth: '1800px',
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     padding: '0 20px'
   }
 }));

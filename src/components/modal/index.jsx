@@ -37,9 +37,10 @@ const Modal = ({
   title,
   titleSx,
   disableCloseButton,
+  marginTop,
   ...props
 }) => {
-  const { isSmallDevice } = useBreakpoints();
+  const { isSmallDevice, isMediumDevice } = useBreakpoints();
   const {
     palette: { grey }
   } = useTheme();
@@ -52,8 +53,11 @@ const Modal = ({
 
   const renderContent = () => (
     <Styled.Container mobileHeight={mobileHeight}>
-      <Styled.Content height={isSmallDevice ? mobileHeight : height} {...containerProps}>
-        {isSmallDevice && (
+      <Styled.Content
+        marginTop={marginTop}
+        height={isSmallDevice ? mobileHeight : height}
+        {...containerProps}>
+        {(isSmallDevice || isMediumDevice) && (
           <IconButton
             onClick={onClose}
             sx={{ position: 'absolute', left: '50%', marginLeft: '-24px', top: -135, ...arrowSx }}>
@@ -168,6 +172,7 @@ Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   titleSx: PropTypes.object,
+  marginTop: PropTypes.string,
   shouldRenderSwiperOnMobile: PropTypes.bool
 };
 
@@ -186,7 +191,8 @@ Modal.defaultProps = {
   mobileHeight: '58vh',
   shouldRenderSwiperOnMobile: true,
   title: '',
-  titleSx: {}
+  titleSx: {},
+  marginTop: '0px'
 };
 
 export default memo(Modal);

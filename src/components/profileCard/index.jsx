@@ -17,7 +17,7 @@ import * as Styled from './styled';
 import { COLLECTIONS_NAME } from '../../../collections_setup';
 
 const ProfileCard = ({ data, isFromBrowser }) => {
-  const { isMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
   const { user } = useAuth();
   const router = useRouter();
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -109,8 +109,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
   const renderContent = () => (
     <Styled.CustomCard
       sx={{
-        cursor: data.mystery ? 'auto' : 'pointer',
-        width: isMediumDevice ? '335px' : '365px'
+        cursor: data.mystery ? 'auto' : 'pointer'
       }}>
       <Styled.CustomCardHeader
         avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}
@@ -119,9 +118,12 @@ const ProfileCard = ({ data, isFromBrowser }) => {
       />
       <Skeleton
         variant="rect"
-        // width="275px"
-        height={275}
-        sx={{ borderRadius: '20px', display: imgLoaded && 'none' }}
+        height={isExtraSmallDevice ? '250px' : isMediumDevice ? '303px' : '275px'}
+        sx={{
+          borderRadius: '20px',
+          width: isExtraSmallDevice ? '250px' : isMediumDevice ? '303px' : '275px',
+          display: imgLoaded && 'none'
+        }}
       />
       {data.collection_name === COLLECTIONS_NAME.BRYSON && !data.mystery ? (
         <Grid sx={{ display: !imgLoaded && 'none' }}>
@@ -135,7 +137,11 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         </Grid>
       ) : (
         <CardMedia
-          sx={{ borderRadius: '20px', display: !imgLoaded && 'none' }}
+          sx={{
+            borderRadius: '20px',
+            width: isMediumDevice ? '303' : '275',
+            display: !imgLoaded && 'none'
+          }}
           component="img"
           alt="Nft asset"
           height={isMediumDevice ? '303' : '275'}
