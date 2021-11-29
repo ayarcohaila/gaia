@@ -1,11 +1,11 @@
-import { Fragment, memo, useCallback, useMemo, useReducer } from 'react';
+import { memo, useCallback, useEffect, useMemo, useReducer } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FilterList as FiltersIcon } from '@mui/icons-material';
-
+import axios from 'axios';
 import { Button } from '~/base';
 import { useBreakpoints, useToggle } from '~/hooks';
 import { Accordion, Modal } from '..';
-
+import { useAppContext } from '~/context';
 import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from './constants';
 import CheckboxCard from './checkbox-card';
 import InputRangeGroup from './input-range-group';
@@ -18,6 +18,7 @@ const Filters = () => {
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { appliedFiltersCount, minPrice, maxPrice, collections, properties } = state;
+  const { handleAppData } = useAppContext();
 
   const handleApplyFilters = useCallback(() => {
     dispatch({ type: ACTION_TYPE.APPLY_FILTERS });
@@ -49,6 +50,16 @@ const Filters = () => {
     },
     [dispatch]
   );
+
+  const getNfts = useCallback(async () => {
+    handleAppData({ marketplaceLoading: true });
+    const result = await axios.get(`/api/marketplace`);
+    handleAppData({ marketplaceNfts: result.data.nfts, marketplaceLoading: false });
+  }, []);
+
+  useEffect(() => {
+    getNfts();
+  }, [getNfts]);
 
   const handleMultipleCheck = useCallback(
     (filterName, option) => {

@@ -167,6 +167,26 @@ const GET_SINGLE_NFTS_FOR_SALE = gql`
   }
 `;
 
+const GET_MARKETPLACE_NFTS = gql`
+  query getMarketplaceNFTs {
+    nft {
+      asset_id
+      mint_number
+      owner
+      is_for_sale
+      collection_id
+      template {
+        metadata
+      }
+      sale_offers {
+        listing_resource_id
+        price
+        status
+      }
+    }
+  }
+`;
+
 export {
   GET_NFTS,
   GET_NFTS_IDS,
@@ -176,5 +196,6 @@ export {
   GET_COLLECTION_BY_ID,
   GET_NFTS_BY_ADDRESS,
   GET_NFTS_FOR_SALE,
-  GET_SINGLE_NFTS_FOR_SALE
+  GET_SINGLE_NFTS_FOR_SALE,
+  GET_MARKETPLACE_NFTS
 };

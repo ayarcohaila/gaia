@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { BurstIcon } from '~/base';
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
@@ -7,9 +8,8 @@ import { Breadcrumbs } from '~/components';
 import * as Styled from './styles';
 import { useBreakpoints } from '~/hooks';
 
-const Header = ({ handleShowFilters }) => {
+const Header = ({ handleShowFilters, showFilter, totalShowing }) => {
   const { isMediumDevice } = useBreakpoints();
-  const [totalShowing] = useState(1023);
 
   const breadcrumbsLinks = useMemo(
     () => [
@@ -39,7 +39,7 @@ const Header = ({ handleShowFilters }) => {
             <>
               <Styled.CustomButton onClick={handleShowFilters}>
                 <Image src="/TuneIcon.svg" alt="tuneIcon" width="18" height="18" />
-                <Styled.Text ml="10px">Show filters</Styled.Text>
+                <Styled.Text ml="10px">{`${showFilter ? 'Hide' : 'Show'} filters`}</Styled.Text>
               </Styled.CustomButton>
               <Styled.Divider />
             </>
@@ -54,4 +54,10 @@ const Header = ({ handleShowFilters }) => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  handleShowFilters: PropTypes.func.isRequired,
+  totalShowing: PropTypes.number.isRequired,
+  showFilter: PropTypes.bool.isRequired
+};
+
+export default React.memo(Header);

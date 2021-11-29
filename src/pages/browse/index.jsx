@@ -1,119 +1,81 @@
 import { Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
-import { BrowseHeader, Filters, ProfileCard, Seo } from '~/components';
+import CardSkeletonLoader from '~/base/card-skeleton-loader';
+import { BrowseHeader, Filters, BrowseCard, Seo } from '~/components';
 import { useBreakpoints } from '~/hooks';
+import { useAppContext } from '~/context';
+import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from '~/styles/browse-page/styles';
 
-// TO-DO: remove after integration with backend
-const NFTList = [
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  }
-];
+const DEFAULT_LIST_SIZE = 40;
 
 const Browse = () => {
-  const [nftList, setNftList] = useState([]);
   const [showFilter, setShowFilter] = useState(true);
+  const [cursor, setCursor] = useState(0);
+  const [nftList, setNftList] = useState([]);
+
   const { isMediumDevice } = useBreakpoints();
 
-  useEffect(() => {
-    setNftList(NFTList);
-  }, []);
+  const {
+    appData: { marketplaceLoading, marketplaceNfts }
+  } = useAppContext();
 
   const handleShowFilters = () => {
     setShowFilter(!showFilter);
   };
 
+  const filteredNfts = useMemo(() => {
+    return (
+      marketplaceNfts?.filter(nft =>
+        Object.values(COLLECTION_LIST_CONFIG).find(item => item.id === nft.collection_id)
+      ) || []
+    );
+  }, [marketplaceNfts]);
+
+  const cursorLimit = useMemo(
+    () => Math.ceil(filteredNfts?.length / DEFAULT_LIST_SIZE) - 1,
+    [filteredNfts]
+  );
+
+  const handleLoadMore = () => {
+    setCursor(prevState => prevState + 1);
+  };
+
+  useEffect(() => {
+    if (cursor) {
+      const list = [...filteredNfts];
+      setNftList(list?.splice(0, DEFAULT_LIST_SIZE * (cursor + 1)));
+    } else {
+      const list = [...filteredNfts];
+      setNftList(list?.splice(0, DEFAULT_LIST_SIZE));
+    }
+  }, [cursor, filteredNfts]);
+
   return (
     <>
       <Seo title="Browse All NFTs" />
-      <BrowseHeader handleShowFilters={handleShowFilters} />
+      <BrowseHeader
+        handleShowFilters={handleShowFilters}
+        showFilter={showFilter}
+        totalShowing={filteredNfts?.length}
+      />
       <Grid container alignItems="center" justifyContent="center" mt={isMediumDevice && '24px'}>
         <Styled.Container>
-          {(!!showFilter || isMediumDevice) && <Filters />}
-          <Grid
-            xs={!showFilter || isMediumDevice ? 12 : 9}
-            sx={{
-              display: 'flex',
-              gap: '16px',
-              flexWrap: 'wrap',
-              justifyContent: 'center'
-            }}>
-            {nftList.map((nft, index) => (
-              <ProfileCard data={nft} isFromBrowser key={index} />
-            ))}
+          {!!showFilter && <Filters />}
+          <Grid sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {marketplaceLoading
+              ? new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />)
+              : nftList?.map(nft => <BrowseCard key={nft.id} data={nft} />)}
           </Grid>
         </Styled.Container>
       </Grid>
+      {cursorLimit > cursor && (
+        <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 0' }}>
+          <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
+        </Grid>
+      )}
     </>
   );
 };
