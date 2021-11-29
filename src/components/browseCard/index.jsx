@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import { VideoPlayer } from '~/components';
-// import { useBreakpoints } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { COLLECTIONS_NAME, COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
