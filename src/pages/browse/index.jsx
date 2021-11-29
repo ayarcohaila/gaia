@@ -61,7 +61,7 @@ const Browse = () => {
         showFilter={showFilter}
         totalShowing={filteredNfts?.length}
       />
-      <Grid container alignItems="center" justifyContent="center" mt={isMediumDevice && '24px'}>
+      <Grid container alignItems="center" mt={isMediumDevice && '24px'} sx={{ minHeight: 350 }}>
         <Styled.Container>
           {!!showFilter && <Filters />}
           <Grid sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
