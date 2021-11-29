@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { CardContent, CardMedia, Avatar, Skeleton, Grid } from '@mui/material';
+import React, { useState } from 'react';
+import { CardContent, CardMedia, Avatar, Skeleton } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
@@ -16,27 +16,9 @@ const BrowseCard = ({ data }) => {
     item => item.id === data.collection_id
   );
 
-  const videoElement = useMemo(
-    () => document.getElementById(`video-${data.asset_id}`),
-    [data.asset_id]
-  );
-
-  const handleVideoLoad = () => {
-    setImgLoaded(true);
-  };
-
   const handleMoreIcon = event => {
     event.preventDefault();
   };
-
-  useEffect(() => {
-    if (videoElement) {
-      videoElement?.addEventListener('loadeddata', handleVideoLoad());
-    }
-    return () => {
-      videoElement?.removeEventListener('loadeddata', handleVideoLoad());
-    };
-  }, [videoElement]);
 
   const renderContent = () => (
     <Styled.CustomCard
@@ -60,15 +42,12 @@ const BrowseCard = ({ data }) => {
 
       {currentCollection.collectionName === COLLECTIONS_NAME.BRYSON &&
       !currentCollection.mystery ? (
-        <Grid sx={{ display: !imgLoaded && 'none' }}>
-          <VideoPlayer
-            src={formatIpfsImg(data?.template.metadata.video)}
-            poster={formatIpfsImg(data?.template.metadata.img)}
-            height={['275px', '275px', '275px', '275px']}
-            width={['275px', '275px', '275px', '275px']}
-            id={`video-${data.asset_id}`}
-          />
-        </Grid>
+        <VideoPlayer
+          src={formatIpfsImg(data?.template.metadata.video)}
+          poster={formatIpfsImg(data?.template.metadata.img)}
+          height={['275px', '275px', '275px', '275px']}
+          width={['275px', '275px', '275px', '275px']}
+        />
       ) : (
         <>
           <Skeleton
