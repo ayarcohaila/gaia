@@ -57,12 +57,7 @@ const BrowseCard = ({ data }) => {
         title={currentCollection?.collectionName.toUpperCase()}
         action={<MoreHorizIcon onClick={handleMoreIcon} />}
       />
-      <Skeleton
-        variant="rect"
-        height={275}
-        width={275}
-        sx={{ borderRadius: '20px', margin: '0 auto', display: imgLoaded && 'none' }}
-      />
+
       {currentCollection.collectionName === COLLECTIONS_NAME.BRYSON &&
       !currentCollection.mystery ? (
         <Grid sx={{ display: !imgLoaded && 'none' }}>
@@ -75,24 +70,32 @@ const BrowseCard = ({ data }) => {
           />
         </Grid>
       ) : (
-        <CardMedia
-          sx={{
-            borderRadius: '20px',
-            width: '275px',
-            height: '275px',
-            margin: '0 auto',
-            display: !imgLoaded && 'none'
-          }}
-          component="img"
-          alt="Nft asset"
-          height={275}
-          onLoad={() => setImgLoaded(true)}
-          src={
-            currentCollection?.mystery
-              ? '/images/mystery-nft.gif'
-              : formatIpfsImg(data?.template?.metadata.img)
-          }
-        />
+        <>
+          <Skeleton
+            variant="rect"
+            height={275}
+            width={275}
+            sx={{ borderRadius: '20px', margin: '0 auto', display: imgLoaded && 'none' }}
+          />
+          <CardMedia
+            sx={{
+              borderRadius: '20px',
+              width: '275px',
+              height: '275px',
+              margin: '0 auto',
+              display: !imgLoaded && 'none'
+            }}
+            component="img"
+            alt="Nft asset"
+            height={275}
+            onLoad={() => setImgLoaded(true)}
+            src={
+              currentCollection?.mystery
+                ? '/images/mystery-nft.gif'
+                : formatIpfsImg(data?.template?.metadata.img)
+            }
+          />
+        </>
       )}
       <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
         <Styled.NFTText>{data?.template?.metadata?.title}</Styled.NFTText>
