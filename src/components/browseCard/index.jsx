@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardContent, CardMedia, Avatar, Skeleton } from '@mui/material';
+import { CardMedia, Avatar, Skeleton } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
@@ -7,10 +7,12 @@ import Link from 'next/link';
 import { VideoPlayer } from '~/components';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { COLLECTIONS_NAME, COLLECTION_LIST_CONFIG } from '~/../collections_setup';
+import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styled';
 
 const BrowseCard = ({ data }) => {
+  const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const [imgLoaded, setImgLoaded] = useState(false);
   const currentCollection = Object.values(COLLECTION_LIST_CONFIG)?.find(
     item => item.id === data.collection_id
@@ -19,6 +21,10 @@ const BrowseCard = ({ data }) => {
   const handleMoreIcon = event => {
     event.preventDefault();
   };
+
+  const shouldAddExtraMargin =
+    currentCollection.collectionName === COLLECTIONS_NAME.BRYSON &&
+    (isSmallDevice || !isMediumDevice);
 
   const renderContent = () => (
     <Styled.CustomCard
@@ -54,14 +60,14 @@ const BrowseCard = ({ data }) => {
             variant="rect"
             height={275}
             width={275}
-            sx={{ borderRadius: '20px', margin: '0 auto', display: imgLoaded && 'none' }}
+            sx={{ borderRadius: '20px', margin: '0 auto 16px', display: imgLoaded && 'none' }}
           />
           <CardMedia
             sx={{
               borderRadius: '20px',
               width: '276px',
               height: '276px',
-              margin: '0 auto',
+              margin: '0 auto 16px',
               display: !imgLoaded && 'none'
             }}
             component="img"
@@ -76,16 +82,20 @@ const BrowseCard = ({ data }) => {
           />
         </>
       )}
-      <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-        <Styled.NFTText>{data?.template?.metadata?.title}</Styled.NFTText>
-        <Styled.NFTDescription>{data?.template?.metadata?.description}</Styled.NFTDescription>
+      <Styled.CustomCardContent>
+        <Styled.NFTText
+          sx={{
+            marginTop: shouldAddExtraMargin && '16px'
+          }}>
+          {data?.template?.metadata?.title}
+        </Styled.NFTText>
         {data?.is_for_sale && (
           <Styled.NFTPrice>
             ${' '}
             {Number(data?.sale_offers?.find(item => item?.status === 'active')?.price)?.toFixed(2)}
           </Styled.NFTPrice>
         )}
-      </CardContent>
+      </Styled.CustomCardContent>
     </Styled.CustomCard>
   );
 
