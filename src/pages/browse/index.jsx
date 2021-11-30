@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import { useState, useMemo } from 'react';
 
 import CardSkeletonLoader from '~/base/card-skeleton-loader';
@@ -13,6 +13,9 @@ const Browse = () => {
   const [showFilter, setShowFilter] = useState(true);
   const [orderByUpdate, setOrderByUpdate] = useState(null);
   const [cursor, setCursor] = useState(0);
+  const {
+    palette: { grey }
+  } = useTheme();
 
   const {
     appData: { marketplaceLoading, marketplaceNfts }
@@ -48,11 +51,11 @@ const Browse = () => {
       return new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />);
     }
 
-    return paginatedList.length ? (
+    return !paginatedList.length ? (
       paginatedList?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)
     ) : (
-      <Grid sx={{ width: '100%' }}>
-        <Typography variant="body" sx={{ fontSize: '20px', width: '100%', textAlign: 'center' }}>
+      <Grid sx={{ width: '100%', textAlign: 'center', marginTop: '96px' }}>
+        <Typography variant="body" sx={{ fontSize: '20px', width: '100%', color: grey[600] }}>
           No results found.
         </Typography>
       </Grid>
