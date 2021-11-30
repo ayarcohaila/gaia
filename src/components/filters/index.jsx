@@ -81,10 +81,10 @@ const Filters = ({ orderByUpdate }) => {
     });
 
     if (minPrice) {
-      priceFilters.push({ sale_offers: { price: { _gte: minPrice } } });
+      priceFilters.push({ sale_offers: { parsed_price: { _gte: minPrice } } });
     }
     if (maxPrice) {
-      priceFilters.push({ sale_offers: { price: { _lte: maxPrice } } });
+      priceFilters.push({ sale_offers: { parsed_price: { _lte: maxPrice } } });
     }
 
     const collectionsFilter = collections?.length
