@@ -6,7 +6,7 @@ export const CustomCard = styled(Card)(({ theme: { breakpoints } }) => ({
   backgroundColor: 'white',
   boxShadow: '0 0 0 0',
   position: 'relative',
-  width: '365px',
+  width: '308px',
   height: '448px',
   boxSizing: 'border-box',
 
@@ -44,7 +44,12 @@ export const NFTDescription = styled(Typography)(({ theme: { palette } }) => ({
   fontWeight: 500,
   lineHeight: '1.23',
   color: palette.grey[600],
-  marginTop: '2px'
+  marginTop: '2px',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  overflow: 'hidden',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 2
 }));
 
 export const NFTPrice = styled(Typography)(() => ({

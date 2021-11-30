@@ -45,8 +45,8 @@ const BrowseCard = ({ data }) => {
         <VideoPlayer
           src={formatIpfsImg(data?.template.metadata.video)}
           poster={formatIpfsImg(data?.template.metadata.img)}
-          height={['275px', '275px', '275px', '275px']}
-          width={['275px', '275px', '275px', '275px']}
+          height={['276px', '276px', '276px', '276px']}
+          width={['276px', '276px', '276px', '276px']}
         />
       ) : (
         <>
@@ -59,8 +59,8 @@ const BrowseCard = ({ data }) => {
           <CardMedia
             sx={{
               borderRadius: '20px',
-              width: '275px',
-              height: '275px',
+              width: '276px',
+              height: '276px',
               margin: '0 auto',
               display: !imgLoaded && 'none'
             }}
