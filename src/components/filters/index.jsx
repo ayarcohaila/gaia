@@ -160,8 +160,8 @@ const Filters = ({ orderByUpdate }) => {
               <InputRangeGroup
                 max={maxPrice}
                 min={minPrice}
-                maxPlaceholder="(Flow) Max"
-                minPlaceholder="(Flow) Min"
+                maxPlaceholder="(USD) Max"
+                minPlaceholder="(USD) Min"
                 setMax={value => setFilter('maxPrice', value)}
                 setMin={value => setFilter('minPrice', value)}
               />
@@ -200,7 +200,7 @@ const Filters = ({ orderByUpdate }) => {
   const renderContent = useMemo(
     () => (
       <Styled.Content height="fit-content" width={isMediumDevice ? '80%' : 'auto'}>
-        <Grid p="20px 22px 20px 12px" sx={{ width: '302px', boxSizing: 'border-box' }}>
+        <Grid p="20px 22px 20px 12px" sx={{ boxSizing: 'border-box' }}>
           {FILTERS.map((filter, index) => (
             <Accordion
               key={`$${filter?.id}-${index}`}
@@ -268,7 +268,7 @@ const Filters = ({ orderByUpdate }) => {
               <>
                 <Divider sx={{ mt: 4 }} />
                 <Typography mt={2} variant="h4" textAlign="center">
-                  {`${capitalize(currentCollection.id)} Properties`}
+                  {`${capitalize(currentCollection?.label)} Properties`}
                 </Typography>
                 <Box py="16px">
                   {Object.keys(currentCollection.properties).map((property, index) => (
@@ -333,7 +333,11 @@ const Filters = ({ orderByUpdate }) => {
 };
 
 Filters.propTypes = {
-  orderByUpdate: PropTypes.bool.isRequired
+  orderByUpdate: PropTypes.bool
+};
+
+Filters.defaultProps = {
+  orderByUpdate: null
 };
 
 export default memo(Filters);

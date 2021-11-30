@@ -27,7 +27,6 @@ export const BottomBar = styled(Grid)(() => ({
 export const Content = styled(Box)(() => ({
   backgroundColor: '#fff',
   borderRadius: '16px',
-  marginRight: '22px',
   maxWidth: '302px'
 }));
 

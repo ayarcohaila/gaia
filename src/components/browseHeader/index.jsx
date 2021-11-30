@@ -64,12 +64,13 @@ Header.propTypes = {
   totalShowing: PropTypes.number,
   handleShowFilters: PropTypes.func.isRequired,
   showFilter: PropTypes.bool.isRequired,
-  orderByUpdate: PropTypes.bool.isRequired,
+  orderByUpdate: PropTypes.bool,
   handleOrderByUpdate: PropTypes.func.isRequired
 };
 
 Header.defaultProps = {
-  totalShowing: 0
+  totalShowing: 0,
+  orderByUpdate: null
 };
 
 export default React.memo(Header);

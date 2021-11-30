@@ -1,9 +1,8 @@
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { useState, useMemo } from 'react';
 
 import CardSkeletonLoader from '~/base/card-skeleton-loader';
 import { BrowseHeader, Filters, BrowseCard, Seo } from '~/components';
-import { useBreakpoints } from '~/hooks';
 import { useAppContext } from '~/context';
 
 import * as Styled from '~/styles/browse-page/styles';
@@ -14,8 +13,6 @@ const Browse = () => {
   const [showFilter, setShowFilter] = useState(true);
   const [orderByUpdate, setOrderByUpdate] = useState(null);
   const [cursor, setCursor] = useState(0);
-
-  const { isMediumDevice } = useBreakpoints();
 
   const {
     appData: { marketplaceLoading, marketplaceNfts }
@@ -46,6 +43,19 @@ const Browse = () => {
     return [];
   }, [marketplaceNfts, cursor]);
 
+  const renderList = useMemo(() => {
+    if (marketplaceLoading) {
+      return new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />);
+    }
+
+    return paginatedList.length ? (
+      paginatedList?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)
+    ) : (
+      <Grid sx={{ width: '100%' }}>
+        <Typography sx={{ width: '100%', textAlign: 'center' }}>No results found</Typography>
+      </Grid>
+    );
+  }, [marketplaceLoading]);
   return (
     <>
       <Seo title="Browse All NFTs" />
@@ -56,23 +66,19 @@ const Browse = () => {
         handleOrderByUpdate={handleOrderByUpdate}
         totalShowing={marketplaceNfts?.length}
       />
-      <Grid container alignItems="center" mt={isMediumDevice && '24px'} sx={{ minHeight: 350 }}>
-        <Styled.Container>
-          {!!showFilter && <Filters orderByUpdate={orderByUpdate} />}
-          <Grid
-            sx={{
-              display: 'flex',
-              gap: '16px',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignContent: 'baseline'
-            }}>
-            {marketplaceLoading
-              ? new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />)
-              : paginatedList?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)}
-          </Grid>
-        </Styled.Container>
-      </Grid>
+      <Styled.Wrapper container alignItems="center" sx={{ minHeight: 350 }}>
+        {!!showFilter && <Filters orderByUpdate={orderByUpdate} />}
+        <Grid
+          sx={{
+            display: 'flex',
+            gap: '16px',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignContent: 'baseline'
+          }}>
+          {renderList}
+        </Grid>
+      </Styled.Wrapper>
       {cursorLimit > cursor && (
         <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 0' }}>
           <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>

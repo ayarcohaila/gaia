@@ -1,14 +1,20 @@
-import { Button, styled } from '@mui/material';
+import { Button, Grid, styled } from '@mui/material';
 
-export const Container = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
+export const Wrapper = styled(Grid)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '302px auto',
   padding: '0 80px',
+  boxSizing: 'border-box',
   maxWidth: '1800px',
+  width: '100%',
+  gap: '22px',
+  alignItems: 'baseline',
 
   [theme.breakpoints.down('md')]: {
-    padding: '0 20px'
+    padding: '0 20px',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: '24px'
   }
 }));
 
