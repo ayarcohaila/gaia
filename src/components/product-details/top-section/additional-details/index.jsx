@@ -3,8 +3,9 @@ import { Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import { filterFieldsFromObject } from '~/utils/object';
-import { ATTRIBUTES_ORDER } from '~/utils/constants';
+import { ATTRIBUTES_ORDER, BALLERZ_COMPUTED_PROPERTIES } from '~/utils/constants';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+import { useCollectionConfig } from '~/hooks';
 
 import * as Styled from './styles';
 
@@ -12,7 +13,10 @@ const AdditionalDetails = ({ data }) => {
   const {
     palette: { grey }
   } = useTheme();
-  const excludeAdditionalFields = ['id', 'img', 'uri', 'title', 'description'];
+
+  const { config, collectionsNames } = useCollectionConfig();
+
+  const excludeAdditionalFields = ['id', 'img', 'uri', 'title', 'video', 'description'];
 
   const filteredData = filterFieldsFromObject(excludeAdditionalFields, {
     ...data,
@@ -26,6 +30,7 @@ const AdditionalDetails = ({ data }) => {
       ),
     [filteredData]
   );
+
   return (
     <Styled.Container>
       {parsedData.map(
@@ -42,13 +47,20 @@ const AdditionalDetails = ({ data }) => {
               <Typography color={grey[600]} variant="subtitle1" lineHeight="20px">
                 {value}
               </Typography>
-              {/* TODO: NEED CALCULATE IT */}
               <Typography
                 color={grey[500]}
                 variant="body1"
                 fontWeight="400"
-                sx={{ letterSpacing: '0px' }}>
-                4.5% have this trait
+                sx={{
+                  letterSpacing: '0px'
+                }}>
+                {config.collectionName === collectionsNames.BALLERZ
+                  ? (
+                      (BALLERZ_COMPUTED_PROPERTIES[key][value] / config.collectionSize) *
+                      100
+                    ).toFixed(2)
+                  : 100}
+                % have this trait
               </Typography>
             </Styled.BoxData>
           )

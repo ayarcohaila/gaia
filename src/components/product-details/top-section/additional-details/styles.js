@@ -13,6 +13,8 @@ const BoxData = styled(Grid)(({ theme: { palette } }) => ({
   justifyContent: 'center',
   backgroundColor: palette.grey[200],
   borderRadius: '16px',
+  padding: '8px',
+  boxSizing: 'border-box',
   height: '70px'
 }));
 
