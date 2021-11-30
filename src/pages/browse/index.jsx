@@ -52,7 +52,9 @@ const Browse = () => {
       paginatedList?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)
     ) : (
       <Grid sx={{ width: '100%' }}>
-        <Typography sx={{ width: '100%', textAlign: 'center' }}>No results found</Typography>
+        <Typography variant="body" sx={{ fontSize: '20px', width: '100%', textAlign: 'center' }}>
+          No results found.
+        </Typography>
       </Grid>
     );
   }, [marketplaceLoading]);
