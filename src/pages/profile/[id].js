@@ -28,12 +28,14 @@ const Profile = () => {
       const ballerzList = result.data.ballerz?.map(item => ({
         ...item,
         collection_name: 'ballerz',
-        collection_picture: '/collections/ballerz/avatar.png'
+        collection_picture: '/collections/ballerz/avatar.png',
+        name: item?.name?.includes('#') ? item.name : `${item.name} #${item.id}`
       }));
       const brysonList = result.data.bryson?.map(item => ({
         ...item,
         collection_name: 'bryson',
-        collection_picture: '/collections/bryson/avatar.webp'
+        collection_picture: '/collections/bryson/avatar.webp',
+        name: item?.name?.includes('#') ? item.name : `${item.name} #${item.id}`
       }));
       const combinedList = ballerzList.concat(brysonList);
       setNftList(combinedList);
