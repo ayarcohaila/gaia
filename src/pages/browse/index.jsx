@@ -12,6 +12,7 @@ const DEFAULT_LIST_SIZE = 40;
 
 const Browse = () => {
   const [showFilter, setShowFilter] = useState(true);
+  const [orderByUpdate, setOrderByUpdate] = useState(null);
   const [cursor, setCursor] = useState(0);
 
   const { isMediumDevice } = useBreakpoints();
@@ -21,7 +22,11 @@ const Browse = () => {
   } = useAppContext();
 
   const handleShowFilters = () => {
-    setShowFilter(!showFilter);
+    setShowFilter(prevState => !prevState);
+  };
+
+  const handleOrderByUpdate = () => {
+    setOrderByUpdate(prevState => !prevState);
   };
 
   const cursorLimit = useMemo(
@@ -33,17 +38,27 @@ const Browse = () => {
     setCursor(prevState => prevState + 1);
   };
 
+  const paginatedList = useMemo(() => {
+    if (marketplaceNfts?.length) {
+      const list = [...marketplaceNfts];
+      return list?.splice(0, DEFAULT_LIST_SIZE * (cursor + 1));
+    }
+    return [];
+  }, [marketplaceNfts, cursor]);
+
   return (
     <>
       <Seo title="Browse All NFTs" />
       <BrowseHeader
         handleShowFilters={handleShowFilters}
         showFilter={showFilter}
+        orderByUpdate={orderByUpdate}
+        handleOrderByUpdate={handleOrderByUpdate}
         totalShowing={marketplaceNfts?.length}
       />
       <Grid container alignItems="center" mt={isMediumDevice && '24px'} sx={{ minHeight: 350 }}>
         <Styled.Container>
-          {!!showFilter && <Filters />}
+          {!!showFilter && <Filters orderByUpdate={orderByUpdate} />}
           <Grid
             sx={{
               display: 'flex',
@@ -54,7 +69,7 @@ const Browse = () => {
             }}>
             {marketplaceLoading
               ? new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />)
-              : marketplaceNfts?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)}
+              : paginatedList?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)}
           </Grid>
         </Styled.Container>
       </Grid>

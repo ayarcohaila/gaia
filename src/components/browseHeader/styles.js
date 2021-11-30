@@ -32,18 +32,23 @@ export const ContainerItem = styled('div')({
   justifyContent: 'center'
 });
 
-export const CustomButton = styled(Button)(({ theme }) => ({
-  margin: '0',
-  padding: '10px',
-  svg: {
-    color: theme.palette.grey[400]
-  },
+export const CustomButton = styled(Button, { shouldForwardProp: prop => prop !== 'active' })(
+  ({ active, theme: { palette } }) => ({
+    margin: '0',
+    padding: '10px 0 10px 10px',
+    svg: {
+      color: active ? palette.white.main : palette.grey[400]
+    },
 
-  p: {
-    fontWeight: 'bold',
-    textTransform: 'none'
-  }
-}));
+    backgroundColor: active && palette.primary.main,
+
+    p: {
+      fontWeight: 'bold',
+      textTransform: 'none',
+      color: active && palette.white.main
+    }
+  })
+);
 
 export const Divider = styled('div')(({ theme }) => ({
   height: '20px',

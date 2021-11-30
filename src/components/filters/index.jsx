@@ -2,7 +2,8 @@ import { memo, useCallback, useEffect, useMemo, useReducer } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FilterList as FiltersIcon } from '@mui/icons-material';
 import axios from 'axios';
-import { capitalize } from 'lodash';
+import { capitalize, debounce } from 'lodash';
+import PropTypes from 'prop-types';
 
 import { Button } from '~/base';
 import { useAppContext } from '~/context';
@@ -17,9 +18,10 @@ import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from './styles';
 
-const Filters = () => {
+const Filters = ({ orderByUpdate }) => {
   const { isExtraSmallDevice, isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const { appliedFiltersCount, status, minPrice, maxPrice, collections, properties } = state;
   const { handleAppData } = useAppContext();
@@ -55,13 +57,16 @@ const Filters = () => {
     [dispatch]
   );
 
-  const getNfts = useCallback(async filters => {
-    handleAppData({ marketplaceLoading: true });
-    const result = await axios.post(`/api/marketplace`, {
-      ...filters
-    });
-    handleAppData({ marketplaceNfts: result.data.nfts, marketplaceLoading: false });
-  }, []);
+  const getNfts = useCallback(
+    debounce(async filters => {
+      handleAppData({ marketplaceLoading: true });
+      const result = await axios.post(`/api/marketplace`, {
+        ...filters
+      });
+      handleAppData({ marketplaceNfts: result.data.nfts, marketplaceLoading: false });
+    }, 500),
+    []
+  );
 
   const appliedFilters = useMemo(() => {
     let priceFilters = [];
@@ -93,11 +98,12 @@ const Filters = () => {
       price: priceFilters,
       isForSale: status === 'buyNow' ? { _eq: true } : {},
       collections: collectionsFilter,
-      properties: propertiesFilters
+      properties: propertiesFilters,
+      orderUpdate: orderByUpdate === null ? null : 'desc'
     };
 
     return filters;
-  }, [collections, status, maxPrice, minPrice, properties]);
+  }, [collections, status, maxPrice, minPrice, properties, orderByUpdate]);
 
   useEffect(() => {
     getNfts(appliedFilters);
@@ -324,6 +330,10 @@ const Filters = () => {
       )}
     </>
   );
+};
+
+Filters.propTypes = {
+  orderByUpdate: PropTypes.bool.isRequired
 };
 
 export default memo(Filters);

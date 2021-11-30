@@ -173,6 +173,7 @@ const GET_MARKETPLACE_NFTS = gql`
     $price: [nft_bool_exp!]
     $collections: [nft_bool_exp!]
     $properties: [nft_template_bool_exp!]
+    $orderUpdate: order_by
   ) {
     nft(
       where: {
@@ -181,6 +182,7 @@ const GET_MARKETPLACE_NFTS = gql`
         is_for_sale: $isForSale
         template: { _or: $properties }
       }
+      order_by: { updated_at: $orderUpdate }
     ) {
       asset_id
       mint_number

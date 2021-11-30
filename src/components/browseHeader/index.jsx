@@ -8,7 +8,13 @@ import { Breadcrumbs } from '~/components';
 import * as Styled from './styles';
 import { useBreakpoints } from '~/hooks';
 
-const Header = ({ handleShowFilters, showFilter, totalShowing }) => {
+const Header = ({
+  handleShowFilters,
+  showFilter,
+  orderByUpdate,
+  handleOrderByUpdate,
+  totalShowing
+}) => {
   const { isMediumDevice } = useBreakpoints();
 
   const breadcrumbsLinks = useMemo(
@@ -44,7 +50,7 @@ const Header = ({ handleShowFilters, showFilter, totalShowing }) => {
               <Styled.Divider />
             </>
           )}
-          <Styled.CustomButton>
+          <Styled.CustomButton onClick={handleOrderByUpdate} active={orderByUpdate}>
             <Styled.Text>Most recent</Styled.Text>
             <ArrowDropDownRoundedIcon />
           </Styled.CustomButton>
@@ -55,9 +61,11 @@ const Header = ({ handleShowFilters, showFilter, totalShowing }) => {
 };
 
 Header.propTypes = {
-  handleShowFilters: PropTypes.func.isRequired,
   totalShowing: PropTypes.number,
-  showFilter: PropTypes.bool.isRequired
+  handleShowFilters: PropTypes.func.isRequired,
+  showFilter: PropTypes.bool.isRequired,
+  orderByUpdate: PropTypes.bool.isRequired,
+  handleOrderByUpdate: PropTypes.func.isRequired
 };
 
 Header.defaultProps = {
