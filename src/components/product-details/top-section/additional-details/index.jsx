@@ -1,18 +1,17 @@
 import { memo, useMemo } from 'react';
-import { Box, Grid, Typography, Link, useTheme } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import { useBreakpoints } from '~/hooks';
 import { filterFieldsFromObject } from '~/utils/object';
-import { convertCamelCaseToSentenceCase } from '~/utils/string';
 import { ATTRIBUTES_ORDER } from '~/utils/constants';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+
+import * as Styled from './styles';
 
 const AdditionalDetails = ({ data }) => {
   const {
     palette: { grey }
   } = useTheme();
-  const { isSmallDevice } = useBreakpoints();
   const excludeAdditionalFields = ['id', 'img', 'uri', 'title', 'description'];
 
   const filteredData = filterFieldsFromObject(excludeAdditionalFields, {
@@ -28,46 +27,33 @@ const AdditionalDetails = ({ data }) => {
     [filteredData]
   );
   return (
-    <Box bgcolor={grey[200]} borderRadius="14px" p={isSmallDevice ? '24px 22px' : '20px 32px'}>
+    <Styled.Container>
       {parsedData.map(
-        ([key, value], index) =>
+        ([key, value]) =>
           value !== '' && (
-            <Grid
-              alignItems="center"
-              container
-              justifyContent="space-between"
-              key={key}
-              mt={index ? 2.8 : 0}
-              width="90%">
-              <Typography color={grey[500]} variant="subtitle1" fontWeight="normal">
-                {convertCamelCaseToSentenceCase(key)}:
+            <Styled.BoxData key={key}>
+              <Typography
+                color={grey[500]}
+                variant="body1"
+                fontWeight="500"
+                sx={{ fontSize: '10px', letterSpacing: '0px' }}>
+                {key?.toUpperCase()}
               </Typography>
-              <Box width="35%">
-                {key === 'video' ? (
-                  <Link href={value} sx={{ textDecoration: 'none' }}>
-                    <Typography
-                      color={grey[600]}
-                      variant="subtitle1"
-                      textAlign="left"
-                      sx={{
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textAlign: 'left'
-                      }}>
-                      {value}
-                    </Typography>
-                  </Link>
-                ) : (
-                  <Typography color={grey[600]} variant="subtitle1" textAlign="left">
-                    {value}
-                  </Typography>
-                )}
-              </Box>
-            </Grid>
+              <Typography color={grey[600]} variant="subtitle1" lineHeight="20px">
+                {value}
+              </Typography>
+              {/* TODO: NEED CALCULATE IT */}
+              <Typography
+                color={grey[500]}
+                variant="body1"
+                fontWeight="400"
+                sx={{ letterSpacing: '0px' }}>
+                4.5% have this trait
+              </Typography>
+            </Styled.BoxData>
           )
       )}
-    </Box>
+    </Styled.Container>
   );
 };
 

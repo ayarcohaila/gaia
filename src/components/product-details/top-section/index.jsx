@@ -1,15 +1,14 @@
 import { memo, useMemo } from 'react';
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
-import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/components';
-import { useBreakpoints } from '~/hooks';
-
-import * as Styled from './styles';
 import Asset from './asset';
 import CollectionInfo from './collection-info';
-import { useRouter } from 'next/router';
-import { useCollectionConfig } from '~/hooks';
+import { useCollectionConfig, useBreakpoints } from '~/hooks';
+import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/components';
+
+import * as Styled from './styles';
 
 const ProductDetailsTopSection = ({ nft }) => {
   const {
@@ -77,7 +76,7 @@ const ProductDetailsTopSection = ({ nft }) => {
           defaultExpanded
           dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
           sx={{ my: 3, width: '100%' }}
-          title="Additional Details">
+          title="Properties">
           <AdditionalDetails data={metadata} />
         </Accordion>
         <Accordion
