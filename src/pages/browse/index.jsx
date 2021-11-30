@@ -51,7 +51,7 @@ const Browse = () => {
       return new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />);
     }
 
-    return !paginatedList.length ? (
+    return paginatedList.length ? (
       paginatedList?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)
     ) : (
       <Grid sx={{ width: '100%', textAlign: 'center', marginTop: '96px' }}>
