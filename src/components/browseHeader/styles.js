@@ -19,9 +19,8 @@ export const MainConteiner = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   width: '100%',
-  maxWidth: '1800px',
   boxSizing: 'border-box',
-  padding: '16px 80px 20px',
+  padding: '16px 40px 20px',
   [theme.breakpoints.down('sm')]: {
     padding: '0 20px'
   }

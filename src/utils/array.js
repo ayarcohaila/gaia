@@ -16,3 +16,25 @@ export const shuffleArray = array => {
 
   return array;
 };
+
+export const getTraitRarity = list =>
+  list.reduce((acc, curr) => {
+    let accumulator = { ...acc };
+    Object.entries(curr.item).forEach(([key, value]) => {
+      if (accumulator?.[key]) {
+        if (accumulator?.[key]?.[value]) {
+          accumulator[key][value] += 1;
+          accumulator[key]['total'] += 1;
+        } else {
+          accumulator[key][value] = 1;
+          accumulator[key]['total'] += 1;
+        }
+      } else {
+        if (key !== 'id' && key !== 'img' && key !== 'video') {
+          accumulator[key] = { [value]: 1 };
+          accumulator[key]['total'] = 1;
+        }
+      }
+    });
+    return accumulator;
+  }, {});

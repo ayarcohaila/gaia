@@ -4,12 +4,11 @@ export const Wrapper = styled(Grid, { shouldForwardProp: props => props !== 'sho
   ({ theme, showFilter }) => ({
     display: !showFilter ? 'flex' : 'grid',
     gridTemplateColumns: '302px auto',
-    padding: '0 80px',
+    padding: '0 40px',
     boxSizing: 'border-box',
     width: '100%',
     gap: '22px',
     alignItems: 'baseline',
-    maxWidth: '1800px',
     margin: '0 auto',
 
     [theme.breakpoints.down('md')]: {
