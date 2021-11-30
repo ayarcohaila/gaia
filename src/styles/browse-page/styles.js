@@ -3,7 +3,7 @@ import { Button, Grid, styled } from '@mui/material';
 export const Wrapper = styled(Grid)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '302px auto',
-  padding: '0 80px',
+  padding: '0 40px',
   boxSizing: 'border-box',
   maxWidth: '1800px',
   width: '100%',
