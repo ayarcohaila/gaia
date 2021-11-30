@@ -74,8 +74,10 @@ const Filters = ({ orderByUpdate }) => {
 
     Object.values(properties)?.forEach(property => {
       Object.entries(property)?.forEach(([key, value]) => {
-        Object.keys(value)?.forEach(propertyValue => {
-          propertiesFilters.push({ metadata: { _contains: { [key]: propertyValue } } });
+        Object.entries(value)?.forEach(([propKey, propValue]) => {
+          if (propValue) {
+            propertiesFilters.push({ metadata: { _contains: { [key]: propKey } } });
+          }
         });
       });
     });
