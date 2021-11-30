@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { filterFieldsFromObject } from '~/utils/object';
 import { ATTRIBUTES_ORDER, BALLERZ_COMPUTED_PROPERTIES } from '~/utils/constants';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-import { useCollectionConfig } from '~/hooks';
+import { useCollectionConfig, useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
 
@@ -13,6 +13,8 @@ const AdditionalDetails = ({ data }) => {
   const {
     palette: { grey }
   } = useTheme();
+
+  const { isSmallDevice } = useBreakpoints();
 
   const { config, collectionsNames } = useCollectionConfig();
 
@@ -52,7 +54,8 @@ const AdditionalDetails = ({ data }) => {
                 variant="body1"
                 fontWeight="400"
                 sx={{
-                  letterSpacing: '0px'
+                  letterSpacing: '0px',
+                  fontSize: isSmallDevice && '10px'
                 }}>
                 {config.collectionName === collectionsNames.BALLERZ
                   ? (
