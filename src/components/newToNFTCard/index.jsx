@@ -14,7 +14,7 @@ const NewToNFTCard = ({ data }) => {
   return (
     <>
       <Styled.CustomCard>
-        <Styled.CustomLink target="_blank" href={data.link} rel="noreferrer">
+        <Styled.CustomLink rel="noreferrer" {...data.linkProps}>
           <img src={data.image} alt={data.title} />
         </Styled.CustomLink>
         <Typography variant="h5" marginTop="20px">
@@ -23,7 +23,7 @@ const NewToNFTCard = ({ data }) => {
         <Styled.CardDescription color={grey[600]} variant="subtitle1">
           {data.description}
         </Styled.CardDescription>
-        <a target="_blank" href={data.link} rel="noreferrer">
+        <a rel="noreferrer" {...data.linkProps}>
           <Styled.CardLink>
             <Typography variant="subtitle1" fontWeight="600">
               {data.linkText}

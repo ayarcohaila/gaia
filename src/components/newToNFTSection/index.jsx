@@ -10,21 +10,21 @@ const NewNFTs = [
     description:
       'The first of a  series of drops highlighting his basketball career, family, and recovery from heart surgery.',
     image: 'images/newToNFT/shareef.jpg',
-    link: 'https://twitter.com/SSJreef',
+    linkProps: { href: 'https://twitter.com/SSJreef', target: '_blank' },
     linkText: 'Follow on Twitter'
   },
   {
     title: 'Bryson DeChambeau - Vegas, Baby!',
     description: 'Collectible NFT commemorating Las Vegas Showdown',
     image: 'images/newToNFT/bryson_banner.jpg',
-    link: '/bryson',
+    linkProps: { href: '/bryson' },
     linkText: 'Buy Now'
   },
   {
     title: 'About The Team',
     description: 'Learn more about NFT Genius, the team behind Gaia.',
     image: 'images/newToNFT/nftg.jpg',
-    link: 'https://www.nftgenius.com/',
+    linkProps: { href: 'https://www.nftgenius.com/', target: '_blank' },
     linkText: 'Visit Website'
   }
 ];
