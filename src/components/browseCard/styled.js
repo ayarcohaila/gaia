@@ -1,23 +1,17 @@
-import { styled, Card, Typography, CardHeader } from '@mui/material';
+import { styled, Card, Typography, CardHeader, CardContent } from '@mui/material';
 
-export const CustomCard = styled(Card)(({ theme: { breakpoints } }) => ({
+export const CustomCard = styled(Card)(() => ({
   padding: '16px 16px 22px',
   borderRadius: 20,
   backgroundColor: 'white',
   boxShadow: '0 0 0 0',
   position: 'relative',
   width: '308px',
-  height: '412px',
-  boxSizing: 'border-box',
-
-  [breakpoints.down('md')]: {
-    width: '335px'
-  }
+  boxSizing: 'border-box'
 }));
 
 export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => ({
-  padding: '0px 0 10px 0',
-
+  padding: '0 0 10px',
   '.MuiCardHeader-title': {
     fontSize: 13,
     fontWeight: 'bold',
@@ -30,6 +24,10 @@ export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => (
     color: palette.grey[600],
     marginRight: 16
   }
+}));
+
+export const CustomCardContent = styled(CardContent)(() => ({
+  padding: '0 !important'
 }));
 
 export const NFTText = styled(Typography)(({ theme: { palette } }) => ({

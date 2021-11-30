@@ -1,21 +1,25 @@
 import { Button, Grid, styled } from '@mui/material';
 
-export const Wrapper = styled(Grid)(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: '302px auto',
-  padding: '0 40px',
-  boxSizing: 'border-box',
-  width: '100%',
-  gap: '22px',
-  alignItems: 'baseline',
+export const Wrapper = styled(Grid, { shouldForwardProp: props => props !== 'showFilter' })(
+  ({ theme, showFilter }) => ({
+    display: !showFilter ? 'flex' : 'grid',
+    gridTemplateColumns: '302px auto',
+    padding: '0 80px',
+    boxSizing: 'border-box',
+    width: '100%',
+    gap: '22px',
+    alignItems: 'baseline',
+    maxWidth: '1800px',
+    margin: '0 auto',
 
-  [theme.breakpoints.down('md')]: {
-    padding: '0 20px',
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: '24px'
-  }
-}));
+    [theme.breakpoints.down('md')]: {
+      padding: '0 20px',
+      display: 'flex',
+      flexDirection: 'column',
+      marginTop: '24px'
+    }
+  })
+);
 
 export const BlackButton = styled(Button)(({ theme: { typography, palette } }) => ({
   ...typography.subtitle1,

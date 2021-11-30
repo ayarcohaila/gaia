@@ -20,6 +20,7 @@ export const MainConteiner = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
   width: '100%',
   maxWidth: '1800px',
+  boxSizing: 'border-box',
   padding: '16px 80px 20px',
   [theme.breakpoints.down('sm')]: {
     padding: '0 20px'
@@ -35,7 +36,7 @@ export const ContainerItem = styled('div')({
 export const CustomButton = styled(Button, { shouldForwardProp: prop => prop !== 'active' })(
   ({ active, theme: { palette } }) => ({
     margin: '0',
-    padding: '10px 0 10px 10px',
+    padding: '10px 10px 10px 10px',
     svg: {
       color: active ? palette.white.main : palette.grey[400]
     },

@@ -13,6 +13,7 @@ const Browse = () => {
   const [showFilter, setShowFilter] = useState(true);
   const [orderByUpdate, setOrderByUpdate] = useState(null);
   const [cursor, setCursor] = useState(0);
+
   const {
     palette: { grey }
   } = useTheme();
@@ -71,7 +72,7 @@ const Browse = () => {
         handleOrderByUpdate={handleOrderByUpdate}
         totalShowing={marketplaceNfts?.length}
       />
-      <Styled.Wrapper container alignItems="center" sx={{ minHeight: 350 }}>
+      <Styled.Wrapper container alignItems="center" showFilter={showFilter} sx={{ minHeight: 350 }}>
         {!!showFilter && <Filters orderByUpdate={orderByUpdate} />}
         <Grid
           sx={{
