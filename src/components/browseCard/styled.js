@@ -7,7 +7,7 @@ export const CustomCard = styled(Card)(({ theme: { breakpoints } }) => ({
   boxShadow: '0 0 0 0',
   position: 'relative',
   width: '308px',
-  height: '448px',
+  height: '412px',
   boxSizing: 'border-box',
 
   [breakpoints.down('md')]: {

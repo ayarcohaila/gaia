@@ -78,7 +78,6 @@ const BrowseCard = ({ data }) => {
       )}
       <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
         <Styled.NFTText>{data?.template?.metadata?.title}</Styled.NFTText>
-        <Styled.NFTDescription>{data?.template?.metadata?.description}</Styled.NFTDescription>
         {data?.is_for_sale && (
           <Styled.NFTPrice>
             ${' '}
