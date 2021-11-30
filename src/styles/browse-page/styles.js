@@ -5,7 +5,6 @@ export const Wrapper = styled(Grid)(({ theme }) => ({
   gridTemplateColumns: '302px auto',
   padding: '0 40px',
   boxSizing: 'border-box',
-  maxWidth: '1800px',
   width: '100%',
   gap: '22px',
   alignItems: 'baseline',
