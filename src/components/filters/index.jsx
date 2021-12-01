@@ -122,8 +122,8 @@ const Filters = ({ orderByUpdate }) => {
             ? filterArray.filter(item => item.id !== option?.id)
             : [...filterArray, option]
         );
-        if (filterName === 'selectedCollections' && option?.id === 'ballerz') {
-          setFilter('selectedProperties', []);
+        if (filterName === 'collections' && option?.id === COLLECTION_LIST_CONFIG?.ballerz?.id) {
+          setFilter('properties', []);
         }
         return;
       }
