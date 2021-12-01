@@ -3,13 +3,12 @@ import { Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import { filterFieldsFromObject } from '~/utils/object';
-import { ATTRIBUTES_ORDER, BALLERZ_COMPUTED_PROPERTIES } from '~/utils/constants';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { useCollectionConfig, useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
 
-const AdditionalDetails = ({ data }) => {
+const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
   const {
     palette: { grey }
   } = useTheme();
@@ -28,7 +27,7 @@ const AdditionalDetails = ({ data }) => {
   const parsedData = useMemo(
     () =>
       Object.entries(filteredData).sort(
-        ([a], [b]) => ATTRIBUTES_ORDER.indexOf(a) - ATTRIBUTES_ORDER.indexOf(b)
+        ([a], [b]) => attributesOrder.indexOf(a) - attributesOrder.indexOf(b)
       ),
     [filteredData]
   );
@@ -58,10 +57,7 @@ const AdditionalDetails = ({ data }) => {
                   fontSize: isSmallDevice && '10px'
                 }}>
                 {config.collectionName === collectionsNames.BALLERZ
-                  ? (
-                      (BALLERZ_COMPUTED_PROPERTIES[key][value] / config.collectionSize) *
-                      100
-                    ).toFixed(2)
+                  ? ((ballerzComputedProps[key][value] / config.collectionSize) * 100).toFixed(2)
                   : 100}
                 % have this trait
               </Typography>

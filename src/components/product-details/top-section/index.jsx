@@ -10,7 +10,7 @@ import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/
 
 import * as Styled from './styles';
 
-const ProductDetailsTopSection = ({ nft }) => {
+const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }) => {
   const {
     palette: { grey }
   } = useTheme();
@@ -77,7 +77,11 @@ const ProductDetailsTopSection = ({ nft }) => {
           dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
           sx={{ my: 3, width: '100%' }}
           title="Properties">
-          <AdditionalDetails data={metadata} />
+          <AdditionalDetails
+            data={metadata}
+            ballerzComputedProps={ballerzComputedProps}
+            attributesOrder={attributesOrder}
+          />
         </Accordion>
         <Accordion
           defaultExpanded

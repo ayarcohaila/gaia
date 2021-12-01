@@ -12,13 +12,12 @@ import { useBreakpoints, useToggle } from '~/hooks';
 import { Accordion, Modal } from '..';
 import InputRangeGroup from './input-range-group';
 
-import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from './constants';
 import { ACTION_TYPE, reducer, initialState } from './reducer';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from './styles';
 
-const Filters = ({ orderByUpdate }) => {
+const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds }) => {
   const { isExtraSmallDevice, isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
 
@@ -139,7 +138,7 @@ const Filters = ({ orderByUpdate }) => {
 
   const handleCheckProperties = useCallback(
     (collection, property, value) => {
-      setFilter(FILTERS_IDS.PROPERTIES, {
+      setFilter(filtersIds.PROPERTIES, {
         ...properties,
         [collection]: {
           ...properties?.[collection],
@@ -156,7 +155,7 @@ const Filters = ({ orderByUpdate }) => {
   const renderFilterContent = useCallback(
     ({ id, type, options }) => {
       switch (type) {
-        case FILTERS_TYPES.RANGE:
+        case filtersTypes.RANGE:
           return (
             <Box mx="auto" width={isSmallDevice ? '90%' : '100%'}>
               <InputRangeGroup
@@ -170,7 +169,7 @@ const Filters = ({ orderByUpdate }) => {
             </Box>
           );
 
-        case FILTERS_TYPES.SINGLE:
+        case filtersTypes.SINGLE:
           return options.map(option => (
             <Box key={option?.id} mx="auto" width={isSmallDevice ? '90%' : '100%'}>
               <CheckboxCard
@@ -181,7 +180,7 @@ const Filters = ({ orderByUpdate }) => {
               />
             </Box>
           ));
-        case FILTERS_TYPES.MULTI:
+        case filtersTypes.MULTI:
           return options.map(option => (
             <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
               <CheckboxCard
@@ -203,7 +202,7 @@ const Filters = ({ orderByUpdate }) => {
     () => (
       <Styled.Content height="fit-content" width={isMediumDevice ? '80%' : 'auto'}>
         <Grid p="20px 22px 20px 12px" sx={{ boxSizing: 'border-box' }}>
-          {FILTERS.map((filter, index) => (
+          {filters.map((filter, index) => (
             <Accordion
               key={`$${filter?.id}-${index}`}
               contentSx={{ p: 0 }}
@@ -213,9 +212,9 @@ const Filters = ({ orderByUpdate }) => {
             </Accordion>
           ))}
           {collections.map(collection => {
-            const currentCollection = FILTERS.find(
-              item => item.id === FILTERS_IDS.COLLECTIONS
-            )?.options?.find(option => option.id === collection.id);
+            const currentCollection = filters
+              .find(item => item.id === filtersIds.COLLECTIONS)
+              ?.options?.find(option => option.id === collection.id);
             return (
               !!currentCollection.properties && (
                 <Accordion
@@ -251,7 +250,7 @@ const Filters = ({ orderByUpdate }) => {
   const renderMobileContent = useMemo(
     () => (
       <Box>
-        {FILTERS.map((filter, index) => (
+        {filters.map((filter, index) => (
           <Box key={filter.id} width="100%">
             {!!index && <Divider sx={{ mt: 4 }} />}
             <Typography my={4} variant="h4" textAlign="center">
@@ -261,9 +260,9 @@ const Filters = ({ orderByUpdate }) => {
           </Box>
         ))}
         {collections.map(collection => {
-          const currentCollection = FILTERS.find(
-            item => item.id === FILTERS_IDS.COLLECTIONS
-          )?.options?.find(option => option.id === collection.id);
+          const currentCollection = filters
+            .find(item => item.id === filtersIds.COLLECTIONS)
+            ?.options?.find(option => option.id === collection.id);
 
           return (
             !!currentCollection.properties && (
