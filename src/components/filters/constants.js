@@ -7,6 +7,7 @@
 //   Theaters as MoviesIcon
 // } from '@mui/icons-material';
 import { BALLERZ_PROPERTIES } from '~/utils/constants';
+import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 export const FILTERS_TYPES = {
   SINGLE: 'single',
@@ -48,12 +49,12 @@ export const FILTERS = [
     type: FILTERS_TYPES.MULTI,
     options: [
       {
-        id: 'ballerz',
+        id: COLLECTION_LIST_CONFIG.ballerz.id,
         label: 'BALLERZ',
         properties: BALLERZ_PROPERTIES
       },
       {
-        id: 'bryson',
+        id: COLLECTION_LIST_CONFIG.bryson.id,
         label: 'Bryson DeChambeau'
       }
     ]

@@ -167,6 +167,40 @@ const GET_SINGLE_NFTS_FOR_SALE = gql`
   }
 `;
 
+const GET_MARKETPLACE_NFTS = gql`
+  query getMarketplaceNFTs(
+    $isForSale: Boolean_comparison_exp
+    $price: [nft_bool_exp!]
+    $collections: [nft_bool_exp!]
+    $properties: [nft_template_bool_exp!]
+    $orderUpdate: order_by
+  ) {
+    nft(
+      where: {
+        _or: $collections
+        _and: $price
+        is_for_sale: $isForSale
+        template: { _or: $properties }
+      }
+      order_by: { updated_at: $orderUpdate }
+    ) {
+      asset_id
+      mint_number
+      owner
+      is_for_sale
+      collection_id
+      template {
+        metadata
+      }
+      sale_offers {
+        listing_resource_id
+        price
+        status
+      }
+    }
+  }
+`;
+
 export {
   GET_NFTS,
   GET_NFTS_IDS,
@@ -176,5 +210,6 @@ export {
   GET_COLLECTION_BY_ID,
   GET_NFTS_BY_ADDRESS,
   GET_NFTS_FOR_SALE,
-  GET_SINGLE_NFTS_FOR_SALE
+  GET_SINGLE_NFTS_FOR_SALE,
+  GET_MARKETPLACE_NFTS
 };

@@ -2,12 +2,9 @@ import { memo } from 'react';
 import { Box, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import { Button, Input } from '~/base';
-import { useBreakpoints } from '~/hooks';
+import { Input } from '~/base';
 
 const InputRangeGroup = ({ max, min, maxPlaceholder, minPlaceholder, setMax, setMin }) => {
-  const { isSmallDevice } = useBreakpoints();
-
   return (
     <Box>
       <Grid alignItems="center" container wrap="nowrap">
@@ -29,11 +26,6 @@ const InputRangeGroup = ({ max, min, maxPlaceholder, minPlaceholder, setMax, set
           value={max}
         />
       </Grid>
-      {!isSmallDevice && (
-        <Button disabled={!min && !max} fullWidth>
-          Apply
-        </Button>
-      )}
     </Box>
   );
 };

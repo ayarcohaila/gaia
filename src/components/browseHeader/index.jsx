@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { BurstIcon } from '~/base';
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
@@ -7,9 +8,14 @@ import { Breadcrumbs } from '~/components';
 import * as Styled from './styles';
 import { useBreakpoints } from '~/hooks';
 
-const Header = ({ handleShowFilters }) => {
+const Header = ({
+  handleShowFilters,
+  showFilter,
+  orderByUpdate,
+  handleOrderByUpdate,
+  totalShowing
+}) => {
   const { isMediumDevice } = useBreakpoints();
-  const [totalShowing] = useState(1023);
 
   const breadcrumbsLinks = useMemo(
     () => [
@@ -39,12 +45,12 @@ const Header = ({ handleShowFilters }) => {
             <>
               <Styled.CustomButton onClick={handleShowFilters}>
                 <Image src="/TuneIcon.svg" alt="tuneIcon" width="18" height="18" />
-                <Styled.Text ml="10px">Show filters</Styled.Text>
+                <Styled.Text ml="10px">{`${showFilter ? 'Hide' : 'Show'} filters`}</Styled.Text>
               </Styled.CustomButton>
               <Styled.Divider />
             </>
           )}
-          <Styled.CustomButton>
+          <Styled.CustomButton onClick={handleOrderByUpdate} active={orderByUpdate}>
             <Styled.Text>Most recent</Styled.Text>
             <ArrowDropDownRoundedIcon />
           </Styled.CustomButton>
@@ -54,4 +60,17 @@ const Header = ({ handleShowFilters }) => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  totalShowing: PropTypes.number,
+  handleShowFilters: PropTypes.func.isRequired,
+  showFilter: PropTypes.bool.isRequired,
+  orderByUpdate: PropTypes.bool,
+  handleOrderByUpdate: PropTypes.func.isRequired
+};
+
+Header.defaultProps = {
+  totalShowing: 0,
+  orderByUpdate: null
+};
+
+export default React.memo(Header);

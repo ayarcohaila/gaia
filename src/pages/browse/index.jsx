@@ -1,119 +1,95 @@
-import { Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Grid, Typography, useTheme } from '@mui/material';
+import { useState, useMemo } from 'react';
 
-import { BrowseHeader, Filters, ProfileCard, Seo } from '~/components';
-import { useBreakpoints } from '~/hooks';
+import CardSkeletonLoader from '~/base/card-skeleton-loader';
+import { BrowseHeader, Filters, BrowseCard, Seo } from '~/components';
+import { useAppContext } from '~/context';
 
 import * as Styled from '~/styles/browse-page/styles';
 
-// TO-DO: remove after integration with backend
-const NFTList = [
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  },
-  {
-    collection_name: 'NBA Top Shot',
-    name: 'Giannis Antetokoumpo - Block',
-    description: 'Base Set (Series 2)',
-    price: '$140.00',
-    imageURL: '/collections/ballerz/avatar.png',
-    collection_picture: '/collections/ballerz/avatar.png',
-    id: 'ballerz',
-    is_for_sale: true
-  }
-];
+const DEFAULT_LIST_SIZE = 40;
 
 const Browse = () => {
-  const [nftList, setNftList] = useState([]);
   const [showFilter, setShowFilter] = useState(true);
-  const { isMediumDevice } = useBreakpoints();
+  const [orderByUpdate, setOrderByUpdate] = useState(null);
+  const [cursor, setCursor] = useState(0);
 
-  useEffect(() => {
-    setNftList(NFTList);
-  }, []);
+  const {
+    palette: { grey }
+  } = useTheme();
+
+  const {
+    appData: { marketplaceLoading, marketplaceNfts }
+  } = useAppContext();
 
   const handleShowFilters = () => {
-    setShowFilter(!showFilter);
+    setShowFilter(prevState => !prevState);
   };
 
+  const handleOrderByUpdate = () => {
+    setOrderByUpdate(prevState => !prevState);
+  };
+
+  const cursorLimit = useMemo(
+    () => Math.ceil(marketplaceNfts?.length / DEFAULT_LIST_SIZE) - 1,
+    [marketplaceNfts]
+  );
+
+  const handleLoadMore = () => {
+    setCursor(prevState => prevState + 1);
+  };
+
+  const paginatedList = useMemo(() => {
+    if (marketplaceNfts?.length) {
+      const list = [...marketplaceNfts];
+      return list?.splice(0, DEFAULT_LIST_SIZE * (cursor + 1));
+    }
+    return [];
+  }, [marketplaceNfts, cursor]);
+
+  const renderList = useMemo(() => {
+    if (marketplaceLoading) {
+      return new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />);
+    }
+
+    return paginatedList.length ? (
+      paginatedList?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)
+    ) : (
+      <Grid sx={{ width: '100%', textAlign: 'center', marginTop: '96px' }}>
+        <Typography variant="body" sx={{ fontSize: '20px', width: '100%', color: grey[600] }}>
+          No results found.
+        </Typography>
+      </Grid>
+    );
+  }, [marketplaceLoading]);
   return (
     <>
       <Seo title="Browse All NFTs" />
-      <BrowseHeader handleShowFilters={handleShowFilters} />
-      <Grid container alignItems="center" justifyContent="center" mt={isMediumDevice && '24px'}>
-        <Styled.Container>
-          {(!!showFilter || isMediumDevice) && <Filters />}
-          <Grid
-            xs={!showFilter || isMediumDevice ? 12 : 9}
-            sx={{
-              display: 'flex',
-              gap: '16px',
-              flexWrap: 'wrap',
-              justifyContent: 'center'
-            }}>
-            {nftList.map((nft, index) => (
-              <ProfileCard data={nft} isFromBrowser key={index} />
-            ))}
-          </Grid>
-        </Styled.Container>
-      </Grid>
+      <BrowseHeader
+        handleShowFilters={handleShowFilters}
+        showFilter={showFilter}
+        orderByUpdate={orderByUpdate}
+        handleOrderByUpdate={handleOrderByUpdate}
+        totalShowing={marketplaceNfts?.length}
+      />
+      <Styled.Wrapper container alignItems="center" showFilter={showFilter} sx={{ minHeight: 350 }}>
+        {!!showFilter && <Filters orderByUpdate={orderByUpdate} />}
+        <Grid
+          sx={{
+            display: 'flex',
+            gap: '16px',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignContent: 'baseline'
+          }}>
+          {renderList}
+        </Grid>
+      </Styled.Wrapper>
+      {cursorLimit > cursor && (
+        <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 0' }}>
+          <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
+        </Grid>
+      )}
     </>
   );
 };
