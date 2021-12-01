@@ -58,7 +58,7 @@ const TransferNftModal = ({ ...props }) => {
       descriptionSx={{ m: '8px 0 4px', maxWidth: '270px', textAlign: 'center' }}
       height="382px"
       title={hasNftSuccessfullyTransfered ? 'Transfered!' : 'Transfer NFT'}
-      titleSx={{ mt: '96px' }}
+      titleSx={{ mt: 15 }}
       {...props}>
       {hasNftSuccessfullyTransfered ? (
         <ModalSuccessContent address={address} tx={tx} />

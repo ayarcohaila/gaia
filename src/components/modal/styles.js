@@ -47,7 +47,6 @@ export const AssetContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
 
   [breakpoints.down('sm')]: {
     height: 140,
-    marginLeft: -70,
     width: 140
   }
 }));

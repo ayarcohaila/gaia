@@ -16,7 +16,7 @@ const InsufficientFunds = ({ onClose, ...props }) => {
       descriptionSx={{ maxWidth: '440px', textAlign: 'center', mb: 0 }}
       height="318px"
       mobileHeight="50vh"
-      titleSx={{ mt: 0, mb: '20px' }}
+      titleSx={{ mt: 10, mb: '20px' }}
       asset={{}}
       {...props}
     />

@@ -16,10 +16,10 @@ const StayTunedModal = ({ onClose, ...props }) => {
       description={description}
       onClose={onClose}
       title={title}
-      descriptionSx={{ maxWidth: '440px', whiteSpace: 'pre', textAlign: 'center', mb: 0 }}
+      descriptionSx={{ maxWidth: '440px', textAlign: 'center', mb: 0 }}
       height="256px"
       mobileHeight="50vh"
-      titleSx={{ mt: 0, mb: '20px' }}
+      titleSx={{ mt: '10vh', mb: '20px' }}
       asset={{}}
       {...props}
     />

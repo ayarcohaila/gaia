@@ -17,7 +17,7 @@ const MaximumPurchaseLimit = props => {
       descriptionSx={{ maxWidth: '440px', textAlign: 'center', mb: 0 }}
       height="318px"
       mobileHeight="50vh"
-      titleSx={{ mt: 0, mb: '20px' }}
+      titleSx={{ mt: '12vh', mb: '20px' }}
       asset={{}}
       {...props}
     />

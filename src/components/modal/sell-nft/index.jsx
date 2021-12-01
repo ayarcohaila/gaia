@@ -12,10 +12,12 @@ import Modal from '..';
 
 import * as Styled from './styles';
 import preval from 'preval.macro';
+import { useBreakpoints } from '~/hooks';
 
 const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loading, ...props }) => {
   const [value, setValue] = useState('');
 
+  const { isExtraSmallDevice } = useBreakpoints();
   const router = useRouter();
   const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
@@ -68,7 +70,14 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
   }, [hasPostedForSale]);
 
   return (
-    <Modal description={description} onClose={onClose} title={title} {...props}>
+    <Modal
+      description={description}
+      descriptionSx={{ textAlign: 'center' }}
+      onClose={onClose}
+      title={title}
+      titleSx={{ mt: 15 }}
+      mobileHeight={isExtraSmallDevice ? '70vh' : '60vh'}
+      {...props}>
       {hasNftSuccessfullyPostedForSale ? (
         <SuccessContent tx={tx} />
       ) : (

@@ -29,7 +29,7 @@ const PurchaseNFTModal = ({ asset, onClose, ...props }) => {
       title={title}
       descriptionSx={{ fontWeight: '600', maxWidth: '280px', mt: '16px', textAlign: 'center' }}
       height="518px"
-      mobileHeight={isExtraSmallDevice ? '77.5vh' : '70vh'}
+      mobileHeight={isExtraSmallDevice ? '80vh' : '75vh'}
       titleSx={{ mt: isSmallDevice ? '108px' : '24px' }}
       {...props}>
       <Typography

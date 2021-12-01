@@ -6,8 +6,7 @@ import {
   SwipeableDrawer,
   Grid,
   CircularProgress,
-  useTheme,
-  Dialog
+  useTheme
 } from '@mui/material';
 
 import { Close as CloseIcon, KeyboardArrowDown as ArrowDownIcon } from '@mui/icons-material';
@@ -40,7 +39,7 @@ const Modal = ({
   marginTop,
   ...props
 }) => {
-  const { isSmallDevice, isMediumDevice } = useBreakpoints();
+  const { isSmallDevice } = useBreakpoints();
   const {
     palette: { grey }
   } = useTheme();
@@ -57,7 +56,7 @@ const Modal = ({
         marginTop={marginTop}
         height={isSmallDevice ? mobileHeight : height}
         {...containerProps}>
-        {(isSmallDevice || isMediumDevice) && (
+        {isSmallDevice && (
           <IconButton
             onClick={onClose}
             sx={{ position: 'absolute', left: '50%', marginLeft: '-24px', top: -135, ...arrowSx }}>
@@ -142,9 +141,28 @@ const Modal = ({
       </>;
     }
     return (
-      <Dialog open={open} onClose={onClose} fullScreen>
-        {renderContent()}
-      </Dialog>
+      // <Dialog open={open} onClose={onClose} fullScreen>
+      //   {renderContent()}
+      // </Dialog>
+      <>
+        <Global
+          styles={{
+            '.MuiDrawer-root > .MuiPaper-root': {
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+              overflow: 'visible'
+            }
+          }}
+        />
+        <SwipeableDrawer
+          anchor="bottom"
+          open={open}
+          onClose={onClose}
+          disableSwipeToOpen={false}
+          ModalProps={DRAWER_MODAL_PROPS}>
+          {renderContent()}
+        </SwipeableDrawer>
+      </>
     );
   }
 

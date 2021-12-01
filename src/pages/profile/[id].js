@@ -16,7 +16,7 @@ import * as Styled from '~/styles/profile/styles';
 const Profile = () => {
   const router = useRouter();
   const { id: address } = router.query;
-  const { isMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
   const [nftList, setNftList] = useState([]);
   const [openModal, toggleOpenModal] = useToggle();
   const [loading, setLoading] = useState(false);
@@ -81,9 +81,10 @@ const Profile = () => {
         description="Something went wrong while checking your inventory. Please try again later."
         open={openModal}
         onClose={onHandleCloseModal}
-        descriptionSx={{ maxWidth: '360px', textAlign: 'center', mb: 0 }}
-        titleSx={{ mt: 0, mb: '20px' }}
+        descriptionSx={{ maxWidth: '360px', textAlign: 'center', mb: 0, fontSize: '14px' }}
+        titleSx={{ mt: '12vh', mb: '20px' }}
         height="250px"
+        mobileHeight={isExtraSmallDevice ? '60vh' : '45vh'}
         asset={{}}
       />
     </Box>

@@ -71,7 +71,7 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
       height="374px"
       onClose={onClose}
       title={title}
-      titleSx={{ mt: isExtraSmallDevice ? '120px' : '84px' }}
+      titleSx={{ mt: isExtraSmallDevice ? '120px' : 15 }}
       {...props}>
       {hasListingSuccessfullyCancelled ? (
         <SuccessContent />
