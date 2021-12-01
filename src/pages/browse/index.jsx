@@ -4,12 +4,13 @@ import { useState, useMemo } from 'react';
 import CardSkeletonLoader from '~/base/card-skeleton-loader';
 import { BrowseHeader, Filters, BrowseCard, Seo } from '~/components';
 import { useAppContext } from '~/context';
+import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from '~/utils/browseFilters';
 
 import * as Styled from '~/styles/browse-page/styles';
 
 const DEFAULT_LIST_SIZE = 40;
 
-const Browse = () => {
+const Browse = ({ filters, filtersTypes, filtersIds }) => {
   const [showFilter, setShowFilter] = useState(true);
   const [orderByUpdate, setOrderByUpdate] = useState(null);
   const [cursor, setCursor] = useState(0);
@@ -73,7 +74,14 @@ const Browse = () => {
         totalShowing={marketplaceNfts?.length}
       />
       <Styled.Wrapper container alignItems="center" showFilter={showFilter} sx={{ minHeight: 350 }}>
-        {!!showFilter && <Filters orderByUpdate={orderByUpdate} />}
+        {!!showFilter && (
+          <Filters
+            orderByUpdate={orderByUpdate}
+            filters={filters}
+            filtersTypes={filtersTypes}
+            filtersIds={filtersIds}
+          />
+        )}
         <Grid
           sx={{
             display: 'flex',
@@ -93,5 +101,11 @@ const Browse = () => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  return {
+    props: { filters: FILTERS, filtersTypes: FILTERS_TYPES, filtersIds: FILTERS_IDS }
+  };
+}
 
 export default Browse;
