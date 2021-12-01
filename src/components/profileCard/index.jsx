@@ -109,7 +109,9 @@ const ProfileCard = ({ data, isFromBrowser }) => {
   const renderContent = () => (
     <Styled.CustomCard
       sx={{
-        cursor: data.mystery ? 'auto' : 'pointer'
+        cursor: data.mystery ? 'auto' : 'pointer',
+        maxWidth: '308px',
+        boxSizing: 'border-box'
       }}>
       <Styled.CustomCardHeader
         avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}
