@@ -168,8 +168,22 @@ const GET_SINGLE_NFTS_FOR_SALE = gql`
 `;
 
 const GET_MARKETPLACE_NFTS = gql`
-  query getMarketplaceNFTs {
-    nft {
+  query getMarketplaceNFTs(
+    $isForSale: Boolean_comparison_exp
+    $price: [nft_bool_exp!]
+    $collections: [nft_bool_exp!]
+    $properties: [nft_template_bool_exp!]
+    $orderUpdate: order_by
+  ) {
+    nft(
+      where: {
+        _or: $collections
+        _and: $price
+        is_for_sale: $isForSale
+        template: { _or: $properties }
+      }
+      order_by: { updated_at: $orderUpdate }
+    ) {
       asset_id
       mint_number
       owner

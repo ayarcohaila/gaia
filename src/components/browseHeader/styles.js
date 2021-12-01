@@ -19,8 +19,8 @@ export const MainConteiner = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   width: '100%',
-  maxWidth: '1800px',
-  padding: '16px 80px 20px',
+  boxSizing: 'border-box',
+  padding: '16px 40px 20px',
   [theme.breakpoints.down('sm')]: {
     padding: '0 20px'
   }
@@ -32,18 +32,23 @@ export const ContainerItem = styled('div')({
   justifyContent: 'center'
 });
 
-export const CustomButton = styled(Button)(({ theme }) => ({
-  margin: '0',
-  padding: '10px',
-  svg: {
-    color: theme.palette.grey[400]
-  },
+export const CustomButton = styled(Button, { shouldForwardProp: prop => prop !== 'active' })(
+  ({ active, theme: { palette } }) => ({
+    margin: '0',
+    padding: '10px 10px 10px 10px',
+    svg: {
+      color: active ? palette.white.main : palette.grey[400]
+    },
 
-  p: {
-    fontWeight: 'bold',
-    textTransform: 'none'
-  }
-}));
+    backgroundColor: active && palette.primary.main,
+
+    p: {
+      fontWeight: 'bold',
+      textTransform: 'none',
+      color: active && palette.white.main
+    }
+  })
+);
 
 export const Divider = styled('div')(({ theme }) => ({
   height: '20px',

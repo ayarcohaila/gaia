@@ -2,22 +2,28 @@ import { memo, useCallback, useEffect, useMemo, useReducer } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FilterList as FiltersIcon } from '@mui/icons-material';
 import axios from 'axios';
+import { capitalize, debounce } from 'lodash';
+import PropTypes from 'prop-types';
+
 import { Button } from '~/base';
+import { useAppContext } from '~/context';
+import CheckboxCard from './checkbox-card';
 import { useBreakpoints, useToggle } from '~/hooks';
 import { Accordion, Modal } from '..';
-import { useAppContext } from '~/context';
-import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from './constants';
-import CheckboxCard from './checkbox-card';
 import InputRangeGroup from './input-range-group';
-import { ACTION_TYPE, reducer, initialState } from './reducer';
-import * as Styled from './styles';
-import { capitalize } from 'lodash';
 
-const Filters = () => {
+import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from './constants';
+import { ACTION_TYPE, reducer, initialState } from './reducer';
+import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
+
+import * as Styled from './styles';
+
+const Filters = ({ orderByUpdate }) => {
   const { isExtraSmallDevice, isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
+
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { appliedFiltersCount, minPrice, maxPrice, collections, properties } = state;
+  const { appliedFiltersCount, status, minPrice, maxPrice, collections, properties } = state;
   const { handleAppData } = useAppContext();
 
   const handleApplyFilters = useCallback(() => {
@@ -51,15 +57,59 @@ const Filters = () => {
     [dispatch]
   );
 
-  const getNfts = useCallback(async () => {
-    handleAppData({ marketplaceLoading: true });
-    const result = await axios.get(`/api/marketplace`);
-    handleAppData({ marketplaceNfts: result.data.nfts, marketplaceLoading: false });
-  }, []);
+  const getNfts = useCallback(
+    debounce(async filters => {
+      handleAppData({ marketplaceLoading: true });
+      const result = await axios.post(`/api/marketplace`, {
+        ...filters
+      });
+      handleAppData({ marketplaceNfts: result.data.nfts, marketplaceLoading: false });
+    }, 500),
+    []
+  );
+
+  const appliedFilters = useMemo(() => {
+    let priceFilters = [];
+    let propertiesFilters = [];
+
+    Object.values(properties)?.forEach(property => {
+      Object.entries(property)?.forEach(([key, value]) => {
+        Object.entries(value)?.forEach(([propKey, propValue]) => {
+          if (propValue) {
+            propertiesFilters.push({ metadata: { _contains: { [key]: propKey } } });
+          }
+        });
+      });
+    });
+
+    if (minPrice) {
+      priceFilters.push({ sale_offers: { parsed_price: { _gte: minPrice } } });
+    }
+    if (maxPrice) {
+      priceFilters.push({ sale_offers: { parsed_price: { _lte: maxPrice } } });
+    }
+
+    const collectionsFilter = collections?.length
+      ? collections.map(item => ({
+          collection_id: { _eq: item.id }
+        }))
+      : Object.values(COLLECTION_LIST_CONFIG).map(item => ({
+          collection_id: { _eq: item.id }
+        }));
+    const filters = {
+      price: priceFilters,
+      isForSale: status === 'buyNow' ? { _eq: true } : {},
+      collections: collectionsFilter,
+      properties: propertiesFilters,
+      orderUpdate: orderByUpdate === null ? null : 'desc'
+    };
+
+    return filters;
+  }, [collections, status, maxPrice, minPrice, properties, orderByUpdate]);
 
   useEffect(() => {
-    getNfts();
-  }, [getNfts]);
+    getNfts(appliedFilters);
+  }, [getNfts, appliedFilters]);
 
   const handleMultipleCheck = useCallback(
     (filterName, option) => {
@@ -112,8 +162,8 @@ const Filters = () => {
               <InputRangeGroup
                 max={maxPrice}
                 min={minPrice}
-                maxPlaceholder="(Flow) Max"
-                minPlaceholder="(Flow) Min"
+                maxPlaceholder="(USD) Max"
+                minPlaceholder="(USD) Min"
                 setMax={value => setFilter('maxPrice', value)}
                 setMin={value => setFilter('minPrice', value)}
               />
@@ -152,10 +202,10 @@ const Filters = () => {
   const renderContent = useMemo(
     () => (
       <Styled.Content height="fit-content" width={isMediumDevice ? '80%' : 'auto'}>
-        <Grid p="20px 22px 20px 12px">
+        <Grid p="20px 22px 20px 12px" sx={{ boxSizing: 'border-box' }}>
           {FILTERS.map((filter, index) => (
             <Accordion
-              key={filter?.id}
+              key={`$${filter?.id}-${index}`}
               contentSx={{ p: 0 }}
               hasDivider={!!index}
               title={filter?.label}>
@@ -169,14 +219,14 @@ const Filters = () => {
             return (
               !!currentCollection.properties && (
                 <Accordion
-                  key={`properties-${currentCollection?.id}`}
-                  title={`${capitalize(currentCollection?.id)} Properties`}>
+                  key={`lg-properties-${currentCollection?.id}`}
+                  title={`${capitalize(currentCollection?.label)} Properties`}>
                   {Object.keys(currentCollection.properties).map(property => (
                     <Accordion key={property} title={capitalize(property)}>
                       <Styled.ValuesContainer>
-                        {currentCollection.properties[property].map(option => (
+                        {currentCollection.properties[property].map((option, index) => (
                           <CheckboxCard
-                            key={`${property}-${option}`}
+                            key={`${property}-${option}-${index}`}
                             containerProps={{ sx: { mb: 1 } }}
                             isSelected={!!properties?.[currentCollection?.id]?.[property]?.[option]}
                             label={option}
@@ -220,11 +270,11 @@ const Filters = () => {
               <>
                 <Divider sx={{ mt: 4 }} />
                 <Typography mt={2} variant="h4" textAlign="center">
-                  {`${capitalize(currentCollection.id)} Properties`}
+                  {`${capitalize(currentCollection?.label)} Properties`}
                 </Typography>
                 <Box py="16px">
-                  {Object.keys(currentCollection.properties).map(property => (
-                    <Accordion key={property} title={capitalize(property)}>
+                  {Object.keys(currentCollection.properties).map((property, index) => (
+                    <Accordion key={`${property}-${index}`} title={capitalize(property)}>
                       <Styled.ValuesContainer>
                         {currentCollection.properties[property].map(option => (
                           <CheckboxCard
@@ -282,6 +332,14 @@ const Filters = () => {
       )}
     </>
   );
+};
+
+Filters.propTypes = {
+  orderByUpdate: PropTypes.bool
+};
+
+Filters.defaultProps = {
+  orderByUpdate: null
 };
 
 export default memo(Filters);

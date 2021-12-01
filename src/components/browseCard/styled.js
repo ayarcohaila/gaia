@@ -1,22 +1,17 @@
-import { styled, Card, Typography, CardHeader } from '@mui/material';
+import { styled, Card, Typography, CardHeader, CardContent } from '@mui/material';
 
-export const CustomCard = styled(Card)(({ theme: { breakpoints } }) => ({
+export const CustomCard = styled(Card)(() => ({
   padding: '16px 16px 22px',
   borderRadius: 20,
   backgroundColor: 'white',
   boxShadow: '0 0 0 0',
   position: 'relative',
-  width: '365px',
-  boxSizing: 'border-box',
-
-  [breakpoints.down('md')]: {
-    width: '335px'
-  }
+  width: '308px',
+  boxSizing: 'border-box'
 }));
 
 export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => ({
-  padding: '0px 0 10px 0',
-
+  padding: '0 0 10px',
   '.MuiCardHeader-title': {
     fontSize: 13,
     fontWeight: 'bold',
@@ -31,6 +26,10 @@ export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => (
   }
 }));
 
+export const CustomCardContent = styled(CardContent)(() => ({
+  padding: '0 !important'
+}));
+
 export const NFTText = styled(Typography)(({ theme: { palette } }) => ({
   fontSize: '16px',
   fontWeight: 700,
@@ -43,7 +42,12 @@ export const NFTDescription = styled(Typography)(({ theme: { palette } }) => ({
   fontWeight: 500,
   lineHeight: '1.23',
   color: palette.grey[600],
-  marginTop: '2px'
+  marginTop: '2px',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  overflow: 'hidden',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 2
 }));
 
 export const NFTPrice = styled(Typography)(() => ({
