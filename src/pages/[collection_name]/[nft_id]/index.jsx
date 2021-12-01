@@ -53,7 +53,10 @@ export async function getStaticPaths() {
   const brysonCollectionPaths = nfts.map(nft => ({
     params: { collection_name: COLLECTIONS_NAME.BRYSON, nft_id: String(nft?.mint_number) }
   }));
-  return { paths: [...ballerzCollectionPaths, ...brysonCollectionPaths], fallback: false };
+
+  const allPaths = [...ballerzCollectionPaths, ...brysonCollectionPaths];
+  const thousandPaths = allPaths.slice(0, 100);
+  return { paths: thousandPaths, fallback: 'blocking' };
 }
 
 export async function getStaticProps({ params }) {
