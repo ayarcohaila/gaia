@@ -36,9 +36,6 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
     module.exports = fs.readFileSync(filePath, 'utf8')
     `;
   const handlePostForSale = async () => {
-    //TODO: Implement NFT post for sale integration
-
-    toast.info('Please wait, purchase in progress... ');
     try {
       setLoading(true);
       const transaction = await loadTransaction(sellTx);

@@ -1,4 +1,5 @@
 import { styled, Box, Grid, Typography } from '@mui/material';
+import { Button } from '~/base';
 
 export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   backgroundColor: '#fff',
@@ -63,3 +64,18 @@ export const NumberContainer = styled(Box)(
     }
   })
 );
+
+export const ActionButtons = styled(Button, {
+  shouldForwardProp: prop => prop !== 'removeListing'
+})(({ removeListing, theme: { palette } }) => ({
+  width: '145px',
+  height: '48px',
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  boxSizing: 'border-box',
+  backgroundColor: removeListing && palette.error.main,
+
+  ':hover': {
+    backgroundColor: removeListing && palette.error[700]
+  }
+}));

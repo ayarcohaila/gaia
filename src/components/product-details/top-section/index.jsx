@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 import Asset from './asset';
 import CollectionInfo from './collection-info';
-import { useCollectionConfig, useBreakpoints } from '~/hooks';
+import { useCollectionConfig, useBreakpoints, useAuth } from '~/hooks';
 import { Accordion, AdditionalDetails, BlockchainHistory, Breadcrumbs } from '~/components';
 
 import * as Styled from './styles';
@@ -20,23 +20,7 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
   } = useRouter();
   const { metadata } = nft.template;
   const { config } = useCollectionConfig();
-
-  //TODO: Uncomment on future implementation
-  // const activeSaleOffer = nft.sale_offers.find(offer => offer?.status === 'active');
-  //TODO: Uncomment on future implementation of share/favorite NFTs
-  // const renderIconButtons = useMemo(
-  //   () => (
-  //     <Grid item mt={isMediumDevice ? '32px' : '0'}>
-  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '16px' } }}>
-  //         <ShareIcon htmlColor={grey[600]} />
-  //       </IconButton>
-  //       <IconButton sx={{ bgcolor: grey[200], mr: 1.5, p: 1.75, '& > svg': { fontSize: '20px' } }}>
-  //         <FavoriteIcon htmlColor={grey[600]} />
-  //       </IconButton>
-  //     </Grid>
-  //   ),
-  //   [isMediumDevice]
-  // );
+  const { user } = useAuth();
 
   const blockchainHistoryData = useMemo(
     () => ({
@@ -98,6 +82,33 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
     [blockchainHistoryData, isMediumDevice, isSmallDevice, metadata]
   );
 
+  const isOwner = useMemo(() => nft?.owner === user?.addr, [user?.addr]);
+
+  const isForSale = nft?.is_for_sale;
+
+  const renderActions = useMemo(() => {
+    if (isForSale && isOwner) {
+      return <Styled.ActionButtons removeListing>Remove Listing</Styled.ActionButtons>;
+    }
+
+    if (isForSale && !isOwner) {
+      const price = Number(nft?.sale_offers?.[0]?.price).toFixed(2);
+      return (
+        <Styled.ActionButtons sx={{ width: '180px' }}>{`Purchase $${price}`}</Styled.ActionButtons>
+      );
+    }
+
+    if (!isForSale && isOwner) {
+      return (
+        <>
+          <Styled.ActionButtons>Sell</Styled.ActionButtons>
+          <Styled.ActionButtons>Transfer</Styled.ActionButtons>
+        </>
+      );
+    }
+    return '';
+  }, [isOwner, isForSale]);
+
   return (
     <>
       <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} />
@@ -122,12 +133,14 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
           <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">
             <Styled.Title>{metadata.title}</Styled.Title>
             <Styled.Description>{metadata.description}</Styled.Description>
-            {/* TODO: Uncomment on future implementation
-            {activeSaleOffer && (
-              <Button sx={{ mt: '52px', width: 'fit-content' }}>
-                Buy for ${parseFloat(activeSaleOffer.price).toFixed(2)}
-              </Button>
-            )} */}
+            {(isForSale || isOwner) && (
+              <Grid
+                container
+                sx={{ mt: '42px', gap: isSmallDevice ? '8px' : '16px' }}
+                justifyContent={isMediumDevice && 'center'}>
+                {renderActions}
+              </Grid>
+            )}
             {!!isMediumDevice && (
               <Box mt={5} width="100%">
                 <Divider sx={{ border: '0', borderTop: `2px solid ${grey[200]}` }} />
