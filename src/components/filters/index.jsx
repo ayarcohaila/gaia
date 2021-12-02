@@ -9,7 +9,7 @@ import { Button } from '~/base';
 import { useAppContext } from '~/context';
 import CheckboxCard from './checkbox-card';
 import { useBreakpoints, useToggle } from '~/hooks';
-import { Accordion, Modal } from '..';
+import { Accordion } from '..';
 import InputRangeGroup from './input-range-group';
 
 import { ACTION_TYPE, reducer, initialState } from './reducer';
@@ -18,7 +18,7 @@ import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 import * as Styled from './styles';
 
 const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds }) => {
-  const { isExtraSmallDevice, isMediumDevice, isSmallDevice } = useBreakpoints();
+  const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -249,7 +249,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds }) => {
 
   const renderMobileContent = useMemo(
     () => (
-      <Box>
+      <Styled.CustomDrawerContent>
         {filters.map((filter, index) => (
           <Box key={filter.id} width="100%">
             {!!index && <Divider sx={{ mt: 4 }} />}
@@ -294,7 +294,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds }) => {
             )
           );
         })}
-      </Box>
+      </Styled.CustomDrawerContent>
     ),
     [renderFilterContent, collections, properties]
   );
@@ -309,16 +309,11 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds }) => {
         renderContent
       )}
       {isMediumDevice && (
-        <Modal
-          arrowSx={{ top: -70 }}
-          asset={null}
-          contentSx={{ justifyContent: 'flex-start' }}
-          mobileHeight={isExtraSmallDevice ? '85vh' : '77.5vh'}
-          height={isMediumDevice ? '464px' : '358px'}
+        <Styled.CustomDrawer
+          hideBackdrop
+          anchor="bottom"
           open={isMobileModalOpen}
-          onClose={toggleMobileModal}
-          shouldRenderSwiperOnMobile
-          marginTop="188px">
+          onClose={toggleMobileModal}>
           {renderMobileContent}
           <Styled.BottomBar container>
             <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
@@ -327,7 +322,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds }) => {
             <Button onClick={handleApplyFilters}>Apply</Button>
             <Styled.CloseButton onClick={toggleMobileModal}>Close</Styled.CloseButton>
           </Styled.BottomBar>
-        </Modal>
+        </Styled.CustomDrawer>
       )}
     </>
   );

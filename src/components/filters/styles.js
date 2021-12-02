@@ -1,4 +1,4 @@
-import { Box, Button as MuiButton, Grid, styled } from '@mui/material';
+import { Box, Button as MuiButton, Grid, styled, Drawer } from '@mui/material';
 
 import { Button } from '~/base';
 
@@ -67,4 +67,15 @@ export const ValuesContainer = styled(Box)(() => ({
   '&::-webkit-scrollbar': {
     display: 'none'
   }
+}));
+
+export const CustomDrawer = styled(Drawer)(() => ({
+  width: '100%',
+  height: '100%',
+  backgroundColor: '#fff'
+}));
+
+export const CustomDrawerContent = styled(Box)(() => ({
+  overflowY: 'auto',
+  paddingBottom: '100px'
 }));
