@@ -132,7 +132,7 @@ const Header = () => {
           options={USER_MENU_OPTIONS}
           handleClickOption={handleClick}
           onMouseLeave={() => handleDropdownMenu(false)}
-          sx={{ width: '164px' }}
+          sx={{ width: '164px', marginRight: '30px' }}
         />
       </Styled.Container>
       <HeaderModal open={stateModalHeader} onClose={toggleHeaderModal}>
