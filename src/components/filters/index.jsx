@@ -17,7 +17,7 @@ import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from './styles';
 
-const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds }) => {
+const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
 
@@ -305,8 +305,10 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds }) => {
         <Styled.FloatButton endIcon={<FiltersIcon />} onClick={toggleMobileModal}>
           Filters {!!appliedFiltersCount && `(${appliedFiltersCount})`}
         </Styled.FloatButton>
-      ) : (
+      ) : showFilter ? (
         renderContent
+      ) : (
+        <></>
       )}
       {isMediumDevice && (
         <Styled.CustomDrawer

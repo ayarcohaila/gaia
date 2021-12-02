@@ -74,14 +74,13 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
         totalShowing={marketplaceNfts?.length}
       />
       <Styled.Wrapper container alignItems="center" showFilter={showFilter} sx={{ minHeight: 350 }}>
-        {!!showFilter && (
-          <Filters
-            orderByUpdate={orderByUpdate}
-            filters={filters}
-            filtersTypes={filtersTypes}
-            filtersIds={filtersIds}
-          />
-        )}
+        <Filters
+          orderByUpdate={orderByUpdate}
+          filters={filters}
+          filtersTypes={filtersTypes}
+          filtersIds={filtersIds}
+          showFilter={showFilter}
+        />
         <Grid
           sx={{
             display: 'flex',
