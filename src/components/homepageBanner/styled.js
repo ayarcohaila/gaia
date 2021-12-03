@@ -76,5 +76,4 @@ export const BannerLink = styled(Link)({
   position: 'absolute',
   textDecoration: 'none',
   width: '100%'
-  // zIndex: 2
 });
