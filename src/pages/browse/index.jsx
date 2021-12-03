@@ -7,6 +7,7 @@ import { useAppContext } from '~/context';
 import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from '~/utils/browseFilters';
 
 import * as Styled from '~/styles/browse-page/styles';
+import { useBreakpoints } from '~/hooks';
 
 const DEFAULT_LIST_SIZE = 40;
 
@@ -14,6 +15,7 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
   const [showFilter, setShowFilter] = useState(true);
   const [orderByUpdate, setOrderByUpdate] = useState(null);
   const [cursor, setCursor] = useState(0);
+  const { isMediumDevice } = useBreakpoints();
 
   const {
     palette: { grey }
@@ -88,7 +90,7 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
             flexWrap: 'wrap',
             justifyContent: 'center',
             alignContent: 'baseline',
-            width: !showFilter ? '100%' : 'auto'
+            width: !showFilter || isMediumDevice ? '100%' : 'auto'
           }}>
           {renderList}
         </Grid>
