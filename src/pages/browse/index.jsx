@@ -87,7 +87,8 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
             gap: '16px',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            alignContent: 'baseline'
+            alignContent: 'baseline',
+            width: !showFilter ? '100%' : 'auto'
           }}>
           {renderList}
         </Grid>
