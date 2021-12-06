@@ -6,10 +6,10 @@ import * as Styled from './styled';
 
 const NewNFTs = [
   {
-    title: 'Shareef O’Neal Debuts in December',
+    title: 'Shareef O’Neal Collection Debuts Dec 13',
     description:
-      'The first of a  series of drops highlighting his basketball career, family, and recovery from heart surgery.',
-    image: 'images/newToNFT/shareef.jpg',
+      'The first of a series of drops highlighting his basketball career, family, and recovery from heart surgery. Available Dec 13 at 2pm PT.',
+    image: 'images/newToNFT/shareef.jpeg',
     linkProps: { href: 'https://twitter.com/SSJreef', target: '_blank' },
     linkText: 'Follow on Twitter'
   },
