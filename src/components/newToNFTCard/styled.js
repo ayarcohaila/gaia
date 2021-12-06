@@ -40,13 +40,9 @@ export const CustomLink = styled('a')(() => ({
   width: '100%'
 }));
 
-export const CardDescription = styled(Typography)(({ theme: { breakpoints } }) => ({
-  height: '32px',
-  lineHeight: '20px',
-
-  [breakpoints.down('lgm')]: {
-    height: '40px'
-  }
+export const CardDescription = styled(Typography)(() => ({
+  height: '40px',
+  lineHeight: '20px'
 }));
 
 export const CardLink = styled('div')(() => ({
