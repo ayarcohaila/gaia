@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
@@ -12,18 +12,21 @@ import { cancelSale } from '~/flow/cancelSale';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import preval from 'preval.macro';
 
-const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...props }) => {
+const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
   const [hasListingSuccessfullyCancelled, setHasListingSuccessfullyCancelled] = useState(false);
+  const [transactionId, setTransactionId] = useState('');
   const [loadingCancel, setLoadingCancel] = useState(false);
 
   const cancelSaleTx = preval`
   const fs = require('fs')
-  const path = require('path'),   
+  const path = require('path'),
   filePath = path.join(__dirname, "../../../flow/transactions/cancel_sale.cdc");
   module.exports = fs.readFileSync(filePath, 'utf8')
   `;
-  const handleCancelListing = async () => {
+
+  const handleCancelListing = async event => {
+    event.stopPropagation();
     if (asset?.sale_offers && asset?.sale_offers.length > 0) {
       const activeOffers = asset.sale_offers.filter(offer => offer.status !== 'finished');
       if (activeOffers.length > 0) {
@@ -36,6 +39,7 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
               offer.listing_resource_id
             );
             if (txResult) {
+              setTransactionId(txResult);
               setLoadingCancel(false);
               onConfirm();
               setHasListingSuccessfullyCancelled(true);
@@ -57,11 +61,7 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
   const title = hasListingSuccessfullyCancelled ? 'Cancelled' : 'Cancel Listing';
   const description = hasListingSuccessfullyCancelled
     ? 'Your listing has been successfully cancelled'
-    : `This will take down your listing for ${asset?.collectionName} #${asset?.template?.metadata?.id}`;
-
-  useEffect(() => {
-    setHasListingSuccessfullyCancelled(!hasPostedForSale);
-  }, [hasPostedForSale]);
+    : `This will take down your listing for ${asset?.collection?.name} #${asset?.template?.metadata?.id}`;
 
   return (
     <Modal
@@ -74,7 +74,7 @@ const CancelListingModal = ({ asset, hasPostedForSale, onClose, onConfirm, ...pr
       titleSx={{ mt: isExtraSmallDevice ? '120px' : 15 }}
       {...props}>
       {hasListingSuccessfullyCancelled ? (
-        <SuccessContent />
+        <SuccessContent address={asset?.owner} tx={transactionId?.txId} />
       ) : (
         <Button onClick={handleCancelListing} disabled={loadingCancel}>
           {loadingCancel ? <Loader /> : 'Confirm'}
@@ -88,7 +88,7 @@ CancelListingModal.propTypes = {
   asset: PropTypes.object,
   hasPostedForSale: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired
+  onConfirm: PropTypes.func
 };
 
 CancelListingModal.defaultProps = {
@@ -96,7 +96,8 @@ CancelListingModal.defaultProps = {
     id: 1234,
     collectionName: 'BALLERZ',
     img: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
-  }
+  },
+  onConfirm: () => {}
 };
 
 export default memo(CancelListingModal);

@@ -8,6 +8,7 @@ import { VideoPlayer } from '~/components';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { COLLECTIONS_NAME, COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 import { useBreakpoints } from '~/hooks';
+import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 
 import * as Styled from './styled';
 
@@ -91,8 +92,7 @@ const BrowseCard = ({ data }) => {
         </Styled.NFTText>
         {data?.is_for_sale && (
           <Styled.NFTPrice>
-            ${' '}
-            {Number(data?.sale_offers?.find(item => item?.status === 'active')?.price)?.toFixed(2)}
+            $ {Number(getLastByUpdateAt(data?.sale_offers)?.price)?.toFixed(2)}
           </Styled.NFTPrice>
         )}
       </Styled.CustomCardContent>
@@ -105,7 +105,7 @@ const BrowseCard = ({ data }) => {
   return (
     <Link
       href={`/${currentCollection.collectionName}/${
-        data?.template?.metadata?.id || data?.template?.metadata?.item
+        data?.template?.metadata?.id || data?.mint_number
       }`}
       passHref>
       {renderContent()}

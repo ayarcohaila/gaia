@@ -9,11 +9,13 @@ import { gqlClient } from '~/config/apollo-client';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import { CardSkeletonLoader, Divider } from '~/base';
 import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
+import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup';
+import formatIpfsImg from '~/utils/formatIpfsImg';
 import { ProfileBanner, ProfileList, CollectionsFilter, Seo, Modal } from '~/components';
 
 import * as Styled from '~/styles/profile/styles';
 
-const Profile = () => {
+const Profile = ({ userNFTs }) => {
   const router = useRouter();
   const { id: address } = router.query;
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
@@ -63,17 +65,11 @@ const Profile = () => {
       <Seo title="Profile" />
       <ProfileBanner address={address} />
       <Styled.FiltersContainer>
-        <CollectionsFilter nftQuantity={nftList?.length} enableSearch />
+        <CollectionsFilter nftQuantity={userNFTs?.length} enableSearch />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
       <Styled.ListWrapper>
-        {loading ? (
-          new Array(isMediumDevice ? 1 : 5)
-            .fill(null)
-            .map((_, index) => <CardSkeletonLoader key={index} />)
-        ) : (
-          <ProfileList nfts={nftList} />
-        )}
+        <ProfileList nfts={userNFTs} />
       </Styled.ListWrapper>
 
       <Modal
@@ -99,10 +95,34 @@ export async function getServerSideProps(ctx) {
   } = ctx;
   await basicAuthCheck(req, res);
 
-  const { nft: userNFTs } = await gqlClient.request(GET_NFTS_BY_ADDRESS, { address: id });
+  const collections = Object.values(COLLECTION_LIST_CONFIG).map(item => ({
+    collection_id: { _eq: item.id }
+  }));
+
+  const { nft: userNFTs } = await gqlClient.request(GET_NFTS_BY_ADDRESS, {
+    address: id,
+    collections
+  });
+
+  const parseDBInput = list => {
+    return list.map(nft => {
+      const isBallerz = nft.collection_id === COLLECTION_LIST_CONFIG.ballerz.id;
+      return {
+        ...nft,
+        id: nft.template.metadata.id || nft.mint_number,
+        name: nft.template.metadata.title,
+        imageURL: formatIpfsImg(nft.template.metadata.img),
+        videoURL: formatIpfsImg(nft.template.metadata?.video),
+        collection_name: isBallerz ? COLLECTIONS_NAME.BALLERZ : COLLECTIONS_NAME.BRYSON,
+        collection_picture: isBallerz
+          ? COLLECTION_LIST_CONFIG.ballerz.avatar
+          : COLLECTION_LIST_CONFIG.bryson.avatar
+      };
+    });
+  };
 
   return {
-    props: { userNFTs }
+    props: { userNFTs: parseDBInput(userNFTs) }
   };
 }
 export default Profile;

@@ -14,9 +14,15 @@ const GET_COLLECTION_BY_ID = gql`
 
 const GET_NFT_BY_ID = gql`
   query getNftById($id: jsonb) {
-    nft(where: { template: { metadata: { _contains: $id } } }) {
+    nft(
+      where: {
+        collection_id: { _eq: "be0a6102-2ca9-4875-b801-cf236ce43a86" }
+        template: { metadata: { _contains: $id } }
+      }
+    ) {
       asset_id
       is_for_sale
+      collection_id
       created_at
       updated_at
       collection {
@@ -35,6 +41,7 @@ const GET_NFT_BY_ID = gql`
         listing_resource_id
         price
         status
+        updated_at
       }
     }
   }
@@ -61,6 +68,7 @@ const GET_NFT_BY_MINT_NUMBER = gql`
         status
         price
         listing_resource_id
+        updated_at
       }
       template {
         metadata
@@ -80,8 +88,8 @@ const GET_NFTS = gql`
 `;
 
 const GET_NFTS_IDS = gql`
-  query getMetadataIDs {
-    nft_template {
+  query getMetadataIDs($collections: [nft_template_bool_exp!]) {
+    nft_template(where: { _or: $collections }) {
       id: metadata(path: "$.id")
     }
   }
@@ -98,10 +106,12 @@ const GET_NFTS_MINT_NUMBER = gql`
 `;
 
 const GET_NFTS_BY_ADDRESS = gql`
-  query getNFTsByAddress($address: String!) {
-    nft(where: { owner: { _eq: $address } }) {
+  query getNFTsByAddress($address: String!, $collections: [nft_bool_exp!]) {
+    nft(where: { _or: $collections, owner: { _eq: $address } }) {
       asset_id
+      mint_number
       is_for_sale
+      collection_id
       collection {
         collection_id
         name
@@ -118,6 +128,7 @@ const GET_NFTS_BY_ADDRESS = gql`
         listing_resource_id
         price
         status
+        updated_at
       }
     }
   }
@@ -173,7 +184,6 @@ const GET_MARKETPLACE_NFTS = gql`
     $price: [nft_bool_exp!]
     $collections: [nft_bool_exp!]
     $properties: [nft_template_bool_exp!]
-    $orderUpdate: order_by
   ) {
     nft(
       where: {
@@ -182,7 +192,6 @@ const GET_MARKETPLACE_NFTS = gql`
         is_for_sale: $isForSale
         template: { _or: $properties }
       }
-      order_by: { updated_at: $orderUpdate }
     ) {
       asset_id
       mint_number
@@ -193,6 +202,7 @@ const GET_MARKETPLACE_NFTS = gql`
         metadata
       }
       sale_offers {
+        updated_at
         listing_resource_id
         price
         status

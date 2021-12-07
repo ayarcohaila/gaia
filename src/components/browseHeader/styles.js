@@ -1,4 +1,5 @@
 import { Typography, styled, Button } from '@mui/material';
+import { ArrowDropDownRounded as ArrowDropDownRoundedIcon } from '@mui/icons-material';
 
 export const Text = styled(Typography)(({ theme: { palette } }) => ({
   color: palette.grey[600],
@@ -33,19 +34,15 @@ export const ContainerItem = styled('div')({
 });
 
 export const CustomButton = styled(Button, { shouldForwardProp: prop => prop !== 'active' })(
-  ({ active, theme: { palette } }) => ({
+  ({ theme: { palette } }) => ({
     margin: '0',
     padding: '10px 10px 10px 10px',
     svg: {
-      color: active ? palette.white.main : palette.grey[400]
+      color: palette.grey[400]
     },
-
-    backgroundColor: active && palette.primary.main,
-
     p: {
       fontWeight: 'bold',
-      textTransform: 'none',
-      color: active && palette.white.main
+      textTransform: 'none'
     }
   })
 );
@@ -55,4 +52,8 @@ export const Divider = styled('div')(({ theme }) => ({
   width: '2px',
   backgroundColor: theme.palette.grey[300],
   margin: '0 8px'
+}));
+
+export const ArrowIcon = styled(ArrowDropDownRoundedIcon)(({ theme: { palette } }) => ({
+  color: palette.grey[600]
 }));

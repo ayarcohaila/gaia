@@ -68,7 +68,7 @@ export const NumberContainer = styled(Box)(
 export const ActionButtons = styled(Button, {
   shouldForwardProp: prop => prop !== 'removeListing'
 })(({ removeListing, theme: { palette } }) => ({
-  width: '145px',
+  width: removeListing ? '160px' : '145px',
   height: '48px',
   padding: '15px 22px 17px',
   borderRadius: '24px',

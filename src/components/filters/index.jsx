@@ -82,10 +82,14 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     });
 
     if (minPrice) {
-      priceFilters.push({ sale_offers: { parsed_price: { _gte: minPrice } } });
+      priceFilters.push({
+        sale_offers: { parsed_price: { _gte: Number(minPrice) }, status: { _eq: 'active' } }
+      });
     }
     if (maxPrice) {
-      priceFilters.push({ sale_offers: { parsed_price: { _lte: maxPrice } } });
+      priceFilters.push({
+        sale_offers: { parsed_price: { _lte: Number(maxPrice) }, status: { _eq: 'active' } }
+      });
     }
 
     const collectionsFilter = collections?.length
@@ -99,8 +103,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       price: priceFilters,
       isForSale: status === 'buyNow' ? { _eq: true } : {},
       collections: collectionsFilter,
-      properties: propertiesFilters,
-      orderUpdate: orderByUpdate === null ? null : 'desc'
+      properties: propertiesFilters
     };
 
     return filters;

@@ -5,6 +5,9 @@ import CardSkeletonLoader from '~/base/card-skeleton-loader';
 import { BrowseHeader, Filters, BrowseCard, Seo } from '~/components';
 import { useAppContext } from '~/context';
 import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from '~/utils/browseFilters';
+import { ORDER_MENU_IDS } from '~/components/collection-filters/constants';
+
+import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 
 import * as Styled from '~/styles/browse-page/styles';
 import { useBreakpoints } from '~/hooks';
@@ -13,7 +16,7 @@ const DEFAULT_LIST_SIZE = 40;
 
 const Browse = ({ filters, filtersTypes, filtersIds }) => {
   const [showFilter, setShowFilter] = useState(true);
-  const [orderByUpdate, setOrderByUpdate] = useState(null);
+  const [orderBy, setOrderBy] = useState(6);
   const [cursor, setCursor] = useState(0);
   const { isMediumDevice } = useBreakpoints();
 
@@ -29,8 +32,8 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
     setShowFilter(prevState => !prevState);
   };
 
-  const handleOrderByUpdate = () => {
-    setOrderByUpdate(prevState => !prevState);
+  const handleOrder = order => {
+    setOrderBy(order);
   };
 
   const cursorLimit = useMemo(
@@ -44,11 +47,24 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
 
   const paginatedList = useMemo(() => {
     if (marketplaceNfts?.length) {
-      const list = [...marketplaceNfts];
+      const list = [...marketplaceNfts].sort((a, b) => {
+        if (orderBy === ORDER_MENU_IDS.MOST_RECENT) {
+          return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+        } else if (orderBy === ORDER_MENU_IDS.LOWEST_PRICE) {
+          return (
+            Number(getLastByUpdateAt(a.sale_offers)?.price) -
+            Number(getLastByUpdateAt(b.sale_offers)?.price)
+          );
+        }
+        return (
+          Number(getLastByUpdateAt(b.sale_offers)?.price) -
+          Number(getLastByUpdateAt(a.sale_offers)?.price)
+        );
+      });
       return list?.splice(0, DEFAULT_LIST_SIZE * (cursor + 1));
     }
     return [];
-  }, [marketplaceNfts, cursor]);
+  }, [orderBy, marketplaceNfts, cursor]);
 
   const renderList = useMemo(() => {
     if (marketplaceLoading) {
@@ -64,20 +80,18 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
         </Typography>
       </Grid>
     );
-  }, [marketplaceLoading]);
+  }, [paginatedList]);
   return (
     <>
       <Seo title="Browse All NFTs" />
       <BrowseHeader
         handleShowFilters={handleShowFilters}
         showFilter={showFilter}
-        orderByUpdate={orderByUpdate}
-        handleOrderByUpdate={handleOrderByUpdate}
+        handleOrder={handleOrder}
         totalShowing={marketplaceNfts?.length}
       />
       <Styled.Wrapper container alignItems="center" showFilter={showFilter} sx={{ minHeight: 350 }}>
         <Filters
-          orderByUpdate={orderByUpdate}
           filters={filters}
           filtersTypes={filtersTypes}
           filtersIds={filtersIds}

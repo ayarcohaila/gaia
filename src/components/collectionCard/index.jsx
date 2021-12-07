@@ -8,7 +8,6 @@ import {
   PurchaseNFTModal,
   PurchaseErrorModal,
   InsufficientFundsModal,
-  MaximumPurchaseLimit,
   OrderProcessing
 } from '~/components';
 import { useAuth, useToggle } from '~/hooks';
@@ -22,7 +21,7 @@ import formatIpfsImg from '~/utils/formatIpfsImg';
 export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
-const CollectionCard = ({ data, ownNFTs, transaction }) => {
+const CollectionCard = ({ data, transaction }) => {
   const route = useRouter();
   const { login } = useAuth();
   const [loadingPurchase, setLoadingPurchase] = useState(false);
@@ -30,7 +29,6 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
   const [isPurchaseErrorOpen, togglePurchaseError] = useToggle();
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
-  const [isMaximumModalOpen, toggleMaximumModal] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
   const { hasSetup, user } = useContext(AuthContext);
 
@@ -43,10 +41,6 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
   const handlePurchaseClick = async event => {
     event?.stopPropagation();
     try {
-      if (config.buyLimit && ownNFTs.length >= Number(config.buyLimit)) {
-        toggleMaximumModal();
-        return;
-      }
       setLoadingPurchase(true);
       toggleProcessingModal();
       const txResult = await buy(
@@ -142,7 +136,6 @@ const CollectionCard = ({ data, ownNFTs, transaction }) => {
       />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />
-      <MaximumPurchaseLimit open={isMaximumModalOpen} onClose={toggleMaximumModal} />
       <OrderProcessing open={isProcessingModalOpen} onClose={toggleProcessingModal} />
     </>
   );

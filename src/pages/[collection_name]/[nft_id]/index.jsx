@@ -40,7 +40,10 @@ const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps }) => {
 };
 
 export async function getStaticPaths() {
-  const { nft_template } = await gqlClient.request(GET_NFTS_IDS);
+  const collections = Object.values(COLLECTION_LIST_CONFIG).map(item => ({
+    collection_id: { _eq: item.id }
+  }));
+  const { nft_template } = await gqlClient.request(GET_NFTS_IDS, { collections });
 
   const ballerzCollectionPaths = nft_template.map(nft => ({
     params: { collection_name: COLLECTIONS_NAME.BALLERZ, nft_id: String(nft?.id) }
@@ -62,6 +65,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { collection_name, nft_id } = params;
   const brysonConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON];
+
   const attributesOrder = ATTRIBUTES_ORDER;
   const ballerzComputedProps = BALLERZ_COMPUTED_PROPERTIES;
   try {
@@ -75,7 +79,7 @@ export async function getStaticProps({ params }) {
       }
       return {
         props: { nft: nft[0], attributesOrder, ballerzComputedProps },
-        revalidate: 60 * 7.5 // 7.5 minutes
+        revalidate: 60 // 1 min
       };
     }
 
@@ -85,7 +89,7 @@ export async function getStaticProps({ params }) {
     }
     return {
       props: { nft: nft[0], attributesOrder, ballerzComputedProps },
-      revalidate: 60 * 60 // 1 hour
+      revalidate: 60 // 1 min
     };
   } catch {
     return { notFound: true };

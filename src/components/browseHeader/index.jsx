@@ -1,22 +1,30 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { BurstIcon } from '~/base';
-import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 import { Breadcrumbs } from '~/components';
 
 import * as Styled from './styles';
-import { useBreakpoints } from '~/hooks';
+import { useBreakpoints, useToggle } from '~/hooks';
+import { Dropdown } from '~/base';
+import { ORDER_MENU_IDS } from '~/components/collection-filters/constants';
 
-const Header = ({
-  handleShowFilters,
-  showFilter,
-  orderByUpdate,
-  handleOrderByUpdate,
-  totalShowing
-}) => {
+const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing }) => {
   const { isMediumDevice } = useBreakpoints();
+  const orderButtonRef = useRef(null);
+  const [isMenuOrderOpen, toggleMenuOrder] = useToggle();
+  const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.MOST_RECENT);
 
+  const handleClickOption = ({
+    target: {
+      dataset: { id }
+    }
+  }) => {
+    const currentId = Number(id);
+    setSelectedOrderButton(currentId);
+    handleOrder(currentId);
+    toggleMenuOrder();
+  };
   const breadcrumbsLinks = useMemo(
     () => [
       {
@@ -29,6 +37,14 @@ const Header = ({
     ],
     []
   );
+
+  const orderButton = useMemo(() => {
+    return [
+      { id: ORDER_MENU_IDS.MOST_RECENT, label: 'Recently Listed' },
+      { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Lowest Price' },
+      { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' }
+    ];
+  }, []);
 
   return (
     <Styled.Container withBorder>
@@ -50,9 +66,21 @@ const Header = ({
               <Styled.Divider />
             </>
           )}
-          <Styled.CustomButton onClick={handleOrderByUpdate} active={orderByUpdate}>
-            <Styled.Text>Most recent</Styled.Text>
-            <ArrowDropDownRoundedIcon />
+          <Dropdown
+            menuAnchorRef={orderButtonRef}
+            isOpen={!!isMenuOrderOpen}
+            onClose={toggleMenuOrder}
+            handleClickOption={handleClickOption}
+            options={orderButton.filter(option => option.id !== selectedOrderButton)}
+          />
+          <Styled.CustomButton
+            ref={orderButtonRef}
+            disableRipple
+            onClick={toggleMenuOrder}
+            endIcon={<Styled.ArrowIcon />}>
+            <Styled.Text>
+              {orderButton.find(item => item.id === selectedOrderButton)?.label}
+            </Styled.Text>
           </Styled.CustomButton>
         </Styled.ContainerItem>
       </Styled.MainConteiner>
@@ -64,8 +92,7 @@ Header.propTypes = {
   totalShowing: PropTypes.number,
   handleShowFilters: PropTypes.func.isRequired,
   showFilter: PropTypes.bool.isRequired,
-  orderByUpdate: PropTypes.bool,
-  handleOrderByUpdate: PropTypes.func.isRequired
+  orderByUpdate: PropTypes.bool
 };
 
 Header.defaultProps = {

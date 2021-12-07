@@ -2,7 +2,6 @@ import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { CircularProgress, Grid } from '@mui/material';
-import { useRouter } from 'next/router';
 import { loadTransaction } from '../../../utils/transactionsLoader';
 import { isDapper } from '~/utils/currencyCheck';
 import { sellItem } from '~/flow/sell';
@@ -18,7 +17,6 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
   const [value, setValue] = useState('');
 
   const { isExtraSmallDevice } = useBreakpoints();
-  const router = useRouter();
   const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
     useState(hasPostedForSale);
@@ -35,20 +33,26 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
     filePath = path.join(__dirname, "../../../flow/transactions/flowToken/sell.cdc");
     module.exports = fs.readFileSync(filePath, 'utf8')
     `;
+
   const handlePostForSale = async () => {
     try {
       setLoading(true);
       const transaction = await loadTransaction(sellTx);
-      const txResult = await sellItem(transaction.transactionScript, props.asset.asset_id, value);
+      const txResult = await sellItem(
+        transaction.transactionScript,
+        props.asset.asset_id,
+        value,
+        props.asset.collection.collection_id
+      );
       toast.success(
-        'Purchase completed successfully. In few minutes it will be available on the market'
+        'Sale offer completed successfully. In few minutes it will be available on the market'
       );
       if (txResult) {
         onConfirm();
         setHasNftSuccessfullyPostedForSale(true);
         setTx(txResult?.txId);
         setValue('');
-        router.push('/ballerz');
+        onClose();
       }
     } catch (err) {
       toast.error('Unable to complete purchase.');
@@ -105,13 +109,14 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
 SellNftModal.propTypes = {
   hasPostedForSale: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func,
   setLoading: PropTypes.func,
   loading: PropTypes.bool
 };
 
 SellNftModal.defaultProps = {
   setLoading: () => {},
+  onConfirm: () => {},
   loading: false
 };
 
