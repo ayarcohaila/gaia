@@ -38,3 +38,5 @@ export { default as BrysonDescription } from './collection/bryson/description';
 export { default as Filters } from './filters';
 export { default as BrowseHeader } from './browseHeader';
 export { default as BrowseCard } from './browseCard';
+export { default as ShareefDescription } from './collection/shareef/description';
+export { default as ShareefContent } from './collection/shareef/content';

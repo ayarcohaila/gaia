@@ -13,7 +13,8 @@ export const COLLECTION_SALE_TYPE = {
 
 export const COLLECTIONS_NAME = {
   BALLERZ: 'ballerz',
-  BRYSON: 'bryson'
+  BRYSON: 'bryson',
+  SHAREEF: 'shareef'
 };
 
 export const COLLECTION_LIST_CONFIG = {

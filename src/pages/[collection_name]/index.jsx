@@ -14,7 +14,9 @@ import {
   BrysonContent,
   BrysonDescription,
   Seo,
-  CollectionList
+  CollectionList,
+  ShareefDescription,
+  ShareefContent
 } from '~/components';
 import * as Styled from '~/styles/collection-name/styles';
 import { useRouter } from 'next/router';
@@ -44,6 +46,7 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
   } = useRouter();
 
   const isBrysonCollection = collection_name === collectionsNames.BRYSON;
+  const isShareefCollection = collection_name === collectionsNames.SHAREEF;
 
   useEffect(() => {
     if (nft_collection?.length) {
@@ -103,6 +106,74 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
             </Grid>
             <Divider sx={{ margin: '0 auto', maxWidth: '1800px', marginBottom: '32px' }} />
             <BrysonContent data={pickedOffer} totalAvailable={offerCount} />
+          </Styled.Container>
+        </Grid>
+      </>
+    );
+  }
+
+  if (isShareefCollection) {
+    // TO-DO: Remove this variables when Shareef collection is ready to be integrated
+    let bannerData = {
+      author: 'Shareef',
+      image: '/collections/shareef/banner.jpeg'
+    };
+    let config = {
+      avatar: '/collections/shareef/avatar.jpeg'
+    };
+
+    let pickedOffer = [
+      {
+        asset: '/collections/shareef/shareef_nft.png',
+        video: '/collections/shareef/shareef_video.mov',
+        name: 'Gold Edition',
+        description: 'Features original beats by Shareef',
+        limit: 24,
+        price: '240.00',
+        available: 20
+      },
+      {
+        asset: '/collections/shareef/shareef_nft.png',
+        video: '/collections/shareef/shareef_video.mov',
+        name: 'Silver Edition',
+        description: 'Features original beats by Shareef',
+        limit: 111,
+        price: '88.00',
+        available: 99
+      },
+      {
+        asset: '/collections/shareef/shareef_nft.png',
+        video: '/collections/shareef/shareef_video.mov',
+        name: 'Bronze Edition',
+        description: 'Perfect for newer NFT collectors',
+        limit: 888,
+        price: '24.00',
+        available: 882
+      }
+    ];
+    return (
+      <>
+        <Seo title="Shareef" />
+        <Grid>
+          <CollectionBanner
+            accountNumber={bannerData?.author}
+            bannerAvatar={config?.avatar}
+            bannerName="ShareefONeal"
+            bannerDescription={<ShareefDescription />}
+            bgImg={config?.banner || bannerData?.image}
+            mainColor="#4b1f87"
+            secondaryColor="#4b1f87"
+            sx={{
+              backgroundPosition: '0% 0%',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              margin: '0 auto',
+              maxWidth: '1800px'
+            }}
+          />
+          <Styled.Container>
+            <Divider sx={{ margin: '0 auto', maxWidth: '1800px', marginBottom: '32px' }} />
+            <ShareefContent data={pickedOffer} />
           </Styled.Container>
         </Grid>
       </>
