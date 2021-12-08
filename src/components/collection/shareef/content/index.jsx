@@ -1,11 +1,13 @@
+import React, { useMemo } from 'react';
 import { useTheme } from '@emotion/react';
 import Image from 'next/image';
+
 import { Typography, Divider, Grid } from '@mui/material';
 import { Button } from '~/base';
-import * as Styled from './styles';
 import { useBreakpoints } from '~/hooks';
-import React, { useMemo } from 'react';
 import { VideoPlayer } from '~/components';
+
+import * as Styled from './styles';
 
 const ShareefCollectionContent = ({ data }) => {
   const {
@@ -33,17 +35,24 @@ const ShareefCollectionContent = ({ data }) => {
               EXCLUSIVE RAFFLES
             </Typography>
             <Styled.TextContainer>
-              <Typography variant="h5" fontWeight="normal" mb="20px">
+              <Typography variant="h5" fontWeight="normal">
                 {`Just by holding NFTs from Shareef's genesis collection, you'll be entered to win one
               of:`}
               </Typography>
               <Typography variant="h5" fontWeight="normal">
-                * Custom Shareef BALLERZ (minted into the original 10k set)
-                <br />
-                * Signed pair of game-worn sneakers
-                <br />
-                * Meet-and-greet with Shareef
-                <br />* Play a game of Fortnite with Shareef
+                <Grid component="ul">
+                  <Grid component="li">
+                    Custom Shareef BALLERZ (minted into the original 10k set)
+                  </Grid>
+                  <Grid component="li">Signed pair of game-worn sneakers</Grid>
+                  <Grid component="li">Meet-and-greet with Shareef</Grid>
+                  <Grid component="li">Play a game of Fortnite with Shareef</Grid>
+                </Grid>
+                <Styled.CustomLinkText
+                  href="/collections/shareef/Shareef_Sweepstakes_Rules.pdf"
+                  target="_blank">
+                  Read the official rules
+                </Styled.CustomLinkText>
               </Typography>
             </Styled.TextContainer>
           </Styled.ContentSectionItem>
@@ -119,16 +128,14 @@ const ShareefCollectionContent = ({ data }) => {
             <Typography variant="h4" mt="10px">
               {item?.name}
             </Typography>
-            <Typography variant="h5" fontWeight="normal" mb="20px" textAlign="center">
-              {item?.description}
-            </Typography>
             <Typography variant="h6" mb="16px">
               Limited Edition of {item?.limit}
             </Typography>
             <Button
               sx={{
-                width: isMediumDevice ? '332px' : '100%',
-                marginBottom: '16px'
+                width: '100%',
+                marginBottom: '16px',
+                maxWidth: '332px'
               }}>
               <Typography variant="h6" fontWeight="600" letterSpacing={1}>
                 Purchase - ${item?.price}

@@ -125,27 +125,24 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
     let pickedOffer = [
       {
         asset: '/collections/shareef/shareef_nft.png',
-        video: '/collections/shareef/shareef_video.mov',
+        video: '/collections/shareef/shareef_video.mp4',
         name: 'Gold Edition',
-        description: 'Features original beats by Shareef',
         limit: 24,
         price: '240.00',
         available: 20
       },
       {
         asset: '/collections/shareef/shareef_nft.png',
-        video: '/collections/shareef/shareef_video.mov',
+        video: '/collections/shareef/shareef_video.mp4',
         name: 'Silver Edition',
-        description: 'Features original beats by Shareef',
         limit: 111,
         price: '88.00',
         available: 99
       },
       {
         asset: '/collections/shareef/shareef_nft.png',
-        video: '/collections/shareef/shareef_video.mov',
+        video: '/collections/shareef/shareef_video.mp4',
         name: 'Bronze Edition',
-        description: 'Perfect for newer NFT collectors',
         limit: 888,
         price: '24.00',
         available: 882
@@ -153,7 +150,7 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
     ];
     return (
       <>
-        <Seo title="Shareef" />
+        <Seo title="Shareef O’Neal NFTs" />
         <Grid>
           <CollectionBanner
             accountNumber={bannerData?.author}

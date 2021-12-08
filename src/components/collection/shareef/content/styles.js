@@ -1,4 +1,4 @@
-import { Grid, styled } from '@mui/material';
+import { Grid, Link, styled } from '@mui/material';
 
 export const Container = styled(Grid)(({ theme: { breakpoints, palette } }) => ({
   alignItems: 'center',
@@ -55,4 +55,15 @@ export const TextContainer = styled(Grid)(() => ({
   display: 'flex',
   justifyContent: 'flex-start',
   flexDirection: 'column'
+}));
+
+export const CustomLinkText = styled(Link)(({ theme }) => ({
+  ...theme.typography.h5,
+  color: theme.palette.black.main,
+  textDecoration: 'none',
+  fontWeight: 'normal',
+  cursor: 'pointer',
+  '&:hover': {
+    color: theme.palette.primary.main
+  }
 }));
