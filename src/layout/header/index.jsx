@@ -10,6 +10,7 @@ import { HeaderModal, StayTunedModal } from '~/components';
 import { Dropdown } from '~/base';
 import { useBreakpoints, useToggle, useAuth } from '~/hooks';
 import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
+import { hasSecondarySale } from '~/config/config';
 
 import * as Styled from './styles.js';
 
@@ -153,12 +154,14 @@ const Header = () => {
                 data-id={USER_MENU_IDS.PROFILE}>
                 Profile
               </Styled.ButtonText>
-              <Styled.ButtonText
-                variant="text"
-                onClick={handleClick}
-                data-id={USER_MENU_IDS.BROWSE}>
-                Browse All NFTs
-              </Styled.ButtonText>
+              {hasSecondarySale && (
+                <Styled.ButtonText
+                  variant="text"
+                  onClick={handleClick}
+                  data-id={USER_MENU_IDS.BROWSE}>
+                  Browse All NFTs
+                </Styled.ButtonText>
+              )}
               <Styled.ButtonText
                 variant="text"
                 onClick={handleClick}

@@ -11,6 +11,7 @@ import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 
 import * as Styled from '~/styles/browse-page/styles';
 import { useBreakpoints } from '~/hooks';
+import { hasSecondarySale } from '~/config/config';
 
 const DEFAULT_LIST_SIZE = 40;
 
@@ -120,7 +121,12 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
 
 export async function getServerSideProps() {
   return {
-    props: { filters: FILTERS, filtersTypes: FILTERS_TYPES, filtersIds: FILTERS_IDS }
+    notFound: !hasSecondarySale,
+    props: {
+      filters: FILTERS,
+      filtersTypes: FILTERS_TYPES,
+      filtersIds: FILTERS_IDS
+    }
   };
 }
 

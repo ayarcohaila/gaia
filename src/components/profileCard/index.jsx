@@ -11,6 +11,7 @@ import {
   VideoPlayer
 } from '~/components';
 import { useToggle, useAuth, useBreakpoints } from '~/hooks';
+import { hasSecondarySale } from '~/config/config';
 
 import * as Styled from './styled';
 
@@ -52,6 +53,15 @@ const ProfileCard = ({ data, isFromBrowser }) => {
   }, [videoElement, handleDisplayPreview]);
 
   const renderUserCardActions = useMemo(() => {
+    if (!hasSecondarySale) {
+      return (
+        <Grid container justifyContent="center">
+          <Styled.ComingSoon container justifyContent="center" align="center">
+            Sell & Transfer Coming Soon
+          </Styled.ComingSoon>
+        </Grid>
+      );
+    }
     return (
       <CardActions>
         {data?.is_for_sale ? (
@@ -90,7 +100,13 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         )}
       </CardActions>
     );
-  }, [loading, toggleSellNftModal, toggleTransferNftModal, toggleCancelListingModal]);
+  }, [
+    loading,
+    toggleSellNftModal,
+    toggleTransferNftModal,
+    toggleCancelListingModal,
+    hasSecondarySale
+  ]);
 
   const renderContent = useMemo(
     () => (

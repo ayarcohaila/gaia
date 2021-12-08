@@ -67,6 +67,10 @@ export const SellButton = styled(Button)(({ theme: { palette } }) => ({
 
   ':hover': {
     backgroundColor: palette.primary.hover
+  },
+
+  '&.Mui-disabled': {
+    backgroundColor: palette.grey[300]
   }
 }));
 

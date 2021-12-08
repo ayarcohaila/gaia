@@ -27,6 +27,8 @@ import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 
+import { hasSecondarySale } from '~/config/config';
+
 import * as Styled from './styles';
 
 const INSUFFICIENT_FUNDS =
@@ -262,7 +264,7 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
           <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">
             <Styled.Title>{metadata.title}</Styled.Title>
             <Styled.Description>{metadata.description}</Styled.Description>
-            {(isForSale || isOwner) && (
+            {(isForSale || isOwner) && hasSecondarySale && (
               <Grid
                 container
                 sx={{ mt: '42px', gap: isSmallDevice ? '8px' : '16px' }}

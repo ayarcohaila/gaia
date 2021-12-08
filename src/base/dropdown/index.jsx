@@ -28,18 +28,20 @@ const Dropdown = ({
       <Styled.CustomPaper {...otherProps}>
         <ClickAwayListener onClickAway={onClose}>
           <MenuList autoFocus onKeyDown={defaultKeyDownPress}>
-            {options.map(option => (
-              <Styled.CustomMenuItem
-                key={option.label}
-                onClick={handleClickOption}
-                isRed={option.isRed}
-                data-id={option.id}>
-                <>
-                  {option.icon}
-                  {option.label}
-                </>
-              </Styled.CustomMenuItem>
-            ))}
+            {options
+              .filter(menuOption => menuOption !== false)
+              .map(option => (
+                <Styled.CustomMenuItem
+                  key={option.label}
+                  onClick={handleClickOption}
+                  isRed={option.isRed}
+                  data-id={option.id}>
+                  <>
+                    {option.icon}
+                    {option.label}
+                  </>
+                </Styled.CustomMenuItem>
+              ))}
           </MenuList>
         </ClickAwayListener>
       </Styled.CustomPaper>

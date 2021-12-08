@@ -10,6 +10,7 @@ const marketAddress = process.env.NEXT_PUBLIC_NFTMARKET_CONTRACT;
 const landingOnly = process.env.NEXT_PUBLIC_LANDING_ONLY === 'true';
 const appName = process.env.NEXT_PUBLIC_APP_NAME;
 const needsAuth = process.env.APPLICATION_NEEDS_AUTH === 'true';
+const hasSecondarySale = process.env.NEXT_PUBLIC_HAS_SECONDARY_SALE === 'true';
 
 const users = [
   {
@@ -57,5 +58,6 @@ export {
   landingOnly,
   appName,
   needsAuth,
-  users
+  users,
+  hasSecondarySale
 };
