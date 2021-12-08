@@ -48,8 +48,8 @@ const GET_NFT_BY_ID = gql`
 `;
 
 const GET_NFT_BY_MINT_NUMBER = gql`
-  query getNftByMintNumber($mint_number: bigint!, $collection_id: uuid!) {
-    nft(where: { mint_number: { _eq: $mint_number }, collection_id: { _eq: $collection_id } }) {
+  query getNftByMintNumber($filter: nft_bool_exp) {
+    nft(where: $filter) {
       asset_id
       mint_number
       owner
@@ -153,6 +153,7 @@ const GET_NFTS_FOR_SALE = gql`
         template {
           id
           metadata
+          template_id
         }
       }
     }

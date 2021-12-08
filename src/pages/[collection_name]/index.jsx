@@ -35,7 +35,13 @@ const DATA = {
 
 const DEFAULT_LIST_SIZE = 40;
 
-const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount }) => {
+const Collection = ({
+  nft_sale_offer,
+  nft_collection,
+  pickedOffer,
+  offerCount,
+  shareefCollection
+}) => {
   const [cursor, setCursor] = useState(0);
   const [bannerData, setBannerData] = useState(null);
   const [nftList, setNftList] = useState([]);
@@ -114,50 +120,17 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
 
   if (isShareefCollection) {
     // TO-DO: Remove this variables when Shareef collection is ready to be integrated
-    let bannerData = {
-      author: 'Shareef',
-      image: '/collections/shareef/banner.jpeg'
-    };
-    let config = {
-      avatar: '/collections/shareef/avatar.jpeg'
-    };
 
-    let pickedOffer = [
-      {
-        asset: '/collections/shareef/shareef_nft.png',
-        video: '/collections/shareef/shareef_video.mp4',
-        name: 'Gold Edition',
-        limit: 24,
-        price: '240.00',
-        available: 20
-      },
-      {
-        asset: '/collections/shareef/shareef_nft.png',
-        video: '/collections/shareef/shareef_video.mp4',
-        name: 'Silver Edition',
-        limit: 111,
-        price: '88.00',
-        available: 99
-      },
-      {
-        asset: '/collections/shareef/shareef_nft.png',
-        video: '/collections/shareef/shareef_video.mp4',
-        name: 'Bronze Edition',
-        limit: 888,
-        price: '24.00',
-        available: 882
-      }
-    ];
     return (
       <>
         <Seo title="Shareef O’Neal NFTs" />
         <Grid>
           <CollectionBanner
-            accountNumber={bannerData?.author}
+            accountNumber={config?.collectionName}
             bannerAvatar={config?.avatar}
-            bannerName="ShareefONeal"
+            bannerName={config?.nftName}
             bannerDescription={<ShareefDescription />}
-            bgImg={config?.banner || bannerData?.image}
+            bgImg={config?.banner}
             mainColor="#4b1f87"
             secondaryColor="#4b1f87"
             sx={{
@@ -170,7 +143,7 @@ const Collection = ({ nft_sale_offer, nft_collection, pickedOffer, offerCount })
           />
           <Styled.Container>
             <Divider sx={{ margin: '0 auto', maxWidth: '1800px', marginBottom: '32px' }} />
-            <ShareefContent data={pickedOffer} />
+            <ShareefContent data={shareefCollection} />
           </Styled.Container>
         </Grid>
       </>
@@ -240,6 +213,84 @@ export async function getServerSideProps({ query }) {
           nft_collection,
           pickedOffer: randomizedSalesOffers[0],
           offerCount: randomizedSalesOffers.length
+        }
+      };
+    }
+    if (query.collection_name === COLLECTIONS_NAME.SHAREEF) {
+      const { nft_sale_offer } = await gqlClient.request(GET_NFTS_FOR_SALE, {
+        id: collectionConfig?.id
+      });
+
+      const goldEdition = shuffleArray(
+        nft_sale_offer.filter(
+          item =>
+            item.nft.template.template_id === Number(process.env.NEXT_PUBLIC_SHAREEF_GOLD_TEMPLATE)
+        )
+      );
+
+      const silverEdition = shuffleArray(
+        nft_sale_offer.filter(
+          item =>
+            item.nft.template.template_id ===
+            Number(process.env.NEXT_PUBLIC_SHAREEF_SILVER_TEMPLATE)
+        )
+      );
+      const bronzeEdition = shuffleArray(
+        nft_sale_offer.filter(
+          item =>
+            item.nft.template.template_id ===
+            Number(process.env.NEXT_PUBLIC_SHAREEF_BRONZE_TEMPLATE)
+        )
+      );
+
+      return {
+        props: {
+          nft_sale_offer: [],
+          nft_collection,
+          shareefCollection: {
+            goldEdition: {
+              nft: {
+                template: {
+                  metadata: {
+                    img: 'ipfs://QmdopCeeudSUY17EbqkwBMv2Qsiqsc2pBjLm9S7ocstefz',
+                    video: 'ipfs://QmNqEJkumu6TC8mKyP3dXoU7XgSt3wWydA3GVThdeBysxG',
+                    rarity: 'Gold',
+                    editions: '24'
+                  }
+                }
+              },
+              collectionRemaining: goldEdition?.length,
+              ...goldEdition?.[0]
+            },
+            silverEdition: {
+              nft: {
+                template: {
+                  metadata: {
+                    img: 'ipfs://QmdopCeeudSUY17EbqkwBMv2Qsiqsc2pBjLm9S7ocstefz',
+                    video: 'ipfs://QmNqEJkumu6TC8mKyP3dXoU7XgSt3wWydA3GVThdeBysxG',
+                    rarity: 'Silver',
+                    editions: '111'
+                  }
+                }
+              },
+              collectionRemaining: silverEdition?.length,
+              ...silverEdition?.[0]
+            },
+            bronzeEdition: {
+              nft: {
+                template: {
+                  metadata: {
+                    img: 'ipfs://QmdopCeeudSUY17EbqkwBMv2Qsiqsc2pBjLm9S7ocstefz',
+                    video: 'ipfs://QmNqEJkumu6TC8mKyP3dXoU7XgSt3wWydA3GVThdeBysxG',
+                    rarity: 'Bronze',
+                    editions: '888'
+                  }
+                }
+              },
+              collectionRemaining: bronzeEdition?.length,
+              ...bronzeEdition?.[0]
+            }
+          }
         }
       };
     }

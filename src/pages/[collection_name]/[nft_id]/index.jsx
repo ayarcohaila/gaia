@@ -65,16 +65,36 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { collection_name, nft_id } = params;
   const brysonConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON];
+  const shareefConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF];
 
   const attributesOrder = ATTRIBUTES_ORDER;
   const ballerzComputedProps = BALLERZ_COMPUTED_PROPERTIES;
+
   try {
     if (collection_name === COLLECTIONS_NAME.BRYSON) {
       const { nft } = await gqlClient.request(GET_NFT_BY_MINT_NUMBER, {
-        collection_id: brysonConfig.id,
-        mint_number: nft_id
+        filter: {
+          collection_id: { _eq: brysonConfig.id },
+          mint_number: { _eq: nft_id }
+        }
       });
       if (!nft?.length || !(brysonConfig.status === COLLECTION_STATUS.SALE)) {
+        return { notFound: true };
+      }
+      return {
+        props: { nft: nft[0], attributesOrder, ballerzComputedProps },
+        revalidate: 60 // 1 min
+      };
+    }
+
+    if (collection_name === COLLECTIONS_NAME.SHAREEF) {
+      const { nft } = await gqlClient.request(GET_NFT_BY_MINT_NUMBER, {
+        filter: {
+          collection_id: { _eq: shareefConfig.id },
+          asset_id: { _eq: nft_id }
+        }
+      });
+      if (!nft?.length || !(shareefConfig.status === COLLECTION_STATUS.SALE)) {
         return { notFound: true };
       }
       return {
@@ -91,7 +111,7 @@ export async function getStaticProps({ params }) {
       props: { nft: nft[0], attributesOrder, ballerzComputedProps },
       revalidate: 60 // 1 min
     };
-  } catch {
+  } catch (error) {
     return { notFound: true };
   }
 }

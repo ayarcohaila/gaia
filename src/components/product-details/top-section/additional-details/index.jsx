@@ -43,7 +43,7 @@ const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
                 variant="body1"
                 fontWeight="500"
                 sx={{ fontSize: '10px', letterSpacing: '0px' }}>
-                {key?.toUpperCase()}
+                {key?.toUpperCase().replace('_', ' ')}
               </Typography>
               <Typography color={grey[600]} variant="subtitle1" lineHeight="20px">
                 {value}

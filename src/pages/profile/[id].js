@@ -106,17 +106,20 @@ export async function getServerSideProps(ctx) {
 
   const parseDBInput = list => {
     return list.map(nft => {
-      const isBallerz = nft.collection_id === COLLECTION_LIST_CONFIG.ballerz.id;
+      const currentCollection = Object.values(COLLECTION_LIST_CONFIG).find(
+        item => item.id === nft.collection_id
+      );
       return {
         ...nft,
-        id: nft.template.metadata.id || nft.mint_number,
+        id:
+          nft.collection_id === COLLECTION_LIST_CONFIG.shareef.id
+            ? nft.asset_id
+            : nft.template.metadata.id || nft.mint_number,
         name: nft.template.metadata.title,
         imageURL: formatIpfsImg(nft.template.metadata.img),
         videoURL: formatIpfsImg(nft.template.metadata?.video),
-        collection_name: isBallerz ? COLLECTIONS_NAME.BALLERZ : COLLECTIONS_NAME.BRYSON,
-        collection_picture: isBallerz
-          ? COLLECTION_LIST_CONFIG.ballerz.avatar
-          : COLLECTION_LIST_CONFIG.bryson.avatar
+        collection_name: currentCollection.collectionName,
+        collection_picture: currentCollection.avatar
       };
     });
   };

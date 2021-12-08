@@ -13,7 +13,6 @@ import {
 import { useToggle, useAuth, useBreakpoints } from '~/hooks';
 
 import * as Styled from './styled';
-import { COLLECTIONS_NAME } from '../../../collections_setup';
 
 const ProfileCard = ({ data, isFromBrowser }) => {
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
@@ -105,7 +104,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
           avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}
           title={data?.collection_name.toUpperCase()}
         />
-        {data.collection_name === COLLECTIONS_NAME.BRYSON && !data?.mystery ? (
+        {data?.videoURL && !data?.mystery ? (
           <Grid>
             <VideoPlayer
               src={data?.videoURL}

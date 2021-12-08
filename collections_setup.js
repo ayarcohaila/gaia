@@ -41,6 +41,17 @@ export const COLLECTION_LIST_CONFIG = {
     avatar: '/collections/bryson/avatar.webp',
     banner: '/collections/bryson/video-poster.webp',
     collectionSize: 5000
+  },
+  [COLLECTIONS_NAME.SHAREEF]: {
+    id: process.env.NEXT_PUBLIC_SHAREEF_COLLECTION,
+    nftName: `Shareef O'Neal`,
+    collectionName: COLLECTIONS_NAME.SHAREEF,
+    status: COLLECTION_STATUS.SALE,
+    mystery: false,
+    buyLimit: 0,
+    avatar: '/collections/shareef/avatar.jpeg',
+    banner: '/collections/shareef/banner.jpeg',
+    collectionSize: 1023
   }
 };
 

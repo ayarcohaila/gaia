@@ -1,11 +1,25 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useState, useMemo, useCallback, useEffect } from 'react';
 import { useTheme } from '@emotion/react';
 import Image from 'next/image';
-
+import { useRouter } from 'next/router';
 import { Typography, Divider, Grid } from '@mui/material';
-import { Button } from '~/base';
-import { useBreakpoints } from '~/hooks';
-import { VideoPlayer } from '~/components';
+
+import { buy } from '~/flow/buy';
+import { Button, Loader } from '~/base';
+import {
+  InsufficientFundsModal,
+  PurchaseErrorModal,
+  OrderProcessing,
+  VideoPlayer
+} from '~/components';
+
+import { useBreakpoints, useToggle, useAuth } from '~/hooks';
+import { AuthContext } from '~/providers/AuthProvider';
+import { INSUFFICIENT_FUNDS } from '~/components/collectionCard';
+import SuccessPurchaseModal from '../success-purchase-modal';
+import { loadTransaction } from '~/utils/transactionsLoader';
+import { BUY_TX } from '~/constant';
+import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
 
@@ -13,7 +27,74 @@ const ShareefCollectionContent = ({ data }) => {
   const {
     palette: { grey }
   } = useTheme();
+  const { login } = useAuth();
+  const route = useRouter();
   const { isMediumDevice, isExtraMediumDevice } = useBreakpoints();
+  const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
+  const [isPurchaseErrorOpen, togglePurchaseError] = useToggle();
+  const [isFundsErrorOpen, toggleFundsError] = useToggle();
+  const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
+  const [purchaseTxId, setPurchaseTxId] = useState(null);
+  const { hasSetup, user } = useContext(AuthContext);
+  const [loadingPurchase, setLoadingPurchase] = useState(false);
+  const [loadingTransaction, setLoadingTransaction] = useState(false);
+  const [transaction, setTransaction] = useState(null);
+
+  const shouldDisablePurchaseButton = useMemo(
+    () => loadingPurchase || (user && !hasSetup) || (user && !transaction),
+    [loadingPurchase, hasSetup, user, transaction]
+  );
+
+  const handleClosePurchaseModal = () => {
+    togglePurchaseNftModal();
+    setPurchaseTxId(null);
+  };
+
+  const handlePurchaseClick = nft => async event => {
+    event?.stopPropagation();
+    try {
+      setLoadingPurchase(true);
+      toggleProcessingModal();
+      const txResult = await buy(
+        transaction.transactionScript,
+        nft.listing_resource_id,
+        nft?.nft?.owner,
+        nft?.price,
+        user?.addr
+      );
+      if (txResult) {
+        setPurchaseTxId(txResult?.txId);
+        toggleProcessingModal();
+        togglePurchaseNftModal();
+        setLoadingPurchase(false);
+        route.push(route.asPath);
+      }
+    } catch (err) {
+      console.warn(err);
+      toggleProcessingModal();
+      if (err?.message?.includes(INSUFFICIENT_FUNDS)) {
+        toggleFundsError();
+      } else {
+        togglePurchaseError();
+      }
+      setLoadingPurchase(false);
+    }
+  };
+
+  const handleLogin = async event => {
+    event?.stopPropagation();
+    await login();
+    route.push(route.asPath);
+  };
+
+  useEffect(() => {
+    (async () => {
+      setLoadingTransaction(true);
+      const tx = await loadTransaction(BUY_TX);
+      setTransaction(tx);
+      setLoadingTransaction(false);
+    })();
+  }, [BUY_TX, loadTransaction, setLoadingTransaction]);
 
   const contentSection = useMemo(
     () => (
@@ -96,60 +177,79 @@ const ShareefCollectionContent = ({ data }) => {
     [isMediumDevice]
   );
 
-  return (
-    <>
-      <Styled.Container container>
-        {data.map((item, index) => (
-          <Styled.CustomCard
-            key={index}
-            md={4}
-            sm={12}
-            item
-            container
-            styled={{ border: '1px solid red' }}>
-            <VideoPlayer
-              loop
-              src={item?.video}
-              poster={item?.asset}
-              height={[
-                !isExtraMediumDevice ? 'auto' : '400px',
-                !isMediumDevice ? 'auto' : '400px',
-                !isMediumDevice ? 'auto' : '400px',
-                !isMediumDevice ? 'auto' : '400px'
-              ]}
-              width={[
-                !isExtraMediumDevice ? 'auto' : '332px',
-                !isExtraMediumDevice ? 'auto' : '332px',
-                '332px',
-                'auto'
-              ]}
-            />
+  const renderCard = useCallback(
+    sale => {
+      return (
+        <Styled.CustomCard md={4} sm={12} item container styled={{ border: '1px solid red' }}>
+          <VideoPlayer
+            loop
+            src={formatIpfsImg(sale?.nft?.template?.metadata?.video)}
+            poster={formatIpfsImg(sale?.nft?.template?.metadata?.img)}
+            height={[
+              !isExtraMediumDevice ? 'auto' : '400px',
+              !isMediumDevice ? 'auto' : '400px',
+              !isMediumDevice ? 'auto' : '400px',
+              !isMediumDevice ? 'auto' : '400px'
+            ]}
+            width={[
+              !isExtraMediumDevice ? 'auto' : '332px',
+              !isExtraMediumDevice ? 'auto' : '332px',
+              '332px',
+              'auto'
+            ]}
+          />
 
-            <Typography variant="h4" mt="10px">
-              {item?.name}
-            </Typography>
-            <Typography variant="h6" mb="16px">
-              Limited Edition of {item?.limit}
-            </Typography>
+          <Typography variant="h4" mt="10px">
+            {`${sale?.nft?.template?.metadata?.rarity} Edition`}
+          </Typography>
+          <Typography variant="h6" mb="16px">
+            {`Limited Edition of ${sale?.nft?.template?.metadata?.editions}`}
+          </Typography>
+          {!!sale?.collectionRemaining && (
             <Button
+              onClick={user ? handlePurchaseClick(sale) : handleLogin}
+              disabled={shouldDisablePurchaseButton}
               sx={{
                 width: '100%',
                 marginBottom: '16px',
                 maxWidth: '332px'
               }}>
-              <Typography variant="h6" fontWeight="600" letterSpacing={1}>
-                Purchase - ${item?.price}
-              </Typography>
+              {loadingTransaction ? (
+                <Loader disableText />
+              ) : (
+                <Typography variant="h6" fontWeight="600" letterSpacing={1}>
+                  Purchase - ${Number(sale?.price).toFixed(2)}
+                </Typography>
+              )}
             </Button>
-            <Typography variant="h6" color={grey[600]}>
-              {item?.available} available
-            </Typography>
-          </Styled.CustomCard>
-        ))}
+          )}
+          <Typography variant="h6" color={grey[600]}>
+            {sale?.collectionRemaining} available
+          </Typography>
+        </Styled.CustomCard>
+      );
+    },
+    [loadingTransaction, shouldDisablePurchaseButton, user, handlePurchaseClick]
+  );
+
+  return (
+    <>
+      <Styled.Container container>
+        {renderCard(data.goldEdition)}
+        {renderCard(data.silverEdition)}
+        {renderCard(data.bronzeEdition)}
       </Styled.Container>
       <Grid container justifyContent="center">
         {contentSection}
       </Grid>
+      <SuccessPurchaseModal
+        open={isPurchaseNftModalOpen}
+        onClose={handleClosePurchaseModal}
+        tx={purchaseTxId}
+      />
+      <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
+      <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />
+      <OrderProcessing open={isProcessingModalOpen} onClose={toggleProcessingModal} />
     </>
   );
 };
