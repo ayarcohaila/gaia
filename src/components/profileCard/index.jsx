@@ -126,7 +126,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
               src={data?.videoURL}
               poster={data?.imageURL}
               height={['275px', '275px', '275px', '275px']}
-              width={['275px', '275px', '275px', '275px']}
+              width={['275px', '275px', '275px', 'auto']}
               id={`video-${data.id}`}
             />
           </Grid>
