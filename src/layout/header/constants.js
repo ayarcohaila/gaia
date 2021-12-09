@@ -20,4 +20,4 @@ export const USER_MENU_OPTIONS = [
     icon: <LockOpenOutlinedIcon fontSize="12px" />
   },
   hasSecondarySale && { id: USER_MENU_IDS.BROWSE, label: 'Browse All NFTs' }
-];
+].filter(option => option !== false);

@@ -79,7 +79,7 @@ const Header = () => {
         {!isMediumDevice && (
           <Grid component="nav" ml="47px">
             <Styled.MenuOptionList component="ul">
-              {MENU_OPTIONS.map(option => (
+              {MENU_OPTIONS.filter(menuOption => menuOption !== false).map(option => (
                 <Grid key={option.label} item component="li">
                   <Styled.MenuOption href={option.href}>{option.label}</Styled.MenuOption>
                 </Grid>
