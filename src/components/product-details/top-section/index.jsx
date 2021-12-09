@@ -258,7 +258,7 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
           <Styled.NumberContainer>
             {/* TODO: Refactor for backend total number */}
             <Typography color={grey[600]} variant="body1">
-              #{metadata?.id || nft?.mint_number} / {config?.collectionSize}
+              #{metadata?.id || nft?.mint_number} / {metadata?.editions || config?.collectionSize}
             </Typography>
           </Styled.NumberContainer>
           <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">

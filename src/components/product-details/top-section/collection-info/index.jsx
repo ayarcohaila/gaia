@@ -22,7 +22,7 @@ const CollectionInfo = ({ name }) => {
         <Typography variant="h5">{name}</Typography>
         <Grid alignItems="center" container>
           <Typography color={grey[600]} mr={1} variant="subtitle1">
-            @{name}
+            @{name.replace(/[^\w]/gi, '')}
           </Typography>
           <VerifiedIcon htmlColor={primary.main} fontSize="1rem" />
         </Grid>
