@@ -12,6 +12,7 @@ import {
 } from '~/components';
 import { useToggle, useAuth, useBreakpoints } from '~/hooks';
 import { hasSecondarySale } from '~/config/config';
+import { useCollectionConfig } from '~/hooks';
 
 import * as Styled from './styled';
 
@@ -27,6 +28,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
+  const { collectionsNames } = useCollectionConfig();
 
   const asset = {
     ...data,
@@ -51,6 +53,13 @@ const ProfileCard = ({ data, isFromBrowser }) => {
       videoElement?.removeEventListener('loadeddata', handleDisplayPreview());
     };
   }, [videoElement, handleDisplayPreview]);
+
+  const renderCollectionName = useMemo(() => {
+    if (data?.collection_name === collectionsNames.SHAREEF) {
+      return data?.collection?.name;
+    }
+    return data?.collection_name.toUpperCase();
+  }, [collectionsNames]);
 
   const renderUserCardActions = useMemo(() => {
     if (!hasSecondarySale) {
@@ -118,7 +127,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         }}>
         <Styled.CustomCardHeader
           avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}
-          title={data?.collection_name.toUpperCase()}
+          title={renderCollectionName}
         />
         {data?.videoURL && !data?.mystery ? (
           <Grid>
