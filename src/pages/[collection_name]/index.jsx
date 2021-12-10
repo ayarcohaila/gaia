@@ -217,12 +217,9 @@ export async function getServerSideProps({ query }) {
       };
     }
     if (query.collection_name === COLLECTIONS_NAME.SHAREEF) {
-      // const { nft_sale_offer } = await gqlClient.request(GET_NFTS_FOR_SALE, {
-      //   id: collectionConfig?.id
-      // });
-
-      // TODO: Remove it after the sold out test
-      const nft_sale_offer = [];
+      const { nft_sale_offer } = await gqlClient.request(GET_NFTS_FOR_SALE, {
+        id: collectionConfig?.id
+      });
 
       const goldEdition = shuffleArray(
         nft_sale_offer.filter(
