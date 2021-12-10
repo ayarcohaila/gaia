@@ -49,6 +49,7 @@ export default function HomepageBanner() {
               {shareefSaleEnabled ? 'Buy Now' : 'On Sale Dec 13 at 2pm PT'}
             </Typography>
           </Styled.CardButton>
+          {/* TODO: Uncomment after shareef drop */}
           {/* <Styled.CardButton
             component="a"
             href="https://discord.com/invite/ballerznft"
