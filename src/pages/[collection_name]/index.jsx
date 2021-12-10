@@ -128,7 +128,7 @@ const Collection = ({
           <CollectionBanner
             accountNumber={config?.collectionName}
             bannerAvatar={config?.avatar}
-            bannerName={config?.nftName}
+            bannerName={config?.nftName.replace(/[^\w]/gi, '')}
             bannerDescription={<ShareefDescription />}
             bgImg={config?.banner}
             mainColor="#4b1f87"
