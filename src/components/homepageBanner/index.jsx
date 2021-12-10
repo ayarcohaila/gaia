@@ -44,7 +44,7 @@ export default function HomepageBanner() {
           <Styled.CardButton
             component="a"
             href="/shareef"
-            sx={{ width: !shareefSaleEnabled && '200px' }}>
+            sx={{ width: !shareefSaleEnabled ? '200px' : '100px' }}>
             <Typography variant="subtitle1">
               {shareefSaleEnabled ? 'Buy Now' : 'On Sale Dec 13 at 2pm PT'}
             </Typography>
