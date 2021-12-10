@@ -5,9 +5,9 @@ export const ContainerBackground = styled('div', { shouldForwardProp: prop => pr
     backgroundImage: `url(${imgUrl})`,
     maxHeight: '420px',
     borderRadius: '40px',
-    backgroundSize: 'auto 100%',
-    backgroundPosition: 'right',
-    backgroundRepeat: 'repeat-x',
+    backgroundSize: 'cover',
+    backgroundPosition: 'top',
+    backgroundRepeat: 'no-repeat',
     boxSizing: 'border-box',
     position: 'relative'
   })
