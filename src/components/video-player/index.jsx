@@ -64,6 +64,7 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
         poster={poster}
         ref={playerRef}
         src={src}
+        playsInline
         {...props}>
         Sorry, your browser have no support to embedded videos.
       </Styled.Video>
