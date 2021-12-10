@@ -3,15 +3,16 @@ import React from 'react';
 import { Typography, Grid } from '@mui/material';
 
 import { useBreakpoints } from '~/hooks';
+import { shareefSaleEnabled } from '~/config/config';
 
 import * as Styled from './styled';
 
 const bannerData = {
-  drop: 'Featured Collection',
-  title: 'The Home of BALLERZ',
+  drop: 'Genesis Collection',
+  title: 'Shareef O’Neal',
   description:
-    'Be a part of the emerging basketball NFT community! Secondary marketplace coming soon. ',
-  background: '/collections/ballerz/banner.png'
+    'The first of a series of drops highlighting his basketball career, family, and recovery from heart surgery',
+  background: '/collections/shareef/banner.jpeg'
 };
 
 export default function HomepageBanner() {
@@ -42,21 +43,22 @@ export default function HomepageBanner() {
         <Grid container sx={{ gap: '12px' }}>
           <Styled.CardButton
             component="a"
-            href="https://twitter.com/ballerz_nft"
-            target="_blank"
-            rel="noopener noreferrer">
-            <Typography variant="subtitle1">Follow on Twitter</Typography>
+            href="/shareef"
+            sx={{ width: !shareefSaleEnabled && '200px' }}>
+            <Typography variant="subtitle1">
+              {shareefSaleEnabled ? 'Buy Now' : 'On Sale Dec 13 at 2pm PT'}
+            </Typography>
           </Styled.CardButton>
-          <Styled.CardButton
+          {/* <Styled.CardButton
             component="a"
             href="https://discord.com/invite/ballerznft"
             target="_blank"
             rel="noopener noreferrer">
             <Typography variant="subtitle1">Join Discord</Typography>
-          </Styled.CardButton>
+          </Styled.CardButton> */}
         </Grid>
       </Styled.Container>
-      <Styled.BannerLink href="/ballerz" />
+      <Styled.BannerLink href="/shareef" />
     </Styled.ContainerBackground>
   );
 }

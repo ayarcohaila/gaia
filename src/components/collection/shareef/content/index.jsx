@@ -20,6 +20,7 @@ import SuccessPurchaseModal from '../success-purchase-modal';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { BUY_TX } from '~/constant';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+import { shareefSaleEnabled } from '~/config/config';
 
 import * as Styled from './styles';
 
@@ -35,14 +36,14 @@ const ShareefCollectionContent = ({ data }) => {
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
   const [purchaseTxId, setPurchaseTxId] = useState(null);
-  const { hasSetup, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [loadingTransaction, setLoadingTransaction] = useState(false);
   const [transaction, setTransaction] = useState(null);
 
   const shouldDisablePurchaseButton = useMemo(
-    () => loadingPurchase || (user && !hasSetup) || (user && !transaction),
-    [loadingPurchase, hasSetup, user, transaction]
+    () => loadingPurchase || !transaction,
+    [loadingPurchase, transaction]
   );
 
   const handleClosePurchaseModal = () => {
@@ -179,6 +180,16 @@ const ShareefCollectionContent = ({ data }) => {
 
   const renderCard = useCallback(
     sale => {
+      let buttonLabel = '';
+      if (sale?.collectionRemaining) {
+        if (shareefSaleEnabled) {
+          buttonLabel = `Purchase - $${Number(sale?.price).toFixed(2)}`;
+        } else {
+          buttonLabel = 'On Sale Dec 13 at 2pm PT';
+        }
+      } else {
+        buttonLabel = 'SOLD OUT';
+      }
       return (
         <Styled.CustomCard md={4} sm={12} item container styled={{ border: '1px solid red' }}>
           <VideoPlayer
@@ -208,7 +219,9 @@ const ShareefCollectionContent = ({ data }) => {
           {!!sale?.collectionRemaining && (
             <Button
               onClick={user ? handlePurchaseClick(sale) : handleLogin}
-              disabled={shouldDisablePurchaseButton}
+              disabled={
+                shouldDisablePurchaseButton || !shareefSaleEnabled || !sale?.collectionRemaining
+              }
               sx={{
                 width: '100%',
                 marginBottom: '16px',
@@ -218,7 +231,7 @@ const ShareefCollectionContent = ({ data }) => {
                 <Loader disableText />
               ) : (
                 <Typography variant="h6" fontWeight="600" letterSpacing={1}>
-                  Purchase - ${Number(sale?.price).toFixed(2)}
+                  {buttonLabel}
                 </Typography>
               )}
             </Button>
