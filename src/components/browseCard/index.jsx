@@ -24,7 +24,7 @@ const BrowseCard = ({ data }) => {
   };
 
   const shouldAddExtraMargin =
-    currentCollection.collectionName === COLLECTIONS_NAME.BRYSON &&
+    currentCollection?.collectionName === COLLECTIONS_NAME.BRYSON &&
     (isSmallDevice || !isMediumDevice);
 
   const renderContent = () => (
@@ -53,7 +53,7 @@ const BrowseCard = ({ data }) => {
           src={formatIpfsImg(data?.template.metadata.video)}
           poster={formatIpfsImg(data?.template.metadata.img)}
           height={['276px', '276px', '276px', '276px']}
-          width={['276px', '276px', '276px', '276px']}
+          width={['276px', '276px', '276px', 'auto']}
         />
       ) : (
         <>
@@ -66,7 +66,7 @@ const BrowseCard = ({ data }) => {
           <CardMedia
             sx={{
               borderRadius: '20px',
-              width: '276px',
+              width: isSmallDevice ? '100%' : '276px',
               height: '276px',
               margin: '0 auto 16px',
               display: !imgLoaded && 'none'
