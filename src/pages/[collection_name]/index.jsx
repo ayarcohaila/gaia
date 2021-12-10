@@ -35,6 +35,8 @@ const DATA = {
 
 const DEFAULT_LIST_SIZE = 40;
 
+import { shareefSaleEnabled } from '~/config/config';
+
 const Collection = ({
   nft_sale_offer,
   nft_collection,
@@ -259,7 +261,7 @@ export async function getServerSideProps({ query }) {
                   }
                 }
               },
-              collectionRemaining: goldEdition?.length,
+              collectionRemaining: shareefSaleEnabled ? goldEdition?.length : 24,
               ...goldEdition?.[0]
             },
             silverEdition: {
@@ -274,7 +276,7 @@ export async function getServerSideProps({ query }) {
                   }
                 }
               },
-              collectionRemaining: silverEdition?.length,
+              collectionRemaining: shareefSaleEnabled ? silverEdition?.length : 111,
               ...silverEdition?.[0]
             },
             bronzeEdition: {
@@ -289,7 +291,7 @@ export async function getServerSideProps({ query }) {
                   }
                 }
               },
-              collectionRemaining: bronzeEdition?.length,
+              collectionRemaining: shareefSaleEnabled ? bronzeEdition?.length : 888,
               ...bronzeEdition?.[0]
             }
           }
