@@ -27,14 +27,12 @@ export const VideoContainer = styled(Box, {
   }
 }));
 
-export const Video = styled('video', { shouldForwardProp: props => props !== 'fullscreen' })(
-  ({ fullscreen }) => ({
-    borderRadius: '16px',
-    objectFit: fullscreen ? 'contain' : 'cover',
-    height: '100%',
-    width: '100%'
-  })
-);
+export const Video = styled('video')(() => ({
+  borderRadius: '16px',
+  objectFit: 'cover',
+  height: '100%',
+  width: '100%'
+}));
 
 export const ActionsContainer = styled(Grid)(() => ({
   alignItems: 'center',
