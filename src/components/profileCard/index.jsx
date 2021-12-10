@@ -42,7 +42,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
   }, [setImgLoaded]);
 
   useEffect(() => {
-    setVideoElement(window?.document?.getElementById(`video-${data.id}`));
+    setVideoElement(window?.document?.getElementById(`video-${data?.id}`));
   }, []);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
     if (data?.collection_name === collectionsNames.SHAREEF) {
       return data?.collection?.name;
     }
-    return data?.collection_name.toUpperCase();
+    return data?.collection_name?.toUpperCase();
   }, [collectionsNames]);
 
   const renderUserCardActions = useMemo(() => {
@@ -126,7 +126,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
           boxSizing: 'border-box'
         }}>
         <Styled.CustomCardHeader
-          avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}
+          avatar={<Avatar alt="ss" src={data?.collection_picture} sx={{ width: 28, height: 28 }} />}
           title={renderCollectionName}
         />
         {data?.videoURL && !data?.mystery ? (
@@ -136,7 +136,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
               poster={data?.imageURL}
               height={['275px', '275px', '275px', '275px']}
               width={['275px', '275px', '275px', 'auto']}
-              id={`video-${data.id}`}
+              id={`video-${data?.id}`}
             />
           </Grid>
         ) : (
@@ -184,7 +184,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
       {data?.mystery ? (
         renderContent
       ) : (
-        <Link href={`/${data.collection_name}/${data?.id}`} passHref>
+        <Link href={`/${data?.collection_name}/${data?.id}`} passHref>
           {renderContent}
         </Link>
       )}

@@ -66,7 +66,7 @@ const BrowseCard = ({ data }) => {
           <CardMedia
             sx={{
               borderRadius: '20px',
-              width: '276px',
+              width: isSmallDevice ? '100%' : '276px',
               height: '276px',
               margin: '0 auto 16px',
               display: !imgLoaded && 'none'
