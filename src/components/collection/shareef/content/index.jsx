@@ -216,29 +216,29 @@ const ShareefCollectionContent = ({ data }) => {
           <Typography variant="h6" mb="16px">
             {`Limited Edition of ${sale?.nft?.template?.metadata?.editions}`}
           </Typography>
+          <Button
+            onClick={user ? handlePurchaseClick(sale) : handleLogin}
+            disabled={
+              shouldDisablePurchaseButton || !shareefSaleEnabled || !sale?.collectionRemaining
+            }
+            sx={{
+              width: '100%',
+              marginBottom: '16px',
+              maxWidth: '332px'
+            }}>
+            {loadingTransaction ? (
+              <Loader disableText />
+            ) : (
+              <Typography variant="h6" fontWeight="600" letterSpacing={1}>
+                {buttonLabel}
+              </Typography>
+            )}
+          </Button>
           {!!sale?.collectionRemaining && (
-            <Button
-              onClick={user ? handlePurchaseClick(sale) : handleLogin}
-              disabled={
-                shouldDisablePurchaseButton || !shareefSaleEnabled || !sale?.collectionRemaining
-              }
-              sx={{
-                width: '100%',
-                marginBottom: '16px',
-                maxWidth: '332px'
-              }}>
-              {loadingTransaction ? (
-                <Loader disableText />
-              ) : (
-                <Typography variant="h6" fontWeight="600" letterSpacing={1}>
-                  {buttonLabel}
-                </Typography>
-              )}
-            </Button>
+            <Typography variant="h6" color={grey[600]}>
+              {sale?.collectionRemaining} available
+            </Typography>
           )}
-          <Typography variant="h6" color={grey[600]}>
-            {sale?.collectionRemaining} available
-          </Typography>
         </Styled.CustomCard>
       );
     },
