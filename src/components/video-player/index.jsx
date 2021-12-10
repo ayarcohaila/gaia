@@ -15,6 +15,24 @@ import { useHover } from '~/hooks';
 
 import * as Styled from './styles';
 
+function handleFullscreenChange(setIsFullscreen) {
+  const navigators = [
+    'fullscreenchange',
+    'webkitfullscreenchange',
+    'mozfullscreenchange',
+    'msfullscreenchange'
+  ];
+  navigators.forEach(navigator => {
+    document.addEventListener(
+      navigator,
+      function () {
+        setIsFullscreen(document.fullscreen);
+      },
+      false
+    );
+  });
+}
+
 const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) => {
   const containerRef = useRef();
   const playerRef = useRef();
@@ -54,6 +72,10 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
       isPlaying ? player?.play() : player?.pause();
     }
   }, [isPlaying, playerRef]);
+
+  useEffect(() => {
+    handleFullscreenChange(setIsFullscreen);
+  }, []);
 
   return (
     <Styled.VideoContainer $height={height} $width={width} ref={containerRef} {...containerProps}>
