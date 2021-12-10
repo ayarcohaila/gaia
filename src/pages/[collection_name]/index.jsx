@@ -128,7 +128,7 @@ const Collection = ({
           <CollectionBanner
             accountNumber={config?.collectionName}
             bannerAvatar={config?.avatar}
-            bannerName={config?.nftName}
+            bannerName={config?.nftName.replace(/[^\w]/gi, '')}
             bannerDescription={<ShareefDescription />}
             bgImg={config?.banner}
             mainColor="#4b1f87"
@@ -252,8 +252,8 @@ export async function getServerSideProps({ query }) {
               nft: {
                 template: {
                   metadata: {
-                    img: 'ipfs://QmdopCeeudSUY17EbqkwBMv2Qsiqsc2pBjLm9S7ocstefz',
-                    video: 'ipfs://QmNqEJkumu6TC8mKyP3dXoU7XgSt3wWydA3GVThdeBysxG',
+                    img: 'ipfs://QmPznm46ELWPhHXoy6ZH5SegPZYa2sQR7QK9P1MhnrjvjL/shareef_gold.png',
+                    video: 'ipfs://QmPznm46ELWPhHXoy6ZH5SegPZYa2sQR7QK9P1MhnrjvjL/shareef_gold.mp4',
                     rarity: 'Gold',
                     editions: '24'
                   }
@@ -266,8 +266,9 @@ export async function getServerSideProps({ query }) {
               nft: {
                 template: {
                   metadata: {
-                    img: 'ipfs://QmdopCeeudSUY17EbqkwBMv2Qsiqsc2pBjLm9S7ocstefz',
-                    video: 'ipfs://QmNqEJkumu6TC8mKyP3dXoU7XgSt3wWydA3GVThdeBysxG',
+                    img: 'ipfs://QmPznm46ELWPhHXoy6ZH5SegPZYa2sQR7QK9P1MhnrjvjL/shareef_silver.png',
+                    video:
+                      'ipfs://QmPznm46ELWPhHXoy6ZH5SegPZYa2sQR7QK9P1MhnrjvjL/shareef_silver.mp4',
                     rarity: 'Silver',
                     editions: '111'
                   }
@@ -280,8 +281,9 @@ export async function getServerSideProps({ query }) {
               nft: {
                 template: {
                   metadata: {
-                    img: 'ipfs://QmdopCeeudSUY17EbqkwBMv2Qsiqsc2pBjLm9S7ocstefz',
-                    video: 'ipfs://QmNqEJkumu6TC8mKyP3dXoU7XgSt3wWydA3GVThdeBysxG',
+                    img: 'ipfs://QmPznm46ELWPhHXoy6ZH5SegPZYa2sQR7QK9P1MhnrjvjL/shareef_bronze.png',
+                    video:
+                      'ipfs://QmPznm46ELWPhHXoy6ZH5SegPZYa2sQR7QK9P1MhnrjvjL/shareef_bronze.mp4',
                     rarity: 'Bronze',
                     editions: '888'
                   }
