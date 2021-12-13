@@ -13,12 +13,9 @@ const GET_COLLECTION_BY_ID = gql`
 `;
 
 const GET_NFT_BY_ID = gql`
-  query getNftById($id: jsonb) {
+  query getNftById($id: jsonb, $collection_id: uuid!) {
     nft(
-      where: {
-        collection_id: { _eq: "be0a6102-2ca9-4875-b801-cf236ce43a86" }
-        template: { metadata: { _contains: $id } }
-      }
+      where: { collection_id: { _eq: $collection_id }, template: { metadata: { _contains: $id } } }
     ) {
       asset_id
       is_for_sale
