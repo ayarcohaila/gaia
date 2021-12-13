@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+<p align="center">
+  <img width="300" src="./nft_genius.png" />
+</p>
+<p align="center" style="color: black; font-size: 60px;">
+  NFT Genius - Gaia Frontend
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+👋 &nbsp;Welcome to Gaia! A marketplace app built with Flow.
 
-## Available Scripts
+# ✨ Getting started
 
-In the project directory, you can run:
+#### 1. Clone this project
 
-### `yarn start`
+On your terminal, type in:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+git clone https://github.com/NFT-Genius/gaia-frontend
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### 2. Install the dependencies
 
-### `yarn test`
+```
+cd gaia-frontend
+yarn
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 3. Before to Run
 
-### `yarn build`
+- Make sure that you are with the correct environment set up.
+- Try to use file -> ".env.test"
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 4. Run the project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+[UNIX] yarn dev
+[WINDOWS] yarn dev-windows
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 5. First Access
 
-### `yarn eject`
+- When you click on Login you need to choice a wallet
+- We have 2 options available [Blocto and Ledger]
+- For this first access try to choice "Blocto"
+- Type your email to receive a validation "passcode" and click on "signin"
+- After that click on "Confirm" button
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### 6. How to Claim FUSD
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1 - You must be logged in
+2 - After that go to your profile
+3 - Click on "Flow"
+4 - A Modal will open and you can typing any value less than or equal to 50
+5 - Click on "Claim FUSD" to receive FUSD value
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Flow utils
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- [Create testnet account / add funds](https://testnet-faucet.onflow.org).
+- [Explore testnet account](https://flow-view-source.com/testnet/account/0xACCOUNTADDRESS).
+- [Explore testnet transaction](https://flow-view-source.com/testnet/tx/TRANSACTIONHASH).
 
-## Learn More
+- [Flow mainnet explorer](https://flowscan.org/).
+- [Explore mainnet account](https://flow-view-source.com/account/0xACCOUNTADDRESS).
+- [Explore mainnet transaction](https://flow-view-source.com/tx/TRANSACTIONHASH).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Built with
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Flow](https://www.onflow.org/)
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Material UI](https://mui.com/)
+- [Axios](https://github.com/axios/axios)
+- [Styled Components](https://styled-components.com/)
+- [Node.js](https://nodejs.org/)
+- [Yarn](https://yarnpkg.com/)
+- [ESLint](https://eslint.org/)
+- [Husky](https://github.com/typicode/husky)
+- [Lint Staged](https://github.com/okonet/lint-staged)
