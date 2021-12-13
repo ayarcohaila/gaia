@@ -5,9 +5,10 @@ import {
 } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { Hidden } from '@mui/material';
+import { useRouter } from 'next/router';
 
 import { Dropdown, SearchInput, BurstIcon } from '~/base';
-import { useBreakpoints, useCollectionConfig } from '~/hooks';
+import { useBreakpoints, useCollectionConfig, useAuth } from '~/hooks';
 
 import { ORDER_MENU_IDS } from './constants';
 import * as Styled from './styles.js';
@@ -19,6 +20,7 @@ const CollectionsFilter = ({
   enableSort,
   enableSearch,
   setNftList,
+  isProfile,
   onSearch = () => {},
   sx
 }) => {
@@ -28,6 +30,11 @@ const CollectionsFilter = ({
   const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.SORT_BY);
   const [isSearching, setIsSearching] = useState(false);
   const { isMediumDevice } = useBreakpoints();
+  const { user } = useAuth();
+  const {
+    query: { id: pathAddress }
+  } = useRouter();
+  const isOwnProfile = pathAddress === user?.addr;
 
   const toggleMenuOrder = () => {
     setIsMenuOrderOpen(prevState => !prevState);
@@ -123,13 +130,18 @@ const CollectionsFilter = ({
   }, [isSearching, toggleSearchInput]);
 
   return (
-    <Styled.Wrapper isMobile={isMediumDevice} sx={sx}>
+    <Styled.Wrapper isMobile={isMediumDevice} sx={sx} isProfile={isProfile}>
       <Styled.Container>
         <BurstIcon />
         <Styled.Text isMobile={isMediumDevice}>{`${nftQuantity} ${
           enableSearch ? 'owned' : 'available'
         }`}</Styled.Text>
       </Styled.Container>
+      {isOwnProfile && (
+        <Styled.Message align="center">
+          Please note: new purchases may take 5-10 minutes to appear in your account
+        </Styled.Message>
+      )}
       {enableSearch
         ? renderInput
         : enableSort && (
@@ -158,13 +170,15 @@ CollectionsFilter.propTypes = {
   setSort: PropTypes.func,
   handleFilter: PropTypes.func,
   enableSearch: PropTypes.bool,
-  enableSort: PropTypes.bool
+  enableSort: PropTypes.bool,
+  isProfile: PropTypes.bool
 };
 
 CollectionsFilter.defaultProps = {
   nftQuantity: 0,
   enableSearch: false,
-  enableSort: true
+  enableSort: true,
+  isProfile: false
 };
 
 export default React.memo(CollectionsFilter);

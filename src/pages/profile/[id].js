@@ -65,7 +65,7 @@ const Profile = ({ userNFTs }) => {
       <Seo title="Profile" />
       <ProfileBanner address={address} />
       <Styled.FiltersContainer>
-        <CollectionsFilter nftQuantity={userNFTs?.length} enableSearch />
+        <CollectionsFilter nftQuantity={userNFTs?.length} enableSearch isProfile />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
       <Styled.ListWrapper>
