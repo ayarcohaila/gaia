@@ -1,38 +1,97 @@
 {
-  "name": "nb-landing",
+  "name": "gaia-frontend",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+  "engines": {
+    "node": "14.x",
+    "yarn": "1.x"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "export NODE_ENV=test && next dev",
+    "dapper": "export NEXT_PUBLIC_ISDAPPER=true NODE_ENV=test && next dev",
+    "dev-windows": "set NODE_ENV=test | next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint 'src/**/*.{js,jsx}' --fix",
+    "format": "prettier --write 'src/**/*.{js,jsx,css,scss,less}'",
+    "dev:wallet": "env PK=c1083c9fa9e9cd92415809f2a2572bc41adf93d431109376c1335eacacb55d05 SERVICE_ADDR=f8d6e0586b0a20c7 fcl-wallet",
+    "dev:emulator": "cross-os start:emulator",
+    "hash:checker": "nodemon --exec babel-node src/utils/cadenceHashChecker.js"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "@apollo/client": "^3.3.15",
+    "@apollo/react-hooks": "^4.0.0",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.1",
+    "@mui/material": "^5.0.2",
+    "@mui/system": "^5.0.6",
+    "@onflow/fcl": "0.0.78-alpha.8",
+    "@onflow/types": "^0.0.5",
+    "@sentry/nextjs": "^6.14.1",
+    "axios": "^0.21.1",
+    "elliptic": "^6.5.4",
+    "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
+    "graphql-tag": "^2.11.0",
+    "lodash.isequal": "^4.5.0",
+    "next": "^11.1.2",
+    "next-compose-plugins": "^2.2.1",
+    "preval.macro": "^5.0.0",
+    "react": "^17.0.2",
+    "react-cool-img": "^1.2.9",
+    "react-dom": "^17.0.2",
+    "react-image-video-lightbox": "^3.0.0",
+    "react-slick": "^0.28.1",
+    "react-responsive-carousel": "^3.2.22",
+    "react-toastify": "^8.0.3",
+    "sha3": "^2.1.4",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.1",
+    "styled-icons": "^10.33.0",
+    "styled-normalize": "^8.0.7",
+    "subscriptions-transport-ws": "^0.9.18",
+    "swr": "^1.0.1",
+    "use-media": "^1.4.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+  "cross-os": {
+    "start:emulator": {
+      "darwin": "concurrently 'flow emulator' 'sleep 3 && flow project deploy -n emulator' 'yarn run dev:wallet'",
+      "linux": "concurrently 'flow emulator' 'sleep 3 && flow project deploy -n emulator' 'yarn run dev:wallet'",
+      "win32": "concurrently 'flow emulator' 'timeout 3 && flow project deploy -n emulator' 'yarn run dev:wallet'"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint --fix"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+    "src/**/*.{js,jsx,css,scss,less}": [
+      "prettier --write"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "devDependencies": {
+    "@onflow/dev-wallet": "^0.0.10",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-import": "^1.13.3",
+    "babel-plugin-preval": "^5.0.0",
+    "babel-plugin-styled-components": "^1.12.0",
+    "concurrently": "^6.0.0",
+    "cross-os": "^1.4.0",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "4.3.8",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "prettier-eslint-cli": "^5.0.0",
+    "prop-types": "^15.7.2"
   }
 }
