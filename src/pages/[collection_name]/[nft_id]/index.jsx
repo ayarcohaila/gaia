@@ -103,7 +103,11 @@ export async function getStaticProps({ params }) {
       };
     }
 
-    const { nft } = await gqlClient.request(GET_NFT_BY_ID, { id: { id: params?.nft_id } });
+    const { nft } = await gqlClient.request(GET_NFT_BY_ID, {
+      id: { id: params?.nft_id },
+      collection_id: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION
+    });
+
     if (!nft?.length) {
       return { notFound: true };
     }
