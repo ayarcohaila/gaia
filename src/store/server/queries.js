@@ -16,7 +16,7 @@ const GET_NFT_BY_ID = gql`
   query getNftById($id: jsonb) {
     nft(
       where: {
-        collection_id: { _eq: "be0a6102-2ca9-4875-b801-cf236ce43a86" }
+        collection_id: { _eq: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION }
         template: { metadata: { _contains: $id } }
       }
     ) {
