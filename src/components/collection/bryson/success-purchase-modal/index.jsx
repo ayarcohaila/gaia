@@ -18,7 +18,7 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
       open={open}
       onClose={onClose}
       title="Purchase Successful"
-      titleSx={{ my: 4 }}>
+      titleSx={{ mt: 15 }}>
       <Link
         component={Button}
         href={`https://flowscan.org/transaction/${tx}`}

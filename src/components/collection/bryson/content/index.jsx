@@ -19,7 +19,6 @@ import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
 import SuccessPurchaseModal from '../success-purchase-modal';
-import { isBrysonSaleEnabled } from '~/constant/collection';
 
 const BrysonCollectionContent = ({ data, totalAvailable }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
@@ -40,7 +39,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
 
   const handlePurchaseClick = async event => {
     event?.stopPropagation();
-    if (!isBrysonSaleEnabled || !totalAvailable) {
+    if (!totalAvailable) {
       return;
     }
     try {
@@ -83,23 +82,16 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
   };
 
   const shouldDisablePurchaseButton = useMemo(
-    () =>
-      loadingPurchase ||
-      (user && !hasSetup) ||
-      (user && !transaction) ||
-      !isBrysonSaleEnabled ||
-      !totalAvailable,
-    [loadingPurchase, hasSetup, isBrysonSaleEnabled, user, transaction, totalAvailable]
+    () => loadingPurchase || (user && !hasSetup) || (user && !transaction) || !totalAvailable,
+    [loadingPurchase, hasSetup, user, transaction, totalAvailable]
   );
 
   const purchaseButtonTitle = useMemo(() => {
     if (!totalAvailable) {
       return 'Sold Out';
     }
-    return isBrysonSaleEnabled
-      ? `Purchase • $ ${Number(data?.price)?.toFixed(2)}`
-      : 'On Sale Fri Nov 19 at 6pm PT';
-  }, [data, isBrysonSaleEnabled, totalAvailable]);
+    return `Purchase • $ ${Number(data?.price)?.toFixed(2)}`;
+  }, [data, totalAvailable]);
 
   useEffect(() => {
     (async () => {
@@ -111,19 +103,12 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
   return (
     <>
       <Styled.Container container>
-        {isBrysonSaleEnabled ? (
-          <VideoPlayer
-            loop
-            poster={formatIpfsImg(data?.nft?.template?.metadata?.img)}
-            src={formatIpfsImg(data?.nft?.template?.metadata?.video)}
-          />
-        ) : (
-          <Styled.CustomCardMedia
-            component="img"
-            alt="NFT image"
-            src={'/collections/bryson/nft-placeholder.jpeg'}
-          />
-        )}
+        <VideoPlayer
+          loop
+          poster={formatIpfsImg(data?.nft?.template?.metadata?.img)}
+          src={formatIpfsImg(data?.nft?.template?.metadata?.video)}
+        />
+
         <Box mx="auto" width={isMediumDevice ? '90%' : '40%'}>
           <Typography fontWeight="normal" mt={isMediumDevice ? 2 : 0} variant="h4">
             Bryson DeChambeau

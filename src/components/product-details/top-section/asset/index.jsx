@@ -1,24 +1,13 @@
-import { memo, useMemo } from 'react';
-import { useRouter } from 'next/router';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { VideoPlayer } from '~/components';
-import { COLLECTIONS } from '~/constant';
-import { isVideo } from '~/utils/string';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
 
 const Asset = ({ metadata }) => {
-  const {
-    query: { collection_name }
-  } = useRouter();
-  const isVideoAsset = useMemo(
-    () => isVideo(metadata?.img) || collection_name === COLLECTIONS.BRYSON,
-    [metadata?.img]
-  );
-
-  if (isVideoAsset) {
+  if (metadata?.video) {
     return (
       <VideoPlayer poster={formatIpfsImg(metadata.img)} src={formatIpfsImg(metadata?.video)} />
     );

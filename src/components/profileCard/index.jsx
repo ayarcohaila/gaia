@@ -1,9 +1,8 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { CardActions, CardContent, CardMedia, Avatar, Skeleton, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-
 import {
   SellNftModal,
   TransferNftModal,
@@ -11,52 +10,70 @@ import {
   OrderCompleteModal,
   VideoPlayer
 } from '~/components';
-import { useToggle, useAuth } from '~/hooks';
+import { useToggle, useAuth, useBreakpoints } from '~/hooks';
+import { hasSecondarySale } from '~/config/config';
+import { useCollectionConfig } from '~/hooks';
 
 import * as Styled from './styled';
 
-const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
-
-const ProfileCard = ({ data }) => {
+const ProfileCard = ({ data, isFromBrowser }) => {
+  const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
   const { user } = useAuth();
   const router = useRouter();
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [videoElement, setVideoElement] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
+  const { collectionsNames } = useCollectionConfig();
 
-  //TODO: replace this for the real data
-  const [isForSale, setIsForSale] = useState(false);
-
-  const img = SHOULD_HIDE_DATA ? '/images/mystery-nft.gif' : data?.imageURL;
-
-  const asset = { ...data, collectionName: data?.collection_name?.toUpperCase(), img };
+  const asset = {
+    ...data,
+    collectionName: data?.collection_name?.toUpperCase(),
+    img: data?.imageURL
+  };
   const isMyProfile = router.asPath.includes(user?.addr);
 
-  const showSellButton = process.env.NEXT_PUBLIC_HAS_SELL_BUTTON === 'true';
-  const videoElement = document.getElementById(`video-${data.id}`);
-
-  const handleVideoLoad = () => {
+  const handleDisplayPreview = useCallback(() => {
     setImgLoaded(true);
-  };
+  }, [setImgLoaded]);
+
+  useEffect(() => {
+    setVideoElement(window?.document?.getElementById(`video-${data?.id}`));
+  }, []);
 
   useEffect(() => {
     if (videoElement) {
-      videoElement?.addEventListener('loadeddata', handleVideoLoad());
+      videoElement?.addEventListener('loadeddata', handleDisplayPreview());
     }
     return () => {
-      videoElement?.removeEventListener('loadeddata', handleVideoLoad());
+      videoElement?.removeEventListener('loadeddata', handleDisplayPreview());
     };
-  }, [videoElement]);
+  }, [videoElement, handleDisplayPreview]);
+
+  const renderCollectionName = useMemo(() => {
+    if (data?.collection_name === collectionsNames.SHAREEF) {
+      return data?.collection?.name;
+    }
+    return data?.collection_name?.toUpperCase();
+  }, [collectionsNames]);
 
   const renderUserCardActions = useMemo(() => {
+    if (!hasSecondarySale) {
+      return (
+        <Grid container justifyContent="center">
+          <Styled.ComingSoon container justifyContent="center" align="center">
+            Sell & Transfer Coming Soon
+          </Styled.ComingSoon>
+        </Grid>
+      );
+    }
     return (
       <CardActions>
-        {isForSale ? (
+        {data?.is_for_sale ? (
           <Styled.CancelButtonContainer>
             <Styled.ListedText disabled={loading}>Listed for sale</Styled.ListedText>
             <Styled.CancelButtonDivider />
@@ -72,95 +89,111 @@ const ProfileCard = ({ data }) => {
           </Styled.CancelButtonContainer>
         ) : (
           <>
-            {showSellButton ? (
-              <>
-                <Styled.SellButton
-                  disabled={loading}
-                  onClick={event => {
-                    event?.stopPropagation();
-                    toggleSellNftModal();
-                  }}>
-                  Sell
-                </Styled.SellButton>
-                <Styled.TransferButton
-                  disabled={loading}
-                  onClick={event => {
-                    event?.stopPropagation();
-                    toggleTransferNftModal();
-                  }}>
-                  Transfer
-                </Styled.TransferButton>
-              </>
-            ) : (
-              <Styled.ComingSoon container justifyContent="center" align="center">
-                Sell & Transfer Coming Soon
-              </Styled.ComingSoon>
-            )}
+            <Styled.SellButton
+              disabled={loading}
+              onClick={event => {
+                event?.stopPropagation();
+                toggleSellNftModal();
+              }}>
+              Sell
+            </Styled.SellButton>
+            <Styled.TransferButton
+              disabled={loading}
+              onClick={event => {
+                event?.stopPropagation();
+                toggleTransferNftModal();
+              }}>
+              Transfer
+            </Styled.TransferButton>
           </>
         )}
       </CardActions>
     );
-  }, [toggleSellNftModal, toggleTransferNftModal, toggleCancelListingModal, isForSale]);
+  }, [
+    loading,
+    toggleSellNftModal,
+    toggleTransferNftModal,
+    toggleCancelListingModal,
+    hasSecondarySale
+  ]);
 
-  const renderContent = () => (
-    <Styled.CustomCard sx={{ cursor: SHOULD_HIDE_DATA ? 'auto' : 'pointer' }}>
-      <Styled.CustomCardHeader
-        avatar={<Avatar alt="ss" src={data.collection_picture} sx={{ width: 28, height: 28 }} />}
-        title={data.collection_name.toUpperCase()}
-      />
-      <Skeleton
-        variant="rect"
-        width="275px"
-        height={275}
-        sx={{ borderRadius: '20px', display: imgLoaded && 'none' }}
-      />
-      {data.collection_name === 'bryson' && !SHOULD_HIDE_DATA ? (
-        <Grid sx={{ display: !imgLoaded && 'none' }}>
-          <VideoPlayer
-            src={data?.videoURL}
-            poster={data?.imageURL}
-            height={['275px', '275px', '275px', '275px']}
-            width={['275px', '275px', '275px', '275px']}
-            id={`video-${data.id}`}
-          />
-        </Grid>
-      ) : (
-        <CardMedia
-          sx={{ borderRadius: '20px', maxWidth: '275px', display: !imgLoaded && 'none' }}
-          component="img"
-          alt="Nft asset"
-          height="275"
-          onLoad={() => setImgLoaded(true)}
-          src={img}
+  const renderContent = useMemo(
+    () => (
+      <Styled.CustomCard
+        sx={{
+          cursor: data?.mystery ? 'auto' : 'pointer',
+          maxWidth: '308px',
+          boxSizing: 'border-box'
+        }}>
+        <Styled.CustomCardHeader
+          avatar={<Avatar alt="ss" src={data?.collection_picture} sx={{ width: 28, height: 28 }} />}
+          title={renderCollectionName}
         />
-      )}
-      <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
-        <Styled.NFTText>{SHOULD_HIDE_DATA ? 'BALLER #????' : data?.name}</Styled.NFTText>
-      </CardContent>
-      {isMyProfile && renderUserCardActions}
-    </Styled.CustomCard>
+        {data?.videoURL && !data?.mystery ? (
+          <Grid>
+            <VideoPlayer
+              src={data?.videoURL}
+              poster={data?.imageURL}
+              height={['275px', '275px', '275px', '275px']}
+              width={['275px', '275px', '275px', 'auto']}
+              id={`video-${data?.id}`}
+            />
+          </Grid>
+        ) : (
+          <>
+            <CardMedia
+              sx={{
+                borderRadius: '20px',
+                width: isMediumDevice ? '303' : '275',
+                display: !imgLoaded ? 'none' : 'block'
+              }}
+              component="img"
+              alt="Nft asset"
+              height={isMediumDevice ? '303' : '275'}
+              onLoad={handleDisplayPreview}
+              src={data?.imageURL}
+            />
+            <Skeleton
+              variant="rect"
+              height={isExtraSmallDevice ? '250px' : isMediumDevice ? '303px' : '275px'}
+              sx={{
+                borderRadius: '20px',
+                width: isExtraSmallDevice ? '250px' : isMediumDevice ? '303px' : '275px',
+                display: imgLoaded && 'none'
+              }}
+            />
+          </>
+        )}
+        <CardContent sx={{ paddingX: 0, paddingBottom: 0 }}>
+          <Styled.NFTText>{data?.name}</Styled.NFTText>
+          {isFromBrowser && (
+            <>
+              <Styled.NFTDescription>{data?.description}</Styled.NFTDescription>
+              <Styled.NFTPrice>{data?.price}</Styled.NFTPrice>
+            </>
+          )}
+        </CardContent>
+        {isMyProfile && renderUserCardActions}
+      </Styled.CustomCard>
+    ),
+    [imgLoaded, handleDisplayPreview, isMyProfile, renderUserCardActions]
   );
 
   return (
     <>
-      {SHOULD_HIDE_DATA ? (
-        renderContent()
+      {data?.mystery ? (
+        renderContent
       ) : (
-        <Link href={`/${data.collection_name}/${data?.id}`} passHref>
-          {renderContent()}
+        <Link href={`/${data?.collection_name}/${data?.id}`} passHref>
+          {renderContent}
         </Link>
       )}
       <SellNftModal
         asset={asset}
-        hasPostedForSale={data?.is_for_sale || false}
+        hasPostedForSale={data?.is_for_sale}
         open={isSellNftModalOpen}
         onClose={toggleSellNftModal}
         setLoading={setLoading}
-        onConfirm={() => {
-          // @TODO: This logic must be validated, only added to remove a warning on console
-          setIsForSale(true);
-          toggleSellNftModal();
-        }}
         loading={loading}
       />
       <TransferNftModal
@@ -170,12 +203,8 @@ const ProfileCard = ({ data }) => {
       />
       <CancelListingModal
         asset={asset}
-        hasPostedForSale={data?.is_for_sale || false}
         open={isCancelListingModalOpen}
         onClose={toggleCancelListingModal}
-        onConfirm={() => {
-          setIsForSale(false);
-        }} // For cancel confirmation
       />
       <OrderCompleteModal open={isOrderCompleteModalOpen} onClose={toggleOrderCompleteModal} />
     </>
@@ -187,6 +216,7 @@ ProfileCard.propTypes = {
   isFake: PropTypes.bool,
   sell: PropTypes.bool,
   transfer: PropTypes.bool,
+  isFromBrowser: PropTypes.bool,
   data: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     price: PropTypes.string,
@@ -206,7 +236,8 @@ ProfileCard.propTypes = {
 ProfileCard.defaultProps = {
   isFake: false,
   sell: false,
-  transfer: false
+  transfer: false,
+  isFromBrowser: false
 };
 
 export default React.memo(ProfileCard);

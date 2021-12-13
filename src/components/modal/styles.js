@@ -47,7 +47,6 @@ export const AssetContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
 
   [breakpoints.down('sm')]: {
     height: 140,
-    marginLeft: -70,
     width: 140
   }
 }));
@@ -55,15 +54,14 @@ export const AssetContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
 export const Asset = styled('img')(() => ({
   borderRadius: 12.2,
   boxShadow: '0 26px 14px -24px rgba(17, 17, 23, 0.12), 0 0 14px 0 rgba(0, 0, 0, 0.06)',
-  width: '100%',
-  height: '100%'
+  width: '180px',
+  height: '180px'
 }));
 
 export const InfoContainer = styled(Box)(() => ({
   alignItems: 'center',
   display: 'flex',
   flexDirection: 'column',
-  height: '100%',
   justifyContent: 'center',
   width: '100%'
 }));

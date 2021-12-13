@@ -4,7 +4,7 @@ import { useBreakpoints } from '~/hooks';
 import Modal from '..';
 
 const OrderProcessing = ({ open, ...props }) => {
-  const { isSmallDevice } = useBreakpoints();
+  const { isSmallDevice, isExtraSmallDevice } = useBreakpoints();
 
   const title = 'Transaction Being Processed...';
   const description = useMemo(() => {
@@ -28,8 +28,8 @@ const OrderProcessing = ({ open, ...props }) => {
       title={title}
       descriptionSx={{ maxWidth: '440px', textAlign: 'center', mb: 0 }}
       height="318px"
-      mobileHeight="50vh"
-      titleSx={{ mt: 0, mb: '20px', textAlign: 'center' }}
+      mobileHeight={isExtraSmallDevice ? '65vh' : '55vh'}
+      titleSx={{ mt: '9vh', mb: '20px', textAlign: 'center' }}
       asset={{}}
       open={open}
       disableCloseButton={!isSmallDevice}

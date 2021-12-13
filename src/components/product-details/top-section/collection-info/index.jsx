@@ -1,33 +1,28 @@
 import { Avatar, Box, Grid, Typography, useTheme } from '@mui/material';
 import { Verified as VerifiedIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
 
-import { COLLECTIONS } from '~/constant';
-import { useBreakpoints } from '~/hooks';
+import { useBreakpoints, useCollectionConfig } from '~/hooks';
 
 const CollectionInfo = ({ name }) => {
   const {
     palette: { grey, primary }
   } = useTheme();
-  const { isMediumDevice } = useBreakpoints();
-  const {
-    query: { collection_name }
-  } = useRouter();
-  const isBallerzCollection = collection_name === COLLECTIONS.BALLERZ;
 
+  const { config } = useCollectionConfig();
+  const { isMediumDevice } = useBreakpoints();
   return (
     <>
       <Avatar
         alt="product name"
-        src={isBallerzCollection ? '/collections/user.png' : '/collections/bryson/avatar.webp'}
+        src={config.avatar}
         sx={{ height: isMediumDevice ? '56px' : '48px', width: isMediumDevice ? '56px' : '48px' }}
       />
       <Box ml={1.5} mr="auto">
         <Typography variant="h5">{name}</Typography>
         <Grid alignItems="center" container>
           <Typography color={grey[600]} mr={1} variant="subtitle1">
-            @{name}
+            @{name.replace(/[^\w]/gi, '')}
           </Typography>
           <VerifiedIcon htmlColor={primary.main} fontSize="1rem" />
         </Grid>

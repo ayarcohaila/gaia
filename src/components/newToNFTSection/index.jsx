@@ -6,26 +6,25 @@ import * as Styled from './styled';
 
 const NewNFTs = [
   {
-    title: 'Shareef O’Neal Debuts in December',
-    description:
-      'The first of a  series of drops highlighting his basketball career, family, and recovery from heart surgery.',
-    image: 'images/newToNFT/shareef.jpg',
-    link: 'https://twitter.com/SSJreef',
-    linkText: 'Follow on Twitter'
-  },
-  {
     title: 'Introducing BALLERZ',
     description:
       'Generative PFP basketball collection on Flow -- SOLD OUT! Marketplace coming soon.',
     image: 'images/newToNFT/ballerz.jpg',
-    link: 'https://twitter.com/ballerz_nft',
+    linkProps: { href: 'http://twitter.com/ballerz_nft', target: '_blank' },
     linkText: 'Follow on Twitter'
+  },
+  {
+    title: 'Bryson DeChambeau - Vegas, Baby!',
+    description: 'Collectible NFT commemorating Las Vegas Showdown',
+    image: 'images/newToNFT/bryson_banner.jpg',
+    linkProps: { href: '/bryson' },
+    linkText: 'Buy Now'
   },
   {
     title: 'About The Team',
     description: 'Learn more about NFT Genius, the team behind Gaia.',
     image: 'images/newToNFT/nftg.jpg',
-    link: 'https://www.nftgenius.com/',
+    linkProps: { href: 'https://www.nftgenius.com/', target: '_blank' },
     linkText: 'Visit Website'
   }
 ];

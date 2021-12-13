@@ -30,7 +30,7 @@ const nextConfig = {
     return [
       {
         source: '/(.*)',
-        headers: securityHeaders,
+        headers: securityHeaders
       }
     ];
   },

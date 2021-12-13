@@ -22,7 +22,7 @@ const TransferNftModal = ({ ...props }) => {
 
   const transferTx = preval`
     const fs = require('fs')
-    const path = require('path'),   
+    const path = require('path'),
     filePath = path.join(__dirname, "../../../flow/transactions/transfer_nft.cdc");
     module.exports = fs.readFileSync(filePath, 'utf8')
     `;
@@ -37,7 +37,6 @@ const TransferNftModal = ({ ...props }) => {
         address,
         props.asset.asset_id
       );
-      toast.success(`Transfer completed successfully. - ${txResult?.txId}`);
       setTx(txResult?.txId);
       setLoadingTransfer(false);
       setHasNftSuccessfullyTransfered(true);
@@ -58,7 +57,7 @@ const TransferNftModal = ({ ...props }) => {
       descriptionSx={{ m: '8px 0 4px', maxWidth: '270px', textAlign: 'center' }}
       height="382px"
       title={hasNftSuccessfullyTransfered ? 'Transfered!' : 'Transfer NFT'}
-      titleSx={{ mt: '96px' }}
+      titleSx={{ mt: 15 }}
       {...props}>
       {hasNftSuccessfullyTransfered ? (
         <ModalSuccessContent address={address} tx={tx} />

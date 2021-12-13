@@ -7,14 +7,12 @@ import PropTypes from 'prop-types';
 import { Hidden } from '@mui/material';
 
 import { Dropdown, SearchInput, BurstIcon } from '~/base';
-import { useBreakpoints } from '~/hooks';
+import { useBreakpoints, useCollectionConfig } from '~/hooks';
 
 import { ORDER_MENU_IDS } from './constants';
 import * as Styled from './styles.js';
 
 const ESC_KEY = 27;
-
-const SHOULD_HIDE_DATA = process.env.NEXT_PUBLIC_MYSTERY_IMAGE === 'true';
 
 const CollectionsFilter = ({
   nftQuantity,
@@ -34,6 +32,8 @@ const CollectionsFilter = ({
   const toggleMenuOrder = () => {
     setIsMenuOrderOpen(prevState => !prevState);
   };
+
+  const { config } = useCollectionConfig();
 
   const handleClickOption = useCallback(
     ({
@@ -69,14 +69,14 @@ const CollectionsFilter = ({
       { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Lowest Price' },
       { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' }
     ];
-    return SHOULD_HIDE_DATA
+    return config?.mystery
       ? defaultOptions
       : [
           ...defaultOptions,
           { id: ORDER_MENU_IDS.LOWEST_MINT, label: 'Lowest Mint' },
           { id: ORDER_MENU_IDS.HIGHEST_MINT, label: 'Highest Mint' }
         ];
-  }, [SHOULD_HIDE_DATA]);
+  }, [config?.mystery]);
 
   const toggleSearchInput = () => {
     setIsSearching(prevState => !prevState);

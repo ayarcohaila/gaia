@@ -21,18 +21,22 @@ import * as Styled from './styles';
 export const DRAWER_BLEEDING = 56;
 
 const Modal = ({
+  arrowSx,
   asset,
   children,
   containerProps,
+  contentSx,
   description,
   descriptionSx,
   height,
   mobileHeight,
   open,
   onClose,
+  shouldRenderSwiperOnMobile,
   title,
   titleSx,
   disableCloseButton,
+  marginTop,
   ...props
 }) => {
   const { isSmallDevice } = useBreakpoints();
@@ -48,11 +52,14 @@ const Modal = ({
 
   const renderContent = () => (
     <Styled.Container mobileHeight={mobileHeight}>
-      <Styled.Content height={isSmallDevice ? mobileHeight : height} {...containerProps}>
+      <Styled.Content
+        marginTop={marginTop}
+        height={isSmallDevice ? mobileHeight : height}
+        {...containerProps}>
         {isSmallDevice && (
           <IconButton
             onClick={onClose}
-            sx={{ position: 'absolute', left: '50%', marginLeft: '-16px', top: -135 }}>
+            sx={{ position: 'absolute', left: '50%', marginLeft: '-24px', top: -135, ...arrowSx }}>
             <ArrowDownIcon sx={{ color: grey[375], fontSize: 32 }} />
           </IconButton>
         )}
@@ -88,14 +95,17 @@ const Modal = ({
             </Styled.AssetContainer>
           </>
         )}
-
-        <Styled.InfoContainer>
-          <Styled.Title id={title} sx={titleSx}>
-            {title}
-          </Styled.Title>
-          <Styled.Description id={description} sx={descriptionSx}>
-            {description}
-          </Styled.Description>
+        <Styled.InfoContainer sx={contentSx}>
+          {!!title && (
+            <Styled.Title id={title} sx={titleSx}>
+              {title}
+            </Styled.Title>
+          )}
+          {!!description && (
+            <Styled.Description id={description} sx={descriptionSx}>
+              {description}
+            </Styled.Description>
+          )}
           {children}
         </Styled.InfoContainer>
         {!isSmallDevice && !disableCloseButton && (
@@ -108,7 +118,7 @@ const Modal = ({
   );
 
   if (isSmallDevice) {
-    return (
+    if (shouldRenderSwiperOnMobile) {
       <>
         <Global
           styles={{
@@ -128,6 +138,30 @@ const Modal = ({
           ModalProps={DRAWER_MODAL_PROPS}>
           {renderContent()}
         </SwipeableDrawer>
+      </>;
+    }
+    return (
+      // <Dialog open={open} onClose={onClose} fullScreen>
+      //   {renderContent()}
+      // </Dialog>
+      <>
+        <Global
+          styles={{
+            '.MuiDrawer-root > .MuiPaper-root': {
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+              overflow: 'visible'
+            }
+          }}
+        />
+        <SwipeableDrawer
+          anchor="bottom"
+          open={open}
+          onClose={onClose}
+          disableSwipeToOpen={false}
+          ModalProps={DRAWER_MODAL_PROPS}>
+          {renderContent()}
+        </SwipeableDrawer>
       </>
     );
   }
@@ -142,33 +176,41 @@ const Modal = ({
 };
 
 Modal.propTypes = {
+  arrowSx: PropTypes.object,
   asset: PropTypes.object,
   children: PropTypes.node,
   containerProps: PropTypes.object,
+  contentSx: PropTypes.object,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   descriptionSx: PropTypes.object,
+  disableCloseButton: PropTypes.bool,
   height: PropTypes.string,
   mobileHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   titleSx: PropTypes.object,
-  disableCloseButton: PropTypes.bool
+  marginTop: PropTypes.string,
+  shouldRenderSwiperOnMobile: PropTypes.bool
 };
 
 Modal.defaultProps = {
+  arrowSx: {},
   asset: {
     img: 'https://pbs.twimg.com/media/FA87bFnVEAE6iKc.jpg'
   },
   children: null,
   containerProps: {},
+  contentSx: {},
   description: '',
   descriptionSx: {},
+  disableCloseButton: false,
   height: '358px',
   mobileHeight: '58vh',
+  shouldRenderSwiperOnMobile: true,
   title: '',
   titleSx: {},
-  disableCloseButton: false
+  marginTop: '0px'
 };
 
 export default memo(Modal);

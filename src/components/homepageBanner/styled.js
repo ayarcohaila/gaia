@@ -6,7 +6,7 @@ export const ContainerBackground = styled('div', { shouldForwardProp: prop => pr
     maxHeight: '420px',
     borderRadius: '40px',
     backgroundSize: 'cover',
-    backgroundPosition: 'center center',
+    backgroundPosition: 'top',
     backgroundRepeat: 'no-repeat',
     boxSizing: 'border-box',
     position: 'relative'
@@ -16,13 +16,15 @@ export const ContainerBackground = styled('div', { shouldForwardProp: prop => pr
 export const Container = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ theme: { breakpoints } }) => ({
     backgroundImage:
-      'radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, #517FB1 81%)',
+      'radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, #270b5a 81%)',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
     flexDirection: 'column',
+    maxHeight: '420px',
     paddingLeft: '72px',
     paddingTop: '150px',
+    boxSizing: 'border-box',
     paddingBottom: '100px',
     height: '100%',
     borderRadius: '40px',
@@ -38,11 +40,9 @@ export const TypographyWithOpacity = styled(Typography)(() => ({
   opacity: '0.64'
 }));
 
-export const CardButton = styled(Button, {
-  shouldForwardProp: prop => prop !== 'isBrysonSaleEnabled'
-})(({ theme: { breakpoints, palette }, isBrysonSaleEnabled }) => ({
+export const CardButton = styled(Button)(({ theme: { breakpoints, palette } }) => ({
   color: '#fff',
-  width: isBrysonSaleEnabled ? '225px' : '150px',
+  width: '150px',
   height: '38px',
   borderRadius: '24px',
   backgroundColor: '#215cf1',
@@ -51,12 +51,8 @@ export const CardButton = styled(Button, {
   cursor: 'pointer',
   zIndex: 3,
 
-  [breakpoints.down('md')]: {
-    width: '48px',
-    height: '48px',
-    minWidth: '48px',
-    marginTop: 'auto',
-    marginLeft: 'auto'
+  [breakpoints.down('sm')]: {
+    margin: '0 auto'
   },
 
   '&:hover': {
@@ -79,6 +75,5 @@ export const BannerLink = styled(Link)({
   height: '100%',
   position: 'absolute',
   textDecoration: 'none',
-  width: '100%',
-  zIndex: 2
+  width: '100%'
 });

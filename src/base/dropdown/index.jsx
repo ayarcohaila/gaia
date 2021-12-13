@@ -30,7 +30,7 @@ const Dropdown = ({
           <MenuList autoFocus onKeyDown={defaultKeyDownPress}>
             {options.map(option => (
               <Styled.CustomMenuItem
-                key={option.label}
+                key={option?.label}
                 onClick={handleClickOption}
                 isRed={option.isRed}
                 data-id={option.id}>

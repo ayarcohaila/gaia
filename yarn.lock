@@ -605,15 +605,15 @@
     "@onflow/util-actor" "0.0.2"
     queue-microtask "1.1.2"
 
-"@onflow/fcl@0.0.78-alpha.3":
-  version "0.0.78-alpha.3"
-  resolved "https://registry.yarnpkg.com/@onflow/fcl/-/fcl-0.0.78-alpha.3.tgz#3040a240646f3b9efbe647a93189ebd6276b2389"
-  integrity sha512-+hQ888Nwoc6/7uah2L7lDFR8ifVKeAyDcJ1sYmKM85LlvFdJ6eyy4GWH8XmM4XqPMDCAqL2Hta9Lu+pGliWrEQ==
+"@onflow/fcl@0.0.78-alpha.8":
+  version "0.0.78-alpha.8"
+  resolved "https://registry.yarnpkg.com/@onflow/fcl/-/fcl-0.0.78-alpha.8.tgz#6b18b77922e39f2ca029d9ef0e539d877c1d8fc4"
+  integrity sha512-D2tMl2kpoWcXvjGQzuPH78ZEKGt1lh/TXqWyxFRZQZYLlWL/MbyJOPOa3fXDjnO2mxgkXtt8whR5qxDiXxiwUg==
   dependencies:
     "@onflow/interaction" "0.0.11"
     "@onflow/rlp" "0.0.3"
-    "@onflow/sdk" "0.0.55"
-    "@onflow/types" "^0.0.4"
+    "@onflow/sdk" "0.0.56-alpha.1"
+    "@onflow/types" "0.0.6"
     "@onflow/util-actor" "0.0.2"
     "@onflow/util-address" "0.0.0"
     "@onflow/util-invariant" "0.0.0"
@@ -667,10 +667,10 @@
     "@onflow/send" "0.0.20"
     "@qvvg/templar" "0.0.1"
 
-"@onflow/sdk@0.0.55":
-  version "0.0.55"
-  resolved "https://registry.yarnpkg.com/@onflow/sdk/-/sdk-0.0.55.tgz#9aaa5f8d6c026d5b642791a8ae6c6dcb27d2f24a"
-  integrity sha512-nyPOUxmA0sLGiCXacDOhEa3d7ss36oKQ52ziIvIFM9e1eC0nerKnTfS0B22OJOncRClGE/+OT0fSxWZhTrQRBg==
+"@onflow/sdk@0.0.56-alpha.1":
+  version "0.0.56-alpha.1"
+  resolved "https://registry.yarnpkg.com/@onflow/sdk/-/sdk-0.0.56-alpha.1.tgz#db3080cd4be3e8cff564ec0579f60c9d4f0ea930"
+  integrity sha512-MRpnYI8q5UBePQ2x/xPdg7W2L7yaMrIsAhxC91UrJvuifDUSv5Zpt8HYa//w8bYzEygOUeE3lk1e9LEzk2+oGg==
   dependencies:
     "@improbable-eng/grpc-web" "^0.14.0"
     "@improbable-eng/grpc-web-node-http-transport" "^0.14.0"
@@ -681,6 +681,7 @@
     "@onflow/util-invariant" "^0.0.0"
     "@onflow/util-template" "0.0.1"
     deepmerge "^4.2.2"
+    sha3 "^2.1.4"
 
 "@onflow/send@0.0.20":
   version "0.0.20"
@@ -703,10 +704,10 @@
   resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.2.tgz#ed2bb8c34d2608d3503defcb19c4c1f5b25f5d96"
   integrity sha512-pGBuq7/slH2Xq5drKxFjbppeq0Kq6WLuyOV8lMYb57DPZSfbKnEOBubuq3y1N4kTpqHr+6g/VMqg3O/T20QZxg==
 
-"@onflow/types@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.4.tgz#d4a9c3e301d23182dd256b73d3679c952fe653f0"
-  integrity sha512-47r0qTM45mR7FSvyEE0njGljkpgy3MCf/2W82pfZ/PTFGWr1nsGV/4j2bUfK9Sry4Ymz2W20iRZVP3xpqOhqGw==
+"@onflow/types@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.6.tgz#4fb20754565da4995a1b0b71b01210947f899841"
+  integrity sha512-2eBrmqiFO37EUOJvzksygP8Wu6lL/m9az36AF0qYdGQW/79KGCHBCchUsIzxyGt8UDXl/dgnIcMkiTH7tWZqXg==
 
 "@onflow/types@^0.0.5":
   version "0.0.5"
@@ -5252,6 +5253,15 @@ react-refresh@0.8.3:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
+react-responsive-carousel@^3.2.22:
+  version "3.2.22"
+  resolved "https://registry.yarnpkg.com/react-responsive-carousel/-/react-responsive-carousel-3.2.22.tgz#6281603daa33656940d01e207f511b83c0093c70"
+  integrity sha512-/r7dsIaN+l417IYIS0Fr7Z5VlpK3KYnTIIsdVCWSqtuJRIZNM+qdBIA4RIbzQtuW/ZBTnQanBecblCxg0HCqLQ==
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.5.8"
+    react-easy-swipe "^0.0.21"
+
 react-slick@^0.28.1:
   version "0.28.1"
   resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.28.1.tgz#12c18d991b59432df9c3757ba540a227b3fb85b9"
@@ -5262,14 +5272,6 @@ react-slick@^0.28.1:
     json2mq "^0.2.0"
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
-react-responsive-carousel@^3.2.22:
-  version "3.2.22"
-  resolved "https://registry.yarnpkg.com/react-responsive-carousel/-/react-responsive-carousel-3.2.22.tgz#6281603daa33656940d01e207f511b83c0093c70"
-  integrity sha512-/r7dsIaN+l417IYIS0Fr7Z5VlpK3KYnTIIsdVCWSqtuJRIZNM+qdBIA4RIbzQtuW/ZBTnQanBecblCxg0HCqLQ==
-  dependencies:
-    classnames "^2.2.5"
-    prop-types "^15.5.8"
-    react-easy-swipe "^0.0.21"
 
 react-toastify@^8.0.3:
   version "8.0.3"
