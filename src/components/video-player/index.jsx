@@ -132,7 +132,7 @@ VideoPlayer.propTypes = {
 
 VideoPlayer.defaultProps = {
   containerProps: {},
-  height: ['424px', '380px', '320px', '275px'],
+  height: ['100%', '100%', '100%', '100%'],
   poster: null,
   width: ['424px', '380px', '320px', '275px']
 };
