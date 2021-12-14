@@ -137,7 +137,7 @@ const CollectionsFilter = ({
           enableSearch ? 'owned' : 'available'
         }`}</Styled.Text>
       </Styled.Container>
-      {isOwnProfile && (
+      {isOwnProfile && isProfile && (
         <Styled.Message align="center">
           Please note: new purchases may take 5-10 minutes to appear in your account
         </Styled.Message>
