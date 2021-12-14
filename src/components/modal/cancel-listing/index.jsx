@@ -1,6 +1,8 @@
 import { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import preval from 'preval.macro';
+import { useRouter } from 'next/router';
 
 import { Button, Loader } from '~/base';
 import { useBreakpoints } from '~/hooks';
@@ -10,14 +12,13 @@ import SuccessContent from '../success-content';
 
 import { cancelSale } from '~/flow/cancelSale';
 import { loadTransaction } from '~/utils/transactionsLoader';
-import preval from 'preval.macro';
 
 const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
   const { isExtraSmallDevice } = useBreakpoints();
   const [hasListingSuccessfullyCancelled, setHasListingSuccessfullyCancelled] = useState(false);
   const [transactionId, setTransactionId] = useState('');
   const [loadingCancel, setLoadingCancel] = useState(false);
-
+  const route = useRouter();
   const cancelSaleTx = preval`
   const fs = require('fs')
   const path = require('path'),
@@ -61,15 +62,21 @@ const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
   const title = hasListingSuccessfullyCancelled ? 'Cancelled' : 'Cancel Listing';
   const description = hasListingSuccessfullyCancelled
     ? 'Your listing has been successfully cancelled'
-    : `This will take down your listing for ${asset?.collection?.name} #${asset?.template?.metadata?.id}`;
+    : `This will take down your listing for ${asset?.collection?.name} #${
+        asset?.template?.metadata?.id || asset?.mint_number
+      }`;
 
+  const handleClose = () => {
+    route.push(route.asPath);
+    onClose();
+  };
   return (
     <Modal
       asset={asset}
       description={description}
       descriptionSx={{ maxWidth: '250px', mt: '12px', textAlign: 'center' }}
       height="374px"
-      onClose={onClose}
+      onClose={handleClose}
       title={title}
       titleSx={{ mt: isExtraSmallDevice ? '120px' : 15 }}
       {...props}>

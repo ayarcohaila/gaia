@@ -2,24 +2,28 @@ import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { CircularProgress, Grid } from '@mui/material';
+import axios from 'axios';
+import preval from 'preval.macro';
+import { useRouter } from 'next/router';
+
+import Modal from '..';
+import SuccessContent from '../success-content';
 import { loadTransaction } from '../../../utils/transactionsLoader';
 import { isDapper } from '~/utils/currencyCheck';
 import { sellItem } from '~/flow/sell';
-
-import SuccessContent from '../success-content';
-import Modal from '..';
+import { useBreakpoints } from '~/hooks';
 
 import * as Styled from './styles';
-import preval from 'preval.macro';
-import { useBreakpoints } from '~/hooks';
 
 const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loading, ...props }) => {
   const [value, setValue] = useState('');
+  const route = useRouter();
 
   const { isExtraSmallDevice } = useBreakpoints();
   const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
     useState(hasPostedForSale);
+
   const sellTx = isDapper
     ? preval`
     const fs = require('fs')
@@ -44,15 +48,18 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
         value,
         props.asset.collection.collection_id
       );
-      toast.success(
-        'Sale offer completed successfully. In few minutes it will be available on the market'
-      );
+      await axios.post('/api/update-transaction-status', {
+        filters: {
+          collection_id: { _eq: props.asset.collection_id },
+          asset_id: { _eq: props.asset.asset_id },
+          mint_number: { _eq: props.asset.mint_number }
+        }
+      });
       if (txResult) {
         onConfirm();
-        setHasNftSuccessfullyPostedForSale(true);
         setTx(txResult?.txId);
+        setHasNftSuccessfullyPostedForSale(true);
         setValue('');
-        onClose();
       }
     } catch (err) {
       toast.error('Unable to complete purchase.');
@@ -70,11 +77,16 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
     setHasNftSuccessfullyPostedForSale(hasPostedForSale);
   }, [hasPostedForSale]);
 
+  const handleClose = () => {
+    route.push(route.asPath);
+    onClose();
+  };
+
   return (
     <Modal
       description={description}
       descriptionSx={{ textAlign: 'center' }}
-      onClose={onClose}
+      onClose={handleClose}
       title={title}
       titleSx={{ mt: 15 }}
       mobileHeight={isExtraSmallDevice ? '70vh' : '60vh'}

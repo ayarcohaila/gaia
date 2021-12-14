@@ -102,12 +102,13 @@ const BrowseCard = ({ data }) => {
   if (!currentCollection) {
     return null;
   }
+  const nftRedirectReference =
+    data.collection_id === COLLECTION_LIST_CONFIG.shareef.id
+      ? data.asset_id
+      : data.template.metadata.id || data.mint_number;
+
   return (
-    <Link
-      href={`/${currentCollection.collectionName}/${
-        data?.template?.metadata?.id || data?.mint_number
-      }`}
-      passHref>
+    <Link href={`/${currentCollection.collectionName}/${nftRedirectReference}`} passHref>
       {renderContent()}
     </Link>
   );
