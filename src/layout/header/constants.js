@@ -1,7 +1,9 @@
 import { LockOpenOutlined as LockOpenOutlinedIcon } from '@mui/icons-material';
 import { hasSecondarySale } from '~/config/config';
 
-export const MENU_OPTIONS = [hasSecondarySale && { label: 'Browse ALL NFTs', href: '/browse' }];
+export const MARKETPLACE_TITLE = 'BALLERZ Marketplace';
+
+export const MENU_OPTIONS = [hasSecondarySale && { label: MARKETPLACE_TITLE, href: '/browse' }];
 
 export const USER_MENU_IDS = {
   PROFILE: 'profile',
@@ -19,5 +21,5 @@ export const USER_MENU_OPTIONS = [
     isRed: true,
     icon: <LockOpenOutlinedIcon fontSize="12px" />
   },
-  hasSecondarySale && { id: USER_MENU_IDS.BROWSE, label: 'Browse All NFTs' }
+  hasSecondarySale && { id: USER_MENU_IDS.BROWSE, label: MARKETPLACE_TITLE }
 ].filter(option => option !== false);
