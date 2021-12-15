@@ -82,8 +82,7 @@ export async function getStaticProps({ params }) {
         return { notFound: true };
       }
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps },
-        revalidate: 60 // 1 min
+        props: { nft: nft[0], attributesOrder, ballerzComputedProps }
       };
     }
 
@@ -98,8 +97,7 @@ export async function getStaticProps({ params }) {
         return { notFound: true };
       }
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps },
-        revalidate: 60 // 1 min
+        props: { nft: nft[0], attributesOrder, ballerzComputedProps }
       };
     }
 
@@ -112,8 +110,7 @@ export async function getStaticProps({ params }) {
       return { notFound: true };
     }
     return {
-      props: { nft: nft[0], attributesOrder, ballerzComputedProps },
-      revalidate: 60 // 1 min
+      props: { nft: nft[0], attributesOrder, ballerzComputedProps }
     };
   } catch (error) {
     return { notFound: true };
