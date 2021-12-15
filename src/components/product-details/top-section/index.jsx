@@ -216,6 +216,13 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
             Remove Listing
           </Styled.ActionButtons>
         );
+      case !isForSale && isOwner:
+        return (
+          <>
+            <Styled.ActionButtons onClick={toggleSellNftModal}>Sell</Styled.ActionButtons>
+            <Styled.ActionButtons onClick={toggleTransferNftModal}>Transfer</Styled.ActionButtons>
+          </>
+        );
       case isForSale && !!transaction: {
         const price = Number(getLastByUpdateAt(nft?.sale_offers)?.price)?.toFixed(2);
         return (
@@ -227,13 +234,6 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
           </Styled.ActionButtons>
         );
       }
-      case !isForSale && isOwner:
-        return (
-          <>
-            <Styled.ActionButtons onClick={toggleSellNftModal}>Sell</Styled.ActionButtons>
-            <Styled.ActionButtons onClick={toggleTransferNftModal}>Transfer</Styled.ActionButtons>
-          </>
-        );
       default:
         return '';
     }

@@ -1,16 +1,8 @@
 import { ApolloClient, InMemoryCache, split, HttpLink, ApolloLink, concat } from '@apollo/client';
-import { getMainDefinition, concatPagination } from '@apollo/client/utilities';
+import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { GraphQLClient } from 'graphql-request';
-const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        nft_sale_offer: concatPagination()
-      }
-    }
-  }
-});
+const cache = new InMemoryCache();
 
 const httpLink = new HttpLink({
   uri: process.env.API_URL
