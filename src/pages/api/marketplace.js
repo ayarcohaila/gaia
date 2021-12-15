@@ -6,6 +6,7 @@ export default async function handler(req, res) {
     const { nft } = await gqlClient.request(GET_MARKETPLACE_NFTS, {
       price: req?.body?.price,
       isForSale: req?.body?.isForSale,
+      transactionStatus: req?.body?.transactionStatus,
       collections: req?.body?.collections.length ? req?.body?.collections : [{}],
       properties: req?.body?.properties.length ? req?.body?.properties : [{}],
       orderUpdate: req?.body?.orderUpdate

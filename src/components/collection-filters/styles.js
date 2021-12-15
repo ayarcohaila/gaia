@@ -12,7 +12,7 @@ const fontStyle = {
 };
 
 export const Wrapper = styled(Grid, {
-  shouldForwardProp: prop => prop !== 'isMobile' || prop !== 'isProfile'
+  shouldForwardProp: prop => prop !== 'isMobile' && prop !== 'isProfile'
 })(({ isMobile, isProfile }) => ({
   width: '100%',
   borderSizing: 'border-box',
