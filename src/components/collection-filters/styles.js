@@ -11,23 +11,37 @@ const fontStyle = {
   letterSpacing: '0.2px'
 };
 
-export const Wrapper = styled(Grid, { shouldForwardProp: prop => prop !== 'isMobile' })(
-  ({ isMobile }) => ({
-    width: '100%',
-    borderSizing: 'border-box',
-    display: 'flex',
-    flexDirection: isMobile ? 'column' : 'row',
-    gap: isMobile && '16px',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+export const Wrapper = styled(Grid, {
+  shouldForwardProp: prop => prop !== 'isMobile' || prop !== 'isProfile'
+})(({ isMobile, isProfile }) => ({
+  width: '100%',
+  borderSizing: 'border-box',
+  display: 'flex',
+  flexDirection: isMobile ? 'column' : 'row',
+  gap: isMobile && '16px',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  ...(isProfile && {
+    display: 'grid',
+    gridTemplateColumns: isMobile ? '1fr' : '200px 1fr 200px',
+    justifyItems: isMobile && 'center'
   })
-);
+}));
 
 export const Text = styled(Typography, { shouldForwardProp: prop => prop !== 'isMobile' })(
   ({ theme: { palette }, isMobile }) => ({
     ...fontStyle,
     color: palette.grey[600],
     ...(isMobile && { fontSize: '13px' })
+  })
+);
+
+export const Message = styled(Typography, { shouldForwardProp: prop => prop !== 'isMobile' })(
+  ({ theme: { palette }, isMobile }) => ({
+    ...fontStyle,
+    color: palette.grey[600],
+    fontWeight: 400,
+    fontSize: isMobile ? '0.8125rem' : '1rem'
   })
 );
 

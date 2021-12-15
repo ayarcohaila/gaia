@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Grid, Typography, Link } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import preval from 'preval.macro';
 
@@ -55,7 +55,7 @@ const CollectionList = ({ nfts, hasNftsForSale }) => {
           direction="column"
           alignItems="center"
           justifyContent="center"
-          sx={{ width: '50%', height: isMediumDevice ? '100%' : 300 }}>
+          sx={{ width: '100%', height: isMediumDevice ? '100%' : 300 }}>
           <Typography
             variant="body"
             sx={{
@@ -63,10 +63,15 @@ const CollectionList = ({ nfts, hasNftsForSale }) => {
               textAlign: 'center',
               lineHeight: isMediumDevice ? '1.2' : '22px'
             }}>
-            Sold out! Join us on <Link url="https://twitter.com/ballerz_nft ">Twitter</Link> and{' '}
-            <Link url="https://discord.com/invite/ballerznft ">Discord</Link> for more BALLERZ info.
-            If you weren’t able to purchase – the Gaia Marketplace will open in December, where you
-            can buy & sell BALLERZ from other collectors.
+            Sold out! Join us on{' '}
+            <a href="https://twitter.com/ballerz_nft" target="_blank" rel="noreferrer">
+              Twitter
+            </a>{' '}
+            and{' '}
+            <a href="https://discord.com/invite/ballerznft" target="_blank" rel="noreferrer">
+              Discord
+            </a>{' '}
+            for more BALLERZ info.
           </Typography>
         </Grid>
       )}
