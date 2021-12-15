@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import preval from 'preval.macro';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 import { Button, Loader } from '~/base';
 import { useBreakpoints } from '~/hooks';
@@ -39,6 +40,13 @@ const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
               transaction.transactionScript,
               offer.listing_resource_id
             );
+            await axios.post('/api/update-transaction-status', {
+              filters: {
+                collection_id: { _eq: asset.collection_id },
+                asset_id: { _eq: asset.asset_id },
+                mint_number: { _eq: asset.mint_number }
+              }
+            });
             if (txResult) {
               setTransactionId(txResult);
               setLoadingCancel(false);
@@ -70,6 +78,7 @@ const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
     route.push(route.asPath);
     onClose();
   };
+
   return (
     <Modal
       asset={asset}
