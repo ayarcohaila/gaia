@@ -46,7 +46,7 @@ export default function HomepageBanner() {
             href="/shareef"
             sx={{ width: !shareefSaleEnabled ? '200px' : '100px' }}>
             <Typography variant="subtitle1">
-              {shareefSaleEnabled ? 'Buy Now' : 'On Sale Dec 13 at 2pm PT'}
+              {shareefSaleEnabled ? 'SOLD OUT' : 'On Sale Dec 13 at 2pm PT'}
             </Typography>
           </Styled.CardButton>
           {/* TODO: Uncomment after shareef drop */}
