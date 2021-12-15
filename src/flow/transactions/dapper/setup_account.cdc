@@ -1,21 +1,10 @@
 import NFTStorefront from 0xStorefrontContract
-import Profile from 0xProfile
 import DapperUtilityCoin from 0xDapperUtilityCoin
 import FungibleToken from 0xFungibleToken
 import Gaia from 0xGaiaContract
 // This transaction installs the Storefront ressource in an account.
 transaction {
-    let address: Address
     prepare(acct: AuthAccount) {
-        self.address = acct.address
-        // Init Profile
-        if (!Profile.check(self.address)) {
-            // This creates and stores the Profile in the users account
-            acct.save(<- Profile.new(), to: Profile.privatePath)
-            // This creates the public capability that lets applications read the profiles info
-            acct.link<&Profile.Base{Profile.Public}>(Profile.publicPath, target: Profile.privatePath)
-        }
-
         // Setup gaia collection if the account doesn't have one
         if acct.borrow<&Gaia.Collection>(from: Gaia.CollectionStoragePath) == nil {
             let collection <- Gaia.createEmptyCollection() as! @Gaia.Collection
