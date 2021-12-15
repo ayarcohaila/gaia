@@ -3,12 +3,7 @@ import { Box, Grid, useTheme } from '@mui/material';
 import { ProductDetailsTopSection, Seo } from '~/components';
 import { gqlClient } from '~/config/apollo-client';
 import { useBreakpoints } from '~/hooks';
-import {
-  GET_NFTS_IDS,
-  GET_NFTS_MINT_NUMBER,
-  GET_NFT_BY_ID,
-  GET_NFT_BY_MINT_NUMBER
-} from '~/store/server/queries';
+import { GET_NFT_BY_ID, GET_NFT_BY_MINT_NUMBER } from '~/store/server/queries';
 import {
   COLLECTION_LIST_CONFIG,
   COLLECTIONS_NAME,
@@ -39,30 +34,7 @@ const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps }) => {
   );
 };
 
-export async function getStaticPaths() {
-  const collections = Object.values(COLLECTION_LIST_CONFIG).map(item => ({
-    collection_id: { _eq: item.id }
-  }));
-  const { nft_template } = await gqlClient.request(GET_NFTS_IDS, { collections });
-
-  const ballerzCollectionPaths = nft_template.map(nft => ({
-    params: { collection_name: COLLECTIONS_NAME.BALLERZ, nft_id: String(nft?.id) }
-  }));
-
-  const { nft_collection } = await gqlClient.request(GET_NFTS_MINT_NUMBER, {
-    collection_id: COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON].id
-  });
-  const { nfts } = nft_collection[0];
-  const brysonCollectionPaths = nfts.map(nft => ({
-    params: { collection_name: COLLECTIONS_NAME.BRYSON, nft_id: String(nft?.mint_number) }
-  }));
-
-  const allPaths = [...ballerzCollectionPaths, ...brysonCollectionPaths];
-  const thousandPaths = allPaths.slice(0, 100);
-  return { paths: thousandPaths, fallback: 'blocking' };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const { collection_name, nft_id } = params;
   const brysonConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON];
   const shareefConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF];
