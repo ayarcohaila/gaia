@@ -56,6 +56,10 @@ export const FILTERS = [
       {
         id: COLLECTION_LIST_CONFIG.bryson.id,
         label: 'Bryson DeChambeau'
+      },
+      {
+        id: COLLECTION_LIST_CONFIG.shareef.id,
+        label: COLLECTION_LIST_CONFIG.shareef.nftName
       }
     ]
   }

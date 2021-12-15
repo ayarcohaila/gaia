@@ -31,7 +31,8 @@ const BrowseCard = ({ data }) => {
     <Styled.CustomCard
       sx={{
         cursor: currentCollection?.mystery ? 'auto' : 'pointer'
-      }}>
+      }}
+    >
       <Styled.CustomCardHeader
         avatar={
           <Avatar
@@ -87,7 +88,8 @@ const BrowseCard = ({ data }) => {
         <Styled.NFTText
           sx={{
             marginTop: shouldAddExtraMargin && '16px'
-          }}>
+          }}
+        >
           {data?.template?.metadata?.title}
         </Styled.NFTText>
         {data?.is_for_sale && (
@@ -102,12 +104,13 @@ const BrowseCard = ({ data }) => {
   if (!currentCollection) {
     return null;
   }
+  const nftRedirectReference =
+    data.collection_id === COLLECTION_LIST_CONFIG.shareef.id
+      ? data.asset_id
+      : data.template.metadata.id || data.mint_number;
+
   return (
-    <Link
-      href={`/${currentCollection.collectionName}/${
-        data?.template?.metadata?.id || data?.mint_number
-      }`}
-      passHref>
+    <Link href={`/${currentCollection.collectionName}/${nftRedirectReference}`} passHref>
       {renderContent()}
     </Link>
   );

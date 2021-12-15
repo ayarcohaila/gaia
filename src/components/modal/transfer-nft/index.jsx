@@ -1,6 +1,9 @@
 import { memo, useState } from 'react';
 import { Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
+import axios from 'axios';
+import preval from 'preval.macro';
+import { useRouter } from 'next/router';
 
 import { Loader } from '~/base';
 import Modal from '..';
@@ -9,9 +12,8 @@ import ModalSuccessContent from '../success-content';
 
 import * as Styled from './styles';
 import { loadTransaction } from '~/utils/transactionsLoader';
-import preval from 'preval.macro';
 
-const TransferNftModal = ({ ...props }) => {
+const TransferNftModal = ({ onClose, ...props }) => {
   const [address, setAddress] = useState('');
   const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyTransfered, setHasNftSuccessfullyTransfered] = useState(false);
@@ -19,6 +21,7 @@ const TransferNftModal = ({ ...props }) => {
   const {
     palette: { error }
   } = useTheme();
+  const route = useRouter();
 
   const transferTx = preval`
     const fs = require('fs')
@@ -28,7 +31,6 @@ const TransferNftModal = ({ ...props }) => {
     `;
 
   const handleSendNft = async address => {
-    toast.info('Please wait, transfer in progress... ');
     setLoadingTransfer(true);
     try {
       const transaction = await loadTransaction(transferTx);
@@ -37,6 +39,13 @@ const TransferNftModal = ({ ...props }) => {
         address,
         props.asset.asset_id
       );
+      await axios.post('/api/update-transaction-status', {
+        filters: {
+          collection_id: { _eq: props.asset.collection_id },
+          asset_id: { _eq: props.asset.asset_id },
+          mint_number: { _eq: props.asset.mint_number }
+        }
+      });
       setTx(txResult?.txId);
       setLoadingTransfer(false);
       setHasNftSuccessfullyTransfered(true);
@@ -45,6 +54,11 @@ const TransferNftModal = ({ ...props }) => {
       toast.error('Unable to complete transference.');
       console.error(err);
     }
+  };
+
+  const handleClose = () => {
+    route.push(route.asPath);
+    onClose();
   };
 
   return (
@@ -58,6 +72,7 @@ const TransferNftModal = ({ ...props }) => {
       height="382px"
       title={hasNftSuccessfullyTransfered ? 'Transfered!' : 'Transfer NFT'}
       titleSx={{ mt: 15 }}
+      onClose={handleClose}
       {...props}>
       {hasNftSuccessfullyTransfered ? (
         <ModalSuccessContent address={address} tx={tx} />

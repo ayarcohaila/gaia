@@ -1,15 +1,12 @@
-/* eslint-disable no-unused-vars */
-import axios from 'axios';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useState, useCallback, useEffect } from 'react';
 
 import { useBreakpoints, useToggle } from '~/hooks';
 import { gqlClient } from '~/config/apollo-client';
 import basicAuthCheck from '~/utils/basicAuthCheck';
-import { CardSkeletonLoader, Divider } from '~/base';
+import { Divider } from '~/base';
 import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
-import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup';
+import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { ProfileBanner, ProfileList, CollectionsFilter, Seo, Modal } from '~/components';
 
@@ -19,41 +16,7 @@ const Profile = ({ userNFTs }) => {
   const router = useRouter();
   const { id: address } = router.query;
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
-  const [nftList, setNftList] = useState([]);
   const [openModal, toggleOpenModal] = useToggle();
-  const [loading, setLoading] = useState(false);
-
-  const loadNfts = useCallback(async () => {
-    try {
-      setLoading(true);
-      const result = await axios.get(`/api/list?address=${address}`);
-      const ballerzList = result.data.ballerz?.map(item => ({
-        ...item,
-        collection_name: 'ballerz',
-        collection_picture: '/collections/ballerz/avatar.png',
-        name: item?.name?.includes('#') ? item.name : `${item.name} #${item.id}`
-      }));
-      const brysonList = result.data.bryson?.map(item => ({
-        ...item,
-        collection_name: 'bryson',
-        collection_picture: '/collections/bryson/avatar.webp',
-        name: item?.name?.includes('#') ? item.name : `${item.name} #${item.id}`
-      }));
-      const combinedList = ballerzList.concat(brysonList);
-      setNftList(combinedList);
-    } catch {
-      setNftList([]);
-      toggleOpenModal();
-    } finally {
-      setLoading(false);
-    }
-  }, [setLoading, setNftList, toggleOpenModal, address]);
-
-  useEffect(() => {
-    if (address) {
-      loadNfts();
-    }
-  }, [address]);
 
   const onHandleCloseModal = () => {
     toggleOpenModal();

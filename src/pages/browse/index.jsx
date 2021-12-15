@@ -82,7 +82,8 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
         </Typography>
       </Grid>
     );
-  }, [paginatedList]);
+  }, [paginatedList, marketplaceLoading]);
+
   return (
     <>
       <Seo title={MARKETPLACE_TITLE} />
