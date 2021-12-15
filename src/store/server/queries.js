@@ -194,8 +194,7 @@ const GET_MARKETPLACE_NFTS = gql`
         _or: $collections
         _and: $price
         is_for_sale: $isForSale
-        transaction_status: $transactionStatus
-        template: { _or: $properties }
+        template: { _and: $properties }
       }
     ) {
       asset_id
