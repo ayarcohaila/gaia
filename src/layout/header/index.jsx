@@ -148,12 +148,6 @@ const Header = () => {
           </Button>
           {user?.loggedIn ? (
             <>
-              <Styled.ButtonText
-                variant="text"
-                onClick={handleClick}
-                data-id={USER_MENU_IDS.PROFILE}>
-                Profile
-              </Styled.ButtonText>
               {hasSecondarySale && (
                 <Styled.ButtonText
                   variant="text"
@@ -165,6 +159,12 @@ const Header = () => {
               <Styled.ButtonText
                 variant="text"
                 onClick={handleClick}
+                data-id={USER_MENU_IDS.PROFILE}>
+                Profile
+              </Styled.ButtonText>
+              <Styled.ButtonText
+                variant="text"
+                onClick={handleClick}
                 data-id={USER_MENU_IDS.DAPPER_WALLET}>
                 My Wallet
               </Styled.ButtonText>
@@ -173,9 +173,16 @@ const Header = () => {
               </Styled.ButtonText>
             </>
           ) : (
-            <Styled.CustomButton variant="contained" headerModal onClick={login}>
-              Sign In
-            </Styled.CustomButton>
+            <>
+              {hasSecondarySale && (
+                <Styled.ButtonText variant="text" onClick={handleClick}>
+                  Browse All NFTs
+                </Styled.ButtonText>
+              )}
+              <Styled.CustomButton variant="contained" headerModal onClick={login}>
+                Sign In
+              </Styled.CustomButton>
+            </>
           )}
         </Grid>
       </HeaderModal>

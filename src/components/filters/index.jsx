@@ -102,6 +102,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     const filters = {
       price: priceFilters,
       isForSale: status === 'buyNow' ? { _eq: true } : {},
+      transactionStatus: status === 'buyNow' ? { _eq: false } : {},
       collections: collectionsFilter,
       properties: propertiesFilters
     };

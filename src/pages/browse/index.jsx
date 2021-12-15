@@ -81,7 +81,8 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
         </Typography>
       </Grid>
     );
-  }, [paginatedList]);
+  }, [paginatedList, marketplaceLoading]);
+
   return (
     <>
       <Seo title="Browse All NFTs" />

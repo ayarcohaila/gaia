@@ -71,6 +71,9 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         </Grid>
       );
     }
+    if (data.transaction_status) {
+      return '';
+    }
     return (
       <CardActions>
         {data?.is_for_sale ? (
@@ -110,6 +113,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
       </CardActions>
     );
   }, [
+    data,
     loading,
     toggleSellNftModal,
     toggleTransferNftModal,
@@ -176,7 +180,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         {isMyProfile && renderUserCardActions}
       </Styled.CustomCard>
     ),
-    [imgLoaded, handleDisplayPreview, isMyProfile, renderUserCardActions]
+    [imgLoaded, handleDisplayPreview, isMyProfile, renderUserCardActions, data]
   );
 
   return (
