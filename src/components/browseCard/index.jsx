@@ -31,8 +31,7 @@ const BrowseCard = ({ data }) => {
     <Styled.CustomCard
       sx={{
         cursor: currentCollection?.mystery ? 'auto' : 'pointer'
-      }}
-    >
+      }}>
       <Styled.CustomCardHeader
         avatar={
           <Avatar
@@ -88,8 +87,7 @@ const BrowseCard = ({ data }) => {
         <Styled.NFTText
           sx={{
             marginTop: shouldAddExtraMargin && '16px'
-          }}
-        >
+          }}>
           {data?.template?.metadata?.title}
         </Styled.NFTText>
         {data?.is_for_sale && (
