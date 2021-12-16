@@ -1,7 +1,7 @@
 import { LockOpenOutlined as LockOpenOutlinedIcon } from '@mui/icons-material';
 import { hasSecondarySale } from '~/config/config';
 
-export const MARKETPLACE_TITLE = 'BALLERZ Marketplace';
+export const MARKETPLACE_TITLE = 'Marketplace';
 
 export const MENU_OPTIONS = [hasSecondarySale && { label: MARKETPLACE_TITLE, href: '/browse' }];
 
