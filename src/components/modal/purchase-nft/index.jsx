@@ -11,7 +11,7 @@ import Modal from '..';
 const PurchaseNFTModal = ({ asset, onClose, ...props }) => {
   const title = 'Order Complete!';
 
-  const { isExtraSmallDevice, isSmallDevice } = useBreakpoints();
+  const { isSmallDevice } = useBreakpoints();
   const description = `Congratulations, you are now the
   proud owner of ${
     Object.values(COLLECTION_LIST_CONFIG)?.find(item => item.id === asset?.collection_id)?.mystery
@@ -26,9 +26,9 @@ const PurchaseNFTModal = ({ asset, onClose, ...props }) => {
       onClose={onClose}
       title={title}
       descriptionSx={{ fontWeight: '600', maxWidth: '280px', mt: '16px', textAlign: 'center' }}
-      height="518px"
-      mobileHeight={isExtraSmallDevice ? '80vh' : '75vh'}
-      titleSx={{ mt: isSmallDevice ? '108px' : '24px' }}
+      height="300px"
+      mobileHeight="50vh"
+      titleSx={{ mt: isSmallDevice ? '50px' : '70px' }}
       {...props}>
       <Button
         endIcon={<ArrowRightIcon />}

@@ -5,7 +5,7 @@ import { Link, useTheme } from '@mui/material';
 import { Modal } from '~/components';
 import { Button } from '~/base';
 
-const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
+const SuccessPurchaseNFTModal = ({ open, onClose, tx, collectionsName }) => {
   const {
     palette: { white }
   } = useTheme();
@@ -13,7 +13,7 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
   return (
     <Modal
       asset={null}
-      description="Congratulations! You have successfully purchased Shareef O'Neal collectible. Here's the link of your transaction:"
+      description={`Congratulations! You have successfully purchased ${collectionsName} collectible. Here's the link of your transaction:`}
       descriptionSx={{ maxWidth: '80%', textAlign: 'center', wordBreak: 'break-word' }}
       open={open}
       onClose={onClose}
@@ -21,7 +21,7 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
       titleSx={{ mt: 15 }}>
       <Link
         component={Button}
-        href={`${process.env.NEXT_PUBLIC_FLOW_SCAN}transaction/${tx}`}
+        href={`https://flowscan.org/transaction/${tx}`}
         sx={{
           maxWidth: '80%',
           textAlign: 'center',
@@ -38,7 +38,8 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
 SuccessPurchaseNFTModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  tx: PropTypes.string
+  tx: PropTypes.string,
+  collectionsName: PropTypes.string
 };
 
 export default memo(SuccessPurchaseNFTModal);
