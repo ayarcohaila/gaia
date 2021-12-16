@@ -7,7 +7,8 @@ import {
   InsufficientFundsModal,
   PurchaseErrorModal,
   OrderProcessing,
-  VideoPlayer
+  VideoPlayer,
+  SuccessPurchaseNFTModal
 } from '~/components';
 import { INSUFFICIENT_FUNDS } from '~/components/collectionCard';
 import { BUY_BRYSON_TX } from '~/constant';
@@ -18,7 +19,6 @@ import { loadTransaction } from '~/utils/transactionsLoader';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
-import SuccessPurchaseModal from '../success-purchase-modal';
 
 const BrysonCollectionContent = ({ data, totalAvailable }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
@@ -141,10 +141,11 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
         <Styled.BottomImage alt="Las Vegas Sign" src="/collections/bryson/las-vegas.webp" />
       </Grid>
 
-      <SuccessPurchaseModal
+      <SuccessPurchaseNFTModal
         open={isPurchaseNftModalOpen}
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
+        collectionsName={`Bryson's`}
       />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />

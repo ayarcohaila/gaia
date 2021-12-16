@@ -14,7 +14,7 @@ import {
   TransferNftModal,
   CancelListingModal,
   PurchaseErrorModal,
-  PurchaseNFTModal,
+  SuccessPurchaseNFTModal,
   InsufficientFundsModal,
   OrderProcessing,
   Accordion,
@@ -30,6 +30,7 @@ import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 import { hasSecondarySale } from '~/config/config';
 
 import * as Styled from './styles';
+import formatIpfsImg from '~/utils/formatIpfsImg';
 
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
@@ -49,6 +50,9 @@ const BUY_TX = isDapper
   `;
 
 const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }) => {
+  const asset = {
+    img: formatIpfsImg(nft?.template?.metadata?.img)
+  };
   const {
     palette: { grey }
   } = useTheme();
@@ -294,7 +298,7 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
         {!!isMediumDevice && renderAccordions}
       </Styled.Container>
 
-      <PurchaseNFTModal
+      <SuccessPurchaseNFTModal
         asset={nft}
         open={isPurchaseNftModalOpen}
         onClose={togglePurchaseNftModal}
@@ -304,17 +308,17 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <TransferNftModal
-        asset={nft}
+        asset={asset}
         open={isTransferNftModalOpen}
         onClose={toggleTransferNftModal}
       />
       <CancelListingModal
-        asset={nft}
+        asset={asset}
         open={isCancelListingModalOpen}
         onClose={toggleCancelListingModal}
       />
       <SellNftModal
-        asset={nft}
+        asset={asset}
         hasPostedForSale={nft?.is_for_sale}
         open={isSellNftModalOpen}
         onClose={handleCloseSellModal}

@@ -10,13 +10,13 @@ import {
   InsufficientFundsModal,
   PurchaseErrorModal,
   OrderProcessing,
-  VideoPlayer
+  VideoPlayer,
+  SuccessPurchaseNFTModal
 } from '~/components';
 
 import { useBreakpoints, useToggle, useAuth } from '~/hooks';
 import { AuthContext } from '~/providers/AuthProvider';
 import { INSUFFICIENT_FUNDS } from '~/components/collectionCard';
-import SuccessPurchaseModal from '../success-purchase-modal';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { BUY_TX } from '~/constant';
 import formatIpfsImg from '~/utils/formatIpfsImg';
@@ -255,10 +255,11 @@ const ShareefCollectionContent = ({ data }) => {
       <Grid container justifyContent="center">
         {contentSection}
       </Grid>
-      <SuccessPurchaseModal
+      <SuccessPurchaseNFTModal
         open={isPurchaseNftModalOpen}
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
+        collectionsName={`Shareef's`}
       />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />

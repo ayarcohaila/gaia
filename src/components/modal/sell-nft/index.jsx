@@ -18,7 +18,6 @@ import * as Styled from './styles';
 const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loading, ...props }) => {
   const [value, setValue] = useState('');
   const route = useRouter();
-
   const { isExtraSmallDevice } = useBreakpoints();
   const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
@@ -88,7 +87,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
       descriptionSx={{ textAlign: 'center' }}
       onClose={handleClose}
       title={title}
-      titleSx={{ mt: 15 }}
+      titleSx={{ mt: '120px' }}
       mobileHeight={isExtraSmallDevice ? '70vh' : '60vh'}
       {...props}>
       {hasNftSuccessfullyPostedForSale ? (
