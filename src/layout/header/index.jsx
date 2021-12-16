@@ -9,7 +9,7 @@ import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 import { HeaderModal, StayTunedModal } from '~/components';
 import { Dropdown } from '~/base';
 import { useBreakpoints, useToggle, useAuth } from '~/hooks';
-import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
+import { MARKETPLACE_TITLE, MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
 import { hasSecondarySale } from '~/config/config';
 
 import * as Styled from './styles.js';
@@ -115,7 +115,8 @@ const Header = () => {
                 variant="text"
                 onClick={handleClick}
                 onMouseEnter={() => handleDropdownMenu(true)}
-                data-id={USER_MENU_IDS.PROFILE}>
+                data-id={USER_MENU_IDS.PROFILE}
+              >
                 <Styled.UserAvatar alt="User Icon" />
                 <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
               </Styled.AvatarButton>
@@ -142,7 +143,8 @@ const Header = () => {
           sx={{ gap: '24px' }}
           alignItems="center"
           justifyContent="center"
-          direction="column">
+          direction="column"
+        >
           <Button variant="text" disableRipple onClick={navigateToHome}>
             <NextImage width={102.4} height={40} src="/static/img/gaia_logo-black.png" />
           </Button>
@@ -152,20 +154,23 @@ const Header = () => {
                 <Styled.ButtonText
                   variant="text"
                   onClick={handleClick}
-                  data-id={USER_MENU_IDS.BROWSE}>
-                  Browse All NFTs
+                  data-id={USER_MENU_IDS.BROWSE}
+                >
+                  {MARKETPLACE_TITLE}
                 </Styled.ButtonText>
               )}
               <Styled.ButtonText
                 variant="text"
                 onClick={handleClick}
-                data-id={USER_MENU_IDS.PROFILE}>
+                data-id={USER_MENU_IDS.PROFILE}
+              >
                 Profile
               </Styled.ButtonText>
               <Styled.ButtonText
                 variant="text"
                 onClick={handleClick}
-                data-id={USER_MENU_IDS.DAPPER_WALLET}>
+                data-id={USER_MENU_IDS.DAPPER_WALLET}
+              >
                 My Wallet
               </Styled.ButtonText>
               <Styled.ButtonText variant="text" onClick={handleClick}>
@@ -176,7 +181,7 @@ const Header = () => {
             <>
               {hasSecondarySale && (
                 <Styled.ButtonText variant="text" onClick={handleClick}>
-                  Browse All NFTs
+                  {MARKETPLACE_TITLE}
                 </Styled.ButtonText>
               )}
               <Styled.CustomButton variant="contained" headerModal onClick={login}>
