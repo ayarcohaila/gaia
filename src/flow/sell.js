@@ -2,8 +2,6 @@
 
 import { fcl, t } from '../config/config';
 
-const STOREFRONT_ADDRESS = process.env.NEXT_PUBLIC_STOREFRONT_ADDRESS;
-
 export async function sellItem(tx, saleItemID, saleItemPrice, collectionSetId) {
   if (saleItemID == null)
     throw new Error('sellItem(saleItemID, saleItemPrice) -- saleItemID required');
@@ -18,7 +16,6 @@ export async function sellItem(tx, saleItemID, saleItemPrice, collectionSetId) {
         fcl.args([
           fcl.arg(Number(saleItemID), t.UInt64),
           fcl.arg(Number(correctSalePrice).toFixed(8), t.UFix64),
-          fcl.arg(STOREFRONT_ADDRESS, t.Address),
           fcl.arg(Number(collectionSetId), t.UInt64)
         ]),
         fcl.proposer(fcl.authz),

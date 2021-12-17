@@ -31,6 +31,7 @@ const loadScript = async transaction => {
     .replace('0xDapperUtilityCoin', process.env.NEXT_PUBLIC_DAPPER_UTILITY_COIN)
     .replace('0xGaiaContract', process.env.NEXT_PUBLIC_GAIA_CONTRACT)
     .replace('0xStorefrontContract', process.env.NEXT_PUBLIC_STOREFRONT_CONTRACT)
+    .replace('0xGaiaMarketplace', process.env.NEXT_PUBLIC_MARKET_OWNER)
     .replace('0xNFTContractStorefront', process.env.NEXT_PUBLIC_NON_FUNGIBLE_TOKEN);
 };
 
