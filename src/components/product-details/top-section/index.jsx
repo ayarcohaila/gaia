@@ -2,7 +2,6 @@ import { memo, useState, useEffect, useCallback, useMemo } from 'react';
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import preval from 'preval.macro';
 import axios from 'axios';
 
 import Asset from './asset';
@@ -24,30 +23,16 @@ import {
 } from '~/components';
 import { Loader } from '~/base';
 
-import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 import { hasSell, hasTransfer } from '~/config/config';
+import formatIpfsImg from '~/utils/formatIpfsImg';
+import { BUY_TX } from '~/constant';
 
 import * as Styled from './styles';
-import formatIpfsImg from '~/utils/formatIpfsImg';
 
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
-
-const BUY_TX = isDapper
-  ? preval`
-    const fs = require('fs')
-    const path = require('path'),
-    filePath = path.join(__dirname, "../../../flow/transactions/dapper/buy.cdc");
-    module.exports = fs.readFileSync(filePath, 'utf8')
-  `
-  : preval`
-    const fs = require('fs')
-    const path = require('path'),
-    filePath = path.join(__dirname, "../../../flow/transactions/flowToken/buy.cdc");
-    module.exports = fs.readFileSync(filePath, 'utf8')
-  `;
 
 const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }) => {
   const asset = {
