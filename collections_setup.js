@@ -26,7 +26,7 @@ export const COLLECTION_LIST_CONFIG = {
     saleType: COLLECTION_SALE_TYPE.MULTIPLE,
     mystery: false,
     buyLimit: 7,
-    avatar: '/collections/ballerz/avatar.png',
+    avatar: '/collections/ballerz/avatar.jpg',
     banner: '/collections/ballerz/banner.png',
     collectionSize: 10000
   },
