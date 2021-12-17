@@ -107,9 +107,9 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
           />
           <Styled.FeesContent>
             <Styled.FeeText>Marketplace Fee</Styled.FeeText>
-            <Styled.FeeText feeValue>2.5%</Styled.FeeText>
+            <Styled.FeeText feeValue>5%</Styled.FeeText>
             <Styled.FeeText>Creator Royalty</Styled.FeeText>
-            <Styled.FeeText feeValue>10.0%</Styled.FeeText>
+            <Styled.FeeText feeValue>5%</Styled.FeeText>
           </Styled.FeesContent>
         </Grid>
       )}

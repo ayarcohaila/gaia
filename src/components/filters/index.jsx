@@ -99,6 +99,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       : Object.values(COLLECTION_LIST_CONFIG).map(item => ({
           collection_id: { _eq: item.id }
         }));
+
     const filters = {
       price: priceFilters,
       isForSale: status === 'buyNow' ? { _eq: true } : {},
@@ -118,6 +119,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     (filterName, option) => {
       const isOptionAnObject = !!option?.id;
       const filterArray = state[filterName];
+
       if (isOptionAnObject) {
         setFilter(
           filterName,
@@ -220,7 +222,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
               .find(item => item.id === filtersIds.COLLECTIONS)
               ?.options?.find(option => option.id === collection.id);
             return (
-              !!currentCollection.properties && (
+              !!currentCollection?.properties && (
                 <Accordion
                   key={`lg-properties-${currentCollection?.id}`}
                   title={`${capitalize(currentCollection?.label)} Properties`}>
@@ -269,7 +271,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
             ?.options?.find(option => option.id === collection.id);
 
           return (
-            !!currentCollection.properties && (
+            !!currentCollection?.properties && (
               <>
                 <Divider sx={{ mt: 4 }} />
                 <Typography mt={2} variant="h4" textAlign="center">

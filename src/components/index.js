@@ -6,6 +6,7 @@ export { default as CollectionBanner } from './collectionBanner';
 export { default as SellNftModal } from './modal/sell-nft';
 export { default as CancelListingModal } from './modal/cancel-listing';
 export { default as TransferNftModal } from './modal/transfer-nft';
+export { default as TransferNftRedirectDapperModal } from './modal/transfer-nft-redirect-dapper';
 export { default as OrderCompleteModal } from './modal/order-complete';
 export { default as PurchaseNFTModal } from './modal/purchase-nft';
 export { default as PurchaseErrorModal } from './modal/purchase-error';

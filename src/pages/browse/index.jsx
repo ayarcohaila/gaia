@@ -11,7 +11,7 @@ import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 
 import * as Styled from '~/styles/browse-page/styles';
 import { useBreakpoints } from '~/hooks';
-import { hasSecondarySale } from '~/config/config';
+import { hasBrowse } from '~/config/config';
 import { MARKETPLACE_TITLE } from '~/layout/header/constants';
 
 const DEFAULT_LIST_SIZE = 40;
@@ -123,7 +123,7 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
 
 export async function getServerSideProps() {
   return {
-    notFound: !hasSecondarySale,
+    notFound: !hasBrowse,
     props: {
       filters: FILTERS,
       filtersTypes: FILTERS_TYPES,

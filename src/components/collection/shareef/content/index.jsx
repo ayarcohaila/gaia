@@ -20,7 +20,6 @@ import { INSUFFICIENT_FUNDS } from '~/components/collectionCard';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { BUY_TX } from '~/constant';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-import { shareefSaleEnabled } from '~/config/config';
 
 import * as Styled from './styles';
 
@@ -180,16 +179,6 @@ const ShareefCollectionContent = ({ data }) => {
 
   const renderCard = useCallback(
     sale => {
-      let buttonLabel = '';
-      if (sale?.collectionRemaining) {
-        if (shareefSaleEnabled) {
-          buttonLabel = `Purchase - $${Number(sale?.price).toFixed(2)}`;
-        } else {
-          buttonLabel = 'On Sale Dec 13 at 2pm PT';
-        }
-      } else {
-        buttonLabel = 'SOLD OUT';
-      }
       return (
         <Styled.CustomCard md={4} sm={12} item container styled={{ border: '1px solid red' }}>
           <VideoPlayer
@@ -218,9 +207,7 @@ const ShareefCollectionContent = ({ data }) => {
           </Typography>
           <Button
             onClick={user ? handlePurchaseClick(sale) : handleLogin}
-            disabled={
-              shouldDisablePurchaseButton || !shareefSaleEnabled || !sale?.collectionRemaining
-            }
+            disabled={shouldDisablePurchaseButton || !sale?.collectionRemaining}
             sx={{
               width: '100%',
               marginBottom: '16px',
@@ -230,7 +217,9 @@ const ShareefCollectionContent = ({ data }) => {
               <Loader disableText />
             ) : (
               <Typography variant="h6" fontWeight="600" letterSpacing={1}>
-                {buttonLabel}
+                {sale?.collectionRemaining
+                  ? `Purchase - $${Number(sale?.price).toFixed(2)}`
+                  : 'SOLD OUT'}
               </Typography>
             )}
           </Button>

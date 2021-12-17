@@ -10,8 +10,9 @@ const marketAddress = process.env.NEXT_PUBLIC_NFTMARKET_CONTRACT;
 const landingOnly = process.env.NEXT_PUBLIC_LANDING_ONLY === 'true';
 const appName = process.env.NEXT_PUBLIC_APP_NAME;
 const needsAuth = process.env.APPLICATION_NEEDS_AUTH === 'true';
-const hasSecondarySale = process.env.NEXT_PUBLIC_HAS_BROWSE === 'true';
-const shareefSaleEnabled = process.env.NEXT_PUBLIC_ENABLE_SHAREEF_SALES === 'true';
+const hasBrowse = process.env.NEXT_PUBLIC_HAS_BROWSE === 'true';
+const hasSell = process.env.NEXT_PUBLIC_HAS_SELL === 'true';
+const hasTransfer = process.env.NEXT_PUBLIC_HAS_TRANSFER === 'true';
 
 const users = [
   {
@@ -60,6 +61,7 @@ export {
   appName,
   needsAuth,
   users,
-  hasSecondarySale,
-  shareefSaleEnabled
+  hasBrowse,
+  hasSell,
+  hasTransfer
 };
