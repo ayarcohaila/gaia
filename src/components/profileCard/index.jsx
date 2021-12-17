@@ -11,7 +11,7 @@ import {
   VideoPlayer
 } from '~/components';
 import { useToggle, useAuth, useBreakpoints } from '~/hooks';
-import { hasSecondarySale } from '~/config/config';
+import { hasSell, hasTransfer } from '~/config/config';
 import { useCollectionConfig } from '~/hooks';
 
 import * as Styled from './styled';
@@ -62,7 +62,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
   }, [collectionsNames]);
 
   const renderUserCardActions = useMemo(() => {
-    if (!hasSecondarySale) {
+    if (!hasSell && !hasTransfer) {
       return (
         <Grid container justifyContent="center">
           <Styled.ComingSoon container justifyContent="center" align="center">
@@ -75,7 +75,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
       return '';
     }
     return (
-      <CardActions>
+      <CardActions sx={{ justifyContent: 'center' }}>
         {data?.is_for_sale ? (
           <Styled.CancelButtonContainer>
             <Styled.ListedText disabled={loading}>Listed for sale</Styled.ListedText>
@@ -92,22 +92,26 @@ const ProfileCard = ({ data, isFromBrowser }) => {
           </Styled.CancelButtonContainer>
         ) : (
           <>
-            <Styled.SellButton
-              disabled={loading}
-              onClick={event => {
-                event?.stopPropagation();
-                toggleSellNftModal();
-              }}>
-              Sell
-            </Styled.SellButton>
-            <Styled.TransferButton
-              disabled={loading}
-              onClick={event => {
-                event?.stopPropagation();
-                toggleTransferNftModal();
-              }}>
-              Transfer
-            </Styled.TransferButton>
+            {hasSell && (
+              <Styled.SellButton
+                disabled={loading}
+                onClick={event => {
+                  event?.stopPropagation();
+                  toggleSellNftModal();
+                }}>
+                Sell
+              </Styled.SellButton>
+            )}
+            {hasTransfer && (
+              <Styled.TransferButton
+                disabled={loading}
+                onClick={event => {
+                  event?.stopPropagation();
+                  toggleTransferNftModal();
+                }}>
+                Transfer
+              </Styled.TransferButton>
+            )}
           </>
         )}
       </CardActions>
@@ -118,7 +122,8 @@ const ProfileCard = ({ data, isFromBrowser }) => {
     toggleSellNftModal,
     toggleTransferNftModal,
     toggleCancelListingModal,
-    hasSecondarySale
+    hasSell,
+    hasTransfer
   ]);
 
   const renderContent = useMemo(

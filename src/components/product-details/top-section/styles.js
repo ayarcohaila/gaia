@@ -1,4 +1,4 @@
-import { styled, Box, Grid, Typography } from '@mui/material';
+import { styled, Box, Grid, Button as MuiButton, Typography } from '@mui/material';
 import { Button } from '~/base';
 
 export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
@@ -77,5 +77,22 @@ export const ActionButtons = styled(Button, {
 
   ':hover': {
     backgroundColor: removeListing && palette.error[700]
+  }
+}));
+
+export const TransferButton = styled(MuiButton)(({ theme: { palette } }) => ({
+  width: 145,
+  height: 50,
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  border: `solid 2px ${palette.grey[300]}`,
+  color: palette.secondary.main,
+  fontSize: '14px',
+  letterSpacing: '0.2px',
+  fontWeight: 'bold',
+  textTransform: 'none',
+
+  ':hover': {
+    backgroundColor: palette.grey[200]
   }
 }));

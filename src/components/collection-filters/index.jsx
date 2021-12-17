@@ -139,7 +139,8 @@ const CollectionsFilter = ({
       </Styled.Container>
       {isOwnProfile && isProfile && (
         <Styled.Message align="center">
-          Please note: new purchases may take 5-10 minutes to appear in your account
+          Please note: purchases, listings, and transfers may take 5-10 minutes to be reflected in
+          your account
         </Styled.Message>
       )}
       {enableSearch

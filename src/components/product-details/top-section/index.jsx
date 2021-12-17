@@ -27,7 +27,7 @@ import { Loader } from '~/base';
 import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
-import { hasSecondarySale } from '~/config/config';
+import { hasSell, hasTransfer } from '~/config/config';
 
 import * as Styled from './styles';
 import formatIpfsImg from '~/utils/formatIpfsImg';
@@ -224,8 +224,14 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
       case !isForSale && isOwner:
         return (
           <>
-            <Styled.ActionButtons onClick={toggleSellNftModal}>Sell</Styled.ActionButtons>
-            <Styled.ActionButtons onClick={toggleTransferNftModal}>Transfer</Styled.ActionButtons>
+            {hasSell && (
+              <Styled.ActionButtons onClick={toggleSellNftModal}>Sell</Styled.ActionButtons>
+            )}
+            {hasTransfer && (
+              <Styled.TransferButton onClick={toggleTransferNftModal}>
+                Transfer
+              </Styled.TransferButton>
+            )}
           </>
         );
       case isForSale && !!transaction: {
@@ -251,7 +257,9 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
     getLastByUpdateAt,
     login,
     user?.addr,
-    nft?.transaction_status
+    nft?.transaction_status,
+    hasSell,
+    hasTransfer
   ]);
 
   return (
@@ -277,11 +285,12 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
           <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">
             <Styled.Title>{metadata.title}</Styled.Title>
             <Styled.Description>{metadata.description}</Styled.Description>
-            {hasSecondarySale && (
+            {(hasSell || hasTransfer) && (
               <Grid
                 container
                 sx={{ mt: '42px', gap: isSmallDevice ? '8px' : '16px' }}
-                justifyContent={isMediumDevice && 'center'}>
+                justifyContent={isMediumDevice && 'center'}
+                alignItems="center">
                 {renderActions}
               </Grid>
             )}

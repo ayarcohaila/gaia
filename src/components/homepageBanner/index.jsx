@@ -3,7 +3,6 @@ import React from 'react';
 import { Typography, Grid } from '@mui/material';
 
 import { useBreakpoints } from '~/hooks';
-import { shareefSaleEnabled } from '~/config/config';
 
 import * as Styled from './styled';
 
@@ -41,13 +40,8 @@ export default function HomepageBanner() {
           {bannerData.description}
         </Typography>
         <Grid container sx={{ gap: '12px' }}>
-          <Styled.CardButton
-            component="a"
-            href="/shareef"
-            sx={{ width: !shareefSaleEnabled ? '200px' : '100px' }}>
-            <Typography variant="subtitle1">
-              {shareefSaleEnabled ? 'SOLD OUT' : 'On Sale Dec 13 at 2pm PT'}
-            </Typography>
+          <Styled.CardButton component="a" href="/shareef" sx={{ width: '100px' }}>
+            <Typography variant="subtitle1">SOLD OUT</Typography>
           </Styled.CardButton>
           {/* TODO: Uncomment after shareef drop */}
           {/* <Styled.CardButton
