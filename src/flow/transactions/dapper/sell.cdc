@@ -1,9 +1,8 @@
 import FungibleToken from 0xFungibleToken
-import NonFungibleToken from 0xNFTInterface
-import DapperUtilityCoin from 0xDapperUtilityCoin
+import NonFungibleToken from 0xFungibleToken
+import DapperUtilityCoin from 0xFungibleToken
 import Gaia from 0xGaiaContract
 import NFTStorefront from 0xStorefrontContract
-
 transaction(saleItemID: UInt64, saleItemPrice: UFix64, setID: UInt64) {
     let ducReceiver: Capability<&{FungibleToken.Receiver}>
     let marketReceiver: Capability<&{FungibleToken.Receiver}>
@@ -12,49 +11,46 @@ transaction(saleItemID: UInt64, saleItemPrice: UFix64, setID: UInt64) {
     let marketFee: UFix64
     let creatorFee: UFix64
     let marketAddress: Address
-
     prepare(acct: AuthAccount) {
-
         self.marketFee = 0.05
         self.creatorFee = 0.05
         self.marketAddress = 0xGaiaMarketplace
-
         // We need a provider capability, but one is not provided by default so we create one if needed.
         let GaiaCollectionProviderPrivatePath = /private/GaiaCollectionProviderForNFTStorefront
-
         self.ducReceiver = acct.getCapability<&{FungibleToken.Receiver}>(/public/dapperUtilityCoinReceiver)
         assert(self.ducReceiver.borrow() != nil, message: "Missing or mis-typed DapperUtilityCoin receiver")
-
         self.marketReceiver = getAccount(self.marketAddress).getCapability<&{FungibleToken.Receiver}>(/public/dapperUtilityCoinReceiver)
         assert(self.marketReceiver.borrow() != nil, message: "Missing or mis-typed DapperUtilityCoin receiver")
         
         if !acct.getCapability<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(GaiaCollectionProviderPrivatePath)!.check() {
             acct.link<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(GaiaCollectionProviderPrivatePath, target: Gaia.CollectionStoragePath)
         }
-
         self.GaiaProvider = acct.getCapability<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(GaiaCollectionProviderPrivatePath)
         assert(self.GaiaProvider.borrow() != nil, message: "Missing or mis-typed Gaia.Collection provider")
-
         self.storefront = acct.borrow<&NFTStorefront.Storefront>(from: NFTStorefront.StorefrontStoragePath)
             ?? panic("Missing or mis-typed NFTStorefront Storefront")
     }
-
     execute {
         let marketCutAmount = saleItemPrice * self.marketFee
         let marketSaleCut = NFTStorefront.SaleCut(
             receiver: self.marketReceiver,
             amount: marketCutAmount,
         )
+        let creatorCutAmount = saleItemPrice * self.creatorFee
+        let creatorSaleCut = NFTStorefront.SaleCut(
+            receiver: self.marketReceiver,
+            amount: creatorCutAmount,
+        )
         let sellerSaleCut = NFTStorefront.SaleCut(
             receiver: self.ducReceiver,
-            amount: saleItemPrice - marketCutAmount,
+            amount: saleItemPrice - (marketCutAmount + creatorCutAmount),
         )
         self.storefront.createListing(
             nftProviderCapability: self.GaiaProvider,
             nftType: Type<@Gaia.NFT>(),
             nftID: saleItemID,
             salePaymentVaultType: Type<@DapperUtilityCoin.Vault>(),
-            saleCuts: [sellerSaleCut, marketSaleCut]
+            saleCuts: [sellerSaleCut, marketSaleCut, creatorSaleCut],
         )
     }
 }
