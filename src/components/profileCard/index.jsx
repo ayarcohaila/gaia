@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { CardActions, CardContent, CardMedia, Avatar, Skeleton, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
@@ -18,10 +18,9 @@ import * as Styled from './styled';
 
 const ProfileCard = ({ data, isFromBrowser }) => {
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
+  const imgRef = useRef();
   const { user } = useAuth();
   const router = useRouter();
-  const [imgLoaded, setImgLoaded] = useState(false);
-  const [videoElement, setVideoElement] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
@@ -36,23 +35,6 @@ const ProfileCard = ({ data, isFromBrowser }) => {
     img: data?.imageURL
   };
   const isMyProfile = router.asPath.includes(user?.addr);
-
-  const handleDisplayPreview = useCallback(() => {
-    setImgLoaded(true);
-  }, [setImgLoaded]);
-
-  useEffect(() => {
-    setVideoElement(window?.document?.getElementById(`video-${data?.id}`));
-  }, []);
-
-  useEffect(() => {
-    if (videoElement) {
-      videoElement?.addEventListener('loadeddata', handleDisplayPreview());
-    }
-    return () => {
-      videoElement?.removeEventListener('loadeddata', handleDisplayPreview());
-    };
-  }, [videoElement, handleDisplayPreview]);
 
   const renderCollectionName = useMemo(() => {
     if (data?.collection_name === collectionsNames.SHAREEF) {
@@ -74,6 +56,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
     if (data.transaction_status) {
       return '';
     }
+
     return (
       <CardActions sx={{ justifyContent: 'center' }}>
         {data?.is_for_sale ? (
@@ -154,12 +137,12 @@ const ProfileCard = ({ data, isFromBrowser }) => {
               sx={{
                 borderRadius: '20px',
                 width: isMediumDevice ? '303' : '275',
-                display: !imgLoaded ? 'none' : 'block'
+                display: !imgRef?.current?.complete ? 'none' : 'block'
               }}
               component="img"
+              ref={imgRef}
               alt="Nft asset"
               height={isMediumDevice ? '303' : '275'}
-              onLoad={handleDisplayPreview}
               src={data?.imageURL}
             />
             <Skeleton
@@ -168,7 +151,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
               sx={{
                 borderRadius: '20px',
                 width: isExtraSmallDevice ? '250px' : isMediumDevice ? '303px' : '275px',
-                display: imgLoaded && 'none'
+                display: imgRef?.current?.complete && 'none'
               }}
             />
           </>
@@ -185,7 +168,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         {isMyProfile && renderUserCardActions}
       </Styled.CustomCard>
     ),
-    [imgLoaded, handleDisplayPreview, isMyProfile, renderUserCardActions, data]
+    [isMyProfile, renderUserCardActions, data]
   );
 
   return (
