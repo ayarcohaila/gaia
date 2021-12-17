@@ -51,6 +51,7 @@ const BUY_TX = isDapper
 
 const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }) => {
   const asset = {
+    ...nft,
     img: formatIpfsImg(nft?.template?.metadata?.img)
   };
   const {
