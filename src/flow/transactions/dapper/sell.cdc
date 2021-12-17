@@ -4,14 +4,20 @@ import DapperUtilityCoin from 0xDapperUtilityCoin
 import Gaia from 0xGaiaContract
 import NFTStorefront from 0xStorefrontContract
 
-transaction(saleItemID: UInt64, saleItemPrice: UFix64, marketAddress: Address, setID: UInt64) {
+transaction(saleItemID: UInt64, saleItemPrice: UFix64, setID: UInt64) {
     let ducReceiver: Capability<&{FungibleToken.Receiver}>
     let marketReceiver: Capability<&{FungibleToken.Receiver}>
     let GaiaProvider: Capability<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>
     let storefront: &NFTStorefront.Storefront
     let marketFee: UFix64
+    let creatorFee: UFix64
+    let marketAddress: Address
 
     prepare(acct: AuthAccount) {
+
+        self.marketFee = 0.05
+        self.creatorFee = 0.05
+        self.marketAddress = 0xGaiaMarketplace
 
         // We need a provider capability, but one is not provided by default so we create one if needed.
         let GaiaCollectionProviderPrivatePath = /private/GaiaCollectionProviderForNFTStorefront
@@ -19,15 +25,12 @@ transaction(saleItemID: UInt64, saleItemPrice: UFix64, marketAddress: Address, s
         self.ducReceiver = acct.getCapability<&{FungibleToken.Receiver}>(/public/dapperUtilityCoinReceiver)
         assert(self.ducReceiver.borrow() != nil, message: "Missing or mis-typed DapperUtilityCoin receiver")
 
-        self.marketReceiver = acct.getCapability<&{FungibleToken.Receiver}>(/public/dapperUtilityCoinReceiver)
+        self.marketReceiver = getAccount(self.marketAddress).getCapability<&{FungibleToken.Receiver}>(/public/dapperUtilityCoinReceiver)
         assert(self.marketReceiver.borrow() != nil, message: "Missing or mis-typed DapperUtilityCoin receiver")
         
         if !acct.getCapability<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(GaiaCollectionProviderPrivatePath)!.check() {
             acct.link<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(GaiaCollectionProviderPrivatePath, target: Gaia.CollectionStoragePath)
         }
-
-        // Retrieves the collection market fee
-        self.marketFee = Gaia.getSetMarketFee(setID: setID)!
 
         self.GaiaProvider = acct.getCapability<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(GaiaCollectionProviderPrivatePath)
         assert(self.GaiaProvider.borrow() != nil, message: "Missing or mis-typed Gaia.Collection provider")
