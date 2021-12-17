@@ -1,6 +1,6 @@
 import FungibleToken from 0xFungibleToken
-import NonFungibleToken from 0xFungibleToken
-import DapperUtilityCoin from 0xFungibleToken
+import NonFungibleToken from 0xNFTInterface
+import DapperUtilityCoin from 0xDapperUtilityCoin
 import Gaia from 0xGaiaContract
 import NFTStorefront from 0xStorefrontContract
 transaction(saleItemID: UInt64, saleItemPrice: UFix64, setID: UInt64) {
