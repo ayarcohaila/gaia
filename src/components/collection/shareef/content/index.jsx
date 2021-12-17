@@ -3,6 +3,7 @@ import { useTheme } from '@emotion/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Typography, Divider, Grid } from '@mui/material';
+import axios from 'axios';
 
 import { buy } from '~/flow/buy';
 import { Button, Loader } from '~/base';
@@ -62,6 +63,13 @@ const ShareefCollectionContent = ({ data }) => {
         nft?.price,
         user?.addr
       );
+      await axios.post('/api/update-transaction-status', {
+        filters: {
+          collection_id: { _eq: data?.nft?.collection_id },
+          asset_id: { _eq: data?.nft?.asset_id },
+          mint_number: { _eq: data?.nft?.mint_number }
+        }
+      });
       if (txResult) {
         setPurchaseTxId(txResult?.txId);
         toggleProcessingModal();

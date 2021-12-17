@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { ChevronRight as ArrowRightIcon } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 import { Button } from '~/base';
 import { useBreakpoints } from '~/hooks';
@@ -10,6 +11,7 @@ import Modal from '..';
 
 const PurchaseNFTModal = ({ asset, onClose, ...props }) => {
   const title = 'Order Complete!';
+  const router = useRouter();
 
   const { isSmallDevice } = useBreakpoints();
   const description = `Congratulations, you are now the
@@ -19,11 +21,16 @@ const PurchaseNFTModal = ({ asset, onClose, ...props }) => {
       : asset?.template?.metadata?.title
   }`;
 
+  const handleClose = () => {
+    router.push(router.asPath);
+    onClose();
+  };
+
   return (
     <Modal
       asset={asset}
       description={description}
-      onClose={onClose}
+      onClose={handleClose}
       title={title}
       descriptionSx={{ fontWeight: '600', maxWidth: '280px', mt: '16px', textAlign: 'center' }}
       height="300px"

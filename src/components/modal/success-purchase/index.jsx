@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useTheme } from '@mui/material';
+import { useRouter } from 'next/router';
 
 import { Modal } from '~/components';
 import { Button } from '~/base';
@@ -9,6 +10,12 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx, collectionsName }) => {
   const {
     palette: { white }
   } = useTheme();
+  const router = useRouter();
+
+  const handleClose = () => {
+    router.push(router.asPath);
+    onClose();
+  };
 
   return (
     <Modal
@@ -16,12 +23,12 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx, collectionsName }) => {
       description={`Congratulations! You have successfully purchased ${collectionsName} collectible. Here's the link of your transaction:`}
       descriptionSx={{ maxWidth: '80%', textAlign: 'center', wordBreak: 'break-word' }}
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       title="Purchase Successful"
       titleSx={{ mt: 15 }}>
       <Link
         component={Button}
-        href={`https://flowscan.org/transaction/${tx}`}
+        href={`${process.env.NEXT_PUBLIC_FLOW_SCAN}transaction/${tx}`}
         sx={{
           maxWidth: '80%',
           textAlign: 'center',
