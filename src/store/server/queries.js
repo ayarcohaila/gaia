@@ -22,6 +22,8 @@ const GET_NFT_BY_ID = gql`
       collection_id
       created_at
       updated_at
+      mint_number
+      transaction_status
       collection {
         collection_id
         name
@@ -53,6 +55,7 @@ const GET_NFT_BY_MINT_NUMBER = gql`
       is_for_sale
       created_at
       updated_at
+      transaction_status
       collection {
         collection_id
         name
@@ -109,6 +112,7 @@ const GET_NFTS_BY_ADDRESS = gql`
       mint_number
       is_for_sale
       collection_id
+      transaction_status
       collection {
         collection_id
         name
@@ -132,10 +136,15 @@ const GET_NFTS_BY_ADDRESS = gql`
 `;
 
 const GET_NFTS_FOR_SALE = gql`
-  query nft_sale_offer($id: uuid!) {
+  query nft_sale_offer($id: uuid!, $address: String!) {
     nft_sale_offer(
       where: {
-        nft: { collection_id: { _eq: $id }, is_for_sale: { _eq: true } }
+        nft: {
+          collection_id: { _eq: $id }
+          is_for_sale: { _eq: true }
+          transaction_status: { _eq: false }
+          owner: { _eq: $address }
+        }
         status: { _eq: "active" }
       }
     ) {
@@ -147,6 +156,9 @@ const GET_NFTS_FOR_SALE = gql`
         asset_id
         is_for_sale
         owner
+        collection_id
+        mint_number
+        transaction_status
         template {
           id
           metadata
@@ -158,13 +170,24 @@ const GET_NFTS_FOR_SALE = gql`
 `;
 
 const GET_SINGLE_NFTS_FOR_SALE = gql`
-  query getSingleNFTsForSal($id: uuid!) {
-    nft_sale_offer(where: { status: { _eq: "active" }, nft: { collection_id: { _eq: $id } } }) {
+  query getSingleNFTsForSal($id: uuid!, $address: String!) {
+    nft_sale_offer(
+      where: {
+        status: { _eq: "active" }
+        nft: {
+          collection_id: { _eq: $id }
+          is_for_sale: { _eq: true }
+          transaction_status: { _eq: false }
+          owner: { _eq: $address }
+        }
+      }
+    ) {
       listing_resource_id
       nft {
         asset_id
         mint_number
         is_for_sale
+        collection_id
         owner
         template {
           metadata
@@ -179,6 +202,7 @@ const GET_SINGLE_NFTS_FOR_SALE = gql`
 const GET_MARKETPLACE_NFTS = gql`
   query getMarketplaceNFTs(
     $isForSale: Boolean_comparison_exp
+    $transactionStatus: Boolean_comparison_exp
     $price: [nft_bool_exp!]
     $collections: [nft_bool_exp!]
     $properties: [nft_template_bool_exp!]
@@ -188,7 +212,8 @@ const GET_MARKETPLACE_NFTS = gql`
         _or: $collections
         _and: $price
         is_for_sale: $isForSale
-        template: { _or: $properties }
+        transaction_status: $transactionStatus
+        template: { _and: $properties }
       }
     ) {
       asset_id

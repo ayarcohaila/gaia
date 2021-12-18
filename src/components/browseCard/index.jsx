@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CardMedia, Avatar, Skeleton } from '@mui/material';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+//FUTURE FEATURE
+//import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
@@ -19,9 +20,12 @@ const BrowseCard = ({ data }) => {
     item => item.id === data.collection_id
   );
 
+  //FUTURE FEATURE
+  /*  
   const handleMoreIcon = event => {
     event.preventDefault();
-  };
+  }; 
+  */
 
   const shouldAddExtraMargin =
     currentCollection?.collectionName === COLLECTIONS_NAME.BRYSON &&
@@ -44,7 +48,8 @@ const BrowseCard = ({ data }) => {
           />
         }
         title={currentCollection?.collectionName.toUpperCase()}
-        action={<MoreHorizIcon onClick={handleMoreIcon} />}
+        //FUTURE FEATURE
+        //action={<MoreHorizIcon onClick={handleMoreIcon} />}
       />
 
       {currentCollection.collectionName === COLLECTIONS_NAME.BRYSON &&
@@ -102,12 +107,13 @@ const BrowseCard = ({ data }) => {
   if (!currentCollection) {
     return null;
   }
+  const nftRedirectReference =
+    data.collection_id === COLLECTION_LIST_CONFIG.shareef.id
+      ? data.asset_id
+      : data.template.metadata.id || data.mint_number;
+
   return (
-    <Link
-      href={`/${currentCollection.collectionName}/${
-        data?.template?.metadata?.id || data?.mint_number
-      }`}
-      passHref>
+    <Link href={`/${currentCollection.collectionName}/${nftRedirectReference}`} passHref>
       {renderContent()}
     </Link>
   );

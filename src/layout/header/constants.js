@@ -1,13 +1,15 @@
 import { LockOpenOutlined as LockOpenOutlinedIcon } from '@mui/icons-material';
-import { hasSecondarySale } from '~/config/config';
+import { hasBrowse } from '~/config/config';
 
-export const MENU_OPTIONS = [hasSecondarySale && { label: 'Browse ALL NFTs', href: '/browse' }];
+export const MARKETPLACE_TITLE = 'Marketplace';
+
+export const MENU_OPTIONS = [hasBrowse && { label: MARKETPLACE_TITLE, href: '/browse' }];
 
 export const USER_MENU_IDS = {
   PROFILE: 'profile',
   SIGN_OUT: 'logout',
   DAPPER_WALLET: 'dapperWallet',
-  ...(hasSecondarySale && { BROWSE: 'browse' })
+  ...(hasBrowse && { BROWSE: 'browse' })
 };
 
 export const USER_MENU_OPTIONS = [
@@ -19,5 +21,5 @@ export const USER_MENU_OPTIONS = [
     isRed: true,
     icon: <LockOpenOutlinedIcon fontSize="12px" />
   },
-  hasSecondarySale && { id: USER_MENU_IDS.BROWSE, label: 'Browse All NFTs' }
+  hasBrowse && { id: USER_MENU_IDS.BROWSE, label: MARKETPLACE_TITLE }
 ].filter(option => option !== false);

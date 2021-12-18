@@ -10,8 +10,9 @@ const marketAddress = process.env.NEXT_PUBLIC_NFTMARKET_CONTRACT;
 const landingOnly = process.env.NEXT_PUBLIC_LANDING_ONLY === 'true';
 const appName = process.env.NEXT_PUBLIC_APP_NAME;
 const needsAuth = process.env.APPLICATION_NEEDS_AUTH === 'true';
-const hasSecondarySale = process.env.NEXT_PUBLIC_HAS_SECONDARY_SALE === 'true';
-const shareefSaleEnabled = process.env.NEXT_PUBLIC_ENABLE_SHAREEF_SALES === 'true';
+const hasBrowse = process.env.NEXT_PUBLIC_HAS_BROWSE === 'true';
+const hasSell = process.env.NEXT_PUBLIC_HAS_SELL === 'true';
+const hasTransfer = process.env.NEXT_PUBLIC_HAS_TRANSFER === 'true';
 
 const users = [
   {
@@ -44,6 +45,7 @@ fcl
   .put('0xDapperUtilityCoin', process.env.NEXT_PUBLIC_DAPPER_UTILITY_COIN)
   // @TODO: Remove this variable
   .put('0xNFTMarket', marketAddress)
+  .put('0xGaiaMarketplace', process.env.NEXT_PUBLIC_MARKET_OWNER)
   .put('0xGaiaContract', process.env.NEXT_PUBLIC_GAIA_CONTRACT)
   .put('0xStorefrontContract', process.env.NEXT_PUBLIC_STOREFRONT_CONTRACT)
   .put('0xNFTContractStorefront', process.env.NEXT_PUBLIC_NON_FUNGIBLE_TOKEN);
@@ -60,6 +62,7 @@ export {
   appName,
   needsAuth,
   users,
-  hasSecondarySale,
-  shareefSaleEnabled
+  hasBrowse,
+  hasSell,
+  hasTransfer
 };

@@ -1,22 +1,29 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useTheme } from '@mui/material';
+import { useRouter } from 'next/router';
 
 import { Modal } from '~/components';
 import { Button } from '~/base';
 
-const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
+const SuccessPurchaseNFTModal = ({ open, onClose, tx, collectionsName }) => {
   const {
     palette: { white }
   } = useTheme();
+  const router = useRouter();
+
+  const handleClose = () => {
+    router.push(router.asPath);
+    onClose();
+  };
 
   return (
     <Modal
       asset={null}
-      description="Congratulations! You have successfully purchased Shareef O'Neal collectible. Here's the link of your transaction:"
+      description={`Congratulations! You have successfully purchased ${collectionsName} collectible. Here's the link of your transaction:`}
       descriptionSx={{ maxWidth: '80%', textAlign: 'center', wordBreak: 'break-word' }}
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       title="Purchase Successful"
       titleSx={{ mt: 15 }}>
       <Link
@@ -38,7 +45,8 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx }) => {
 SuccessPurchaseNFTModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  tx: PropTypes.string
+  tx: PropTypes.string,
+  collectionsName: PropTypes.string
 };
 
 export default memo(SuccessPurchaseNFTModal);

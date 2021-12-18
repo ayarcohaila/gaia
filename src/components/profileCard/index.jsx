@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { CardActions, CardContent, CardMedia, Avatar, Skeleton, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
@@ -11,17 +11,16 @@ import {
   VideoPlayer
 } from '~/components';
 import { useToggle, useAuth, useBreakpoints } from '~/hooks';
-import { hasSecondarySale } from '~/config/config';
+import { hasSell, hasTransfer } from '~/config/config';
 import { useCollectionConfig } from '~/hooks';
 
 import * as Styled from './styled';
 
 const ProfileCard = ({ data, isFromBrowser }) => {
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
+  const imgRef = useRef();
   const { user } = useAuth();
   const router = useRouter();
-  const [imgLoaded, setImgLoaded] = useState(false);
-  const [videoElement, setVideoElement] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
@@ -37,23 +36,6 @@ const ProfileCard = ({ data, isFromBrowser }) => {
   };
   const isMyProfile = router.asPath.includes(user?.addr);
 
-  const handleDisplayPreview = useCallback(() => {
-    setImgLoaded(true);
-  }, [setImgLoaded]);
-
-  useEffect(() => {
-    setVideoElement(window?.document?.getElementById(`video-${data?.id}`));
-  }, []);
-
-  useEffect(() => {
-    if (videoElement) {
-      videoElement?.addEventListener('loadeddata', handleDisplayPreview());
-    }
-    return () => {
-      videoElement?.removeEventListener('loadeddata', handleDisplayPreview());
-    };
-  }, [videoElement, handleDisplayPreview]);
-
   const renderCollectionName = useMemo(() => {
     if (data?.collection_name === collectionsNames.SHAREEF) {
       return data?.collection?.name;
@@ -62,7 +44,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
   }, [collectionsNames]);
 
   const renderUserCardActions = useMemo(() => {
-    if (!hasSecondarySale) {
+    if (!hasSell && !hasTransfer) {
       return (
         <Grid container justifyContent="center">
           <Styled.ComingSoon container justifyContent="center" align="center">
@@ -71,8 +53,12 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         </Grid>
       );
     }
+    if (data.transaction_status) {
+      return '';
+    }
+
     return (
-      <CardActions>
+      <CardActions sx={{ justifyContent: 'center' }}>
         {data?.is_for_sale ? (
           <Styled.CancelButtonContainer>
             <Styled.ListedText disabled={loading}>Listed for sale</Styled.ListedText>
@@ -89,32 +75,38 @@ const ProfileCard = ({ data, isFromBrowser }) => {
           </Styled.CancelButtonContainer>
         ) : (
           <>
-            <Styled.SellButton
-              disabled={loading}
-              onClick={event => {
-                event?.stopPropagation();
-                toggleSellNftModal();
-              }}>
-              Sell
-            </Styled.SellButton>
-            <Styled.TransferButton
-              disabled={loading}
-              onClick={event => {
-                event?.stopPropagation();
-                toggleTransferNftModal();
-              }}>
-              Transfer
-            </Styled.TransferButton>
+            {hasSell && (
+              <Styled.SellButton
+                disabled={loading}
+                onClick={event => {
+                  event?.stopPropagation();
+                  toggleSellNftModal();
+                }}>
+                Sell
+              </Styled.SellButton>
+            )}
+            {hasTransfer && (
+              <Styled.TransferButton
+                disabled={loading}
+                onClick={event => {
+                  event?.stopPropagation();
+                  toggleTransferNftModal();
+                }}>
+                Transfer
+              </Styled.TransferButton>
+            )}
           </>
         )}
       </CardActions>
     );
   }, [
+    data,
     loading,
     toggleSellNftModal,
     toggleTransferNftModal,
     toggleCancelListingModal,
-    hasSecondarySale
+    hasSell,
+    hasTransfer
   ]);
 
   const renderContent = useMemo(
@@ -145,12 +137,12 @@ const ProfileCard = ({ data, isFromBrowser }) => {
               sx={{
                 borderRadius: '20px',
                 width: isMediumDevice ? '303' : '275',
-                display: !imgLoaded ? 'none' : 'block'
+                display: !imgRef?.current?.complete ? 'none' : 'block'
               }}
               component="img"
+              ref={imgRef}
               alt="Nft asset"
               height={isMediumDevice ? '303' : '275'}
-              onLoad={handleDisplayPreview}
               src={data?.imageURL}
             />
             <Skeleton
@@ -159,7 +151,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
               sx={{
                 borderRadius: '20px',
                 width: isExtraSmallDevice ? '250px' : isMediumDevice ? '303px' : '275px',
-                display: imgLoaded && 'none'
+                display: imgRef?.current?.complete && 'none'
               }}
             />
           </>
@@ -176,7 +168,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         {isMyProfile && renderUserCardActions}
       </Styled.CustomCard>
     ),
-    [imgLoaded, handleDisplayPreview, isMyProfile, renderUserCardActions]
+    [isMyProfile, renderUserCardActions, data]
   );
 
   return (

@@ -2,7 +2,6 @@ import { memo, useState, useEffect, useCallback, useMemo } from 'react';
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import preval from 'preval.macro';
 import axios from 'axios';
 
 import Asset from './asset';
@@ -14,7 +13,7 @@ import {
   TransferNftModal,
   CancelListingModal,
   PurchaseErrorModal,
-  PurchaseNFTModal,
+  SuccessPurchaseNFTModal,
   InsufficientFundsModal,
   OrderProcessing,
   Accordion,
@@ -22,12 +21,13 @@ import {
   BlockchainHistory,
   Breadcrumbs
 } from '~/components';
+import { Loader } from '~/base';
 
-import { isDapper } from '~/utils/currencyCheck';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
-
-import { hasSecondarySale } from '~/config/config';
+import { hasSell, hasTransfer } from '~/config/config';
+import formatIpfsImg from '~/utils/formatIpfsImg';
+import { BUY_TX } from '~/constant';
 
 import * as Styled from './styles';
 
@@ -35,11 +35,17 @@ const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
 const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }) => {
+  const asset = {
+    ...nft,
+    img: formatIpfsImg(nft?.template?.metadata?.img)
+  };
   const {
     palette: { grey }
   } = useTheme();
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const {
+    push,
+    asPath,
     query: { collection_name }
   } = useRouter();
   const { metadata } = nft.template;
@@ -55,42 +61,22 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [transaction, setTransaction] = useState(null);
-  const [ownNFTs, setOwnNFTs] = useState([]);
   const [loadingSell, setLoadingSell] = useState(false);
 
   const isOwner = useMemo(() => nft?.owner === user?.addr, [nft?.owner, user?.addr]);
 
   const isForSale = useMemo(() => nft?.is_for_sale, [nft?.is_for_sale]);
 
-  const buyTx = isDapper
-    ? preval`
-      const fs = require('fs')
-      const path = require('path'),
-      filePath = path.join(__dirname, "../../../flow/transactions/dapper/buy.cdc");
-      module.exports = fs.readFileSync(filePath, 'utf8')
-    `
-    : preval`
-      const fs = require('fs')
-      const path = require('path'),
-      filePath = path.join(__dirname, "../../../flow/transactions/flowToken/buy.cdc");
-      module.exports = fs.readFileSync(filePath, 'utf8')
-    `;
+  const handleLoadTransaction = useCallback(async () => {
+    setLoadingPurchase(true);
+    const tx = await loadTransaction(BUY_TX);
+    setTransaction(tx);
+    setLoadingPurchase(false);
+  }, [loadTransaction, setLoadingPurchase, setTransaction]);
 
   useEffect(() => {
-    (async () => {
-      if (!!user && Object.keys(user).length) {
-        setLoadingPurchase(true);
-        const result = await axios.get(`/api/list?address=${user?.addr}`);
-        const ballerzNFTs = result.data.ballerz;
-        const brysonNFTs = result.data.bryson;
-        const NFTs = ballerzNFTs.concat(brysonNFTs);
-        const tx = await loadTransaction(buyTx);
-        setTransaction(tx);
-        setOwnNFTs(NFTs);
-        setLoadingPurchase(false);
-      }
-    })();
-  }, [user, loadTransaction, isDapper, setLoadingPurchase]);
+    handleLoadTransaction();
+  }, [handleLoadTransaction]);
 
   const handlePurchaseClick = useCallback(
     async event => {
@@ -106,6 +92,14 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
           user?.addr
         );
         if (txResult) {
+          await axios.post('/api/update-transaction-status', {
+            filters: {
+              collection_id: { _eq: nft.collection_id },
+              asset_id: { _eq: nft.asset_id },
+              mint_number: { _eq: nft.mint_number }
+            }
+          });
+
           setPurchaseTxId(txResult?.txId);
           toggleProcessingModal();
           togglePurchaseNftModal();
@@ -124,21 +118,21 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
     },
     [
       config,
-      ownNFTs,
       toggleProcessingModal,
       setLoadingPurchase,
       togglePurchaseError,
       toggleProcessingModal,
       togglePurchaseNftModal,
       transaction,
-      user
+      user,
+      nft
     ]
   );
 
-  const handleClosePurchaseModal = () => {
-    togglePurchaseNftModal();
-    setPurchaseTxId(null);
-  };
+  const handleCloseSellModal = useCallback(() => {
+    push(asPath);
+    toggleSellNftModal();
+  }, [push, toggleSellNftModal]);
 
   const blockchainHistoryData = useMemo(
     () => ({
@@ -201,35 +195,44 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
   );
 
   const renderActions = useMemo(() => {
-    if (isForSale && isOwner) {
-      return (
-        <Styled.ActionButtons removeListing onClick={toggleCancelListingModal}>
-          Remove Listing
-        </Styled.ActionButtons>
-      );
+    switch (true) {
+      case nft?.transaction_status:
+        return '';
+      case loadingPurchase:
+        return <Loader />;
+      case isForSale && isOwner:
+        return (
+          <Styled.ActionButtons removeListing onClick={toggleCancelListingModal}>
+            Remove Listing
+          </Styled.ActionButtons>
+        );
+      case !isForSale && isOwner:
+        return (
+          <>
+            {hasSell && (
+              <Styled.ActionButtons onClick={toggleSellNftModal}>Sell</Styled.ActionButtons>
+            )}
+            {hasTransfer && (
+              <Styled.TransferButton onClick={toggleTransferNftModal}>
+                Transfer
+              </Styled.TransferButton>
+            )}
+          </>
+        );
+      case isForSale && !!transaction: {
+        const price = Number(getLastByUpdateAt(nft?.sale_offers)?.price)?.toFixed(2);
+        return (
+          <Styled.ActionButtons
+            disabled={loadingPurchase}
+            onClick={user?.addr ? handlePurchaseClick : login}
+            sx={{ width: '180px' }}>
+            {`Purchase • $${price}`}
+          </Styled.ActionButtons>
+        );
+      }
+      default:
+        return '';
     }
-
-    if (isForSale && !isOwner && transaction && !loadingPurchase) {
-      const price = Number(getLastByUpdateAt(nft?.sale_offers)?.price)?.toFixed(2);
-      return (
-        <Styled.ActionButtons
-          disabled={loadingPurchase}
-          onClick={user?.addr ? handlePurchaseClick : login}
-          sx={{ width: '180px' }}>
-          {`Purchase • $${price}`}
-        </Styled.ActionButtons>
-      );
-    }
-
-    if (!isForSale && isOwner) {
-      return (
-        <>
-          <Styled.ActionButtons onClick={toggleSellNftModal}>Sell</Styled.ActionButtons>
-          <Styled.ActionButtons onClick={toggleTransferNftModal}>Transfer</Styled.ActionButtons>
-        </>
-      );
-    }
-    return '';
   }, [
     isOwner,
     isForSale,
@@ -237,7 +240,11 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
     transaction,
     handlePurchaseClick,
     getLastByUpdateAt,
-    user
+    login,
+    user?.addr,
+    nft?.transaction_status,
+    hasSell,
+    hasTransfer
   ]);
 
   return (
@@ -256,7 +263,6 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
             </Grid>
           )}
           <Styled.NumberContainer>
-            {/* TODO: Refactor for backend total number */}
             <Typography color={grey[600]} variant="body1">
               #{metadata?.id || nft?.mint_number} / {metadata?.editions || config?.collectionSize}
             </Typography>
@@ -264,11 +270,12 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
           <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">
             <Styled.Title>{metadata.title}</Styled.Title>
             <Styled.Description>{metadata.description}</Styled.Description>
-            {(isForSale || isOwner) && hasSecondarySale && (
+            {(hasSell || hasTransfer) && (
               <Grid
                 container
                 sx={{ mt: '42px', gap: isSmallDevice ? '8px' : '16px' }}
-                justifyContent={isMediumDevice && 'center'}>
+                justifyContent={isMediumDevice && 'center'}
+                alignItems="center">
                 {renderActions}
               </Grid>
             )}
@@ -286,30 +293,30 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
         {!!isMediumDevice && renderAccordions}
       </Styled.Container>
 
-      <PurchaseNFTModal
+      <SuccessPurchaseNFTModal
         asset={nft}
         open={isPurchaseNftModalOpen}
-        onClose={handleClosePurchaseModal}
+        onClose={togglePurchaseNftModal}
         tx={purchaseTxId}
       />
       <OrderProcessing open={isProcessingModalOpen} onClose={toggleProcessingModal} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <TransferNftModal
-        asset={nft}
+        asset={asset}
         open={isTransferNftModalOpen}
         onClose={toggleTransferNftModal}
       />
       <CancelListingModal
-        asset={nft}
+        asset={asset}
         open={isCancelListingModalOpen}
         onClose={toggleCancelListingModal}
       />
       <SellNftModal
-        asset={nft}
+        asset={asset}
         hasPostedForSale={nft?.is_for_sale}
         open={isSellNftModalOpen}
-        onClose={toggleSellNftModal}
+        onClose={handleCloseSellModal}
         setLoading={setLoadingSell}
         loading={loadingSell}
       />

@@ -1,24 +1,26 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 import { Button } from '~/base';
 import {
   InsufficientFundsModal,
   PurchaseErrorModal,
   OrderProcessing,
-  VideoPlayer
+  VideoPlayer,
+  SuccessPurchaseNFTModal
 } from '~/components';
 import { INSUFFICIENT_FUNDS } from '~/components/collectionCard';
-import { BUY_BRYSON_TX } from '~/constant';
 import { buy } from '~/flow/buy';
 import { useAuth, useBreakpoints, useToggle } from '~/hooks';
 import { AuthContext } from '~/providers/AuthProvider';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
+import { BUY_TX } from '~/constant';
+
 import * as Styled from './styles';
-import SuccessPurchaseModal from '../success-purchase-modal';
 
 const BrysonCollectionContent = ({ data, totalAvailable }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
@@ -52,6 +54,13 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
         data?.price,
         user?.addr
       );
+      await axios.post('/api/update-transaction-status', {
+        filters: {
+          collection_id: { _eq: data?.nft?.collection_id },
+          asset_id: { _eq: data?.nft?.asset_id },
+          mint_number: { _eq: data?.nft?.mint_number }
+        }
+      });
       if (txResult) {
         setPurchaseTxId(txResult?.txId);
         toggleProcessingModal();
@@ -73,7 +82,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
   const handleClosePurchaseModal = () => {
     togglePurchaseNftModal();
     setPurchaseTxId(null);
-    route.push(`/profile/${user?.addr}`);
+    route.push(route.asPath);
   };
 
   const handleLogin = event => {
@@ -95,10 +104,10 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
 
   useEffect(() => {
     (async () => {
-      const tx = await loadTransaction(BUY_BRYSON_TX);
+      const tx = await loadTransaction(BUY_TX);
       setTransaction(tx);
     })();
-  }, [BUY_BRYSON_TX, loadTransaction]);
+  }, [loadTransaction]);
 
   return (
     <>
@@ -141,10 +150,11 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
         <Styled.BottomImage alt="Las Vegas Sign" src="/collections/bryson/las-vegas.webp" />
       </Grid>
 
-      <SuccessPurchaseModal
+      <SuccessPurchaseNFTModal
         open={isPurchaseNftModalOpen}
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
+        collectionsName={`Bryson's`}
       />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />

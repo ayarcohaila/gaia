@@ -22,11 +22,7 @@ import * as Styled from '~/styles/collection-name/styles';
 import { useRouter } from 'next/router';
 import { shuffleArray } from '~/utils/array';
 import { useCollectionConfig } from '~/hooks';
-import {
-  COLLECTION_LIST_CONFIG,
-  COLLECTIONS_NAME,
-  COLLECTION_STATUS
-} from '../../../collections_setup';
+import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '../../../collections_setup';
 
 const DATA = {
   mainColor: '#270b5a',
@@ -34,8 +30,6 @@ const DATA = {
 };
 
 const DEFAULT_LIST_SIZE = 40;
-
-import { shareefSaleEnabled } from '~/config/config';
 
 const Collection = ({
   nft_sale_offer,
@@ -197,30 +191,37 @@ export async function getServerSideProps({ query }) {
 
     if (query.collection_name === COLLECTIONS_NAME.BRYSON) {
       const { nft_sale_offer } = await gqlClient.request(GET_SINGLE_NFTS_FOR_SALE, {
-        id: collectionConfig?.id
+        id: collectionConfig?.id,
+        address: process.env.NEXT_PUBLIC_MARKET_OWNER
       });
-      const randomizedSalesOffers = shuffleArray(nft_sale_offer);
 
-      if (!(collectionConfig?.status === COLLECTION_STATUS.SALE)) {
-        return {
-          props: {
-            offerCount: randomizedSalesOffers.length,
-            pickedOffer: randomizedSalesOffers[0]
+      const randomizedSalesOffers = shuffleArray(nft_sale_offer);
+      const defaultBrysonData = {
+        nft: {
+          template: {
+            metadata: {
+              img: 'ipfs://QmWD2bUbTQPc78D4Fh9iDTw4GwiMs83TA9HcQL6bE4xgut',
+              title: 'Vegas, Baby!',
+              video: 'ipfs://QmeAtfCsWmqdEiXjYy98aTuZcRyiArKqrDm89McinZaitW'
+            }
           }
-        };
-      }
+        }
+      };
       return {
         props: {
           nft_sale_offer: [],
           nft_collection,
-          pickedOffer: randomizedSalesOffers[0],
-          offerCount: randomizedSalesOffers.length
+          pickedOffer: randomizedSalesOffers?.length
+            ? randomizedSalesOffers?.[0]
+            : defaultBrysonData,
+          offerCount: randomizedSalesOffers?.length
         }
       };
     }
     if (query.collection_name === COLLECTIONS_NAME.SHAREEF) {
       const { nft_sale_offer } = await gqlClient.request(GET_NFTS_FOR_SALE, {
-        id: collectionConfig?.id
+        id: collectionConfig?.id,
+        address: process.env.NEXT_PUBLIC_MARKET_OWNER
       });
 
       const goldEdition = shuffleArray(
@@ -261,7 +262,7 @@ export async function getServerSideProps({ query }) {
                   }
                 }
               },
-              collectionRemaining: shareefSaleEnabled ? goldEdition?.length : 24,
+              collectionRemaining: goldEdition?.length,
               ...goldEdition?.[0]
             },
             silverEdition: {
@@ -276,7 +277,7 @@ export async function getServerSideProps({ query }) {
                   }
                 }
               },
-              collectionRemaining: shareefSaleEnabled ? silverEdition?.length : 111,
+              collectionRemaining: silverEdition?.length,
               ...silverEdition?.[0]
             },
             bronzeEdition: {
@@ -291,7 +292,7 @@ export async function getServerSideProps({ query }) {
                   }
                 }
               },
-              collectionRemaining: shareefSaleEnabled ? bronzeEdition?.length : 888,
+              collectionRemaining: bronzeEdition?.length,
               ...bronzeEdition?.[0]
             }
           }
@@ -300,7 +301,8 @@ export async function getServerSideProps({ query }) {
     }
 
     const { nft_sale_offer } = await gqlClient.request(GET_NFTS_FOR_SALE, {
-      id: collectionConfig?.id
+      id: collectionConfig?.id,
+      address: process.env.NEXT_PUBLIC_MARKET_OWNER
     });
     const randomizedSalesOffers = shuffleArray(nft_sale_offer);
     return {

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import { Loader } from '~/base';
 import {
-  PurchaseNFTModal,
+  SuccessPurchaseNFTModal,
   PurchaseErrorModal,
   InsufficientFundsModal,
   OrderProcessing
@@ -128,11 +128,11 @@ const CollectionCard = ({ data, transaction }) => {
           {renderContent()}
         </Link>
       )}
-      <PurchaseNFTModal
-        asset={{ ...data, img }}
+      <SuccessPurchaseNFTModal
         open={isPurchaseNftModalOpen}
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
+        collectionsName={`Ballerz's`}
       />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />

@@ -3,6 +3,7 @@ import { useTheme } from '@emotion/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Typography, Divider, Grid } from '@mui/material';
+import axios from 'axios';
 
 import { buy } from '~/flow/buy';
 import { Button, Loader } from '~/base';
@@ -10,17 +11,16 @@ import {
   InsufficientFundsModal,
   PurchaseErrorModal,
   OrderProcessing,
-  VideoPlayer
+  VideoPlayer,
+  SuccessPurchaseNFTModal
 } from '~/components';
 
 import { useBreakpoints, useToggle, useAuth } from '~/hooks';
 import { AuthContext } from '~/providers/AuthProvider';
 import { INSUFFICIENT_FUNDS } from '~/components/collectionCard';
-import SuccessPurchaseModal from '../success-purchase-modal';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { BUY_TX } from '~/constant';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-import { shareefSaleEnabled } from '~/config/config';
 
 import * as Styled from './styles';
 
@@ -63,6 +63,13 @@ const ShareefCollectionContent = ({ data }) => {
         nft?.price,
         user?.addr
       );
+      await axios.post('/api/update-transaction-status', {
+        filters: {
+          collection_id: { _eq: data?.nft?.collection_id },
+          asset_id: { _eq: data?.nft?.asset_id },
+          mint_number: { _eq: data?.nft?.mint_number }
+        }
+      });
       if (txResult) {
         setPurchaseTxId(txResult?.txId);
         toggleProcessingModal();
@@ -180,16 +187,6 @@ const ShareefCollectionContent = ({ data }) => {
 
   const renderCard = useCallback(
     sale => {
-      let buttonLabel = '';
-      if (sale?.collectionRemaining) {
-        if (shareefSaleEnabled) {
-          buttonLabel = `Purchase - $${Number(sale?.price).toFixed(2)}`;
-        } else {
-          buttonLabel = 'On Sale Dec 13 at 2pm PT';
-        }
-      } else {
-        buttonLabel = 'SOLD OUT';
-      }
       return (
         <Styled.CustomCard md={4} sm={12} item container styled={{ border: '1px solid red' }}>
           <VideoPlayer
@@ -218,9 +215,7 @@ const ShareefCollectionContent = ({ data }) => {
           </Typography>
           <Button
             onClick={user ? handlePurchaseClick(sale) : handleLogin}
-            disabled={
-              shouldDisablePurchaseButton || !shareefSaleEnabled || !sale?.collectionRemaining
-            }
+            disabled={shouldDisablePurchaseButton || !sale?.collectionRemaining}
             sx={{
               width: '100%',
               marginBottom: '16px',
@@ -230,7 +225,9 @@ const ShareefCollectionContent = ({ data }) => {
               <Loader disableText />
             ) : (
               <Typography variant="h6" fontWeight="600" letterSpacing={1}>
-                {buttonLabel}
+                {sale?.collectionRemaining
+                  ? `Purchase - $${Number(sale?.price).toFixed(2)}`
+                  : 'SOLD OUT'}
               </Typography>
             )}
           </Button>
@@ -255,10 +252,11 @@ const ShareefCollectionContent = ({ data }) => {
       <Grid container justifyContent="center">
         {contentSection}
       </Grid>
-      <SuccessPurchaseModal
+      <SuccessPurchaseNFTModal
         open={isPurchaseNftModalOpen}
         onClose={handleClosePurchaseModal}
         tx={purchaseTxId}
+        collectionsName={`Shareef's`}
       />
       <PurchaseErrorModal open={isPurchaseErrorOpen} onClose={togglePurchaseError} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />

@@ -6,18 +6,17 @@ import { Grid, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
-import { HeaderModal, StayTunedModal } from '~/components';
+import { HeaderModal } from '~/components';
 import { Dropdown } from '~/base';
 import { useBreakpoints, useToggle, useAuth } from '~/hooks';
-import { MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
-import { hasSecondarySale } from '~/config/config';
+import { hasBrowse } from '~/config/config';
+import { MARKETPLACE_TITLE, MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
 
 import * as Styled from './styles.js';
 
 const Header = () => {
   const menuAnchorRef = useRef(null);
   const [stateModalHeader, toggleHeaderModal] = useToggle();
-  const [stateTunedModal, toggleTunedModal] = useToggle();
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const { login, user, logout } = useAuth();
   const { isMediumDevice } = useBreakpoints();
@@ -105,9 +104,6 @@ const Header = () => {
           </Styled.MobileMenuButton>
         ) : (
           <>
-            <Styled.CustomButton isTransparent variant="ghost" onClick={toggleTunedModal}>
-              Sell NFT
-            </Styled.CustomButton>
             {user?.loggedIn ? (
               <Styled.AvatarButton
                 ref={menuAnchorRef}
@@ -148,20 +144,20 @@ const Header = () => {
           </Button>
           {user?.loggedIn ? (
             <>
+              {hasBrowse && (
+                <Styled.ButtonText
+                  variant="text"
+                  onClick={handleClick}
+                  data-id={USER_MENU_IDS.BROWSE}>
+                  {MARKETPLACE_TITLE}
+                </Styled.ButtonText>
+              )}
               <Styled.ButtonText
                 variant="text"
                 onClick={handleClick}
                 data-id={USER_MENU_IDS.PROFILE}>
                 Profile
               </Styled.ButtonText>
-              {hasSecondarySale && (
-                <Styled.ButtonText
-                  variant="text"
-                  onClick={handleClick}
-                  data-id={USER_MENU_IDS.BROWSE}>
-                  Browse All NFTs
-                </Styled.ButtonText>
-              )}
               <Styled.ButtonText
                 variant="text"
                 onClick={handleClick}
@@ -173,13 +169,19 @@ const Header = () => {
               </Styled.ButtonText>
             </>
           ) : (
-            <Styled.CustomButton variant="contained" headerModal onClick={login}>
-              Sign In
-            </Styled.CustomButton>
+            <>
+              {hasBrowse && (
+                <Styled.ButtonText variant="text" onClick={handleClick}>
+                  {MARKETPLACE_TITLE}
+                </Styled.ButtonText>
+              )}
+              <Styled.CustomButton variant="contained" headerModal onClick={login}>
+                Sign In
+              </Styled.CustomButton>
+            </>
           )}
         </Grid>
       </HeaderModal>
-      <StayTunedModal open={stateTunedModal} onClose={toggleTunedModal} />
     </Styled.HeaderBar>
   );
 };
