@@ -55,6 +55,7 @@ const GET_NFT_BY_MINT_NUMBER = gql`
       is_for_sale
       created_at
       updated_at
+      collection_id
       transaction_status
       collection {
         collection_id
