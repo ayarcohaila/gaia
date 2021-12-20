@@ -17,13 +17,15 @@ import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from './styles';
 
+const DEFAULT_LIST_SIZE = 40;
+
 const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const { appliedFiltersCount, status, minPrice, maxPrice, collections, properties } = state;
-  const { handleAppData } = useAppContext();
+  const { appData, handleAppData } = useAppContext();
 
   const handleApplyFilters = useCallback(() => {
     dispatch({ type: ACTION_TYPE.APPLY_FILTERS });
@@ -62,7 +64,11 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       const result = await axios.post(`/api/marketplace`, {
         ...filters
       });
-      handleAppData({ marketplaceNfts: result.data.nfts, marketplaceLoading: false });
+      handleAppData({
+        marketplaceNfts: result.data.nfts,
+        marketCount: result.data.marketCount,
+        marketplaceLoading: false
+      });
     }, 500),
     []
   );
@@ -105,11 +111,12 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       isForSale: status === 'buyNow' ? { _eq: true } : {},
       transactionStatus: status === 'buyNow' ? { _eq: false } : {},
       collections: collectionsFilter,
-      properties: propertiesFilters
+      properties: propertiesFilters,
+      limit: (appData.page + 1) * DEFAULT_LIST_SIZE
     };
 
     return filters;
-  }, [collections, status, maxPrice, minPrice, properties, orderByUpdate]);
+  }, [collections, status, maxPrice, minPrice, properties, orderByUpdate, appData.page]);
 
   useEffect(() => {
     getNfts(appliedFilters);

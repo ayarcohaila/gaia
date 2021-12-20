@@ -3,7 +3,10 @@ import React, { useState, useCallback, createContext, useContext } from 'react';
 export const AppContext = createContext({});
 
 const AppContextProvider = ({ children }) => {
-  const [appData, setAppData] = useState({});
+  const [appData, setAppData] = useState({
+    page: 0,
+    marketplaceLoading: true
+  });
 
   const handleAppData = useCallback(value => {
     setAppData(prevState => ({ ...prevState, ...value }));

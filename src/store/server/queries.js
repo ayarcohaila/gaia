@@ -207,18 +207,17 @@ const GET_MARKETPLACE_NFTS = gql`
     $price: [nft_bool_exp!]
     $collections: [nft_bool_exp!]
     $properties: [nft_template_bool_exp!]
-    $marketPlaceAddress: String!
+    $limit: Int
   ) {
     nft(
       where: {
-        _not: { owner: { _eq: $marketPlaceAddress } }
         _or: $collections
         _and: $price
         is_for_sale: $isForSale
         transaction_status: $transactionStatus
         template: { _and: $properties }
       }
-      limit: 100
+      limit: $limit
       offset: 0
     ) {
       asset_id
@@ -239,6 +238,30 @@ const GET_MARKETPLACE_NFTS = gql`
   }
 `;
 
+const GET_MARKETPLACE_NFTS_COUNT = gql`
+  query getMarketplaceNFTsCount(
+    $isForSale: Boolean_comparison_exp
+    $transactionStatus: Boolean_comparison_exp
+    $price: [nft_bool_exp!]
+    $collections: [nft_bool_exp!]
+    $properties: [nft_template_bool_exp!]
+  ) {
+    nft_aggregate(
+      where: {
+        _or: $collections
+        _and: $price
+        is_for_sale: $isForSale
+        transaction_status: $transactionStatus
+        template: { _and: $properties }
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
+  }
+`;
+
 export {
   GET_NFTS,
   GET_NFTS_IDS,
@@ -249,5 +272,6 @@ export {
   GET_NFTS_BY_ADDRESS,
   GET_NFTS_FOR_SALE,
   GET_SINGLE_NFTS_FOR_SALE,
-  GET_MARKETPLACE_NFTS
+  GET_MARKETPLACE_NFTS,
+  GET_MARKETPLACE_NFTS_COUNT
 };
