@@ -218,6 +218,8 @@ const GET_MARKETPLACE_NFTS = gql`
         transaction_status: $transactionStatus
         template: { _and: $properties }
       }
+      limit: 100
+      offset: 0
     ) {
       asset_id
       mint_number
