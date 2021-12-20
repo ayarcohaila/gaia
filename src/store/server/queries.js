@@ -206,9 +206,11 @@ const GET_MARKETPLACE_NFTS = gql`
     $price: [nft_bool_exp!]
     $collections: [nft_bool_exp!]
     $properties: [nft_template_bool_exp!]
+    $marketPlaceAddress: String!
   ) {
     nft(
       where: {
+        _not: { owner: { _eq: $marketPlaceAddress } }
         _or: $collections
         _and: $price
         is_for_sale: $isForSale
