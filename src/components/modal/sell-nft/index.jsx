@@ -61,7 +61,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
         setValue('');
       }
     } catch (err) {
-      toast.error('Unable to complete purchase.');
+      toast.error('Unable to complete listing');
       console.error(err);
     }
     setLoading(false);
