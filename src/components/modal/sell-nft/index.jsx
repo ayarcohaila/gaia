@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { CircularProgress, Grid } from '@mui/material';
@@ -22,6 +22,11 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
   const [tx, setTx] = useState(null);
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
     useState(hasPostedForSale);
+  const [valueError, setValueError] = useState(false);
+  const buttonDisable = useMemo(
+    () => loading || valueError || !value,
+    [loading, valueError, value]
+  );
 
   const sellTx = isDapper
     ? preval`
@@ -76,6 +81,11 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
     setHasNftSuccessfullyPostedForSale(hasPostedForSale);
   }, [hasPostedForSale]);
 
+  const handleValue = targetValue => {
+    targetValue < 1 && targetValue !== '' ? setValueError(true) : setValueError(false);
+    setValue(targetValue);
+  };
+
   const handleClose = () => {
     route.push(route.asPath);
     onClose();
@@ -96,16 +106,20 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
         <Grid container alignItems="center" justifyContent="center" direction="column">
           <Styled.Input
             endAdornment={
-              <Styled.CustomButton onClick={handlePostForSale} disabled={loading}>
+              <Styled.CustomButton onClick={handlePostForSale} disabled={buttonDisable}>
                 {loading ? <CircularProgress size={32} color="white" /> : 'Post For Sale'}
               </Styled.CustomButton>
             }
             placeholder="USD Sale Price"
-            onChange={({ target: { value: targetValue } }) => setValue(targetValue)}
+            onChange={({ target: { value: targetValue } }) => handleValue(targetValue)}
             type="number"
             value={value}
+            error={valueError}
           />
-          <Styled.FeesContent>
+          {valueError && (
+            <Styled.InputError error>Value must be $1.00 or greater</Styled.InputError>
+          )}
+          <Styled.FeesContent valueError={valueError}>
             <Styled.FeeText>Marketplace Fee</Styled.FeeText>
             <Styled.FeeText feeValue>5%</Styled.FeeText>
             <Styled.FeeText>Creator Royalty</Styled.FeeText>

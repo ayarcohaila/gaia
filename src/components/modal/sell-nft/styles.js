@@ -1,4 +1,4 @@
-import { Grid, Typography, styled } from '@mui/material';
+import { Grid, Typography, styled, FormHelperText } from '@mui/material';
 
 import { Button, SearchInput } from '~/base';
 
@@ -48,13 +48,13 @@ export const CustomButton = styled(Button)({
   width: '180px'
 });
 
-export const FeesContent = styled(Grid)({
-  marginTop: '32px',
+export const FeesContent = styled(Grid)(({ valueError }) => ({
+  marginTop: valueError ? '10px' : '32px',
   display: 'grid',
   gridTemplateColumns: 'auto auto',
   gridColumnGap: '16px',
   gridRowGap: '8px'
-});
+}));
 
 export const FeeText = styled(Typography, { shouldForwardProp: prop => prop !== 'feeValue' })(
   ({ theme: { palette, typography }, feeValue }) => ({
@@ -66,3 +66,14 @@ export const FeeText = styled(Typography, { shouldForwardProp: prop => prop !== 
     fontSize: '16px'
   })
 );
+
+export const InputError = styled(FormHelperText)(({ theme: { palette } }) => ({
+  margin: 0,
+  padding: '4px',
+  width: '330px',
+  textAlign: 'left',
+  color: palette.grey[600],
+  fontWeight: '400',
+  letterSpacing: 0,
+  fontSize: '16px'
+}));
