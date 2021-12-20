@@ -23,9 +23,15 @@ export const Input = styled(MuiInput)(
       lineHeight: '1.14',
       letterSpacing: '0.2px',
 
+      /* Chrome, Safari, Edge, Opera */
       '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
         '-webkit-appearance': 'none',
         margin: 0
+      },
+
+      /* Firefox */
+      '&[type=number]': {
+        '-moz-appearance': 'textfield'
       }
     },
 
