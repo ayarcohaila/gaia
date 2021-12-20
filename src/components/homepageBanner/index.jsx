@@ -49,7 +49,7 @@ export default function HomepageBanner() {
           </Grid>
         )}
       </Styled.Container>
-      <Styled.BannerLink href="/ballerz" />
+      <Styled.BannerLink href={hasBrowse ? '/browse' : '/ballerz'} />
     </Styled.ContainerBackground>
   );
 }
