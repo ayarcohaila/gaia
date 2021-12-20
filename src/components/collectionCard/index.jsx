@@ -103,7 +103,7 @@ const CollectionCard = ({ data, transaction }) => {
       </CardContent>
       {data?.nft?.owner === user?.addr ? (
         <Styled.CancelButtonContainer>
-          <Styled.ListedText>Listed for sale</Styled.ListedText>
+          <Styled.ListedText>Remove ${Number(data?.price).toFixed(2)} Listing</Styled.ListedText>
         </Styled.CancelButtonContainer>
       ) : (
         <Grid container justifyContent="center">
