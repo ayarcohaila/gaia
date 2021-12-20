@@ -28,6 +28,7 @@ import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 import { hasSell, hasTransfer } from '~/config/config';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { BUY_TX } from '~/constant';
+import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from './styles';
 
@@ -252,6 +253,11 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
     hasTransfer
   ]);
 
+  const nftIdentifier =
+    nft.collection_id === COLLECTION_LIST_CONFIG.shareef.id
+      ? nft.asset_id
+      : metadata?.id || nft?.mint_number;
+
   return (
     <>
       <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} />
@@ -299,10 +305,10 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
       </Styled.Container>
 
       <SuccessPurchaseNFTModal
-        asset={nft}
         open={isPurchaseNftModalOpen}
         onClose={togglePurchaseNftModal}
         tx={purchaseTxId}
+        collectionsName={`${nft?.collection?.name} #${nftIdentifier}`}
       />
       <OrderProcessing open={isProcessingModalOpen} onClose={toggleProcessingModal} />
       <InsufficientFundsModal open={isFundsErrorOpen} onClose={toggleFundsError} />

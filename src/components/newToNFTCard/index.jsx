@@ -14,7 +14,7 @@ const NewToNFTCard = ({ data }) => {
   return (
     <>
       <Styled.CustomCard>
-        <Styled.CustomLink rel="noreferrer" {...data.linkProps}>
+        <Styled.CustomLink rel="noreferrer" {...(data.hasButton && data.linkProps)}>
           <img src={data.image} alt={data.title} />
         </Styled.CustomLink>
         <Typography variant="h5" marginTop="20px">
