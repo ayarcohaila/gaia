@@ -1,11 +1,15 @@
 import { fcl, t } from '../config/config';
 
-export async function transferNft(tx, recipient, withdrawID) {
+export async function transferNft(tx, recipient, withdrawID, listingResourceID) {
   try {
     const txId = await fcl
       .send([
         fcl.transaction(tx),
-        fcl.args([fcl.arg(recipient, t.Address), fcl.arg(withdrawID, t.UInt64)]),
+        fcl.args([
+          fcl.arg(recipient, t.Address),
+          fcl.arg(withdrawID, t.UInt64),
+          fcl.arg(listingResourceID, t.UInt64)
+        ]),
         fcl.payer(fcl.authz), // current user is responsible for paying for the transaction
         fcl.proposer(fcl.authz), // current user acting as the nonce
         fcl.authorizations([fcl.authz]), // current user will be first AuthAccount
