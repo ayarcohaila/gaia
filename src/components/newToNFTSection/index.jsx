@@ -1,31 +1,35 @@
 import { Grid } from '@mui/material';
 import { NewToNFTCard } from '~/components';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { hasBrowse } from '~/config/config';
 
 import * as Styled from './styled';
 
 const NewNFTs = [
   {
-    title: 'Introducing BALLERZ',
+    title: 'Shareef O’Neal Genesis Collection SOLD OUT!',
     description:
-      'Generative PFP basketball collection on Flow -- SOLD OUT! Marketplace coming soon.',
-    image: 'images/newToNFT/ballerz.jpg',
-    linkProps: { href: 'http://twitter.com/ballerz_nft', target: '_blank' },
-    linkText: 'Follow on Twitter'
+      'The first of a series of drops highlighting his basketball career, family, and recovery from heart surgery',
+    image: 'images/newToNFT/shareef.jpg',
+    linkProps: { href: '/browse' },
+    linkText: 'Go To Marketplace',
+    hasButton: hasBrowse
   },
   {
     title: 'Bryson DeChambeau - Vegas, Baby!',
     description: 'Collectible NFT commemorating Las Vegas Showdown',
     image: 'images/newToNFT/bryson_banner.jpg',
     linkProps: { href: '/bryson' },
-    linkText: 'Buy Now'
+    linkText: 'Buy Now',
+    hasButton: true
   },
   {
     title: 'About The Team',
     description: 'Learn more about NFT Genius, the team behind Gaia.',
     image: 'images/newToNFT/nftg.jpg',
     linkProps: { href: 'https://www.nftgenius.com/', target: '_blank' },
-    linkText: 'Visit Website'
+    linkText: 'Visit Website',
+    hasButton: true
   }
 ];
 

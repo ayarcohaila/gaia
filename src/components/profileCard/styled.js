@@ -1,4 +1,5 @@
 import { styled, Grid, Card, Typography, Button, CardHeader } from '@mui/material';
+import { Button as RemoveListingButton } from '~/base';
 
 export const CustomCard = styled(Card)(() => ({
   padding: '16px 16px 22px',
@@ -120,50 +121,23 @@ export const TransferButton = styled(Button)(({ theme: { palette } }) => ({
   }
 }));
 
-export const CancelButtonContainer = styled('div')(({ theme: { palette } }) => ({
+export const CancelButton = styled(RemoveListingButton)(({ theme: { palette } }) => ({
   height: 48,
   padding: '14px 22px',
   width: '100%',
   boxSizing: 'border-box',
   borderRadius: '24px',
   backgroundColor: palette.error.main,
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+  fontFamily: 'unset',
+  marginTop: '8px',
 
   transition: 'ease-in-out',
   transitionDuration: '100ms',
   color: 'white',
 
-  fontSize: '14px',
-  fontWeight: 'bold',
-  lineHeight: '1.14',
-  letterSpacing: '0.2px',
-  marginTop: '8px',
-
   ':hover': {
     backgroundColor: palette.error[700]
   }
-}));
-
-export const CancelButton = styled(Button)(() => ({
-  margin: 0,
-  color: 'white',
-  textTransform: 'none',
-  fontWeight: 'bold',
-
-  ':hover': {
-    backgroundColor: 'transparent'
-  }
-}));
-
-export const CancelButtonDivider = styled('div')(() => ({
-  width: '2px',
-  height: '20px',
-  margin: '0 5px 0 29px',
-  opacity: '0.16',
-  backgroundColor: 'white'
 }));
 
 export const ListedText = styled(Typography)(() => ({

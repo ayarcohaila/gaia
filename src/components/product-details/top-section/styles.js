@@ -74,6 +74,7 @@ export const ActionButtons = styled(Button, {
   borderRadius: '24px',
   boxSizing: 'border-box',
   backgroundColor: removeListing && palette.error.main,
+  fontFamily: 'unset',
 
   ':hover': {
     backgroundColor: removeListing && palette.error[700]

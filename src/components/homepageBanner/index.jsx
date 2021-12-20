@@ -3,15 +3,17 @@ import React from 'react';
 import { Typography, Grid } from '@mui/material';
 
 import { useBreakpoints } from '~/hooks';
+import { hasBrowse } from '~/config/config';
 
 import * as Styled from './styled';
 
 const bannerData = {
-  drop: 'Genesis Collection',
-  title: 'Shareef O’Neal',
-  description:
-    'The first of a series of drops highlighting his basketball career, family, and recovery from heart surgery',
-  background: '/collections/shareef/banner.jpeg'
+  drop: 'BALLERZ',
+  title: 'The Home of BALLERZ',
+  description: hasBrowse
+    ? 'Secondary marketplace is now live! Buy and sell with other collectors.'
+    : 'Secondary marketplace goes live today at 2pm PT!  Buy and sell with other collectors.',
+  background: '/collections/ballerz/banner.png'
 };
 
 export default function HomepageBanner() {
@@ -39,21 +41,15 @@ export default function HomepageBanner() {
           sx={{ maxWidth: '600px', lineHeight: !isMediumDevice && '30px' }}>
           {bannerData.description}
         </Typography>
-        <Grid container sx={{ gap: '12px' }}>
-          <Styled.CardButton component="a" href="/shareef" sx={{ width: '100px' }}>
-            <Typography variant="subtitle1">SOLD OUT</Typography>
-          </Styled.CardButton>
-          {/* TODO: Uncomment after shareef drop */}
-          {/* <Styled.CardButton
-            component="a"
-            href="https://discord.com/invite/ballerznft"
-            target="_blank"
-            rel="noopener noreferrer">
-            <Typography variant="subtitle1">Join Discord</Typography>
-          </Styled.CardButton> */}
-        </Grid>
+        {hasBrowse && (
+          <Grid container sx={{ gap: '12px' }}>
+            <Styled.CardButton component="a" href="/browse" sx={{ width: '200px' }}>
+              <Typography variant="subtitle1">Go To Marketplace</Typography>
+            </Styled.CardButton>
+          </Grid>
+        )}
       </Styled.Container>
-      <Styled.BannerLink href="/shareef" />
+      <Styled.BannerLink href="/ballerz" />
     </Styled.ContainerBackground>
   );
 }

@@ -200,12 +200,17 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
         return '';
       case loadingPurchase:
         return <Loader />;
-      case isForSale && isOwner:
+      case isForSale && isOwner: {
+        const price = Number(getLastByUpdateAt(nft?.sale_offers)?.price)?.toFixed(2);
         return (
-          <Styled.ActionButtons removeListing onClick={toggleCancelListingModal}>
-            Remove Listing
+          <Styled.ActionButtons
+            sx={{ width: 250 }}
+            removeListing
+            onClick={toggleCancelListingModal}>
+            Remove ${price} Listing
           </Styled.ActionButtons>
         );
+      }
       case !isForSale && isOwner:
         return (
           <>

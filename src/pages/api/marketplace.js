@@ -4,6 +4,7 @@ import { GET_MARKETPLACE_NFTS } from '~/store/server/queries';
 export default async function handler(req, res) {
   try {
     const { nft } = await gqlClient.request(GET_MARKETPLACE_NFTS, {
+      marketPlaceAddress: process.env.NEXT_PUBLIC_MARKET_OWNER,
       price: req?.body?.price,
       isForSale: req?.body?.isForSale,
       transactionStatus: req?.body?.transactionStatus,

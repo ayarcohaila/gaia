@@ -34,10 +34,13 @@ const TransferNftModal = ({ onClose, ...props }) => {
     setLoadingTransfer(true);
     try {
       const transaction = await loadTransaction(transferTx);
+      const activeOffer =
+        props.asset.sale_offers.find(offer => offer.status === 'active')?.listing_resource_id || 0;
       const txResult = await transferNft(
         transaction.transactionScript,
         address,
-        props.asset.asset_id
+        props.asset.asset_id,
+        activeOffer
       );
       await axios.post('/api/update-transaction-status', {
         filters: {

@@ -15,6 +15,7 @@ import { hasSell, hasTransfer } from '~/config/config';
 import { useCollectionConfig } from '~/hooks';
 
 import * as Styled from './styled';
+import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 
 const ProfileCard = ({ data, isFromBrowser }) => {
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
@@ -60,19 +61,15 @@ const ProfileCard = ({ data, isFromBrowser }) => {
     return (
       <CardActions sx={{ justifyContent: 'center' }}>
         {data?.is_for_sale ? (
-          <Styled.CancelButtonContainer>
-            <Styled.ListedText disabled={loading}>Listed for sale</Styled.ListedText>
-            <Styled.CancelButtonDivider />
-            <Styled.CancelButton
-              disabled={loading}
-              variant="text"
-              onClick={event => {
-                event?.stopPropagation();
-                toggleCancelListingModal();
-              }}>
-              Cancel
-            </Styled.CancelButton>
-          </Styled.CancelButtonContainer>
+          <Styled.CancelButton
+            disabled={loading}
+            variant="text"
+            onClick={event => {
+              event?.stopPropagation();
+              toggleCancelListingModal();
+            }}>
+            Remove ${Number(getLastByUpdateAt(data?.sale_offers).price).toFixed(2)} Listing
+          </Styled.CancelButton>
         ) : (
           <>
             {hasSell && (
