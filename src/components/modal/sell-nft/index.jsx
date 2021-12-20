@@ -91,7 +91,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
       mobileHeight={isExtraSmallDevice ? '70vh' : '60vh'}
       {...props}>
       {hasNftSuccessfullyPostedForSale ? (
-        <SuccessContent tx={tx} />
+        <SuccessContent address={props.asset.owner} tx={tx} />
       ) : (
         <Grid container alignItems="center" justifyContent="center" direction="column">
           <Styled.Input
