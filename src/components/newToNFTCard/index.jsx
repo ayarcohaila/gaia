@@ -23,14 +23,16 @@ const NewToNFTCard = ({ data }) => {
         <Styled.CardDescription color={grey[600]} variant="subtitle1">
           {data.description}
         </Styled.CardDescription>
-        <a rel="noreferrer" {...data.linkProps}>
-          <Styled.CardLink>
-            <Typography variant="subtitle1" fontWeight="600">
-              {data.linkText}
-            </Typography>
-            <KeyboardArrowRightIcon />
-          </Styled.CardLink>
-        </a>
+        {data.hasButton && (
+          <a rel="noreferrer" {...data.linkProps}>
+            <Styled.CardLink>
+              <Typography variant="subtitle1" fontWeight="600">
+                {data.linkText}
+              </Typography>
+              <KeyboardArrowRightIcon />
+            </Styled.CardLink>
+          </a>
+        )}
       </Styled.CustomCard>
     </>
   );
