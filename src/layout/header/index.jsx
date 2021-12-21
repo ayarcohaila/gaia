@@ -171,7 +171,10 @@ const Header = () => {
           ) : (
             <>
               {hasBrowse && (
-                <Styled.ButtonText variant="text" onClick={handleClick}>
+                <Styled.ButtonText
+                  variant="text"
+                  onClick={handleClick}
+                  data-id={USER_MENU_IDS.BROWSE}>
                   {MARKETPLACE_TITLE}
                 </Styled.ButtonText>
               )}
