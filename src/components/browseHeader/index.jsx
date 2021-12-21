@@ -13,7 +13,7 @@ const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing }) =>
   const { isMediumDevice } = useBreakpoints();
   const orderButtonRef = useRef(null);
   const [isMenuOrderOpen, toggleMenuOrder] = useToggle();
-  const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.MOST_RECENT);
+  const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWEST_PRICE);
 
   const handleClickOption = ({
     target: {
@@ -41,8 +41,8 @@ const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing }) =>
   const orderButton = useMemo(() => {
     return [
       { id: ORDER_MENU_IDS.MOST_RECENT, label: 'Recently Listed' },
-      { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Lowest Price' },
-      { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' }
+      { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' },
+      { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Lowest Price' }
     ];
   }, []);
 
