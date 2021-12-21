@@ -1,7 +1,6 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 
 import { Button } from '~/base';
 import {
@@ -54,13 +53,6 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
         data?.price,
         user?.addr
       );
-      await axios.post('/api/update-transaction-status', {
-        filters: {
-          collection_id: { _eq: data?.nft?.collection_id },
-          asset_id: { _eq: data?.nft?.asset_id },
-          mint_number: { _eq: data?.nft?.mint_number }
-        }
-      });
       if (txResult) {
         setPurchaseTxId(txResult?.txId);
         toggleProcessingModal();
