@@ -1,7 +1,6 @@
 import { memo, useState } from 'react';
 import { Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import preval from 'preval.macro';
 import { useRouter } from 'next/router';
 
@@ -42,13 +41,6 @@ const TransferNftModal = ({ onClose, ...props }) => {
         props.asset.asset_id,
         activeOffer
       );
-      await axios.post('/api/update-transaction-status', {
-        filters: {
-          collection_id: { _eq: props.asset.collection_id },
-          asset_id: { _eq: props.asset.asset_id },
-          mint_number: { _eq: props.asset.mint_number }
-        }
-      });
       setTx(txResult?.txId);
       setLoadingTransfer(false);
       setHasNftSuccessfullyTransfered(true);

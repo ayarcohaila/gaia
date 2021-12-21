@@ -207,7 +207,7 @@ const GET_MARKETPLACE_NFTS = gql`
     $price: [nft_bool_exp!]
     $collections: [nft_bool_exp!]
     $properties: [nft_template_bool_exp!]
-    $marketPlaceAddress: String!
+    $limit: Int
   ) {
     nft(
       where: {
@@ -218,6 +218,8 @@ const GET_MARKETPLACE_NFTS = gql`
         transaction_status: $transactionStatus
         template: { _and: $properties }
       }
+      limit: $limit
+      offset: 0
     ) {
       asset_id
       mint_number
@@ -237,6 +239,75 @@ const GET_MARKETPLACE_NFTS = gql`
   }
 `;
 
+const GET_MARKETPLACE_OFFERS = gql`
+  query getMarketplaceOffers(
+    $is_for_sale: Boolean_comparison_exp
+    $transaction_status: Boolean_comparison_exp
+    $price: [nft_bool_exp!]
+    $collections: [nft_bool_exp!]
+    $properties: [nft_template_bool_exp!]
+    $limit: Int = 10
+    $parsed_price: float8_comparison_exp = {}
+  ) {
+    nft_sale_offer(
+      where: {
+        status: { _eq: "active" }
+        nft: {
+          _or: $collections
+          _and: $price
+          transaction_status: $transaction_status
+          is_for_sale: $is_for_sale
+          template: { _and: $properties }
+        }
+        parsed_price: $parsed_price
+      }
+      order_by: { parsed_price: asc }
+      limit: $limit
+      offset: 0
+    ) {
+      updated_at
+      listing_resource_id
+      price
+      parsed_price
+      status
+      nft {
+        asset_id
+        mint_number
+        owner
+        is_for_sale
+        collection_id
+        template {
+          metadata
+        }
+      }
+    }
+  }
+`;
+
+const GET_MARKETPLACE_NFTS_COUNT = gql`
+  query getMarketplaceNFTsCount(
+    $isForSale: Boolean_comparison_exp
+    $transactionStatus: Boolean_comparison_exp
+    $price: [nft_bool_exp!]
+    $collections: [nft_bool_exp!]
+    $properties: [nft_template_bool_exp!]
+  ) {
+    nft_aggregate(
+      where: {
+        _or: $collections
+        _and: $price
+        is_for_sale: $isForSale
+        transaction_status: $transactionStatus
+        template: { _and: $properties }
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
+  }
+`;
+
 export {
   GET_NFTS,
   GET_NFTS_IDS,
@@ -247,5 +318,7 @@ export {
   GET_NFTS_BY_ADDRESS,
   GET_NFTS_FOR_SALE,
   GET_SINGLE_NFTS_FOR_SALE,
-  GET_MARKETPLACE_NFTS
+  GET_MARKETPLACE_NFTS,
+  GET_MARKETPLACE_NFTS_COUNT,
+  GET_MARKETPLACE_OFFERS
 };

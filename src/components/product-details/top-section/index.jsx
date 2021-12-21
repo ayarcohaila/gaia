@@ -2,7 +2,6 @@ import { memo, useState, useEffect, useCallback, useMemo } from 'react';
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 
 import Asset from './asset';
 import CollectionInfo from './collection-info';
@@ -93,14 +92,6 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
           user?.addr
         );
         if (txResult) {
-          await axios.post('/api/update-transaction-status', {
-            filters: {
-              collection_id: { _eq: nft.collection_id },
-              asset_id: { _eq: nft.asset_id },
-              mint_number: { _eq: nft.mint_number }
-            }
-          });
-
           setPurchaseTxId(txResult?.txId);
           toggleProcessingModal();
           togglePurchaseNftModal();

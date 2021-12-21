@@ -9,17 +9,14 @@ import { ORDER_MENU_IDS } from '~/components/collection-filters/constants';
 
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 
-import * as Styled from '~/styles/browse-page/styles';
 import { useBreakpoints } from '~/hooks';
 import { hasBrowse } from '~/config/config';
 import { MARKETPLACE_TITLE } from '~/layout/header/constants';
-
-const DEFAULT_LIST_SIZE = 40;
+import * as Styled from '~/styles/browse-page/styles';
 
 const Browse = ({ filters, filtersTypes, filtersIds }) => {
   const [showFilter, setShowFilter] = useState(true);
   const [orderBy, setOrderBy] = useState(6);
-  const [cursor, setCursor] = useState(0);
   const { isMediumDevice } = useBreakpoints();
 
   const {
@@ -27,7 +24,8 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
   } = useTheme();
 
   const {
-    appData: { marketplaceLoading, marketplaceNfts }
+    appData: { page, marketCount, marketplaceLoading, marketplaceNfts },
+    handleAppData
   } = useAppContext();
 
   const handleShowFilters = () => {
@@ -38,13 +36,8 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
     setOrderBy(order);
   };
 
-  const cursorLimit = useMemo(
-    () => Math.ceil(marketplaceNfts?.length / DEFAULT_LIST_SIZE) - 1,
-    [marketplaceNfts]
-  );
-
   const handleLoadMore = () => {
-    setCursor(prevState => prevState + 1);
+    handleAppData({ page: page + 1 });
   };
 
   const paginatedList = useMemo(() => {
@@ -63,17 +56,17 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
           Number(getLastByUpdateAt(a.sale_offers)?.price)
         );
       });
-      return list?.splice(0, DEFAULT_LIST_SIZE * (cursor + 1));
+      return list;
     }
     return [];
-  }, [orderBy, marketplaceNfts, cursor]);
+  }, [orderBy, marketplaceNfts]);
 
   const renderList = useMemo(() => {
     if (marketplaceLoading) {
       return new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />);
     }
 
-    return paginatedList.length ? (
+    return paginatedList?.length ? (
       paginatedList?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)
     ) : (
       <Grid sx={{ width: '100%', textAlign: 'center', marginTop: '96px' }}>
@@ -91,7 +84,7 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
         handleShowFilters={handleShowFilters}
         showFilter={showFilter}
         handleOrder={handleOrder}
-        totalShowing={marketplaceNfts?.length}
+        totalShowing={marketCount || 0}
       />
       <Styled.Wrapper container alignItems="center" showFilter={showFilter} sx={{ minHeight: 350 }}>
         <Filters
@@ -112,7 +105,7 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
           {renderList}
         </Grid>
       </Styled.Wrapper>
-      {cursorLimit > cursor && (
+      {marketCount > marketplaceNfts?.length && (
         <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 0' }}>
           <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
         </Grid>

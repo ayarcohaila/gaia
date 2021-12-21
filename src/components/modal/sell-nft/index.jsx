@@ -2,7 +2,6 @@ import { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { CircularProgress, Grid } from '@mui/material';
-import axios from 'axios';
 import preval from 'preval.macro';
 import { useRouter } from 'next/router';
 
@@ -52,13 +51,6 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
         value,
         props.asset.collection.collection_id
       );
-      await axios.post('/api/update-transaction-status', {
-        filters: {
-          collection_id: { _eq: props.asset.collection_id },
-          asset_id: { _eq: props.asset.asset_id },
-          mint_number: { _eq: props.asset.mint_number }
-        }
-      });
       if (txResult) {
         onConfirm();
         setTx(txResult?.txId);

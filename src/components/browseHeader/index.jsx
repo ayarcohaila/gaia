@@ -13,7 +13,8 @@ const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing }) =>
   const { isMediumDevice } = useBreakpoints();
   const orderButtonRef = useRef(null);
   const [isMenuOrderOpen, toggleMenuOrder] = useToggle();
-  const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.MOST_RECENT);
+  const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWEST_PRICE);
+  const displayFilter = false;
 
   const handleClickOption = ({
     target: {
@@ -41,8 +42,8 @@ const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing }) =>
   const orderButton = useMemo(() => {
     return [
       { id: ORDER_MENU_IDS.MOST_RECENT, label: 'Recently Listed' },
-      { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Lowest Price' },
-      { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' }
+      { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' },
+      { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Lowest Price' }
     ];
   }, []);
 
@@ -56,33 +57,37 @@ const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing }) =>
           <Styled.Text>Showing {totalShowing} NFTs</Styled.Text>
         </Styled.ContainerItem>
 
-        <Styled.ContainerItem>
-          {!isMediumDevice && (
-            <>
-              <Styled.CustomButton onClick={handleShowFilters}>
-                <Image src="/TuneIcon.svg" alt="tuneIcon" width="18" height="18" />
-                <Styled.Text ml="10px">{`${showFilter ? 'Hide' : 'Show'} filters`}</Styled.Text>
-              </Styled.CustomButton>
-              <Styled.Divider />
-            </>
-          )}
-          <Dropdown
-            menuAnchorRef={orderButtonRef}
-            isOpen={!!isMenuOrderOpen}
-            onClose={toggleMenuOrder}
-            handleClickOption={handleClickOption}
-            options={orderButton.filter(option => option.id !== selectedOrderButton)}
-          />
-          <Styled.CustomButton
-            ref={orderButtonRef}
-            disableRipple
-            onClick={toggleMenuOrder}
-            endIcon={<Styled.ArrowIcon />}>
-            <Styled.Text>
-              {orderButton.find(item => item.id === selectedOrderButton)?.label}
-            </Styled.Text>
-          </Styled.CustomButton>
-        </Styled.ContainerItem>
+        <Styled.ContainerItem></Styled.ContainerItem>
+
+        {displayFilter && (
+          <Styled.ContainerItem>
+            {!isMediumDevice && (
+              <>
+                <Styled.CustomButton onClick={handleShowFilters}>
+                  <Image src="/TuneIcon.svg" alt="tuneIcon" width="18" height="18" />
+                  <Styled.Text ml="10px">{`${showFilter ? 'Hide' : 'Show'} filters`}</Styled.Text>
+                </Styled.CustomButton>
+                <Styled.Divider />
+              </>
+            )}
+            <Dropdown
+              menuAnchorRef={orderButtonRef}
+              isOpen={!!isMenuOrderOpen}
+              onClose={toggleMenuOrder}
+              handleClickOption={handleClickOption}
+              options={orderButton.filter(option => option.id !== selectedOrderButton)}
+            />
+            <Styled.CustomButton
+              ref={orderButtonRef}
+              disableRipple
+              onClick={toggleMenuOrder}
+              endIcon={<Styled.ArrowIcon />}>
+              <Styled.Text>
+                {orderButton.find(item => item.id === selectedOrderButton)?.label}
+              </Styled.Text>
+            </Styled.CustomButton>
+          </Styled.ContainerItem>
+        )}
       </Styled.MainConteiner>
     </Styled.Container>
   );
