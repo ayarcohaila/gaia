@@ -98,7 +98,10 @@ const BrowseCard = ({ data }) => {
         </Styled.NFTText>
         {data?.is_for_sale && data?.sale_offers.some(item => item.status === 'active') && (
           <Styled.NFTPrice>
-            $ {formatCurrencyValue(getLastByUpdateAt(data?.sale_offers)?.price)}
+            ${' '}
+            {formatCurrencyValue(
+              getLastByUpdateAt(data?.sale_offers.filter(item => item.status === 'active'))?.price
+            )}
           </Styled.NFTPrice>
         )}
       </Styled.CustomCardContent>
