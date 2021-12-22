@@ -66,7 +66,11 @@ const ProfileCard = ({ data, isFromBrowser }) => {
               event?.stopPropagation();
               toggleCancelListingModal();
             }}>
-            Remove $ {formatCurrencyValue(getLastByUpdateAt(data?.sale_offers).price)} Listing
+            Remove ${' '}
+            {formatCurrencyValue(
+              getLastByUpdateAt(data?.sale_offers.filter(item => item.status === 'active')).price
+            )}{' '}
+            Listing
           </Styled.CancelButton>
         ) : (
           <>
