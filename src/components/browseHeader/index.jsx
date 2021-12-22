@@ -11,7 +11,7 @@ import { useAppContext } from '~/context';
 
 import * as Styled from './styles';
 
-const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing, available }) => {
+const Header = ({ handleShowFilters, showFilter, totalShowing, available }) => {
   const { isMediumDevice } = useBreakpoints();
   const orderButtonRef = useRef(null);
   const [isMenuOrderOpen, toggleMenuOrder] = useToggle();
@@ -30,14 +30,13 @@ const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing, avai
       handleAppData({ marketplaceSort: { parsed_price: 'desc' }, page: 0, marketplaceNfts: [] });
     } else {
       handleAppData({
-        marketplaceSort: { nft: { updated_at: 'asc' } },
+        marketplaceSort: { nft: { updated_at: 'desc' } },
         page: 0,
         marketplaceNfts: []
       });
     }
 
     setSelectedOrderButton(currentId);
-    handleOrder(currentId);
     toggleMenuOrder();
   };
   const breadcrumbsLinks = useMemo(
