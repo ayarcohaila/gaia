@@ -5,9 +5,6 @@ import CardSkeletonLoader from '~/base/card-skeleton-loader';
 import { BrowseHeader, Filters, BrowseCard, Seo } from '~/components';
 import { useAppContext } from '~/context';
 import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from '~/utils/browseFilters';
-import { ORDER_MENU_IDS } from '~/components/collection-filters/constants';
-
-import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 
 import { useBreakpoints } from '~/hooks';
 import { hasBrowse } from '~/config/config';
@@ -16,7 +13,6 @@ import * as Styled from '~/styles/browse-page/styles';
 
 const Browse = ({ filters, filtersTypes, filtersIds }) => {
   const [showFilter, setShowFilter] = useState(true);
-  const [orderBy, setOrderBy] = useState(6);
   const { isMediumDevice } = useBreakpoints();
 
   const {
@@ -32,42 +28,17 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
     setShowFilter(prevState => !prevState);
   };
 
-  const handleOrder = order => {
-    setOrderBy(order);
-  };
-
   const handleLoadMore = () => {
     handleAppData({ page: page + 1 });
   };
-
-  const paginatedList = useMemo(() => {
-    if (marketplaceNfts?.length) {
-      const list = [...marketplaceNfts].sort((a, b) => {
-        if (orderBy === ORDER_MENU_IDS.MOST_RECENT) {
-          return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
-        } else if (orderBy === ORDER_MENU_IDS.LOWEST_PRICE) {
-          return (
-            Number(getLastByUpdateAt(a.sale_offers)?.price) -
-            Number(getLastByUpdateAt(b.sale_offers)?.price)
-          );
-        }
-        return (
-          Number(getLastByUpdateAt(b.sale_offers)?.price) -
-          Number(getLastByUpdateAt(a.sale_offers)?.price)
-        );
-      });
-      return list;
-    }
-    return [];
-  }, [orderBy, marketplaceNfts]);
 
   const renderList = useMemo(() => {
     if (marketplaceLoading) {
       return new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />);
     }
 
-    return paginatedList?.length ? (
-      paginatedList?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)
+    return marketplaceNfts?.length ? (
+      marketplaceNfts?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)
     ) : (
       <Grid sx={{ width: '100%', textAlign: 'center', marginTop: '96px' }}>
         <Typography variant="body" sx={{ fontSize: '20px', width: '100%', color: grey[600] }}>
@@ -75,7 +46,7 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
         </Typography>
       </Grid>
     );
-  }, [paginatedList, marketplaceLoading]);
+  }, [marketplaceNfts, marketplaceLoading]);
 
   return (
     <>
@@ -83,7 +54,6 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
       <BrowseHeader
         handleShowFilters={handleShowFilters}
         showFilter={showFilter}
-        handleOrder={handleOrder}
         totalShowing={marketplaceNfts?.length}
         available={marketCount || 0}
       />
