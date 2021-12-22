@@ -5,7 +5,9 @@ export const AppContext = createContext({});
 const AppContextProvider = ({ children }) => {
   const [appData, setAppData] = useState({
     page: 0,
-    marketplaceLoading: true
+    marketplaceLoading: true,
+    marketplaceNfts: [],
+    marketplaceSort: { parsed_price: 'asc' }
   });
 
   const handleAppData = useCallback(value => {

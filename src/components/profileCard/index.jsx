@@ -54,9 +54,6 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         </Grid>
       );
     }
-    if (data.transaction_status) {
-      return '';
-    }
 
     return (
       <CardActions sx={{ justifyContent: 'center' }}>

@@ -4,46 +4,47 @@ import { GET_MARKETPLACE_NFTS_COUNT, GET_MARKETPLACE_OFFERS } from '~/store/serv
 export default async function handler(req, res) {
   try {
     const { nft_sale_offer } = await gqlClient.request(GET_MARKETPLACE_OFFERS, {
+      marketPlaceAddress: process.env.NEXT_PUBLIC_MARKET_OWNER,
       price: req?.body?.price,
       is_for_sale: req?.body?.isForSale,
-      transaction_status: req?.body?.transactionStatus,
       collections: req?.body?.collections.length ? req?.body?.collections : [{}],
       properties: req?.body?.properties.length ? req?.body?.properties : [{}],
-      order_update: req?.body?.orderUpdate,
-      limit: req?.body?.limit
+      offset: req?.body?.offset,
+      orderBy: req?.body?.orderBy
     });
-    const ids = [];
-    const nft = nft_sale_offer
-      .map(offer => {
-        return {
-          ...offer.nft,
-          sale_offers: [
-            {
-              updated_at: offer.updated_at,
-              listing_resource_id: offer.listing_resource_id,
-              price: offer.price,
-              status: offer.status
-            }
-          ]
-        };
-      })
-      .filter(nft_item => {
-        if (!ids.includes(nft_item.asset_id)) {
-          ids.push(nft_item.asset_id);
-          return nft_item;
-        }
-      });
+    const nft = nft_sale_offer.map(offer => {
+      return {
+        ...offer.nft,
+        sale_offers: [
+          {
+            parsed_price: offer.parsed_price,
+            updated_at: offer.updated_at,
+            listing_resource_id: offer.listing_resource_id,
+            price: offer.price,
+            status: offer.status
+          }
+        ]
+      };
+    });
 
-    const { nft_aggregate } = await gqlClient.request(GET_MARKETPLACE_NFTS_COUNT, {
+    const { nft_sale_offer_aggregate } = await gqlClient.request(GET_MARKETPLACE_NFTS_COUNT, {
+      marketPlaceAddress: process.env.NEXT_PUBLIC_MARKET_OWNER,
       price: req?.body?.price,
-      isForSale: req?.body?.isForSale,
-      transactionStatus: req?.body?.transactionStatus,
+      is_for_sale: req?.body?.isForSale,
       collections: req?.body?.collections.length ? req?.body?.collections : [{}],
-      properties: req?.body?.properties.length ? req?.body?.properties : [{}],
-      orderUpdate: req?.body?.orderUpdate
+      properties: req?.body?.properties.length ? req?.body?.properties : [{}]
     });
 
-    res.status(200).json({ nfts: nft, marketCount: nft_aggregate.aggregate.count });
+    const aggregateIds = [];
+
+    nft_sale_offer_aggregate.nodes.filter(nft_item => {
+      if (!aggregateIds.includes(nft_item.nft.asset_id)) {
+        aggregateIds.push(nft_item.nft.asset_id);
+        return nft_item;
+      }
+    });
+
+    res.status(200).json({ nfts: nft, marketCount: aggregateIds.length });
   } catch (e) {
     console.error('error', e);
     res.status(500).json({ error: `Can't query NFT List` });

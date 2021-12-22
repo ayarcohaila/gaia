@@ -188,11 +188,9 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
 
   const renderActions = useMemo(() => {
     switch (true) {
-      case nft?.transaction_status:
-        return '';
       case loadingPurchase:
         return <Loader />;
-      case isForSale && isOwner: {
+      case isForSale && isOwner && nft?.sale_offers.some(item => item.status === 'active'): {
         const price = Number(getLastByUpdateAt(nft?.sale_offers)?.price)?.toFixed(2);
         return (
           <Styled.ActionButtons

@@ -41,12 +41,22 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           value
         }
       });
+      handleAppData({ page: 0, marketplaceNfts: [] });
     },
     [dispatch]
   );
 
   const handleSingleCheck = useCallback(
     (filter, value) => {
+      if (filter === 'status' && value === status) {
+        return '';
+      }
+
+      if (filter === 'status' && value === 'viewAll') {
+        dispatch({
+          type: ACTION_TYPE.RESET_PRICE
+        });
+      }
       dispatch({
         type: ACTION_TYPE.SET_FILTER,
         payload: {
@@ -54,27 +64,35 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           value
         }
       });
+      handleAppData({ page: 0, marketplaceNfts: [] });
     },
-    [dispatch]
+    [status, dispatch]
   );
 
-  const getNfts = useCallback(
-    debounce(async filters => {
-      handleAppData({ marketplaceLoading: true });
-      const result = await axios.post(`/api/marketplace`, {
-        ...filters
-      });
-      handleAppData({
-        marketplaceNfts: result.data.nfts,
-        marketCount: result.data.marketCount,
-        marketplaceLoading: false
-      });
-    }, 500),
-    []
-  );
+  const getNfts = debounce(async filters => {
+    handleAppData({ marketplaceLoading: true });
+    const result = await axios.post(`/api/marketplace`, {
+      ...filters
+    });
+    const ids = [];
+    const list = [...appData?.marketplaceNfts, ...result?.data?.nfts].filter(nft_item => {
+      if (!ids.includes(nft_item.asset_id)) {
+        ids.push(nft_item.asset_id);
+        return nft_item;
+      }
+    });
+    handleAppData({
+      marketplaceNfts: list,
+      marketCount: result.data.marketCount,
+      marketplaceLoading: false
+    });
+  }, 500);
 
   const appliedFilters = useMemo(() => {
-    let priceFilters = [];
+    let priceFilters = {};
+    {
+      ('active');
+    }
     let propertiesFilters = [];
 
     Object.values(properties)?.forEach(property => {
@@ -87,15 +105,17 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       });
     });
 
+    if (status === 'buyNow') {
+      priceFilters.status = { ['_eq']: 'active' };
+    }
+
     if (minPrice) {
-      priceFilters.push({
-        sale_offers: { parsed_price: { _gte: Number(minPrice) }, status: { _eq: 'active' } }
-      });
+      priceFilters.parsed_price = { ...priceFilters.parsed_price, ['_gte']: Number(minPrice) };
+      priceFilters.status = { ['_eq']: 'active' };
     }
     if (maxPrice) {
-      priceFilters.push({
-        sale_offers: { parsed_price: { _lte: Number(maxPrice) }, status: { _eq: 'active' } }
-      });
+      priceFilters.parsed_price = { ...priceFilters.parsed_price, ['_lte']: Number(maxPrice) };
+      priceFilters.status = { ['_eq']: 'active' };
     }
 
     const collectionsFilter = collections?.length
@@ -109,18 +129,27 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     const filters = {
       price: priceFilters,
       isForSale: status === 'buyNow' ? { _eq: true } : {},
-      transactionStatus: status === 'buyNow' ? { _eq: false } : {},
       collections: collectionsFilter,
       properties: propertiesFilters,
-      limit: (appData.page + 1) * DEFAULT_LIST_SIZE
+      offset: appData?.page * DEFAULT_LIST_SIZE,
+      orderBy: appData?.marketplaceSort
     };
 
     return filters;
-  }, [collections, status, maxPrice, minPrice, properties, orderByUpdate, appData.page]);
+  }, [
+    collections,
+    status,
+    maxPrice,
+    minPrice,
+    properties,
+    orderByUpdate,
+    appData?.page,
+    appData?.marketplaceSort
+  ]);
 
   useEffect(() => {
     getNfts(appliedFilters);
-  }, [getNfts, appliedFilters]);
+  }, [appliedFilters]);
 
   const handleMultipleCheck = useCallback(
     (filterName, option) => {
@@ -145,6 +174,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           ? filterArray.filter(item => item !== option)
           : [...filterArray, option]
       );
+      handleAppData({ page: 0, marketplaceNfts: [] });
     },
     [setFilter, state]
   );
@@ -161,6 +191,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           }
         }
       });
+      handleAppData({ page: 0, marketplaceNfts: [] });
     },
     [properties]
   );
@@ -174,6 +205,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
               <InputRangeGroup
                 max={maxPrice}
                 min={minPrice}
+                disabled={status === 'viewAll'}
                 maxPlaceholder="(USD) Max"
                 minPlaceholder="(USD) Min"
                 setMax={value => setFilter('maxPrice', value)}

@@ -6,7 +6,15 @@ import { Input } from '~/base';
 
 const INVALID_KEYS = ['e', 'E', '+', '-'];
 
-const InputRangeGroup = ({ max, min, maxPlaceholder, minPlaceholder, setMax, setMin }) => {
+const InputRangeGroup = ({
+  max,
+  min,
+  maxPlaceholder,
+  minPlaceholder,
+  setMax,
+  setMin,
+  disabled
+}) => {
   const handleChange = ({ target: { name, value } }) => {
     const isMinField = name === 'min';
     if (Number(value) < 1) {
@@ -34,6 +42,7 @@ const InputRangeGroup = ({ max, min, maxPlaceholder, minPlaceholder, setMax, set
           onKeyDown={handleKeyDown}
           inputProps={{ min: 1 }}
           value={min}
+          disabled={disabled}
         />
         <Input
           inputMode="numeric"
@@ -46,6 +55,7 @@ const InputRangeGroup = ({ max, min, maxPlaceholder, minPlaceholder, setMax, set
           inputProps={{ min: 1 }}
           type="number"
           value={max}
+          disabled={disabled}
         />
       </Grid>
     </Box>
@@ -58,7 +68,8 @@ InputRangeGroup.propTypes = {
   maxPlaceholder: PropTypes.string,
   minPlaceholder: PropTypes.string,
   setMax: PropTypes.func.isRequired,
-  setMin: PropTypes.func.isRequired
+  setMin: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired
 };
 
 InputRangeGroup.defaultProps = {

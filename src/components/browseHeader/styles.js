@@ -23,7 +23,9 @@ export const MainConteiner = styled('div')(({ theme }) => ({
   boxSizing: 'border-box',
   padding: '16px 40px 20px',
   [theme.breakpoints.down('sm')]: {
-    padding: '0 20px'
+    padding: '0 20px',
+    flexDirection: 'column',
+    marginTop: '20px'
   }
 }));
 

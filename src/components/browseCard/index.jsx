@@ -21,10 +21,10 @@ const BrowseCard = ({ data }) => {
   );
 
   //FUTURE FEATURE
-  /*  
+  /*
   const handleMoreIcon = event => {
     event.preventDefault();
-  }; 
+  };
   */
 
   const shouldAddExtraMargin =
@@ -95,7 +95,7 @@ const BrowseCard = ({ data }) => {
           }}>
           {data?.template?.metadata?.title}
         </Styled.NFTText>
-        {data?.is_for_sale && (
+        {data?.is_for_sale && data?.sale_offers.some(item => item.status === 'active') && (
           <Styled.NFTPrice>
             $ {Number(getLastByUpdateAt(data?.sale_offers)?.price)?.toFixed(2)}
           </Styled.NFTPrice>

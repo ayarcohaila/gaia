@@ -18,7 +18,8 @@ export const initialState = {
 export const ACTION_TYPE = {
   APPLY_FILTERS: 'APPLY_FILTERS',
   CLEAR_FILTERS: 'CLEAR_FILTERS',
-  SET_FILTER: 'SET_FILTER'
+  SET_FILTER: 'SET_FILTER',
+  RESET_PRICE: 'RESET_PRICE'
 };
 
 export function reducer(state, action) {
@@ -39,6 +40,9 @@ export function reducer(state, action) {
     case ACTION_TYPE.SET_FILTER: {
       const { filter, value } = action.payload;
       return { ...state, [filter]: value };
+    }
+    case ACTION_TYPE.RESET_PRICE: {
+      return { ...state, [FILTERS_CONSTANTS.MIN_PRICE]: '', [FILTERS_CONSTANTS.MAX_PRICE]: '' };
     }
 
     default:
