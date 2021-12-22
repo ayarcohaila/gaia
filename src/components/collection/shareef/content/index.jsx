@@ -22,6 +22,7 @@ import { BUY_TX } from '~/constant';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
+import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 
 const ShareefCollectionContent = ({ data }) => {
   const {
@@ -218,7 +219,7 @@ const ShareefCollectionContent = ({ data }) => {
             ) : (
               <Typography variant="h6" fontWeight="600" letterSpacing={1}>
                 {sale?.collectionRemaining
-                  ? `Purchase - $${Number(sale?.price).toFixed(2)}`
+                  ? `Purchase - $ ${formatCurrencyValue(sale?.price)}`
                   : 'SOLD OUT'}
               </Typography>
             )}

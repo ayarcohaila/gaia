@@ -30,6 +30,7 @@ import { BUY_TX } from '~/constant';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from './styles';
+import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
@@ -191,13 +192,13 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
       case loadingPurchase:
         return <Loader />;
       case isForSale && isOwner && nft?.sale_offers.some(item => item.status === 'active'): {
-        const price = Number(getLastByUpdateAt(nft?.sale_offers)?.price)?.toFixed(2);
+        const price = formatCurrencyValue(getLastByUpdateAt(nft?.sale_offers)?.price);
         return (
           <Styled.ActionButtons
             sx={{ width: 250 }}
             removeListing
             onClick={toggleCancelListingModal}>
-            Remove ${price} Listing
+            Remove $ {price} Listing
           </Styled.ActionButtons>
         );
       }
@@ -215,13 +216,13 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
           </>
         );
       case isForSale && !!transaction: {
-        const price = Number(getLastByUpdateAt(nft?.sale_offers)?.price)?.toFixed(2);
+        const price = formatCurrencyValue(getLastByUpdateAt(nft?.sale_offers)?.price);
         return (
           <Styled.ActionButtons
             disabled={loadingPurchase}
             onClick={user?.addr ? handlePurchaseClick : login}
             sx={{ width: '180px' }}>
-            {`Purchase • $${price}`}
+            {`Purchase • $ ${price}`}
           </Styled.ActionButtons>
         );
       }

@@ -17,6 +17,7 @@ import { buy } from '~/flow/buy';
 import { AuthContext } from '~/providers/AuthProvider';
 import { useCollectionConfig } from '~/hooks';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 
 export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
@@ -103,14 +104,14 @@ const CollectionCard = ({ data, transaction }) => {
       </CardContent>
       {data?.nft?.owner === user?.addr ? (
         <Styled.CancelButtonContainer>
-          <Styled.ListedText>Remove ${Number(data?.price).toFixed(2)} Listing</Styled.ListedText>
+          <Styled.ListedText>Remove $ {formatCurrencyValue(data?.price)} Listing</Styled.ListedText>
         </Styled.CancelButtonContainer>
       ) : (
         <Grid container justifyContent="center">
           <Styled.PurchaseButton
             onClick={user ? handlePurchaseClick : handleLogin}
             disabled={loadingPurchase || (user && !hasSetup) || (user && !transaction)}>
-            {loadingPurchase ? <Loader /> : `Purchase • $${Number(data.price).toFixed(2)}`}
+            {loadingPurchase ? <Loader /> : `Purchase • $ ${formatCurrencyValue(data?.price)}`}
           </Styled.PurchaseButton>
         </Grid>
       )}
