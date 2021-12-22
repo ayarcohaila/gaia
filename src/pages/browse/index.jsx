@@ -84,7 +84,8 @@ const Browse = ({ filters, filtersTypes, filtersIds }) => {
         handleShowFilters={handleShowFilters}
         showFilter={showFilter}
         handleOrder={handleOrder}
-        totalShowing={marketCount || 0}
+        totalShowing={marketplaceNfts?.length}
+        available={marketCount || 0}
       />
       <Styled.Wrapper container alignItems="center" showFilter={showFilter} sx={{ minHeight: 350 }}>
         <Filters

@@ -1,20 +1,22 @@
 import React, { useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-import { BurstIcon } from '~/base';
-import { Breadcrumbs } from '~/components';
 
-import * as Styled from './styles';
+import { Breadcrumbs } from '~/components';
 import { useBreakpoints, useToggle } from '~/hooks';
+import { BurstIcon } from '~/base';
 import { Dropdown } from '~/base';
 import { ORDER_MENU_IDS } from '~/components/collection-filters/constants';
+import { useAppContext } from '~/context';
 
-const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing }) => {
+import * as Styled from './styles';
+
+const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing, available }) => {
   const { isMediumDevice } = useBreakpoints();
   const orderButtonRef = useRef(null);
   const [isMenuOrderOpen, toggleMenuOrder] = useToggle();
   const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWEST_PRICE);
-  const displayFilter = false;
+  const { handleAppData } = useAppContext();
 
   const handleClickOption = ({
     target: {
@@ -22,6 +24,18 @@ const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing }) =>
     }
   }) => {
     const currentId = Number(id);
+    if (currentId === ORDER_MENU_IDS.LOWEST_PRICE) {
+      handleAppData({ marketplaceSort: { parsed_price: 'asc' }, page: 0, marketplaceNfts: [] });
+    } else if (currentId === ORDER_MENU_IDS.HIGHEST_PRICE) {
+      handleAppData({ marketplaceSort: { parsed_price: 'desc' }, page: 0, marketplaceNfts: [] });
+    } else {
+      handleAppData({
+        marketplaceSort: { nft: { updated_at: 'asc' } },
+        page: 0,
+        marketplaceNfts: []
+      });
+    }
+
     setSelectedOrderButton(currentId);
     handleOrder(currentId);
     toggleMenuOrder();
@@ -54,40 +68,40 @@ const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing }) =>
 
         <Styled.ContainerItem>
           <BurstIcon />
-          <Styled.Text>Showing {totalShowing} NFTs</Styled.Text>
+          <Styled.Text>
+            Showing {totalShowing} | Total {available} NFTs
+          </Styled.Text>
         </Styled.ContainerItem>
 
         <Styled.ContainerItem></Styled.ContainerItem>
 
-        {displayFilter && (
-          <Styled.ContainerItem>
-            {!isMediumDevice && (
-              <>
-                <Styled.CustomButton onClick={handleShowFilters}>
-                  <Image src="/TuneIcon.svg" alt="tuneIcon" width="18" height="18" />
-                  <Styled.Text ml="10px">{`${showFilter ? 'Hide' : 'Show'} filters`}</Styled.Text>
-                </Styled.CustomButton>
-                <Styled.Divider />
-              </>
-            )}
-            <Dropdown
-              menuAnchorRef={orderButtonRef}
-              isOpen={!!isMenuOrderOpen}
-              onClose={toggleMenuOrder}
-              handleClickOption={handleClickOption}
-              options={orderButton.filter(option => option.id !== selectedOrderButton)}
-            />
-            <Styled.CustomButton
-              ref={orderButtonRef}
-              disableRipple
-              onClick={toggleMenuOrder}
-              endIcon={<Styled.ArrowIcon />}>
-              <Styled.Text>
-                {orderButton.find(item => item.id === selectedOrderButton)?.label}
-              </Styled.Text>
-            </Styled.CustomButton>
-          </Styled.ContainerItem>
-        )}
+        <Styled.ContainerItem>
+          {!isMediumDevice && (
+            <>
+              <Styled.CustomButton onClick={handleShowFilters}>
+                <Image src="/TuneIcon.svg" alt="tuneIcon" width="18" height="18" />
+                <Styled.Text ml="10px">{`${showFilter ? 'Hide' : 'Show'} filters`}</Styled.Text>
+              </Styled.CustomButton>
+              <Styled.Divider />
+            </>
+          )}
+          <Dropdown
+            menuAnchorRef={orderButtonRef}
+            isOpen={!!isMenuOrderOpen}
+            onClose={toggleMenuOrder}
+            handleClickOption={handleClickOption}
+            options={orderButton.filter(option => option.id !== selectedOrderButton)}
+          />
+          <Styled.CustomButton
+            ref={orderButtonRef}
+            disableRipple
+            onClick={toggleMenuOrder}
+            endIcon={<Styled.ArrowIcon />}>
+            <Styled.Text>
+              {orderButton.find(item => item.id === selectedOrderButton)?.label}
+            </Styled.Text>
+          </Styled.CustomButton>
+        </Styled.ContainerItem>
       </Styled.MainConteiner>
     </Styled.Container>
   );
@@ -97,11 +111,13 @@ Header.propTypes = {
   totalShowing: PropTypes.number,
   handleShowFilters: PropTypes.func.isRequired,
   showFilter: PropTypes.bool.isRequired,
-  orderByUpdate: PropTypes.bool
+  orderByUpdate: PropTypes.bool,
+  available: PropTypes.number
 };
 
 Header.defaultProps = {
   totalShowing: 0,
+  available: 0,
   orderByUpdate: null
 };
 
