@@ -16,6 +16,7 @@ import { useCollectionConfig } from '~/hooks';
 
 import * as Styled from './styled';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
+import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 
 const ProfileCard = ({ data, isFromBrowser }) => {
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
@@ -65,7 +66,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
               event?.stopPropagation();
               toggleCancelListingModal();
             }}>
-            Remove ${Number(getLastByUpdateAt(data?.sale_offers).price).toFixed(2)} Listing
+            Remove $ {formatCurrencyValue(getLastByUpdateAt(data?.sale_offers).price)} Listing
           </Styled.CancelButton>
         ) : (
           <>
@@ -155,7 +156,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
           {isFromBrowser && (
             <>
               <Styled.NFTDescription>{data?.description}</Styled.NFTDescription>
-              <Styled.NFTPrice>{data?.price}</Styled.NFTPrice>
+              <Styled.NFTPrice>{formatCurrencyValue(data?.price)}</Styled.NFTPrice>
             </>
           )}
         </CardContent>

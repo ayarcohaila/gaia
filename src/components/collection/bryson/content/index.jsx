@@ -16,6 +16,7 @@ import { useAuth, useBreakpoints, useToggle } from '~/hooks';
 import { AuthContext } from '~/providers/AuthProvider';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 
 import { BUY_TX } from '~/constant';
 
@@ -91,7 +92,7 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
     if (!totalAvailable) {
       return 'Sold Out';
     }
-    return `Purchase • $ ${Number(data?.price)?.toFixed(2)}`;
+    return `Purchase • $ ${formatCurrencyValue(data?.price)}`;
   }, [data, totalAvailable]);
 
   useEffect(() => {

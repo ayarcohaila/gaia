@@ -73,8 +73,6 @@ const Header = ({ handleShowFilters, showFilter, handleOrder, totalShowing, avai
           </Styled.Text>
         </Styled.ContainerItem>
 
-        <Styled.ContainerItem></Styled.ContainerItem>
-
         <Styled.ContainerItem>
           {!isMediumDevice && (
             <>

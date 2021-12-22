@@ -1,11 +1,10 @@
-import { memo, useState } from 'react';
+import { memo, useState, useRef, useEffect } from 'react';
 import {
   Fade,
   IconButton,
   Modal as MuiModal,
   SwipeableDrawer,
   Grid,
-  CircularProgress,
   useTheme
 } from '@mui/material';
 
@@ -44,11 +43,15 @@ const Modal = ({
     palette: { grey }
   } = useTheme();
 
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [isImgLoaded, setIsImgLoaded] = useState(false);
 
-  const handleLoad = () => {
-    setImgLoaded(true);
-  };
+  const imgRef = useRef();
+
+  useEffect(() => {
+    if (imgRef.current) {
+      setIsImgLoaded(imgRef.current.complete);
+    }
+  }, [imgRef]);
 
   const renderContent = () => (
     <Styled.Container mobileHeight={mobileHeight}>
@@ -65,34 +68,17 @@ const Modal = ({
         )}
         {asset?.img && (
           <>
-            {!imgLoaded ? (
+            {!isImgLoaded ? (
+              <Styled.AssetContainer container>
+                <Grid sx={{ position: 'relative' }} item>
+                  <Styled.Asset ref={imgRef} alt={title} layout="fill" src={asset?.img} />
+                </Grid>
+              </Styled.AssetContainer>
+            ) : (
               <Styled.AssetContainer>
                 <Styled.AssetSkeleton animation="wave" variant="rectangular" />
               </Styled.AssetContainer>
-            ) : undefined}
-            <Styled.AssetContainer display={!imgLoaded && 'none'}>
-              <Grid sx={{ display: !imgLoaded && 'none', position: 'relative' }}>
-                <Styled.Asset
-                  alt={title}
-                  layout="fill"
-                  src={asset?.img}
-                  onLoad={() => handleLoad()}
-                />
-              </Grid>
-              <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                sx={{
-                  width: '180px',
-                  height: '180px',
-                  borderRadius: '12.2px',
-                  background: grey[375],
-                  display: imgLoaded && 'none'
-                }}>
-                <CircularProgress size={32} color="white" />
-              </Grid>
-            </Styled.AssetContainer>
+            )}
           </>
         )}
         <Styled.InfoContainer sx={contentSx}>

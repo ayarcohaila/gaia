@@ -74,7 +74,7 @@ const Footer = () => {
                 Contact Us
               </Styled.CustomLink>
               <Styled.CustomLink
-                href="https://twitter.com/gaia_nfts"
+                href="https://twitter.com/gaiamarketplace"
                 mr="18px"
                 target="_blank"
                 underline="none">

@@ -10,6 +10,7 @@ import formatIpfsImg from '~/utils/formatIpfsImg';
 import { COLLECTIONS_NAME, COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 import { useBreakpoints } from '~/hooks';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
+import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 
 import * as Styled from './styled';
 
@@ -97,7 +98,7 @@ const BrowseCard = ({ data }) => {
         </Styled.NFTText>
         {data?.is_for_sale && data?.sale_offers.some(item => item.status === 'active') && (
           <Styled.NFTPrice>
-            $ {Number(getLastByUpdateAt(data?.sale_offers)?.price)?.toFixed(2)}
+            $ {formatCurrencyValue(getLastByUpdateAt(data?.sale_offers)?.price)}
           </Styled.NFTPrice>
         )}
       </Styled.CustomCardContent>

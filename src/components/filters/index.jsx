@@ -99,7 +99,11 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       Object.entries(property)?.forEach(([key, value]) => {
         Object.entries(value)?.forEach(([propKey, propValue]) => {
           if (propValue) {
-            propertiesFilters.push({ metadata: { _contains: { [key]: propKey } } });
+            if (key === 'accessories') {
+              propertiesFilters.push({ raw_metadata: { _like: `%${propKey}%` } });
+            } else {
+              propertiesFilters.push({ metadata: { _contains: { [key]: propKey } } });
+            }
           }
         });
       });
