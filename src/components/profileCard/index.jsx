@@ -58,7 +58,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
 
     return (
       <CardActions sx={{ justifyContent: 'center' }}>
-        {data?.is_for_sale ? (
+        {data?.is_for_sale && data?.sale_offers.some(item => item.status === 'active') ? (
           <Styled.CancelButton
             disabled={loading}
             variant="text"
