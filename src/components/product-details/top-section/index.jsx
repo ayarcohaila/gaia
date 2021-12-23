@@ -215,7 +215,7 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
             )}
           </>
         );
-      case isForSale && !!transaction: {
+      case isForSale && !!transaction && nft?.sale_offers.some(item => item.status === 'active'): {
         const price = formatCurrencyValue(
           getLastByUpdateAt(nft?.sale_offers.filter(item => item.status === 'active'))?.price
         );
