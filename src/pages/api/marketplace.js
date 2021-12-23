@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const { nft_sale_offer } = await gqlClient.request(GET_MARKETPLACE_OFFERS, {
       marketPlaceAddress: process.env.NEXT_PUBLIC_MARKET_OWNER,
       price: req?.body?.price,
-      is_for_sale: req?.body?.isForSale,
+      has_sale_offers: req?.body?.isForSale,
       collections: req?.body?.collections.length ? req?.body?.collections : [{}],
       properties: req?.body?.properties.length ? req?.body?.properties : [{}],
       offset: req?.body?.offset,
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     const { nft_sale_offer_aggregate } = await gqlClient.request(GET_MARKETPLACE_NFTS_COUNT, {
       marketPlaceAddress: process.env.NEXT_PUBLIC_MARKET_OWNER,
       price: req?.body?.price,
-      is_for_sale: req?.body?.isForSale,
+      has_sale_offers: req?.body?.isForSale,
       collections: req?.body?.collections.length ? req?.body?.collections : [{}],
       properties: req?.body?.properties.length ? req?.body?.properties : [{}]
     });

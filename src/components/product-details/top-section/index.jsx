@@ -66,7 +66,7 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
 
   const isOwner = useMemo(() => nft?.owner === user?.addr, [nft?.owner, user?.addr]);
 
-  const isForSale = useMemo(() => nft?.is_for_sale, [nft?.is_for_sale]);
+  const isForSale = useMemo(() => nft?.has_sale_offers, [nft?.has_sale_offers]);
 
   const handleLoadTransaction = useCallback(async () => {
     setLoadingPurchase(true);
@@ -317,7 +317,7 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
       />
       <SellNftModal
         asset={asset}
-        hasPostedForSale={nft?.is_for_sale}
+        hasPostedForSale={nft?.has_sale_offers}
         open={isSellNftModalOpen}
         onClose={handleCloseSellModal}
         setLoading={setLoadingSell}

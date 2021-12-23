@@ -23,6 +23,7 @@ const GET_NFT_BY_ID = gql`
       created_at
       updated_at
       mint_number
+      has_sale_offers
       transaction_status
       collection {
         collection_id
@@ -57,6 +58,7 @@ const GET_NFT_BY_MINT_NUMBER = gql`
       updated_at
       collection_id
       transaction_status
+      has_sale_offers
       collection {
         collection_id
         name
@@ -112,6 +114,7 @@ const GET_NFTS_BY_ADDRESS = gql`
       asset_id
       mint_number
       is_for_sale
+      has_sale_offers
       collection_id
       transaction_status
       collection {
@@ -142,7 +145,7 @@ const GET_NFTS_FOR_SALE = gql`
       where: {
         nft: {
           collection_id: { _eq: $id }
-          is_for_sale: { _eq: true }
+          has_sale_offers: { _eq: true }
           transaction_status: { _eq: false }
           owner: { _eq: $address }
         }
@@ -156,6 +159,7 @@ const GET_NFTS_FOR_SALE = gql`
       nft {
         asset_id
         is_for_sale
+        has_sale_offers
         owner
         collection_id
         mint_number
@@ -177,7 +181,7 @@ const GET_SINGLE_NFTS_FOR_SALE = gql`
         status: { _eq: "active" }
         nft: {
           collection_id: { _eq: $id }
-          is_for_sale: { _eq: true }
+          has_sale_offers: { _eq: true }
           transaction_status: { _eq: false }
           owner: { _eq: $address }
         }
@@ -188,6 +192,7 @@ const GET_SINGLE_NFTS_FOR_SALE = gql`
         asset_id
         mint_number
         is_for_sale
+        has_sale_offers
         collection_id
         owner
         template {
@@ -202,7 +207,7 @@ const GET_SINGLE_NFTS_FOR_SALE = gql`
 
 const GET_MARKETPLACE_OFFERS = gql`
   query getMarketplaceOffers(
-    $is_for_sale: Boolean_comparison_exp
+    $has_sale_offers: Boolean_comparison_exp
     $price: [nft_sale_offer_bool_exp!]
     $collections: [nft_bool_exp!]
     $properties: [nft_template_bool_exp!]
@@ -216,7 +221,7 @@ const GET_MARKETPLACE_OFFERS = gql`
         nft: {
           _not: { owner: { _eq: $marketPlaceAddress } }
           _or: $collections
-          is_for_sale: $is_for_sale
+          has_sale_offers: $has_sale_offers
           template: { _and: $properties }
         }
       }
@@ -233,6 +238,7 @@ const GET_MARKETPLACE_OFFERS = gql`
         asset_id
         mint_number
         owner
+        has_sale_offers
         is_for_sale
         collection_id
         template {
@@ -245,7 +251,7 @@ const GET_MARKETPLACE_OFFERS = gql`
 
 const GET_MARKETPLACE_NFTS_COUNT = gql`
   query getMarketplaceNFTsCount(
-    $is_for_sale: Boolean_comparison_exp
+    $has_sale_offers: Boolean_comparison_exp
     $price: [nft_sale_offer_bool_exp!]
     $collections: [nft_bool_exp!]
     $properties: [nft_template_bool_exp!]
@@ -257,7 +263,7 @@ const GET_MARKETPLACE_NFTS_COUNT = gql`
         nft: {
           _not: { owner: { _eq: $marketPlaceAddress } }
           _or: $collections
-          is_for_sale: $is_for_sale
+          has_sale_offers: $has_sale_offers
           template: { _and: $properties }
         }
       }

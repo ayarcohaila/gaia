@@ -73,6 +73,7 @@ const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
       descriptionSx={{ maxWidth: '250px', mt: '12px', textAlign: 'center' }}
       height="374px"
       onClose={handleClose}
+      disableCloseButton={loadingCancel}
       title={title}
       titleSx={{ mt: isExtraSmallDevice ? '120px' : 15 }}
       {...props}>

@@ -58,7 +58,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
 
     return (
       <CardActions sx={{ justifyContent: 'center' }}>
-        {data?.is_for_sale && data?.sale_offers.some(item => item.status === 'active') ? (
+        {data?.has_sale_offers && data?.sale_offers.some(item => item.status === 'active') ? (
           <Styled.CancelButton
             disabled={loading}
             variant="text"
@@ -181,7 +181,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
       )}
       <SellNftModal
         asset={asset}
-        hasPostedForSale={data?.is_for_sale}
+        hasPostedForSale={data?.has_sale_offers}
         open={isSellNftModalOpen}
         onClose={toggleSellNftModal}
         setLoading={setLoading}

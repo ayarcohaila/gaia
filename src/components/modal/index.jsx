@@ -153,7 +153,11 @@ const Modal = ({
   }
 
   return (
-    <MuiModal BackdropProps={MODAL_BACKDROP_PROPS} open={open} onClose={onClose} {...props}>
+    <MuiModal
+      BackdropProps={MODAL_BACKDROP_PROPS}
+      open={open}
+      onClose={disableCloseButton ? null : onClose}
+      {...props}>
       <Fade in={open} timeout={{ enter: 1000, exit: 750 }}>
         {renderContent()}
       </Fade>

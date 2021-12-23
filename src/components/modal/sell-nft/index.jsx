@@ -89,6 +89,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
       descriptionSx={{ textAlign: 'center' }}
       onClose={handleClose}
       title={title}
+      disableCloseButton={loading}
       titleSx={{ mt: '120px' }}
       mobileHeight={isExtraSmallDevice ? '70vh' : '60vh'}
       {...props}>

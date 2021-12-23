@@ -96,7 +96,7 @@ const BrowseCard = ({ data }) => {
           }}>
           {data?.template?.metadata?.title}
         </Styled.NFTText>
-        {data?.is_for_sale && data?.sale_offers.some(item => item.status === 'active') && (
+        {data?.has_sale_offers && data?.sale_offers.some(item => item.status === 'active') && (
           <Styled.NFTPrice>
             ${' '}
             {formatCurrencyValue(
