@@ -10,8 +10,9 @@ import {
   COLLECTION_STATUS
 } from '../../../../collections_setup';
 import { ATTRIBUTES_ORDER, BALLERZ_COMPUTED_PROPERTIES } from '~/utils/constants';
+import listNFTOffers from '~/utils/fetchNFTOffers';
 
-const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps }) => {
+const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps, hasMultipleOffers }) => {
   const {
     palette: { grey }
   } = useTheme();
@@ -28,6 +29,7 @@ const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps }) => {
           nft={nft}
           attributesOrder={attributesOrder}
           ballerzComputedProps={ballerzComputedProps}
+          hasMultipleOffers={hasMultipleOffers}
         />
       </Grid>
     </Box>
@@ -42,6 +44,8 @@ export async function getServerSideProps({ params }) {
   const attributesOrder = ATTRIBUTES_ORDER;
   const ballerzComputedProps = BALLERZ_COMPUTED_PROPERTIES;
 
+  let hasMultipleOffers = false;
+
   try {
     if (collection_name === COLLECTIONS_NAME.BRYSON) {
       const { nft } = await gqlClient.request(GET_NFT_BY_MINT_NUMBER, {
@@ -53,8 +57,17 @@ export async function getServerSideProps({ params }) {
       if (!nft?.length || !(brysonConfig.status === COLLECTION_STATUS.SALE)) {
         return { notFound: true };
       }
+
+      const brysonOwner = nft[0]?.owner;
+      try {
+        const brysonOffers = await listNFTOffers(brysonOwner, nft[0]?.asset_id.toString());
+        hasMultipleOffers = brysonOffers.length > 1;
+      } catch (err) {
+        hasMultipleOffers = false;
+      }
+
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps }
+        props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
       };
     }
 
@@ -65,11 +78,21 @@ export async function getServerSideProps({ params }) {
           asset_id: { _eq: nft_id }
         }
       });
+
       if (!nft?.length || !(shareefConfig.status === COLLECTION_STATUS.SALE)) {
         return { notFound: true };
       }
+
+      const shareefOwner = nft[0]?.owner;
+      try {
+        const shareefOffers = await listNFTOffers(shareefOwner, nft[0]?.asset_id.toString());
+        hasMultipleOffers = shareefOffers.length > 1;
+      } catch (err) {
+        hasMultipleOffers = false;
+      }
+
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps }
+        props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
       };
     }
 
@@ -81,8 +104,17 @@ export async function getServerSideProps({ params }) {
     if (!nft?.length) {
       return { notFound: true };
     }
+
+    const owner = nft[0]?.owner;
+    try {
+      const offers = await listNFTOffers(owner, nft[0]?.asset_id.toString());
+      hasMultipleOffers = offers?.length > 1;
+    } catch (err) {
+      hasMultipleOffers = false;
+    }
+
     return {
-      props: { nft: nft[0], attributesOrder, ballerzComputedProps }
+      props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
     };
   } catch (error) {
     return { notFound: true };

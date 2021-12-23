@@ -81,6 +81,28 @@ export const ActionButtons = styled(Button, {
   }
 }));
 
+export const MultipleListing = styled(Button)(({ theme: { palette } }) => ({
+  width: '200px',
+  height: '48px',
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  boxSizing: 'border-box',
+  backgroundColor: palette.white.main,
+  border: `1px solid ${palette.error.main}`,
+  color: palette.error.main,
+  fontFamily: 'unset',
+
+  ':hover': {
+    backgroundColor: palette.error.main,
+    border: `1px solid ${palette.error.main}`,
+    color: palette.white.main
+  },
+
+  ':disabled': {
+    border: 'none'
+  }
+}));
+
 export const TransferButton = styled(MuiButton)(({ theme: { palette } }) => ({
   width: 145,
   height: 50,

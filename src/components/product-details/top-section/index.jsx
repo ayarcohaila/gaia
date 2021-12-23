@@ -23,10 +23,11 @@ import {
 import { Loader } from '~/base';
 
 import { loadTransaction } from '~/utils/transactionsLoader';
+import { cancelSale } from '~/flow/cancelSale';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 import { hasSell, hasTransfer } from '~/config/config';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-import { BUY_TX } from '~/constant';
+import { BUY_TX, CANCEL_SALE_TX } from '~/constant';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from './styles';
@@ -35,7 +36,12 @@ import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
-const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }) => {
+const ProductDetailsTopSection = ({
+  nft,
+  ballerzComputedProps,
+  attributesOrder,
+  hasMultipleOffers
+}) => {
   const asset = {
     ...nft,
     img: formatIpfsImg(nft?.template?.metadata?.img)
@@ -63,6 +69,7 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [transaction, setTransaction] = useState(null);
   const [loadingSell, setLoadingSell] = useState(false);
+  const [loadingCancel, setLoadingCancel] = useState(false);
 
   const isOwner = useMemo(() => nft?.owner === user?.addr, [nft?.owner, user?.addr]);
 
@@ -78,6 +85,22 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
   useEffect(() => {
     handleLoadTransaction();
   }, [handleLoadTransaction]);
+
+  const handleCancelListing = async event => {
+    event.stopPropagation();
+    try {
+      setLoadingCancel(true);
+      const transaction = await loadTransaction(CANCEL_SALE_TX);
+      const txResult = await cancelSale(transaction.transactionScript, asset?.asset_id);
+      if (txResult) {
+        setLoadingCancel(false);
+        push(asPath);
+      }
+    } catch (err) {
+      setLoadingCancel(false);
+      console.error(err);
+    }
+  };
 
   const handlePurchaseClick = useCallback(
     async event => {
@@ -283,7 +306,21 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
                 justifyContent={isMediumDevice && 'center'}
                 alignItems="center">
                 {renderActions}
+                {isOwner && hasMultipleOffers && (
+                  <Styled.MultipleListing onClick={handleCancelListing} disabled={loadingCancel}>
+                    {loadingCancel ? <Loader /> : 'Remove All Listings'}
+                  </Styled.MultipleListing>
+                )}
               </Grid>
+            )}
+            {isOwner && hasMultipleOffers && (
+              <Styled.Description sx={{ mt: '20px', fontSize: '12px', lineHeight: '1rem' }}>
+                <Grid component={'span'} sx={{ color: 'red' }}>
+                  Multiple Listings Detected
+                </Grid>{' '}
+                - It appears that you may of listed this NFT for sale multiple times, we strongly
+                recommend you cancel all active listings to prevent any issues
+              </Styled.Description>
             )}
             {!!isMediumDevice && (
               <Box mt={5} width="100%">
@@ -331,7 +368,12 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
 };
 
 ProductDetailsTopSection.propTypes = {
-  nft: PropTypes.object.isRequired
+  nft: PropTypes.object.isRequired,
+  hasMultipleOffers: PropTypes.bool
+};
+
+ProductDetailsTopSection.defaultProps = {
+  hasMultipleOffers: false
 };
 
 export default memo(ProductDetailsTopSection);

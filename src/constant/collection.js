@@ -24,3 +24,10 @@ export const BUY_BRYSON_TX =
   filePath = path.join(__dirname, "../flow/transactions/dapper/buy_bryson.cdc");
   module.exports = fs.readFileSync(filePath, 'utf8')
 `;
+
+export const CANCEL_SALE_TX = preval`
+const fs = require('fs')
+const path = require('path'),
+filePath = path.join(__dirname, "../flow/transactions/cancel_all_sales.cdc");
+module.exports = fs.readFileSync(filePath, 'utf8')
+`;
