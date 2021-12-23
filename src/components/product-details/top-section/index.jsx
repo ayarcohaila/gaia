@@ -87,9 +87,10 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
         toggleProcessingModal();
         const txResult = await buy(
           transaction.transactionScript,
-          getLastByUpdateAt(nft.sale_offers)?.listing_resource_id,
+          getLastByUpdateAt(nft?.sale_offers.filter(item => item.status === 'active'))
+            ?.listing_resource_id,
           nft?.owner,
-          getLastByUpdateAt(nft.sale_offers)?.price,
+          getLastByUpdateAt(nft?.sale_offers.filter(item => item.status === 'active'))?.price,
           user?.addr
         );
         if (txResult) {
@@ -192,7 +193,9 @@ const ProductDetailsTopSection = ({ nft, ballerzComputedProps, attributesOrder }
       case loadingPurchase:
         return <Loader />;
       case isForSale && isOwner && nft?.sale_offers.some(item => item.status === 'active'): {
-        const price = formatCurrencyValue(getLastByUpdateAt(nft?.sale_offers)?.price);
+        const price = formatCurrencyValue(
+          getLastByUpdateAt(nft?.sale_offers.filter(item => item.status === 'active'))?.price
+        );
         return (
           <Styled.ActionButtons
             sx={{ width: 250 }}
