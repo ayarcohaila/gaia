@@ -22,7 +22,7 @@ const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
   const cancelSaleTx = preval`
   const fs = require('fs')
   const path = require('path'),
-  filePath = path.join(__dirname, "../../../flow/transactions/cancel_sale.cdc");
+  filePath = path.join(__dirname, "../../../flow/transactions/cancel_all_sales.cdc");
   module.exports = fs.readFileSync(filePath, 'utf8')
   `;
 
@@ -31,25 +31,20 @@ const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
     if (asset?.sale_offers && asset?.sale_offers.length > 0) {
       const activeOffers = asset.sale_offers.filter(offer => offer.status !== 'finished');
       if (activeOffers.length > 0) {
-        for (let offer of activeOffers) {
-          try {
-            setLoadingCancel(true);
-            const transaction = await loadTransaction(cancelSaleTx);
-            const txResult = await cancelSale(
-              transaction.transactionScript,
-              offer.listing_resource_id
-            );
-            if (txResult) {
-              setTransactionId(txResult);
-              setLoadingCancel(false);
-              onConfirm();
-              setHasListingSuccessfullyCancelled(true);
-            }
-          } catch (err) {
+        try {
+          setLoadingCancel(true);
+          const transaction = await loadTransaction(cancelSaleTx);
+          const txResult = await cancelSale(transaction.transactionScript, asset?.asset_id);
+          if (txResult) {
+            setTransactionId(txResult);
             setLoadingCancel(false);
-            toast.error('Transaction failed');
-            console.error(err);
+            onConfirm();
+            setHasListingSuccessfullyCancelled(true);
           }
+        } catch (err) {
+          setLoadingCancel(false);
+          toast.error('Transaction failed');
+          console.error(err);
         }
       } else {
         toast.error('No active offers');

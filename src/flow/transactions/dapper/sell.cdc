@@ -29,6 +29,15 @@ transaction(saleItemID: UInt64, saleItemPrice: UFix64, setID: UInt64) {
         assert(self.GaiaProvider.borrow() != nil, message: "Missing or mis-typed Gaia.Collection provider")
         self.storefront = acct.borrow<&NFTStorefront.Storefront>(from: NFTStorefront.StorefrontStoragePath)
             ?? panic("Missing or mis-typed NFTStorefront Storefront")
+        let existingOffers = self.storefront.getListingIDs()
+        if existingOffers.length > 0 {
+            for listingResourceID in existingOffers {
+                let listing: &NFTStorefront.Listing{NFTStorefront.ListingPublic}? = self.storefront.borrowListing(listingResourceID: listingResourceID)
+                if listing != nil && listing!.getDetails().nftID == saleItemID {
+                    self.storefront.removeListing(listingResourceID: listingResourceID)
+                }
+            }
+        }
     }
     execute {
         let marketCutAmount = saleItemPrice * self.marketFee
