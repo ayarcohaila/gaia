@@ -21,7 +21,7 @@ export async function sellItem(tx, saleItemID, saleItemPrice, collectionSetId) {
         fcl.proposer(fcl.authz),
         fcl.payer(fcl.authz),
         fcl.authorizations([fcl.authz]),
-        fcl.limit(1000)
+        fcl.limit(2000)
       ])
       .then(async a => {
         let response = await fcl.decode(a);

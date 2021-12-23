@@ -9,7 +9,7 @@ export async function cancelSale(tx, listingResourceID) {
         fcl.proposer(fcl.authz),
         fcl.authorizations([fcl.authz]),
         fcl.args([fcl.arg(Number(listingResourceID), t.UInt64)]),
-        fcl.limit(100)
+        fcl.limit(2000)
       ])
       .then(fcl.decode);
 
