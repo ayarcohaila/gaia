@@ -22,7 +22,7 @@ const CancelListingModal = ({ asset, onClose, onConfirm, ...props }) => {
   const cancelSaleTx = preval`
   const fs = require('fs')
   const path = require('path'),
-  filePath = path.join(__dirname, "../../../flow/transactions/cancel_sale.cdc");
+  filePath = path.join(__dirname, "../../../flow/transactions/cancel_all_sales.cdc");
   module.exports = fs.readFileSync(filePath, 'utf8')
   `;
 
