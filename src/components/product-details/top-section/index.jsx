@@ -318,7 +318,7 @@ const ProductDetailsTopSection = ({
                 <Grid component={'span'} sx={{ color: 'red' }}>
                   Multiple Listings Detected
                 </Grid>{' '}
-                - It appears that you may of listed this NFT for sale multiple times, we strongly
+                - It appears that you may have listed this NFT for sale multiple times, we strongly
                 recommend you cancel all active listings to prevent any issues
               </Styled.Description>
             )}
