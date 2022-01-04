@@ -118,6 +118,9 @@ const Footer = () => {
             <NextLink scroll href="/privacy-policy">
               <Styled.CustomLink underline="none">Privacy Policy</Styled.CustomLink>
             </NextLink>
+            <NextLink scroll href="/copyright-policy">
+              <Styled.CustomLink underline="none">Copyright Policy</Styled.CustomLink>
+            </NextLink>
           </Box>
         </Grid>
       </Grid>
