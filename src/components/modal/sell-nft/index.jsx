@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { CircularProgress, Grid } from '@mui/material';
@@ -73,10 +73,11 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
     setHasNftSuccessfullyPostedForSale(hasPostedForSale);
   }, [hasPostedForSale]);
 
-  const handleValue = targetValue => {
-    targetValue < 1 && targetValue !== '' ? setValueError(true) : setValueError(false);
-    setValue(targetValue);
-  };
+  const handleValue = useCallback(({ target: { value } }) => {
+    const parsedValue = value.replace(/[^0-9]/g, '');
+    setValue(parsedValue);
+    Number(parsedValue) < 1 && parsedValue !== '' ? setValueError(true) : setValueError(false);
+  }, []);
 
   const handleClose = () => {
     route.push(route.asPath);
@@ -104,8 +105,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
               </Styled.CustomButton>
             }
             placeholder="USD Sale Price"
-            onChange={({ target: { value: targetValue } }) => handleValue(targetValue)}
-            type="number"
+            onChange={handleValue}
             value={value}
             error={valueError}
           />
