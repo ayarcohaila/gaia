@@ -75,5 +75,5 @@ export const InputError = styled(FormHelperText)(({ theme: { palette } }) => ({
   color: palette.grey[600],
   fontWeight: '400',
   letterSpacing: 0,
-  fontSize: '16px'
+  fontSize: '14px'
 }));

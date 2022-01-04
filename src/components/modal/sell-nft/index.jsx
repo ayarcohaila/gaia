@@ -22,6 +22,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
   const [hasNftSuccessfullyPostedForSale, setHasNftSuccessfullyPostedForSale] =
     useState(hasPostedForSale);
   const [valueError, setValueError] = useState(false);
+  const [errorText, setErrorText] = useState('');
   const buttonDisable = useMemo(
     () => loading || valueError || !value,
     [loading, valueError, value]
@@ -76,7 +77,16 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
   const handleValue = useCallback(({ target: { value } }) => {
     const parsedValue = value.replace(/[^0-9]/g, '');
     setValue(parsedValue);
-    Number(parsedValue) < 1 && parsedValue !== '' ? setValueError(true) : setValueError(false);
+    if (Number(parsedValue) < 1 && parsedValue !== '') {
+      setValueError(true);
+      setErrorText('Value must be $1 or greater.');
+    } else if (Number(parsedValue) > 2000000) {
+      setValueError(true);
+      setErrorText(`Value must be $2,000,000 or lower.`);
+    } else {
+      setValueError(false);
+      setErrorText('');
+    }
   }, []);
 
   const handleClose = () => {
@@ -109,9 +119,7 @@ const SellNftModal = ({ hasPostedForSale, onClose, onConfirm, setLoading, loadin
             value={value}
             error={valueError}
           />
-          {valueError && (
-            <Styled.InputError error>Value must be $1.00 or greater</Styled.InputError>
-          )}
+          {valueError && <Styled.InputError error>{errorText}</Styled.InputError>}
           <Styled.FeesContent valueError={valueError}>
             <Styled.FeeText>Marketplace Fee</Styled.FeeText>
             <Styled.FeeText feeValue>5%</Styled.FeeText>
