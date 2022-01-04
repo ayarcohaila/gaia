@@ -7,9 +7,11 @@ export default function useAuth() {
   const [user, setUser] = useState(null);
   const [checkedAuth, setCheckedAuth] = useState(false);
   const [hasSetup, setHasSetup] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(false);
 
   const updateUser = () =>
     fcl.currentUser().subscribe(async u => {
+      setIsAuthLoading(true);
       if (u?.addr) {
         let nftSetup = await checkSetup(u?.addr);
         let storefrontSetup = await checkStorefrontSetup(u?.addr);
@@ -22,6 +24,7 @@ export default function useAuth() {
       }
 
       setCheckedAuth(true);
+      setIsAuthLoading(false);
     });
 
   useEffect(() => {
@@ -36,6 +39,7 @@ export default function useAuth() {
     setHasSetup,
     login: fcl.logIn,
     logout: fcl.unauthenticate,
-    signup: fcl.signUp
+    signup: fcl.signUp,
+    isAuthLoading
   };
 }

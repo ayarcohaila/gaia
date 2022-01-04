@@ -57,7 +57,7 @@ const ProductDetailsTopSection = ({
   } = useRouter();
   const { metadata } = nft.template;
   const { config } = useCollectionConfig();
-  const { user, login } = useAuth();
+  const { user, login, isAuthLoading } = useAuth();
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
   const [purchaseTxId, setPurchaseTxId] = useState(null);
   const [loadingPurchase, setLoadingPurchase] = useState(false);
@@ -305,7 +305,7 @@ const ProductDetailsTopSection = ({
                 sx={{ mt: '42px', gap: isSmallDevice ? '8px' : '16px' }}
                 justifyContent={isMediumDevice && 'center'}
                 alignItems="center">
-                {renderActions}
+                {!isAuthLoading && renderActions}
                 {isOwner && hasMultipleOffers && (
                   <Styled.MultipleListing onClick={handleCancelListing} disabled={loadingCancel}>
                     {loadingCancel ? <Loader /> : 'Remove All Listings'}
