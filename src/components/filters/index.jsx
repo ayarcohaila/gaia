@@ -100,9 +100,9 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
         Object.entries(value)?.forEach(([propKey, propValue]) => {
           if (propValue) {
             if (key === 'accessories') {
-              propertiesFilters.push({ raw_metadata: { _like: `%${propKey}%` } });
+              propertiesFilters.push({ [key]: { _like: `%${propKey}%` } });
             } else {
-              propertiesFilters.push({ metadata: { _contains: { [key]: propKey } } });
+              propertiesFilters.push({ [key]: { _eq: propKey } });
             }
           }
         });
@@ -138,7 +138,6 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       offset: appData?.page * DEFAULT_LIST_SIZE,
       orderBy: appData?.marketplaceSort
     };
-
     return filters;
   }, [
     collections,
