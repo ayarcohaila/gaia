@@ -6,7 +6,7 @@
 //   SportsBasketball as SportsIcon,
 //   Theaters as MoviesIcon
 // } from '@mui/icons-material';
-import { BALLERZ_PROPERTIES } from '~/utils/constants';
+import { BALLERZ_PROPERTIES } from '~/components/filters/constants';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 export const FILTERS_TYPES = {

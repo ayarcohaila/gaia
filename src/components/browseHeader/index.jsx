@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 
 import { Breadcrumbs } from '~/components';
-import { useBreakpoints, useToggle } from '~/hooks';
+import { useBreakpoints, useToggle, useCollectionConfig } from '~/hooks';
 import { BurstIcon } from '~/base';
 import { Dropdown } from '~/base';
 import { ORDER_MENU_IDS } from '~/components/collection-filters/constants';
 import { useAppContext } from '~/context';
-
 import * as Styled from './styles';
 
-const Header = ({ handleShowFilters, showFilter, totalShowing, available }) => {
+const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBorder }) => {
   const { isMediumDevice } = useBreakpoints();
   const orderButtonRef = useRef(null);
   const [isMenuOrderOpen, toggleMenuOrder] = useToggle();
   const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWEST_PRICE);
   const { handleAppData } = useAppContext();
+  const { config } = useCollectionConfig();
 
   const handleClickOption = ({
     target: {
@@ -46,7 +46,7 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available }) => {
         href: '/'
       },
       {
-        label: 'Browse NFTs'
+        label: config?.id ? config.pageTitle : 'Browse NFTs'
       }
     ],
     []
@@ -61,7 +61,7 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available }) => {
   }, []);
 
   return (
-    <Styled.Container withBorder>
+    <Styled.Container withBorder={withBorder}>
       <Styled.MainConteiner>
         {!isMediumDevice && <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} />}
 
@@ -109,12 +109,14 @@ Header.propTypes = {
   handleShowFilters: PropTypes.func.isRequired,
   showFilter: PropTypes.bool.isRequired,
   orderByUpdate: PropTypes.bool,
+  withBorder: PropTypes.bool,
   available: PropTypes.number
 };
 
 Header.defaultProps = {
   totalShowing: 0,
   available: 0,
+  withBorder: true,
   orderByUpdate: null
 };
 

@@ -8,22 +8,34 @@ import PropTypes from 'prop-types';
 import { Button } from '~/base';
 import { useAppContext } from '~/context';
 import CheckboxCard from './checkbox-card';
-import { useBreakpoints, useToggle } from '~/hooks';
+import { useBreakpoints, useToggle, useCollectionConfig } from '~/hooks';
 import { Accordion } from '..';
 import InputRangeGroup from './input-range-group';
 
-import { ACTION_TYPE, reducer, initialState } from './reducer';
+import { ACTION_TYPE, reducer, initialState, FILTERS_CONSTANTS } from './reducer';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from './styles';
 
 const DEFAULT_LIST_SIZE = 40;
+const VIEW_ALL = 'viewAll';
+const GET_URL = '/api/mrketplace';
 
 const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
+  const { config } = useCollectionConfig();
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, {
+    ...initialState,
+    collections: config?.id
+      ? [
+          filters
+            ?.find(item => item.id === FILTERS_CONSTANTS.COLLECTIONS)
+            .options.find(item => item.id === config.id)
+        ]
+      : []
+  });
   const { appliedFiltersCount, status, minPrice, maxPrice, collections, properties } = state;
   const { appData, handleAppData } = useAppContext();
 
@@ -48,11 +60,11 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
   const handleSingleCheck = useCallback(
     (filter, value) => {
-      if (filter === 'status' && value === status) {
+      if (filter === FILTERS_CONSTANTS.STATUS && value === status) {
         return '';
       }
 
-      if (filter === 'status' && value === 'viewAll') {
+      if (filter === FILTERS_CONSTANTS.STATUS && value === VIEW_ALL) {
         dispatch({
           type: ACTION_TYPE.RESET_PRICE
         });
@@ -71,7 +83,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
   const getNfts = debounce(async filters => {
     handleAppData({ marketplaceLoading: true });
-    const result = await axios.post(`/api/marketplace`, {
+    const result = await axios.post(GET_URL, {
       ...filters
     });
     const ids = [];
@@ -166,7 +178,10 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
             ? filterArray.filter(item => item.id !== option?.id)
             : [...filterArray, option]
         );
-        if (filterName === 'collections' && option?.id === COLLECTION_LIST_CONFIG?.ballerz?.id) {
+        if (
+          filterName === FILTERS_CONSTANTS.COLLECTIONS &&
+          option?.id === COLLECTION_LIST_CONFIG?.ballerz?.id
+        ) {
           setFilter('properties', []);
         }
         return;
@@ -208,7 +223,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
               <InputRangeGroup
                 max={maxPrice}
                 min={minPrice}
-                disabled={status === 'viewAll'}
+                disabled={status === VIEW_ALL}
                 maxPlaceholder="(USD) Max"
                 minPlaceholder="(USD) Min"
                 setMax={value => setFilter('maxPrice', value)}
@@ -228,6 +243,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
               />
             </Box>
           ));
+
         case filtersTypes.MULTI:
           return options.map(option => (
             <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
@@ -250,15 +266,20 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     () => (
       <Styled.Content height="fit-content" width={isMediumDevice ? '80%' : 'auto'}>
         <Grid p="20px 22px 20px 12px" sx={{ boxSizing: 'border-box' }}>
-          {filters.map((filter, index) => (
-            <Accordion
-              key={`$${filter?.id}-${index}`}
-              contentSx={{ p: 0 }}
-              hasDivider={!!index}
-              title={filter?.label}>
-              {renderFilterContent(filter)}
-            </Accordion>
-          ))}
+          {filters.map((filter, index) => {
+            if (config?.id && filter.id === FILTERS_CONSTANTS.COLLECTIONS) {
+              return '';
+            }
+            return (
+              <Accordion
+                key={`$${filter?.id}-${index}`}
+                contentSx={{ p: 0 }}
+                hasDivider={!!index}
+                title={filter?.label}>
+                {renderFilterContent(filter)}
+              </Accordion>
+            );
+          })}
           {collections.map(collection => {
             const currentCollection = filters
               .find(item => item.id === filtersIds.COLLECTIONS)
@@ -298,15 +319,20 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   const renderMobileContent = useMemo(
     () => (
       <Styled.CustomDrawerContent>
-        {filters.map((filter, index) => (
-          <Box key={filter.id} width="100%">
-            {!!index && <Divider sx={{ mt: 4 }} />}
-            <Typography my={4} variant="h4" textAlign="center">
-              {filter?.label}
-            </Typography>
-            {renderFilterContent(filter)}
-          </Box>
-        ))}
+        {filters.map((filter, index) => {
+          if (config?.id && filter.id === FILTERS_CONSTANTS.COLLECTIONS) {
+            return '';
+          }
+          return (
+            <Box key={filter.id} width="100%">
+              {!!index && <Divider sx={{ mt: 4 }} />}
+              <Typography my={4} variant="h4" textAlign="center">
+                {filter?.label}
+              </Typography>
+              {renderFilterContent(filter)}
+            </Box>
+          );
+        })}
         {collections.map(collection => {
           const currentCollection = filters
             .find(item => item.id === filtersIds.COLLECTIONS)
@@ -353,10 +379,8 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
         <Styled.FloatButton endIcon={<FiltersIcon />} onClick={toggleMobileModal}>
           Filters {!!appliedFiltersCount && `(${appliedFiltersCount})`}
         </Styled.FloatButton>
-      ) : showFilter ? (
-        renderContent
       ) : (
-        <></>
+        showFilter && renderContent
       )}
       {isMediumDevice && (
         <Styled.CustomDrawer

@@ -1,4 +1,4 @@
-const FILTERS_CONSTANTS = {
+export const FILTERS_CONSTANTS = {
   MIN_PRICE: 'minPrice',
   MAX_PRICE: 'maxPrice',
   COLLECTIONS: 'collections',

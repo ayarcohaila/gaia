@@ -42,3 +42,4 @@ export { default as BrowseCard } from './browseCard';
 export { default as ShareefDescription } from './collection/shareef/description';
 export { default as ShareefContent } from './collection/shareef/content';
 export { default as SuccessPurchaseNFTModal } from './modal/success-purchase';
+export { default as Marketplace } from './marketplace';

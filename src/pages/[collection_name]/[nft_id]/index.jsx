@@ -9,7 +9,7 @@ import {
   COLLECTIONS_NAME,
   COLLECTION_STATUS
 } from '../../../../collections_setup';
-import { ATTRIBUTES_ORDER, BALLERZ_COMPUTED_PROPERTIES } from '~/utils/constants';
+import { ATTRIBUTES_ORDER, BALLERZ_COMPUTED_PROPERTIES } from '~/components/filters/constants';
 import listNFTOffers from '~/utils/fetchNFTOffers';
 
 const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps, hasMultipleOffers }) => {

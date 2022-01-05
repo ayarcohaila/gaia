@@ -28,6 +28,9 @@ export const COLLECTION_LIST_CONFIG = {
     buyLimit: 7,
     avatar: '/collections/ballerz/avatar.jpg',
     banner: '/collections/ballerz/banner.png',
+    pageTitle: 'BALLERZ',
+    mainColor: '#270b5a',
+    secondaryColor: '#4814a6',
     collectionSize: 10000
   },
   [COLLECTIONS_NAME.BRYSON]: {
@@ -40,6 +43,9 @@ export const COLLECTION_LIST_CONFIG = {
     buyLimit: 0,
     avatar: '/collections/bryson/avatar.webp',
     banner: '/collections/bryson/video-poster.webp',
+    pageTitle: 'Bryson DeChambeau',
+    mainColor: '#517fb1',
+    secondaryColor: '#517fb1',
     collectionSize: 5000
   },
   [COLLECTIONS_NAME.SHAREEF]: {
@@ -51,6 +57,9 @@ export const COLLECTION_LIST_CONFIG = {
     buyLimit: 0,
     avatar: '/collections/shareef/avatar.jpeg',
     banner: '/collections/shareef/banner.jpeg',
+    pageTitle: 'Shareef O’Neal NFTs',
+    mainColor: '#4b1f87',
+    secondaryColor: '#4b1f87',
     collectionSize: 1023
   }
 };
