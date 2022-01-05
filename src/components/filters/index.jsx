@@ -19,7 +19,7 @@ import * as Styled from './styles';
 
 const DEFAULT_LIST_SIZE = 40;
 const VIEW_ALL = 'viewAll';
-const GET_URL = '/api/mrketplace';
+const GET_URL = '/api/marketplace';
 
 const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
