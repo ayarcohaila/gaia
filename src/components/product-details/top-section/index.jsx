@@ -71,6 +71,8 @@ const ProductDetailsTopSection = ({
   const [loadingSell, setLoadingSell] = useState(false);
   const [loadingCancel, setLoadingCancel] = useState(false);
 
+  const LIMIT_PURCHASE = 2000000;
+
   const isOwner = useMemo(() => nft?.owner === user?.addr, [nft?.owner, user?.addr]);
 
   const isForSale = useMemo(() => nft?.has_sale_offers, [nft?.has_sale_offers]);
@@ -212,19 +214,20 @@ const ProductDetailsTopSection = ({
   );
 
   const renderActions = useMemo(() => {
+    const hasOffersActive = nft?.sale_offers.some(item => item.status === 'active');
+    const price = getLastByUpdateAt(nft?.sale_offers)?.price;
+    const formattedPrice = formatCurrencyValue(price);
+
     switch (true) {
       case loadingPurchase:
         return <Loader />;
-      case isForSale && isOwner && nft?.sale_offers.some(item => item.status === 'active'): {
-        const price = formatCurrencyValue(
-          getLastByUpdateAt(nft?.sale_offers.filter(item => item.status === 'active'))?.price
-        );
+      case isForSale && isOwner && hasOffersActive: {
         return (
           <Styled.ActionButtons
             sx={{ width: 250 }}
             removeListing
             onClick={toggleCancelListingModal}>
-            Remove $ {price} Listing
+            Remove $ {formattedPrice} Listing
           </Styled.ActionButtons>
         );
       }
@@ -241,16 +244,13 @@ const ProductDetailsTopSection = ({
             )}
           </>
         );
-      case isForSale && !!transaction && nft?.sale_offers.some(item => item.status === 'active'): {
-        const price = formatCurrencyValue(
-          getLastByUpdateAt(nft?.sale_offers.filter(item => item.status === 'active'))?.price
-        );
+      case isForSale && !!transaction && hasOffersActive && Number(price) <= LIMIT_PURCHASE: {
         return (
           <Styled.ActionButtons
             disabled={loadingPurchase}
             onClick={user?.addr ? handlePurchaseClick : login}
             sx={{ width: '180px' }}>
-            {`Purchase \n$${price}`}
+            {`Purchase \n$${formattedPrice}`}
           </Styled.ActionButtons>
         );
       }
