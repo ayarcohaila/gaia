@@ -77,3 +77,14 @@ export const InputError = styled(FormHelperText)(({ theme: { palette } }) => ({
   letterSpacing: 0,
   fontSize: '14px'
 }));
+
+export const FloorPriceButton = styled(Button)(({ startOver, theme: { palette } }) => ({
+  height: '40px',
+  padding: '12px 16px',
+  width: '130px',
+  marginLeft: startOver && '10px',
+  backgroundColor: startOver && palette.error.main,
+  '&:hover': {
+    backgroundColor: startOver && palette.error.dark
+  }
+}));

@@ -186,6 +186,7 @@ const ProfileCard = ({ data, isFromBrowser }) => {
         onClose={toggleSellNftModal}
         setLoading={setLoading}
         loading={loading}
+        collectionId={data?.collection_id}
       />
       <TransferNftModal
         asset={asset}

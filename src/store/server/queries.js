@@ -280,6 +280,24 @@ const GET_MARKETPLACE_NFTS_COUNT = gql`
   }
 `;
 
+const GET_COLLECTION_FLOOR_VALUE_BY_ID = gql`
+  query getCollectionFloorValueById($collection_id: uuid!, $marketPlaceAddress: String) {
+    nft_sale_offer(
+      limit: 1
+      where: {
+        nft: {
+          collection_id: { _eq: $collection_id }
+          _not: { owner: { _eq: $marketPlaceAddress } }
+        }
+        status: { _eq: "active" }
+      }
+      order_by: { parsed_price: asc }
+    ) {
+      parsed_price
+    }
+  }
+`;
+
 export {
   GET_NFTS,
   GET_NFTS_IDS,
@@ -291,5 +309,6 @@ export {
   GET_NFTS_FOR_SALE,
   GET_SINGLE_NFTS_FOR_SALE,
   GET_MARKETPLACE_NFTS_COUNT,
-  GET_MARKETPLACE_OFFERS
+  GET_MARKETPLACE_OFFERS,
+  GET_COLLECTION_FLOOR_VALUE_BY_ID
 };

@@ -362,6 +362,7 @@ const ProductDetailsTopSection = ({
         onClose={handleCloseSellModal}
         setLoading={setLoadingSell}
         loading={loadingSell}
+        collectionId={nft?.collection_id}
       />
     </>
   );
