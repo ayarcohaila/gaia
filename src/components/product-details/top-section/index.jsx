@@ -250,7 +250,7 @@ const ProductDetailsTopSection = ({
             disabled={loadingPurchase}
             onClick={user?.addr ? handlePurchaseClick : login}
             sx={{ width: '180px' }}>
-            {`Purchase • $ ${price}`}
+            {`Purchase \n$${price}`}
           </Styled.ActionButtons>
         );
       }
