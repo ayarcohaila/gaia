@@ -71,7 +71,7 @@ const Header = () => {
             <NextImage
               width={isMediumDevice ? 75 : 102.4}
               height={isMediumDevice ? 29.3 : 40}
-              src="/static/img/gaia_logo-black.png"
+              src="/static/img/gaia_logo-black.svg"
             />
           </Styled.LogoImage>
         </NextLink>
@@ -140,7 +140,7 @@ const Header = () => {
           justifyContent="center"
           direction="column">
           <Button variant="text" disableRipple onClick={navigateToHome}>
-            <NextImage width={102.4} height={40} src="/static/img/gaia_logo-black.png" />
+            <NextImage width={102.4} height={40} src="/static/img/gaia_logo-black.svg" />
           </Button>
           {user?.loggedIn ? (
             <>

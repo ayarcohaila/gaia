@@ -67,7 +67,7 @@ const Footer = () => {
             <NextImage
               width={isMediumDevice ? 75 : 102.4}
               height={isMediumDevice ? 29.3 : 40}
-              src="/static/img/gaia_logo-white.png"
+              src="/static/img/gaia_logo-white.svg"
             />
             <Grid alignItems="center" container mt="24px">
               <Styled.CustomLink href="mailto:info@nftgenius.com" target="_blank" underline="none">

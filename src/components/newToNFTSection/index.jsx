@@ -10,7 +10,7 @@ const NewNFTs = [
     title: 'Shareef O’Neal Genesis Collection SOLD OUT!',
     description:
       'The first of a series of drops highlighting his basketball career, family, and recovery from heart surgery',
-    image: 'images/newToNFT/shareef.jpg',
+    image: 'images/newToNFT/shareef.webp',
     linkProps: { href: '/browse' },
     linkText: 'Go To Marketplace',
     hasButton: hasBrowse
@@ -18,7 +18,7 @@ const NewNFTs = [
   {
     title: 'Bryson DeChambeau - Vegas, Baby!',
     description: 'Collectible NFT commemorating Las Vegas Showdown',
-    image: 'images/newToNFT/bryson_banner.jpg',
+    image: 'images/newToNFT/bryson_banner.webp',
     linkProps: { href: '/bryson' },
     linkText: 'Buy Now',
     hasButton: true
@@ -26,7 +26,7 @@ const NewNFTs = [
   {
     title: 'About The Team',
     description: 'Learn more about NFT Genius, the team behind Gaia.',
-    image: 'images/newToNFT/nftg.jpg',
+    image: 'images/newToNFT/nftg.webp',
     linkProps: { href: 'https://www.nftgenius.com/', target: '_blank' },
     linkText: 'Visit Website',
     hasButton: true

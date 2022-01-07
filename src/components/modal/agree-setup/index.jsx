@@ -75,7 +75,7 @@ const AgreeSetupModal = ({ onClose, ...props }) => {
       title={'One-Time Account Setup'}
       titleSx={{ mt: isSmallDevice ? 16 : 18 }}
       asset={{
-        img: '/collections/gaia.png'
+        img: '/collections/gaia.webp'
       }}
       {...props}
       onClose={logout}>

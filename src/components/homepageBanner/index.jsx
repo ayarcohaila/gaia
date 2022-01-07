@@ -13,7 +13,7 @@ const bannerData = {
   description: hasBrowse
     ? 'Secondary marketplace is now live! Buy and sell with other collectors.'
     : 'Secondary marketplace goes live today at 2pm PT!  Buy and sell with other collectors.',
-  background: '/collections/ballerz/banner.png'
+  background: '/collections/ballerz/banner.webp'
 };
 
 export default function HomepageBanner() {

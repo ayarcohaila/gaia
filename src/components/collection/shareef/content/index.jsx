@@ -103,7 +103,7 @@ const ShareefCollectionContent = ({ data }) => {
         <Styled.ContentSection container>
           <Styled.ContentSectionItem item xs={isMediumDevice ? 12 : 4}>
             <Image
-              src="/collections/shareef/raffle.png"
+              src="/collections/shareef/raffle.webp"
               alt="raffle"
               width="283px"
               height="283px"
