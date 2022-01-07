@@ -25,12 +25,20 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBo
   }) => {
     const currentId = Number(id);
     if (currentId === ORDER_MENU_IDS.LOWEST_PRICE) {
-      handleAppData({ marketplaceSort: { parsed_price: 'asc' }, page: 0, marketplaceNfts: [] });
+      handleAppData({
+        marketplaceSort: { last_active_price: 'asc' },
+        page: 0,
+        marketplaceNfts: []
+      });
     } else if (currentId === ORDER_MENU_IDS.HIGHEST_PRICE) {
-      handleAppData({ marketplaceSort: { parsed_price: 'desc' }, page: 0, marketplaceNfts: [] });
+      handleAppData({
+        marketplaceSort: { last_active_price: 'desc' },
+        page: 0,
+        marketplaceNfts: []
+      });
     } else {
       handleAppData({
-        marketplaceSort: { nft: { updated_at: 'desc' } },
+        marketplaceSort: { updated_at: 'desc' },
         page: 0,
         marketplaceNfts: []
       });

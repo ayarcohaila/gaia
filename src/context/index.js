@@ -7,7 +7,7 @@ const AppContextProvider = ({ children }) => {
     page: 0,
     marketplaceLoading: true,
     marketplaceNfts: [],
-    marketplaceSort: { parsed_price: 'asc' }
+    marketplaceSort: { last_active_price: 'asc' }
   });
 
   const handleAppData = useCallback(value => {

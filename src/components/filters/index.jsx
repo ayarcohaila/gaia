@@ -101,7 +101,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   }, 500);
 
   const appliedFilters = useMemo(() => {
-    let priceFilters = {};
+    let priceFilters = [];
     {
       ('active');
     }
@@ -121,17 +121,13 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       });
     });
 
-    if (status === 'buyNow') {
-      priceFilters.status = { ['_eq']: 'active' };
-    }
-
-    if (minPrice) {
-      priceFilters.parsed_price = { ...priceFilters.parsed_price, ['_gte']: Number(minPrice) };
-      priceFilters.status = { ['_eq']: 'active' };
-    }
-    if (maxPrice) {
-      priceFilters.parsed_price = { ...priceFilters.parsed_price, ['_lte']: Number(maxPrice) };
-      priceFilters.status = { ['_eq']: 'active' };
+    if (status !== 'buyNow') {
+      priceFilters = [];
+    } else {
+      priceFilters.push({ last_active_price: { ['_gte']: minPrice ? Number(minPrice) : 0 } });
+      priceFilters.push({
+        last_active_price: { ['_lte']: maxPrice ? Number(maxPrice) : 2000000 }
+      });
     }
 
     const collectionsFilter = collections?.length
