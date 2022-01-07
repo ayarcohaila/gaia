@@ -12,6 +12,7 @@ const CheckboxCard = ({
   labelProps,
   onChange,
   renderIcon,
+  amount,
   ...props
 }) => {
   const {
@@ -21,29 +22,45 @@ const CheckboxCard = ({
 
   return (
     <Styled.Container
-      bgcolor={isSelected ? primary.main : grey[200]}
+      bgcolor={isSelected ? primary.main : 'transparent'}
       container
       wrap="nowrap"
       {...containerProps}>
-      <Grid alignItems="center" container>
-        {!!renderIcon(isSelected, iconColor) && (
-          <Styled.IconContainer>{renderIcon(isSelected)}</Styled.IconContainer>
-        )}
-        <Typography
-          color={isSelected ? white.main : grey[700]}
-          fontWeight="bold"
-          ml={1.5}
-          variant="subtitle1"
-          {...labelProps}>
-          {label}
-        </Typography>
-      </Grid>
       <Styled.Checkbox
         checkedIcon={<CheckedIcon fontSize="4px" />}
         checked={isSelected}
         onChange={onChange}
         {...props}
       />
+      <Grid alignItems="center" container>
+        {!!renderIcon(isSelected, iconColor) && (
+          <Styled.IconContainer>{renderIcon(isSelected, 'red')}</Styled.IconContainer>
+        )}
+        <Grid
+          wrap="nowrap"
+          ml={1.5}
+          mr={'8px'}
+          justifyContent="space-between"
+          alignItems="center"
+          container>
+          <Typography
+            color={isSelected ? white.main : grey[700]}
+            mr={'8px'}
+            fontWeight="bold"
+            variant="subtitle1"
+            {...labelProps}>
+            {label}
+          </Typography>
+          {amount && (
+            <Typography
+              color={isSelected ? white.main : grey[700]}
+              variant="subtitle2"
+              {...labelProps}>
+              {amount}
+            </Typography>
+          )}
+        </Grid>
+      </Grid>
       <Styled.ClickableArea onClick={onChange} />
     </Styled.Container>
   );
@@ -55,13 +72,15 @@ CheckboxCard.propTypes = {
   label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   labelProps: PropTypes.object,
   onChange: PropTypes.func.isRequired,
-  renderIcon: PropTypes.func
+  renderIcon: PropTypes.func,
+  amount: PropTypes.number
 };
 
 CheckboxCard.defaultProps = {
   containerProps: {},
   labelProps: {},
-  renderIcon: () => null
+  renderIcon: () => null,
+  amount: null
 };
 
 export default memo(CheckboxCard);

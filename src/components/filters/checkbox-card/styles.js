@@ -5,7 +5,6 @@ export const Container = styled(Grid)(() => ({
   borderRadius: '10px',
   justifyContent: 'space-between',
   minHeight: '48px',
-  padding: '10px 12px',
   position: 'relative'
 }));
 
@@ -47,5 +46,5 @@ export const ClickableArea = styled(Button)(() => ({
   maxHeight: '100%',
   maxWidth: '100%',
   position: 'absolute',
-  width: '95%'
+  width: '100%'
 }));
