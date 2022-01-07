@@ -16,7 +16,7 @@ import { ACTION_TYPE, reducer, initialState, FILTERS_CONSTANTS } from './reducer
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 import * as Styled from './styles';
-import { BALLERZ_COMPUTED_PROPERTIES } from '~/utils/constants';
+import { BALLERZ_COMPUTED_PROPERTIES } from '~/components/filters/constants';
 
 const DEFAULT_LIST_SIZE = 40;
 const VIEW_ALL = 'viewAll';
