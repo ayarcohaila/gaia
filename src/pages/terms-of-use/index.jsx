@@ -2,7 +2,7 @@ import NextLink from 'next/link';
 import { Grid } from '@mui/material';
 
 import { Divider } from '~/base';
-import * as Styled from '~/styles/privacy-policy/styles.js';
+import * as Styled from '~/styles/privacyPolicy/styles.js';
 import {
   SectionOne,
   SectionTwo,
@@ -16,7 +16,7 @@ import {
   SectionEleven,
   SectionTwelve,
   SectionThirteen
-} from '~/components/terms-of-use-sections';
+} from '~/components/termsOfUseSections';
 
 const TermsOfUse = () => {
   const paragraphDivider = (

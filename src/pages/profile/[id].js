@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import { useBreakpoints, useToggle } from '~/hooks';
-import { gqlClient } from '~/config/apollo-client';
+import { gqlClient } from '~/config/apolloClient';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import { Divider } from '~/base';
 import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';

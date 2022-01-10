@@ -6,7 +6,7 @@ import { Breadcrumbs } from '~/components';
 import { useBreakpoints, useToggle, useCollectionConfig } from '~/hooks';
 import { BurstIcon } from '~/base';
 import { Dropdown } from '~/base';
-import { ORDER_MENU_IDS } from '~/components/collection-filters/constants';
+import { ORDER_MENU_IDS } from '~/components/collectionFilters/constants';
 import { useAppContext } from '~/context';
 import * as Styled from './styles';
 

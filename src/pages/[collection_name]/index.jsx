@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import MarketPlace from '~/components/marketplace';
 import { useRouter } from 'next/router';
-import { gqlClient } from '~/config/apollo-client';
+import { gqlClient } from '~/config/apolloClient';
 import { GET_COLLECTION_BY_ID } from '~/store/server/queries';
 import { useCollectionConfig } from '~/hooks';
 import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '../../../collections_setup';

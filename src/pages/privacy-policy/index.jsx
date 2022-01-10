@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { Divider } from '~/base';
-import * as Styled from '~/styles/privacy-policy/styles.js';
+import * as Styled from '~/styles/privacyPolicy/styles.js';
 import {
   SectionOne,
   SectionTwo,
@@ -11,7 +11,7 @@ import {
   SectionNine,
   SectionTen,
   SectionElevenAndTwelve
-} from '~/components/privacy-policy-sections';
+} from '~/components/privacyPolicySections';
 
 const PrivacyPolicy = () => {
   const paragraphDivider = (

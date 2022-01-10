@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import { Divider } from '~/base';
-import * as Styled from '~/styles/privacy-policy/styles.js';
-import { SectionOne, SectionTwo } from '~/components/copyright-policy-sections';
+import * as Styled from '~/styles/privacyPolicy/styles.js';
+import { SectionOne, SectionTwo } from '~/components/copyrightPolicySections';
 
 const CopyrightPolicy = () => {
   const paragraphDivider = (

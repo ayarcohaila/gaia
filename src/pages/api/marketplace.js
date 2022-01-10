@@ -1,4 +1,4 @@
-import { gqlClient } from '~/config/apollo-client';
+import { gqlClient } from '~/config/apolloClient';
 import { GET_MARKETPLACE_OFFERS } from '~/store/server/queries';
 
 export default async function handler(req, res) {

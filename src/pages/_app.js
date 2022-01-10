@@ -14,7 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Header, Content, Footer } from '~/layout';
 import theme from '~/themes/default';
 import muiTheme from '~/themes/materialTheme';
-import client from '~/config/apollo-client';
+import client from '~/config/apolloClient';
 import { AuthProvider } from '~/providers/AuthProvider';
 import * as ga from '~/utils/ga';
 

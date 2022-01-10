@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 
 import { Button } from '~/base';
 import { useAppContext } from '~/context';
-import CheckboxCard from './checkbox-card';
+import CheckboxCard from './checkboxCard';
 import { useBreakpoints, useToggle, useCollectionConfig } from '~/hooks';
 import { Accordion } from '..';
-import InputRangeGroup from './input-range-group';
+import InputRangeGroup from './inputRangeGroup';
 
 import { ACTION_TYPE, reducer, initialState, FILTERS_CONSTANTS } from './reducer';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';

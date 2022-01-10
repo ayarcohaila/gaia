@@ -1,7 +1,7 @@
 import { Box, Grid, useTheme } from '@mui/material';
 
 import { ProductDetailsTopSection, Seo } from '~/components';
-import { gqlClient } from '~/config/apollo-client';
+import { gqlClient } from '~/config/apolloClient';
 import { useBreakpoints } from '~/hooks';
 import { GET_NFT_BY_ID, GET_NFT_BY_MINT_NUMBER } from '~/store/server/queries';
 import {
