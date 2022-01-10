@@ -2,12 +2,13 @@ import { Box } from '@mui/material';
 
 import { NewToNFTSection, HomepageBanner, Seo } from '~/components';
 import { useBreakpoints } from '~/hooks';
+import formatWithBasePath from '~/utils/formatWithBasePath';
 
 const Home = () => {
   const { isMediumDevice } = useBreakpoints();
   return (
     <>
-      <Seo title="Home" />
+      <Seo title="Home" imgURL={formatWithBasePath('static/img/main-unfurl.png')} />
       <Box
         paddingLeft={isMediumDevice && '20px'}
         paddingRight={isMediumDevice && '20px'}

@@ -11,6 +11,7 @@ import {
 } from '../../../../collections_setup';
 import { ATTRIBUTES_ORDER, BALLERZ_COMPUTED_PROPERTIES } from '~/components/filters/constants';
 import listNFTOffers from '~/utils/fetchNFTOffers';
+import formatIpfsImg from '~/utils/formatIpfsImg';
 
 const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps, hasMultipleOffers }) => {
   const {
@@ -20,10 +21,15 @@ const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps, hasMultipl
 
   const title = nft?.template?.metadata?.title;
   const description = nft?.template?.metadata?.description;
+  const img = nft?.template?.metadata?.img;
 
   return (
     <Box bgcolor={grey[200]}>
-      <Seo title={`${title} | ${nft.collection.name} NFT Collection`} description={description} />
+      <Seo
+        title={`${title} | ${nft.collection.name} NFT Collection`}
+        description={description}
+        imgURL={formatIpfsImg(img)}
+      />
       <Grid m="0 auto" maxWidth="1280px" width={isSmallDevice ? '100%' : '90%'}>
         <ProductDetailsTopSection
           nft={nft}
