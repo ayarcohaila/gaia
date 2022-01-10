@@ -157,7 +157,7 @@ const ProductDetailsTopSection = ({
     () => ({
       creator: nft.collection.author,
       owner: nft.owner,
-      mintDate: new Date(nft.created_at)?.getTime(),
+      mintDate: new Date(nft.minted_at)?.getTime(),
       contract: process.env.NEXT_PUBLIC_NFT_CONTRACT
     }),
     [nft]
