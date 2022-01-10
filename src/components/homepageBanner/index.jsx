@@ -43,13 +43,13 @@ export default function HomepageBanner() {
         </Typography>
         {hasBrowse && (
           <Grid container sx={{ gap: '12px' }}>
-            <Styled.CardButton component="a" href="/browse" sx={{ width: '200px' }}>
-              <Typography variant="subtitle1">Go To Marketplace</Typography>
+            <Styled.CardButton component="a" href="/ballerz" sx={{ width: '200px' }}>
+              <Typography variant="subtitle1">Explore BALLERZ</Typography>
             </Styled.CardButton>
           </Grid>
         )}
       </Styled.Container>
-      <Styled.BannerLink href={hasBrowse ? '/browse' : '/ballerz'} />
+      <Styled.BannerLink href={'/ballerz'} />
     </Styled.ContainerBackground>
   );
 }
