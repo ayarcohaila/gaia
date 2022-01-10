@@ -22,7 +22,7 @@ const CheckboxCard = ({
 
   return (
     <Styled.Container
-      bgcolor={isSelected ? primary.main : 'transparent'}
+      bgcolor={isSelected ? primary.main : grey[200]}
       container
       wrap="nowrap"
       {...containerProps}>
