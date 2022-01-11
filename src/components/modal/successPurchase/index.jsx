@@ -35,7 +35,8 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx, collectionsName }) => {
           wordBreak: 'break-word',
           color: white.main
         }}
-        target="_blank">
+        target="_blank"
+        rel="noopener noreferrer">
         {'View on Flowscan'}
       </Link>
     </Modal>

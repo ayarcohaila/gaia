@@ -64,11 +64,14 @@ const CollectionList = ({ nfts, hasNftsForSale }) => {
               lineHeight: isMediumDevice ? '1.2' : '22px'
             }}>
             Sold out! Join us on{' '}
-            <a href="https://twitter.com/ballerz_nft" target="_blank" rel="noreferrer">
+            <a href="https://twitter.com/ballerz_nft" target="_blank" rel="noreferrer noopener">
               Twitter
             </a>{' '}
             and{' '}
-            <a href="https://discord.com/invite/ballerznft" target="_blank" rel="noreferrer">
+            <a
+              href="https://discord.com/invite/ballerznft"
+              target="_blank"
+              rel="noreferrer noopener">
               Discord
             </a>{' '}
             for more BALLERZ info.

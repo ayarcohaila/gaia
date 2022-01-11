@@ -11,7 +11,12 @@ const BrysonCollectionDescription = () => {
         His nickname, “The Scientist,” comes from his exciting and unconventional approach to the
         game; this premium NFT collection represents some of the most explosive facets of Bryson as
         a golf champion. Learn more at{' '}
-        <Link color="#fff" href="https://brysondechambeau.com" target="_blank" underline="hover">
+        <Link
+          color="#fff"
+          href="https://brysondechambeau.com"
+          target="_blank"
+          underline="hover"
+          rel="noopener noreferrer">
           brysondechambeau.com
         </Link>
       </Typography>

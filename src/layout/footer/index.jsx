@@ -77,7 +77,8 @@ const Footer = () => {
                 href="https://twitter.com/gaiamarketplace"
                 mr="18px"
                 target="_blank"
-                underline="none">
+                underline="none"
+                rel="noopener noreferrer">
                 <TwitterIcon sx={iconStyles} />
               </Styled.CustomLink>
             </Grid>
@@ -93,7 +94,8 @@ const Footer = () => {
                 href={href}
                 mb="4px"
                 target="_blank"
-                underline="none">
+                underline="none"
+                rel="noopener noreferrer">
                 {label}
               </Styled.CustomLink>
             ))}

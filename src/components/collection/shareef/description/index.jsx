@@ -9,7 +9,12 @@ const ShareefCollectionDescription = () => {
       <Typography mt={2} component="p" variant="h6">
         Genesis Collection holders will be eligible to receive ongoing rewards such as exclusive
         drop access, airdropped NFTs, priority merch, in-person appearances and more. Learn more at{' '}
-        <Link color="#fff" href="https://onealnfts.com" target="_blank" underline="hover">
+        <Link
+          color="#fff"
+          href="https://onealnfts.com"
+          target="_blank"
+          underline="hover"
+          rel="noopener noreferrer">
           onealnfts.com
         </Link>
       </Typography>
