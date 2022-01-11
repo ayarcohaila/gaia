@@ -22,7 +22,6 @@ const GET_NFT_BY_ID = gql`
       collection_id
       created_at
       updated_at
-      minted_at
       mint_number
       has_sale_offers
       transaction_status
@@ -57,7 +56,6 @@ const GET_NFT_BY_MINT_NUMBER = gql`
       is_for_sale
       created_at
       updated_at
-      minted_at
       collection_id
       transaction_status
       has_sale_offers

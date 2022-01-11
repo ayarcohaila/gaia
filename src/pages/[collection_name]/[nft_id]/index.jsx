@@ -60,6 +60,7 @@ export async function getServerSideProps({ params }) {
           mint_number: { _eq: nft_id }
         }
       });
+
       if (!nft?.length || !(brysonConfig.status === COLLECTION_STATUS.SALE)) {
         return { notFound: true };
       }

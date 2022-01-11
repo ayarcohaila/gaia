@@ -8,7 +8,7 @@ const Home = () => {
   const { isMediumDevice } = useBreakpoints();
   return (
     <>
-      <Seo title="Home" imgURL={formatWithBasePath('static/img/main-unfurl.png')} />
+      <Seo title="Gaia" imgURL={formatWithBasePath('static/img/main-unfurl.png')} />
       <Box
         paddingLeft={isMediumDevice && '20px'}
         paddingRight={isMediumDevice && '20px'}

@@ -1,5 +1,5 @@
 const envUrls = {
-  staging: 'https://gaia-redesign.herokuapp.com/',
+  staging: 'https://gaia-testnet-develop.herokuapp.com/',
   production: 'https://ongaia.com/'
 };
 
