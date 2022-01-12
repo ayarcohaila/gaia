@@ -2,11 +2,13 @@ import React from 'react';
 import { Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
-import { ProfileCard } from '~/components';
+import { Card } from '~/components';
 import { Button } from '~/base';
+import { useAuth } from '~/hooks';
 
 const ProfileList = ({ nfts }) => {
   const router = useRouter();
+  const { user } = useAuth();
 
   const handleClick = () => {
     router.push('/browse');
@@ -15,7 +17,13 @@ const ProfileList = ({ nfts }) => {
   return (
     <>
       {nfts.length > 0 ? (
-        nfts.map((nft, i) => <ProfileCard key={i} data={nft} />)
+        nfts.map((nft, i) => (
+          <Card
+            key={i}
+            data={nft}
+            hasActions={!!user && user.loggedIn && user.addr === router.query.id}
+          />
+        ))
       ) : (
         <Grid
           container

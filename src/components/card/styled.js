@@ -1,4 +1,4 @@
-import { styled, Grid, Card, Typography, Button, CardHeader } from '@mui/material';
+import { styled, Grid, Card, CardHeader, Typography, Button } from '@mui/material';
 import { Button as RemoveListingButton } from '~/base';
 
 export const CustomCard = styled(Card)(() => ({
@@ -6,7 +6,9 @@ export const CustomCard = styled(Card)(() => ({
   borderRadius: 20,
   backgroundColor: 'white',
   boxShadow: '0 0 0 0',
-  position: 'relative'
+  position: 'relative',
+  maxWidth: '308px',
+  borderSizing: 'border-box'
 }));
 
 export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => ({
@@ -26,25 +28,11 @@ export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => (
   }
 }));
 
-export const NFTTitle = styled(Typography)(() => ({
-  fontSize: '16px',
-  fontWeight: 'bold',
-  marginBottom: 8
-}));
-
 export const NFTText = styled(Typography)(({ theme: { palette } }) => ({
   fontSize: '16px',
   fontWeight: 700,
   color: palette.secondary.main,
   marginBottom: 8
-}));
-
-export const NFTDescription = styled(Typography)(({ theme: { palette } }) => ({
-  fontSize: '13px',
-  fontWeight: 500,
-  lineHeight: '1.23',
-  color: palette.grey[600],
-  marginTop: '2px'
 }));
 
 export const NFTPrice = styled(Typography)(() => ({
@@ -53,42 +41,6 @@ export const NFTPrice = styled(Typography)(() => ({
   lineHeight: '1.14',
   color: '#003aac',
   marginTop: '13px'
-}));
-
-export const SellButton = styled(Button)(({ theme: { palette } }) => ({
-  width: 126,
-  height: 48,
-  padding: '15px 22px 17px',
-  borderRadius: '24px',
-  backgroundColor: palette.primary.main,
-  color: 'white',
-  fontWeight: 'bold',
-  textTransform: 'none',
-  marginTop: '8px',
-
-  ':hover': {
-    backgroundColor: palette.primary.hover
-  },
-
-  '&.Mui-disabled': {
-    backgroundColor: palette.grey[300]
-  }
-}));
-
-export const PurchaseButton = styled(Button)(({ theme: { palette } }) => ({
-  width: 256,
-  height: 48,
-  marginTop: 16,
-  padding: '15px 22px 17px',
-  borderRadius: '24px',
-  backgroundColor: palette.primary.main,
-  color: 'white',
-  fontWeight: 'bold',
-  textTransform: 'none',
-
-  ':hover': {
-    backgroundColor: palette.primary.hover
-  }
 }));
 
 export const ComingSoon = styled(Grid)(({ theme: { palette } }) => ({
@@ -140,12 +92,38 @@ export const CancelButton = styled(RemoveListingButton)(({ theme: { palette } })
   }
 }));
 
-export const ListedText = styled(Typography)(() => ({
-  fontSize: '14px',
-  fontWeight: 'bold',
-  lineHeight: '1.14',
-  letterSpacing: '0.2px',
-  textAlign: 'center',
+export const SellButton = styled(Button)(({ theme: { palette } }) => ({
+  width: 126,
+  height: 48,
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  backgroundColor: palette.primary.main,
   color: 'white',
-  textTransform: 'none'
+  fontWeight: 'bold',
+  textTransform: 'none',
+  marginTop: '8px',
+
+  ':hover': {
+    backgroundColor: palette.primary.hover
+  },
+
+  '&.Mui-disabled': {
+    backgroundColor: palette.grey[300]
+  }
+}));
+
+export const PurchaseButton = styled(Button)(({ theme: { palette } }) => ({
+  width: 256,
+  height: 48,
+  marginTop: 16,
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  backgroundColor: palette.primary.main,
+  color: 'white',
+  fontWeight: 'bold',
+  textTransform: 'none',
+
+  ':hover': {
+    backgroundColor: palette.primary.hover
+  }
 }));

@@ -33,7 +33,7 @@ import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 import * as Styled from './styles';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 
-const INSUFFICIENT_FUNDS =
+export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
 
 const ProductDetailsTopSection = ({

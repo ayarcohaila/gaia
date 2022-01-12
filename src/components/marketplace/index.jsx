@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Grid, Typography, useTheme } from '@mui/material';
 
-import { BrowseCard, Filters, BrowseHeader } from '~/components';
+import { Card, Filters, BrowseHeader } from '~/components';
 import { CardSkeletonLoader } from '~/base';
 import { useAppContext } from '~/context';
 import { useBreakpoints } from '~/hooks';
@@ -37,7 +37,7 @@ const MarketPlace = () => {
     }
 
     return marketplaceNfts?.length ? (
-      marketplaceNfts?.map(nft => <BrowseCard key={nft.asset_id} data={nft} />)
+      marketplaceNfts?.map(nft => <Card key={nft.asset_id} data={nft} isMarketplace />)
     ) : (
       <Grid sx={{ width: '100%', textAlign: 'center', marginTop: '96px' }}>
         <Typography variant="body" sx={{ fontSize: '20px', width: '100%', color: grey[600] }}>

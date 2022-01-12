@@ -16,13 +16,13 @@ import {
 
 import { useBreakpoints, useToggle, useAuth } from '~/hooks';
 import { AuthContext } from '~/providers/AuthProvider';
-import { INSUFFICIENT_FUNDS } from '~/components/collectionCard';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { BUY_TX } from '~/constant';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 
 import * as Styled from './styles';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
+import { INSUFFICIENT_FUNDS } from '~/components/productDetails/topSection';
 
 const ShareefCollectionContent = ({ data }) => {
   const {

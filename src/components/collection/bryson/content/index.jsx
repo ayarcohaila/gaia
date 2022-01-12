@@ -10,7 +10,6 @@ import {
   VideoPlayer,
   SuccessPurchaseNFTModal
 } from '~/components';
-import { INSUFFICIENT_FUNDS } from '~/components/collectionCard';
 import { buy } from '~/flow/buy';
 import { useAuth, useBreakpoints, useToggle } from '~/hooks';
 import { AuthContext } from '~/providers/AuthProvider';
@@ -21,6 +20,7 @@ import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import { BUY_TX } from '~/constant';
 
 import * as Styled from './styles';
+import { INSUFFICIENT_FUNDS } from '~/components/productDetails/topSection';
 
 const BrysonCollectionContent = ({ data, totalAvailable }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
