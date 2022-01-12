@@ -4,6 +4,7 @@ const SectionTwo = () => {
   return (
     <>
       <Styled.Heading component="li">INFORMATION USE</Styled.Heading>
+
       <Styled.Text>
         We may use the information you provide or that we collect, including any Personally
         Identifiable Information, to develop, operate, administer, support, maintain, improve, and

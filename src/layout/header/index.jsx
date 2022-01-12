@@ -72,6 +72,7 @@ const Header = () => {
               width={isMediumDevice ? 75 : 102.4}
               height={isMediumDevice ? 29.3 : 40}
               src="/static/img/gaia_logo-black.svg"
+              alt="GaiaLogo"
             />
           </Styled.LogoImage>
         </NextLink>
@@ -101,7 +102,10 @@ const Header = () => {
           </Styled.SearchWrapper>
         )}
         {isMediumDevice ? (
-          <Styled.MobileMenuButton onClick={toggleHeaderModal} data-cy="burger-button-mobile">
+          <Styled.MobileMenuButton
+            onClick={toggleHeaderModal}
+            data-cy="burger-button-mobile"
+            aria-label="mobileMenu">
             <MenuIcon />
           </Styled.MobileMenuButton>
         ) : (
@@ -113,12 +117,13 @@ const Header = () => {
                 variant="text"
                 onClick={handleClick}
                 onMouseEnter={() => handleDropdownMenu(true)}
-                data-id={USER_MENU_IDS.PROFILE}>
+                data-id={USER_MENU_IDS.PROFILE}
+                aria-label="mobileMenu">
                 <Styled.UserAvatar alt="User Icon" />
                 <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
               </Styled.AvatarButton>
             ) : (
-              <Styled.CustomButton variant="contained" onClick={login}>
+              <Styled.CustomButton variant="contained" aria-label="loginButton" onClick={login}>
                 Sign In
               </Styled.CustomButton>
             )}

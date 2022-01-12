@@ -30,7 +30,7 @@ const SectionFour = () => {
       <Styled.Heading component="li">THIRD PARTIES’ PRIVACY PRACTICES</Styled.Heading>
       <Styled.Text>
         The Platform (including{' '}
-        <NextLink href="http://www.nftgenius.com" passHref={true}>
+        <NextLink href="http://www.nftgenius.com" passHref={true} aria-label="nftgenius">
           <Styled.CustomLink target="_blank">www.nftgenius.com</Styled.CustomLink>
         </NextLink>
         website and relevant applications) may provide links, hyperlinks, and advertisements to the

@@ -191,12 +191,14 @@ const ProductDetailsTopSection = ({
           defaultExpanded
           dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
           sx={{ my: 3, width: '100%' }}
-          title="Properties">
+          title="Properties"
+          id="propsAccordion">
           <AdditionalDetails
             data-cy="aditional-detail-properties"
             data={metadata}
             ballerzComputedProps={ballerzComputedProps}
             attributesOrder={attributesOrder}
+            id="propsAccordionDetails"
           />
         </Accordion>
         <Accordion
@@ -207,7 +209,8 @@ const ProductDetailsTopSection = ({
             width: isSmallDevice ? '90%' : 'auto'
           }}
           sx={{ mt: 3, width: '100%' }}
-          title="Blockchain History">
+          title="Blockchain History"
+          id="blockHistoryAccordion">
           <BlockchainHistory data={blockchainHistoryData} />
         </Accordion>
       </>

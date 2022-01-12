@@ -68,6 +68,7 @@ const Footer = () => {
               width={isMediumDevice ? 75 : 102.4}
               height={isMediumDevice ? 29.3 : 40}
               src="/static/img/gaia_logo-white.svg"
+              alt="GaiaLogo"
             />
             <Grid alignItems="center" container mt="24px">
               <Styled.CustomLink href="mailto:info@nftgenius.com" target="_blank" underline="none">
@@ -78,6 +79,7 @@ const Footer = () => {
                 mr="18px"
                 target="_blank"
                 underline="none"
+                aria-label="Twitter"
                 rel="noopener noreferrer">
                 <TwitterIcon sx={iconStyles} />
               </Styled.CustomLink>

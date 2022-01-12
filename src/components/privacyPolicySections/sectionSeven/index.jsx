@@ -27,7 +27,10 @@ const SectionSeven = () => {
             you limit a child’s access to potentially harmful material on the Internet. If you
             discover that your child or minor has obtained an Account on our Platform, please email
             us immediately at{' '}
-            <NextLink href="mailto: privacy@nftgenius.com" passHref={true}>
+            <NextLink
+              href="mailto: privacy@nftgenius.com"
+              passHref={true}
+              aria-label="privacyNftgenius">
               <Styled.CustomLink>privacy@nftgenius.com</Styled.CustomLink>
             </NextLink>{' '}
             so we can promptly obtain parental consent or remove the child’s Personally Identifiable

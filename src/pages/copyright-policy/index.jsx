@@ -2,6 +2,7 @@ import NextLink from 'next/link';
 import { Divider } from '~/base';
 import * as Styled from '~/styles/privacyPolicy/styles.js';
 import { SectionOne, SectionTwo } from '~/components/copyrightPolicySections';
+import { Seo } from '~/components';
 
 const CopyrightPolicy = () => {
   const paragraphDivider = (
@@ -12,6 +13,7 @@ const CopyrightPolicy = () => {
   );
   return (
     <>
+      <Seo title="Copyright Policy" />
       <Divider customProps={{ margin: 'auto', width: 'calc(100% - 160px)' }} />
       <Styled.Container>
         <Styled.Content component="section">

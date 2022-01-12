@@ -20,7 +20,7 @@ export default function HomepageBanner() {
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
 
   return (
-    <Styled.ContainerBackground imgUrl={bannerData.background}>
+    <Styled.ContainerBackground alt="background" imgUrl={bannerData.background}>
       <Styled.Container>
         <Styled.TypographyWithOpacity
           variant={isMediumDevice ? 'h5' : 'h4'}
@@ -43,13 +43,17 @@ export default function HomepageBanner() {
         </Typography>
         {hasBrowse && (
           <Grid container sx={{ gap: '12px' }}>
-            <Styled.CardButton component="a" href="/ballerz" sx={{ width: '200px' }}>
+            <Styled.CardButton
+              component="a"
+              href="/ballerz"
+              aria-label="ballerz"
+              sx={{ width: '200px' }}>
               <Typography variant="subtitle1">Explore BALLERZ</Typography>
             </Styled.CardButton>
           </Grid>
         )}
       </Styled.Container>
-      <Styled.BannerLink href={'/ballerz'} />
+      <Styled.BannerLink href={'/ballerz'} arial-label="ballerzBanner" />
     </Styled.ContainerBackground>
   );
 }

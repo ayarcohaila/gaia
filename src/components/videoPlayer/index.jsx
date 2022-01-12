@@ -92,7 +92,7 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
       </Styled.Video>
       {((!!isPlaying && isVideoHovered) || !isPlaying) && (
         <Styled.ActionsContainer>
-          <Styled.Button onClick={togglePlay}>
+          <Styled.Button aria-label="togglePlay" onClick={togglePlay}>
             {isPlaying ? (
               <PauseIcon color="white" fontSize="small" />
             ) : (
@@ -100,7 +100,7 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
             )}
           </Styled.Button>
           <Grid container justifyContent="flex-end" sx={{ gap: '12px' }}>
-            <Styled.Button onClick={toggleMute}>
+            <Styled.Button aria-label="toggleMute" onClick={toggleMute}>
               {isMuted ? (
                 <MutedIcon color="white" fontSize="small" />
               ) : (
@@ -108,7 +108,7 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
               )}
             </Styled.Button>
 
-            <Styled.Button onClick={toggleFullscreen}>
+            <Styled.Button aria-label="toggleFullscreen" onClick={toggleFullscreen}>
               {isFullscreen ? (
                 <FullscreenExitIcon color="white" fontSize="small" />
               ) : (
