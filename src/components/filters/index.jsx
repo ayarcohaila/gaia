@@ -233,7 +233,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
         case filtersTypes.SINGLE:
           return options.map(option => (
-            <Box key={option?.id} mx="auto" width={isSmallDevice ? '90%' : '100%'}>
+            <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
               <CheckboxCard
                 data-cy={`single-filter-${option?.id}`}
                 containerProps={{ sx: { mb: 1 } }}

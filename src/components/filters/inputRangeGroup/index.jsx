@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 
 import { Input } from '~/base';
@@ -30,35 +30,33 @@ const InputRangeGroup = ({
   };
 
   return (
-    <Box>
-      <Grid alignItems="center" container wrap="nowrap">
-        <Input
-          name="min"
-          inputMode="numeric"
-          onChange={handleChange}
-          pattern="[0-9]"
-          placeholder={minPlaceholder}
-          type="number"
-          onKeyDown={handleKeyDown}
-          inputProps={{ min: 1 }}
-          value={min}
-          disabled={disabled}
-        />
-        <Input
-          inputMode="numeric"
-          ml={1}
-          name="max"
-          onChange={handleChange}
-          pattern="[0-9]"
-          onKeyDown={handleKeyDown}
-          placeholder={maxPlaceholder}
-          inputProps={{ min: 1 }}
-          type="number"
-          value={max}
-          disabled={disabled}
-        />
-      </Grid>
-    </Box>
+    <Grid alignItems="center" justifyContent="center" container wrap="nowrap">
+      <Input
+        name="min"
+        inputMode="numeric"
+        onChange={handleChange}
+        pattern="[0-9]"
+        placeholder={minPlaceholder}
+        type="number"
+        onKeyDown={handleKeyDown}
+        inputProps={{ min: 1 }}
+        value={min}
+        disabled={disabled}
+      />
+      <Input
+        inputMode="numeric"
+        ml={1}
+        name="max"
+        onChange={handleChange}
+        pattern="[0-9]"
+        onKeyDown={handleKeyDown}
+        placeholder={maxPlaceholder}
+        inputProps={{ min: 1 }}
+        type="number"
+        value={max}
+        disabled={disabled}
+      />
+    </Grid>
   );
 };
 
