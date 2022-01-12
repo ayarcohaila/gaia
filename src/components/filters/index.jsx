@@ -2,13 +2,13 @@ import { memo, useCallback, useEffect, useMemo, useReducer } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FilterList as FiltersIcon } from '@mui/icons-material';
 import axios from 'axios';
-import { capitalize, debounce } from 'lodash';
+import { capitalize } from 'lodash';
 import PropTypes from 'prop-types';
 
 import { Button } from '~/base';
 import { useAppContext } from '~/context';
 import CheckboxCard from './checkboxCard';
-import { useBreakpoints, useToggle, useCollectionConfig } from '~/hooks';
+import { useBreakpoints, useToggle, useCollectionConfig, useDebounce } from '~/hooks';
 import { Accordion } from '..';
 import InputRangeGroup from './inputRangeGroup';
 
@@ -82,7 +82,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     [status, dispatch]
   );
 
-  const getNfts = debounce(async filters => {
+  const getNfts = useDebounce(async filters => {
     handleAppData({ marketplaceLoading: true });
     const result = await axios.post(GET_URL, {
       ...filters
@@ -100,6 +100,8 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       marketplaceLoading: false
     });
   }, 500);
+
+  useEffect(getNfts, []);
 
   const appliedFilters = useMemo(() => {
     let priceFilters = [];
@@ -233,6 +235,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           return options.map(option => (
             <Box key={option?.id} mx="auto" width={isSmallDevice ? '90%' : '100%'}>
               <CheckboxCard
+                data-cy={`single-filter-${option?.id}`}
                 containerProps={{ sx: { mb: 1 } }}
                 isSelected={state[id] === option?.id}
                 onChange={() => handleSingleCheck(id, option.id)}
@@ -245,6 +248,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           return options.map(option => (
             <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
               <CheckboxCard
+                data-cy={`multi-filter-${option?.label}`}
                 containerProps={{ sx: { mb: 1 } }}
                 isSelected={!!state[id].find(collection => collection.id === option?.id)}
                 onChange={() => handleMultipleCheck(id, option)}
@@ -375,7 +379,10 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   return (
     <>
       {isMediumDevice ? (
-        <Styled.FloatButton endIcon={<FiltersIcon />} onClick={toggleMobileModal}>
+        <Styled.FloatButton
+          data-cy="button-filter-medium-device"
+          endIcon={<FiltersIcon />}
+          onClick={toggleMobileModal}>
           Filters {!!appliedFiltersCount && `(${appliedFiltersCount})`}
         </Styled.FloatButton>
       ) : (
@@ -392,7 +399,9 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
             <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
               Clear
             </Styled.ClearButton>
-            <Button onClick={handleApplyFilters}>Apply</Button>
+            <Button data-cy="apply" onClick={handleApplyFilters}>
+              Apply
+            </Button>
             <Styled.CloseButton onClick={toggleMobileModal}>Close</Styled.CloseButton>
           </Styled.BottomBar>
         </Styled.CustomDrawer>

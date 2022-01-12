@@ -37,6 +37,7 @@ const CheckboxCard = ({
           <Styled.IconContainer>{renderIcon(isSelected, 'red')}</Styled.IconContainer>
         )}
         <Grid
+          data-cy={`checkbox-card`}
           wrap="nowrap"
           ml={1.5}
           mr={'8px'}

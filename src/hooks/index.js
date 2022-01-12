@@ -8,3 +8,5 @@ export { default as useProfile } from './useProfile';
 export { default as useSWR } from './useSWR';
 export { default as useToggle } from './useToggle';
 export { default as useCollectionConfig } from './useCollectionConfig';
+export { default as useDebounce } from './useDebounce';
+export { default as useIsMounted } from './useIsMounted';

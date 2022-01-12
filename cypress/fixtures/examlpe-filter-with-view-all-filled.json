@@ -1,0 +1,12 @@
+{
+  "price": [],
+  "isForSale": {},
+  "collections": [
+    { "collection_id": { "_eq": "be0a6102-2ca9-4875-b801-cf236ce43a86" } },
+    { "collection_id": { "_eq": "db6b606b-f08b-439d-80f0-8ebc0ca9f837" } },
+    { "collection_id": { "_eq": "9952e5c9-e199-4e0d-8715-d19be3250645" } }
+  ],
+  "properties": [],
+  "offset": 0,
+  "orderBy": { "last_active_price": "asc" }
+}

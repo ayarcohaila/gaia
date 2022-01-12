@@ -193,12 +193,14 @@ const ProductDetailsTopSection = ({
           sx={{ my: 3, width: '100%' }}
           title="Properties">
           <AdditionalDetails
+            data-cy="aditional-detail-properties"
             data={metadata}
             ballerzComputedProps={ballerzComputedProps}
             attributesOrder={attributesOrder}
           />
         </Accordion>
         <Accordion
+          data-cy="aditional-detail-history"
           defaultExpanded
           dividerSx={{
             margin: isSmallDevice ? '0 auto' : '0',

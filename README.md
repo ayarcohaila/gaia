@@ -52,6 +52,14 @@ yarn
 4 - A Modal will open and you can typing any value less than or equal to 50
 5 - Click on "Claim FUSD" to receive FUSD value
 
+#### 7. E2E Test
+
+You need run the application on port 3000
+`yarn cy:open`
+
+You can run without run the application
+`yarn cy:start`
+
 # Flow utils
 
 - [Create testnet account / add funds](https://testnet-faucet.onflow.org).

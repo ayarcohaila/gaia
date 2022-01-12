@@ -80,7 +80,9 @@ const Header = () => {
             <Styled.MenuOptionList component="ul">
               {MENU_OPTIONS.filter(menuOption => menuOption !== false).map(option => (
                 <Grid key={option.label} item component="li">
-                  <Styled.MenuOption href={option.href}>{option.label}</Styled.MenuOption>
+                  <Styled.MenuOption data-cy={`link-${option.label}`} href={option.href}>
+                    {option.label}
+                  </Styled.MenuOption>
                 </Grid>
               ))}
               {MENU_OPTIONS.length > 4 && (
@@ -99,7 +101,7 @@ const Header = () => {
           </Styled.SearchWrapper>
         )}
         {isMediumDevice ? (
-          <Styled.MobileMenuButton onClick={toggleHeaderModal}>
+          <Styled.MobileMenuButton onClick={toggleHeaderModal} data-cy="burger-button-mobile">
             <MenuIcon />
           </Styled.MobileMenuButton>
         ) : (
@@ -146,6 +148,7 @@ const Header = () => {
             <>
               {hasBrowse && (
                 <Styled.ButtonText
+                  data-cy="link-Marketplace"
                   variant="text"
                   onClick={handleClick}
                   data-id={USER_MENU_IDS.BROWSE}>
@@ -172,6 +175,7 @@ const Header = () => {
             <>
               {hasBrowse && (
                 <Styled.ButtonText
+                  data-cy="link-Marketplace"
                   variant="text"
                   onClick={handleClick}
                   data-id={USER_MENU_IDS.BROWSE}>
