@@ -84,16 +84,25 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
   const getNfts = useDebounce(async filters => {
     handleAppData({ marketplaceLoading: true });
+
     const result = await axios.post(GET_URL, {
       ...filters
     });
+
     const ids = [];
-    const list = [...appData?.marketplaceNfts, ...result?.data?.nfts].filter(nft_item => {
+    const list = [];
+
+    const unfilteredList = config?.id
+      ? result?.data?.nfts
+      : [...appData?.marketplaceNfts, ...result?.data?.nfts];
+
+    unfilteredList.filter(nft_item => {
       if (!ids.includes(nft_item.asset_id)) {
         ids.push(nft_item.asset_id);
-        return nft_item;
+        list.push(nft_item);
       }
     });
+
     handleAppData({
       marketplaceNfts: list,
       marketCount: result.data.marketCount,
@@ -149,6 +158,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       offset: appData?.page * DEFAULT_LIST_SIZE,
       orderBy: appData?.marketplaceSort
     };
+
     return filters;
   }, [
     collections,
