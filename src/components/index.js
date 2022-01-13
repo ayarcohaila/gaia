@@ -38,4 +38,4 @@ export { default as ShareefDescription } from './collection/shareef/description'
 export { default as ShareefContent } from './collection/shareef/content';
 export { default as SuccessPurchaseNFTModal } from './modal/successPurchase';
 export { default as Marketplace } from './marketplace';
-export { Card } from './card/Card';
+export { default as Card } from './card';

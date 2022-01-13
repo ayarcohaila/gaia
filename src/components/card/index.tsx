@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { CustomCard, CustomCardHeader, NFTText, NFTPrice } from './styled';
 import Link from 'next/link';
 import { Avatar, CardContent, Grid, Skeleton } from '@mui/material';
@@ -14,11 +14,11 @@ import {
   CancelListingModal,
   OrderCompleteModal
 } from '~/components';
-import { CardActions } from './CardActions';
+import CardActions from './cardActions';
 import NextImage from 'next/image';
 import { CardProps } from './types';
 
-export const Card = (props: CardProps) => {
+const Card = (props: CardProps) => {
   const { data, hasActions, isMarketplace } = props;
   const { isSmallDevice } = useBreakpoints();
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -165,3 +165,5 @@ export const Card = (props: CardProps) => {
     </>
   );
 };
+
+export default memo(Card);

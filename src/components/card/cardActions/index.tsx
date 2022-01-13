@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { CardActions as BaseCardActions, Grid } from '@mui/material';
 import { hasSell, hasTransfer } from '~/config/config';
 import { ComingSoon, CancelButton, TransferButton, SellButton } from './styled';
@@ -6,7 +6,7 @@ import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 import { CardActionsProps } from './types';
 
-export const CardActions = (props: CardActionsProps) => {
+const CardActions = (props: CardActionsProps) => {
   const { data, loading, toggleCancelListingModal, toggleSellNftModal, toggleTransferNftModal } =
     props;
 
@@ -62,3 +62,5 @@ export const CardActions = (props: CardActionsProps) => {
     </BaseCardActions>
   );
 };
+
+export default memo(CardActions);
