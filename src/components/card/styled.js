@@ -1,4 +1,4 @@
-import { styled, Card, CardHeader, Typography } from '@mui/material';
+import { styled, Card, CardHeader, Typography, Grid } from '@mui/material';
 
 export const CustomCard = styled(Card)(() => ({
   padding: '16px 16px 22px',
@@ -40,4 +40,10 @@ export const NFTPrice = styled(Typography)(() => ({
   lineHeight: '1.14',
   color: '#003aac',
   marginTop: '13px'
+}));
+
+export const ImageContainer = styled(Grid)(() => ({
+  img: {
+    borderRadius: '20px'
+  }
 }));

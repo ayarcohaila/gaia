@@ -54,3 +54,9 @@ export const CardLink = styled('div')(() => ({
   marginTop: '20px',
   cursor: 'pointer'
 }));
+
+export const ImageContainer = styled('div')(() => ({
+  div: {
+    overflow: 'inherit !important'
+  }
+}));

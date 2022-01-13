@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { VideoPlayer } from '~/components';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+import Image from 'next/image';
 
 import * as Styled from './styles';
 
@@ -15,12 +16,13 @@ const Asset = ({ metadata }) => {
 
   return (
     <Styled.ImageContainer>
-      <Styled.Image
+      <Image
         alt={metadata?.title}
-        blurDataURL={formatIpfsImg(metadata.img)}
-        layout="fill"
-        placeholder="blur"
         src={formatIpfsImg(metadata.img)}
+        blurDataURL={formatIpfsImg(metadata.img)}
+        height={424}
+        width={424}
+        placeholder="blur"
       />
     </Styled.ImageContainer>
   );

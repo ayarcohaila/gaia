@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react';
-import { CustomCard, CustomCardHeader, NFTText, NFTPrice } from './styled';
+import { CustomCard, CustomCardHeader, NFTText, NFTPrice, ImageContainer } from './styled';
 import Link from 'next/link';
 import { Avatar, CardContent, Grid, Skeleton } from '@mui/material';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
@@ -15,8 +15,8 @@ import {
   OrderCompleteModal
 } from '~/components';
 import CardActions from './cardActions';
-import NextImage from 'next/image';
 import { CardProps } from './types';
+import Image from 'next/image';
 
 const Card = (props: CardProps) => {
   const { data, hasActions, isMarketplace } = props;
@@ -85,18 +85,22 @@ const Card = (props: CardProps) => {
               margin={0}
               overflow={'hidden'}
               borderRadius={'20px'}>
-              <NextImage
-                alt="Nft asset"
-                layout={'fill'}
-                onLoadingComplete={() => {
-                  setImgLoaded(true);
-                }}
-                src={
-                  currentCollection?.mystery
-                    ? '/images/mystery-nft.gif'
-                    : formatIpfsImg(data?.template?.metadata.img)
-                }
-              />
+              <ImageContainer>
+                <Image
+                  alt="Nft asset"
+                  height={276}
+                  width={276}
+                  layout={'fill'}
+                  onLoadingComplete={() => {
+                    setImgLoaded(true);
+                  }}
+                  src={
+                    currentCollection?.mystery
+                      ? '/images/mystery-nft.gif'
+                      : formatIpfsImg(data?.template?.metadata.img)
+                  }
+                />
+              </ImageContainer>
               <Skeleton
                 variant="rectangular"
                 height={275}

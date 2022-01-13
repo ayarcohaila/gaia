@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { Typography, useTheme } from '@mui/material';
+import Image from 'next/image';
 
 import * as Styled from './styled';
 
@@ -15,7 +16,9 @@ const NewToNFTCard = ({ data }) => {
     <>
       <Styled.CustomCard>
         <Styled.CustomLink rel="noreferrer" {...(data.hasButton && data.linkProps)}>
-          <img src={data.image} alt={data.title} />
+          <Styled.ImageContainer>
+            <Image src={data.image} alt={data.title} height={407.16} width={576.88} />
+          </Styled.ImageContainer>
         </Styled.CustomLink>
         <Typography variant="h5" marginTop="20px">
           {data.title}

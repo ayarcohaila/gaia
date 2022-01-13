@@ -1,5 +1,4 @@
 import { styled, Box } from '@mui/material';
-import NextImage from 'next/image';
 
 export const ImageContainer = styled(Box)(({ theme: { breakpoints } }) => ({
   borderRadius: '16px',
@@ -7,6 +6,10 @@ export const ImageContainer = styled(Box)(({ theme: { breakpoints } }) => ({
   position: 'relative',
   margin: '0 auto',
   width: '424px',
+
+  img: {
+    borderRadius: '16px'
+  },
 
   [breakpoints.down(1066)]: {
     height: '380px',
@@ -24,25 +27,4 @@ export const ImageContainer = styled(Box)(({ theme: { breakpoints } }) => ({
     margin: '0 auto',
     width: '275px'
   }
-}));
-
-export const Image = styled(NextImage)(() => ({
-  borderRadius: '16px',
-  position: 'absolute',
-  inset: '0px',
-  boxSizing: 'border-box',
-  padding: '0px',
-  border: 'medium none',
-  margin: 'auto',
-  display: 'block',
-  width: '0px',
-  height: '0px',
-  minWidth: '100%',
-  maxWidth: '100%',
-  minHeight: '100%',
-  maxHeight: '100%',
-  filter: 'none',
-  backgroundSize: 'cover',
-  backgroundImage: 'none',
-  backgroundPosition: '0% 0%'
 }));
