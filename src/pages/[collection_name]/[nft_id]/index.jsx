@@ -46,6 +46,7 @@ export async function getServerSideProps({ params }) {
   const { collection_name, nft_id } = params;
   const brysonConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON];
   const shareefConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF];
+  const shareefAirdropConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP];
 
   const attributesOrder = ATTRIBUTES_ORDER;
   const ballerzComputedProps = BALLERZ_COMPUTED_PROPERTIES;
@@ -69,6 +70,32 @@ export async function getServerSideProps({ params }) {
       try {
         const brysonOffers = await listNFTOffers(brysonOwner, nft[0]?.asset_id.toString());
         hasMultipleOffers = brysonOffers.length > 1;
+      } catch (err) {
+        hasMultipleOffers = false;
+      }
+
+      return {
+        props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
+      };
+    }
+
+    if (collection_name === COLLECTIONS_NAME.SHAREEF_AIRDROP) {
+      const { nft } = await gqlClient.request(GET_NFT_BY_MINT_NUMBER, {
+        filter: {
+          collection_id: { _eq: shareefAirdropConfig.id },
+          asset_id: { _eq: nft_id }
+        }
+      });
+
+      if (!nft?.length || !(shareefAirdropConfig.status === COLLECTION_STATUS.SALE)) {
+        return { notFound: true };
+      }
+
+      const shareefOwner = nft[0]?.owner;
+
+      try {
+        const shareefOffers = await listNFTOffers(shareefOwner, nft[0]?.asset_id.toString());
+        hasMultipleOffers = shareefOffers.length > 1;
       } catch (err) {
         hasMultipleOffers = false;
       }

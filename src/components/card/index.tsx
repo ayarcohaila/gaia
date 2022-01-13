@@ -39,12 +39,18 @@ const Card = (props: CardProps) => {
   );
 
   const nftRedirectReference =
-    data.collection_id === COLLECTION_LIST_CONFIG.shareef.id
+    data.collection_id === COLLECTION_LIST_CONFIG.shareef.id ||
+    data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id
       ? data.asset_id
       : data.template.metadata.id || data.mint_number;
+
+  const nftCollectionRedirect =
+    data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id
+      ? COLLECTIONS_NAME.SHAREEF_AIRDROP
+      : currentCollection?.collectionName;
   return (
     <>
-      <Link href={`/${currentCollection?.collectionName}/${nftRedirectReference}`} passHref>
+      <Link href={`/${nftCollectionRedirect}/${nftRedirectReference}`} passHref>
         <CustomCard sx={{ cursor: data?.mystery ? 'auto' : 'pointer' }}>
           <CustomCardHeader
             avatar={
@@ -60,8 +66,7 @@ const Card = (props: CardProps) => {
             }
             title={currentCollection?.collectionName.toUpperCase()}
           />
-          {currentCollection?.collectionName === COLLECTIONS_NAME.BRYSON &&
-          !currentCollection?.mystery ? (
+          {data?.template.metadata.video && !currentCollection?.mystery ? (
             <Grid maxWidth={'276px'}>
               <VideoPlayer
                 containerProps={undefined}

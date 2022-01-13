@@ -4,11 +4,16 @@ import { hasSell, hasTransfer } from '~/config/config';
 import { ComingSoon, CancelButton, TransferButton, SellButton } from './styled';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
+import COLLECTION_LIST_CONFIG, { COLLECTIONS_NAME } from 'collections_setup';
 import { CardActionsProps } from './types';
 
 const CardActions = (props: CardActionsProps) => {
   const { data, loading, toggleCancelListingModal, toggleSellNftModal, toggleTransferNftModal } =
     props;
+
+  if (data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id) {
+    return null;
+  }
 
   if (!hasSell && !hasTransfer) {
     return (

@@ -28,7 +28,7 @@ import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 import { hasSell, hasTransfer } from '~/config/config';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { BUY_TX, CANCEL_SALE_TX } from '~/constant';
-import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
+import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup';
 
 import * as Styled from './styles';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
@@ -224,6 +224,8 @@ const ProductDetailsTopSection = ({
     const formattedPrice = formatCurrencyValue(price);
 
     switch (true) {
+      case nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id:
+        return null;
       case loadingPurchase:
         return <Loader />;
       case isForSale && isOwner && hasOffersActive: {
@@ -281,6 +283,11 @@ const ProductDetailsTopSection = ({
       ? nft.asset_id
       : metadata?.id || nft?.mint_number;
 
+  const collectionInfoName =
+    nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id
+      ? COLLECTION_LIST_CONFIG.shareef.pageTitle
+      : nft?.collection?.name;
+
   return (
     <>
       <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} />
@@ -293,7 +300,7 @@ const ProductDetailsTopSection = ({
           width={isMediumDevice ? '100%' : '45%'}>
           {!isMediumDevice && (
             <Grid alignItems="center" container justifyContent="space-between">
-              <CollectionInfo name={nft?.collection?.name} />
+              <CollectionInfo name={collectionInfoName} />
             </Grid>
           )}
           <Styled.NumberContainer>

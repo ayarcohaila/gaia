@@ -14,7 +14,8 @@ export const COLLECTION_SALE_TYPE = {
 export const COLLECTIONS_NAME = {
   BALLERZ: 'ballerz',
   BRYSON: 'bryson',
-  SHAREEF: 'shareef'
+  SHAREEF: 'shareef',
+  SHAREEF_AIRDROP: 'shareef-airdrop'
 };
 
 export const COLLECTION_LIST_CONFIG = {
@@ -51,6 +52,20 @@ export const COLLECTION_LIST_CONFIG = {
   [COLLECTIONS_NAME.SHAREEF]: {
     id: process.env.NEXT_PUBLIC_SHAREEF_COLLECTION,
     nftName: `Shareef O'Neal`,
+    collectionName: COLLECTIONS_NAME.SHAREEF,
+    status: COLLECTION_STATUS.SALE,
+    mystery: false,
+    buyLimit: 0,
+    avatar: '/collections/shareef/avatar.webp',
+    banner: '/collections/shareef/banner.webp',
+    pageTitle: 'Shareef O’Neal',
+    mainColor: '#4b1f87',
+    secondaryColor: '#4b1f87',
+    collectionSize: 1023
+  },
+  [COLLECTIONS_NAME.SHAREEF_AIRDROP]: {
+    id: process.env.NEXT_PUBLIC_SHAREEF_AIRDROP_COLLECTION,
+    nftName: 'Shareef O’Neal - Birthday',
     collectionName: COLLECTIONS_NAME.SHAREEF,
     status: COLLECTION_STATUS.SALE,
     mystery: false,

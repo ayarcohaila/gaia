@@ -45,7 +45,11 @@ const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
                 sx={{ fontSize: '10px', letterSpacing: '0px' }}>
                 {key?.toUpperCase().replace('_', ' ')}
               </Typography>
-              <Typography color={grey[600]} variant="subtitle1" lineHeight="20px">
+              <Typography
+                color={grey[600]}
+                variant="subtitle1"
+                lineHeight="20px"
+                textAlign="center">
                 {value}
               </Typography>
               <Typography

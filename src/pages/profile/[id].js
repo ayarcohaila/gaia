@@ -66,7 +66,6 @@ export async function getServerSideProps(ctx) {
     address: id,
     collections
   });
-
   const parseDBInput = list => {
     return list.map(nft => {
       const currentCollection = Object.values(COLLECTION_LIST_CONFIG).find(
