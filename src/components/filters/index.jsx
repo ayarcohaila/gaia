@@ -352,7 +352,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
           return (
             !!currentCollection?.properties && (
-              <>
+              <Box key={currentCollection?.id}>
                 <Divider sx={{ mt: 4 }} />
                 <Typography mt={2} variant="h4" textAlign="center">
                   {`${capitalize(currentCollection?.label)} Properties`}
@@ -377,7 +377,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
                     </Accordion>
                   ))}
                 </Box>
-              </>
+              </Box>
             )
           );
         })}

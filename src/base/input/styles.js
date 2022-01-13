@@ -25,13 +25,13 @@ export const Input = styled(MuiInput)(
 
       /* Chrome, Safari, Edge, Opera */
       '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-        '-webkit-appearance': 'none',
+        WebkitAppearance: 'none',
         margin: 0
       },
 
       /* Firefox */
       '&[type=number]': {
-        '-moz-appearance': 'textfield'
+        WebkitAppearance: 'textfield'
       }
     },
 

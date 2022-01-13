@@ -1,22 +1,20 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
+import { Link, useTheme } from '@mui/material';
 
 import { Modal } from '~/components';
 import { Button } from '~/base';
 
 const SuccessPurchaseNFTModal = ({ open, onClose, tx, collectionsName }) => {
+  const router = useRouter();
   const {
     palette: { white }
   } = useTheme();
-  const router = useRouter();
-
   const handleClose = () => {
     router.push(router.asPath);
     onClose();
   };
-
   return (
     <Modal
       asset={null}
@@ -27,7 +25,6 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx, collectionsName }) => {
       title="Purchase Successful"
       titleSx={{ mt: 15 }}>
       <Link
-        component={Button}
         href={`${process.env.NEXT_PUBLIC_FLOW_SCAN}transaction/${tx}`}
         sx={{
           maxWidth: '80%',
@@ -36,8 +33,9 @@ const SuccessPurchaseNFTModal = ({ open, onClose, tx, collectionsName }) => {
           color: white.main
         }}
         target="_blank"
-        rel="noopener noreferrer">
-        {'View on Flowscan'}
+        rel="noreferrer noreferrer"
+        style={{ textDecoration: 'none' }}>
+        <Button>{'View on Flowscan'}</Button>
       </Link>
     </Modal>
   );

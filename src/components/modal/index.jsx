@@ -143,6 +143,7 @@ const Modal = ({
         <SwipeableDrawer
           anchor="bottom"
           open={open}
+          onOpen={() => {}}
           onClose={onClose}
           disableSwipeToOpen={false}
           ModalProps={DRAWER_MODAL_PROPS}>
