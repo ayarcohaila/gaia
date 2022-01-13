@@ -1,5 +1,11 @@
 /// <reference types="cypress" />
 
+const COLLECTION_IDS = {
+  ballerz: 'ballerz',
+  bryson: 'bryson',
+  shareef: 'shareef'
+};
+
 describe('Intercepting Requests', () => {
   context('Filters', () => {
     beforeEach(() => {
@@ -39,9 +45,9 @@ describe('Intercepting Requests', () => {
             .its('collections')
             .should('not.be.empty')
             .then(list => Cypress._.map(list, 'collection_id._eq'))
-            .should('include', Cypress.env('collection_id_1'))
-            .should('include', Cypress.env('collection_id_2'))
-            .should('include', Cypress.env('collection_id_3'));
+            .should('include', Cypress.env(COLLECTION_IDS.ballerz))
+            .should('include', Cypress.env(COLLECTION_IDS.bryson))
+            .should('include', Cypress.env(COLLECTION_IDS.shareef));
 
           expect(request.body.properties).to.have.length(0);
           expect(request.body.offset).to.eq(0);
@@ -77,9 +83,9 @@ describe('Intercepting Requests', () => {
             .its('collections')
             .should('not.be.empty')
             .then(list => Cypress._.map(list, 'collection_id._eq'))
-            .should('include', Cypress.env('collection_id_1'))
-            .should('include', Cypress.env('collection_id_2'))
-            .should('include', Cypress.env('collection_id_3'));
+            .should('include', Cypress.env(COLLECTION_IDS.ballerz))
+            .should('include', Cypress.env(COLLECTION_IDS.bryson))
+            .should('include', Cypress.env(COLLECTION_IDS.shareef));
         });
       });
     });
