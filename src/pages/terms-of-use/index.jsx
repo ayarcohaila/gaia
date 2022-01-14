@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { Grid } from '@mui/material';
+import { Box } from '@mui/material';
 
 import Divider from '~/base/divider';
 import * as Styled from '~/styles/privacyPolicy/styles.js';
@@ -62,11 +62,11 @@ const TermsOfUse = () => {
             <SectionTwelve />
             <SectionThirteen />
           </ol>
-          <Grid sx={{ marginTop: '24px' }}>
-            <Styled.Text variant="p" sx={{ fontWeight: 'bold' }}>
+          <Box mt="24px">
+            <Styled.Text variant="p" bold>
               Last Modified: November 4, 2021
             </Styled.Text>
-          </Grid>
+          </Box>
         </Styled.Content>
       </Styled.Container>
     </>

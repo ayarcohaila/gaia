@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { Table, TableHead, TableBody } from '@mui/material';
+import { Table, TableHead, TableBody, Box } from '@mui/material';
 import * as Styled from '~/styles/privacyPolicy/styles.js';
 
 const SectionEight = () => {
@@ -55,170 +55,170 @@ const SectionEight = () => {
           <Styled.Text>
             Notwithstanding the foregoing, the following applies to California residents:
           </Styled.Text>
-          <Table sx={{ margin: '20px 0px 48px' }}>
-            <TableHead>
-              <Styled.CustomRow>
-                <Styled.CustomCell align="center" colSpan={2}>
-                  For California Residents
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-            </TableHead>
-            <TableBody>
-              <Styled.CustomRow>
-                <Styled.CustomCell sx={{ width: '250px' }}>
-                  You have the right to know what information is being collected about you and to
-                  access that data
-                </Styled.CustomCell>
-                <Styled.CustomCell>
-                  We collect the following data:
-                  <ul>
-                    <Styled.Text component="li" list>
-                      name;
+          <Box m="20px 0px 48px">
+            <Table>
+              <TableHead>
+                <Styled.CustomRow>
+                  <Styled.CustomCell align="center" colSpan={2}>
+                    For California Residents
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+              </TableHead>
+              <TableBody>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>
+                    You have the right to know what information is being collected about you and to
+                    access that data
+                  </Styled.CustomCell>
+                  <Styled.CustomCell>
+                    We collect the following data:
+                    <ul>
+                      <Styled.Text component="li" list>
+                        name;
+                      </Styled.Text>
+                      <Styled.Text component="li" list>
+                        email address;
+                      </Styled.Text>
+                      <Styled.Text component="li" list>
+                        mailing address;
+                      </Styled.Text>
+                      <Styled.Text component="li" list>
+                        telephone number;
+                      </Styled.Text>
+                      <Styled.Text component="li" list>
+                        username;
+                      </Styled.Text>
+                      <Styled.Text component="li" list>
+                        payment details;
+                      </Styled.Text>
+                      <Styled.Text component="li" list>
+                        IP address;
+                      </Styled.Text>
+                      <Styled.Text component="li" list>
+                        device identifiers;
+                      </Styled.Text>
+                      <Styled.Text component="li" list>
+                        browser information; and
+                      </Styled.Text>
+                      <Styled.Text component="li" list>
+                        cookie data (as explained in the Cookie Policy).
+                      </Styled.Text>
+                    </ul>
+                    <Styled.Text>
+                      Please e-mail privacy@nftgenius.com to access your collected data
                     </Styled.Text>
-                    <Styled.Text component="li" list>
-                      email address;
-                    </Styled.Text>
-                    <Styled.Text component="li" list>
-                      mailing address;
-                    </Styled.Text>
-                    <Styled.Text component="li" list>
-                      telephone number;
-                    </Styled.Text>
-                    <Styled.Text component="li" list>
-                      username;
-                    </Styled.Text>
-                    <Styled.Text component="li" list>
-                      payment details;
-                    </Styled.Text>
-                    <Styled.Text component="li" list>
-                      IP address;
-                    </Styled.Text>
-                    <Styled.Text component="li" list>
-                      device identifiers;
-                    </Styled.Text>
-                    <Styled.Text component="li" list>
-                      browser information; and
-                    </Styled.Text>
-                    <Styled.Text component="li" list>
-                      cookie data (as explained in the Cookie Policy).
-                    </Styled.Text>
-                  </ul>
-                  <Styled.Text>
-                    Please e-mail privacy@nftgenius.com to access your collected data
-                  </Styled.Text>
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-              <Styled.CustomRow>
-                <Styled.CustomCell sx={{ width: '250px' }}>
-                  You have the right to know what data is sold or shared and to whom.
-                </Styled.CustomCell>
-                <Styled.CustomCell>
-                  We share the following data with our analytics partner, Google Analytics:
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-              <Styled.CustomRow>
-                <Styled.CustomCell sx={{ width: '250px' }}>
-                  You have the right to correct personal data.
-                </Styled.CustomCell>
-                <Styled.CustomCell>
-                  Please email privacy@nftgenius.com to delete your personal data.
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-              <Styled.CustomRow>
-                <Styled.CustomCell sx={{ width: '250px' }}>
-                  You have the right to delete personal data.
-                </Styled.CustomCell>
-                <Styled.CustomCell>
-                  Please email privacy@nftgenius.com to delete your personal data.
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-              <Styled.CustomRow>
-                <Styled.CustomCell sx={{ width: '250px' }}>
-                  You have the right to data portability.
-                </Styled.CustomCell>
-                <Styled.CustomCell>
-                  Please email privacy@nftgenius.com to exercise your right of data portability.
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-              <Styled.CustomRow>
-                <Styled.CustomCell sx={{ width: '250px' }}>
-                  You have the right to opt out of sale or sharing of your data.
-                </Styled.CustomCell>
-                <Styled.CustomCell>
-                  You can opt out of sale or sharing by pressing the “opt out button.”
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-              <Styled.CustomRow>
-                <Styled.CustomCell sx={{ width: '250px' }}>
-                  You have the right to limit the use and disclosure of sensitive personal
-                  information
-                </Styled.CustomCell>
-                <Styled.CustomCell>
-                  Please email privacy@nftgenius.com with your limitation request
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-            </TableBody>
-          </Table>
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>
+                    You have the right to know what data is sold or shared and to whom.
+                  </Styled.CustomCell>
+                  <Styled.CustomCell>
+                    We share the following data with our analytics partner, Google Analytics:
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>
+                    You have the right to correct personal data.
+                  </Styled.CustomCell>
+                  <Styled.CustomCell>
+                    Please email privacy@nftgenius.com to delete your personal data.
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>You have the right to delete personal data.</Styled.CustomCell>
+                  <Styled.CustomCell>
+                    Please email privacy@nftgenius.com to delete your personal data.
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>You have the right to data portability.</Styled.CustomCell>
+                  <Styled.CustomCell>
+                    Please email privacy@nftgenius.com to exercise your right of data portability.
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>
+                    You have the right to opt out of sale or sharing of your data.
+                  </Styled.CustomCell>
+                  <Styled.CustomCell>
+                    You can opt out of sale or sharing by pressing the “opt out button.”
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>
+                    You have the right to limit the use and disclosure of sensitive personal
+                    information
+                  </Styled.CustomCell>
+                  <Styled.CustomCell>
+                    Please email privacy@nftgenius.com with your limitation request
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+              </TableBody>
+            </Table>
+          </Box>
 
           <Styled.Text>
             Notwithstanding the foregoing, the following applies to Nevada residents:
           </Styled.Text>
 
-          <Table sx={{ margin: '20px 0px 48px' }}>
-            <TableHead>
-              <Styled.CustomRow>
-                <Styled.CustomCell align="center" colSpan={2}>
-                  <Styled.Text>For Nevada Residents</Styled.Text>
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-            </TableHead>
-            <TableBody>
-              <Styled.CustomRow>
-                <Styled.CustomCell>
-                  You have the right to know what information is being collected about you
-                </Styled.CustomCell>
-                <Styled.CustomCell>
-                  We collect
-                  <br />
-                  name;
-                  <br />
-                  email address;
-                  <br />
-                  mailing address;
-                  <br />
-                  telephone number;
-                  <br />
-                  username;
-                  <br />
-                  payment details;
-                  <br />
-                  IP address;
-                  <br />
-                  device identifiers;
-                  <br />
-                  browser information; and
-                  <br />
-                  cookie data (as explainedin the Cookie Policy).
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-              <Styled.CustomRow>
-                <Styled.CustomCell sx={{ width: '50%' }}>
-                  You have the right to correct the collected data
-                </Styled.CustomCell>
-                <Styled.CustomCell sx={{ width: '50%' }}>
-                  Please email privacy@nftgenius.com to correct your data.
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-              <Styled.CustomRow>
-                <Styled.CustomCell sx={{ width: '50%' }}>
-                  Please email privacy@nftgenius.com to correct your data.
-                </Styled.CustomCell>
-                <Styled.CustomCell sx={{ width: '50%' }}>
-                  You can opt out of data sharing by pressing “button”
-                </Styled.CustomCell>
-              </Styled.CustomRow>
-            </TableBody>
-          </Table>
+          <Box m="20px 0px 48px">
+            <Table>
+              <TableHead>
+                <Styled.CustomRow>
+                  <Styled.CustomCell align="center" colSpan={2}>
+                    <Styled.Text>For Nevada Residents</Styled.Text>
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+              </TableHead>
+              <TableBody>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>
+                    You have the right to know what information is being collected about you
+                  </Styled.CustomCell>
+                  <Styled.CustomCell>
+                    We collect
+                    <br />
+                    name;
+                    <br />
+                    email address;
+                    <br />
+                    mailing address;
+                    <br />
+                    telephone number;
+                    <br />
+                    username;
+                    <br />
+                    payment details;
+                    <br />
+                    IP address;
+                    <br />
+                    device identifiers;
+                    <br />
+                    browser information; and
+                    <br />
+                    cookie data (as explainedin the Cookie Policy).
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>
+                    You have the right to correct the collected data
+                  </Styled.CustomCell>
+                  <Styled.CustomCell>
+                    Please email privacy@nftgenius.com to correct your data.
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+                <Styled.CustomRow>
+                  <Styled.CustomCell>
+                    Please email privacy@nftgenius.com to correct your data.
+                  </Styled.CustomCell>
+                  <Styled.CustomCell>
+                    You can opt out of data sharing by pressing “button”
+                  </Styled.CustomCell>
+                </Styled.CustomRow>
+              </TableBody>
+            </Table>
+          </Box>
         </ol>
       </Styled.Text>
     </>

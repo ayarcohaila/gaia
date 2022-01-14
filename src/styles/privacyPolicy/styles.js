@@ -53,14 +53,15 @@ export const SubHeading = styled(Typography)(({ theme: { palette, typography } }
   color: palette.grey[800]
 }));
 
-export const Text = styled(Typography, { shouldForwardProp: prop => prop !== 'list' })(
-  ({ theme: { palette, typography }, list }) => ({
-    ...typography.h6,
-    lineHeight: '1.5',
-    color: palette.grey[600],
-    listStyleType: list && 'disc'
-  })
-);
+export const Text = styled(Typography, {
+  shouldForwardProp: prop => prop !== 'list' && prop !== 'bold'
+})(({ theme: { palette, typography }, list, bold }) => ({
+  ...typography.h6,
+  lineHeight: '1.5',
+  color: palette.grey[600],
+  listStyleType: list && 'disc',
+  fontWeight: bold ? 'bold' : 'normal'
+}));
 
 export const CustomRow = styled(TableRow)(() => ({
   border: 'none',
