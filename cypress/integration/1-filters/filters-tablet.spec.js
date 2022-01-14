@@ -13,8 +13,9 @@ describe('Marketplace - Filters', () => {
     it('Visit Marketplace', () => {
       cy.visit(`${Cypress.env('host')}`);
       cy.get('[data-cy="burger-button-mobile"]').click();
+      cy.wait(1000);
       cy.get('[data-cy="link-Marketplace"]').click();
-      cy.wait(5000);
+      cy.wait(1000);
     });
 
     describe('Input Range Filter', () => {

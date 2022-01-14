@@ -39,7 +39,7 @@ describe('Intercepting Requests', () => {
           expect(request.body.price[1].last_active_price._lte).to.eq(2000000);
 
           expect(request.body.isForSale._eq).to.eq(true);
-          expect(request.body.collections).to.have.length(3);
+          expect(request.body.collections).to.be.an('array');
 
           cy.wrap(request.body)
             .its('collections')
@@ -74,7 +74,7 @@ describe('Intercepting Requests', () => {
           expect(request.body.price).to.have.length(0);
 
           expect(request.body.isForSale._eq).to.eq(undefined);
-          expect(request.body.collections).to.have.length(3);
+          expect(request.body.collections).to.be.an('array');
           expect(request.body.properties).to.have.length(0);
           expect(request.body.offset).to.eq(0);
           expect(request.body.orderBy.last_active_price).to.eq('asc');
