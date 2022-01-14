@@ -2,26 +2,17 @@ import { memo, useState, useEffect, useCallback, useMemo } from 'react';
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import Asset from './asset';
-import CollectionInfo from './collectionInfo';
 import { buy } from '~/flow/buy';
-import { useCollectionConfig, useBreakpoints, useAuth, useToggle } from '~/hooks';
-import {
-  SellNftModal,
-  TransferNftModal,
-  CancelListingModal,
-  PurchaseErrorModal,
-  SuccessPurchaseNFTModal,
-  InsufficientFundsModal,
-  OrderProcessing,
-  Accordion,
-  AdditionalDetails,
-  BlockchainHistory,
-  Breadcrumbs
-} from '~/components';
-import { Loader } from '~/base';
-
+import useCollectionConfig from '~/hooks/useCollectionConfig';
+import useAuth from '~/hooks/useAuth';
+import useToggle from '~/hooks/useToggle';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import AdditionalDetails from '~/components/productDetails/topSection/additionalDetails';
+import BlockchainHistory from '~/components/productDetails/topSection/blockchainHistory';
+import Breadcrumbs from '~/components/breadcrumbs';
+import Loader from '~/base/spinnerLoader';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { cancelSale } from '~/flow/cancelSale';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
@@ -29,9 +20,20 @@ import { hasSell, hasTransfer } from '~/config/config';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { BUY_TX, CANCEL_SALE_TX } from '~/constant';
 import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup';
+import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
+
+const Accordion = dynamic(() => import('~/components/accordion'));
+const SuccessPurchaseNFTModal = dynamic(() => import('~/components/modal/successPurchase'));
+const OrderProcessing = dynamic(() => import('~/components/modal/orderProcessing'));
+const InsufficientFundsModal = dynamic(() => import('~/components/modal/insufficientFunds'));
+const TransferNftModal = dynamic(() => import('~/components/modal/transferNft'));
+const SellNftModal = dynamic(() => import('~/components/modal/sellNft'));
+const CancelListingModal = dynamic(() => import('~/components/modal/cancelListing'));
+const PurchaseErrorModal = dynamic(() => import('~/components/modal/purchaseError'));
 
 import * as Styled from './styles';
-import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
+import Asset from './asset';
+import CollectionInfo from './collectionInfo';
 
 export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';

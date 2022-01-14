@@ -1,9 +1,11 @@
 import { createContext, useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import { AgreeSetupModal } from '~/components';
-import { useAuth } from '~/hooks';
+import useAuth from '~/hooks/useAuth';
 import { URLs } from '~/routes/urls';
+
+const AgreeSetupModal = dynamic(() => import('~/components/modal/agreeSetup'));
 
 export const AuthContext = createContext();
 

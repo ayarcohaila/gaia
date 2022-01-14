@@ -12,7 +12,7 @@ import { Close as CloseIcon, KeyboardArrowDown as ArrowDownIcon } from '@mui/ico
 import { Global } from '@emotion/react';
 import PropTypes from 'prop-types';
 
-import { useBreakpoints } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 import { DRAWER_MODAL_PROPS, MODAL_BACKDROP_PROPS } from './constants';
 import * as Styled from './styles';

@@ -1,8 +1,9 @@
 import NextLink from 'next/link';
-import { Divider } from '~/base';
+import Divider from '~/base/divider';
 import * as Styled from '~/styles/privacyPolicy/styles.js';
-import { SectionOne, SectionTwo } from '~/components/copyrightPolicySections';
-import { Seo } from '~/components';
+import SectionOne from '~/components/copyrightPolicySections/sectionOne';
+import SectionTwo from '~/components/copyrightPolicySections/sectionTwo';
+import Seo from '~/components/seo';
 
 const CopyrightPolicy = () => {
   const paragraphDivider = (

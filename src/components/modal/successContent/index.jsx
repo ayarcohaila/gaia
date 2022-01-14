@@ -5,7 +5,8 @@ import { useRouter } from 'next/router';
 import { ContentCopy as CopyIcon, Link as LinkIcon } from '@mui/icons-material';
 import { Box, Grid, IconButton, Typography, useTheme } from '@mui/material';
 
-import { useBreakpoints, useCopyToClipboard } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useCopyToClipboard from '~/hooks/useCopyToClipboard';
 
 const ModalSuccessContent = ({ address, tx }) => {
   const {

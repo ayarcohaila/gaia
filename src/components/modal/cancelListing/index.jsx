@@ -4,8 +4,9 @@ import { toast } from 'react-toastify';
 import preval from 'preval.macro';
 import { useRouter } from 'next/router';
 
-import { Button, Loader } from '~/base';
-import { useBreakpoints } from '~/hooks';
+import Button from '~/base/button';
+import Loader from '~/base/spinnerLoader';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 import Modal from '..';
 import SuccessContent from '../successContent';

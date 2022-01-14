@@ -11,8 +11,7 @@ import {
 } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
-import { useHover } from '~/hooks';
-
+import useHover from '~/hooks/useHover';
 import * as Styled from './styles';
 
 function handleFullscreenChange(setIsFullscreen) {

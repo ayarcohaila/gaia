@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import { NewToNFTCard } from '~/components';
+import NewToNFTCard from '~/components/newToNFTCard';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { hasBrowse } from '~/config/config';
 

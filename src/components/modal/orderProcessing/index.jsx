@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react';
 
-import { useBreakpoints } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
 import Modal from '..';
 
 const OrderProcessing = ({ open, ...props }) => {

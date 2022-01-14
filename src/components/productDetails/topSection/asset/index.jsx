@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import { VideoPlayer } from '~/components';
+import VideoPlayer from '~/components/videoPlayer';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import Image from 'next/image';
 

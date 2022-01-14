@@ -1,14 +1,21 @@
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import { useBreakpoints, useToggle } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useToggle from '~/hooks/useToggle';
 import { gqlClient } from '~/config/apolloClient';
 import basicAuthCheck from '~/utils/basicAuthCheck';
-import { Divider } from '~/base';
+import Divider from '~/base/divider';
 import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-import { ProfileBanner, ProfileList, CollectionsFilter, Seo, Modal } from '~/components';
+import ProfileBanner from '~/components/profileBanner';
+import ProfileList from '~/components/profileList';
+import CollectionsFilter from '~/components/collectionFilters';
+import Seo from '~/components/seo';
+
+const Modal = dynamic(() => import('~/components/modal'));
 
 import * as Styled from '~/styles/profile/styles';
 

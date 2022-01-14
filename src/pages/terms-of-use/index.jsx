@@ -1,23 +1,21 @@
 import NextLink from 'next/link';
 import { Grid } from '@mui/material';
 
-import { Divider } from '~/base';
+import Divider from '~/base/divider';
 import * as Styled from '~/styles/privacyPolicy/styles.js';
-import {
-  SectionOne,
-  SectionTwo,
-  SectionThree,
-  SectionFour,
-  SectionFive,
-  SectionSix,
-  SectionSevenAndEight,
-  SectionNine,
-  SectionTen,
-  SectionEleven,
-  SectionTwelve,
-  SectionThirteen
-} from '~/components/termsOfUseSections';
-import { Seo } from '~/components';
+import SectionOne from '~/components/termsOfUseSections/sectionOne';
+import SectionTwo from '~/components/termsOfUseSections/sectionTwo';
+import SectionThree from '~/components/termsOfUseSections/sectionThree';
+import SectionFour from '~/components/termsOfUseSections/sectionFour';
+import SectionFive from '~/components/termsOfUseSections/sectionFive';
+import SectionSix from '~/components/termsOfUseSections/sectionSix';
+import SectionSevenAndEight from '~/components/termsOfUseSections/sectionSevenAndEight';
+import SectionNine from '~/components/termsOfUseSections/sectionNine';
+import SectionTen from '~/components/termsOfUseSections/sectionTen';
+import SectionEleven from '~/components/termsOfUseSections/sectionEleven';
+import SectionTwelve from '~/components/termsOfUseSections/sectionTwelve';
+import SectionThirteen from '~/components/termsOfUseSections/sectionThirteen';
+import Seo from '~/components/seo';
 
 const TermsOfUse = () => {
   const paragraphDivider = (

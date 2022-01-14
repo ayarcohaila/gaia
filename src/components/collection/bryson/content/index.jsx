@@ -1,26 +1,27 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import { Button } from '~/base';
-import {
-  InsufficientFundsModal,
-  PurchaseErrorModal,
-  OrderProcessing,
-  VideoPlayer,
-  SuccessPurchaseNFTModal
-} from '~/components';
+import Button from '~/base/button';
+import VideoPlayer from '~/components/videoPlayer';
 import { buy } from '~/flow/buy';
-import { useAuth, useBreakpoints, useToggle } from '~/hooks';
+import useAuth from '~/hooks/useAuth';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useToggle from '~/hooks/useToggle';
 import { AuthContext } from '~/providers/AuthProvider';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
-
+import { INSUFFICIENT_FUNDS } from '~/components/productDetails/topSection';
 import { BUY_TX } from '~/constant';
 
+const InsufficientFundsModal = dynamic(() => import('~/components/modal/insufficientFunds'));
+const PurchaseErrorModal = dynamic(() => import('~/components/modal/purchaseError'));
+const OrderProcessing = dynamic(() => import('~/components/modal/orderProcessing'));
+const SuccessPurchaseNFTModal = dynamic(() => import('~/components/modal/successPurchase'));
+
 import * as Styled from './styles';
-import { INSUFFICIENT_FUNDS } from '~/components/productDetails/topSection';
 
 const BrysonCollectionContent = ({ data, totalAvailable }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();

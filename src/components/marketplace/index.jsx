@@ -1,12 +1,15 @@
 import React, { useMemo, useState } from 'react';
 import { Grid, Typography, useTheme } from '@mui/material';
+import dynamic from 'next/dynamic';
 
-import { Card, Filters, BrowseHeader } from '~/components';
-import { CardSkeletonLoader } from '~/base';
+import Filters from '~/components/filters';
+import BrowseHeader from '~/components/browseHeader';
+import CardSkeletonLoader from '~/base/cardSkeletonLoader';
 import { useAppContext } from '~/context';
-import { useBreakpoints } from '~/hooks';
-
+import useBreakpoints from '~/hooks/useBreakpoints';
 import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from '~/components/filters/browseFilters';
+
+const Card = dynamic(() => import('~/components/card'));
 
 import * as Styled from './styles';
 

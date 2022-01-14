@@ -1,22 +1,25 @@
 import React, { useState, memo } from 'react';
-import { CustomCard, CustomCardHeader, NFTText, NFTPrice, ImageContainer } from './styled';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Avatar, CardContent, Grid, Skeleton } from '@mui/material';
+
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
-import COLLECTION_LIST_CONFIG, { COLLECTIONS_NAME } from 'collections_setup';
-import { useBreakpoints, useToggle } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useToggle from '~/hooks/useToggle';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-import { VideoPlayer } from '~/components';
-import {
-  SellNftModal,
-  TransferNftModal,
-  CancelListingModal,
-  OrderCompleteModal
-} from '~/components';
-import CardActions from './cardActions';
+import VideoPlayer from '~/components/videoPlayer';
+import COLLECTION_LIST_CONFIG, { COLLECTIONS_NAME } from 'collections_setup';
+
+const CardActions = dynamic(() => import('./cardActions'));
+const SellNftModal = dynamic(() => import('~/components/modal/sellNft'));
+const TransferNftModal = dynamic(() => import('~/components/modal/transferNft'));
+const CancelListingModal = dynamic(() => import('~/components/modal/cancelListing'));
+const OrderCompleteModal = dynamic(() => import('~/components/modal/orderComplete'));
+
 import { CardProps } from './types';
-import Image from 'next/image';
+import { CustomCard, CustomCardHeader, NFTText, NFTPrice, ImageContainer } from './styled';
 
 const Card = (props: CardProps) => {
   const { data, hasActions, isMarketplace } = props;

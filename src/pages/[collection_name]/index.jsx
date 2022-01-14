@@ -3,11 +3,13 @@ import MarketPlace from '~/components/marketplace';
 import { useRouter } from 'next/router';
 import { gqlClient } from '~/config/apolloClient';
 import { GET_COLLECTION_BY_ID } from '~/store/server/queries';
-import { useCollectionConfig } from '~/hooks';
+import useCollectionConfig from '~/hooks/useCollectionConfig';
 import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '../../../collections_setup';
 import { Grid } from '@mui/material';
-
-import { Seo, CollectionBanner, BrysonDescription, ShareefDescription } from '~/components';
+import Seo from '~/components/seo';
+import CollectionBanner from '~/components/collectionBanner';
+import BrysonDescription from '~/components/collection/bryson/description';
+import ShareefDescription from '~/components/collection/shareef/description';
 
 const CUSTOM_BANNER_BACKGROUND = {
   sx: {

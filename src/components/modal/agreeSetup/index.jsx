@@ -1,7 +1,8 @@
 import { memo, useMemo, useState, useEffect, useContext } from 'react';
 
-import { Loader } from '~/base';
-import { useAuth, useBreakpoints } from '~/hooks';
+import Loader from '~/base/spinnerLoader';
+import useAuth from '~/hooks/useAuth';
+import useBreakpoints from '~/hooks/useBreakpoints';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { isDapper } from '~/utils/currencyCheck';
 import preval from 'preval.macro';

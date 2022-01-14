@@ -1,10 +1,12 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import { Card } from '~/components';
-import { Button } from '~/base';
-import { useAuth } from '~/hooks';
+import Button from '~/base/button';
+import useAuth from '~/hooks/useAuth';
+
+const Card = dynamic(() => import('~/components/card'));
 
 const ProfileList = ({ nfts }) => {
   const router = useRouter();

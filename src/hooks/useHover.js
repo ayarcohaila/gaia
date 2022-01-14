@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useEventListener } from '.';
+import useEventListener from './useEventListener';
 
 const useHover = elementRef => {
   const [value, setValue] = useState(false);

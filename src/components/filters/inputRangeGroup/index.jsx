@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import { Input } from '~/base';
+import Input from '~/base/input';
 
 const INVALID_KEYS = ['e', 'E', '+', '-'];
 

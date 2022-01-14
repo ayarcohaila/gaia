@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import { useCollectionConfig } from '~/hooks';
+import useCollectionConfig from '~/hooks/useCollectionConfig';
 import Modal from '..';
 
 const MaximumPurchaseLimit = props => {

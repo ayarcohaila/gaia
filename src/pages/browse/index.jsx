@@ -1,5 +1,5 @@
-import { Seo } from '~/components';
-import { Marketplace } from '~/components';
+import Seo from '~/components/seo';
+import Marketplace from '~/components/marketplace';
 import { MARKETPLACE_TITLE } from '~/layout/header/constants';
 
 const Browse = () => {

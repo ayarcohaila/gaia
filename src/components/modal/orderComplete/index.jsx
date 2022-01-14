@@ -3,8 +3,8 @@ import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { ChevronRight as ArrowRightIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
-import { Button } from '~/base';
-import { useBreakpoints } from '~/hooks';
+import Button from '~/base/button';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 import Modal from '..';
 

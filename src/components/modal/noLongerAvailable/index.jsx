@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from '..';
-import { useBreakpoints } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 const NoLongerAvailable = ({ onClose, ...props }) => {
   const { isMediumDevice } = useBreakpoints();

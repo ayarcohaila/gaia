@@ -1,6 +1,6 @@
 import { Box, Button as MuiButton, Grid, styled, Drawer } from '@mui/material';
 
-import { Button } from '~/base';
+import Button from '~/base/button';
 
 export const FloatButton = styled(Button)({
   bottom: '24px',

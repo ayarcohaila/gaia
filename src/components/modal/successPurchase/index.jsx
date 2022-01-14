@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { Link, useTheme } from '@mui/material';
 
-import { Modal } from '~/components';
-import { Button } from '~/base';
+import Modal from '~/components/modal';
+import Button from '~/base/button';
 
 const SuccessPurchaseNFTModal = ({ open, onClose, tx, collectionsName }) => {
   const router = useRouter();

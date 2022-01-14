@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 import { filterFieldsFromObject } from '~/utils/object';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-import { useCollectionConfig, useBreakpoints } from '~/hooks';
+import useCollectionConfig from '~/hooks/useCollectionConfig';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 import * as Styled from './styles';
 

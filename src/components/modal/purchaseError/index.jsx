@@ -2,7 +2,7 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from '..';
-import { useBreakpoints } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 const PurchaseError = ({ onClose, ...props }) => {
   const { isSmallDevice } = useBreakpoints();

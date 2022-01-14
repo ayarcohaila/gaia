@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import React from 'react';
 import { ServerStyleSheet } from 'styled-components';
+import Script from 'next/script';
 
 export default class _Document extends Document {
   static async getInitialProps(ctx) {
@@ -49,11 +49,12 @@ export default class _Document extends Document {
 
           {process.env.NODE_ENV === 'production' && (
             <>
-              <script
-                async
+              <Script
+                strategy="afterInteractive"
                 src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
               />
-              <script
+              <Script
+                strategy="afterInteractive"
                 dangerouslySetInnerHTML={{
                   __html: `window.dataLayer = window.dataLayer || [];
                          function gtag(){dataLayer.push(arguments);}

@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 
-import { Button } from '~/base';
+import Button from '~/base/button';
 
 export const CustomButton = styled(Button)({
   height: '40px',

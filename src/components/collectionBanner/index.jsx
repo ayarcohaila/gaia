@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Grid } from '@mui/material';
 
 import BannerAccount from '~/components/collectionBannerAccount';
-import { useBreakpoints } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 import * as Styled from './styles';
 

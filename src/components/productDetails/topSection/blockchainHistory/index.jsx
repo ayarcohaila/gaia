@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react';
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import { useBreakpoints } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
 import { convertCamelCaseToSentenceCase, formatDate } from '~/utils/string';
 
 const BlockchainHistory = ({ data }) => {

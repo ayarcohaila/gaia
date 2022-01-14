@@ -12,7 +12,7 @@ import SuccessContent from '../successContent';
 import { loadTransaction } from '../../../utils/transactionsLoader';
 import { isDapper } from '~/utils/currencyCheck';
 import { sellItem } from '~/flow/sell';
-import { useBreakpoints } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 import * as Styled from './styles';
 

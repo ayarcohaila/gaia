@@ -1,5 +1,5 @@
 import { styled, Grid, Button } from '@mui/material';
-import { Button as RemoveListingButton } from '~/base';
+import RemoveListingButton from '~/base/button';
 
 export const ComingSoon = styled(Grid)(({ theme: { palette } }) => ({
   width: 256,

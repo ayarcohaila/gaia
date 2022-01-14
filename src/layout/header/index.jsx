@@ -2,15 +2,19 @@ import { useState, useRef } from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import { Grid, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 
-import { HeaderModal } from '~/components';
-import { Dropdown } from '~/base';
-import { useBreakpoints, useToggle, useAuth } from '~/hooks';
+import Dropdown from '~/base/dropdown';
+import useAuth from '~/hooks/useAuth';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useToggle from '~/hooks/useToggle';
 import { hasBrowse } from '~/config/config';
 import { MARKETPLACE_TITLE, MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
+
+const HeaderModal = dynamic(() => import('~/components/modal/headerMenu'));
 
 import * as Styled from './styles.js';
 

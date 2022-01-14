@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Typography, Grid } from '@mui/material';
 
-import { useBreakpoints } from '~/hooks';
+import useBreakpoints from '~/hooks/useBreakpoints';
 import { hasBrowse } from '~/config/config';
 
 import * as Styled from './styled';

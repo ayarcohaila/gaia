@@ -2,14 +2,17 @@ import { memo, useCallback, useEffect, useMemo, useReducer } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FilterList as FiltersIcon } from '@mui/icons-material';
 import axios from 'axios';
-import { capitalize } from 'lodash';
+import capitalize from 'lodash.capitalize';
 import PropTypes from 'prop-types';
 
-import { Button } from '~/base';
+import Button from '~/base/button';
 import { useAppContext } from '~/context';
 import CheckboxCard from './checkboxCard';
-import { useBreakpoints, useToggle, useCollectionConfig, useDebounce } from '~/hooks';
-import { Accordion } from '..';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useToggle from '~/hooks/useToggle';
+import useCollectionConfig from '~/hooks/useCollectionConfig';
+import useDebounce from '~/hooks/useDebounce';
+import Accordion from '../accordion';
 import InputRangeGroup from './inputRangeGroup';
 
 import { ACTION_TYPE, reducer, initialState, FILTERS_CONSTANTS } from './reducer';

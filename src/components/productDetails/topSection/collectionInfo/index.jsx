@@ -2,7 +2,8 @@ import { Avatar, Box, Grid, Typography, useTheme } from '@mui/material';
 import { Verified as VerifiedIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
-import { useBreakpoints, useCollectionConfig } from '~/hooks';
+import useCollectionConfig from '~/hooks/useCollectionConfig';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 const CollectionInfo = ({ name }) => {
   const {

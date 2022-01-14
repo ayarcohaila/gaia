@@ -1,14 +1,15 @@
 import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
-import {
-  // Tune as TuneIcon,
-  Search as SearchIcon
-} from '@mui/icons-material';
+import { Search as SearchIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { Hidden } from '@mui/material';
 import { useRouter } from 'next/router';
 
-import { Dropdown, SearchInput, BurstIcon } from '~/base';
-import { useBreakpoints, useCollectionConfig, useAuth } from '~/hooks';
+import Dropdown from '~/base/dropdown';
+import SearchInput from '~/base/searchInput';
+import BurstIcon from '~/base/burstIcon';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useCollectionConfig from '~/hooks/useCollectionConfig';
+import useAuth from '~/hooks/useAuth';
 
 import { ORDER_MENU_IDS } from './constants';
 import * as Styled from './styles.js';

@@ -1,6 +1,7 @@
 import { Link, styled } from '@mui/material';
 
-import { Button, SearchInput } from '~/base';
+import Button from '~/base/button';
+import SearchInput from '~/base/searchInput';
 
 const INPUT_PROPS = ['hasError', 'isSigned'];
 

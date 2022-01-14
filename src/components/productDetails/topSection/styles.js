@@ -1,5 +1,5 @@
 import { styled, Box, Grid, Button as MuiButton, Typography } from '@mui/material';
-import { Button } from '~/base';
+import Button from '~/base/button';
 
 export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   backgroundColor: '#fff',

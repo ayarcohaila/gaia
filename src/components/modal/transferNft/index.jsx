@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import preval from 'preval.macro';
 import { useRouter } from 'next/router';
 
-import { Loader } from '~/base';
+import Loader from '~/base/spinnerLoader';
 import Modal from '..';
 import { transferNft } from '../../../flow/transferNft';
 import ModalSuccessContent from '../successContent';

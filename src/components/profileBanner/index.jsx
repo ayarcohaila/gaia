@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Address } from '~/components';
-import { useBreakpoints } from '~/hooks';
+import Address from '~/components/address';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 import * as Styled from './styles';
 

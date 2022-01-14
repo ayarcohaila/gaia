@@ -3,26 +3,28 @@ import { useTheme } from '@emotion/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Typography, Divider, Grid } from '@mui/material';
+import dynamic from 'next/dynamic';
 
 import { buy } from '~/flow/buy';
-import { Button, Loader } from '~/base';
-import {
-  InsufficientFundsModal,
-  PurchaseErrorModal,
-  OrderProcessing,
-  VideoPlayer,
-  SuccessPurchaseNFTModal
-} from '~/components';
-
-import { useBreakpoints, useToggle, useAuth } from '~/hooks';
+import Button from '~/base/button';
+import Loader from '~/base/spinnerLoader';
+import VideoPlayer from '~/components/videoPlayer';
+import useAuth from '~/hooks/useAuth';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useToggle from '~/hooks/useToggle';
 import { AuthContext } from '~/providers/AuthProvider';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { BUY_TX } from '~/constant';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-
-import * as Styled from './styles';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import { INSUFFICIENT_FUNDS } from '~/components/productDetails/topSection';
+
+const InsufficientFundsModal = dynamic(() => import('~/components/modal/insufficientFunds'));
+const PurchaseErrorModal = dynamic(() => import('~/components/modal/purchaseError'));
+const OrderProcessing = dynamic(() => import('~/components/modal/orderProcessing'));
+const SuccessPurchaseNFTModal = dynamic(() => import('~/components/modal/successPurchase'));
+
+import * as Styled from './styles';
 
 const ShareefCollectionContent = ({ data }) => {
   const {

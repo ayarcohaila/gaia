@@ -2,10 +2,12 @@ import React, { useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 
-import { Breadcrumbs } from '~/components';
-import { useBreakpoints, useToggle, useCollectionConfig } from '~/hooks';
-import { BurstIcon } from '~/base';
-import { Dropdown } from '~/base';
+import Breadcrumbs from '~/components/breadcrumbs';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useToggle from '~/hooks/useToggle';
+import useCollectionConfig from '~/hooks/useCollectionConfig';
+import BurstIcon from '~/base/burstIcon';
+import Dropdown from '~/base/dropdown';
 import { ORDER_MENU_IDS } from '~/components/collectionFilters/constants';
 import { useAppContext } from '~/context';
 import * as Styled from './styles';

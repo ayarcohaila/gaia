@@ -1,18 +1,16 @@
 import NextLink from 'next/link';
-import { Divider } from '~/base';
+import Divider from '~/base/divider';
 import * as Styled from '~/styles/privacyPolicy/styles.js';
-import {
-  SectionOne,
-  SectionTwo,
-  SectionThree,
-  SectionFourToSix,
-  SectionSeven,
-  SectionEight,
-  SectionNine,
-  SectionTen,
-  SectionElevenAndTwelve
-} from '~/components/privacyPolicySections';
-import { Seo } from '~/components';
+import SectionOne from '~/components/privacyPolicySections/sectionOne';
+import SectionTwo from '~/components/privacyPolicySections/sectionTwo';
+import SectionThree from '~/components/privacyPolicySections/sectionThree';
+import SectionFourToSix from '~/components/privacyPolicySections/sectionFourToSix';
+import SectionSeven from '~/components/privacyPolicySections/sectionSeven';
+import SectionEight from '~/components/privacyPolicySections/sectionEight';
+import SectionNine from '~/components/privacyPolicySections/sectionNine';
+import SectionTen from '~/components/privacyPolicySections/sectionTen';
+import SectionElevenAndTwelve from '~/components/privacyPolicySections/sectionElevenAndTwelve';
+import Seo from '~/components/seo';
 
 const PrivacyPolicy = () => {
   const paragraphDivider = (

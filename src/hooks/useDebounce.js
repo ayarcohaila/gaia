@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback } from 'react';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
 import useIsMounted from '~/hooks/useIsMounted';
 
 function useDebounce(cb, delay) {
