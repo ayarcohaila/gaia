@@ -1,5 +1,11 @@
 const withPlugins = require('next-compose-plugins');
 const { withSentryConfig } = require('@sentry/nextjs');
+const withPWA = require('next-pwa');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+});
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 // Reference: https://nextjs.org/docs/advanced-features/security-headers
 const securityHeaders = [
@@ -50,10 +56,20 @@ const nextConfig = {
   }
 };
 
+const pwaConfig = {
+  pwa: {
+    dest: 'public',
+    disable: !isProduction
+  }
+};
+
 const sentryWebpackPluginOptions = {
   include: '.',
   ignore: ['node_modules'],
   silent: true
 };
 
-module.exports = withSentryConfig(withPlugins([], nextConfig), sentryWebpackPluginOptions);
+module.exports = withSentryConfig(
+  withPlugins([[withPWA, pwaConfig], [withBundleAnalyzer]], nextConfig),
+  sentryWebpackPluginOptions
+);

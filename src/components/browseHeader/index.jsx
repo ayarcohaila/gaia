@@ -84,7 +84,7 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBo
           {!isMediumDevice && (
             <>
               <Styled.CustomButton onClick={handleShowFilters}>
-                <Image src="/TuneIcon.svg" alt="tuneIcon" width="18" height="18" />
+                <Image src="/icons/TuneIcon.svg" alt="tuneIcon" width="18" height="18" />
                 <Styled.Text ml="10px">{`${showFilter ? 'Hide' : 'Show'} filters`}</Styled.Text>
               </Styled.CustomButton>
               <Styled.Divider />

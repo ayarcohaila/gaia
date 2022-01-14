@@ -38,3 +38,8 @@ yarn-error.log*
 
 # Sentry
 .sentryclirc
+
+
+# PWA SW
+public/sw.js
+public/workbox-*.js
