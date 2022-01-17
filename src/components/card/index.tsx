@@ -70,7 +70,7 @@ const Card = (props: CardProps) => {
             title={currentCollection?.collectionName.toUpperCase()}
           />
           {data?.template.metadata.video && !currentCollection?.mystery ? (
-            <Grid maxWidth={'276px'}>
+            <Grid width={'276px'} height={'276px'}>
               <VideoPlayer
                 containerProps={undefined}
                 src={formatIpfsImg(data?.template.metadata.video)}
@@ -82,9 +82,8 @@ const Card = (props: CardProps) => {
           ) : (
             <Grid
               position={'relative'}
-              maxWidth={'276px'}
-              width={isSmallDevice ? '100%' : '276px'}
-              height={'276px'}
+              width={'276px'}
+              height={'292px'}
               margin={0}
               overflow={'hidden'}
               borderRadius={'20px'}>
