@@ -4,13 +4,12 @@ import NewToNFTSection from '~/components/newToNFTSection';
 import HomepageBanner from '~/components/homepageBanner';
 import Seo from '~/components/seo';
 import useBreakpoints from '~/hooks/useBreakpoints';
-import formatWithBasePath from '~/utils/formatWithBasePath';
 
 const Home = () => {
   const { isMediumDevice } = useBreakpoints();
   return (
     <>
-      <Seo title="Gaia" imgURL={formatWithBasePath('static/img/main-unfurl.png')} />
+      <Seo />
       <Box
         paddingLeft={isMediumDevice && '20px'}
         paddingRight={isMediumDevice && '20px'}

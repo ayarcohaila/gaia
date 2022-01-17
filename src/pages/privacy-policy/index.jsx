@@ -12,6 +12,8 @@ import SectionTen from '~/components/privacyPolicySections/sectionTen';
 import SectionElevenAndTwelve from '~/components/privacyPolicySections/sectionElevenAndTwelve';
 import Seo from '~/components/seo';
 
+import { SEO_DATA } from '~/constant';
+
 const PrivacyPolicy = () => {
   const paragraphDivider = (
     <>
@@ -21,7 +23,7 @@ const PrivacyPolicy = () => {
   );
   return (
     <>
-      <Seo title="Privacy Policy" />
+      <Seo title={SEO_DATA.title.privacyPolicy} />
       <Divider customProps={{ margin: 'auto', width: 'calc(100% - 160px)' }} />
       <Styled.Container>
         <Styled.Content component="section">

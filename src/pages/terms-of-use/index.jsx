@@ -16,6 +16,7 @@ import SectionEleven from '~/components/termsOfUseSections/sectionEleven';
 import SectionTwelve from '~/components/termsOfUseSections/sectionTwelve';
 import SectionThirteen from '~/components/termsOfUseSections/sectionThirteen';
 import Seo from '~/components/seo';
+import { SEO_DATA } from '~/constant';
 
 const TermsOfUse = () => {
   const paragraphDivider = (
@@ -26,7 +27,7 @@ const TermsOfUse = () => {
   );
   return (
     <>
-      <Seo title="Terms of Use" />
+      <Seo title={SEO_DATA.title.termService} />
       <Divider customProps={{ margin: 'auto', width: 'calc(100% - 160px)' }} />
       <Styled.Container>
         <Styled.Content component="section">

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -14,6 +15,7 @@ import ProfileBanner from '~/components/profileBanner';
 import ProfileList from '~/components/profileList';
 import CollectionsFilter from '~/components/collectionFilters';
 import Seo from '~/components/seo';
+import { SEO_DATA } from '~/constant';
 
 const Modal = dynamic(() => import('~/components/modal'));
 
@@ -30,9 +32,14 @@ const Profile = ({ userNFTs }) => {
     router.push('/ballerz');
   };
 
+  const profileDescription = useMemo(
+    () => SEO_DATA.description.profile.replace('$WALLET', address),
+    SEO_DATA.description.profile
+  );
+
   return (
     <Box>
-      <Seo title="Profile" />
+      <Seo title={SEO_DATA.title.profile} description={profileDescription} />
       <ProfileBanner address={address} />
       <Styled.FiltersContainer>
         <CollectionsFilter nftQuantity={userNFTs?.length} enableSearch isProfile />

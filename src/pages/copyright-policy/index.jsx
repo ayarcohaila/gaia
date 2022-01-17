@@ -5,6 +5,8 @@ import SectionOne from '~/components/copyrightPolicySections/sectionOne';
 import SectionTwo from '~/components/copyrightPolicySections/sectionTwo';
 import Seo from '~/components/seo';
 
+import { SEO_DATA } from '~/constant';
+
 const CopyrightPolicy = () => {
   const paragraphDivider = (
     <>
@@ -14,7 +16,7 @@ const CopyrightPolicy = () => {
   );
   return (
     <>
-      <Seo title="Copyright Policy" />
+      <Seo title={SEO_DATA.title.copyrightPolicy} />
       <Divider customProps={{ margin: 'auto', width: 'calc(100% - 160px)' }} />
       <Styled.Container>
         <Styled.Content component="section">
