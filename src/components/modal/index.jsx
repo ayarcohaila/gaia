@@ -47,7 +47,7 @@ const Modal = ({
         height={isSmallDevice ? mobileHeight : height}
         {...containerProps}>
         {isSmallDevice && (
-          <Styled.IconButton onClick={onClose} sarrowSx={arrowSx}>
+          <Styled.IconButton onClick={onClose} arrowSx={arrowSx}>
             <Styled.ArrowDownIcon />
           </Styled.IconButton>
         )}

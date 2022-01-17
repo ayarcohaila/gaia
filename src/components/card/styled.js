@@ -43,6 +43,9 @@ export const NFTPrice = styled(Typography)(() => ({
 }));
 
 export const ImageContainer = styled(Grid)(() => ({
+  position: 'relative',
+  width: '276px',
+  height: '276px',
   img: {
     borderRadius: '20px'
   }

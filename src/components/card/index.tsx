@@ -80,7 +80,6 @@ const Card = (props: CardProps) => {
             </Grid>
           ) : (
             <Grid
-              position={'relative'}
               width={'276px'}
               height={'292px'}
               margin={0}
@@ -89,8 +88,6 @@ const Card = (props: CardProps) => {
               <ImageContainer>
                 <Image
                   alt="Nft asset"
-                  height={276}
-                  width={276}
                   layout={'fill'}
                   onLoadingComplete={() => {
                     setImgLoaded(true);

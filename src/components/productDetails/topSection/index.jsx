@@ -327,7 +327,6 @@ const ProductDetailsTopSection = ({
                 container
                 mt={'42px'}
                 mb={!isMediumDevice && '40px'}
-                isSmallDevice={isSmallDevice}
                 justifyContent={isMediumDevice && 'center'}
                 alignItems="center">
                 {!isAuthLoading && renderActions}
