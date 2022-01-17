@@ -6,7 +6,6 @@ export const CustomCard = styled(Card)(() => ({
   backgroundColor: 'white',
   boxShadow: '0 0 0 0',
   position: 'relative',
-  maxWidth: '308px',
   borderSizing: 'border-box'
 }));
 

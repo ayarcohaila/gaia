@@ -51,6 +51,19 @@ const Card = (props: CardProps) => {
     data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id
       ? COLLECTIONS_NAME.SHAREEF_AIRDROP
       : currentCollection?.collectionName;
+
+  const cardWidth = () => {
+    return isSmallDevice ? '20.938rem' : '19.25rem';
+  };
+
+  const cardHeight = () => {
+    return isSmallDevice ? '28.813rem' : '28rem';
+  };
+
+  const assetSize = () => {
+    return isSmallDevice ? '303px' : '276px';
+  };
+
   return (
     <>
       <Link href={`/${nftCollectionRedirect}/${nftRedirectReference}`} passHref>
@@ -70,28 +83,28 @@ const Card = (props: CardProps) => {
             title={currentCollection?.collectionName.toUpperCase()}
           />
           {data?.template.metadata.video && !currentCollection?.mystery ? (
-            <Grid width={'276px'} height={'276px'}>
+            <Grid width={cardWidth} height={cardHeight}>
               <VideoPlayer
                 containerProps={undefined}
                 src={formatIpfsImg(data?.template.metadata.video)}
                 poster={formatIpfsImg(data?.template.metadata.img)}
-                height={['275px', '275px', '275px', '275px']}
-                width={['275px', '275px', '275px', 'auto']}
+                height={assetSize}
+                width={assetSize}
               />
             </Grid>
           ) : (
             <Grid
               position={'relative'}
-              width={'276px'}
-              height={'292px'}
+              width={cardWidth}
+              height={cardHeight}
               margin={0}
               overflow={'hidden'}
               borderRadius={'20px'}>
               <ImageContainer>
                 <Image
                   alt="Nft asset"
-                  height={276}
-                  width={276}
+                  height={assetSize()}
+                  width={assetSize()}
                   layout={'fill'}
                   onLoadingComplete={() => {
                     setImgLoaded(true);
@@ -105,8 +118,8 @@ const Card = (props: CardProps) => {
               </ImageContainer>
               <Skeleton
                 variant="rectangular"
-                height={275}
-                width={275}
+                width={303}
+                height={303}
                 sx={{
                   borderRadius: '20px',
                   margin: 0,
