@@ -6,7 +6,6 @@ import { Avatar, CardContent, Grid, Skeleton } from '@mui/material';
 
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
-import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import VideoPlayer from '~/components/videoPlayer';
@@ -23,7 +22,6 @@ import { CustomCard, CustomCardHeader, NFTText, NFTPrice, ImageContainer } from 
 
 const Card = (props: CardProps) => {
   const { data, hasActions, isMarketplace } = props;
-  const { isSmallDevice } = useBreakpoints();
   const [imgLoaded, setImgLoaded] = useState(false);
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
@@ -51,6 +49,7 @@ const Card = (props: CardProps) => {
     data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id
       ? COLLECTIONS_NAME.SHAREEF_AIRDROP
       : currentCollection?.collectionName;
+
   return (
     <>
       <Link href={`/${nftCollectionRedirect}/${nftRedirectReference}`} passHref>
@@ -70,7 +69,7 @@ const Card = (props: CardProps) => {
             title={currentCollection?.collectionName.toUpperCase()}
           />
           {data?.template.metadata.video && !currentCollection?.mystery ? (
-            <Grid maxWidth={'276px'}>
+            <Grid width={'276px'} height={'276px'}>
               <VideoPlayer
                 containerProps={undefined}
                 src={formatIpfsImg(data?.template.metadata.video)}
@@ -82,9 +81,8 @@ const Card = (props: CardProps) => {
           ) : (
             <Grid
               position={'relative'}
-              maxWidth={'276px'}
-              width={isSmallDevice ? '100%' : '276px'}
-              height={'276px'}
+              width={'276px'}
+              height={'292px'}
               margin={0}
               overflow={'hidden'}
               borderRadius={'20px'}>
