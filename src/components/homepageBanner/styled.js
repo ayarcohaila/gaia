@@ -1,4 +1,4 @@
-import { styled, Button, Typography } from '@mui/material';
+import { styled, Button, Typography, Grid as MuiGrid } from '@mui/material';
 
 export const ContainerBackground = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ imgUrl }) => ({
@@ -38,12 +38,23 @@ export const Container = styled('div', { shouldForwardProp: prop => prop !== 'im
 );
 
 export const TypographyWithOpacity = styled(Typography)(() => ({
+  fontWeight: 'normal',
   opacity: '0.64'
+}));
+
+export const TypographyDescription = styled(Typography)(props => ({
+  maxWidth: '600px',
+  fontWeight: 'normal',
+  lineHeight: !props.isMediumDevice && '30px'
+}));
+
+export const Grid = styled(MuiGrid)(() => ({
+  gap: '12px'
 }));
 
 export const CardButton = styled(Button)(({ theme: { breakpoints, palette } }) => ({
   color: '#fff',
-  width: '150px',
+  width: '200px',
   height: '38px',
   borderRadius: '24px',
   backgroundColor: '#215cf1',

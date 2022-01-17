@@ -61,6 +61,12 @@ const GlobalStyles = createGlobalStyle`
     content: counters(item, ".") " ";
   }
 
+  .MuiDrawer-root > .MuiPaper-root: {
+    background-color: transparent,
+    box-shadow: none,
+    overflow: visible
+  }
+  
   div#nprogress > div.spinner  {
     display: none;
   }

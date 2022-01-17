@@ -1,4 +1,34 @@
-import { Box, Grid, Button, Typography, styled, Skeleton } from '@mui/material';
+import {
+  Box,
+  Grid as MuiGrid,
+  Button,
+  Typography,
+  styled,
+  Skeleton,
+  IconButton as MaIconButton
+} from '@mui/material';
+import { Close as MaCloseIcon, KeyboardArrowDown as MaArrowDownIcon } from '@mui/icons-material';
+
+export const IconButton = styled(MaIconButton)(props => ({
+  position: 'absolute',
+  left: '50%',
+  marginLeft: '-24px',
+  top: -135,
+  ...props.arrowSx
+}));
+
+export const Grid = styled(MuiGrid)(() => ({
+  position: 'relative'
+}));
+
+export const CloseIcon = styled(MaCloseIcon)(() => ({
+  color: '#bcbfc8'
+}));
+
+export const ArrowDownIcon = styled(MaArrowDownIcon)(({ theme: { palette } }) => ({
+  color: palette.grey[375],
+  fontSize: 32
+}));
 
 export const Container = styled(Box)(({ theme: { breakpoints } }) => ({
   left: '50%',

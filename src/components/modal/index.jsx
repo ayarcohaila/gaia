@@ -1,15 +1,6 @@
 import { memo, useState, useRef, useEffect } from 'react';
-import {
-  Fade,
-  IconButton,
-  Modal as MuiModal,
-  SwipeableDrawer,
-  Grid,
-  useTheme
-} from '@mui/material';
+import { Fade, Modal as MuiModal, SwipeableDrawer } from '@mui/material';
 
-import { Close as CloseIcon, KeyboardArrowDown as ArrowDownIcon } from '@mui/icons-material';
-import { Global } from '@emotion/react';
 import PropTypes from 'prop-types';
 
 import useBreakpoints from '~/hooks/useBreakpoints';
@@ -39,10 +30,6 @@ const Modal = ({
   ...props
 }) => {
   const { isSmallDevice } = useBreakpoints();
-  const {
-    palette: { grey }
-  } = useTheme();
-
   const [isImgLoaded, setIsImgLoaded] = useState(false);
 
   const imgRef = useRef();
@@ -60,19 +47,17 @@ const Modal = ({
         height={isSmallDevice ? mobileHeight : height}
         {...containerProps}>
         {isSmallDevice && (
-          <IconButton
-            onClick={onClose}
-            sx={{ position: 'absolute', left: '50%', marginLeft: '-24px', top: -135, ...arrowSx }}>
-            <ArrowDownIcon sx={{ color: grey[375], fontSize: 32 }} />
-          </IconButton>
+          <Styled.IconButton onClick={onClose} sarrowSx={arrowSx}>
+            <Styled.ArrowDownIcon />
+          </Styled.IconButton>
         )}
         {asset?.img && (
           <>
             {!isImgLoaded ? (
               <Styled.AssetContainer container>
-                <Grid sx={{ position: 'relative' }} item>
+                <Styled.Grid item>
                   <Styled.Asset ref={imgRef} alt={title} layout="fill" src={asset?.img} />
-                </Grid>
+                </Styled.Grid>
               </Styled.AssetContainer>
             ) : (
               <Styled.AssetContainer>
@@ -95,7 +80,7 @@ const Modal = ({
           {children}
         </Styled.InfoContainer>
         {!isSmallDevice && !disableCloseButton && (
-          <Styled.CloseButton startIcon={<CloseIcon sx={{ color: '#bcbfc8' }} />} onClick={onClose}>
+          <Styled.CloseButton startIcon={<Styled.CloseIcon />} onClick={onClose}>
             Close Window
           </Styled.CloseButton>
         )}
@@ -105,16 +90,7 @@ const Modal = ({
 
   if (isSmallDevice) {
     if (shouldRenderSwiperOnMobile) {
-      <>
-        <Global
-          styles={{
-            '.MuiDrawer-root > .MuiPaper-root': {
-              backgroundColor: 'transparent',
-              boxShadow: 'none',
-              overflow: 'visible'
-            }
-          }}
-        />
+      return (
         <SwipeableDrawer
           anchor="bottom"
           open={open}
@@ -124,32 +100,19 @@ const Modal = ({
           ModalProps={DRAWER_MODAL_PROPS}>
           {renderContent()}
         </SwipeableDrawer>
-      </>;
+      );
     }
+
     return (
-      // <Dialog open={open} onClose={onClose} fullScreen>
-      //   {renderContent()}
-      // </Dialog>
-      <>
-        <Global
-          styles={{
-            '.MuiDrawer-root > .MuiPaper-root': {
-              backgroundColor: 'transparent',
-              boxShadow: 'none',
-              overflow: 'visible'
-            }
-          }}
-        />
-        <SwipeableDrawer
-          anchor="bottom"
-          open={open}
-          onOpen={() => {}}
-          onClose={onClose}
-          disableSwipeToOpen={false}
-          ModalProps={DRAWER_MODAL_PROPS}>
-          {renderContent()}
-        </SwipeableDrawer>
-      </>
+      <SwipeableDrawer
+        anchor="bottom"
+        open={open}
+        onOpen={() => {}}
+        onClose={onClose}
+        disableSwipeToOpen={false}
+        ModalProps={DRAWER_MODAL_PROPS}>
+        {renderContent()}
+      </SwipeableDrawer>
     );
   }
 

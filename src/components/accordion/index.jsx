@@ -1,4 +1,4 @@
-import { AccordionSummary, AccordionDetails, Divider, Typography, useTheme } from '@mui/material';
+import { AccordionSummary, Typography, useTheme } from '@mui/material';
 import { ArrowDropDown as ExpandMoreIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
@@ -11,9 +11,7 @@ const Accordion = ({ contentSx, children, dividerSx, hasDivider, title, ...props
 
   return (
     <>
-      {hasDivider && (
-        <Divider sx={{ border: 0, borderTop: `2px solid ${grey[200]}`, ...dividerSx }} />
-      )}
+      {hasDivider && <Styled.Divider dividerSx={dividerSx} />}
 
       <Styled.Accordion {...props}>
         <AccordionSummary
@@ -25,7 +23,7 @@ const Accordion = ({ contentSx, children, dividerSx, hasDivider, title, ...props
             {title}
           </Typography>
         </AccordionSummary>
-        <AccordionDetails sx={contentSx}>{children}</AccordionDetails>
+        <Styled.AccordionDetails sx={contentSx}>{children}</Styled.AccordionDetails>
       </Styled.Accordion>
     </>
   );

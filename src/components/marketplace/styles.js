@@ -1,4 +1,32 @@
-import { Grid, Button, styled } from '@mui/material';
+import { Grid, Button, styled, Typography } from '@mui/material';
+
+export const GridResultNotFound = styled(Grid)(() => ({
+  width: '100%',
+  textAlign: 'center',
+  marginTop: '96px'
+}));
+
+export const GridRenderList = styled(Grid)(props => ({
+  display: 'flex',
+  gap: '16px',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  alignContent: 'baseline',
+  width: !props.showFilter || props.isMediumDevice ? '100%' : 'auto'
+}));
+
+export const GridLoadMore = styled(Grid)(() => ({
+  margin: '32px 0 0',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+export const TypographyResultNotFound = styled(Typography)(({ theme: { palette } }) => ({
+  fontSize: '20px',
+  width: '100%',
+  color: palette.grey[600]
+}));
 
 export const BlackButton = styled(Button)(({ theme: { typography, palette } }) => ({
   ...typography.subtitle1,
@@ -27,8 +55,9 @@ export const Wrapper = styled(Grid, { shouldForwardProp: props => props !== 'sho
     boxSizing: 'border-box',
     width: '100%',
     gap: '22px',
-    alignItems: 'baseline',
     margin: '0 auto',
+    minHeight: '350px',
+    alignItems: 'center',
 
     [theme.breakpoints.down('md')]: {
       padding: '0 20px',

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Grid, Typography, useTheme } from '@mui/material';
+import { Grid } from '@mui/material';
 import dynamic from 'next/dynamic';
 
 import Filters from '~/components/filters';
@@ -16,10 +16,6 @@ import * as Styled from './styles';
 const MarketPlace = () => {
   const [showFilter, setShowFilter] = useState(true);
   const { isMediumDevice } = useBreakpoints();
-
-  const {
-    palette: { grey }
-  } = useTheme();
 
   const {
     appData: { page, marketCount, marketplaceLoading, marketplaceNfts },
@@ -42,11 +38,11 @@ const MarketPlace = () => {
     return marketplaceNfts?.length ? (
       marketplaceNfts?.map(nft => <Card key={nft.asset_id} data={nft} isMarketplace />)
     ) : (
-      <Grid sx={{ width: '100%', textAlign: 'center', marginTop: '96px' }}>
-        <Typography variant="body" sx={{ fontSize: '20px', width: '100%', color: grey[600] }}>
+      <Styled.GridResultNotFound>
+        <Styled.TypographyResultNotFound variant="body">
           No results found.
-        </Typography>
-      </Grid>
+        </Styled.TypographyResultNotFound>
+      </Styled.GridResultNotFound>
     );
   }, [marketplaceNfts, marketplaceLoading]);
 
@@ -59,29 +55,21 @@ const MarketPlace = () => {
         available={marketCount || 0}
         withBorder={false}
       />
-      <Styled.Wrapper container alignItems="center" showFilter={showFilter} sx={{ minHeight: 350 }}>
+      <Styled.Wrapper showFilter={showFilter}>
         <Filters
           filters={FILTERS}
           filtersTypes={FILTERS_TYPES}
           filtersIds={FILTERS_IDS}
           showFilter={showFilter}
         />
-        <Grid
-          sx={{
-            display: 'flex',
-            gap: '16px',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            alignContent: 'baseline',
-            width: !showFilter || isMediumDevice ? '100%' : 'auto'
-          }}>
+        <Styled.GridRenderList showFilter={showFilter} isMediumDevice={isMediumDevice}>
           {renderList}
-        </Grid>
+        </Styled.GridRenderList>
       </Styled.Wrapper>
       {marketCount > marketplaceNfts?.length && (
-        <Grid container justifyContent="center" align="center" sx={{ margin: '32px 0 0' }}>
+        <Styled.GridLoadMore>
           <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
-        </Grid>
+        </Styled.GridLoadMore>
       )}
     </Grid>
   );

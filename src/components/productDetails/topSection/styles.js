@@ -1,4 +1,11 @@
-import { styled, Box, Grid, Button as MuiButton, Typography } from '@mui/material';
+import {
+  styled,
+  Box,
+  Grid,
+  Button as MuiButton,
+  Typography,
+  Divider as MuiDivider
+} from '@mui/material';
 import Button from '~/base/button';
 
 export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
@@ -28,6 +35,21 @@ export const Title = styled(Typography)(({ theme: { breakpoints, typography } })
   }
 }));
 
+export const Divider = styled(MuiDivider)(({ theme: { palette } }) => ({
+  border: '0',
+  borderTop: `2px solid ${palette.grey[200]}`
+}));
+
+export const AcordionWrapper = styled('div')(() => ({
+  MuiAccordionRoot: {
+    width: '100%'
+  }
+}));
+
+export const GridStyled = styled(Grid)(props => ({
+  gap: props.isSmallDevice ? '8px' : '16px'
+}));
+
 export const Description = styled(Typography)(
   ({
     theme: {
@@ -38,6 +60,26 @@ export const Description = styled(Typography)(
   }) => ({
     ...typography.h6,
     color: grey[600],
+
+    [breakpoints.down('sm')]: {
+      padding: '0 20px',
+      textAlign: 'center'
+    }
+  })
+);
+
+export const MultipleDescription = styled(Typography)(
+  ({
+    theme: {
+      breakpoints,
+      palette: { grey },
+      typography
+    }
+  }) => ({
+    ...typography.h6,
+    color: grey[600],
+    fontSize: '12px',
+    lineHeight: '1rem',
 
     [breakpoints.down('sm')]: {
       padding: '0 20px',
@@ -70,6 +112,21 @@ export const ActionButtons = styled(Button, {
 })(({ removeListing, theme: { palette } }) => ({
   width: removeListing ? '160px' : '145px',
   height: '48px',
+  padding: '15px 22px 17px',
+  borderRadius: '24px',
+  boxSizing: 'border-box',
+  backgroundColor: removeListing && palette.error.main,
+  fontFamily: 'unset',
+
+  ':hover': {
+    backgroundColor: removeListing && palette.error[700]
+  }
+}));
+
+export const PurchaseButton = styled(Button, {
+  shouldForwardProp: prop => prop !== 'removeListing'
+})(({ removeListing, theme: { palette } }) => ({
+  width: '180px',
   padding: '15px 22px 17px',
   borderRadius: '24px',
   boxSizing: 'border-box',

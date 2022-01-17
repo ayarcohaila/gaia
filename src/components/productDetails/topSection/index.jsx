@@ -1,5 +1,5 @@
 import { memo, useState, useEffect, useCallback, useMemo } from 'react';
-import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -189,32 +189,36 @@ const ProductDetailsTopSection = ({
   const renderAccordions = useMemo(
     () => (
       <>
-        <Accordion
-          defaultExpanded
-          dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
-          sx={{ my: 3, width: '100%' }}
-          title="Properties"
-          id="propsAccordion">
-          <AdditionalDetails
-            data-cy="aditional-detail-properties"
-            data={metadata}
-            ballerzComputedProps={ballerzComputedProps}
-            attributesOrder={attributesOrder}
-            id="propsAccordionDetails"
-          />
-        </Accordion>
-        <Accordion
-          data-cy="aditional-detail-history"
-          defaultExpanded
-          dividerSx={{
-            margin: isSmallDevice ? '0 auto' : '0',
-            width: isSmallDevice ? '90%' : 'auto'
-          }}
-          sx={{ mt: 3, width: '100%' }}
-          title="Blockchain History"
-          id="blockHistoryAccordion">
-          <BlockchainHistory data={blockchainHistoryData} />
-        </Accordion>
+        <Styled.AcordionWrapper>
+          <Accordion
+            defaultExpanded
+            dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
+            my={3}
+            title="Properties"
+            id="propsAccordion">
+            <AdditionalDetails
+              data-cy="aditional-detail-properties"
+              data={metadata}
+              ballerzComputedProps={ballerzComputedProps}
+              attributesOrder={attributesOrder}
+              id="propsAccordionDetails"
+            />
+          </Accordion>
+        </Styled.AcordionWrapper>
+        <Styled.AcordionWrapper>
+          <Accordion
+            data-cy="aditional-detail-history"
+            defaultExpanded
+            dividerSx={{
+              margin: isSmallDevice ? '0 auto' : '0',
+              width: isSmallDevice ? '90%' : 'auto'
+            }}
+            mt={3}
+            title="Blockchain History"
+            id="blockHistoryAccordion">
+            <BlockchainHistory data={blockchainHistoryData} />
+          </Accordion>
+        </Styled.AcordionWrapper>
       </>
     ),
     [blockchainHistoryData, isMediumDevice, isSmallDevice, metadata]
@@ -255,12 +259,11 @@ const ProductDetailsTopSection = ({
         );
       case isForSale && !!transaction && hasOffersActive && Number(price) <= LIMIT_PURCHASE: {
         return (
-          <Styled.ActionButtons
+          <Styled.PurchaseButton
             disabled={loadingPurchase}
-            onClick={user?.addr ? handlePurchaseClick : login}
-            sx={{ width: '180px' }}>
+            onClick={user?.addr ? handlePurchaseClick : login}>
             {`Purchase \n$${formattedPrice}`}
-          </Styled.ActionButtons>
+          </Styled.PurchaseButton>
         );
       }
       default:
@@ -292,7 +295,7 @@ const ProductDetailsTopSection = ({
 
   return (
     <>
-      <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} />
+      <Breadcrumbs links={breadcrumbsLinks} mx={1} />
       <Styled.Container container={!isMediumDevice} justifyContent="space-between">
         <Asset metadata={metadata} />
         <Grid
@@ -316,7 +319,9 @@ const ProductDetailsTopSection = ({
             {(hasSell || hasTransfer) && (
               <Grid
                 container
-                sx={{ mt: '42px', gap: isSmallDevice ? '8px' : '16px' }}
+                mt={'42px'}
+                mb={!isMediumDevice && '40px'}
+                isSmallDevice={isSmallDevice}
                 justifyContent={isMediumDevice && 'center'}
                 alignItems="center">
                 {!isAuthLoading && renderActions}
@@ -328,17 +333,17 @@ const ProductDetailsTopSection = ({
               </Grid>
             )}
             {isOwner && hasMultipleOffers && (
-              <Styled.Description sx={{ mt: '20px', fontSize: '12px', lineHeight: '1rem' }}>
+              <Styled.MultipleDescription mt={'20px'}>
                 <Grid component={'span'} sx={{ color: 'red' }}>
                   Multiple Listings Detected
                 </Grid>{' '}
                 - It appears that you may have listed this NFT for sale multiple times, we strongly
                 recommend you cancel all active listings to prevent any issues
-              </Styled.Description>
+              </Styled.MultipleDescription>
             )}
             {!!isMediumDevice && (
               <Box mt={5} width="100%">
-                <Divider sx={{ border: '0', borderTop: `2px solid ${grey[200]}` }} />
+                <Styled.Divider />
                 <Grid alignItems="center" container my="18px" px={2.5}>
                   <CollectionInfo name={nft?.collection?.name} />
                 </Grid>
