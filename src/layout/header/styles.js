@@ -1,4 +1,4 @@
-import { Grid, AppBar, Link, Button, Avatar, IconButton, styled } from '@mui/material';
+import { Grid, AppBar, Button, Avatar, IconButton, styled, Link, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'isMobile' })(
@@ -26,11 +26,13 @@ export const MenuOptionList = styled(Grid)(() => ({
   gap: '12px'
 }));
 
-export const MenuOption = styled(Link)(({ theme: { typography, palette } }) => ({
+export const MenuOption = styled(Typography)(({ theme: { typography, palette } }) => ({
   ...typography.h6,
   fontWeight: 'bold',
   color: palette.secondary.main,
   textDecoration: 'none',
+  cursor: 'pointer',
+
   '&:hover': {
     color: palette.secondary.main
   }

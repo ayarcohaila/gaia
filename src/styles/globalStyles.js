@@ -60,6 +60,10 @@ const GlobalStyles = createGlobalStyle`
   li ol > li:before {
     content: counters(item, ".") " ";
   }
+
+  div#nprogress > div.spinner  {
+    display: none;
+  }
 `;
 
 export { GlobalStyles };

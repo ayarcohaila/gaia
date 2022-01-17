@@ -1,9 +1,10 @@
-import { styled, Button, Typography, Link } from '@mui/material';
+import { styled, Button, Typography } from '@mui/material';
 
 export const ContainerBackground = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ imgUrl }) => ({
     backgroundImage: `url(${imgUrl})`,
     maxHeight: '420px',
+    width: '100%',
     borderRadius: '40px',
     backgroundSize: 'cover',
     backgroundPosition: 'top',
@@ -69,11 +70,16 @@ export const Divider = styled('div')({
   marginBottom: '24px'
 });
 
-export const BannerLink = styled(Link)({
-  bottom: '0',
-  left: '0',
+export const BannerRedirect = styled(Button)({
   height: '100%',
-  position: 'absolute',
   textDecoration: 'none',
-  width: '100%'
+  textTransform: 'none',
+  textAlign: 'left',
+  width: '100%',
+  cursor: 'pointer',
+  backgroundColor: 'transparent',
+
+  '&:hover': {
+    backgroundColor: 'transparent'
+  }
 });

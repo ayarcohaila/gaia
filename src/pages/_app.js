@@ -1,5 +1,6 @@
 import '../../public/static/fonts/fonts.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'nprogress/nprogress.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -58,7 +59,7 @@ function MyApp({ Component, pageProps }) {
                 <meta name="theme-color" content="#404040" />
                 <meta
                   name="viewport"
-                  content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+                  content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=5, viewport-fit=cover"
                 />
               </Head>
               <Header />

@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { Grid, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
+import Link from 'next/link';
 
 import Dropdown from '~/base/dropdown';
 import useAuth from '~/hooks/useAuth';
@@ -85,9 +86,11 @@ const Header = () => {
             <Styled.MenuOptionList component="ul">
               {MENU_OPTIONS.filter(menuOption => menuOption !== false).map(option => (
                 <Grid key={option.label} item component="li">
-                  <Styled.MenuOption data-cy={`link-${option.label}`} href={option.href}>
-                    {option.label}
-                  </Styled.MenuOption>
+                  <Link href={option.href}>
+                    <Styled.MenuOption data-cy={`link-${option.label}`}>
+                      {option.label}
+                    </Styled.MenuOption>
+                  </Link>
                 </Grid>
               ))}
               {MENU_OPTIONS.length > 4 && (
