@@ -1,9 +1,9 @@
 /// <reference types="cypress" />
 
 describe('Marketplace - Filters', () => {
-  context('Viewport 768px resolution', () => {
+  context('Viewport 320px resolution', () => {
     beforeEach(() => {
-      cy.viewport(768, 878);
+      cy.viewport(320, 879);
     });
 
     it('Visit Marketplace', () => {
@@ -11,7 +11,7 @@ describe('Marketplace - Filters', () => {
       cy.get('[data-cy="burger-button-mobile"]').click();
       cy.wait(1000);
       cy.get('[data-cy="link-Marketplace"]').click();
-      cy.wait(1000);
+      cy.wait(2000);
     });
 
     describe('Input Range Filter', () => {
