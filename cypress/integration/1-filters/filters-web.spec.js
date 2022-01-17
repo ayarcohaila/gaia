@@ -16,7 +16,7 @@ describe('Marketplace - Filters', () => {
         const min = '10000';
         const max = '10000';
 
-        cy.get('[data-cy="filter-Price"]').click();
+        cy.get('[data-cy="accordion-summary-Price"]').click();
         cy.get('[name="min"]').should('have.length', 1);
         cy.get('[name="max"]').should('have.length', 1);
 
@@ -30,7 +30,7 @@ describe('Marketplace - Filters', () => {
 
     describe('Single Filters', () => {
       it('Status - Click on View All', () => {
-        cy.get('[data-cy="filter-Status"]').click();
+        cy.get('[data-cy="accordion-summary-Status"]').click();
 
         cy.get('[data-cy="single-filter-viewAll"] input').check();
         cy.get('[data-cy="single-filter-viewAll"] input').should('be.checked');
@@ -42,12 +42,12 @@ describe('Marketplace - Filters', () => {
 
     describe('Multi Filters', () => {
       it('Collection - BALLERZ', () => {
-        cy.get('[data-cy="filter-Collection"]').click();
+        cy.get('[data-cy="accordion-summary-Collection"]').click();
 
         cy.get('[data-cy="multi-filter-BALLERZ"] input').check();
         cy.get('h5').contains('Ballerz Properties');
 
-        cy.get('[data-cy="filter-Ballerz Properties"]').click();
+        cy.get('[data-cy="accordion-summary-Ballerz Properties"]').click();
 
         cy.get('h5').contains('Team');
         cy.get('h5').contains('Number');
@@ -55,7 +55,7 @@ describe('Marketplace - Filters', () => {
         cy.get('h5').contains('Body');
         cy.get('h5').contains('Hair');
 
-        cy.get('[data-cy="filter-Team"]').click();
+        cy.get('[data-cy="accordion-summary-Team"]').click();
         cy.get('[data-cy="checkbox-card"]').should('be.visible');
       });
     });

@@ -415,7 +415,9 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
             <Button data-cy="apply" onClick={handleApplyFilters}>
               Apply
             </Button>
-            <Styled.CloseButton onClick={toggleMobileModal}>Close</Styled.CloseButton>
+            <Styled.CloseButton data-cy="close" onClick={toggleMobileModal}>
+              Close
+            </Styled.CloseButton>
           </Styled.BottomBar>
         </Styled.CustomDrawer>
       )}

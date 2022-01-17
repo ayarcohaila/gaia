@@ -22,7 +22,7 @@ describe('Intercepting Requests', () => {
         const min = '10000';
         const max = '10000';
 
-        cy.get('[data-cy="filter-Price"]').click();
+        cy.get('[data-cy="accordion-summary-Price"]').click();
 
         cy.get('[name="min"]').should('have.length', 1);
         cy.get('[name="min"]').type(`${min}{enter}`);
@@ -61,7 +61,7 @@ describe('Intercepting Requests', () => {
 
     describe('Request - View All', () => {
       it('Field View All', () => {
-        cy.get('[data-cy="filter-Status"]').click();
+        cy.get('[data-cy="accordion-summary-Status"]').click();
         cy.get('[data-cy="single-filter-viewAll"] input').check();
 
         cy.intercept('POST', '/api/marketplace').as('filterReq');
