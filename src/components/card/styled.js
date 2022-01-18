@@ -1,12 +1,13 @@
 import { styled, Card, CardHeader, Typography, Grid } from '@mui/material';
 
 export const CustomCard = styled(Card)(() => ({
+  width: '100%',
+  maxWidth: '276px',
   padding: '16px 16px 22px',
   borderRadius: 20,
   backgroundColor: 'white',
   boxShadow: '0 0 0 0',
   position: 'relative',
-  maxWidth: '308px',
   borderSizing: 'border-box'
 }));
 
@@ -43,6 +44,9 @@ export const NFTPrice = styled(Typography)(() => ({
 }));
 
 export const ImageContainer = styled(Grid)(() => ({
+  position: 'relative',
+  width: '100%',
+  height: '276px',
   img: {
     borderRadius: '20px'
   }

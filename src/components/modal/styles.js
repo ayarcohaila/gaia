@@ -9,13 +9,15 @@ import {
 } from '@mui/material';
 import { Close as MaCloseIcon, KeyboardArrowDown as MaArrowDownIcon } from '@mui/icons-material';
 
-export const IconButton = styled(MaIconButton)(props => ({
-  position: 'absolute',
-  left: '50%',
-  marginLeft: '-24px',
-  top: -135,
-  ...props.arrowSx
-}));
+export const IconButton = styled(MaIconButton, { shouldForwardProp: prop => prop !== 'arrowSx' })(
+  props => ({
+    position: 'absolute',
+    left: '50%',
+    marginLeft: '-24px',
+    top: -135,
+    ...props.arrowSx
+  })
+);
 
 export const Grid = styled(MuiGrid)(() => ({
   position: 'relative'

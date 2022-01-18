@@ -23,3 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import 'cypress-iframe';
+
+Cypress.Commands.add('fclIframeLoaded', () => cy.frameLoaded('#FCL_POP'));
+Cypress.Commands.add('wallet', () => cy.iframe('#FCL_IFRAME').find("[data-test='dev-wallet']"));

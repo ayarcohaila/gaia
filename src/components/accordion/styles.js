@@ -14,11 +14,13 @@ export const Accordion = styled(MuiAccordion)(() => ({
   }
 }));
 
-export const Divider = styled(MuiDivider)(props => ({
-  border: 0,
-  borderTop: `2px solid ${props.theme.palette.grey[200]}`,
-  ...props.dividerSx
-}));
+export const Divider = styled(MuiDivider, { shouldForwardProp: prop => prop !== 'dividerSx' })(
+  ({ theme, dividerSx }) => ({
+    border: 0,
+    borderTop: `2px solid ${theme.palette.grey[200]}`,
+    ...dividerSx
+  })
+);
 
 export const AccordionDetails = styled(MuiAccordionDetails)(props => ({
   ...props.contentSx

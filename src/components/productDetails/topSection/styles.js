@@ -46,10 +46,6 @@ export const AcordionWrapper = styled('div')(() => ({
   }
 }));
 
-export const GridStyled = styled(Grid)(props => ({
-  gap: props.isSmallDevice ? '8px' : '16px'
-}));
-
 export const Description = styled(Typography)(
   ({
     theme: {

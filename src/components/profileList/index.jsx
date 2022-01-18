@@ -37,6 +37,7 @@ const ProfileList = ({ nfts }) => {
             There are no Flow NFTs in this wallet from any Gaia collections
           </Typography>
           <Button
+            data-cy="button-visit-marketplace"
             onClick={handleClick}
             sx={{ padding: '16px 40px', letterSpacing: '0.6px', margin: '20px 0 0 0' }}>
             Visit Marketplace
