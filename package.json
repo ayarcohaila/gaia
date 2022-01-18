@@ -20,7 +20,8 @@
     "hash:checker": "nodemon --exec babel-node src/utils/cadenceHashChecker.js",
     "cy:open": "cypress open --env host=http://localhost:3000",
     "cy:headless": "cypress run --env host=http://localhost:5003",
-    "cy:start": "start-server-and-test 'next dev -p 5003' 5003 cy:headless"
+    "cy:start": "start-server-and-test 'next dev -p 5003' 5003 cy:headless",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
     "@apollo/client": "^3.3.15",
