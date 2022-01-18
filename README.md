@@ -60,6 +60,17 @@ You need run the application on port 3000
 You can run without run the application
 `yarn cy:start`
 
+#### 8. How to generate the changelog
+
+1 - Make changes and commit those changes
+4 - Bump version in package.json
+5 - Run the `yarn changelog`
+6 - Commit package.json and CHANGELOG.md files
+7 - Tag
+8 - Push
+
+[conventional-changelog-cli](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli)
+
 # Flow utils
 
 - [Create testnet account / add funds](https://testnet-faucet.onflow.org).
