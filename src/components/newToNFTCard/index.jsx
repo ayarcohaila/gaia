@@ -29,9 +29,7 @@ const NewToNFTCard = ({ data }) => {
         {data.hasButton && (
           <a rel="noreferrer" {...data.linkProps}>
             <Styled.CardLink>
-              <Typography variant="subtitle1" fontWeight="600">
-                {data.linkText}
-              </Typography>
+              <Typography variant="link1">{data.linkText}</Typography>
               <KeyboardArrowRightIcon />
             </Styled.CardLink>
           </a>
@@ -43,7 +41,7 @@ const NewToNFTCard = ({ data }) => {
 
 NewToNFTCard.propTypes = {
   data: PropTypes.shape({
-    titile: PropTypes.string,
+    title: PropTypes.string,
     description: PropTypes.string,
     image: PropTypes.string,
     link: PropTypes.string

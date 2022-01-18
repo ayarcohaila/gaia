@@ -41,18 +41,22 @@ export const CustomLink = styled('a')(() => ({
 }));
 
 export const CardDescription = styled(Typography)(() => ({
-  height: '40px',
+  minHeight: '40px',
   lineHeight: '20px'
 }));
 
-export const CardLink = styled('div')(() => ({
+export const CardLink = styled('div')(({ theme: { breakpoints } }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'row',
   color: '#215cf1',
-  marginTop: '20px',
-  cursor: 'pointer'
+  marginTop: '18px',
+  cursor: 'pointer',
+
+  [breakpoints.up('mdx')]: {
+    marginTop: '20px'
+  }
 }));
 
 export const ImageContainer = styled('div')(() => ({
