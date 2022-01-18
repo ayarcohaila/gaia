@@ -80,7 +80,7 @@ const Card = (props: CardProps) => {
             </Grid>
           ) : (
             <Grid
-              width={'276px'}
+              width={'100%'}
               height={'292px'}
               margin={0}
               overflow={'hidden'}
