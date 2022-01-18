@@ -130,7 +130,11 @@ const Header = () => {
                 <Styled.AvatarMoreIcon rotate={!!openUserMenu} />
               </Styled.AvatarButton>
             ) : (
-              <Styled.CustomButton variant="contained" aria-label="loginButton" onClick={login}>
+              <Styled.CustomButton
+                data-cy="login"
+                variant="contained"
+                aria-label="loginButton"
+                onClick={login}>
                 Sign In
               </Styled.CustomButton>
             )}
@@ -194,7 +198,7 @@ const Header = () => {
                   {MARKETPLACE_TITLE}
                 </Styled.ButtonText>
               )}
-              <Styled.CustomButton variant="contained" headerModal onClick={login}>
+              <Styled.CustomButton data-cy="login" variant="contained" headerModal onClick={login}>
                 Sign In
               </Styled.CustomButton>
             </>

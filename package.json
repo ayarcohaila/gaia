@@ -37,6 +37,7 @@
     "apollo": "^2.33.9",
     "axios": "^0.21.1",
     "cypress": "^9.2.1",
+    "cypress-iframe": "^1.0.1",
     "elliptic": "^6.5.4",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",

@@ -17,6 +17,7 @@ const Asset = ({ metadata }) => {
   return (
     <Styled.ImageContainer>
       <Image
+        data-cy="asset-image"
         alt={metadata?.title}
         src={formatIpfsImg(metadata.img)}
         blurDataURL={formatIpfsImg(metadata.img)}
