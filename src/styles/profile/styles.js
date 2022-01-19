@@ -9,6 +9,7 @@ export const GridRenderList = styled(Grid, {
   justifyContent: 'center',
   alignContent: 'baseline',
   width: !showFilter || isMediumDevice ? '100%' : 'auto',
+  padding: '40px',
 
   [theme.breakpoints.up('lg')]: {
     display: 'grid',
