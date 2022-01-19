@@ -6,22 +6,30 @@ import useBreakpoints from '~/hooks/useBreakpoints';
 
 import * as Styled from './styles';
 
-const ProfileBanner = ({ address }) => {
+const ProfileBanner = ({ address, bannerTitle }) => {
   const { isMediumDevice } = useBreakpoints();
 
   return (
     <Styled.Banner isMobile={isMediumDevice}>
-      <Styled.ProfileInfo isMobile={isMediumDevice}>My Account</Styled.ProfileInfo>
-      <Styled.BoxWallet>
-        <Styled.WalletText>In Wallet:</Styled.WalletText>
-        <Address>{address || 'NO ADDRESS FOUND'}</Address>
-      </Styled.BoxWallet>
+      <Styled.ProfileInfo isMobile={isMediumDevice}>{bannerTitle}</Styled.ProfileInfo>
+      {address && (
+        <Styled.BoxWallet>
+          <Styled.WalletText>In Wallet:</Styled.WalletText>
+          <Address>{address}</Address>
+        </Styled.BoxWallet>
+      )}
     </Styled.Banner>
   );
 };
 
 ProfileBanner.propTypes = {
-  address: PropTypes.string.isRequired
+  address: PropTypes.string,
+  bannerTitle: PropTypes.string
+};
+
+ProfileBanner.defaultProps = {
+  bannerTitle: 'My Account',
+  address: ''
 };
 
 export default React.memo(ProfileBanner);
