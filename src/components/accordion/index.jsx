@@ -1,4 +1,4 @@
-import { AccordionSummary, Typography, useTheme } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import { ArrowDropDown as ExpandMoreIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,7 @@ const Accordion = ({ contentSx, children, dividerSx, hasDivider, title, ...props
       {hasDivider && <Styled.Divider dividerSx={dividerSx} />}
 
       <Styled.Accordion {...props}>
-        <AccordionSummary
+        <Styled.AccordionSummary
           aria-controls={title}
           expandIcon={<ExpandMoreIcon htmlColor={grey[600]} />}
           id={`${title}_summary`}
@@ -22,7 +22,7 @@ const Accordion = ({ contentSx, children, dividerSx, hasDivider, title, ...props
           <Typography color={grey[650]} variant="h5">
             {title}
           </Typography>
-        </AccordionSummary>
+        </Styled.AccordionSummary>
         <Styled.AccordionDetails sx={contentSx}>{children}</Styled.AccordionDetails>
       </Styled.Accordion>
     </>
