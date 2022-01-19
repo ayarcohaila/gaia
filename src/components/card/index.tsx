@@ -6,7 +6,6 @@ import { Avatar, CardContent, Grid, Skeleton } from '@mui/material';
 
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
-import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import VideoPlayer from '~/components/videoPlayer';

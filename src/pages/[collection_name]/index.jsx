@@ -6,6 +6,7 @@ import { GET_COLLECTION_BY_ID } from '~/store/server/queries';
 import useCollectionConfig from '~/hooks/useCollectionConfig';
 import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '../../../collections_setup';
 import { Grid } from '@mui/material';
+
 import Seo from '~/components/seo';
 import CollectionBanner from '~/components/collectionBanner';
 import BrysonDescription from '~/components/collection/bryson/description';
@@ -58,7 +59,7 @@ const Collection = ({ nft_collection }) => {
 
   return (
     <>
-      <Seo title={config.pageTitle} />
+      <Seo title={config.pageTitle} description={customStyleBanner[collection_name]?.description} />
       <Grid>
         <CollectionBanner
           bannerAvatar={config?.avatar}

@@ -1,18 +1,17 @@
 /// <reference types="cypress" />
 
 describe('Marketplace - Filters', () => {
-  context('Viewport 1024px resolution', () => {
+  context('Viewport 320px resolution', () => {
     beforeEach(() => {
-      // Cypress starts out with a blank slate for each test
-      // so we must tell it to visit our website with the `cy.visit()` command.
-      // Since we want to visit the same URL at the start of all our tests,
-      // we include it in our beforeEach function so that it runs before each test
-      cy.viewport(1440, 878);
+      cy.viewport(320, 879);
     });
 
     it('Visit Marketplace', () => {
       cy.visit(`${Cypress.env('host')}`);
+      cy.get('[data-cy="burger-button-mobile"]').click();
+      cy.wait(1000);
       cy.get('[data-cy="link-Marketplace"]').click();
+      cy.wait(2000);
     });
 
     describe('Input Range Filter', () => {
@@ -20,7 +19,7 @@ describe('Marketplace - Filters', () => {
         const min = '10000';
         const max = '10000';
 
-        cy.get('[data-cy="filter-Price"]').click();
+        cy.get('[data-cy="button-filter-medium-device"]').click();
         cy.get('[name="min"]').should('have.length', 1);
         cy.get('[name="max"]').should('have.length', 1);
 
@@ -34,11 +33,11 @@ describe('Marketplace - Filters', () => {
 
     describe('Single Filters', () => {
       it('Status - Click on View All', () => {
-        cy.get('[data-cy="filter-Status"]').click();
-
         cy.get('[data-cy="single-filter-viewAll"] input').check();
         cy.get('[data-cy="single-filter-viewAll"] input').should('be.checked');
+      });
 
+      it('Status - Click on Buy Now', () => {
         cy.get('[data-cy="single-filter-buyNow"] input').check();
         cy.get('[data-cy="single-filter-buyNow"] input').should('be.checked');
       });
@@ -46,21 +45,10 @@ describe('Marketplace - Filters', () => {
 
     describe('Multi Filters', () => {
       it('Collection - BALLERZ', () => {
-        cy.get('[data-cy="filter-Collection"]').click();
-
         cy.get('[data-cy="multi-filter-BALLERZ"] input').check();
-        cy.get('h5').contains('Ballerz Properties');
-
-        cy.get('[data-cy="filter-Ballerz Properties"]').click();
-
-        cy.get('h5').contains('Team');
-        cy.get('h5').contains('Number');
-        cy.get('h5').contains('Role');
-        cy.get('h5').contains('Body');
-        cy.get('h5').contains('Hair');
-
-        cy.get('[data-cy="filter-Team"]').click();
-        cy.get('[data-cy="checkbox-card"]').should('be.visible');
+        cy.get('h4').contains('Ballerz Properties');
+        cy.get('[data-cy="apply"]').click();
+        cy.get('[data-cy="button-filter-medium-device"]').contains('Filters (2)');
       });
     });
   });

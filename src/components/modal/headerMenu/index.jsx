@@ -4,7 +4,7 @@ const HeaderModal = ({ open, onClose, children }) => {
   return (
     <Styled.Container hideBackdrop open={open} onClose={onClose}>
       <Styled.Wrapper container alignItems="center" justifyContent="center">
-        <Styled.CloseButton onClick={onClose} variant="text">
+        <Styled.CloseButton data-cy="close" onClick={onClose} variant="text">
           Close
         </Styled.CloseButton>
         {children}

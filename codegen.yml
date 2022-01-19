@@ -1,0 +1,14 @@
+overwrite: true
+schema:
+  - https://gaia-postgres-hasura-addon.herokuapp.com/v1/graphql:
+      headers:
+        X-Hasura-Admin-Secret: ${API_SECRET}
+documents: [./src/**/*.js, ./src/**/*.ts, ./src/**/*.jsx, ./src/**/*.tsx]
+generates:
+  src/store/server/graphql.generated.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      skipTypename: true

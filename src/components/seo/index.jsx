@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 
-import formatWithBasePath from '~/utils/formatWithBasePath';
-
 import { NextSeo } from 'next-seo';
+import { SEO_DATA } from '~/constant';
 
-function SEO({ description, title, imgURL }) {
+function SEO({ description, title, imgURL, keywords }) {
   const openGraph = {
     site_name: 'Gaia',
     type: 'website',
@@ -26,6 +25,7 @@ function SEO({ description, title, imgURL }) {
   return (
     <NextSeo
       title={title ? `${title} ` : ''}
+      additionalMetaTags={[{ property: 'keywords', content: keywords }]}
       description={description}
       openGraph={openGraph}
       twitter={twitter}
@@ -40,9 +40,10 @@ SEO.propTypes = {
 };
 
 SEO.defaultProps = {
-  description:
-    'The world’s largest digital marketplace for crypto collectibles and non-fungible tokens (NFTs). Buy, sell, and discover exclusive digital assets.',
-  imgURL: formatWithBasePath('static/img/main-unfurl.png')
+  title: SEO_DATA.title.default,
+  description: SEO_DATA.description.default,
+  keywords: SEO_DATA.keywords.default,
+  imgURL: SEO_DATA.imgUrl.default
 };
 
 export default SEO;

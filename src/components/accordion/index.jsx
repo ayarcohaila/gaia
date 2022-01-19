@@ -18,7 +18,7 @@ const Accordion = ({ contentSx, children, dividerSx, hasDivider, title, ...props
           aria-controls={title}
           expandIcon={<ExpandMoreIcon htmlColor={grey[600]} />}
           id={`${title}_summary`}
-          data-cy={`filter-${title}`}>
+          data-cy={`accordion-summary-${title}`}>
           <Typography color={grey[650]} variant="h5">
             {title}
           </Typography>

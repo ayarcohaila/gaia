@@ -143,6 +143,13 @@ theme.typography = {
     fontWeight: '500',
     letterSpacing: '0.6px',
     lineHeight: '1rem'
+  },
+  link1: {
+    fontFamily: 'StaffGroteskBold',
+    fontSize: '0.875rem', // 14px
+    fontWeight: '700',
+    letterSpacing: '0.2px',
+    lineHeight: '1rem'
   }
 };
 

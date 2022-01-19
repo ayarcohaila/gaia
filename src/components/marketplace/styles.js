@@ -74,7 +74,6 @@ export const Wrapper = styled(Grid, { shouldForwardProp: props => props !== 'sho
     gap: '22px',
     margin: '0 auto',
     minHeight: '350px',
-    alignItems: 'center',
 
     [theme.breakpoints.down('md')]: {
       padding: '0 20px',

@@ -237,6 +237,7 @@ const ProductDetailsTopSection = ({
       case isForSale && isOwner && hasOffersActive: {
         return (
           <Styled.ActionButtons
+            data-cy="action-button-remove-listing"
             sx={{ width: 250 }}
             removeListing
             onClick={toggleCancelListingModal}>
@@ -248,10 +249,12 @@ const ProductDetailsTopSection = ({
         return (
           <>
             {hasSell && (
-              <Styled.ActionButtons onClick={toggleSellNftModal}>Sell</Styled.ActionButtons>
+              <Styled.ActionButtons data-cy="sell-button" onClick={toggleSellNftModal}>
+                Sell
+              </Styled.ActionButtons>
             )}
             {hasTransfer && (
-              <Styled.TransferButton onClick={toggleTransferNftModal}>
+              <Styled.TransferButton data-cy="transfer-button" onClick={toggleTransferNftModal}>
                 Transfer
               </Styled.TransferButton>
             )}
@@ -260,6 +263,7 @@ const ProductDetailsTopSection = ({
       case isForSale && !!transaction && hasOffersActive && Number(price) <= LIMIT_PURCHASE: {
         return (
           <Styled.PurchaseButton
+            data-cy="action-button-purchase"
             disabled={loadingPurchase}
             onClick={user?.addr ? handlePurchaseClick : login}>
             {`Purchase \n$${formattedPrice}`}
@@ -295,7 +299,7 @@ const ProductDetailsTopSection = ({
 
   return (
     <>
-      <Breadcrumbs links={breadcrumbsLinks} mx={1} />
+      <Breadcrumbs data-cy="breadcrumbs" links={breadcrumbsLinks} mx={1} />
       <Styled.Container container={!isMediumDevice} justifyContent="space-between">
         <Asset metadata={metadata} />
         <Grid
@@ -308,20 +312,21 @@ const ProductDetailsTopSection = ({
               <CollectionInfo name={collectionInfoName} />
             </Grid>
           )}
-          <Styled.NumberContainer>
+          <Styled.NumberContainer data-cy="asset-number">
             <Typography color={grey[600]} variant="body1">
               #{metadata?.id || nft?.mint_number} / {metadata?.editions || config?.collectionSize}
             </Typography>
           </Styled.NumberContainer>
           <Grid alignItems={isMediumDevice ? 'center' : 'stretch'} container flexDirection="column">
-            <Styled.Title>{metadata.title}</Styled.Title>
-            <Styled.Description>{metadata.description}</Styled.Description>
+            <Styled.Title data-cy="asset-title">{metadata.title}</Styled.Title>
+            <Styled.Description data-cy="asset-description">
+              {metadata.description}
+            </Styled.Description>
             {(hasSell || hasTransfer) && (
               <Grid
                 container
                 mt={'42px'}
                 mb={!isMediumDevice && '40px'}
-                isSmallDevice={isSmallDevice}
                 justifyContent={isMediumDevice && 'center'}
                 alignItems="center">
                 {!isAuthLoading && renderActions}
