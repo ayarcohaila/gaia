@@ -4,6 +4,7 @@ export const SEO_DATA = {
   title: {
     default: 'Gaia - NFT Marketplace on Flow',
     profile: 'Gaia - Profile',
+    favorites: 'Gaia - Favorites',
     termService: 'Gaia - Terms of Use',
     privacyPolicy: 'Gaia - Privacy Policy',
     copyrightPolicy: 'Gaia - Copyright Policy'

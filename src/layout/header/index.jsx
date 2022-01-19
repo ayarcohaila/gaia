@@ -57,6 +57,10 @@ const Header = () => {
         router.push('/browse');
         break;
       }
+      case USER_MENU_IDS.FAVORITES: {
+        router.push('/favorites');
+        break;
+      }
       default:
         logout();
         break;

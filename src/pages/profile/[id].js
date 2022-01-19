@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 
 import useBreakpoints from '~/hooks/useBreakpoints';
-import useToggle from '~/hooks/useToggle';
 import { gqlClient } from '~/config/apolloClient';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import Divider from '~/base/divider';
@@ -17,24 +15,16 @@ import CollectionsFilter from '~/components/collectionFilters';
 import Seo from '~/components/seo';
 import { SEO_DATA } from '~/constant';
 
-const Modal = dynamic(() => import('~/components/modal'));
-
 import * as Styled from '~/styles/profile/styles';
 
 const Profile = ({ userNFTs }) => {
   const router = useRouter();
   const { id: address } = router.query;
-  const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
-  const [openModal, toggleOpenModal] = useToggle();
-
-  const onHandleCloseModal = () => {
-    toggleOpenModal();
-    router.push('/ballerz');
-  };
+  const { isMediumDevice } = useBreakpoints();
 
   const profileDescription = useMemo(
     () => SEO_DATA.description.profile.replace('$WALLET', address),
-    SEO_DATA.description.profile
+    [SEO_DATA.description.profile]
   );
 
   return (
@@ -48,18 +38,6 @@ const Profile = ({ userNFTs }) => {
       <Styled.ListWrapper>
         <ProfileList nfts={userNFTs} />
       </Styled.ListWrapper>
-
-      <Modal
-        title="Cannot Load Inventory"
-        description="Something went wrong while checking your inventory. Please try again later."
-        open={openModal}
-        onClose={onHandleCloseModal}
-        descriptionSx={{ maxWidth: '360px', textAlign: 'center', mb: 0, fontSize: '14px' }}
-        titleSx={{ mt: '12vh', mb: '20px' }}
-        height="250px"
-        mobileHeight={isExtraSmallDevice ? '60vh' : '45vh'}
-        asset={{}}
-      />
     </Box>
   );
 };
