@@ -34,7 +34,7 @@ export const BottomImage = styled('img')(() => ({
   width: '100%'
 }));
 
-export const CustomCardMedia = styled(CardMedia)(({ theme: { breakpoints } }) => ({
+export const CustomCardMedia = styled(CardMedia)(() => ({
   borderRadius: '10px',
   margin: '0 auto',
   position: 'relative'

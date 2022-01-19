@@ -1,6 +1,6 @@
 import { styled, Box } from '@mui/material';
 
-export const ImageContainer = styled(Box)(({ theme: { breakpoints } }) => ({
+export const ImageContainer = styled(Box)(() => ({
   borderRadius: '16px',
   height: '424px',
   position: 'relative',
