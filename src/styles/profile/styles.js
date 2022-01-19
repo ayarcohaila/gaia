@@ -1,16 +1,28 @@
 import { Grid, Button, styled } from '@mui/material';
 
-export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
-  display: 'flex',
+export const GridRenderList = styled(Grid, {
+  shouldForwardProp: prop => !['showFilter', 'isMediumDevice'].includes(prop)
+})(({ showFilter, isMediumDevice, theme }) => ({
+  display: 'grid',
   gap: '16px',
   flexWrap: 'wrap',
   justifyContent: 'center',
-  padding: '20px 40px 0px',
-  boxSizing: 'border-box',
-  width: '100%',
+  alignContent: 'baseline',
+  width: !showFilter || isMediumDevice ? '100%' : 'auto',
 
-  [breakpoints.down('sm')]: {
-    padding: '25px 20px'
+  [theme.breakpoints.up('lg')]: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))'
+  },
+
+  [theme.breakpoints.down('lg')]: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)'
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    display: 'grid',
+    gridTemplateColumns: '1fr'
   }
 }));
 
