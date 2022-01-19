@@ -5,7 +5,11 @@ import PropTypes from 'prop-types';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import { convertCamelCaseToSentenceCase, formatDate } from '~/utils/string';
 
-const BlockchainHistory = ({ data }) => {
+import { BlockchainHistoryProps } from './types';
+import { ValueContainer } from './styles';
+
+const BlockchainHistory = (props: BlockchainHistoryProps) => {
+  const { data } = props;
   const {
     palette: { grey }
   } = useTheme();
@@ -27,16 +31,16 @@ const BlockchainHistory = ({ data }) => {
           container
           justifyContent="space-between"
           key={key}
-          mt={index ? 2.8 : 0}
+          mt={index ? (isSmallDevice ? 4 : 2.8) : 0}
           width="90%">
           <Typography color={grey[500]} variant="subtitle1" fontWeight="normal">
             {convertCamelCaseToSentenceCase(key)}:
           </Typography>
-          <Box width={isSmallDevice ? '55%' : '45%'} sx={{ wordBreak: 'break-word' }}>
+          <ValueContainer width={isSmallDevice ? '55%' : '45%'}>
             <Typography color={grey[600]} variant="subtitle1" textAlign="left">
               {value}
             </Typography>
-          </Box>
+          </ValueContainer>
         </Grid>
       ))}
     </Box>
