@@ -37,11 +37,32 @@ export const NFTPrice = styled(Typography)(() => ({
   fontSize: '14px',
   fontWeight: 'bold',
   lineHeight: '1.14',
-  color: '#003aac',
+  color: '#215cf1',
+  letterSpacing: 'normal',
   marginTop: '13px'
 }));
 
+export const GridVideo = styled(Grid)(() => ({
+  '& .MuiBox-root': {
+    display: 'flex',
+    justifyContent: 'center',
+    video: {
+      minHeight: '258.75px'
+    }
+  },
+  '& .MuiButtonBase-root': {
+    padding: '12px'
+  },
+  '& .MuiGrid-root': {
+    padding: '0 0px',
+    width: '75%'
+  }
+}));
+
 export const ImageContainer = styled(Grid)(() => ({
+  height: '100%',
+  width: '100%',
+  position: 'relative',
   img: {
     borderRadius: '20px'
   }

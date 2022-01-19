@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -19,17 +19,24 @@ const CancelListingModal = dynamic(() => import('~/components/modal/cancelListin
 const OrderCompleteModal = dynamic(() => import('~/components/modal/orderComplete'));
 
 import { CardProps } from './types';
-import { CustomCard, CustomCardHeader, NFTText, NFTPrice, ImageContainer } from './styled';
+import {
+  CustomCard,
+  CustomCardHeader,
+  NFTText,
+  NFTPrice,
+  ImageContainer,
+  GridVideo
+} from './styled';
 
 const Card = (props: CardProps) => {
   const { data, hasActions, isMarketplace } = props;
-  const { isSmallDevice } = useBreakpoints();
   const [imgLoaded, setImgLoaded] = useState(false);
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
   const [loading, setLoading] = useState(false);
+  const [assetSize] = useState(() => '17.25rem');
 
   const asset = {
     ...data,
@@ -52,17 +59,7 @@ const Card = (props: CardProps) => {
       ? COLLECTIONS_NAME.SHAREEF_AIRDROP
       : currentCollection?.collectionName;
 
-  const cardWidth = () => {
-    return isSmallDevice ? '20.938rem' : '19.25rem';
-  };
-
-  const cardHeight = () => {
-    return isSmallDevice ? '28.813rem' : '28rem';
-  };
-
-  const assetSize = () => {
-    return isSmallDevice ? '303px' : '276px';
-  };
+  const COLLECTIONS_NAME_UPPERCASE = currentCollection?.collectionName.toUpperCase();
 
   return (
     <>
@@ -71,7 +68,7 @@ const Card = (props: CardProps) => {
           <CustomCardHeader
             avatar={
               <Avatar
-                alt={`The ${currentCollection?.collectionName.toUpperCase()} collection avatar image`}
+                alt={`The ${COLLECTIONS_NAME_UPPERCASE} collection avatar image`}
                 src={
                   Object.values(COLLECTION_LIST_CONFIG)?.find(
                     item => item.id === data.collection_id
@@ -80,32 +77,28 @@ const Card = (props: CardProps) => {
                 sx={{ width: 28, height: 28 }}
               />
             }
-            title={currentCollection?.collectionName.toUpperCase()}
+            title={COLLECTIONS_NAME_UPPERCASE}
           />
+
           {data?.template.metadata.video && !currentCollection?.mystery ? (
-            <Grid width={cardWidth} height={cardHeight}>
+            <GridVideo>
               <VideoPlayer
                 containerProps={undefined}
                 src={formatIpfsImg(data?.template.metadata.video)}
                 poster={formatIpfsImg(data?.template.metadata.img)}
-                height={assetSize}
-                width={assetSize}
+                height={['100%']}
+                width={COLLECTIONS_NAME_UPPERCASE === 'SHAREEF' ? ['83%'] : ['80%']}
               />
-            </Grid>
+            </GridVideo>
           ) : (
-            <Grid
-              position={'relative'}
-              width={cardWidth}
-              height={cardHeight}
-              margin={0}
-              overflow={'hidden'}
-              borderRadius={'20px'}>
+            <Grid margin={0} overflow={'hidden'} borderRadius={'20px'}>
               <ImageContainer>
                 <Image
                   alt="Nft asset"
-                  height={assetSize()}
-                  width={assetSize()}
-                  layout={'fill'}
+                  height={assetSize}
+                  width={assetSize}
+                  layout={'responsive'}
+                  objectFit="contain"
                   onLoadingComplete={() => {
                     setImgLoaded(true);
                   }}
@@ -118,8 +111,6 @@ const Card = (props: CardProps) => {
               </ImageContainer>
               <Skeleton
                 variant="rectangular"
-                width={303}
-                height={303}
                 sx={{
                   borderRadius: '20px',
                   margin: 0,

@@ -3,6 +3,7 @@ import { Box, Grid, IconButton, styled } from '@mui/material';
 export const VideoContainer = styled(Box, {
   shouldForwardProp: prop => prop !== '$height ' && prop !== '$width'
 })(({ $height, $width, theme: { breakpoints } }) => ({
+  width: '100%',
   borderRadius: '10px',
   margin: '0 auto',
   position: 'relative',
@@ -15,7 +16,6 @@ export const VideoContainer = styled(Box, {
   },
 
   [breakpoints.down('md')]: {
-    margin: '0 auto 16px',
     height: $height[2],
     width: $width[2]
   },
