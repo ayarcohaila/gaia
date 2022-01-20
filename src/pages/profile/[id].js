@@ -37,11 +37,7 @@ const Profile = ({ userNFTs }) => {
       </Styled.FiltersContainer>
       <Styled.GridRenderList>
         <ProfileList nfts={userNFTs} />
-<<<<<<< HEAD
       </Styled.GridRenderList>
-=======
-      </Styled.ListWrapper>
->>>>>>> develop
     </Box>
   );
 };
