@@ -8,13 +8,28 @@ export const GridResultNotFound = styled(Grid)(() => ({
 
 export const GridRenderList = styled(Grid, {
   shouldForwardProp: prop => !['showFilter', 'isMediumDevice'].includes(prop)
-})(props => ({
-  display: 'flex',
+})(({ showFilter, isMediumDevice, theme }) => ({
+  display: 'grid',
   gap: '16px',
   flexWrap: 'wrap',
   justifyContent: 'center',
   alignContent: 'baseline',
-  width: !props.showFilter || props.isMediumDevice ? '100%' : 'auto'
+  width: !showFilter || isMediumDevice ? '100%' : 'auto',
+
+  [theme.breakpoints.up('lg')]: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))'
+  },
+
+  [theme.breakpoints.down('lg')]: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)'
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    display: 'grid',
+    gridTemplateColumns: '1fr'
+  }
 }));
 
 export const GridLoadMore = styled(Grid)(() => ({

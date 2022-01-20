@@ -21,8 +21,8 @@ const Asset = ({ metadata }) => {
         alt={metadata?.title}
         src={formatIpfsImg(metadata.img)}
         blurDataURL={formatIpfsImg(metadata.img)}
-        height={424}
-        width={424}
+        layout={'fill'}
+        objectFit="contain"
         placeholder="blur"
       />
     </Styled.ImageContainer>

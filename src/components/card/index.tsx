@@ -18,7 +18,7 @@ const CancelListingModal = dynamic(() => import('~/components/modal/cancelListin
 const OrderCompleteModal = dynamic(() => import('~/components/modal/orderComplete'));
 
 import { CardProps } from './types';
-import { CustomCard, CustomCardHeader, NFTText, NFTPrice, ImageContainer } from './styled';
+import * as Styled from './styled';
 
 const Card = (props: CardProps) => {
   const { data, hasActions, isMarketplace } = props;
@@ -28,6 +28,7 @@ const Card = (props: CardProps) => {
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
   const [loading, setLoading] = useState(false);
+  const [assetSize] = useState(() => '17.25rem');
 
   const asset = {
     ...data,
@@ -50,14 +51,16 @@ const Card = (props: CardProps) => {
       ? COLLECTIONS_NAME.SHAREEF_AIRDROP
       : currentCollection?.collectionName;
 
+  const COLLECTIONS_NAME_UPPERCASE = currentCollection?.collectionName.toUpperCase();
+
   return (
     <>
       <Link href={`/${nftCollectionRedirect}/${nftRedirectReference}`} passHref>
-        <CustomCard sx={{ cursor: data?.mystery ? 'auto' : 'pointer' }}>
-          <CustomCardHeader
+        <Styled.CustomCard sx={{ cursor: data?.mystery ? 'auto' : 'pointer' }}>
+          <Styled.CustomCardHeader
             avatar={
               <Avatar
-                alt={`The ${currentCollection?.collectionName.toUpperCase()} collection avatar image`}
+                alt={`The ${COLLECTIONS_NAME_UPPERCASE} collection avatar image`}
                 src={
                   Object.values(COLLECTION_LIST_CONFIG)?.find(
                     item => item.id === data.collection_id
@@ -66,29 +69,28 @@ const Card = (props: CardProps) => {
                 sx={{ width: 28, height: 28 }}
               />
             }
-            title={currentCollection?.collectionName.toUpperCase()}
+            title={COLLECTIONS_NAME_UPPERCASE}
           />
+
           {data?.template.metadata.video && !currentCollection?.mystery ? (
-            <Grid width={'276px'} height={'276px'}>
+            <Styled.GridVideo>
               <VideoPlayer
                 containerProps={undefined}
                 src={formatIpfsImg(data?.template.metadata.video)}
                 poster={formatIpfsImg(data?.template.metadata.img)}
-                height={['275px', '275px', '275px', '275px']}
-                width={['275px', '275px', '275px', 'auto']}
+                height={['100%']}
+                width={COLLECTIONS_NAME_UPPERCASE === 'SHAREEF' ? ['83%'] : ['80%']}
               />
-            </Grid>
+            </Styled.GridVideo>
           ) : (
-            <Grid
-              width={'100%'}
-              height={'292px'}
-              margin={0}
-              overflow={'hidden'}
-              borderRadius={'20px'}>
-              <ImageContainer>
+            <Grid margin={0} overflow={'hidden'} borderRadius={'20px'}>
+              <Styled.ImageContainer>
                 <Image
                   alt="Nft asset"
-                  layout={'fill'}
+                  height={assetSize}
+                  width={assetSize}
+                  layout={'responsive'}
+                  objectFit="contain"
                   onLoadingComplete={() => {
                     setImgLoaded(true);
                   }}
@@ -98,11 +100,9 @@ const Card = (props: CardProps) => {
                       : formatIpfsImg(data?.template?.metadata.img)
                   }
                 />
-              </ImageContainer>
+              </Styled.ImageContainer>
               <Skeleton
                 variant="rectangular"
-                height={275}
-                width={275}
                 sx={{
                   borderRadius: '20px',
                   margin: 0,
@@ -117,17 +117,17 @@ const Card = (props: CardProps) => {
               paddingX: 0,
               paddingBottom: hasActions || isMarketplace ? '0 !important' : '24px'
             }}>
-            <NFTText maxWidth={'276px'}>{data?.template?.metadata?.title}</NFTText>
+            <Styled.NFTText maxWidth={'276px'}>{data?.template?.metadata?.title}</Styled.NFTText>
             {isMarketplace &&
               data?.has_sale_offers &&
               data?.sale_offers.some(item => item.status === 'active') && (
-                <NFTPrice>
+                <Styled.NFTPrice>
                   $
                   {formatCurrencyValue(
                     getLastByUpdateAt(data?.sale_offers.filter(item => item.status === 'active'))
                       ?.price
                   )}
-                </NFTPrice>
+                </Styled.NFTPrice>
               )}
           </CardContent>
           {hasActions && (
@@ -139,7 +139,7 @@ const Card = (props: CardProps) => {
               toggleTransferNftModal={toggleTransferNftModal}
             />
           )}
-        </CustomCard>
+        </Styled.CustomCard>
       </Link>
       <SellNftModal
         asset={asset}

@@ -1,8 +1,6 @@
 import { styled, Card, CardHeader, Typography, Grid } from '@mui/material';
 
 export const CustomCard = styled(Card)(() => ({
-  width: '100%',
-  maxWidth: '276px',
   padding: '16px 16px 22px',
   borderRadius: 20,
   backgroundColor: 'white',
@@ -39,14 +37,32 @@ export const NFTPrice = styled(Typography)(() => ({
   fontSize: '14px',
   fontWeight: 'bold',
   lineHeight: '1.14',
-  color: '#003aac',
+  color: '#215cf1',
+  letterSpacing: 'normal',
   marginTop: '13px'
 }));
 
+export const GridVideo = styled(Grid)(() => ({
+  '& .MuiBox-root': {
+    display: 'flex',
+    justifyContent: 'center',
+    video: {
+      minHeight: '258.75px'
+    }
+  },
+  '& .MuiButtonBase-root': {
+    padding: '12px'
+  },
+  '& .MuiGrid-root': {
+    padding: '0 0px',
+    width: '75%'
+  }
+}));
+
 export const ImageContainer = styled(Grid)(() => ({
-  position: 'relative',
+  height: '100%',
   width: '100%',
-  height: '276px',
+  position: 'relative',
   img: {
     borderRadius: '20px'
   }

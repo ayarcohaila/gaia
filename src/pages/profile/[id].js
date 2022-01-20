@@ -45,9 +45,9 @@ const Profile = ({ userNFTs }) => {
         <CollectionsFilter nftQuantity={userNFTs?.length} enableSearch isProfile />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
-      <Styled.ListWrapper>
+      <Styled.GridRenderList>
         <ProfileList nfts={userNFTs} />
-      </Styled.ListWrapper>
+      </Styled.GridRenderList>
 
       <Modal
         title="Cannot Load Inventory"
