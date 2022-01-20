@@ -11,7 +11,7 @@ export const GridRenderList = styled(Grid, {
   width: !showFilter || isMediumDevice ? '100%' : 'auto',
   padding: '0 40px',
 
-  [breakpoints.down('sm')]: {
+  [theme.breakpoints.down('sm')]: {
     padding: '0 20px'
   },
 
