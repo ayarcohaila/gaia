@@ -34,6 +34,8 @@ const PurchaseErrorModal = dynamic(() => import('~/components/modal/purchaseErro
 import * as Styled from './styles';
 import Asset from './asset';
 import CollectionInfo from './collectionInfo';
+import ShareButton from '~/components/shareButton';
+import FavoriteButton from '~/components/favoriteButton';
 
 export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
@@ -346,6 +348,14 @@ const ProductDetailsTopSection = ({
                 recommend you cancel all active listings to prevent any issues
               </Styled.MultipleDescription>
             )}
+
+            {isMediumDevice && (
+              <Grid flexDirection="row" container width="auto" mt="32px">
+                <ShareButton />
+                <FavoriteButton nftId={nft.id} />
+              </Grid>
+            )}
+
             {!!isMediumDevice && (
               <Box mt={5} width="100%">
                 <Styled.Divider />
