@@ -117,201 +117,6 @@ export type Bigint_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['bigint']>>;
 };
 
-/** columns and relationships of "block_cursor" */
-export type Block_Cursor = {
-  created_at: Scalars['timestamptz'];
-  current_block_height: Scalars['bigint'];
-  flow_event_name: Scalars['String'];
-  id: Scalars['uuid'];
-  updated_at: Scalars['timestamptz'];
-};
-
-/** aggregated selection of "block_cursor" */
-export type Block_Cursor_Aggregate = {
-  aggregate?: Maybe<Block_Cursor_Aggregate_Fields>;
-  nodes: Array<Block_Cursor>;
-};
-
-/** aggregate fields of "block_cursor" */
-export type Block_Cursor_Aggregate_Fields = {
-  avg?: Maybe<Block_Cursor_Avg_Fields>;
-  count: Scalars['Int'];
-  max?: Maybe<Block_Cursor_Max_Fields>;
-  min?: Maybe<Block_Cursor_Min_Fields>;
-  stddev?: Maybe<Block_Cursor_Stddev_Fields>;
-  stddev_pop?: Maybe<Block_Cursor_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Block_Cursor_Stddev_Samp_Fields>;
-  sum?: Maybe<Block_Cursor_Sum_Fields>;
-  var_pop?: Maybe<Block_Cursor_Var_Pop_Fields>;
-  var_samp?: Maybe<Block_Cursor_Var_Samp_Fields>;
-  variance?: Maybe<Block_Cursor_Variance_Fields>;
-};
-
-
-/** aggregate fields of "block_cursor" */
-export type Block_Cursor_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Block_Cursor_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** aggregate avg on columns */
-export type Block_Cursor_Avg_Fields = {
-  current_block_height?: Maybe<Scalars['Float']>;
-};
-
-/** Boolean expression to filter rows from the table "block_cursor". All fields are combined with a logical 'AND'. */
-export type Block_Cursor_Bool_Exp = {
-  _and?: InputMaybe<Array<Block_Cursor_Bool_Exp>>;
-  _not?: InputMaybe<Block_Cursor_Bool_Exp>;
-  _or?: InputMaybe<Array<Block_Cursor_Bool_Exp>>;
-  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  current_block_height?: InputMaybe<Bigint_Comparison_Exp>;
-  flow_event_name?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "block_cursor" */
-export enum Block_Cursor_Constraint {
-  /** unique or primary key constraint */
-  BlockCursorFlowEventNameKey = 'block_cursor_flow_event_name_key',
-  /** unique or primary key constraint */
-  BlockCursorPkey = 'block_cursor_pkey'
-}
-
-/** input type for incrementing numeric columns in table "block_cursor" */
-export type Block_Cursor_Inc_Input = {
-  current_block_height?: InputMaybe<Scalars['bigint']>;
-};
-
-/** input type for inserting data into table "block_cursor" */
-export type Block_Cursor_Insert_Input = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  current_block_height?: InputMaybe<Scalars['bigint']>;
-  flow_event_name?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-};
-
-/** aggregate max on columns */
-export type Block_Cursor_Max_Fields = {
-  created_at?: Maybe<Scalars['timestamptz']>;
-  current_block_height?: Maybe<Scalars['bigint']>;
-  flow_event_name?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['uuid']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-};
-
-/** aggregate min on columns */
-export type Block_Cursor_Min_Fields = {
-  created_at?: Maybe<Scalars['timestamptz']>;
-  current_block_height?: Maybe<Scalars['bigint']>;
-  flow_event_name?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['uuid']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-};
-
-/** response of any mutation on the table "block_cursor" */
-export type Block_Cursor_Mutation_Response = {
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Block_Cursor>;
-};
-
-/** on conflict condition type for table "block_cursor" */
-export type Block_Cursor_On_Conflict = {
-  constraint: Block_Cursor_Constraint;
-  update_columns?: Array<Block_Cursor_Update_Column>;
-  where?: InputMaybe<Block_Cursor_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "block_cursor". */
-export type Block_Cursor_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  current_block_height?: InputMaybe<Order_By>;
-  flow_event_name?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: block_cursor */
-export type Block_Cursor_Pk_Columns_Input = {
-  id: Scalars['uuid'];
-};
-
-/** select columns of table "block_cursor" */
-export enum Block_Cursor_Select_Column {
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  CurrentBlockHeight = 'current_block_height',
-  /** column name */
-  FlowEventName = 'flow_event_name',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-/** input type for updating data in table "block_cursor" */
-export type Block_Cursor_Set_Input = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  current_block_height?: InputMaybe<Scalars['bigint']>;
-  flow_event_name?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-};
-
-/** aggregate stddev on columns */
-export type Block_Cursor_Stddev_Fields = {
-  current_block_height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Block_Cursor_Stddev_Pop_Fields = {
-  current_block_height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Block_Cursor_Stddev_Samp_Fields = {
-  current_block_height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate sum on columns */
-export type Block_Cursor_Sum_Fields = {
-  current_block_height?: Maybe<Scalars['bigint']>;
-};
-
-/** update columns of table "block_cursor" */
-export enum Block_Cursor_Update_Column {
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  CurrentBlockHeight = 'current_block_height',
-  /** column name */
-  FlowEventName = 'flow_event_name',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-/** aggregate var_pop on columns */
-export type Block_Cursor_Var_Pop_Fields = {
-  current_block_height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate var_samp on columns */
-export type Block_Cursor_Var_Samp_Fields = {
-  current_block_height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate variance on columns */
-export type Block_Cursor_Variance_Fields = {
-  current_block_height?: Maybe<Scalars['Float']>;
-};
-
 /** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
 export type Float8_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['float8']>;
@@ -365,10 +170,6 @@ export type Jsonb_Comparison_Exp = {
 export type Mutation_Root = {
   createSet?: Maybe<CreateSetOutput>;
   createTemplate?: Maybe<CreateTemplateOutput>;
-  /** delete data from the table: "block_cursor" */
-  delete_block_cursor?: Maybe<Block_Cursor_Mutation_Response>;
-  /** delete single row from the table: "block_cursor" */
-  delete_block_cursor_by_pk?: Maybe<Block_Cursor>;
   /** delete data from the table: "nft" */
   delete_nft?: Maybe<Nft_Mutation_Response>;
   /** delete single row from the table: "nft" */
@@ -381,6 +182,10 @@ export type Mutation_Root = {
   delete_nft_drops?: Maybe<Nft_Drops_Mutation_Response>;
   /** delete single row from the table: "nft_drops" */
   delete_nft_drops_by_pk?: Maybe<Nft_Drops>;
+  /** delete data from the table: "nft_favorites" */
+  delete_nft_favorites?: Maybe<Nft_Favorites_Mutation_Response>;
+  /** delete single row from the table: "nft_favorites" */
+  delete_nft_favorites_by_pk?: Maybe<Nft_Favorites>;
   /** delete data from the table: "nft_sale_offer" */
   delete_nft_sale_offer?: Maybe<Nft_Sale_Offer_Mutation_Response>;
   /** delete single row from the table: "nft_sale_offer" */
@@ -393,10 +198,6 @@ export type Mutation_Root = {
   delete_nft_template?: Maybe<Nft_Template_Mutation_Response>;
   /** delete single row from the table: "nft_template" */
   delete_nft_template_by_pk?: Maybe<Nft_Template>;
-  /** insert data into the table: "block_cursor" */
-  insert_block_cursor?: Maybe<Block_Cursor_Mutation_Response>;
-  /** insert a single row into the table: "block_cursor" */
-  insert_block_cursor_one?: Maybe<Block_Cursor>;
   /** insert data into the table: "nft" */
   insert_nft?: Maybe<Nft_Mutation_Response>;
   /** insert data into the table: "nft_collection" */
@@ -407,6 +208,10 @@ export type Mutation_Root = {
   insert_nft_drops?: Maybe<Nft_Drops_Mutation_Response>;
   /** insert a single row into the table: "nft_drops" */
   insert_nft_drops_one?: Maybe<Nft_Drops>;
+  /** insert data into the table: "nft_favorites" */
+  insert_nft_favorites?: Maybe<Nft_Favorites_Mutation_Response>;
+  /** insert a single row into the table: "nft_favorites" */
+  insert_nft_favorites_one?: Maybe<Nft_Favorites>;
   /** insert a single row into the table: "nft" */
   insert_nft_one?: Maybe<Nft>;
   /** insert data into the table: "nft_sale_offer" */
@@ -422,10 +227,6 @@ export type Mutation_Root = {
   /** insert a single row into the table: "nft_template" */
   insert_nft_template_one?: Maybe<Nft_Template>;
   mint?: Maybe<MintOutput>;
-  /** update data of the table: "block_cursor" */
-  update_block_cursor?: Maybe<Block_Cursor_Mutation_Response>;
-  /** update single row of the table: "block_cursor" */
-  update_block_cursor_by_pk?: Maybe<Block_Cursor>;
   /** update data of the table: "nft" */
   update_nft?: Maybe<Nft_Mutation_Response>;
   /** update single row of the table: "nft" */
@@ -438,6 +239,10 @@ export type Mutation_Root = {
   update_nft_drops?: Maybe<Nft_Drops_Mutation_Response>;
   /** update single row of the table: "nft_drops" */
   update_nft_drops_by_pk?: Maybe<Nft_Drops>;
+  /** update data of the table: "nft_favorites" */
+  update_nft_favorites?: Maybe<Nft_Favorites_Mutation_Response>;
+  /** update single row of the table: "nft_favorites" */
+  update_nft_favorites_by_pk?: Maybe<Nft_Favorites>;
   /** update data of the table: "nft_sale_offer" */
   update_nft_sale_offer?: Maybe<Nft_Sale_Offer_Mutation_Response>;
   /** update single row of the table: "nft_sale_offer" */
@@ -462,18 +267,6 @@ export type Mutation_RootCreateSetArgs = {
 /** mutation root */
 export type Mutation_RootCreateTemplateArgs = {
   arg1: CreateTemplateInput;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Block_CursorArgs = {
-  where: Block_Cursor_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Block_Cursor_By_PkArgs = {
-  id: Scalars['uuid'];
 };
 
 
@@ -509,6 +302,18 @@ export type Mutation_RootDelete_Nft_DropsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Nft_Drops_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Nft_FavoritesArgs = {
+  where: Nft_Favorites_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Nft_Favorites_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -550,20 +355,6 @@ export type Mutation_RootDelete_Nft_Template_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_Block_CursorArgs = {
-  objects: Array<Block_Cursor_Insert_Input>;
-  on_conflict?: InputMaybe<Block_Cursor_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Block_Cursor_OneArgs = {
-  object: Block_Cursor_Insert_Input;
-  on_conflict?: InputMaybe<Block_Cursor_On_Conflict>;
-};
-
-
-/** mutation root */
 export type Mutation_RootInsert_NftArgs = {
   objects: Array<Nft_Insert_Input>;
   on_conflict?: InputMaybe<Nft_On_Conflict>;
@@ -595,6 +386,20 @@ export type Mutation_RootInsert_Nft_DropsArgs = {
 export type Mutation_RootInsert_Nft_Drops_OneArgs = {
   object: Nft_Drops_Insert_Input;
   on_conflict?: InputMaybe<Nft_Drops_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Nft_FavoritesArgs = {
+  objects: Array<Nft_Favorites_Insert_Input>;
+  on_conflict?: InputMaybe<Nft_Favorites_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Nft_Favorites_OneArgs = {
+  object: Nft_Favorites_Insert_Input;
+  on_conflict?: InputMaybe<Nft_Favorites_On_Conflict>;
 };
 
 
@@ -654,22 +459,6 @@ export type Mutation_RootMintArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Block_CursorArgs = {
-  _inc?: InputMaybe<Block_Cursor_Inc_Input>;
-  _set?: InputMaybe<Block_Cursor_Set_Input>;
-  where: Block_Cursor_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Block_Cursor_By_PkArgs = {
-  _inc?: InputMaybe<Block_Cursor_Inc_Input>;
-  _set?: InputMaybe<Block_Cursor_Set_Input>;
-  pk_columns: Block_Cursor_Pk_Columns_Input;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_NftArgs = {
   _inc?: InputMaybe<Nft_Inc_Input>;
   _set?: InputMaybe<Nft_Set_Input>;
@@ -724,6 +513,20 @@ export type Mutation_RootUpdate_Nft_Drops_By_PkArgs = {
   _inc?: InputMaybe<Nft_Drops_Inc_Input>;
   _set?: InputMaybe<Nft_Drops_Set_Input>;
   pk_columns: Nft_Drops_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Nft_FavoritesArgs = {
+  _set?: InputMaybe<Nft_Favorites_Set_Input>;
+  where: Nft_Favorites_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Nft_Favorites_By_PkArgs = {
+  _set?: InputMaybe<Nft_Favorites_Set_Input>;
+  pk_columns: Nft_Favorites_Pk_Columns_Input;
 };
 
 
@@ -798,6 +601,11 @@ export type Nft = {
   /** A computed field, executes function "nft_last_active_price" */
   last_active_price?: Maybe<Scalars['float8']>;
   mint_number?: Maybe<Scalars['bigint']>;
+  minted_at?: Maybe<Scalars['timestamp']>;
+  /** An array relationship */
+  nft_favorites: Array<Nft_Favorites>;
+  /** An aggregate relationship */
+  nft_favorites_aggregate: Nft_Favorites_Aggregate;
   owner: Scalars['String'];
   /** An array relationship */
   sale_offers: Array<Nft_Sale_Offer>;
@@ -815,6 +623,26 @@ export type Nft = {
 /** columns and relationships of "nft" */
 export type NftDataArgs = {
   path?: InputMaybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "nft" */
+export type NftNft_FavoritesArgs = {
+  distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Nft_Favorites_Order_By>>;
+  where?: InputMaybe<Nft_Favorites_Bool_Exp>;
+};
+
+
+/** columns and relationships of "nft" */
+export type NftNft_Favorites_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Nft_Favorites_Order_By>>;
+  where?: InputMaybe<Nft_Favorites_Bool_Exp>;
 };
 
 
@@ -915,6 +743,8 @@ export type Nft_Bool_Exp = {
   is_tradable?: InputMaybe<Boolean_Comparison_Exp>;
   last_active_price?: InputMaybe<Float8_Comparison_Exp>;
   mint_number?: InputMaybe<Bigint_Comparison_Exp>;
+  minted_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  nft_favorites?: InputMaybe<Nft_Favorites_Bool_Exp>;
   owner?: InputMaybe<String_Comparison_Exp>;
   sale_offers?: InputMaybe<Nft_Sale_Offer_Bool_Exp>;
   standard?: InputMaybe<String_Comparison_Exp>;
@@ -1608,6 +1438,159 @@ export type Nft_Drops_Variance_Fields = {
   total_claimable?: Maybe<Scalars['Float']>;
 };
 
+/** columns and relationships of "nft_favorites" */
+export type Nft_Favorites = {
+  id: Scalars['uuid'];
+  /** An object relationship */
+  nft: Nft;
+  nft_id: Scalars['uuid'];
+  wallet_address: Scalars['String'];
+};
+
+/** aggregated selection of "nft_favorites" */
+export type Nft_Favorites_Aggregate = {
+  aggregate?: Maybe<Nft_Favorites_Aggregate_Fields>;
+  nodes: Array<Nft_Favorites>;
+};
+
+/** aggregate fields of "nft_favorites" */
+export type Nft_Favorites_Aggregate_Fields = {
+  count: Scalars['Int'];
+  max?: Maybe<Nft_Favorites_Max_Fields>;
+  min?: Maybe<Nft_Favorites_Min_Fields>;
+};
+
+
+/** aggregate fields of "nft_favorites" */
+export type Nft_Favorites_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "nft_favorites" */
+export type Nft_Favorites_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Nft_Favorites_Max_Order_By>;
+  min?: InputMaybe<Nft_Favorites_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "nft_favorites" */
+export type Nft_Favorites_Arr_Rel_Insert_Input = {
+  data: Array<Nft_Favorites_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Nft_Favorites_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "nft_favorites". All fields are combined with a logical 'AND'. */
+export type Nft_Favorites_Bool_Exp = {
+  _and?: InputMaybe<Array<Nft_Favorites_Bool_Exp>>;
+  _not?: InputMaybe<Nft_Favorites_Bool_Exp>;
+  _or?: InputMaybe<Array<Nft_Favorites_Bool_Exp>>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  nft?: InputMaybe<Nft_Bool_Exp>;
+  nft_id?: InputMaybe<Uuid_Comparison_Exp>;
+  wallet_address?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "nft_favorites" */
+export enum Nft_Favorites_Constraint {
+  /** unique or primary key constraint */
+  NftFavoritesNftIdWalletAddressKey = 'nft_favorites_nft_id_wallet_address_key',
+  /** unique or primary key constraint */
+  NftFavoritesPkey = 'nft_favorites_pkey'
+}
+
+/** input type for inserting data into table "nft_favorites" */
+export type Nft_Favorites_Insert_Input = {
+  id?: InputMaybe<Scalars['uuid']>;
+  nft?: InputMaybe<Nft_Obj_Rel_Insert_Input>;
+  nft_id?: InputMaybe<Scalars['uuid']>;
+  wallet_address?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Nft_Favorites_Max_Fields = {
+  id?: Maybe<Scalars['uuid']>;
+  nft_id?: Maybe<Scalars['uuid']>;
+  wallet_address?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "nft_favorites" */
+export type Nft_Favorites_Max_Order_By = {
+  id?: InputMaybe<Order_By>;
+  nft_id?: InputMaybe<Order_By>;
+  wallet_address?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Nft_Favorites_Min_Fields = {
+  id?: Maybe<Scalars['uuid']>;
+  nft_id?: Maybe<Scalars['uuid']>;
+  wallet_address?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "nft_favorites" */
+export type Nft_Favorites_Min_Order_By = {
+  id?: InputMaybe<Order_By>;
+  nft_id?: InputMaybe<Order_By>;
+  wallet_address?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "nft_favorites" */
+export type Nft_Favorites_Mutation_Response = {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Nft_Favorites>;
+};
+
+/** on conflict condition type for table "nft_favorites" */
+export type Nft_Favorites_On_Conflict = {
+  constraint: Nft_Favorites_Constraint;
+  update_columns?: Array<Nft_Favorites_Update_Column>;
+  where?: InputMaybe<Nft_Favorites_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "nft_favorites". */
+export type Nft_Favorites_Order_By = {
+  id?: InputMaybe<Order_By>;
+  nft?: InputMaybe<Nft_Order_By>;
+  nft_id?: InputMaybe<Order_By>;
+  wallet_address?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: nft_favorites */
+export type Nft_Favorites_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "nft_favorites" */
+export enum Nft_Favorites_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  NftId = 'nft_id',
+  /** column name */
+  WalletAddress = 'wallet_address'
+}
+
+/** input type for updating data in table "nft_favorites" */
+export type Nft_Favorites_Set_Input = {
+  id?: InputMaybe<Scalars['uuid']>;
+  nft_id?: InputMaybe<Scalars['uuid']>;
+  wallet_address?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "nft_favorites" */
+export enum Nft_Favorites_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  NftId = 'nft_id',
+  /** column name */
+  WalletAddress = 'wallet_address'
+}
+
 /** input type for incrementing numeric columns in table "nft" */
 export type Nft_Inc_Input = {
   asset_id?: InputMaybe<Scalars['bigint']>;
@@ -1625,6 +1608,8 @@ export type Nft_Insert_Input = {
   is_for_sale?: InputMaybe<Scalars['Boolean']>;
   is_tradable?: InputMaybe<Scalars['Boolean']>;
   mint_number?: InputMaybe<Scalars['bigint']>;
+  minted_at?: InputMaybe<Scalars['timestamp']>;
+  nft_favorites?: InputMaybe<Nft_Favorites_Arr_Rel_Insert_Input>;
   owner?: InputMaybe<Scalars['String']>;
   sale_offers?: InputMaybe<Nft_Sale_Offer_Arr_Rel_Insert_Input>;
   standard?: InputMaybe<Scalars['String']>;
@@ -1641,6 +1626,7 @@ export type Nft_Max_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
   mint_number?: Maybe<Scalars['bigint']>;
+  minted_at?: Maybe<Scalars['timestamp']>;
   owner?: Maybe<Scalars['String']>;
   standard?: Maybe<Scalars['String']>;
   template_id?: Maybe<Scalars['uuid']>;
@@ -1654,6 +1640,7 @@ export type Nft_Max_Order_By = {
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   mint_number?: InputMaybe<Order_By>;
+  minted_at?: InputMaybe<Order_By>;
   owner?: InputMaybe<Order_By>;
   standard?: InputMaybe<Order_By>;
   template_id?: InputMaybe<Order_By>;
@@ -1667,6 +1654,7 @@ export type Nft_Min_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
   mint_number?: Maybe<Scalars['bigint']>;
+  minted_at?: Maybe<Scalars['timestamp']>;
   owner?: Maybe<Scalars['String']>;
   standard?: Maybe<Scalars['String']>;
   template_id?: Maybe<Scalars['uuid']>;
@@ -1680,6 +1668,7 @@ export type Nft_Min_Order_By = {
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   mint_number?: InputMaybe<Order_By>;
+  minted_at?: InputMaybe<Order_By>;
   owner?: InputMaybe<Order_By>;
   standard?: InputMaybe<Order_By>;
   template_id?: InputMaybe<Order_By>;
@@ -1721,6 +1710,8 @@ export type Nft_Order_By = {
   is_tradable?: InputMaybe<Order_By>;
   last_active_price?: InputMaybe<Order_By>;
   mint_number?: InputMaybe<Order_By>;
+  minted_at?: InputMaybe<Order_By>;
+  nft_favorites_aggregate?: InputMaybe<Nft_Favorites_Aggregate_Order_By>;
   owner?: InputMaybe<Order_By>;
   sale_offers_aggregate?: InputMaybe<Nft_Sale_Offer_Aggregate_Order_By>;
   standard?: InputMaybe<Order_By>;
@@ -2227,6 +2218,8 @@ export enum Nft_Select_Column {
   /** column name */
   MintNumber = 'mint_number',
   /** column name */
+  MintedAt = 'minted_at',
+  /** column name */
   Owner = 'owner',
   /** column name */
   Standard = 'standard',
@@ -2248,6 +2241,7 @@ export type Nft_Set_Input = {
   is_for_sale?: InputMaybe<Scalars['Boolean']>;
   is_tradable?: InputMaybe<Scalars['Boolean']>;
   mint_number?: InputMaybe<Scalars['bigint']>;
+  minted_at?: InputMaybe<Scalars['timestamp']>;
   owner?: InputMaybe<Scalars['String']>;
   standard?: InputMaybe<Scalars['String']>;
   template_id?: InputMaybe<Scalars['uuid']>;
@@ -2737,6 +2731,8 @@ export enum Nft_Update_Column {
   /** column name */
   MintNumber = 'mint_number',
   /** column name */
+  MintedAt = 'minted_at',
+  /** column name */
   Owner = 'owner',
   /** column name */
   Standard = 'standard',
@@ -2801,12 +2797,6 @@ export enum Order_By {
 }
 
 export type Query_Root = {
-  /** fetch data from the table: "block_cursor" */
-  block_cursor: Array<Block_Cursor>;
-  /** fetch aggregated fields from the table: "block_cursor" */
-  block_cursor_aggregate: Block_Cursor_Aggregate;
-  /** fetch data from the table: "block_cursor" using primary key columns */
-  block_cursor_by_pk?: Maybe<Block_Cursor>;
   /** fetch data from the table: "nft" */
   nft: Array<Nft>;
   /** fetch aggregated fields from the table: "nft" */
@@ -2825,6 +2815,12 @@ export type Query_Root = {
   nft_drops_aggregate: Nft_Drops_Aggregate;
   /** fetch data from the table: "nft_drops" using primary key columns */
   nft_drops_by_pk?: Maybe<Nft_Drops>;
+  /** An array relationship */
+  nft_favorites: Array<Nft_Favorites>;
+  /** An aggregate relationship */
+  nft_favorites_aggregate: Nft_Favorites_Aggregate;
+  /** fetch data from the table: "nft_favorites" using primary key columns */
+  nft_favorites_by_pk?: Maybe<Nft_Favorites>;
   /** fetch data from the table: "nft_sale_offer" */
   nft_sale_offer: Array<Nft_Sale_Offer>;
   /** fetch aggregated fields from the table: "nft_sale_offer" */
@@ -2847,29 +2843,6 @@ export type Query_Root = {
   random_sale_offer: Array<Nft_Sale_Offer>;
   /** execute function "random_sale_offer" and query aggregates on result of table type "nft_sale_offer" */
   random_sale_offer_aggregate: Nft_Sale_Offer_Aggregate;
-};
-
-
-export type Query_RootBlock_CursorArgs = {
-  distinct_on?: InputMaybe<Array<Block_Cursor_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Block_Cursor_Order_By>>;
-  where?: InputMaybe<Block_Cursor_Bool_Exp>;
-};
-
-
-export type Query_RootBlock_Cursor_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Block_Cursor_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Block_Cursor_Order_By>>;
-  where?: InputMaybe<Block_Cursor_Bool_Exp>;
-};
-
-
-export type Query_RootBlock_Cursor_By_PkArgs = {
-  id: Scalars['uuid'];
 };
 
 
@@ -2938,6 +2911,29 @@ export type Query_RootNft_Drops_AggregateArgs = {
 
 
 export type Query_RootNft_Drops_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootNft_FavoritesArgs = {
+  distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Nft_Favorites_Order_By>>;
+  where?: InputMaybe<Nft_Favorites_Bool_Exp>;
+};
+
+
+export type Query_RootNft_Favorites_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Nft_Favorites_Order_By>>;
+  where?: InputMaybe<Nft_Favorites_Bool_Exp>;
+};
+
+
+export type Query_RootNft_Favorites_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -3036,12 +3032,6 @@ export type Random_Sale_Offer_Args = {
 };
 
 export type Subscription_Root = {
-  /** fetch data from the table: "block_cursor" */
-  block_cursor: Array<Block_Cursor>;
-  /** fetch aggregated fields from the table: "block_cursor" */
-  block_cursor_aggregate: Block_Cursor_Aggregate;
-  /** fetch data from the table: "block_cursor" using primary key columns */
-  block_cursor_by_pk?: Maybe<Block_Cursor>;
   /** fetch data from the table: "nft" */
   nft: Array<Nft>;
   /** fetch aggregated fields from the table: "nft" */
@@ -3060,6 +3050,12 @@ export type Subscription_Root = {
   nft_drops_aggregate: Nft_Drops_Aggregate;
   /** fetch data from the table: "nft_drops" using primary key columns */
   nft_drops_by_pk?: Maybe<Nft_Drops>;
+  /** An array relationship */
+  nft_favorites: Array<Nft_Favorites>;
+  /** An aggregate relationship */
+  nft_favorites_aggregate: Nft_Favorites_Aggregate;
+  /** fetch data from the table: "nft_favorites" using primary key columns */
+  nft_favorites_by_pk?: Maybe<Nft_Favorites>;
   /** fetch data from the table: "nft_sale_offer" */
   nft_sale_offer: Array<Nft_Sale_Offer>;
   /** fetch aggregated fields from the table: "nft_sale_offer" */
@@ -3082,29 +3078,6 @@ export type Subscription_Root = {
   random_sale_offer: Array<Nft_Sale_Offer>;
   /** execute function "random_sale_offer" and query aggregates on result of table type "nft_sale_offer" */
   random_sale_offer_aggregate: Nft_Sale_Offer_Aggregate;
-};
-
-
-export type Subscription_RootBlock_CursorArgs = {
-  distinct_on?: InputMaybe<Array<Block_Cursor_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Block_Cursor_Order_By>>;
-  where?: InputMaybe<Block_Cursor_Bool_Exp>;
-};
-
-
-export type Subscription_RootBlock_Cursor_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Block_Cursor_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Block_Cursor_Order_By>>;
-  where?: InputMaybe<Block_Cursor_Bool_Exp>;
-};
-
-
-export type Subscription_RootBlock_Cursor_By_PkArgs = {
-  id: Scalars['uuid'];
 };
 
 
@@ -3173,6 +3146,29 @@ export type Subscription_RootNft_Drops_AggregateArgs = {
 
 
 export type Subscription_RootNft_Drops_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootNft_FavoritesArgs = {
+  distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Nft_Favorites_Order_By>>;
+  where?: InputMaybe<Nft_Favorites_Bool_Exp>;
+};
+
+
+export type Subscription_RootNft_Favorites_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Nft_Favorites_Order_By>>;
+  where?: InputMaybe<Nft_Favorites_Bool_Exp>;
+};
+
+
+export type Subscription_RootNft_Favorites_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -3304,12 +3300,20 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
-export type UpdateTransactionStatusMutationVariables = Exact<{
-  filters: Nft_Bool_Exp;
+export type AddFavoriteMutationVariables = Exact<{
+  nftId?: InputMaybe<Scalars['uuid']>;
+  address?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type UpdateTransactionStatusMutation = { update_nft?: { returning: Array<{ transaction_status?: boolean | null | undefined }> } | null | undefined };
+export type AddFavoriteMutation = { insert_nft_favorites?: { returning: Array<{ id: any, nft_id: any, wallet_address: string }> } | null | undefined };
+
+export type RemoveFavoriteMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type RemoveFavoriteMutation = { delete_nft_favorites?: { returning: Array<{ id: any }> } | null | undefined };
 
 export type GetCollectionByIdQueryVariables = Exact<{
   id: Scalars['uuid'];
@@ -3324,14 +3328,14 @@ export type GetNftByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetNftByIdQuery = { nft: Array<{ asset_id: any, is_for_sale: boolean, collection_id?: any | null | undefined, created_at?: any | null | undefined, updated_at?: any | null | undefined, mint_number?: any | null | undefined, has_sale_offers?: boolean | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> }> };
+export type GetNftByIdQuery = { nft: Array<{ id: any, asset_id: any, is_for_sale: boolean, collection_id?: any | null | undefined, created_at?: any | null | undefined, updated_at?: any | null | undefined, minted_at?: any | null | undefined, mint_number?: any | null | undefined, has_sale_offers?: boolean | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> }> };
 
 export type GetNftByMintNumberQueryVariables = Exact<{
   filter?: InputMaybe<Nft_Bool_Exp>;
 }>;
 
 
-export type GetNftByMintNumberQuery = { nft: Array<{ asset_id: any, mint_number?: any | null | undefined, owner: string, is_for_sale: boolean, created_at?: any | null | undefined, updated_at?: any | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, has_sale_offers?: boolean | null | undefined, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, sale_offers: Array<{ status: string, price: string, listing_resource_id: any, updated_at: any }>, template?: { metadata?: any | null | undefined } | null | undefined }> };
+export type GetNftByMintNumberQuery = { nft: Array<{ id: any, asset_id: any, mint_number?: any | null | undefined, owner: string, is_for_sale: boolean, created_at?: any | null | undefined, updated_at?: any | null | undefined, minted_at?: any | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, has_sale_offers?: boolean | null | undefined, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, sale_offers: Array<{ status: string, price: string, listing_resource_id: any, updated_at: any }>, template?: { metadata?: any | null | undefined } | null | undefined }> };
 
 export type GetNfTsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3408,42 +3412,95 @@ export type GetCollectionFloorValueByIdQueryVariables = Exact<{
 
 export type GetCollectionFloorValueByIdQuery = { nft_sale_offer: Array<{ parsed_price?: any | null | undefined }> };
 
+export type CheckFavoriteNftQueryVariables = Exact<{
+  nftId: Scalars['uuid'];
+  address?: InputMaybe<Scalars['String']>;
+}>;
 
-export const UpdateTransactionStatusDocument = gql`
-    mutation updateTransactionStatus($filters: nft_bool_exp!) {
-  update_nft(where: $filters, _set: {transaction_status: true}) {
+
+export type CheckFavoriteNftQuery = { nft_favorites: Array<{ id: any }> };
+
+export type GetFavoriteListQueryVariables = Exact<{
+  address?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetFavoriteListQuery = { nft_favorites: Array<{ nft: { asset_id: any, mint_number?: any | null | undefined, is_for_sale: boolean, has_sale_offers?: boolean | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> } }> };
+
+
+export const AddFavoriteDocument = gql`
+    mutation addFavorite($nftId: uuid, $address: String) {
+  insert_nft_favorites(objects: {nft_id: $nftId, wallet_address: $address}) {
     returning {
-      transaction_status
+      id
+      nft_id
+      wallet_address
     }
   }
 }
     `;
-export type UpdateTransactionStatusMutationFn = Apollo.MutationFunction<UpdateTransactionStatusMutation, UpdateTransactionStatusMutationVariables>;
+export type AddFavoriteMutationFn = Apollo.MutationFunction<AddFavoriteMutation, AddFavoriteMutationVariables>;
 
 /**
- * __useUpdateTransactionStatusMutation__
+ * __useAddFavoriteMutation__
  *
- * To run a mutation, you first call `useUpdateTransactionStatusMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTransactionStatusMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddFavoriteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFavoriteMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateTransactionStatusMutation, { data, loading, error }] = useUpdateTransactionStatusMutation({
+ * const [addFavoriteMutation, { data, loading, error }] = useAddFavoriteMutation({
  *   variables: {
- *      filters: // value for 'filters'
+ *      nftId: // value for 'nftId'
+ *      address: // value for 'address'
  *   },
  * });
  */
-export function useUpdateTransactionStatusMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTransactionStatusMutation, UpdateTransactionStatusMutationVariables>) {
+export function useAddFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<AddFavoriteMutation, AddFavoriteMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateTransactionStatusMutation, UpdateTransactionStatusMutationVariables>(UpdateTransactionStatusDocument, options);
+        return Apollo.useMutation<AddFavoriteMutation, AddFavoriteMutationVariables>(AddFavoriteDocument, options);
       }
-export type UpdateTransactionStatusMutationHookResult = ReturnType<typeof useUpdateTransactionStatusMutation>;
-export type UpdateTransactionStatusMutationResult = Apollo.MutationResult<UpdateTransactionStatusMutation>;
-export type UpdateTransactionStatusMutationOptions = Apollo.BaseMutationOptions<UpdateTransactionStatusMutation, UpdateTransactionStatusMutationVariables>;
+export type AddFavoriteMutationHookResult = ReturnType<typeof useAddFavoriteMutation>;
+export type AddFavoriteMutationResult = Apollo.MutationResult<AddFavoriteMutation>;
+export type AddFavoriteMutationOptions = Apollo.BaseMutationOptions<AddFavoriteMutation, AddFavoriteMutationVariables>;
+export const RemoveFavoriteDocument = gql`
+    mutation removeFavorite($id: uuid) {
+  delete_nft_favorites(where: {id: {_eq: $id}}) {
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type RemoveFavoriteMutationFn = Apollo.MutationFunction<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>;
+
+/**
+ * __useRemoveFavoriteMutation__
+ *
+ * To run a mutation, you first call `useRemoveFavoriteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFavoriteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFavoriteMutation, { data, loading, error }] = useRemoveFavoriteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRemoveFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>(RemoveFavoriteDocument, options);
+      }
+export type RemoveFavoriteMutationHookResult = ReturnType<typeof useRemoveFavoriteMutation>;
+export type RemoveFavoriteMutationResult = Apollo.MutationResult<RemoveFavoriteMutation>;
+export type RemoveFavoriteMutationOptions = Apollo.BaseMutationOptions<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>;
 export const GetCollectionByIdDocument = gql`
     query getCollectionById($id: uuid!) {
   nft_collection(where: {id: {_eq: $id}}) {
@@ -3488,11 +3545,13 @@ export const GetNftByIdDocument = gql`
   nft(
     where: {collection_id: {_eq: $collection_id}, template: {metadata: {_contains: $id}}}
   ) {
+    id
     asset_id
     is_for_sale
     collection_id
     created_at
     updated_at
+    minted_at
     mint_number
     has_sale_offers
     transaction_status
@@ -3549,12 +3608,14 @@ export type GetNftByIdQueryResult = Apollo.QueryResult<GetNftByIdQuery, GetNftBy
 export const GetNftByMintNumberDocument = gql`
     query getNftByMintNumber($filter: nft_bool_exp) {
   nft(where: $filter) {
+    id
     asset_id
     mint_number
     owner
     is_for_sale
     created_at
     updated_at
+    minted_at
     collection_id
     transaction_status
     has_sale_offers
@@ -4035,3 +4096,99 @@ export function useGetCollectionFloorValueByIdLazyQuery(baseOptions?: Apollo.Laz
 export type GetCollectionFloorValueByIdQueryHookResult = ReturnType<typeof useGetCollectionFloorValueByIdQuery>;
 export type GetCollectionFloorValueByIdLazyQueryHookResult = ReturnType<typeof useGetCollectionFloorValueByIdLazyQuery>;
 export type GetCollectionFloorValueByIdQueryResult = Apollo.QueryResult<GetCollectionFloorValueByIdQuery, GetCollectionFloorValueByIdQueryVariables>;
+export const CheckFavoriteNftDocument = gql`
+    query checkFavoriteNft($nftId: uuid!, $address: String) {
+  nft_favorites(where: {nft_id: {_eq: $nftId}, wallet_address: {_eq: $address}}) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useCheckFavoriteNftQuery__
+ *
+ * To run a query within a React component, call `useCheckFavoriteNftQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckFavoriteNftQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCheckFavoriteNftQuery({
+ *   variables: {
+ *      nftId: // value for 'nftId'
+ *      address: // value for 'address'
+ *   },
+ * });
+ */
+export function useCheckFavoriteNftQuery(baseOptions: Apollo.QueryHookOptions<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>(CheckFavoriteNftDocument, options);
+      }
+export function useCheckFavoriteNftLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>(CheckFavoriteNftDocument, options);
+        }
+export type CheckFavoriteNftQueryHookResult = ReturnType<typeof useCheckFavoriteNftQuery>;
+export type CheckFavoriteNftLazyQueryHookResult = ReturnType<typeof useCheckFavoriteNftLazyQuery>;
+export type CheckFavoriteNftQueryResult = Apollo.QueryResult<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>;
+export const GetFavoriteListDocument = gql`
+    query getFavoriteList($address: String) {
+  nft_favorites(where: {wallet_address: {_eq: $address}}) {
+    nft {
+      asset_id
+      mint_number
+      is_for_sale
+      has_sale_offers
+      collection_id
+      transaction_status
+      collection {
+        collection_id
+        name
+        market_fee
+        image
+        description
+        author
+      }
+      owner
+      template {
+        metadata
+      }
+      sale_offers {
+        listing_resource_id
+        price
+        status
+        updated_at
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetFavoriteListQuery__
+ *
+ * To run a query within a React component, call `useGetFavoriteListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFavoriteListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFavoriteListQuery({
+ *   variables: {
+ *      address: // value for 'address'
+ *   },
+ * });
+ */
+export function useGetFavoriteListQuery(baseOptions?: Apollo.QueryHookOptions<GetFavoriteListQuery, GetFavoriteListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFavoriteListQuery, GetFavoriteListQueryVariables>(GetFavoriteListDocument, options);
+      }
+export function useGetFavoriteListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFavoriteListQuery, GetFavoriteListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFavoriteListQuery, GetFavoriteListQueryVariables>(GetFavoriteListDocument, options);
+        }
+export type GetFavoriteListQueryHookResult = ReturnType<typeof useGetFavoriteListQuery>;
+export type GetFavoriteListLazyQueryHookResult = ReturnType<typeof useGetFavoriteListLazyQuery>;
+export type GetFavoriteListQueryResult = Apollo.QueryResult<GetFavoriteListQuery, GetFavoriteListQueryVariables>;

@@ -1,13 +1,25 @@
 import gql from 'graphql-tag';
 
-const UPDATE_TRANSACTION_STATUS = gql`
-  mutation updateTransactionStatus($filters: nft_bool_exp!) {
-    update_nft(where: $filters, _set: { transaction_status: true }) {
+const ADD_FAVORITE = gql`
+  mutation addFavorite($nftId: uuid, $address: String) {
+    insert_nft_favorites(objects: { nft_id: $nftId, wallet_address: $address }) {
       returning {
-        transaction_status
+        id
+        nft_id
+        wallet_address
       }
     }
   }
 `;
 
-export { UPDATE_TRANSACTION_STATUS };
+const REMOVE_FAVORITE = gql`
+  mutation removeFavorite($id: uuid) {
+    delete_nft_favorites(where: { id: { _eq: $id } }) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+export { ADD_FAVORITE, REMOVE_FAVORITE };

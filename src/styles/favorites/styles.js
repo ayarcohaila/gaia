@@ -15,13 +15,18 @@ export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
   }
 }));
 
-export const EmptyContainer = styled(Grid)(() => ({
+export const EmptyContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  height: '300px'
+  height: '300px',
+  padding: '0 20px',
+  boxSizing: 'border-box',
+  [breakpoints.down('sm')]: {
+    textAlign: 'center'
+  }
 }));
 
 export const EmptyText = styled(Typography)(({ theme: { typography } }) => ({

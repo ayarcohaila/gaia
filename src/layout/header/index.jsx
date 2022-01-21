@@ -184,6 +184,12 @@ const Header = () => {
               <Styled.ButtonText
                 variant="text"
                 onClick={handleClick}
+                data-id={USER_MENU_IDS.FAVORITES}>
+                Favorites
+              </Styled.ButtonText>
+              <Styled.ButtonText
+                variant="text"
+                onClick={handleClick}
                 data-id={USER_MENU_IDS.DAPPER_WALLET}>
                 My Wallet
               </Styled.ButtonText>

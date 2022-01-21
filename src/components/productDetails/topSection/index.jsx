@@ -309,7 +309,7 @@ const ProductDetailsTopSection = ({
           width={isMediumDevice ? '100%' : '45%'}>
           {!isMediumDevice && (
             <Grid alignItems="center" container justifyContent="space-between">
-              <CollectionInfo name={collectionInfoName} />
+              <CollectionInfo name={collectionInfoName} nftId={nft.id} />
             </Grid>
           )}
           <Styled.NumberContainer data-cy="asset-number">
@@ -350,7 +350,7 @@ const ProductDetailsTopSection = ({
               <Box mt={5} width="100%">
                 <Styled.Divider />
                 <Grid alignItems="center" container my="18px" px={2.5}>
-                  <CollectionInfo name={nft?.collection?.name} />
+                  <CollectionInfo name={nft?.collection?.name} nftId={nft.id} />
                 </Grid>
               </Box>
             )}
