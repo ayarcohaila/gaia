@@ -9,7 +9,7 @@ import useCollectionConfig from '~/hooks/useCollectionConfig';
 import BurstIcon from '~/base/burstIcon';
 import Dropdown from '~/base/dropdown';
 import { ORDER_MENU_IDS } from '~/components/collectionFilters/constants';
-import { useAppContext } from '~/context';
+import { useAppContext } from '~/context/appProvider';
 import * as Styled from './styles';
 
 const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBorder }) => {

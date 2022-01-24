@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Filters from '~/components/filters';
 import BrowseHeader from '~/components/browseHeader';
 import CardSkeletonLoader from '~/base/cardSkeletonLoader';
-import { useAppContext } from '~/context';
+import { useAppContext } from '~/context/appProvider';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import { FILTERS, FILTERS_TYPES, FILTERS_IDS } from '~/components/filters/browseFilters';
 

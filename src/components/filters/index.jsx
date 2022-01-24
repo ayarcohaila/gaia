@@ -6,7 +6,7 @@ import capitalize from 'lodash.capitalize';
 import PropTypes from 'prop-types';
 
 import Button from '~/base/button';
-import { useAppContext } from '~/context';
+import { useAppContext } from '~/context/appProvider';
 import CheckboxCard from './checkboxCard';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
