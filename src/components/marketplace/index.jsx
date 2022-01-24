@@ -27,7 +27,7 @@ const MarketPlace = () => {
   };
 
   const handleLoadMore = () => {
-    handleAppData({ page: page + 1 });
+    handleAppData({ page: page + 1, loadMore: true });
   };
 
   const renderList = useMemo(() => {
@@ -66,7 +66,7 @@ const MarketPlace = () => {
           {renderList}
         </Styled.GridRenderList>
       </Styled.Wrapper>
-      {marketCount > marketplaceNfts?.length && (
+      {marketCount > marketplaceNfts?.length && marketplaceNfts?.length && (
         <Styled.GridLoadMore>
           <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
         </Styled.GridLoadMore>

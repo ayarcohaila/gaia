@@ -4,6 +4,7 @@ import { AppContextValue } from './types';
 const initialContextValue: AppContextValue = {
   appData: {
     page: 0,
+    loadMore: false,
     marketplaceLoading: true,
     marketplaceNfts: [],
     marketplaceSort: { last_active_price: 'asc' }

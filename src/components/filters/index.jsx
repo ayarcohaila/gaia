@@ -95,9 +95,10 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     const ids = [];
     const list = [];
 
-    const unfilteredList = config?.id
-      ? result?.data?.nfts
-      : [...appData?.marketplaceNfts, ...result?.data?.nfts];
+    const unfilteredList =
+      config?.id && !appData.loadMore
+        ? result?.data?.nfts
+        : [...appData?.marketplaceNfts, ...result?.data?.nfts];
 
     unfilteredList.filter(nft_item => {
       if (!ids.includes(nft_item.asset_id)) {
@@ -109,7 +110,8 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     handleAppData({
       marketplaceNfts: list,
       marketCount: result.data.marketCount,
-      marketplaceLoading: false
+      marketplaceLoading: false,
+      loadMore: false
     });
   }, 500);
 

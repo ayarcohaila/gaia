@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 export interface AppContextValue {
   appData: {
     page: number;
+    loadMore: boolean;
     marketplaceLoading: boolean;
     marketplaceNfts: any[];
     marketplaceSort: {
