@@ -75,7 +75,7 @@ const Header = () => {
   return (
     <Styled.HeaderBar position="static">
       <Styled.Container component="section" isMobile={isMediumDevice}>
-        <NextLink href="/">
+        <NextLink passHref href="/">
           <Styled.LogoImage component="a">
             <NextImage
               width={isMediumDevice ? 75 : 102.4}

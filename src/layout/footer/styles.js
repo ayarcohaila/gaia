@@ -20,6 +20,7 @@ export const CustomLink = styled(Link)(
     letterSpacing: '0.2px',
     lineHeight: '1.5',
     cursor: 'pointer',
+    padding: '4px 0',
 
     '&:hover': {
       color: 'white'
