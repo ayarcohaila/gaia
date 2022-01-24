@@ -9,6 +9,7 @@ import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 import Link from 'next/link';
 
 import Dropdown from '~/base/dropdown';
+import Divider from '~/base/divider';
 import useAuth from '~/hooks/useAuth';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
@@ -19,6 +20,8 @@ const HeaderModal = dynamic(() => import('~/components/modal/headerMenu'));
 
 import * as Styled from './styles.js';
 
+const PATH_WITH_DIVIDER = ['/browse', '/[collection_name]/[nft_id]'];
+
 const Header = () => {
   const menuAnchorRef = useRef(null);
   const [stateModalHeader, toggleHeaderModal] = useToggle();
@@ -27,6 +30,7 @@ const Header = () => {
   const { isMediumDevice } = useBreakpoints();
   const router = useRouter();
 
+  const hasDivider = PATH_WITH_DIVIDER.includes(router.pathname) && isMediumDevice;
   const handleDropdownMenu = state => {
     setOpenUserMenu(prevState => (state !== undefined ? state : !prevState));
   };
@@ -215,6 +219,7 @@ const Header = () => {
           )}
         </Grid>
       </HeaderModal>
+      {hasDivider && <Divider customProps={{ marginBottom: '14px', height: '2px' }} />}
     </Styled.HeaderBar>
   );
 };

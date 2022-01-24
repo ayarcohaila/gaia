@@ -16,9 +16,12 @@ import SectionEleven from '~/components/termsOfUseSections/sectionEleven';
 import SectionTwelve from '~/components/termsOfUseSections/sectionTwelve';
 import SectionThirteen from '~/components/termsOfUseSections/sectionThirteen';
 import Seo from '~/components/seo';
+import useBreakpoints from '~/hooks/useBreakpoints';
 import { SEO_DATA } from '~/constant';
 
 const TermsOfUse = () => {
+  const { isMediumDevice } = useBreakpoints();
+
   const paragraphDivider = (
     <>
       <br />
@@ -28,7 +31,12 @@ const TermsOfUse = () => {
   return (
     <>
       <Seo title={SEO_DATA.title.termService} />
-      <Divider customProps={{ margin: 'auto', width: 'calc(100% - 160px)' }} />
+      <Divider
+        customProps={{
+          margin: 'auto',
+          width: isMediumDevice ? 'calc(100% - 32px)' : 'calc(100% - 160px)'
+        }}
+      />
       <Styled.Container>
         <Styled.Content component="section">
           <Styled.Title variant="h1">TERMS OF USE</Styled.Title>

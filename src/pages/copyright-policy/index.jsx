@@ -4,10 +4,12 @@ import * as Styled from '~/styles/privacyPolicy/styles.js';
 import SectionOne from '~/components/copyrightPolicySections/sectionOne';
 import SectionTwo from '~/components/copyrightPolicySections/sectionTwo';
 import Seo from '~/components/seo';
-
+import useBreakpoints from '~/hooks/useBreakpoints';
 import { SEO_DATA } from '~/constant';
 
 const CopyrightPolicy = () => {
+  const { isMediumDevice } = useBreakpoints();
+
   const paragraphDivider = (
     <>
       <br />
@@ -17,7 +19,12 @@ const CopyrightPolicy = () => {
   return (
     <>
       <Seo title={SEO_DATA.title.copyrightPolicy} />
-      <Divider customProps={{ margin: 'auto', width: 'calc(100% - 160px)' }} />
+      <Divider
+        customProps={{
+          margin: 'auto',
+          width: isMediumDevice ? 'calc(100% - 32px)' : 'calc(100% - 160px)'
+        }}
+      />
       <Styled.Container>
         <Styled.Content component="section">
           <Styled.Title variant="h1">COPYRIGHT POLICY</Styled.Title>
