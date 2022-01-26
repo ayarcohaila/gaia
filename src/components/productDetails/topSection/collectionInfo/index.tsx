@@ -1,14 +1,12 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
-import PropTypes from 'prop-types';
-
-import useCollectionConfig from '~/hooks/useCollectionConfig';
-import ShareButton from '~/components/shareButton';
-
-import * as Styled from './styles';
-import useBreakpoints from '~/hooks/useBreakpoints';
 import FavoriteButton from '~/components/favoriteButton';
+import ShareButton from '~/components/shareButton';
+import useBreakpoints from '~/hooks/useBreakpoints';
+import useCollectionConfig from '~/hooks/useCollectionConfig';
+import * as Styled from './styles';
+import { CollectionInfoProps } from './types';
 
-const CollectionInfo = props => {
+const CollectionInfo = (props: CollectionInfoProps) => {
   const { name, nftId } = props;
   const { isMediumDevice } = useBreakpoints();
   const {
@@ -39,10 +37,6 @@ const CollectionInfo = props => {
       )}
     </Styled.Container>
   );
-};
-
-CollectionInfo.propTypes = {
-  name: PropTypes.string.isRequired
 };
 
 export default CollectionInfo;

@@ -1,6 +1,5 @@
-import { memo, useState, useEffect, useCallback, useMemo } from 'react';
+import { memo, useState, useEffect, useCallback, useMemo, MouseEventHandler } from 'react';
 import { Box, Grid, Typography, useTheme } from '@mui/material';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
@@ -34,6 +33,7 @@ const PurchaseErrorModal = dynamic(() => import('~/components/modal/purchaseErro
 import * as Styled from './styles';
 import Asset from './asset';
 import CollectionInfo from './collectionInfo';
+import { ProductDetailsTopSectionProps } from './types';
 import ShareButton from '~/components/shareButton';
 import FavoriteButton from '~/components/favoriteButton';
 
@@ -45,7 +45,7 @@ const ProductDetailsTopSection = ({
   ballerzComputedProps,
   attributesOrder,
   hasMultipleOffers
-}) => {
+}: ProductDetailsTopSectionProps) => {
   const asset = {
     ...nft,
     img: formatIpfsImg(nft?.template?.metadata?.img)
@@ -59,7 +59,7 @@ const ProductDetailsTopSection = ({
     asPath,
     query: { collection_name }
   } = useRouter();
-  const { metadata } = nft.template;
+  const metadata = nft.template?.metadata;
   const { config } = useCollectionConfig();
   const { user, login, isAuthLoading } = useAuth();
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
@@ -71,7 +71,7 @@ const ProductDetailsTopSection = ({
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
-  const [transaction, setTransaction] = useState(null);
+  const [transaction, setTransaction] = useState<any>(null);
   const [loadingSell, setLoadingSell] = useState(false);
   const [loadingCancel, setLoadingCancel] = useState(false);
 
@@ -92,7 +92,7 @@ const ProductDetailsTopSection = ({
     handleLoadTransaction();
   }, [handleLoadTransaction]);
 
-  const handleCancelListing = async event => {
+  const handleCancelListing: MouseEventHandler<HTMLButtonElement> = async event => {
     event.stopPropagation();
     try {
       setLoadingCancel(true);
@@ -128,7 +128,8 @@ const ProductDetailsTopSection = ({
           togglePurchaseNftModal();
           setLoadingPurchase(false);
         }
-      } catch (err) {
+      } catch (err_) {
+        const err: any | undefined = err_;
         console.warn(err);
         toggleProcessingModal();
         if (err?.message?.includes(INSUFFICIENT_FUNDS)) {
@@ -159,7 +160,7 @@ const ProductDetailsTopSection = ({
 
   const blockchainHistoryData = useMemo(
     () => ({
-      creator: nft.collection.author,
+      creator: nft.collection?.author,
       owner: nft.owner,
       mintDate: new Date(nft.minted_at)?.getTime(),
       contract: process.env.NEXT_PUBLIC_NFT_CONTRACT
@@ -197,13 +198,14 @@ const ProductDetailsTopSection = ({
             dividerSx={{ mt: isMediumDevice ? 0 : 5 }}
             my={3}
             title="Properties"
+            hasDivider={undefined}
+            contentSx={undefined}
             id="propsAccordion">
             <AdditionalDetails
               data-cy="aditional-detail-properties"
               data={metadata}
               ballerzComputedProps={ballerzComputedProps}
               attributesOrder={attributesOrder}
-              id="propsAccordionDetails"
             />
           </Accordion>
         </Styled.AcordionWrapper>
@@ -213,12 +215,20 @@ const ProductDetailsTopSection = ({
             defaultExpanded
             dividerSx={{
               margin: isSmallDevice ? '0 auto' : '0',
-              width: isSmallDevice ? '90%' : 'auto'
+              width: isSmallDevice ? '100%' : 'auto'
             }}
             mt={3}
             title="Blockchain History"
+            contentSx={undefined}
+            hasDivider={undefined}
             id="blockHistoryAccordion">
-            <BlockchainHistory data={blockchainHistoryData} />
+            <BlockchainHistory
+              data={{
+                ...blockchainHistoryData,
+                creator: blockchainHistoryData.creator || '',
+                contract: blockchainHistoryData.contract || ''
+              }}
+            />
           </Accordion>
         </Styled.AcordionWrapper>
       </>
@@ -262,7 +272,7 @@ const ProductDetailsTopSection = ({
             )}
           </>
         );
-      case isForSale && !!transaction && hasOffersActive && Number(price) <= LIMIT_PURCHASE: {
+      case !!isForSale && !!transaction && hasOffersActive && Number(price) <= LIMIT_PURCHASE: {
         return (
           <Styled.PurchaseButton
             data-cy="action-button-purchase"
@@ -311,7 +321,7 @@ const ProductDetailsTopSection = ({
           width={isMediumDevice ? '100%' : '45%'}>
           {!isMediumDevice && (
             <Grid alignItems="center" container justifyContent="space-between">
-              <CollectionInfo name={collectionInfoName} nftId={nft.id} />
+              <CollectionInfo name={collectionInfoName || ''} nftId={nft.id} />
             </Grid>
           )}
           <Styled.NumberContainer data-cy="asset-number">
@@ -328,8 +338,8 @@ const ProductDetailsTopSection = ({
               <Grid
                 container
                 mt={'42px'}
-                mb={!isMediumDevice && '40px'}
-                justifyContent={isMediumDevice && 'center'}
+                mb={!isMediumDevice ? '40px' : undefined}
+                justifyContent={isMediumDevice ? 'center' : ''}
                 alignItems="center">
                 {!isAuthLoading && renderActions}
                 {isOwner && hasMultipleOffers && (
@@ -360,7 +370,7 @@ const ProductDetailsTopSection = ({
               <Box mt={5} width="100%">
                 <Styled.Divider />
                 <Grid alignItems="center" container my="18px" px={2.5}>
-                  <CollectionInfo name={nft?.collection?.name} nftId={nft.id} />
+                  <CollectionInfo name={nft?.collection?.name || ''} nftId={nft.id} />
                 </Grid>
               </Box>
             )}
@@ -388,6 +398,7 @@ const ProductDetailsTopSection = ({
         asset={asset}
         open={isCancelListingModalOpen}
         onClose={toggleCancelListingModal}
+        onConfirm={undefined}
       />
       <SellNftModal
         asset={asset}
@@ -397,18 +408,10 @@ const ProductDetailsTopSection = ({
         setLoading={setLoadingSell}
         loading={loadingSell}
         collectionId={nft?.collection_id}
+        onConfirm={undefined}
       />
     </>
   );
-};
-
-ProductDetailsTopSection.propTypes = {
-  nft: PropTypes.object.isRequired,
-  hasMultipleOffers: PropTypes.bool
-};
-
-ProductDetailsTopSection.defaultProps = {
-  hasMultipleOffers: false
 };
 
 export default memo(ProductDetailsTopSection);

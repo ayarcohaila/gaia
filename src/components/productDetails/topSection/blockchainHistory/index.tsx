@@ -1,12 +1,9 @@
-import { memo, useMemo } from 'react';
 import { Box, Grid, Typography, useTheme } from '@mui/material';
-import PropTypes from 'prop-types';
-
+import { memo, useMemo } from 'react';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import { convertCamelCaseToSentenceCase, formatDate } from '~/utils/string';
-
-import { BlockchainHistoryProps } from './types';
 import { ValueContainer } from './styles';
+import { BlockchainHistoryProps } from './types';
 
 const BlockchainHistory = (props: BlockchainHistoryProps) => {
   const { data } = props;
@@ -45,15 +42,6 @@ const BlockchainHistory = (props: BlockchainHistoryProps) => {
       ))}
     </Box>
   );
-};
-
-BlockchainHistory.propTypes = {
-  data: PropTypes.shape({
-    creator: PropTypes.string,
-    owner: PropTypes.string,
-    mintDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    contract: PropTypes.string
-  }).isRequired
 };
 
 export default memo(BlockchainHistory);
