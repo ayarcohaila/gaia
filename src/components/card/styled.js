@@ -6,7 +6,10 @@ export const CustomCard = styled(Card)(() => ({
   backgroundColor: 'white',
   boxShadow: '0 0 0 0',
   position: 'relative',
-  borderSizing: 'border-box'
+  borderSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between'
 }));
 
 export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => ({
@@ -45,10 +48,7 @@ export const NFTPrice = styled(Typography)(() => ({
 export const GridVideo = styled(Grid)(() => ({
   '& .MuiBox-root': {
     display: 'flex',
-    justifyContent: 'center',
-    video: {
-      minHeight: '258.75px'
-    }
+    justifyContent: 'center'
   },
   '& .MuiButtonBase-root': {
     padding: '12px'
@@ -62,7 +62,6 @@ export const GridVideo = styled(Grid)(() => ({
 export const ImageContainer = styled(Grid)(() => ({
   height: '100%',
   width: '100%',
-  position: 'relative',
   img: {
     borderRadius: '20px'
   }

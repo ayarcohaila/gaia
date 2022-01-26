@@ -28,8 +28,6 @@ const Card = (props: CardProps) => {
   const [isCancelListingModalOpen, toggleCancelListingModal] = useToggle();
   const [isOrderCompleteModalOpen, toggleOrderCompleteModal] = useToggle();
   const [loading, setLoading] = useState(false);
-  const [assetSize] = useState(() => '17.25rem');
-
   const asset = {
     ...data,
     collectionName: data?.collection_name?.toUpperCase(),
@@ -72,25 +70,25 @@ const Card = (props: CardProps) => {
             title={COLLECTIONS_NAME_UPPERCASE}
           />
 
-          {data?.template.metadata.video && !currentCollection?.mystery ? (
-            <Styled.GridVideo>
-              <VideoPlayer
-                containerProps={undefined}
-                src={formatIpfsImg(data?.template.metadata.video)}
-                poster={formatIpfsImg(data?.template.metadata.img)}
-                height={['100%']}
-                width={COLLECTIONS_NAME_UPPERCASE === 'SHAREEF' ? ['83%'] : ['80%']}
-              />
-            </Styled.GridVideo>
-          ) : (
-            <Grid margin={0} overflow={'hidden'} borderRadius={'20px'}>
-              <Styled.ImageContainer>
+          <Grid margin={0} overflow={'hidden'} borderRadius={'20px'}>
+            <Styled.ImageContainer>
+              {data?.template.metadata.video && !currentCollection?.mystery ? (
+                <Styled.GridVideo>
+                  <VideoPlayer
+                    containerProps={undefined}
+                    src={formatIpfsImg(data?.template.metadata.video)}
+                    poster={formatIpfsImg(data?.template.metadata.img)}
+                    height={['100%']}
+                    width={['100%']}
+                  />
+                </Styled.GridVideo>
+              ) : (
                 <Image
                   alt="Nft asset"
-                  height={assetSize}
-                  width={assetSize}
                   layout={'responsive'}
-                  objectFit="contain"
+                  objectFit="cover"
+                  height={'17.25rem'}
+                  width={'17.25rem'}
                   onLoadingComplete={() => {
                     setImgLoaded(true);
                   }}
@@ -100,18 +98,18 @@ const Card = (props: CardProps) => {
                       : formatIpfsImg(data?.template?.metadata.img)
                   }
                 />
-              </Styled.ImageContainer>
-              <Skeleton
-                variant="rectangular"
-                sx={{
-                  borderRadius: '20px',
-                  margin: 0,
-                  display: imgLoaded ? 'none' : undefined,
-                  position: 'absolute'
-                }}
-              />
-            </Grid>
-          )}
+              )}
+            </Styled.ImageContainer>
+            <Skeleton
+              variant="rectangular"
+              sx={{
+                borderRadius: '20px',
+                margin: 0,
+                display: !imgLoaded ? 'none' : undefined,
+                position: 'absolute'
+              }}
+            />
+          </Grid>
           <CardContent
             sx={{
               paddingX: 0,
@@ -129,16 +127,17 @@ const Card = (props: CardProps) => {
                   )}
                 </Styled.NFTPrice>
               )}
+
+            {hasActions && (
+              <CardActions
+                data={data}
+                loading={loading}
+                toggleCancelListingModal={toggleCancelListingModal}
+                toggleSellNftModal={toggleSellNftModal}
+                toggleTransferNftModal={toggleTransferNftModal}
+              />
+            )}
           </CardContent>
-          {hasActions && (
-            <CardActions
-              data={data}
-              loading={loading}
-              toggleCancelListingModal={toggleCancelListingModal}
-              toggleSellNftModal={toggleSellNftModal}
-              toggleTransferNftModal={toggleTransferNftModal}
-            />
-          )}
         </Styled.CustomCard>
       </Link>
       <SellNftModal

@@ -15,7 +15,7 @@ const NewToNFTCard = ({ data }) => {
   return (
     <>
       <Styled.CustomCard>
-        <Link {...(data.hasButton && data.linkProps)} passHref>
+        <Link {...(data.hasButton ? data.linkProps : { href: '#' })} passHref>
           <Styled.CustomLink rel="noreferrer" target={data.linkProps?.target}>
             <Styled.ImageContainer>
               <Image src={data.image} alt={data.title} height={407.16} width={576.88} />
@@ -52,5 +52,4 @@ NewToNFTCard.propTypes = {
     link: PropTypes.string
   }).isRequired
 };
-
 export default React.memo(NewToNFTCard);

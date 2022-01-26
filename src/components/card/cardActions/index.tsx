@@ -12,7 +12,11 @@ const CardActions = (props: CardActionsProps) => {
     props;
 
   if (data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id) {
-    return null;
+    return (
+      <BaseCardActions sx={{ justifyContent: 'center' }}>
+        <SellButton disabled={true}>Sell</SellButton>
+      </BaseCardActions>
+    );
   }
 
   if (!hasSell && !hasTransfer) {

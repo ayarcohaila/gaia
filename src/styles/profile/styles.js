@@ -9,25 +9,26 @@ export const GridRenderList = styled(Grid, {
   justifyContent: 'center',
   alignContent: 'baseline',
   width: !showFilter || isMediumDevice ? '100%' : 'auto',
-  padding: '0 40px',
-
-  [theme.breakpoints.down('sm')]: {
-    padding: '0 20px'
-  },
 
   [theme.breakpoints.up('lg')]: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))'
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    padding: '0 40px',
+    marginTop: '40px'
   },
 
   [theme.breakpoints.down('lg')]: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)'
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    padding: '0 20px',
+    marginTop: '40px'
   },
 
   [theme.breakpoints.down('sm')]: {
     display: 'grid',
-    gridTemplateColumns: '1fr'
+    gridTemplateColumns: '1fr',
+    padding: '0 20px',
+    marginTop: '20px'
   }
 }));
 

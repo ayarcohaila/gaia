@@ -18,7 +18,7 @@ export const GridRenderList = styled(Grid, {
 
   [theme.breakpoints.up('lg')]: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))'
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))'
   },
 
   [theme.breakpoints.down('lg')]: {
