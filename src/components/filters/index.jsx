@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useReducer } from 'react';
+import { memo, useState, useCallback, useEffect, useMemo, useReducer } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FilterList as FiltersIcon } from '@mui/icons-material';
 import axios from 'axios';
@@ -14,6 +14,7 @@ import useCollectionConfig from '~/hooks/useCollectionConfig';
 import useDebounce from '~/hooks/useDebounce';
 import Accordion from '../accordion';
 import InputRangeGroup from './inputRangeGroup';
+import usePrevious from '~/hooks/usePrevious';
 
 import { ACTION_TYPE, reducer, initialState, FILTERS_CONSTANTS } from './reducer';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
@@ -22,12 +23,14 @@ import * as Styled from './styles';
 import { BALLERZ_COMPUTED_PROPERTIES } from '~/components/filters/constants';
 
 const DEFAULT_LIST_SIZE = 40;
+
 const VIEW_ALL = 'viewAll';
 const GET_URL = '/api/marketplace';
 
 const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
+  const [hasChangeFilters, setHasChangeFilter] = useState(false);
   const { config } = useCollectionConfig();
 
   const [state, dispatch] = useReducer(reducer, {
@@ -40,30 +43,35 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
         ]
       : []
   });
+
+  const [lastState, setLastState] = useState(state);
+
   const { appliedFiltersCount, status, minPrice, maxPrice, collections, properties } = state;
   const { appData, handleAppData } = useAppContext();
 
-  const handleApplyFilters = useCallback(() => {
-    dispatch({ type: ACTION_TYPE.APPLY_FILTERS });
-    toggleMobileModal();
-  }, [dispatch, toggleMobileModal]);
-
   const setFilter = useCallback(
-    (filter, value) => {
-      dispatch({
+    async (filter, value) => {
+      await dispatch({
         type: ACTION_TYPE.SET_FILTER,
         payload: {
           filter,
           value
         }
       });
-      handleAppData({ page: 0, marketplaceNfts: [] });
+      if (!isMediumDevice) {
+        handleAppData({ page: 0, marketplaceNfts: [] });
+      } else {
+        setHasChangeFilter(true);
+        await dispatch({
+          type: ACTION_TYPE.APPLY_FILTERS
+        });
+      }
     },
-    [dispatch]
+    [isMediumDevice, dispatch]
   );
 
   const handleSingleCheck = useCallback(
-    (filter, value) => {
+    async (filter, value) => {
       if (filter === FILTERS_CONSTANTS.STATUS && value === status) {
         return '';
       }
@@ -73,16 +81,23 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           type: ACTION_TYPE.RESET_PRICE
         });
       }
-      dispatch({
+      await dispatch({
         type: ACTION_TYPE.SET_FILTER,
         payload: {
           filter,
           value
         }
       });
-      handleAppData({ page: 0, marketplaceNfts: [] });
+      if (!isMediumDevice) {
+        handleAppData({ page: 0, marketplaceNfts: [] });
+      } else {
+        setHasChangeFilter(true);
+        await dispatch({
+          type: ACTION_TYPE.APPLY_FILTERS
+        });
+      }
     },
-    [status, dispatch]
+    [status, dispatch, isMediumDevice]
   );
 
   const getNfts = useDebounce(async filters => {
@@ -115,7 +130,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     });
   }, 500);
 
-  useEffect(getNfts, []);
+  useEffect(getNfts, [getNfts]);
 
   const appliedFilters = useMemo(() => {
     let priceFilters = [];
@@ -177,8 +192,35 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   ]);
 
   useEffect(() => {
+    if (!isMediumDevice) {
+      getNfts(appliedFilters);
+    }
+  }, [getNfts, appliedFilters]);
+
+  const handleApplyFilters = useCallback(async () => {
+    handleAppData({ page: 0, marketplaceNfts: [] });
     getNfts(appliedFilters);
-  }, [appliedFilters]);
+    setHasChangeFilter(false);
+    toggleMobileModal();
+  }, [getNfts, appliedFilters]);
+
+  const handleCloseApplyFilters = useCallback(() => {
+    setHasChangeFilter(false);
+    dispatch({ type: ACTION_TYPE.RESTORE_FILTERS, payload: lastState });
+    toggleMobileModal();
+  }, [lastState]);
+
+  const handleToggleFilters = useCallback(() => {
+    setLastState(state);
+    toggleMobileModal();
+  }, [state, setLastState]);
+
+  const handleClearFilters = useCallback(() => {
+    handleAppData({ page: 0, marketplaceNfts: [] });
+    dispatch({ type: ACTION_TYPE.CLEAR_FILTERS });
+    getNfts(appliedFilters);
+    toggleMobileModal();
+  }, [getNfts, appliedFilters]);
 
   const handleMultipleCheck = useCallback(
     (filterName, option) => {
@@ -397,7 +439,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
         <Styled.FloatButton
           data-cy="button-filter-medium-device"
           endIcon={<FiltersIcon />}
-          onClick={toggleMobileModal}>
+          onClick={handleToggleFilters}>
           Filters {!!appliedFiltersCount && `(${appliedFiltersCount})`}
         </Styled.FloatButton>
       ) : (
@@ -411,13 +453,11 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           onClose={toggleMobileModal}>
           {renderMobileContent}
           <Styled.BottomBar container>
-            <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
-              Clear
-            </Styled.ClearButton>
-            <Button data-cy="apply" onClick={handleApplyFilters}>
+            <Styled.ClearButton onClick={handleClearFilters}>Clear</Styled.ClearButton>
+            <Button data-cy="apply" onClick={handleApplyFilters} disabled={!hasChangeFilters}>
               Apply
             </Button>
-            <Styled.CloseButton data-cy="close" onClick={toggleMobileModal}>
+            <Styled.CloseButton data-cy="close" onClick={handleCloseApplyFilters}>
               Close
             </Styled.CloseButton>
           </Styled.BottomBar>

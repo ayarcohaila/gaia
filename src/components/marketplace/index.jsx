@@ -66,7 +66,7 @@ const MarketPlace = () => {
           {renderList}
         </Styled.GridRenderList>
       </Styled.Wrapper>
-      {marketCount > marketplaceNfts?.length && marketplaceNfts?.length && (
+      {marketCount > marketplaceNfts?.length && !!marketplaceNfts?.length && (
         <Styled.GridLoadMore>
           <Styled.BlackButton onClick={handleLoadMore}>Load More</Styled.BlackButton>
         </Styled.GridLoadMore>

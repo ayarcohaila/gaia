@@ -28,7 +28,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
-    'plugin:prettier/recommended' // Make this the last element so prettier config overrides other formatting rules
+    'plugin:prettier/recommended', // Make this the last element so prettier config overrides other formatting rules
+    'plugin:cypress/recommended'
   ],
   globals: {
     JSX: true // Allows the use of the JSX namespace
@@ -42,6 +43,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off', // suppress errors for missing 'import React' in files
     'react/prop-types': 'off',
     'no-unused-vars': 'off',
-    '"jsx-a11y/no-autofocus"': 'off' // Allow autoFocus on material elements
+    '"jsx-a11y/no-autofocus"': 'off', // Allow autoFocus on material elements
+    'cypress/no-unnecessary-waiting': 'off'
   }
 };
