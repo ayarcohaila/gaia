@@ -58,6 +58,7 @@ const Favorites = () => {
               <Card
                 key={i}
                 data={nft}
+                hasPrice
                 hasActions={!!user && user.loggedIn && user.addr === router.query.id}
               />
             ))}

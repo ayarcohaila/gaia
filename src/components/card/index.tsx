@@ -21,7 +21,7 @@ import { CardProps } from './types';
 import * as Styled from './styled';
 
 const Card = (props: CardProps) => {
-  const { data, hasActions, isMarketplace } = props;
+  const { data, hasActions, hasPrice } = props;
   const [imgLoaded, setImgLoaded] = useState(false);
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
@@ -109,18 +109,14 @@ const Card = (props: CardProps) => {
           <CardContent
             sx={{
               paddingX: 0,
-              paddingBottom: hasActions || isMarketplace ? '0 !important' : '24px'
+              paddingBottom: '0 !important'
             }}>
             <Styled.NFTText maxWidth={'276px'}>{data?.template?.metadata?.title}</Styled.NFTText>
-            {isMarketplace &&
+            {hasPrice &&
               data?.has_sale_offers &&
               data?.sale_offers.some(item => item.status === 'active') && (
                 <Styled.NFTPrice>
-                  $
-                  {formatCurrencyValue(
-                    getLastByUpdateAt(data?.sale_offers.filter(item => item.status === 'active'))
-                      ?.price
-                  )}
+                  ${formatCurrencyValue(getLastByUpdateAt(data?.sale_offers)?.price)}
                 </Styled.NFTPrice>
               )}
 

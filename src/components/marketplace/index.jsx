@@ -36,7 +36,7 @@ const MarketPlace = () => {
     }
 
     return marketplaceNfts?.length ? (
-      marketplaceNfts?.map(nft => <Card key={nft.asset_id} data={nft} isMarketplace />)
+      marketplaceNfts?.map(nft => <Card key={nft.asset_id} data={nft} hasPrice />)
     ) : (
       <Styled.GridResultNotFound>
         <Styled.TypographyResultNotFound variant="body">

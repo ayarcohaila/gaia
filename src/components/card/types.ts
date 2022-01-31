@@ -20,6 +20,6 @@ export interface CardProps {
     }>;
   };
   hasActions: boolean;
-  isMarketplace: boolean;
+  hasPrice?: boolean;
   imgLoaded: boolean;
 }
