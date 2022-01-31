@@ -354,6 +354,28 @@ const GET_FAVORITE_LIST = gql`
   }
 `;
 
+const GET_LOWER_NFT_PRICE_BY_COLLECTION = gql`
+  query getLowerNftPriceByCollection($collection_id: uuid) {
+    nft(where: { template: { collection: { id: { _eq: $collection_id } } } }) {
+      id
+      template {
+        collection {
+          description
+          image
+          name
+          collection_id
+          id
+        }
+      }
+      last_active_price
+      sale_offers(order_by: { price: asc }) {
+        id
+        price
+      }
+    }
+  }
+`;
+
 export {
   GET_NFTS,
   GET_NFTS_IDS,
@@ -368,5 +390,6 @@ export {
   GET_MARKETPLACE_OFFERS,
   GET_COLLECTION_FLOOR_VALUE_BY_ID,
   CHECK_FAVORITE_NFT,
-  GET_FAVORITE_LIST
+  GET_FAVORITE_LIST,
+  GET_LOWER_NFT_PRICE_BY_COLLECTION
 };

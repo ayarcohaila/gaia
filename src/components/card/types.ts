@@ -17,6 +17,8 @@ export interface CardProps {
     };
     sale_offers: Array<{
       status: 'active' | 'finished';
+      price: string;
+      updated_at: string;
     }>;
   };
   hasActions: boolean;

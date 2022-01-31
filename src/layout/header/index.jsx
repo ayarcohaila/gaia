@@ -93,7 +93,7 @@ const Header = () => {
           <Grid component="nav" ml="47px">
             <Styled.MenuOptionList component="ul">
               {MENU_OPTIONS.filter(menuOption => menuOption !== false).map(option => (
-                <Grid key={option.label} item component="li">
+                <Grid key={option.label} item component="li" mr={2}>
                   <Link href={option.href}>
                     <Styled.MenuOption data-cy={`link-${option.label}`}>
                       {option.label}
