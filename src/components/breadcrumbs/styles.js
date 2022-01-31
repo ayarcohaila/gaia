@@ -5,7 +5,13 @@ import {
   styled
 } from '@mui/material';
 
-export const Breadcrumbs = styled(MuiBreadcrumbs)(() => ({
+export const Breadcrumbs = styled(MuiBreadcrumbs, {
+  shouldForwardProp: prop => prop !== 'withMargin'
+})(({ withMargin }) => ({
+  li: {
+    marginBottom: withMargin ? 12 : 0
+  },
+
   '& li::before': {
     content: '""',
     display: 'none'
