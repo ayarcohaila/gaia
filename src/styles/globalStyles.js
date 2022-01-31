@@ -66,9 +66,15 @@ const GlobalStyles = createGlobalStyle`
     box-shadow: none,
     overflow: visible
   }
-  
+
   div#nprogress > div.spinner  {
     display: none;
+  }
+
+  .stop-scrolling {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
   }
 `;
 

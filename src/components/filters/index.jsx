@@ -222,6 +222,17 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     toggleMobileModal();
   }, [getNfts, appliedFilters]);
 
+  useEffect(() => {
+    if (isMediumDevice && isMobileModalOpen) {
+      window.document.getElementsByTagName('html')[0].classList.add('stop-scrolling');
+      window.document.body.classList.add('stop-scrolling');
+    }
+    return () => {
+      window.document.getElementsByTagName('html')[0].classList.remove('stop-scrolling');
+      window.document.body.classList.remove('stop-scrolling');
+    };
+  }, [isMediumDevice, isMobileModalOpen]);
+
   const handleMultipleCheck = useCallback(
     (filterName, option) => {
       const isOptionAnObject = !!option?.id;

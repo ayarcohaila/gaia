@@ -136,34 +136,42 @@ const Card = (props: CardProps) => {
           </CardContent>
         </Styled.CustomCard>
       </Link>
-      <SellNftModal
-        asset={asset}
-        hasPostedForSale={data?.has_sale_offers}
-        open={isSellNftModalOpen}
-        onClose={toggleSellNftModal}
-        setLoading={setLoading}
-        loading={loading}
-        collectionId={data?.collection_id}
-        onConfirm={null}
-      />
-      <TransferNftModal
-        asset={asset}
-        open={isTransferNftModalOpen}
-        onClose={toggleTransferNftModal}
-      />
-      <CancelListingModal
-        asset={asset}
-        open={isCancelListingModalOpen}
-        onClose={toggleCancelListingModal}
-        onConfirm={null}
-      />
-      <OrderCompleteModal
-        asset={undefined}
-        blockchainId={undefined}
-        orderId={undefined}
-        open={isOrderCompleteModalOpen}
-        onClose={toggleOrderCompleteModal}
-      />
+      {isSellNftModalOpen && (
+        <SellNftModal
+          asset={asset}
+          hasPostedForSale={data?.has_sale_offers}
+          open={isSellNftModalOpen}
+          onClose={toggleSellNftModal}
+          setLoading={setLoading}
+          loading={loading}
+          collectionId={data?.collection_id}
+          onConfirm={null}
+        />
+      )}
+      {isTransferNftModalOpen && (
+        <TransferNftModal
+          asset={asset}
+          open={isTransferNftModalOpen}
+          onClose={toggleTransferNftModal}
+        />
+      )}
+      {isCancelListingModalOpen && (
+        <CancelListingModal
+          asset={asset}
+          open={isCancelListingModalOpen}
+          onClose={toggleCancelListingModal}
+          onConfirm={null}
+        />
+      )}
+      {isOrderCompleteModalOpen && (
+        <OrderCompleteModal
+          asset={undefined}
+          blockchainId={undefined}
+          orderId={undefined}
+          open={isOrderCompleteModalOpen}
+          onClose={toggleOrderCompleteModal}
+        />
+      )}
     </>
   );
 };
