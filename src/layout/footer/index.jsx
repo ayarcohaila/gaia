@@ -45,8 +45,7 @@ const Footer = () => {
         maxWidth="1440px"
         p={isSmallDevice ? '32px' : '48px 188px 48px 82px'}
         mx="auto"
-        width="100%"
-      >
+        width="100%">
         <Grid container flexWrap="wrap" justifyContent="space-between">
           {
             //TODO: Uncomment later when adding mail newsletter integration
@@ -81,8 +80,7 @@ const Footer = () => {
                 target="_blank"
                 underline="none"
                 aria-label="Twitter"
-                rel="noopener noreferrer"
-              >
+                rel="noopener noreferrer">
                 <TwitterIcon sx={iconStyles} />
               </Styled.CustomLink>
             </Grid>
@@ -99,8 +97,7 @@ const Footer = () => {
                 mb="0"
                 target="_blank"
                 underline="none"
-                rel="noopener noreferrer"
-              >
+                rel="noopener noreferrer">
                 {label}
               </Styled.CustomLink>
             ))}
@@ -111,8 +108,7 @@ const Footer = () => {
           container
           flexDirection={isSmallDevice ? 'column' : 'row'}
           justifyContent="space-between"
-          mt={isSmallDevice ? '24px' : '108px'}
-        >
+          mt={isSmallDevice ? '24px' : '108px'}>
           <Box width="170px" my={isSmallDevice ? '24px' : '0'}>
             <Typography color={grey[600]} variant="subtitle2" lineHeight="1.54">
               © 2021 – NFT Genius Inc. All rights reserved.

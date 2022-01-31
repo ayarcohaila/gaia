@@ -21,4 +21,5 @@ export interface CardProps {
   };
   hasActions: boolean;
   isMarketplace: boolean;
+  imgLoaded: boolean;
 }

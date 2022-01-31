@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { Avatar, CardContent, Grid, Skeleton } from '@mui/material';
+import { Avatar, CardContent, Grid } from '@mui/material';
 
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
@@ -71,7 +71,7 @@ const Card = (props: CardProps) => {
           />
 
           <Grid margin={0} overflow={'hidden'} borderRadius={'20px'}>
-            <Styled.ImageContainer>
+            <Styled.AssetContainer>
               {data?.template.metadata.video && !currentCollection?.mystery ? (
                 <Styled.GridVideo>
                   <VideoPlayer
@@ -83,32 +83,28 @@ const Card = (props: CardProps) => {
                   />
                 </Styled.GridVideo>
               ) : (
-                <Image
-                  alt="Nft asset"
-                  layout={'responsive'}
-                  objectFit="cover"
-                  height={'17.25rem'}
-                  width={'17.25rem'}
-                  onLoadingComplete={() => {
-                    setImgLoaded(true);
-                  }}
-                  src={
-                    currentCollection?.mystery
-                      ? '/images/mystery-nft.gif'
-                      : formatIpfsImg(data?.template?.metadata.img)
-                  }
-                />
+                <>
+                  <Styled.ImageContainer imgLoaded={imgLoaded}>
+                    <Image
+                      alt="Nft asset"
+                      layout={'responsive'}
+                      objectFit="cover"
+                      height={'17.25rem'}
+                      width={'17.25rem'}
+                      onLoadingComplete={() => {
+                        setImgLoaded(true);
+                      }}
+                      src={
+                        currentCollection?.mystery
+                          ? '/images/mystery-nft.gif'
+                          : formatIpfsImg(data?.template?.metadata.img)
+                      }
+                    />
+                  </Styled.ImageContainer>
+                  {!imgLoaded && <Styled.Skeleton variant="rectangular" />}
+                </>
               )}
-            </Styled.ImageContainer>
-            <Skeleton
-              variant="rectangular"
-              sx={{
-                borderRadius: '20px',
-                margin: 0,
-                display: !imgLoaded ? 'none' : undefined,
-                position: 'absolute'
-              }}
-            />
+            </Styled.AssetContainer>
           </Grid>
           <CardContent
             sx={{

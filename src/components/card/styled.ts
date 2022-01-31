@@ -1,4 +1,4 @@
-import { styled, Card, CardHeader, Typography, Grid } from '@mui/material';
+import { styled, Card, CardHeader, Typography, Grid, Skeleton as MuiSkeleton } from '@mui/material';
 
 export const CustomCard = styled(Card)(() => ({
   padding: '16px 16px 22px',
@@ -59,10 +59,22 @@ export const GridVideo = styled(Grid)(() => ({
   }
 }));
 
-export const ImageContainer = styled(Grid)(() => ({
+export const Skeleton = styled(MuiSkeleton)(() => ({
+  borderRadius: '20px',
+  margin: 0,
+  height: '17vw',
+  minHeight: '17.25rem'
+}));
+
+export const AssetContainer = styled(Grid)(() => ({
   height: '100%',
-  width: '100%',
-  img: {
-    borderRadius: '20px'
-  }
+  width: '100%'
+}));
+
+export const ImageContainer = styled(Grid, { shouldForwardProp: props => props !== 'imgLoaded' })<{
+  imgLoaded: boolean;
+}>(({ imgLoaded }) => ({
+  height: imgLoaded ? '100%' : '0%',
+  width: imgLoaded ? '100%' : '0%',
+  visibility: imgLoaded ? undefined : 'hidden'
 }));
