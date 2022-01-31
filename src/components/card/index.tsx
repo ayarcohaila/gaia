@@ -21,7 +21,7 @@ import { CardProps } from './types';
 import * as Styled from './styled';
 
 const Card = (props: CardProps) => {
-  const { data, hasActions, hasPrice } = props;
+  const { data, hasActions, hasPrice, setPosition } = props;
   const [imgLoaded, setImgLoaded] = useState(false);
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
@@ -51,10 +51,17 @@ const Card = (props: CardProps) => {
 
   const COLLECTIONS_NAME_UPPERCASE = currentCollection?.collectionName.toUpperCase();
 
+  const handle = () => {
+    setPosition(data.asset_id);
+  };
+
   return (
     <>
       <Link href={`/${nftCollectionRedirect}/${nftRedirectReference}`} passHref>
-        <Styled.CustomCard sx={{ cursor: data?.mystery ? 'auto' : 'pointer' }}>
+        <Styled.CustomCard
+          sx={{ cursor: data?.mystery ? 'auto' : 'pointer' }}
+          onClick={handle}
+          id={`card-${data.asset_id}`}>
           <Styled.CustomCardHeader
             avatar={
               <Avatar
@@ -75,6 +82,7 @@ const Card = (props: CardProps) => {
               {data?.template.metadata.video && !currentCollection?.mystery ? (
                 <Styled.GridVideo>
                   <VideoPlayer
+                    id={data.asset_id}
                     containerProps={undefined}
                     src={formatIpfsImg(data?.template.metadata.video)}
                     poster={formatIpfsImg(data?.template.metadata.img)}
@@ -86,6 +94,7 @@ const Card = (props: CardProps) => {
                 <>
                   <Styled.ImageContainer imgLoaded={imgLoaded}>
                     <Image
+                      id={`${data.asset_id}`}
                       alt="Nft asset"
                       layout={'responsive'}
                       objectFit="cover"

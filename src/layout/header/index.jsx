@@ -7,7 +7,6 @@ import { Grid, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 import Link from 'next/link';
-
 import Dropdown from '~/base/dropdown';
 import Divider from '~/base/divider';
 import useAuth from '~/hooks/useAuth';
@@ -15,6 +14,7 @@ import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
 import { hasBrowse } from '~/config/config';
 import { MARKETPLACE_TITLE, MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
+import { useAppContext } from '~/context/appProvider';
 
 const HeaderModal = dynamic(() => import('~/components/modal/headerMenu'));
 
@@ -29,6 +29,11 @@ const Header = () => {
   const { login, user, logout } = useAuth();
   const { isMediumDevice } = useBreakpoints();
   const router = useRouter();
+
+  const {
+    appData: { imgRef },
+    handleAppData
+  } = useAppContext();
 
   const hasDivider = PATH_WITH_DIVIDER.includes(router.pathname) && isMediumDevice;
   const handleDropdownMenu = state => {
@@ -76,6 +81,10 @@ const Header = () => {
     router.push('/ballerz');
   };
 
+  const removeImgRef = () => {
+    handleAppData({ imgRef: null });
+  };
+
   return (
     <Styled.HeaderBar position="static">
       <Styled.Container component="section" isMobile={isMediumDevice}>
@@ -93,7 +102,7 @@ const Header = () => {
           <Grid component="nav" ml="47px">
             <Styled.MenuOptionList component="ul">
               {MENU_OPTIONS.filter(menuOption => menuOption !== false).map(option => (
-                <Grid key={option.label} item component="li" mr={2}>
+                <Grid key={option.label} item component="li" onClick={() => removeImgRef()}>
                   <Link href={option.href}>
                     <Styled.MenuOption data-cy={`link-${option.label}`}>
                       {option.label}

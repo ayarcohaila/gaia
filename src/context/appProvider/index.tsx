@@ -6,6 +6,8 @@ const initialContextValue: AppContextValue = {
     page: 0,
     loadMore: false,
     marketplaceLoading: true,
+    cardRef: null,
+    imgRef: null,
     marketplaceNfts: [],
     marketplaceSort: { last_active_price: 'asc' }
   },
