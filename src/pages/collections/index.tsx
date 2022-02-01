@@ -3,7 +3,7 @@ import React from 'react';
 import Seo from '~/components/seo';
 import Collections from '~/components/collections';
 import { gqlClient } from '~/config/apolloClient';
-
+import { hasCollectionPage } from '~/config/config';
 import { COLLECTION_LIST_CONFIG } from '../../../collections_setup';
 import { GET_LOWER_NFT_PRICE_BY_COLLECTION } from '~/store/server/queries';
 
@@ -19,6 +19,9 @@ export default function CollectionsPage(props: any) {
 }
 
 export async function getServerSideProps() {
+  if (!hasCollectionPage) {
+    return { notFound: true };
+  }
   const collections = Object.values(COLLECTION_LIST_CONFIG)
     .map(collection => collection)
     .filter(collection => collection.displayOnCollectionsPage);
