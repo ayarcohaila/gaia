@@ -51,8 +51,10 @@ const Card = (props: CardProps) => {
 
   const COLLECTIONS_NAME_UPPERCASE = currentCollection?.collectionName.toUpperCase();
 
-  const handle = () => {
-    setPosition(data.asset_id);
+  const handleSavePosition = () => {
+    if (setPosition) {
+      setPosition(data.asset_id);
+    }
   };
 
   return (
@@ -60,7 +62,7 @@ const Card = (props: CardProps) => {
       <Link href={`/${nftCollectionRedirect}/${nftRedirectReference}`} passHref>
         <Styled.CustomCard
           sx={{ cursor: data?.mystery ? 'auto' : 'pointer' }}
-          onClick={handle}
+          onClick={handleSavePosition}
           id={`card-${data.asset_id}`}>
           <Styled.CustomCardHeader
             avatar={
