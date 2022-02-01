@@ -94,7 +94,7 @@ const Footer = () => {
                 key={label}
                 fontSize="1rem"
                 href={href}
-                mb="4px"
+                mb="0"
                 target="_blank"
                 underline="none"
                 rel="noopener noreferrer">
@@ -116,13 +116,13 @@ const Footer = () => {
           </Box>
 
           <Box width="160px">
-            <NextLink scroll href="/terms-of-use">
+            <NextLink scroll passHref href="/terms-of-use">
               <Styled.CustomLink underline="none">Terms of Use</Styled.CustomLink>
             </NextLink>
-            <NextLink scroll href="/privacy-policy">
+            <NextLink scroll passHref href="/privacy-policy">
               <Styled.CustomLink underline="none">Privacy Policy</Styled.CustomLink>
             </NextLink>
-            <NextLink scroll href="/copyright-policy">
+            <NextLink scroll passHref href="/copyright-policy">
               <Styled.CustomLink underline="none">Copyright Policy</Styled.CustomLink>
             </NextLink>
           </Box>

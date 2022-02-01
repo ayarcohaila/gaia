@@ -1,4 +1,4 @@
-import { Typography, styled, Button } from '@mui/material';
+import { Typography, styled, Button, Grid } from '@mui/material';
 import { ArrowDropDownRounded as ArrowDropDownRoundedIcon } from '@mui/icons-material';
 
 export const Text = styled(Typography)(({ theme: { palette } }) => ({
@@ -6,39 +6,57 @@ export const Text = styled(Typography)(({ theme: { palette } }) => ({
   fontSize: '13px'
 }));
 
-export const Container = styled('div', { shouldForwardProp: prop => prop !== 'withBorder' })(
-  ({ withBorder, theme: { palette } }) => ({
+export const Container = styled(Grid, {
+  shouldForwardProp: prop => !['isSmallDevice', 'isMediumDevice', 'withBorder'].includes(prop)
+})(({ withBorder, isSmallDevice, isMediumDevice, theme: { palette } }) => ({
+  display: isSmallDevice || isMediumDevice ? 'flex' : 'grid',
+  gridTemplateColumns: '302px auto',
+  alignItems: 'center',
+  padding: isSmallDevice ? 0 : '0 40px',
+  boxSizing: 'border-box',
+  width: '100%',
+  gap: '22px',
+  margin: '0 auto',
+  borderTop: withBorder ? `2px solid ${palette.grey[300]}` : 'none'
+}));
+
+export const MainContainer = styled(Grid, { shouldForwardProp: prop => prop !== 'withCenter' })(
+  ({ theme, withCenter }) => ({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    borderTop: withBorder ? `2px solid ${palette.grey[300]}` : 'none'
+    justifyContent: 'space-between',
+    width: '100%',
+    boxSizing: 'border-box',
+    padding: '16px 0 20px',
+
+    [theme.breakpoints.down('sm')]: {
+      padding: '0 20px',
+      flexDirection: 'column',
+      marginTop: '20px'
+    },
+
+    ...(withCenter
+      ? {
+          display: 'grid',
+          gridTemplateColumns: '3fr 1fr'
+        }
+      : {})
   })
 );
 
-export const MainConteiner = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '100%',
-  boxSizing: 'border-box',
-  padding: '16px 40px 20px',
-  [theme.breakpoints.down('sm')]: {
-    padding: '0 20px',
-    flexDirection: 'column',
-    marginTop: '20px'
-  }
-}));
-
-export const ContainerItem = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-});
-
+export const ContainerItem = styled(Grid, { shouldForwardProp: prop => prop !== 'rightPosition' })(
+  ({ rightPosition }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: rightPosition ? 'flex-end' : 'center',
+    whiteSpace: 'nowrap'
+  })
+);
 export const CustomButton = styled(Button, { shouldForwardProp: prop => prop !== 'active' })(
   ({ theme: { palette } }) => ({
     margin: '0',
     padding: '10px 10px 10px 10px',
+    whiteSpace: 'nowrap',
     svg: {
       color: palette.grey[400]
     },
@@ -49,7 +67,7 @@ export const CustomButton = styled(Button, { shouldForwardProp: prop => prop !==
   })
 );
 
-export const Divider = styled('div')(({ theme }) => ({
+export const Divider = styled(Grid)(({ theme }) => ({
   height: '20px',
   width: '2px',
   backgroundColor: theme.palette.grey[300],

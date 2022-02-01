@@ -9,11 +9,11 @@ import useCollectionConfig from '~/hooks/useCollectionConfig';
 import BurstIcon from '~/base/burstIcon';
 import Dropdown from '~/base/dropdown';
 import { ORDER_MENU_IDS } from '~/components/collectionFilters/constants';
-import { useAppContext } from '~/context';
+import { useAppContext } from '~/context/appProvider';
 import * as Styled from './styles';
 
 const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBorder }) => {
-  const { isMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isSmallDevice, isExtraMediumDevice } = useBreakpoints();
   const orderButtonRef = useRef(null);
   const [isMenuOrderOpen, toggleMenuOrder] = useToggle();
   const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWEST_PRICE);
@@ -71,10 +71,18 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBo
   }, []);
 
   return (
-    <Styled.Container withBorder={withBorder}>
-      <Styled.MainConteiner>
-        {!isMediumDevice && <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} />}
+    <Styled.Container
+      withBorder={withBorder}
+      isMediumDevice={isMediumDevice}
+      isSmallDevice={isSmallDevice}>
+      {!isMediumDevice && (
+        <Styled.MainContainer>
+          <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} withMargin={false} />
+        </Styled.MainContainer>
+      )}
 
+      <Styled.MainContainer
+        withCenter={!isSmallDevice && !isMediumDevice && (!config || !showFilter)}>
         <Styled.ContainerItem>
           <BurstIcon />
           <Styled.Text>
@@ -82,7 +90,7 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBo
           </Styled.Text>
         </Styled.ContainerItem>
 
-        <Styled.ContainerItem>
+        <Styled.ContainerItem rightPosition>
           {!isMediumDevice && (
             <>
               <Styled.CustomButton onClick={handleShowFilters}>
@@ -109,7 +117,7 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBo
             </Styled.Text>
           </Styled.CustomButton>
         </Styled.ContainerItem>
-      </Styled.MainConteiner>
+      </Styled.MainContainer>
     </Styled.Container>
   );
 };

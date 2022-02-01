@@ -84,9 +84,9 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
         onEnded={() => setIsPlaying(false)}
         poster={poster}
         ref={playerRef}
-        src={src}
         playsInline
         {...props}>
+        {!!isPlaying && <source src={src} type="video/mp4" />}
         Sorry, your browser have no support to embedded videos.
       </Styled.Video>
       {((!!isPlaying && isVideoHovered) || !isPlaying) && (

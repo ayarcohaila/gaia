@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { Typography, Grid } from '@mui/material';
+import Link from 'next/link';
 
 import useBreakpoints from '~/hooks/useBreakpoints';
 import { hasBrowse } from '~/config/config';
@@ -52,13 +53,11 @@ export default function HomepageBanner() {
           </Typography>
           {hasBrowse && (
             <Grid container sx={{ gap: '12px' }}>
-              <Styled.CardButton
-                component="a"
-                href="/ballerz"
-                aria-label="ballerz"
-                sx={{ width: '200px' }}>
-                <Typography variant="subtitle1">Explore BALLERZ</Typography>
-              </Styled.CardButton>
+              <Link href="/ballerz" passHref>
+                <Styled.CardButton component="a" aria-label="ballerz" sx={{ width: '200px' }}>
+                  <Typography variant="subtitle1">Explore BALLERZ</Typography>
+                </Styled.CardButton>
+              </Link>
             </Grid>
           )}
         </Styled.Container>

@@ -46,3 +46,6 @@ public/workbox-*.js
 # Cypress
 /cypress/screenshots
 /cypress/videos
+
+# Typescript
+tsconfig.tsbuildinfo

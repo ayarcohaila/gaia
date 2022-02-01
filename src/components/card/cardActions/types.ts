@@ -4,6 +4,8 @@ export interface CardActionsProps {
     collection_id: string;
     sale_offers: Array<{
       status: 'active' | 'finished';
+      updated_at: string;
+      price: string;
     }>;
   };
   loading: boolean;

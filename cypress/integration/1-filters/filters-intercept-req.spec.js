@@ -45,7 +45,7 @@ describe('Intercepting Requests', () => {
             .should('include', Cypress.env(COLLECTION_IDS.bryson))
             .should('include', Cypress.env(COLLECTION_IDS.shareef));
 
-          expect(request.body.properties).to.have.length(0);
+          expect(request.body.properties._and).to.have.length(0);
           expect(request.body.offset).to.eq(0);
           expect(request.body.orderBy.last_active_price).to.eq('asc');
         });
@@ -71,7 +71,7 @@ describe('Intercepting Requests', () => {
 
           expect(request.body.isForSale._eq).to.eq(undefined);
           expect(request.body.collections).to.be.an('array');
-          expect(request.body.properties).to.have.length(0);
+          expect(request.body.properties._and).to.have.length(0);
           expect(request.body.offset).to.eq(0);
           expect(request.body.orderBy.last_active_price).to.eq('asc');
 

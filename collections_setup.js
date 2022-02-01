@@ -32,7 +32,8 @@ export const COLLECTION_LIST_CONFIG = {
     pageTitle: 'BALLERZ',
     mainColor: '#270b5a',
     secondaryColor: '#4814a6',
-    collectionSize: 10000
+    collectionSize: 10000,
+    displayOnCollectionsPage: true
   },
   [COLLECTIONS_NAME.BRYSON]: {
     id: process.env.NEXT_PUBLIC_BRYSON_COLLECTION,
@@ -47,7 +48,8 @@ export const COLLECTION_LIST_CONFIG = {
     pageTitle: 'Bryson DeChambeau',
     mainColor: '#517fb1',
     secondaryColor: '#517fb1',
-    collectionSize: 5000
+    collectionSize: 5000,
+    displayOnCollectionsPage: true
   },
   [COLLECTIONS_NAME.SHAREEF]: {
     id: process.env.NEXT_PUBLIC_SHAREEF_COLLECTION,
@@ -61,12 +63,13 @@ export const COLLECTION_LIST_CONFIG = {
     pageTitle: 'Shareef O’Neal',
     mainColor: '#4b1f87',
     secondaryColor: '#4b1f87',
-    collectionSize: 1023
+    collectionSize: 1023,
+    displayOnCollectionsPage: true
   },
   [COLLECTIONS_NAME.SHAREEF_AIRDROP]: {
     id: process.env.NEXT_PUBLIC_SHAREEF_AIRDROP_COLLECTION,
     nftName: 'Shareef O’Neal - Birthday',
-    collectionName: COLLECTIONS_NAME.SHAREEF,
+    collectionName: COLLECTIONS_NAME.SHAREEF_AIRDROP,
     status: COLLECTION_STATUS.SALE,
     mystery: false,
     buyLimit: 0,
@@ -75,7 +78,8 @@ export const COLLECTION_LIST_CONFIG = {
     pageTitle: 'Shareef O’Neal NFTs',
     mainColor: '#4b1f87',
     secondaryColor: '#4b1f87',
-    collectionSize: 1023
+    collectionSize: 1023,
+    displayOnCollectionsPage: true
   }
 };
 

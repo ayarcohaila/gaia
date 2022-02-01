@@ -11,10 +11,12 @@ import SectionNine from '~/components/privacyPolicySections/sectionNine';
 import SectionTen from '~/components/privacyPolicySections/sectionTen';
 import SectionElevenAndTwelve from '~/components/privacyPolicySections/sectionElevenAndTwelve';
 import Seo from '~/components/seo';
-
+import useBreakpoints from '~/hooks/useBreakpoints';
 import { SEO_DATA } from '~/constant';
 
 const PrivacyPolicy = () => {
+  const { isMediumDevice } = useBreakpoints();
+
   const paragraphDivider = (
     <>
       <br />
@@ -24,7 +26,12 @@ const PrivacyPolicy = () => {
   return (
     <>
       <Seo title={SEO_DATA.title.privacyPolicy} />
-      <Divider customProps={{ margin: 'auto', width: 'calc(100% - 160px)' }} />
+      <Divider
+        customProps={{
+          margin: 'auto',
+          width: isMediumDevice ? 'calc(100% - 32px)' : 'calc(100% - 160px)'
+        }}
+      />
       <Styled.Container>
         <Styled.Content component="section">
           <Styled.Title variant="h1">Privacy Policy</Styled.Title>

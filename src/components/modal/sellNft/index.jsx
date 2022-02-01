@@ -42,7 +42,7 @@ const SellNftModal = ({
 
   const getCollectionFloorValueById = async collectionId => {
     try {
-      const response = await axios.post('/api/collection-floor-price', {
+      const response = await axios.post('/api/collectionFloorPrice', {
         collectionId
       });
       return response.data.floorPrice;
@@ -84,6 +84,7 @@ const SellNftModal = ({
       setLoading(true);
       setIsFloorPriceError(false);
       const transaction = await loadTransaction(sellTx);
+      setLoading(true);
       const txResult = await sellItem(
         transaction.transactionScript,
         props.asset.asset_id,

@@ -19,7 +19,8 @@ export const ACTION_TYPE = {
   APPLY_FILTERS: 'APPLY_FILTERS',
   CLEAR_FILTERS: 'CLEAR_FILTERS',
   SET_FILTER: 'SET_FILTER',
-  RESET_PRICE: 'RESET_PRICE'
+  RESET_PRICE: 'RESET_PRICE',
+  RESTORE_FILTERS: 'RESTORE_FILTERS'
 };
 
 export function reducer(state, action) {
@@ -30,7 +31,7 @@ export function reducer(state, action) {
       const collectionCount = collections.length ? 1 : 0;
       return {
         ...state,
-        appliedFiltersCount: priceCount + collectionCount + properties.length + 1
+        appliedFiltersCount: priceCount + collectionCount + Object.keys(properties).length + 1
       };
     }
 
@@ -42,7 +43,14 @@ export function reducer(state, action) {
       return { ...state, [filter]: value };
     }
     case ACTION_TYPE.RESET_PRICE: {
-      return { ...state, [FILTERS_CONSTANTS.MIN_PRICE]: '', [FILTERS_CONSTANTS.MAX_PRICE]: '' };
+      return {
+        ...state,
+        [FILTERS_CONSTANTS.MIN_PRICE]: '',
+        [FILTERS_CONSTANTS.MAX_PRICE]: ''
+      };
+    }
+    case ACTION_TYPE.RESTORE_FILTERS: {
+      return { ...action.payload };
     }
 
     default:

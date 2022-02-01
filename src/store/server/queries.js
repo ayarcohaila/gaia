@@ -17,6 +17,7 @@ const GET_NFT_BY_ID = gql`
     nft(
       where: { collection_id: { _eq: $collection_id }, template: { metadata: { _contains: $id } } }
     ) {
+      id
       asset_id
       is_for_sale
       collection_id
@@ -51,6 +52,7 @@ const GET_NFT_BY_ID = gql`
 const GET_NFT_BY_MINT_NUMBER = gql`
   query getNftByMintNumber($filter: nft_bool_exp) {
     nft(where: $filter) {
+      id
       asset_id
       mint_number
       owner
@@ -311,6 +313,69 @@ const GET_COLLECTION_FLOOR_VALUE_BY_ID = gql`
   }
 `;
 
+const CHECK_FAVORITE_NFT = gql`
+  query checkFavoriteNft($nftId: uuid!, $address: String) {
+    nft_favorites(where: { nft_id: { _eq: $nftId }, wallet_address: { _eq: $address } }) {
+      id
+    }
+  }
+`;
+
+const GET_FAVORITE_LIST = gql`
+  query getFavoriteList($address: String) {
+    nft_favorites(where: { wallet_address: { _eq: $address } }) {
+      nft {
+        asset_id
+        mint_number
+        is_for_sale
+        has_sale_offers
+        collection_id
+        transaction_status
+        collection {
+          collection_id
+          name
+          market_fee
+          image
+          description
+          author
+        }
+        owner
+        template {
+          metadata
+        }
+        sale_offers {
+          listing_resource_id
+          price
+          status
+          updated_at
+        }
+      }
+    }
+  }
+`;
+
+const GET_LOWER_NFT_PRICE_BY_COLLECTION = gql`
+  query getLowerNftPriceByCollection($collection_id: uuid) {
+    nft(where: { template: { collection: { id: { _eq: $collection_id } } } }) {
+      id
+      template {
+        collection {
+          description
+          image
+          name
+          collection_id
+          id
+        }
+      }
+      last_active_price
+      sale_offers(order_by: { price: asc }) {
+        id
+        price
+      }
+    }
+  }
+`;
+
 export {
   GET_NFTS,
   GET_NFTS_IDS,
@@ -323,5 +388,8 @@ export {
   GET_SINGLE_NFTS_FOR_SALE,
   GET_MARKETPLACE_NFTS_COUNT,
   GET_MARKETPLACE_OFFERS,
-  GET_COLLECTION_FLOOR_VALUE_BY_ID
+  GET_COLLECTION_FLOOR_VALUE_BY_ID,
+  CHECK_FAVORITE_NFT,
+  GET_FAVORITE_LIST,
+  GET_LOWER_NFT_PRICE_BY_COLLECTION
 };

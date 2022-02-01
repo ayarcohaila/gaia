@@ -1,10 +1,19 @@
-import { AccordionSummary, Typography, useTheme } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import { ArrowDropDown as ExpandMoreIcon } from '@mui/icons-material';
-import PropTypes from 'prop-types';
+import { capitalize } from '~/utils/string';
 
 import * as Styled from './styles';
+import { AccordionProps } from './types';
+import { PropsWithChildren } from 'react';
 
-const Accordion = ({ contentSx, children, dividerSx, hasDivider, title, ...props }) => {
+const Accordion = ({
+  contentSx,
+  children,
+  dividerSx,
+  hasDivider,
+  title,
+  ...props
+}: PropsWithChildren<AccordionProps>) => {
   const {
     palette: { grey }
   } = useTheme();
@@ -14,27 +23,19 @@ const Accordion = ({ contentSx, children, dividerSx, hasDivider, title, ...props
       {hasDivider && <Styled.Divider dividerSx={dividerSx} />}
 
       <Styled.Accordion {...props}>
-        <AccordionSummary
+        <Styled.AccordionSummary
           aria-controls={title}
           expandIcon={<ExpandMoreIcon htmlColor={grey[600]} />}
           id={`${title}_summary`}
           data-cy={`accordion-summary-${title}`}>
-          <Typography color={grey[650]} variant="h5">
-            {title}
+          <Typography color={grey[700]} variant="h5">
+            {capitalize(title)}
           </Typography>
-        </AccordionSummary>
+        </Styled.AccordionSummary>
         <Styled.AccordionDetails sx={contentSx}>{children}</Styled.AccordionDetails>
       </Styled.Accordion>
     </>
   );
-};
-
-Accordion.propTypes = {
-  contentSx: PropTypes.object,
-  children: PropTypes.node,
-  dividerSx: PropTypes.object,
-  hasDivider: PropTypes.bool,
-  title: PropTypes.string
 };
 
 Accordion.defaultProps = {

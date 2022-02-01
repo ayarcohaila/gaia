@@ -10,11 +10,32 @@ import {
   COLLECTIONS_NAME,
   COLLECTION_STATUS
 } from '../../../../collections_setup';
-import { ATTRIBUTES_ORDER, BALLERZ_COMPUTED_PROPERTIES } from '~/components/filters/constants';
+import {
+  ATTRIBUTES_ORDER,
+  ATTRIBUTES_SHAREEF_ORDER,
+  BALLERZ_COMPUTED_PROPERTIES,
+  SHAREEF_COMPUTED_PROPERTIES
+} from '~/components/filters/constants';
 import listNFTOffers from '~/utils/fetchNFTOffers';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+import { GetNftByIdQuery } from '~/store/server/graphql.generated';
+import { ProductDetailsTopSectionProps } from '~/components/productDetails/topSection/types';
+import { GetServerSideProps as NextGetServerSideProps } from 'next';
 
-const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps, hasMultipleOffers }) => {
+export type ProductDetailsProps = ProductDetailsTopSectionProps;
+
+export type ProductDetailsPageParams = {
+  collection_name: string;
+  nft_id: string;
+};
+
+export type ProductDetailsServerSidePropsFN = NextGetServerSideProps<
+  ProductDetailsProps,
+  ProductDetailsPageParams
+>;
+
+const ProductDetails = (props: ProductDetailsProps) => {
+  const { nft } = props;
   const {
     palette: { grey }
   } = useTheme();
@@ -27,23 +48,22 @@ const ProductDetails = ({ nft, attributesOrder, ballerzComputedProps, hasMultipl
   return (
     <Box bgcolor={grey[200]}>
       <Seo
-        title={`${title} | ${nft.collection.name} NFT Collection`}
+        title={`${title} | ${nft.collection?.name} NFT Collection`}
         description={description}
         imgURL={formatIpfsImg(img)}
       />
       <Grid m="0 auto" maxWidth="1280px" width={isSmallDevice ? '100%' : '90%'}>
-        <ProductDetailsTopSection
-          nft={nft}
-          attributesOrder={attributesOrder}
-          ballerzComputedProps={ballerzComputedProps}
-          hasMultipleOffers={hasMultipleOffers}
-        />
+        <ProductDetailsTopSection {...props} />
       </Grid>
     </Box>
   );
 };
 
-export async function getServerSideProps({ params }) {
+export const getServerSideProps: ProductDetailsServerSidePropsFN = async ({ params }) => {
+  if (!params) {
+    return { notFound: true };
+  }
+
   const { collection_name, nft_id } = params;
   const brysonConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.BRYSON];
   const shareefConfig = COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF];
@@ -51,6 +71,9 @@ export async function getServerSideProps({ params }) {
 
   const attributesOrder = ATTRIBUTES_ORDER;
   const ballerzComputedProps = BALLERZ_COMPUTED_PROPERTIES;
+
+  const attributesShareefOrder = ATTRIBUTES_SHAREEF_ORDER;
+  const shareefComputedProperties = SHAREEF_COMPUTED_PROPERTIES;
 
   let hasMultipleOffers = false;
 
@@ -76,7 +99,12 @@ export async function getServerSideProps({ params }) {
       }
 
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
+        props: {
+          nft: nft[0],
+          attributesOrder,
+          computedProps: ballerzComputedProps,
+          hasMultipleOffers
+        }
       };
     }
 
@@ -102,7 +130,12 @@ export async function getServerSideProps({ params }) {
       }
 
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
+        props: {
+          nft: nft[0],
+          attributesOrder: attributesShareefOrder,
+          computedProps: shareefComputedProperties,
+          hasMultipleOffers
+        }
       };
     }
 
@@ -127,11 +160,16 @@ export async function getServerSideProps({ params }) {
       }
 
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
+        props: {
+          nft: nft[0],
+          attributesOrder: attributesShareefOrder,
+          computedProps: shareefComputedProperties,
+          hasMultipleOffers
+        }
       };
     }
 
-    const { nft } = await gqlClient.request(GET_NFT_BY_ID, {
+    const { nft } = await gqlClient.request<GetNftByIdQuery>(GET_NFT_BY_ID, {
       id: { id: params?.nft_id },
       collection_id: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION
     });
@@ -149,11 +187,16 @@ export async function getServerSideProps({ params }) {
     }
 
     return {
-      props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
+      props: {
+        nft: nft[0],
+        attributesOrder,
+        computedProps: ballerzComputedProps,
+        hasMultipleOffers
+      }
     };
   } catch (error) {
     return { notFound: true };
   }
-}
+};
 
 export default ProductDetails;

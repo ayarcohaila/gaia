@@ -1,6 +1,6 @@
 module.exports = {
   root: true, // Make sure eslint picks up the config at the root of the directory
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2020, // Use the latest ecmascript standard
     sourceType: 'module', // Allows using import/export statements
@@ -28,8 +28,12 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
-    'plugin:prettier/recommended' // Make this the last element so prettier config overrides other formatting rules
+    'plugin:prettier/recommended', // Make this the last element so prettier config overrides other formatting rules
+    'plugin:cypress/recommended'
   ],
+  globals: {
+    JSX: true // Allows the use of the JSX namespace
+  },
   rules: {
     'no-console': ['error', { allow: ['warn', 'error'] }],
     'prettier/prettier': ['error', { endOfLine: 'auto' }, { usePrettierrc: true }], // Use our .prettierrc file as source
@@ -38,6 +42,8 @@ module.exports = {
     'jsx-a11y/no-autofocus': 'off', // Allow autoFocus on material elements
     'react/react-in-jsx-scope': 'off', // suppress errors for missing 'import React' in files
     'react/prop-types': 'off',
-    '"jsx-a11y/no-autofocus"': 'off' // Allow autoFocus on material elements
+    'no-unused-vars': 'off',
+    '"jsx-a11y/no-autofocus"': 'off', // Allow autoFocus on material elements
+    'cypress/no-unnecessary-waiting': 'off'
   }
 };

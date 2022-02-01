@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useReducer } from 'react';
+import { memo, useState, useCallback, useEffect, useMemo, useReducer } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FilterList as FiltersIcon } from '@mui/icons-material';
 import axios from 'axios';
@@ -6,7 +6,7 @@ import capitalize from 'lodash.capitalize';
 import PropTypes from 'prop-types';
 
 import Button from '~/base/button';
-import { useAppContext } from '~/context';
+import { useAppContext } from '~/context/appProvider';
 import CheckboxCard from './checkboxCard';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
@@ -14,20 +14,27 @@ import useCollectionConfig from '~/hooks/useCollectionConfig';
 import useDebounce from '~/hooks/useDebounce';
 import Accordion from '../accordion';
 import InputRangeGroup from './inputRangeGroup';
+import usePrevious from '~/hooks/usePrevious';
 
 import { ACTION_TYPE, reducer, initialState, FILTERS_CONSTANTS } from './reducer';
-import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
+import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup';
 
 import * as Styled from './styles';
-import { BALLERZ_COMPUTED_PROPERTIES } from '~/components/filters/constants';
+import {
+  BALLERZ_COMPUTED_PROPERTIES,
+  SHAREEF_COMPUTED_PROPERTIES
+} from '~/components/filters/constants';
 
 const DEFAULT_LIST_SIZE = 40;
+
 const VIEW_ALL = 'viewAll';
 const GET_URL = '/api/marketplace';
+const SHAREEF_NAME = COLLECTION_LIST_CONFIG?.[COLLECTIONS_NAME?.SHAREEF]?.nftName;
 
 const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const [isMobileModalOpen, toggleMobileModal] = useToggle();
+  const [hasChangeFilters, setHasChangeFilter] = useState(false);
   const { config } = useCollectionConfig();
 
   const [state, dispatch] = useReducer(reducer, {
@@ -40,30 +47,35 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
         ]
       : []
   });
+
+  const [lastState, setLastState] = useState(state);
+
   const { appliedFiltersCount, status, minPrice, maxPrice, collections, properties } = state;
   const { appData, handleAppData } = useAppContext();
 
-  const handleApplyFilters = useCallback(() => {
-    dispatch({ type: ACTION_TYPE.APPLY_FILTERS });
-    toggleMobileModal();
-  }, [dispatch, toggleMobileModal]);
-
   const setFilter = useCallback(
-    (filter, value) => {
-      dispatch({
+    async (filter, value) => {
+      await dispatch({
         type: ACTION_TYPE.SET_FILTER,
         payload: {
           filter,
           value
         }
       });
-      handleAppData({ page: 0, marketplaceNfts: [] });
+      if (!isMediumDevice) {
+        handleAppData({ page: 0, marketplaceNfts: [] });
+      } else {
+        setHasChangeFilter(true);
+        await dispatch({
+          type: ACTION_TYPE.APPLY_FILTERS
+        });
+      }
     },
-    [dispatch]
+    [isMediumDevice, dispatch]
   );
 
   const handleSingleCheck = useCallback(
-    (filter, value) => {
+    async (filter, value) => {
       if (filter === FILTERS_CONSTANTS.STATUS && value === status) {
         return '';
       }
@@ -73,16 +85,23 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           type: ACTION_TYPE.RESET_PRICE
         });
       }
-      dispatch({
+      await dispatch({
         type: ACTION_TYPE.SET_FILTER,
         payload: {
           filter,
           value
         }
       });
-      handleAppData({ page: 0, marketplaceNfts: [] });
+      if (!isMediumDevice) {
+        handleAppData({ page: 0, marketplaceNfts: [] });
+      } else {
+        setHasChangeFilter(true);
+        await dispatch({
+          type: ACTION_TYPE.APPLY_FILTERS
+        });
+      }
     },
-    [status, dispatch]
+    [status, dispatch, isMediumDevice]
   );
 
   const getNfts = useDebounce(async filters => {
@@ -95,9 +114,10 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     const ids = [];
     const list = [];
 
-    const unfilteredList = config?.id
-      ? result?.data?.nfts
-      : [...appData?.marketplaceNfts, ...result?.data?.nfts];
+    const unfilteredList =
+      config?.id && !appData.loadMore
+        ? result?.data?.nfts
+        : [...appData?.marketplaceNfts, ...result?.data?.nfts];
 
     unfilteredList.filter(nft_item => {
       if (!ids.includes(nft_item.asset_id)) {
@@ -109,11 +129,12 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     handleAppData({
       marketplaceNfts: list,
       marketCount: result.data.marketCount,
-      marketplaceLoading: false
+      marketplaceLoading: false,
+      loadMore: false
     });
   }, 500);
 
-  useEffect(getNfts, []);
+  useEffect(getNfts, [getNfts]);
 
   const appliedFilters = useMemo(() => {
     let priceFilters = [];
@@ -121,6 +142,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       ('active');
     }
     let propertiesFilters = [];
+    let logicalOperator = '_and';
 
     Object.values(properties)?.forEach(property => {
       Object.entries(property)?.forEach(([key, value]) => {
@@ -128,6 +150,9 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           if (propValue) {
             if (key === 'accessories') {
               propertiesFilters.push({ [key]: { _like: `%${propKey}%` } });
+            } else if (key === 'rarity') {
+              logicalOperator = '_or';
+              propertiesFilters.push({ metadata: { _contains: { rarity: propKey } } });
             } else {
               propertiesFilters.push({ [key]: { _eq: propKey } });
             }
@@ -157,7 +182,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       price: priceFilters,
       isForSale: status === 'buyNow' ? { _eq: true } : {},
       collections: collectionsFilter,
-      properties: propertiesFilters,
+      properties: { [logicalOperator]: propertiesFilters },
       offset: appData?.page * DEFAULT_LIST_SIZE,
       orderBy: appData?.marketplaceSort
     };
@@ -175,8 +200,50 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   ]);
 
   useEffect(() => {
+    if (!isMediumDevice) {
+      getNfts(appliedFilters);
+    }
+  }, [getNfts, appliedFilters]);
+
+  const handleApplyFilters = useCallback(async () => {
+    handleAppData({ page: 0, marketplaceNfts: [] });
     getNfts(appliedFilters);
-  }, [appliedFilters]);
+    setHasChangeFilter(false);
+    toggleMobileModal();
+  }, [getNfts, appliedFilters]);
+
+  const handleCloseApplyFilters = useCallback(() => {
+    setHasChangeFilter(false);
+    dispatch({ type: ACTION_TYPE.RESTORE_FILTERS, payload: lastState });
+    toggleMobileModal();
+  }, [lastState]);
+
+  const handleToggleFilters = useCallback(() => {
+    setLastState(state);
+    toggleMobileModal();
+  }, [state, setLastState]);
+
+  const handleClearFilters = useCallback(() => {
+    handleAppData({ page: 0, marketplaceNfts: [] });
+    dispatch({ type: ACTION_TYPE.CLEAR_FILTERS });
+    getNfts(appliedFilters);
+    toggleMobileModal();
+  }, [getNfts, appliedFilters]);
+
+  useEffect(() => {
+    if (isMediumDevice && isMobileModalOpen) {
+      window.document.getElementsByTagName('html')[0].classList.add('stop-scrolling');
+      window.document.body.classList.add('stop-scrolling');
+    }
+    return () => {
+      window.document.getElementsByTagName('html')[0].classList.remove('stop-scrolling');
+      window.document.body.classList.remove('stop-scrolling');
+    };
+  }, [isMediumDevice, isMobileModalOpen]);
+
+  const getComputedProperties = label => {
+    return label === SHAREEF_NAME ? SHAREEF_COMPUTED_PROPERTIES : BALLERZ_COMPUTED_PROPERTIES;
+  };
 
   const handleMultipleCheck = useCallback(
     (filterName, option) => {
@@ -303,24 +370,29 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
                 <Accordion
                   key={`lg-properties-${currentCollection?.id}`}
                   title={`${capitalize(currentCollection?.label)} Properties`}>
-                  {Object.keys(currentCollection.properties).map(property => (
-                    <Accordion key={property} title={capitalize(property)}>
-                      <Styled.ValuesContainer>
-                        {currentCollection.properties[property].map((option, index) => (
-                          <CheckboxCard
-                            key={`${property}-${option}-${index}`}
-                            containerProps={{ sx: { mb: 1 } }}
-                            isSelected={!!properties?.[currentCollection?.id]?.[property]?.[option]}
-                            label={option}
-                            amount={BALLERZ_COMPUTED_PROPERTIES[property][option]}
-                            onChange={() =>
-                              handleCheckProperties(currentCollection.id, property, option)
-                            }
-                          />
-                        ))}
-                      </Styled.ValuesContainer>
-                    </Accordion>
-                  ))}
+                  {Object.keys(currentCollection.properties).map(property => {
+                    const COMPUTED_PROPERTIES = getComputedProperties(currentCollection.label);
+                    return (
+                      <Accordion key={property} title={capitalize(property)}>
+                        <Styled.ValuesContainer>
+                          {currentCollection.properties[property].map((option, index) => (
+                            <CheckboxCard
+                              key={`${property}-${option}-${index}`}
+                              containerProps={{ sx: { mb: 1 } }}
+                              isSelected={
+                                !!properties?.[currentCollection?.id]?.[property]?.[option]
+                              }
+                              label={option}
+                              amount={COMPUTED_PROPERTIES[property][option]}
+                              onChange={() =>
+                                handleCheckProperties(currentCollection.id, property, option)
+                              }
+                            />
+                          ))}
+                        </Styled.ValuesContainer>
+                      </Accordion>
+                    );
+                  })}
                 </Accordion>
               )
             );
@@ -364,18 +436,26 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
                   {Object.keys(currentCollection.properties).map((property, index) => (
                     <Accordion key={`${property}-${index}`} title={capitalize(property)}>
                       <Styled.ValuesContainer>
-                        {currentCollection.properties[property].map(option => (
-                          <CheckboxCard
-                            key={`mobile-${currentCollection.id}-${property}-${option}`}
-                            containerProps={{ sx: { mb: 1 } }}
-                            isSelected={!!properties?.[currentCollection?.id]?.[property]?.[option]}
-                            label={option}
-                            amount={BALLERZ_COMPUTED_PROPERTIES[property][option]}
-                            onChange={() =>
-                              handleCheckProperties(currentCollection.id, property, option)
-                            }
-                          />
-                        ))}
+                        {currentCollection.properties[property].map(option => {
+                          const computedProperties =
+                            currentCollection.label === SHAREEF_NAME
+                              ? SHAREEF_COMPUTED_PROPERTIES
+                              : BALLERZ_COMPUTED_PROPERTIES;
+                          return (
+                            <CheckboxCard
+                              key={`mobile-${currentCollection.id}-${property}-${option}`}
+                              containerProps={{ sx: { mb: 1 } }}
+                              isSelected={
+                                !!properties?.[currentCollection?.id]?.[property]?.[option]
+                              }
+                              label={option}
+                              amount={computedProperties[property][option]}
+                              onChange={() =>
+                                handleCheckProperties(currentCollection.id, property, option)
+                              }
+                            />
+                          );
+                        })}
                       </Styled.ValuesContainer>
                     </Accordion>
                   ))}
@@ -395,7 +475,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
         <Styled.FloatButton
           data-cy="button-filter-medium-device"
           endIcon={<FiltersIcon />}
-          onClick={toggleMobileModal}>
+          onClick={handleToggleFilters}>
           Filters {!!appliedFiltersCount && `(${appliedFiltersCount})`}
         </Styled.FloatButton>
       ) : (
@@ -409,13 +489,11 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           onClose={toggleMobileModal}>
           {renderMobileContent}
           <Styled.BottomBar container>
-            <Styled.ClearButton onClick={() => dispatch({ type: ACTION_TYPE.CLEAR_FILTERS })}>
-              Clear
-            </Styled.ClearButton>
-            <Button data-cy="apply" onClick={handleApplyFilters}>
+            <Styled.ClearButton onClick={handleClearFilters}>Clear</Styled.ClearButton>
+            <Button data-cy="apply" onClick={handleApplyFilters} disabled={!hasChangeFilters}>
               Apply
             </Button>
-            <Styled.CloseButton data-cy="close" onClick={toggleMobileModal}>
+            <Styled.CloseButton data-cy="close" onClick={handleCloseApplyFilters}>
               Close
             </Styled.CloseButton>
           </Styled.BottomBar>

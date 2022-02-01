@@ -1,19 +1,18 @@
 import { createTheme } from '@mui/material/styles';
+import { Theme as BaseTheme } from '@mui/material/styles/createTheme';
 
-const breakpoints = {
-  values: {
-    xs: 375,
-    sm: 640,
-    md: 1025,
-    mdx: 1080,
-    lg: 1200,
-    lgm: 1300,
-    xl: 1536
-  }
-};
-
-const theme = createTheme({
-  breakpoints,
+const customTheme = {
+  breakpoints: {
+    values: {
+      xs: 375,
+      sm: 640,
+      md: 1025,
+      mdx: 1080,
+      lg: 1200,
+      lgm: 1300,
+      xl: 1536
+    }
+  },
   palette: {
     primary: {
       main: '#215cf1',
@@ -60,17 +59,19 @@ const theme = createTheme({
     black: { main: '#000' },
     loader: { main: '#6c7283' }
   }
-});
+} as const;
 
-theme.typography = {
-  ...theme.typography,
+const baseTheme = createTheme(customTheme) as BaseTheme & typeof customTheme;
+
+const customTypography = {
+  ...baseTheme.typography,
   h1: {
     fontSize: '3.5rem', // 56px
     fontWeight: 'bold',
     letterSpacing: '-1px',
     lineHeight: '3.75rem',
 
-    [theme.breakpoints.down('lg')]: {
+    [baseTheme.breakpoints.down('lg')]: {
       fontSize: '2.25rem', // 36px
       letterSpacing: '-0.6px',
       lineHeight: '2.5rem'
@@ -82,7 +83,7 @@ theme.typography = {
     letterSpacing: '0',
     lineHeight: '2.75rem',
 
-    [theme.breakpoints.down('lg')]: {
+    [baseTheme.breakpoints.down('lg')]: {
       fontSize: '1.625rem', // 26px
       lineHeight: '1.875rem'
     }
@@ -93,7 +94,7 @@ theme.typography = {
     letterSpacing: '-0.6px',
     lineHeight: '2.5rem',
 
-    [theme.breakpoints.down('lg')]: {
+    [baseTheme.breakpoints.down('lg')]: {
       fontSize: '1.875rem', // 30px
       letterSpacing: '-0.5px',
       lineHeight: '2.125rem'
@@ -117,7 +118,7 @@ theme.typography = {
     letterSpacing: '0',
     lineHeight: '1.5rem',
 
-    [theme.breakpoints.down('lg')]: {
+    [baseTheme.breakpoints.down('lg')]: {
       fontSize: '0.875rem', // 14px
       lineHeight: '1.25rem'
     }
@@ -134,7 +135,7 @@ theme.typography = {
     letterSpacing: '0',
     lineHeight: '1.rem',
 
-    [theme.breakpoints.down('lg')]: {
+    [baseTheme.breakpoints.down('lg')]: {
       fontWeight: 'regular'
     }
   },
@@ -143,7 +144,20 @@ theme.typography = {
     fontWeight: '500',
     letterSpacing: '0.6px',
     lineHeight: '1rem'
+  },
+  link1: {
+    fontFamily: 'StaffGroteskBold',
+    fontSize: '0.875rem', // 14px
+    fontWeight: '700',
+    letterSpacing: '0.2px',
+    lineHeight: '1rem'
   }
+} as const;
+
+const theme = {
+  ...baseTheme,
+  typography: customTypography
 };
 
-export default theme;
+export type Theme = typeof theme;
+export default theme as Theme;

@@ -1,5 +1,6 @@
 import { Grid, AppBar, Button, Avatar, IconButton, styled, Link, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 
 export const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'isMobile' })(
   ({ isMobile }) => ({
@@ -100,6 +101,10 @@ export const AvatarMoreIcon = styled(ArrowDropDownIcon, {
 })(({ theme: { palette }, rotate }) => ({
   color: palette.grey[500],
   transform: rotate && 'rotate(180deg)'
+}));
+
+export const LockIcon = styled(LockOpenOutlinedIcon)(() => ({
+  fontSize: '12px'
 }));
 
 export const MobileMenuButton = styled(IconButton)(({ theme: { palette } }) => ({

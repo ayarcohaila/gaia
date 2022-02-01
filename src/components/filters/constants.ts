@@ -573,3 +573,18 @@ export const BALLERZ_COMPUTED_PROPERTIES = {
     99: 88
   }
 };
+
+// SHAREEF PROPERTIES
+export const ATTRIBUTES_SHAREEF_ORDER = ['rarity'];
+
+export const SHAREEF_PROPERTIES = {
+  rarity: ['Gold', 'Silver', 'Bronze']
+};
+
+export const SHAREEF_COMPUTED_PROPERTIES = {
+  rarity: {
+    Gold: 1,
+    Silver: 1,
+    Bronze: 1
+  }
+};

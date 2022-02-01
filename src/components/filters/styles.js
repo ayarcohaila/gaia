@@ -72,7 +72,11 @@ export const ValuesContainer = styled(Box)(() => ({
 export const CustomDrawer = styled(Drawer)(() => ({
   width: '100%',
   height: '100%',
-  backgroundColor: '#fff'
+  backgroundColor: '#fff',
+
+  '& > div.MuiPaper-root': {
+    height: '100%'
+  }
 }));
 
 export const CustomDrawerContent = styled(Box)(() => ({

@@ -15,7 +15,6 @@ export const VideoContainer = styled(Box, {
   },
 
   [breakpoints.down('md')]: {
-    margin: '0 auto 16px',
     height: $height[2],
     width: $width[2]
   },

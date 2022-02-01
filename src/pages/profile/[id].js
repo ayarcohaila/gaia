@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
-import { Box } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 
 import useBreakpoints from '~/hooks/useBreakpoints';
-import useToggle from '~/hooks/useToggle';
 import { gqlClient } from '~/config/apolloClient';
 import basicAuthCheck from '~/utils/basicAuthCheck';
 import Divider from '~/base/divider';
@@ -16,25 +14,22 @@ import ProfileList from '~/components/profileList';
 import CollectionsFilter from '~/components/collectionFilters';
 import Seo from '~/components/seo';
 import { SEO_DATA } from '~/constant';
-
-const Modal = dynamic(() => import('~/components/modal'));
+import Button from '~/base/button';
 
 import * as Styled from '~/styles/profile/styles';
 
 const Profile = ({ userNFTs }) => {
   const router = useRouter();
-  const { id: address } = router.query;
-  const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
-  const [openModal, toggleOpenModal] = useToggle();
 
-  const onHandleCloseModal = () => {
-    toggleOpenModal();
-    router.push('/ballerz');
+  const handleClick = () => {
+    router.push('/browse');
   };
+  const { id: address } = router.query;
+  const { isMediumDevice } = useBreakpoints();
 
   const profileDescription = useMemo(
     () => SEO_DATA.description.profile.replace('$WALLET', address),
-    SEO_DATA.description.profile
+    [SEO_DATA.description.profile]
   );
 
   return (
@@ -45,21 +40,28 @@ const Profile = ({ userNFTs }) => {
         <CollectionsFilter nftQuantity={userNFTs?.length} enableSearch isProfile />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
-      <Styled.ListWrapper>
-        <ProfileList nfts={userNFTs} />
-      </Styled.ListWrapper>
-
-      <Modal
-        title="Cannot Load Inventory"
-        description="Something went wrong while checking your inventory. Please try again later."
-        open={openModal}
-        onClose={onHandleCloseModal}
-        descriptionSx={{ maxWidth: '360px', textAlign: 'center', mb: 0, fontSize: '14px' }}
-        titleSx={{ mt: '12vh', mb: '20px' }}
-        height="250px"
-        mobileHeight={isExtraSmallDevice ? '60vh' : '45vh'}
-        asset={{}}
-      />
+      {userNFTs.length ? (
+        <Styled.GridRenderList>
+          <ProfileList nfts={userNFTs} />
+        </Styled.GridRenderList>
+      ) : (
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ width: '100%', height: 300 }}>
+          <Typography variant="body" sx={{ fontSize: '20px' }}>
+            There are no Flow NFTs in this wallet from any Gaia collections
+          </Typography>
+          <Button
+            data-cy="button-visit-marketplace"
+            onClick={handleClick}
+            sx={{ padding: '16px 40px', letterSpacing: '0.6px', margin: '20px 0 0 0' }}>
+            Visit Marketplace
+          </Button>
+        </Grid>
+      )}
     </Box>
   );
 };
