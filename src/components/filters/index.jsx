@@ -17,15 +17,19 @@ import InputRangeGroup from './inputRangeGroup';
 import usePrevious from '~/hooks/usePrevious';
 
 import { ACTION_TYPE, reducer, initialState, FILTERS_CONSTANTS } from './reducer';
-import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
+import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup';
 
 import * as Styled from './styles';
-import { BALLERZ_COMPUTED_PROPERTIES } from '~/components/filters/constants';
+import {
+  BALLERZ_COMPUTED_PROPERTIES,
+  SHAREEF_COMPUTED_PROPERTIES
+} from '~/components/filters/constants';
 
 const DEFAULT_LIST_SIZE = 40;
 
 const VIEW_ALL = 'viewAll';
 const GET_URL = '/api/marketplace';
+const SHAREEF_NAME = COLLECTION_LIST_CONFIG?.[COLLECTIONS_NAME?.SHAREEF]?.nftName;
 
 const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
@@ -138,6 +142,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       ('active');
     }
     let propertiesFilters = [];
+    let logicalOperator = '_and';
 
     Object.values(properties)?.forEach(property => {
       Object.entries(property)?.forEach(([key, value]) => {
@@ -145,6 +150,9 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
           if (propValue) {
             if (key === 'accessories') {
               propertiesFilters.push({ [key]: { _like: `%${propKey}%` } });
+            } else if (key === 'rarity') {
+              logicalOperator = '_or';
+              propertiesFilters.push({ metadata: { _contains: { rarity: propKey } } });
             } else {
               propertiesFilters.push({ [key]: { _eq: propKey } });
             }
@@ -174,7 +182,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       price: priceFilters,
       isForSale: status === 'buyNow' ? { _eq: true } : {},
       collections: collectionsFilter,
-      properties: propertiesFilters,
+      properties: { [logicalOperator]: propertiesFilters },
       offset: appData?.page * DEFAULT_LIST_SIZE,
       orderBy: appData?.marketplaceSort
     };
@@ -232,6 +240,10 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       window.document.body.classList.remove('stop-scrolling');
     };
   }, [isMediumDevice, isMobileModalOpen]);
+
+  const getComputedProperties = label => {
+    return label === SHAREEF_NAME ? SHAREEF_COMPUTED_PROPERTIES : BALLERZ_COMPUTED_PROPERTIES;
+  };
 
   const handleMultipleCheck = useCallback(
     (filterName, option) => {
@@ -358,24 +370,29 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
                 <Accordion
                   key={`lg-properties-${currentCollection?.id}`}
                   title={`${capitalize(currentCollection?.label)} Properties`}>
-                  {Object.keys(currentCollection.properties).map(property => (
-                    <Accordion key={property} title={capitalize(property)}>
-                      <Styled.ValuesContainer>
-                        {currentCollection.properties[property].map((option, index) => (
-                          <CheckboxCard
-                            key={`${property}-${option}-${index}`}
-                            containerProps={{ sx: { mb: 1 } }}
-                            isSelected={!!properties?.[currentCollection?.id]?.[property]?.[option]}
-                            label={option}
-                            amount={BALLERZ_COMPUTED_PROPERTIES[property][option]}
-                            onChange={() =>
-                              handleCheckProperties(currentCollection.id, property, option)
-                            }
-                          />
-                        ))}
-                      </Styled.ValuesContainer>
-                    </Accordion>
-                  ))}
+                  {Object.keys(currentCollection.properties).map(property => {
+                    const COMPUTED_PROPERTIES = getComputedProperties(currentCollection.label);
+                    return (
+                      <Accordion key={property} title={capitalize(property)}>
+                        <Styled.ValuesContainer>
+                          {currentCollection.properties[property].map((option, index) => (
+                            <CheckboxCard
+                              key={`${property}-${option}-${index}`}
+                              containerProps={{ sx: { mb: 1 } }}
+                              isSelected={
+                                !!properties?.[currentCollection?.id]?.[property]?.[option]
+                              }
+                              label={option}
+                              amount={COMPUTED_PROPERTIES[property][option]}
+                              onChange={() =>
+                                handleCheckProperties(currentCollection.id, property, option)
+                              }
+                            />
+                          ))}
+                        </Styled.ValuesContainer>
+                      </Accordion>
+                    );
+                  })}
                 </Accordion>
               )
             );
@@ -419,18 +436,26 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
                   {Object.keys(currentCollection.properties).map((property, index) => (
                     <Accordion key={`${property}-${index}`} title={capitalize(property)}>
                       <Styled.ValuesContainer>
-                        {currentCollection.properties[property].map(option => (
-                          <CheckboxCard
-                            key={`mobile-${currentCollection.id}-${property}-${option}`}
-                            containerProps={{ sx: { mb: 1 } }}
-                            isSelected={!!properties?.[currentCollection?.id]?.[property]?.[option]}
-                            label={option}
-                            amount={BALLERZ_COMPUTED_PROPERTIES[property][option]}
-                            onChange={() =>
-                              handleCheckProperties(currentCollection.id, property, option)
-                            }
-                          />
-                        ))}
+                        {currentCollection.properties[property].map(option => {
+                          const computedProperties =
+                            currentCollection.label === SHAREEF_NAME
+                              ? SHAREEF_COMPUTED_PROPERTIES
+                              : BALLERZ_COMPUTED_PROPERTIES;
+                          return (
+                            <CheckboxCard
+                              key={`mobile-${currentCollection.id}-${property}-${option}`}
+                              containerProps={{ sx: { mb: 1 } }}
+                              isSelected={
+                                !!properties?.[currentCollection?.id]?.[property]?.[option]
+                              }
+                              label={option}
+                              amount={computedProperties[property][option]}
+                              onChange={() =>
+                                handleCheckProperties(currentCollection.id, property, option)
+                              }
+                            />
+                          );
+                        })}
                       </Styled.ValuesContainer>
                     </Accordion>
                   ))}

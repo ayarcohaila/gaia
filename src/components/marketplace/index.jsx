@@ -56,17 +56,9 @@ const MarketPlace = () => {
       return new Array(5).fill(null).map((_, index) => <CardSkeletonLoader key={index} />);
     }
 
-    return marketplaceNfts?.length ? (
-      marketplaceNfts?.map(nft => (
-        <Card key={nft.asset_id} data={nft} hasPrice setPosition={setPosition} />
-      ))
-    ) : (
-      <Styled.GridResultNotFound>
-        <Styled.TypographyResultNotFound variant="body">
-          No results found.
-        </Styled.TypographyResultNotFound>
-      </Styled.GridResultNotFound>
-    );
+    return marketplaceNfts?.map(nft => (
+      <Card key={nft.asset_id} data={nft} hasPrice setPosition={setPosition} />
+    ));
   }, [marketplaceNfts, marketplaceLoading]);
 
   return (
@@ -85,9 +77,17 @@ const MarketPlace = () => {
           filtersIds={FILTERS_IDS}
           showFilter={showFilter}
         />
-        <Styled.GridRenderList showFilter={showFilter} isMediumDevice={isMediumDevice}>
-          {renderList}
-        </Styled.GridRenderList>
+        {marketplaceLoading || marketplaceNfts?.length ? (
+          <Styled.GridRenderList showFilter={showFilter} isMediumDevice={isMediumDevice}>
+            {renderList}
+          </Styled.GridRenderList>
+        ) : (
+          <Styled.GridResultNotFound>
+            <Styled.TypographyResultNotFound variant="body">
+              No results found.
+            </Styled.TypographyResultNotFound>
+          </Styled.GridResultNotFound>
+        )}
       </Styled.Wrapper>
       {marketCount > marketplaceNfts?.length && !!marketplaceNfts?.length && (
         <Styled.GridLoadMore>

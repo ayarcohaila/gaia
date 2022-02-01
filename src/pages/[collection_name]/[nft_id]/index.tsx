@@ -10,7 +10,12 @@ import {
   COLLECTIONS_NAME,
   COLLECTION_STATUS
 } from '../../../../collections_setup';
-import { ATTRIBUTES_ORDER, BALLERZ_COMPUTED_PROPERTIES } from '~/components/filters/constants';
+import {
+  ATTRIBUTES_ORDER,
+  ATTRIBUTES_SHAREEF_ORDER,
+  BALLERZ_COMPUTED_PROPERTIES,
+  SHAREEF_COMPUTED_PROPERTIES
+} from '~/components/filters/constants';
 import listNFTOffers from '~/utils/fetchNFTOffers';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { GetNftByIdQuery } from '~/store/server/graphql.generated';
@@ -67,6 +72,9 @@ export const getServerSideProps: ProductDetailsServerSidePropsFN = async ({ para
   const attributesOrder = ATTRIBUTES_ORDER;
   const ballerzComputedProps = BALLERZ_COMPUTED_PROPERTIES;
 
+  const attributesShareefOrder = ATTRIBUTES_SHAREEF_ORDER;
+  const shareefComputedProperties = SHAREEF_COMPUTED_PROPERTIES;
+
   let hasMultipleOffers = false;
 
   try {
@@ -91,7 +99,12 @@ export const getServerSideProps: ProductDetailsServerSidePropsFN = async ({ para
       }
 
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
+        props: {
+          nft: nft[0],
+          attributesOrder,
+          computedProps: ballerzComputedProps,
+          hasMultipleOffers
+        }
       };
     }
 
@@ -117,7 +130,12 @@ export const getServerSideProps: ProductDetailsServerSidePropsFN = async ({ para
       }
 
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
+        props: {
+          nft: nft[0],
+          attributesOrder: attributesShareefOrder,
+          computedProps: shareefComputedProperties,
+          hasMultipleOffers
+        }
       };
     }
 
@@ -142,7 +160,12 @@ export const getServerSideProps: ProductDetailsServerSidePropsFN = async ({ para
       }
 
       return {
-        props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
+        props: {
+          nft: nft[0],
+          attributesOrder: attributesShareefOrder,
+          computedProps: shareefComputedProperties,
+          hasMultipleOffers
+        }
       };
     }
 
@@ -164,7 +187,12 @@ export const getServerSideProps: ProductDetailsServerSidePropsFN = async ({ para
     }
 
     return {
-      props: { nft: nft[0], attributesOrder, ballerzComputedProps, hasMultipleOffers }
+      props: {
+        nft: nft[0],
+        attributesOrder,
+        computedProps: ballerzComputedProps,
+        hasMultipleOffers
+      }
     };
   } catch (error) {
     return { notFound: true };

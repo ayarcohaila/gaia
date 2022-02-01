@@ -42,7 +42,7 @@ export const INSUFFICIENT_FUNDS =
 
 const ProductDetailsTopSection = ({
   nft,
-  ballerzComputedProps,
+  computedProps,
   attributesOrder,
   hasMultipleOffers
 }: ProductDetailsTopSectionProps) => {
@@ -204,7 +204,7 @@ const ProductDetailsTopSection = ({
             <AdditionalDetails
               data-cy="aditional-detail-properties"
               data={metadata}
-              ballerzComputedProps={ballerzComputedProps}
+              ballerzComputedProps={computedProps}
               attributesOrder={attributesOrder}
             />
           </Accordion>

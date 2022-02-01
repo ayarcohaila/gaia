@@ -1,5 +1,8 @@
-import { BALLERZ_COMPUTED_PROPERTIES } from '~/components/filters/constants';
 import { GetNftByIdQuery } from '~/store/server/graphql.generated';
+import {
+  BALLERZ_COMPUTED_PROPERTIES,
+  SHAREEF_COMPUTED_PROPERTIES
+} from '~/components/filters/constants';
 
 export interface ProductDetailsTopSectionProps {
   nft: GetNftByIdQuery['nft'][number];
@@ -7,5 +10,5 @@ export interface ProductDetailsTopSectionProps {
   attributesOrder: {
     indexOf: (key: string) => number;
   };
-  ballerzComputedProps: typeof BALLERZ_COMPUTED_PROPERTIES;
+  computedProps: typeof BALLERZ_COMPUTED_PROPERTIES | typeof SHAREEF_COMPUTED_PROPERTIES;
 }

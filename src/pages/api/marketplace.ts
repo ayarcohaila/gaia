@@ -1,14 +1,15 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { gqlClient } from '~/config/apolloClient';
 import { GET_MARKETPLACE_OFFERS } from '~/store/server/queries';
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { nft, nft_aggregate } = await gqlClient.request(GET_MARKETPLACE_OFFERS, {
       marketPlaceAddress: process.env.NEXT_PUBLIC_MARKET_OWNER,
       price: req?.body?.price,
       has_sale_offers: req?.body?.isForSale,
       collections: req?.body?.collections.length ? req?.body?.collections : [{}],
-      properties: req?.body?.properties.length ? req?.body?.properties : [{}],
+      properties: req?.body?.properties,
       offset: req?.body?.offset,
       orderBy: req?.body?.orderBy
     });
