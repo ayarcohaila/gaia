@@ -1,3 +1,32 @@
+# 0.2.0 (2022-02-01)
+
+
+### Bug Fixes
+* **GP-100:** Fixing load more issue ([#534](https://github.com/NFT-Genius/gaia-frontend/issues/534)) ([31d793c](https://github.com/NFT-Genius/gaia-frontend/commit/31d793c55435782e2b6009afb57b7df0da769ca5))
+* **GP-101:** Fix crash on Shareef's page ([#531](https://github.com/NFT-Genius/gaia-frontend/issues/531)) ([df1f7fc](https://github.com/NFT-Genius/gaia-frontend/commit/df1f7fcda300912ba25474f15d58be3bd23cc869))
+* **GP-102:**  Skeleton on card loading ([#541](https://github.com/NFT-Genius/gaia-frontend/issues/541)) ([b557ef4](https://github.com/NFT-Genius/gaia-frontend/commit/b557ef4f4a3ce813f795ef9608c3aea339dd2fe8))
+* **GP-111:** Add and adjust divider on header ([#535](https://github.com/NFT-Genius/gaia-frontend/issues/535)) ([1477008](https://github.com/NFT-Genius/gaia-frontend/commit/14770089c4ed0903a9dfb6ebddc0c3ac1697bfa4))
+* **GP-112:** Change default behavior of apply button on mobile ([#537](https://github.com/NFT-Genius/gaia-frontend/issues/537)) ([468eac1](https://github.com/NFT-Genius/gaia-frontend/commit/468eac188477f48f75f112f0ee623937065a3dd4))
+* **GP-119:** Disable scroll and remove rendered modals ([#539](https://github.com/NFT-Genius/gaia-frontend/issues/539)) ([48eb753](https://github.com/NFT-Genius/gaia-frontend/commit/48eb7536f048004bace08bc8d1d43a56de7b54db))
+* **GP-81:** Fix homepage hyperlinks ([#517](https://github.com/NFT-Genius/gaia-frontend/issues/517)) ([aa095e1](https://github.com/NFT-Genius/gaia-frontend/commit/aa095e109d88807b0449d93e51ef417d921cfe8a))
+* **GP-84:** spacing adjustment ([#519](https://github.com/NFT-Genius/gaia-frontend/issues/519)) ([5b1a48a](https://github.com/NFT-Genius/gaia-frontend/commit/5b1a48a1745d3d2afe130c255df11696b59b958f))
+* **GP-85:** spacing adjustment blockchain history ([#520](https://github.com/NFT-Genius/gaia-frontend/issues/520)) ([3c60ae0](https://github.com/NFT-Genius/gaia-frontend/commit/3c60ae0c6b86e34fe890dd637a2fe333f8903c73))
+* **GP-85:** spacing adjustment blockchain history ([#520](https://github.com/NFT-Genius/gaia-frontend/issues/520)) ([b816ff7](https://github.com/NFT-Genius/gaia-frontend/commit/b816ff7c281fb2cfd3ce5b03fe99ae35a6e97711))
+* **GP-86:** divider should fill the entire screen ([#521](https://github.com/NFT-Genius/gaia-frontend/issues/521)) ([3ab5cfb](https://github.com/NFT-Genius/gaia-frontend/commit/3ab5cfb1c53a5aedf08e589b479a9ff8ddf2229e))
+* **GP-97:** Fix typescript setup ([#522](https://github.com/NFT-Genius/gaia-frontend/issues/522)) ([a5d4ef5](https://github.com/NFT-Genius/gaia-frontend/commit/a5d4ef55f84b521882174ed0a1a7a32b9c048994))
+
+### Features
+* **GP-104:** Add price on NFTs in favorites ([#543](https://github.com/NFT-Genius/gaia-frontend/issues/543)) ([6a432a1](https://github.com/NFT-Genius/gaia-frontend/commit/6a432a1464942e2997610c3658689e2609bb138c))
+* **GP-82/GP-94:** Design match for card size on marketplace listing screen & Implement fluid grid for the NFTs ([#525](https://github.com/NFT-Genius/gaia-frontend/issues/525)) ([4c1a5bf](https://github.com/NFT-Genius/gaia-frontend/commit/4c1a5bfd8c798e2923f98a2d70da6cabb5422cab))
+* **GP-83:** Implement persistent layout ([#523](https://github.com/NFT-Genius/gaia-frontend/issues/523)) ([ce7956e](https://github.com/NFT-Genius/gaia-frontend/commit/ce7956e0ef5090324c97765e841d0549b1a333ae))
+* **GP-83:** Implement persistent layout ([#523](https://github.com/NFT-Genius/gaia-frontend/issues/523)) ([47d5e8d](https://github.com/NFT-Genius/gaia-frontend/commit/47d5e8d34cc57e3b16f2e2cf3230903486c5d14b))
+* **GP-90:** Implement Favorites UI ([#524](https://github.com/NFT-Genius/gaia-frontend/issues/524)) ([f486c9b](https://github.com/NFT-Genius/gaia-frontend/commit/f486c9bd7359346d75d8081d9e294538d998c6df))
+* **GP-91:** Integrate favorites feature ([#527](https://github.com/NFT-Genius/gaia-frontend/issues/527)) ([8e4057c](https://github.com/NFT-Genius/gaia-frontend/commit/8e4057c59b8e408fea5d4d632e0b4846928df32d))
+* **GP-92:** create the /collections page ([#528](https://github.com/NFT-Genius/gaia-frontend/issues/528)) ([391a2fc](https://github.com/NFT-Genius/gaia-frontend/commit/391a2fc6abe6d97a836c24d2ec915bb9102bca54))
+* **GP-93:** Product Share Actions ([#529](https://github.com/NFT-Genius/gaia-frontend/issues/529)) ([2617940](https://github.com/NFT-Genius/gaia-frontend/commit/2617940d4c552660e4b6acc6ef8c31c4c40f78fb))
+* **GP-96:** Generate changelog ([#518](https://github.com/NFT-Genius/gaia-frontend/issues/518)) ([db11c4e](https://github.com/NFT-Genius/gaia-frontend/commit/db11c4ec8fbdfdd79050bfdb66a3ad0ffbcdfbb7))
+* **GP-99:** Resume scroll position ([#540](https://github.com/NFT-Genius/gaia-frontend/issues/540)) ([8c6546a](https://github.com/NFT-Genius/gaia-frontend/commit/8c6546a07edd35df3204cea8661536db61fbb117))
+
 # 0.1.0 (2022-01-18)
 
 

@@ -51,8 +51,10 @@ const Card = (props: CardProps) => {
 
   const COLLECTIONS_NAME_UPPERCASE = currentCollection?.collectionName.toUpperCase();
 
-  const handle = () => {
-    setPosition(data.asset_id);
+  const handleSavePosition = () => {
+    if (setPosition) {
+      setPosition(data.asset_id);
+    }
   };
 
   return (
@@ -60,7 +62,7 @@ const Card = (props: CardProps) => {
       <Link href={`/${nftCollectionRedirect}/${nftRedirectReference}`} passHref>
         <Styled.CustomCard
           sx={{ cursor: data?.mystery ? 'auto' : 'pointer' }}
-          onClick={handle}
+          onClick={handleSavePosition}
           id={`card-${data.asset_id}`}>
           <Styled.CustomCardHeader
             avatar={
@@ -150,7 +152,7 @@ const Card = (props: CardProps) => {
           setLoading={setLoading}
           loading={loading}
           collectionId={data?.collection_id}
-          onConfirm={null}
+          onConfirm={() => {}}
         />
       )}
       {isTransferNftModalOpen && (
@@ -165,7 +167,7 @@ const Card = (props: CardProps) => {
           asset={asset}
           open={isCancelListingModalOpen}
           onClose={toggleCancelListingModal}
-          onConfirm={null}
+          onConfirm={() => {}}
         />
       )}
       {isOrderCompleteModalOpen && (

@@ -1,4 +1,4 @@
-import { hasBrowse } from '~/config/config';
+import { hasBrowse, hasCollectionPage } from '~/config/config';
 
 import { LockIcon } from './styles.js';
 
@@ -7,7 +7,7 @@ export const COLLECTIONS_TITLE = 'Collections';
 
 export const MENU_OPTIONS = [
   hasBrowse && { label: MARKETPLACE_TITLE, href: '/browse' },
-  { label: COLLECTIONS_TITLE, href: '/collections' }
+  hasCollectionPage && { label: COLLECTIONS_TITLE, href: '/collections' }
 ];
 
 export const USER_MENU_IDS = {

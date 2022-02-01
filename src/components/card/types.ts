@@ -22,7 +22,7 @@ export interface CardProps {
     }>;
   };
   hasActions: boolean;
-  setPosition: (id: number) => void;
+  setPosition?: (id: number) => void;
   hasPrice?: boolean;
   imgLoaded: boolean;
 }

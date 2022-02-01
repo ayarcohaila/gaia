@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Box } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import useBreakpoints from '~/hooks/useBreakpoints';
@@ -14,11 +14,16 @@ import ProfileList from '~/components/profileList';
 import CollectionsFilter from '~/components/collectionFilters';
 import Seo from '~/components/seo';
 import { SEO_DATA } from '~/constant';
+import Button from '~/base/button';
 
 import * as Styled from '~/styles/profile/styles';
 
 const Profile = ({ userNFTs }) => {
   const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/browse');
+  };
   const { id: address } = router.query;
   const { isMediumDevice } = useBreakpoints();
 
@@ -35,9 +40,28 @@ const Profile = ({ userNFTs }) => {
         <CollectionsFilter nftQuantity={userNFTs?.length} enableSearch isProfile />
         <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
       </Styled.FiltersContainer>
-      <Styled.GridRenderList>
-        <ProfileList nfts={userNFTs} />
-      </Styled.GridRenderList>
+      {userNFTs.length ? (
+        <Styled.GridRenderList>
+          <ProfileList nfts={userNFTs} />
+        </Styled.GridRenderList>
+      ) : (
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ width: '100%', height: 300 }}>
+          <Typography variant="body" sx={{ fontSize: '20px' }}>
+            There are no Flow NFTs in this wallet from any Gaia collections
+          </Typography>
+          <Button
+            data-cy="button-visit-marketplace"
+            onClick={handleClick}
+            sx={{ padding: '16px 40px', letterSpacing: '0.6px', margin: '20px 0 0 0' }}>
+            Visit Marketplace
+          </Button>
+        </Grid>
+      )}
     </Box>
   );
 };
