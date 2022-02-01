@@ -150,7 +150,7 @@ const Card = (props: CardProps) => {
           setLoading={setLoading}
           loading={loading}
           collectionId={data?.collection_id}
-          onConfirm={null}
+          onConfirm={() => {}}
         />
       )}
       {isTransferNftModalOpen && (
@@ -165,7 +165,7 @@ const Card = (props: CardProps) => {
           asset={asset}
           open={isCancelListingModalOpen}
           onClose={toggleCancelListingModal}
-          onConfirm={null}
+          onConfirm={() => {}}
         />
       )}
       {isOrderCompleteModalOpen && (
