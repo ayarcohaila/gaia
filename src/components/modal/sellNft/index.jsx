@@ -84,6 +84,7 @@ const SellNftModal = ({
       setLoading(true);
       setIsFloorPriceError(false);
       const transaction = await loadTransaction(sellTx);
+      setLoading(true);
       const txResult = await sellItem(
         transaction.transactionScript,
         props.asset.asset_id,
