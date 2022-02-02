@@ -40,10 +40,12 @@ const MarketPlace = () => {
   const handleScrollPosition = useCallback(() => {
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const elementRef = document?.getElementById(`${cardRef}`);
-    if (isSafari) {
-      elementRef.scrollIntoView();
-    } else {
-      elementRef.scrollIntoView({ block: 'start' });
+    if (elementRef) {
+      if (isSafari) {
+        elementRef.scrollIntoView();
+      } else {
+        elementRef.scrollIntoView({ block: 'start' });
+      }
     }
   }, [cardRef]);
 
