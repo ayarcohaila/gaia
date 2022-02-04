@@ -1,3 +1,13 @@
+## [0.2.1](https://github.com/NFT-Genius/gaia-frontend/compare/v0.2.0...v0.2.1) (2022-02-04)
+
+
+### Bug Fixes
+
+* **GP-137**Check if ref element exist on load marketplace ([bf833c4](https://github.com/NFT-Genius/gaia-frontend/commit/bf833c4cb46c4490eb83f301efec46282c42cbd8))
+* **GP-132:** Fix filters count for Ballerz and Shareef Properties ([#550](https://github.com/NFT-Genius/gaia-frontend/issues/550)) ([476be8f](https://github.com/NFT-Genius/gaia-frontend/commit/476be8f517e1a44dda3a4a1d2d5ac58501ba048f))
+
+
+
 # 0.2.0 (2022-02-01)
 
 
