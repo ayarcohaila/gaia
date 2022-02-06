@@ -168,8 +168,9 @@ const ProductDetailsTopSection = ({
     [nft]
   );
 
-  const breadcrumbsLinks = useMemo(
-    () => [
+  const breadcrumbsLinks = useMemo(() => {
+    const isShareef = collection_name === COLLECTIONS_NAME.SHAREEF;
+    return [
       {
         label: 'Home',
         href: '/'
@@ -183,11 +184,10 @@ const ProductDetailsTopSection = ({
       },
       {
         label: metadata.title,
-        href: `/${collection_name}/${metadata?.id || nft?.mint_number}`
+        href: isShareef ? '' : `/${collection_name}/${metadata?.id || nft?.mint_number}`
       }
-    ],
-    [nft?.collection]
-  );
+    ];
+  }, [nft?.collection]);
 
   const renderAccordions = useMemo(
     () => (
