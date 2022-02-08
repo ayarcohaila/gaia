@@ -16,9 +16,7 @@ const CUSTOM_BANNER_BACKGROUND = {
   sx: {
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    margin: '0 auto',
-    maxWidth: '1800px'
+    backgroundSize: 'cover'
   }
 };
 
