@@ -41,18 +41,7 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: [
-      'gateway.pinata.cloud',
-      'staging-flow-bucket.s3-us-west-1.amazonaws.com',
-      'i.picsum.photos',
-      'btco.mypinata.cloud',
-      //TODO: Remove it
-      'pbs.twimg.com',
-      'gateway.ipfs.io',
-      'ipfs.fleek.co',
-      'images.ongaia.com',
-      'https://images.ongaia.com/ipfs'
-    ]
+    domains: ['images.ongaia.com', 'https://images.ongaia.com/ipfs', 'assets.nflallday.com']
   }
 };
 

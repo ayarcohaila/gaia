@@ -1,28 +1,42 @@
 import { Box, Grid, useTheme } from '@mui/material';
 
-import ProductDetailsTopSection from '~/components/productDetails/topSection';
+import NflDetailsTopSection from '~/components/productDetails/detailsNFL';
+import ProductDetailsTopSection from '~/components/productDetails/defaultDetails';
+
 import Seo from '~/components/seo';
 import { gqlClient } from '~/config/apolloClient';
 import useBreakpoints from '~/hooks/useBreakpoints';
-import { GET_NFT_BY_ID, GET_NFT_BY_MINT_NUMBER } from '~/store/server/queries';
+import {
+  GET_NFL_EDITION_BY_ID,
+  GET_NFT_BY_ID,
+  GET_NFT_BY_MINT_NUMBER
+} from '~/store/server/queries';
 import {
   COLLECTION_LIST_CONFIG,
   COLLECTIONS_NAME,
   COLLECTION_STATUS
-} from '../../../../collections_setup';
+} from '~/../collections_setup';
+
 import {
   ATTRIBUTES_ORDER,
   ATTRIBUTES_SHAREEF_ORDER,
   BALLERZ_COMPUTED_PROPERTIES,
   SHAREEF_COMPUTED_PROPERTIES
-} from '~/components/filters/constants';
+} from '~/components/filters/filtersDefault/constants';
+
 import listNFTOffers from '~/utils/fetchNFTOffers';
 import formatIpfsImg from '~/utils/formatIpfsImg';
-import { GetNftByIdQuery } from '~/store/server/graphql.generated';
-import { ProductDetailsTopSectionProps } from '~/components/productDetails/topSection/types';
+import {
+  GetNflEditionByIdQuery,
+  GetNflEditionByIdQueryVariables,
+  GetNftByIdQuery
+} from '~/store/server/graphql.generated';
+import { ProductDetailsTopSectionProps } from '~/components/productDetails/defaultDetails/types';
 import { GetServerSideProps as NextGetServerSideProps } from 'next';
+import { NflDetailsTopSectionProps } from '~/components/productDetails/detailsNFL/types';
+import { useRouter } from 'next/router';
 
-export type ProductDetailsProps = ProductDetailsTopSectionProps;
+export type ProductDetailsProps = ProductDetailsTopSectionProps | NflDetailsTopSectionProps;
 
 export type ProductDetailsPageParams = {
   collection_name: string;
@@ -34,26 +48,35 @@ export type ProductDetailsServerSidePropsFN = NextGetServerSideProps<
   ProductDetailsPageParams
 >;
 
-const ProductDetails = (props: ProductDetailsProps) => {
-  const { nft } = props;
+const ProductDetails = (props: any) => {
+  const {
+    query: { collection_name, nft_id }
+  } = useRouter();
+
   const {
     palette: { grey }
   } = useTheme();
   const { isSmallDevice } = useBreakpoints();
 
-  const title = nft?.template?.metadata?.title;
-  const description = nft?.template?.metadata?.description;
-  const img = nft?.template?.metadata?.img;
+  const title = props.nft?.template?.metadata?.title || `Edition #${nft_id}`;
+  const description = props.nft?.template?.metadata?.description || 'NFL Edition';
+  const img = props.nft?.template?.metadata?.img || '';
+
+  const nflProps = props as any as NflDetailsTopSectionProps;
 
   return (
     <Box bgcolor={grey[200]}>
       <Seo
-        title={`${title} | ${nft.collection?.name} NFT Collection`}
+        title={`${title} | ${props.nft?.collection?.name || 'NFL All Day'} NFT Collection`}
         description={description}
         imgURL={formatIpfsImg(img)}
       />
       <Grid m="0 auto" maxWidth="1280px" width={isSmallDevice ? '100%' : '90%'}>
-        <ProductDetailsTopSection {...props} />
+        {collection_name === COLLECTIONS_NAME.NFL ? (
+          <NflDetailsTopSection {...nflProps} />
+        ) : (
+          <ProductDetailsTopSection {...props} />
+        )}
       </Grid>
     </Box>
   );
@@ -78,6 +101,21 @@ export const getServerSideProps: ProductDetailsServerSidePropsFN = async ({ para
   let hasMultipleOffers = false;
 
   try {
+    if (collection_name === COLLECTIONS_NAME.NFL) {
+      const { nfl_all_day_editions, nfl_all_day_moments_aggregate } = await gqlClient.request<
+        GetNflEditionByIdQuery,
+        GetNflEditionByIdQueryVariables
+      >(GET_NFL_EDITION_BY_ID, { _eq: nft_id });
+
+      if (!nfl_all_day_editions.length) return { notFound: true };
+      return {
+        props: {
+          momentsCount: nfl_all_day_moments_aggregate.aggregate,
+          edition: nfl_all_day_editions[0]
+        }
+      };
+    }
+
     if (collection_name === COLLECTIONS_NAME.BRYSON) {
       const { nft } = await gqlClient.request(GET_NFT_BY_MINT_NUMBER, {
         filter: {

@@ -49,6 +49,78 @@ const GET_NFT_BY_ID = gql`
   }
 `;
 
+const GET_NFL_EDITION_BY_ID = gql`
+  query getNflEditionById($_eq: bigint!) {
+    nfl_all_day_moments_aggregate(where: { edition_id: { _eq: $_eq } }) {
+      aggregate {
+        count
+      }
+    }
+    nfl_all_day_editions(where: { edition_id: { _eq: $_eq } }) {
+      edition_id
+      max_mint_size
+      inserted_at
+      play {
+        player_full_name
+        team_name
+        game_date
+        play_type
+        player_position
+        description
+        classification
+        away_team_name
+        away_team_score
+        home_team_name
+        home_team_score
+        external_id
+      }
+      series {
+        name
+        series_id
+      }
+      set {
+        name
+        set_id
+      }
+      number_of_active_listings
+      unavailable_count
+      hidden_in_packs_count
+      circulation_count
+      tier
+    }
+  }
+`;
+
+const GET_MOMENTS_BY_EDITION_ID = gql`
+  query getMomentsByEditionId($_eq: bigint!, $offset: Int!, $limit: Int!) {
+    nfl_all_day_moments(
+      where: { active_listing_price: { _is_null: false }, edition_id: { _eq: $_eq } }
+      limit: $limit
+      offset: $offset
+    ) {
+      transaction_index
+      serial_number
+      owner
+      moment_id
+      inserted_at
+      event_index
+      edition_id
+      created_at
+      burned_at
+      block_height
+      active_listing_vault_type
+      active_listing_transaction_index
+      active_listing_price
+      active_listing_order_id
+      active_listing_order_address
+      active_listing_event_index
+      active_listing_date
+      active_listing_block_height
+      acquired_at
+    }
+  }
+`;
+
 const GET_NFT_BY_MINT_NUMBER = gql`
   query getNftByMintNumber($filter: nft_bool_exp) {
     nft(where: $filter) {
@@ -376,7 +448,113 @@ const GET_LOWER_NFT_PRICE_BY_COLLECTION = gql`
   }
 `;
 
+const GET_NFL_FILTERS = gql`
+  query getNflFilters {
+    nfl_all_day_taxonomies {
+      moment_count
+      taxonomy_attribute
+      taxonomy_label
+      taxonomy_value
+    }
+  }
+`;
+
+const GET_NFL = gql`
+  query getNFlEditions(
+    $offset: Int
+    $plays: nfl_all_day_plays_bool_exp
+    $sets: nfl_all_day_sets_bool_exp
+    $tier: [nfl_all_day_editions_bool_exp!]
+    $orderBy: [nfl_all_day_editions_order_by!]
+  ) {
+    nfl_all_day_editions_aggregate(where: { _and: { _or: $tier, play: $plays, set: $sets } }) {
+      aggregate {
+        count
+      }
+    }
+    nfl_all_day_editions(
+      where: {
+        _and: [{ number_of_active_listings: { _gt: 0 } }, { _or: $tier, play: $plays, set: $sets }]
+      }
+      limit: 40
+      offset: $offset
+      order_by: $orderBy
+    ) {
+      edition_id
+      max_list_price
+      min_list_price
+      max_mint_size
+      inserted_at
+      number_of_active_listings
+      circulation_count
+      tier
+      play {
+        player_full_name
+        description
+        external_id
+        team_name
+        game_date
+        play_type
+        player_position
+      }
+      series {
+        name
+        series_id
+      }
+      set {
+        name
+        set_id
+      }
+    }
+  }
+`;
+
+const GET_NFL_NFTS_BY_ADDRESS = gql`
+  query getNFLNFTsByAddress($address: String!, $collections: [nft_bool_exp!]) {
+    nft: nfl_all_day_moments_aggregate(where: { owner: { _eq: $address } }) {
+      nfl: nodes {
+        id: moment_id
+        asset_id: moment_id
+        serial_number
+        active_listing_price
+        active_listing_order_id
+        created_at
+        owner
+        edition {
+          edition_id
+          max_mint_size
+          min_list_price
+          max_list_price
+          number_of_active_listings
+          tier
+          play {
+            team_name
+            play_id
+            description
+            classification
+            created_at
+            play_type
+            external_id
+            game_date
+            player_full_name
+            player_position
+          }
+          series {
+            name
+            series_id
+          }
+          set {
+            name
+            set_id
+          }
+        }
+      }
+    }
+  }
+`;
+
 export {
+  GET_NFL_EDITION_BY_ID,
   GET_NFTS,
   GET_NFTS_IDS,
   GET_NFTS_MINT_NUMBER,
@@ -391,5 +569,9 @@ export {
   GET_COLLECTION_FLOOR_VALUE_BY_ID,
   CHECK_FAVORITE_NFT,
   GET_FAVORITE_LIST,
-  GET_LOWER_NFT_PRICE_BY_COLLECTION
+  GET_LOWER_NFT_PRICE_BY_COLLECTION,
+  GET_NFL,
+  GET_NFL_FILTERS,
+  GET_MOMENTS_BY_EDITION_ID,
+  GET_NFL_NFTS_BY_ADDRESS
 };

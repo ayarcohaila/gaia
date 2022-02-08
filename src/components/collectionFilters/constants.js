@@ -9,5 +9,6 @@ export const ORDER_MENU_IDS = {
   HIGHEST_PRICE: 3,
   LOWEST_MINT: 4,
   HIGHEST_MINT: 5,
-  MOST_RECENT: 6
+  MOST_RECENT: 6,
+  OLDEST: 7
 };

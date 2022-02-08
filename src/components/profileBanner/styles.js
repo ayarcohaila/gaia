@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 export const Banner = styled(Box, { shouldForwardProp: prop => prop !== 'isMobile' })(
   ({ theme: { palette }, isMobile }) => ({
     height: isMobile ? '200px' : '260px',
-    margin: isMobile ? '0 20px 16px' : '0 32px 24px',
+    margin: isMobile ? '0 20px 16px' : '0 50px 24px',
     borderRadius: '40px',
     backgroundColor: palette.darkPurple.main,
     display: 'flex',

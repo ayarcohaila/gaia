@@ -17,5 +17,6 @@ export interface AccordionProps {
   contentSx?: {
     mt?: number;
     p?: number;
+    padding?: string;
   };
 }

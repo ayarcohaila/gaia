@@ -8,16 +8,20 @@ export const Text = styled(Typography)(({ theme: { palette } }) => ({
 
 export const Container = styled(Grid, {
   shouldForwardProp: prop => !['isSmallDevice', 'isMediumDevice', 'withBorder'].includes(prop)
-})(({ withBorder, isSmallDevice, isMediumDevice, theme: { palette } }) => ({
+})(({ withBorder, isSmallDevice, isMediumDevice, theme: { palette, breakpoints } }) => ({
   display: isSmallDevice || isMediumDevice ? 'flex' : 'grid',
   gridTemplateColumns: '302px auto',
   alignItems: 'center',
-  padding: isSmallDevice ? 0 : '0 40px',
   boxSizing: 'border-box',
   width: '100%',
   gap: '22px',
   margin: '0 auto',
-  borderTop: withBorder ? `2px solid ${palette.grey[300]}` : 'none'
+  borderTop: withBorder ? `2px solid ${palette.grey[300]}` : 'none',
+  padding: '0px 50px',
+
+  [breakpoints.down('md')]: {
+    padding: '0px 20px'
+  }
 }));
 
 export const MainContainer = styled(Grid, { shouldForwardProp: prop => prop !== 'withCenter' })(

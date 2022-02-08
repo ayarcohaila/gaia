@@ -35,7 +35,7 @@ function handleFullscreenChange(setIsFullscreen) {
 const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) => {
   const containerRef = useRef();
   const playerRef = useRef();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(props.autoPlay);
   const [isMuted, setIsMuted] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const isVideoHovered = useHover(containerRef);
@@ -85,6 +85,7 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
         poster={poster}
         ref={playerRef}
         playsInline
+        {...(props.autoPlay ? { src: src } : {})}
         {...props}>
         {!!isPlaying && <source src={src} type="video/mp4" />}
         Sorry, your browser have no support to embedded videos.

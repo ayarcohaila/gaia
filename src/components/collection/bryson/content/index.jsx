@@ -1,19 +1,17 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-
 import Button from '~/base/button';
 import VideoPlayer from '~/components/videoPlayer';
 import { buy } from '~/flow/buy';
-import useAuth from '~/hooks/useAuth';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
-import { AuthContext } from '~/providers/AuthProvider';
+import { useAuthContext } from '~/providers/AuthProvider';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
-import { INSUFFICIENT_FUNDS } from '~/components/productDetails/topSection';
+import { INSUFFICIENT_FUNDS } from '~/components/productDetails/defaultDetails';
 import { BUY_TX } from '~/constant';
 
 const InsufficientFundsModal = dynamic(() => import('~/components/modal/insufficientFunds'));
@@ -29,13 +27,12 @@ const BrysonCollectionContent = ({ data, totalAvailable }) => {
     palette: { grey }
   } = useTheme();
   const route = useRouter();
-  const { login } = useAuth();
+  const { login, hasSetup, user } = useAuthContext();
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
   const [isPurchaseErrorOpen, togglePurchaseError] = useToggle();
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
 
-  const { hasSetup, user } = useContext(AuthContext);
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseTxId, setPurchaseTxId] = useState(null);
   const [transaction, setTransaction] = useState();

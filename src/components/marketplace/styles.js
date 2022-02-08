@@ -68,7 +68,7 @@ export const Wrapper = styled(Grid, { shouldForwardProp: props => props !== 'sho
   ({ theme, showFilter }) => ({
     display: !showFilter ? 'flex' : 'grid',
     gridTemplateColumns: '302px auto',
-    padding: '0 40px',
+    padding: '0 50px',
     boxSizing: 'border-box',
     width: '100%',
     gap: '22px',

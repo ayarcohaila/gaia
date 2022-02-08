@@ -1,28 +1,36 @@
 import { Box } from '@mui/material';
+import { useEffect } from 'react';
 
-import NewToNFTSection from '~/components/newToNFTSection';
-import HomepageBanner from '~/components/homepageBanner';
+import HomeCardSection from '~/components/homeCardSection';
+import HomeBanner from '~/components/homeBanner';
 import Seo from '~/components/seo';
 import useBreakpoints from '~/hooks/useBreakpoints';
+import { useAppContext } from '~/context/appProvider';
 
 const Home = () => {
   const { isMediumDevice } = useBreakpoints();
+  const { handleAppData } = useAppContext();
+
+  useEffect(() => {
+    handleAppData({
+      marketplaceSort: null,
+      page: 0,
+      marketplaceNfts: []
+    });
+  }, []);
+
   return (
     <>
       <Seo />
       <Box
-        paddingLeft={isMediumDevice && '20px'}
-        paddingRight={isMediumDevice && '20px'}
+        paddingLeft={isMediumDevice ? '20px' : '50px'}
+        paddingRight={isMediumDevice ? '20px' : '50px'}
         display="flex"
         alignItems="center"
         justifyContent="center">
-        <Box
-          paddingLeft={isMediumDevice ? '20px' : '50px'}
-          paddingRight={isMediumDevice ? '20px' : '50px'}
-          maxWidth="1800px"
-          width="100%">
-          <HomepageBanner />
-          <NewToNFTSection />
+        <Box maxWidth="1800px" width="100%">
+          <HomeBanner />
+          <HomeCardSection />
         </Box>
       </Box>
     </>

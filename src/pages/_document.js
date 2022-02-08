@@ -37,14 +37,14 @@ export default class _Document extends Document {
             content="
             object-src 'none';
             base-uri 'self';
-            connect-src 'self' https://flow-testnet.g.alchemy.com https://o189304.ingest.sentry.io https://staging.accounts.meetdapper.com https://www.google-analytics.com https://accounts.meetdapper.com https://flow-mainnet.g.alchemy.com;
+            connect-src 'self' https://securetoken.googleapis.com https://identitytoolkit.googleapis.com https://firestore.googleapis.com https://flow-testnet.g.alchemy.com https://o189304.ingest.sentry.io https://staging.accounts.meetdapper.com https://www.google-analytics.com https://accounts.meetdapper.com https://flow-mainnet.g.alchemy.com;
             font-src 'self' https://fonts.gstatic.com;
-            frame-src 'self';
-            img-src 'self' data: https://images.ongaia.com https://www.google-analytics.com/;
+            frame-src 'self' https://*.firebaseapp.com;
+            img-src 'self' data: https://images.ongaia.com https://www.google-analytics.com/ https://assets.nflallday.com;
             manifest-src 'self';
-            media-src 'self' https://images.ongaia.com;
+            media-src 'self' https://images.ongaia.com http://assets.nflallday.com;
             default-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.gstatic.com https://fonts.googleapis.com;
-            script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com;"
+            script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://apis.google.com;"
           />
 
           {process.env.NODE_ENV === 'production' && (

@@ -7,23 +7,23 @@ import axios from 'axios';
 import Seo from '~/components/seo';
 import ProfileBanner from '~/components/profileBanner';
 import Loading from '~/base/spinnerLoader';
-import useAuth from '~/hooks/useAuth';
 import { SEO_DATA } from '~/constant/seo';
 
 import * as Styled from '~/styles/favorites/styles';
+import { useAuthContext } from '~/providers/AuthProvider';
 
-const Card = dynamic(() => import('~/components/card'));
+const Card = dynamic(() => import('~/components/cards/cardDefault'));
 const GET_FAVORITE_LIST = '/api/favorites/get';
 
 const Favorites = () => {
   const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   const [favoriteList, setFavoriteList] = useState([]);
 
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/browse');
+    router.push('/');
   };
 
   const handleGetFavorites = useCallback(async address => {
@@ -68,7 +68,7 @@ const Favorites = () => {
             <Styled.EmptyText>
               There are no Flow NFTs in this favorite list from any Gaia collections
             </Styled.EmptyText>
-            <Styled.RedirectButton onClick={handleClick}>Visit Marketplace</Styled.RedirectButton>
+            <Styled.RedirectButton onClick={handleClick}>Visit Home</Styled.RedirectButton>
           </Styled.EmptyContainer>
         )}
       </>
