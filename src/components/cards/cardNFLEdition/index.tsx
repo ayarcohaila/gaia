@@ -15,7 +15,7 @@ import { formatNumber } from '~/helpers/stringHelpers';
 import { SellNflModal } from '~/components/modal/nfl/sellNfl';
 import { CancelNflModal } from '~/components/modal/nfl/cancelNfl';
 
-const CardNFLEdition = ({ data, collectionName, hasActions }: any) => {
+const CardNFLEdition = ({ data, collectionName, hasActions, setPosition }: any) => {
   const [thumbnail, setThumbnail] = useState('/collections/nfl/moment/odel.png');
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isCancelNftModalOpen, toggleCancelNftModal] = useToggle();
@@ -45,10 +45,16 @@ const CardNFLEdition = ({ data, collectionName, hasActions }: any) => {
     verifyThumbnailExist();
   }, []);
 
+  const handleSavePosition = () => {
+    if (setPosition) {
+      setPosition(data.edition.edition_id);
+    }
+  };
+
   return (
     <>
       <Link href={`/${collectionName}/${data.edition.edition_id}`}>
-        <Styled.CustomCard>
+        <Styled.CustomCard id={`card-${data.edition.edition_id}`} onClick={handleSavePosition}>
           <Grid margin={0} overflow={'hidden'} borderRadius={'20px'}>
             <Styled.AssetContainer>
               <NextImage

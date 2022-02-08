@@ -72,7 +72,14 @@ const Marketplace = ({ collectionName }) => {
 
     return marketplaceNfts?.map((nft, index) => {
       if (collectionName === COLLECTIONS_NAME.NFL) {
-        return <CardTemplate key={nft.edition_id} data={nft} collectionName={collectionName} />;
+        return (
+          <CardTemplate
+            key={nft.edition_id}
+            data={nft}
+            collectionName={collectionName}
+            setPosition={setPosition}
+          />
+        );
       } else {
         return <Card key={nft.asset_id} data={nft} hasPrice setPosition={setPosition} />;
       }
