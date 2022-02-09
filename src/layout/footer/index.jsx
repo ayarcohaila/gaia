@@ -91,21 +91,25 @@ const Footer = () => {
             </Grid>
           </Box>
           <Grid item mt={isSmallDevice ? '32px' : 0} width={isSmallDevice ? '90%' : '160px'}>
-            <Typography color="white.main" mb="12px" letterSpacing="0.2px" variant="subtitle2">
-              Our Network
-            </Typography>
-            {ITEMS.map(({ label, href }) => (
-              <Styled.CustomLink
-                key={label}
-                fontSize="1rem"
-                href={href}
-                mb="0"
-                target="_blank"
-                underline="none"
-                rel="noopener noreferrer">
-                {label}
-              </Styled.CustomLink>
-            ))}
+            {!isNflPage && (
+              <>
+                <Typography color="white.main" mb="12px" letterSpacing="0.2px" variant="subtitle2">
+                  Our Network
+                </Typography>
+                {ITEMS.map(({ label, href }) => (
+                  <Styled.CustomLink
+                    key={label}
+                    fontSize="1rem"
+                    href={href}
+                    mb="0"
+                    target="_blank"
+                    underline="none"
+                    rel="noopener noreferrer">
+                    {label}
+                  </Styled.CustomLink>
+                ))}
+              </>
+            )}
             {isNflPage && (
               <Styled.CustomLink
                 key={COLLECTIONS_NAME.NFL}
