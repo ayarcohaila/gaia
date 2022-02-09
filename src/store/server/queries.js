@@ -558,6 +558,51 @@ const GET_NFL_NFTS_BY_ADDRESS = gql`
   }
 `;
 
+const GET_NFL_MOMENT = gql`
+  query getNFLMoment($edition_id: bigint, $serial_number: Int) {
+    nfl_all_day_moments(
+      where: {
+        serial_number: { _eq: $serial_number }
+        edition: { edition_id: { _eq: $edition_id } }
+      }
+    ) {
+      moment_id
+      active_listing_price
+      owner
+      serial_number
+      active_listing_order_id
+      active_listing_order_address
+      edition {
+        edition_id
+        max_mint_size
+        inserted_at
+        circulation_count
+        hidden_in_packs_count
+        tier
+        play {
+          player_full_name
+          description
+          external_id
+          team_name
+          game_date
+          play_type
+          player_position
+          home_team_name
+          away_team_name
+        }
+        series {
+          name
+          series_id
+        }
+        set {
+          name
+          set_id
+        }
+      }
+    }
+  }
+`;
+
 export {
   GET_NFL_EDITION_BY_ID,
   GET_NFTS,
@@ -578,5 +623,6 @@ export {
   GET_NFL,
   GET_NFL_FILTERS,
   GET_MOMENTS_BY_EDITION_ID,
-  GET_NFL_NFTS_BY_ADDRESS
+  GET_NFL_NFTS_BY_ADDRESS,
+  GET_NFL_MOMENT
 };

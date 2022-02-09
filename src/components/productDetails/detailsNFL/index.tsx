@@ -1,5 +1,4 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
-import dynamic from 'next/dynamic';
 import { memo, useMemo } from 'react';
 import Breadcrumbs from '~/components/breadcrumbs';
 // TODO: Disabled Favorites for NFL
@@ -15,8 +14,6 @@ import GridOffers from '~/components/productDetails/detailsNFL/gridOffers';
 import { useRouter } from 'next/router';
 import { camelize } from '~/utils/camelize';
 
-const Accordion = dynamic(() => import('~/components/accordion'));
-
 import * as Styled from './styles';
 import BlockchainHistory from '~/components/productDetails/detailsNFL/blockchainHistory';
 
@@ -31,7 +28,7 @@ const ASSETS_IMAGES = [
 const NflDetailsTopSection = ({ edition, serial_number }: NflDetailsTopSectionProps) => {
   const thumbnails: Array<string> = ASSETS_IMAGES.map(asset => {
     const thumbnailUrl = generatePlayMediaUrl(
-      edition?.play?.external_id,
+      edition?.play?.external_id!,
       edition?.set?.name!,
       asset
     );
@@ -81,7 +78,7 @@ const NflDetailsTopSection = ({ edition, serial_number }: NflDetailsTopSectionPr
       <>
         {!serial_number && (
           <Styled.AcordionWrapper>
-            <Accordion
+            <Styled.CustomAccordion
               data-cy="aditional-detail-history"
               defaultExpanded
               mt={10}
@@ -90,13 +87,13 @@ const NflDetailsTopSection = ({ edition, serial_number }: NflDetailsTopSectionPr
               id="blockHistoryAccordion"
               contentSx={{ p: 0 }}>
               <GridOffers editionId={edition.edition_id} />
-            </Accordion>
+            </Styled.CustomAccordion>
           </Styled.AcordionWrapper>
         )}
 
         {serial_number ? (
           <Styled.AcordionWrapper>
-            <Accordion
+            <Styled.CustomAccordion
               data-cy="aditional-detail-history"
               defaultExpanded
               mt={30}
@@ -110,7 +107,7 @@ const NflDetailsTopSection = ({ edition, serial_number }: NflDetailsTopSectionPr
                   mintDate: edition.inserted_at // FIXME: need to get the actual mint date for the moment we are looking at
                 }}
               />
-            </Accordion>
+            </Styled.CustomAccordion>
           </Styled.AcordionWrapper>
         ) : null}
       </>
@@ -121,7 +118,7 @@ const NflDetailsTopSection = ({ edition, serial_number }: NflDetailsTopSectionPr
   const renderProperties = useMemo(
     () => (
       <Styled.AcordionWrapper>
-        <Accordion
+        <Styled.CustomAccordion
           defaultExpanded
           my={3}
           title="Properties"
@@ -133,7 +130,7 @@ const NflDetailsTopSection = ({ edition, serial_number }: NflDetailsTopSectionPr
             listOfProps={propSectionItems}
             hideDistribution={true}
           />
-        </Accordion>
+        </Styled.CustomAccordion>
       </Styled.AcordionWrapper>
     ),
     [isMediumDevice]

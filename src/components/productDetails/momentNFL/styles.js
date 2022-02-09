@@ -6,9 +6,9 @@ import {
   Typography,
   Divider as MuiDivider
 } from '@mui/material';
-import Button from '~/base/button';
 
 import Accordion from '~/components/accordion';
+import Button from '~/base/button';
 
 export const Container = styled(Grid)(({ theme: { breakpoints, palette } }) => ({
   backgroundColor: palette.white.main,
@@ -18,12 +18,12 @@ export const Container = styled(Grid)(({ theme: { breakpoints, palette } }) => (
   gap: '40px',
 
   '.MuiAccordionSummary-root, .MuiAccordionDetails-root': {
-    padding: 0
+    padding: '0px !important'
   },
 
   [breakpoints.down('md')]: {
     marginTop: '0',
-    padding: '24px',
+    padding: '24px !important',
 
     '.MuiAccordionSummary-root, .MuiAccordionDetails-root': {
       padding: '12px'
@@ -32,7 +32,7 @@ export const Container = styled(Grid)(({ theme: { breakpoints, palette } }) => (
 
   [breakpoints.down('sm')]: {
     marginTop: '0',
-    padding: '20px 0'
+    padding: '20px 0 !important'
   }
 }));
 

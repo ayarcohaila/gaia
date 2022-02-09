@@ -5,7 +5,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {};
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -440,30 +440,36 @@ export type Mutation_Root = {
   update_notifications_types_by_pk?: Maybe<Notifications_Types>;
 };
 
+
 /** mutation root */
 export type Mutation_RootCreateSetArgs = {
   arg1: CreateSetInput;
 };
+
 
 /** mutation root */
 export type Mutation_RootCreateTemplateArgs = {
   arg1: CreateTemplateInput;
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_EditionsArgs = {
   where: Nfl_All_Day_Editions_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Editions_By_PkArgs = {
   edition_id: Scalars['bigint'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_ListingsArgs = {
   where: Nfl_All_Day_Listings_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Listings_By_PkArgs = {
@@ -471,10 +477,12 @@ export type Mutation_RootDelete_Nfl_All_Day_Listings_By_PkArgs = {
   order_id: Scalars['bigint'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Moment_TransfersArgs = {
   where: Nfl_All_Day_Moment_Transfers_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Moment_Transfers_By_PkArgs = {
@@ -484,20 +492,24 @@ export type Mutation_RootDelete_Nfl_All_Day_Moment_Transfers_By_PkArgs = {
   transaction_index: Scalars['Int'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_MomentsArgs = {
   where: Nfl_All_Day_Moments_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Moments_By_PkArgs = {
   moment_id: Scalars['bigint'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Pack_MomentsArgs = {
   where: Nfl_All_Day_Pack_Moments_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Pack_Moments_By_PkArgs = {
@@ -505,10 +517,12 @@ export type Mutation_RootDelete_Nfl_All_Day_Pack_Moments_By_PkArgs = {
   pack_id: Scalars['bigint'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Pack_TransfersArgs = {
   where: Nfl_All_Day_Pack_Transfers_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Pack_Transfers_By_PkArgs = {
@@ -518,30 +532,36 @@ export type Mutation_RootDelete_Nfl_All_Day_Pack_Transfers_By_PkArgs = {
   transaction_index: Scalars['Int'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_PacksArgs = {
   where: Nfl_All_Day_Packs_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Packs_By_PkArgs = {
   pack_id: Scalars['bigint'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_PlaysArgs = {
   where: Nfl_All_Day_Plays_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Plays_By_PkArgs = {
   play_id: Scalars['bigint'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_PurchasesArgs = {
   where: Nfl_All_Day_Purchases_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Purchases_By_PkArgs = {
@@ -549,115 +569,138 @@ export type Mutation_RootDelete_Nfl_All_Day_Purchases_By_PkArgs = {
   order_id: Scalars['bigint'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_SeriesArgs = {
   where: Nfl_All_Day_Series_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Series_By_PkArgs = {
   series_id: Scalars['bigint'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_SetsArgs = {
   where: Nfl_All_Day_Sets_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nfl_All_Day_Sets_By_PkArgs = {
   set_id: Scalars['bigint'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_NftArgs = {
   where: Nft_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nft_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nft_CollectionArgs = {
   where: Nft_Collection_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nft_Collection_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nft_DropsArgs = {
   where: Nft_Drops_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nft_Drops_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nft_FavoritesArgs = {
   where: Nft_Favorites_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nft_Favorites_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nft_Sale_OfferArgs = {
   where: Nft_Sale_Offer_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nft_Sale_Offer_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nft_Sale_Offer_CutArgs = {
   where: Nft_Sale_Offer_Cut_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nft_Sale_Offer_Cut_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Nft_TemplateArgs = {
   where: Nft_Template_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Nft_Template_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_NotificationsArgs = {
   where: Notifications_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Notifications_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Notifications_TypesArgs = {
   where: Notifications_Types_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Notifications_Types_By_PkArgs = {
   type: Scalars['String'];
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_EditionsArgs = {
@@ -665,11 +708,13 @@ export type Mutation_RootInsert_Nfl_All_Day_EditionsArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Editions_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Editions_OneArgs = {
   object: Nfl_All_Day_Editions_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Editions_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_ListingsArgs = {
@@ -677,11 +722,13 @@ export type Mutation_RootInsert_Nfl_All_Day_ListingsArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Listings_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Listings_OneArgs = {
   object: Nfl_All_Day_Listings_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Listings_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Moment_TransfersArgs = {
@@ -689,11 +736,13 @@ export type Mutation_RootInsert_Nfl_All_Day_Moment_TransfersArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Moment_Transfers_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Moment_Transfers_OneArgs = {
   object: Nfl_All_Day_Moment_Transfers_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Moment_Transfers_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_MomentsArgs = {
@@ -701,11 +750,13 @@ export type Mutation_RootInsert_Nfl_All_Day_MomentsArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Moments_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Moments_OneArgs = {
   object: Nfl_All_Day_Moments_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Moments_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Pack_MomentsArgs = {
@@ -713,11 +764,13 @@ export type Mutation_RootInsert_Nfl_All_Day_Pack_MomentsArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Pack_Moments_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Pack_Moments_OneArgs = {
   object: Nfl_All_Day_Pack_Moments_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Pack_Moments_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Pack_TransfersArgs = {
@@ -725,11 +778,13 @@ export type Mutation_RootInsert_Nfl_All_Day_Pack_TransfersArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Pack_Transfers_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Pack_Transfers_OneArgs = {
   object: Nfl_All_Day_Pack_Transfers_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Pack_Transfers_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_PacksArgs = {
@@ -737,11 +792,13 @@ export type Mutation_RootInsert_Nfl_All_Day_PacksArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Packs_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Packs_OneArgs = {
   object: Nfl_All_Day_Packs_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Packs_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_PlaysArgs = {
@@ -749,11 +806,13 @@ export type Mutation_RootInsert_Nfl_All_Day_PlaysArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Plays_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Plays_OneArgs = {
   object: Nfl_All_Day_Plays_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Plays_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_PurchasesArgs = {
@@ -761,11 +820,13 @@ export type Mutation_RootInsert_Nfl_All_Day_PurchasesArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Purchases_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Purchases_OneArgs = {
   object: Nfl_All_Day_Purchases_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Purchases_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_SeriesArgs = {
@@ -773,11 +834,13 @@ export type Mutation_RootInsert_Nfl_All_Day_SeriesArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Series_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Series_OneArgs = {
   object: Nfl_All_Day_Series_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Series_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_SetsArgs = {
@@ -785,11 +848,13 @@ export type Mutation_RootInsert_Nfl_All_Day_SetsArgs = {
   on_conflict?: InputMaybe<Nfl_All_Day_Sets_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nfl_All_Day_Sets_OneArgs = {
   object: Nfl_All_Day_Sets_Insert_Input;
   on_conflict?: InputMaybe<Nfl_All_Day_Sets_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_NftArgs = {
@@ -797,11 +862,13 @@ export type Mutation_RootInsert_NftArgs = {
   on_conflict?: InputMaybe<Nft_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nft_CollectionArgs = {
   objects: Array<Nft_Collection_Insert_Input>;
   on_conflict?: InputMaybe<Nft_Collection_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nft_Collection_OneArgs = {
@@ -809,11 +876,13 @@ export type Mutation_RootInsert_Nft_Collection_OneArgs = {
   on_conflict?: InputMaybe<Nft_Collection_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nft_DropsArgs = {
   objects: Array<Nft_Drops_Insert_Input>;
   on_conflict?: InputMaybe<Nft_Drops_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nft_Drops_OneArgs = {
@@ -821,11 +890,13 @@ export type Mutation_RootInsert_Nft_Drops_OneArgs = {
   on_conflict?: InputMaybe<Nft_Drops_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nft_FavoritesArgs = {
   objects: Array<Nft_Favorites_Insert_Input>;
   on_conflict?: InputMaybe<Nft_Favorites_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nft_Favorites_OneArgs = {
@@ -833,11 +904,13 @@ export type Mutation_RootInsert_Nft_Favorites_OneArgs = {
   on_conflict?: InputMaybe<Nft_Favorites_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nft_OneArgs = {
   object: Nft_Insert_Input;
   on_conflict?: InputMaybe<Nft_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nft_Sale_OfferArgs = {
@@ -845,11 +918,13 @@ export type Mutation_RootInsert_Nft_Sale_OfferArgs = {
   on_conflict?: InputMaybe<Nft_Sale_Offer_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nft_Sale_Offer_CutArgs = {
   objects: Array<Nft_Sale_Offer_Cut_Insert_Input>;
   on_conflict?: InputMaybe<Nft_Sale_Offer_Cut_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nft_Sale_Offer_Cut_OneArgs = {
@@ -857,11 +932,13 @@ export type Mutation_RootInsert_Nft_Sale_Offer_Cut_OneArgs = {
   on_conflict?: InputMaybe<Nft_Sale_Offer_Cut_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nft_Sale_Offer_OneArgs = {
   object: Nft_Sale_Offer_Insert_Input;
   on_conflict?: InputMaybe<Nft_Sale_Offer_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Nft_TemplateArgs = {
@@ -869,11 +946,13 @@ export type Mutation_RootInsert_Nft_TemplateArgs = {
   on_conflict?: InputMaybe<Nft_Template_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Nft_Template_OneArgs = {
   object: Nft_Template_Insert_Input;
   on_conflict?: InputMaybe<Nft_Template_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_NotificationsArgs = {
@@ -881,11 +960,13 @@ export type Mutation_RootInsert_NotificationsArgs = {
   on_conflict?: InputMaybe<Notifications_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Notifications_OneArgs = {
   object: Notifications_Insert_Input;
   on_conflict?: InputMaybe<Notifications_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Notifications_TypesArgs = {
@@ -893,16 +974,19 @@ export type Mutation_RootInsert_Notifications_TypesArgs = {
   on_conflict?: InputMaybe<Notifications_Types_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Notifications_Types_OneArgs = {
   object: Notifications_Types_Insert_Input;
   on_conflict?: InputMaybe<Notifications_Types_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootMintArgs = {
   arg1: MintInput;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_EditionsArgs = {
@@ -911,12 +995,14 @@ export type Mutation_RootUpdate_Nfl_All_Day_EditionsArgs = {
   where: Nfl_All_Day_Editions_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Editions_By_PkArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Editions_Inc_Input>;
   _set?: InputMaybe<Nfl_All_Day_Editions_Set_Input>;
   pk_columns: Nfl_All_Day_Editions_Pk_Columns_Input;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_ListingsArgs = {
@@ -930,6 +1016,7 @@ export type Mutation_RootUpdate_Nfl_All_Day_ListingsArgs = {
   where: Nfl_All_Day_Listings_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Listings_By_PkArgs = {
   _append?: InputMaybe<Nfl_All_Day_Listings_Append_Input>;
@@ -942,12 +1029,14 @@ export type Mutation_RootUpdate_Nfl_All_Day_Listings_By_PkArgs = {
   pk_columns: Nfl_All_Day_Listings_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Moment_TransfersArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Moment_Transfers_Inc_Input>;
   _set?: InputMaybe<Nfl_All_Day_Moment_Transfers_Set_Input>;
   where: Nfl_All_Day_Moment_Transfers_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Moment_Transfers_By_PkArgs = {
@@ -956,12 +1045,14 @@ export type Mutation_RootUpdate_Nfl_All_Day_Moment_Transfers_By_PkArgs = {
   pk_columns: Nfl_All_Day_Moment_Transfers_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_MomentsArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Moments_Inc_Input>;
   _set?: InputMaybe<Nfl_All_Day_Moments_Set_Input>;
   where: Nfl_All_Day_Moments_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Moments_By_PkArgs = {
@@ -970,12 +1061,14 @@ export type Mutation_RootUpdate_Nfl_All_Day_Moments_By_PkArgs = {
   pk_columns: Nfl_All_Day_Moments_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Pack_MomentsArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Pack_Moments_Inc_Input>;
   _set?: InputMaybe<Nfl_All_Day_Pack_Moments_Set_Input>;
   where: Nfl_All_Day_Pack_Moments_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Pack_Moments_By_PkArgs = {
@@ -984,12 +1077,14 @@ export type Mutation_RootUpdate_Nfl_All_Day_Pack_Moments_By_PkArgs = {
   pk_columns: Nfl_All_Day_Pack_Moments_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Pack_TransfersArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Pack_Transfers_Inc_Input>;
   _set?: InputMaybe<Nfl_All_Day_Pack_Transfers_Set_Input>;
   where: Nfl_All_Day_Pack_Transfers_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Pack_Transfers_By_PkArgs = {
@@ -998,12 +1093,14 @@ export type Mutation_RootUpdate_Nfl_All_Day_Pack_Transfers_By_PkArgs = {
   pk_columns: Nfl_All_Day_Pack_Transfers_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_PacksArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Packs_Inc_Input>;
   _set?: InputMaybe<Nfl_All_Day_Packs_Set_Input>;
   where: Nfl_All_Day_Packs_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Packs_By_PkArgs = {
@@ -1012,6 +1109,7 @@ export type Mutation_RootUpdate_Nfl_All_Day_Packs_By_PkArgs = {
   pk_columns: Nfl_All_Day_Packs_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_PlaysArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Plays_Inc_Input>;
@@ -1019,12 +1117,14 @@ export type Mutation_RootUpdate_Nfl_All_Day_PlaysArgs = {
   where: Nfl_All_Day_Plays_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Plays_By_PkArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Plays_Inc_Input>;
   _set?: InputMaybe<Nfl_All_Day_Plays_Set_Input>;
   pk_columns: Nfl_All_Day_Plays_Pk_Columns_Input;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_PurchasesArgs = {
@@ -1038,6 +1138,7 @@ export type Mutation_RootUpdate_Nfl_All_Day_PurchasesArgs = {
   where: Nfl_All_Day_Purchases_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Purchases_By_PkArgs = {
   _append?: InputMaybe<Nfl_All_Day_Purchases_Append_Input>;
@@ -1050,12 +1151,14 @@ export type Mutation_RootUpdate_Nfl_All_Day_Purchases_By_PkArgs = {
   pk_columns: Nfl_All_Day_Purchases_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_SeriesArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Series_Inc_Input>;
   _set?: InputMaybe<Nfl_All_Day_Series_Set_Input>;
   where: Nfl_All_Day_Series_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Series_By_PkArgs = {
@@ -1064,12 +1167,14 @@ export type Mutation_RootUpdate_Nfl_All_Day_Series_By_PkArgs = {
   pk_columns: Nfl_All_Day_Series_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_SetsArgs = {
   _inc?: InputMaybe<Nfl_All_Day_Sets_Inc_Input>;
   _set?: InputMaybe<Nfl_All_Day_Sets_Set_Input>;
   where: Nfl_All_Day_Sets_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nfl_All_Day_Sets_By_PkArgs = {
@@ -1078,6 +1183,7 @@ export type Mutation_RootUpdate_Nfl_All_Day_Sets_By_PkArgs = {
   pk_columns: Nfl_All_Day_Sets_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_NftArgs = {
   _inc?: InputMaybe<Nft_Inc_Input>;
@@ -1085,12 +1191,14 @@ export type Mutation_RootUpdate_NftArgs = {
   where: Nft_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nft_By_PkArgs = {
   _inc?: InputMaybe<Nft_Inc_Input>;
   _set?: InputMaybe<Nft_Set_Input>;
   pk_columns: Nft_Pk_Columns_Input;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nft_CollectionArgs = {
@@ -1104,6 +1212,7 @@ export type Mutation_RootUpdate_Nft_CollectionArgs = {
   where: Nft_Collection_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nft_Collection_By_PkArgs = {
   _append?: InputMaybe<Nft_Collection_Append_Input>;
@@ -1116,12 +1225,14 @@ export type Mutation_RootUpdate_Nft_Collection_By_PkArgs = {
   pk_columns: Nft_Collection_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nft_DropsArgs = {
   _inc?: InputMaybe<Nft_Drops_Inc_Input>;
   _set?: InputMaybe<Nft_Drops_Set_Input>;
   where: Nft_Drops_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nft_Drops_By_PkArgs = {
@@ -1130,17 +1241,20 @@ export type Mutation_RootUpdate_Nft_Drops_By_PkArgs = {
   pk_columns: Nft_Drops_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nft_FavoritesArgs = {
   _set?: InputMaybe<Nft_Favorites_Set_Input>;
   where: Nft_Favorites_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nft_Favorites_By_PkArgs = {
   _set?: InputMaybe<Nft_Favorites_Set_Input>;
   pk_columns: Nft_Favorites_Pk_Columns_Input;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nft_Sale_OfferArgs = {
@@ -1149,6 +1263,7 @@ export type Mutation_RootUpdate_Nft_Sale_OfferArgs = {
   where: Nft_Sale_Offer_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nft_Sale_Offer_By_PkArgs = {
   _inc?: InputMaybe<Nft_Sale_Offer_Inc_Input>;
@@ -1156,17 +1271,20 @@ export type Mutation_RootUpdate_Nft_Sale_Offer_By_PkArgs = {
   pk_columns: Nft_Sale_Offer_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nft_Sale_Offer_CutArgs = {
   _set?: InputMaybe<Nft_Sale_Offer_Cut_Set_Input>;
   where: Nft_Sale_Offer_Cut_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nft_Sale_Offer_Cut_By_PkArgs = {
   _set?: InputMaybe<Nft_Sale_Offer_Cut_Set_Input>;
   pk_columns: Nft_Sale_Offer_Cut_Pk_Columns_Input;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Nft_TemplateArgs = {
@@ -1180,6 +1298,7 @@ export type Mutation_RootUpdate_Nft_TemplateArgs = {
   where: Nft_Template_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Nft_Template_By_PkArgs = {
   _append?: InputMaybe<Nft_Template_Append_Input>;
@@ -1192,11 +1311,13 @@ export type Mutation_RootUpdate_Nft_Template_By_PkArgs = {
   pk_columns: Nft_Template_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_NotificationsArgs = {
   _set?: InputMaybe<Notifications_Set_Input>;
   where: Notifications_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Notifications_By_PkArgs = {
@@ -1204,11 +1325,13 @@ export type Mutation_RootUpdate_Notifications_By_PkArgs = {
   pk_columns: Notifications_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Notifications_TypesArgs = {
   _set?: InputMaybe<Notifications_Types_Set_Input>;
   where: Notifications_Types_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Notifications_Types_By_PkArgs = {
@@ -1224,6 +1347,7 @@ export type Nfl_All_Day_Editions = {
   created_at: Scalars['timestamptz'];
   edition_id: Scalars['bigint'];
   event_index: Scalars['Int'];
+  hidden_in_packs_count?: Maybe<Scalars['Int']>;
   inserted_at: Scalars['timestamptz'];
   max_list_price?: Maybe<Scalars['float8']>;
   max_mint_size?: Maybe<Scalars['Int']>;
@@ -1244,7 +1368,9 @@ export type Nfl_All_Day_Editions = {
   set_id: Scalars['bigint'];
   tier: Scalars['String'];
   transaction_index: Scalars['Int'];
+  unavailable_count?: Maybe<Scalars['Int']>;
 };
+
 
 /** columns and relationships of "nfl_all_day_editions" */
 export type Nfl_All_Day_EditionsMomentsArgs = {
@@ -1254,6 +1380,7 @@ export type Nfl_All_Day_EditionsMomentsArgs = {
   order_by?: InputMaybe<Array<Nfl_All_Day_Moments_Order_By>>;
   where?: InputMaybe<Nfl_All_Day_Moments_Bool_Exp>;
 };
+
 
 /** columns and relationships of "nfl_all_day_editions" */
 export type Nfl_All_Day_EditionsMoments_AggregateArgs = {
@@ -1285,6 +1412,7 @@ export type Nfl_All_Day_Editions_Aggregate_Fields = {
   variance?: Maybe<Nfl_All_Day_Editions_Variance_Fields>;
 };
 
+
 /** aggregate fields of "nfl_all_day_editions" */
 export type Nfl_All_Day_Editions_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Nfl_All_Day_Editions_Select_Column>>;
@@ -1297,6 +1425,7 @@ export type Nfl_All_Day_Editions_Avg_Fields = {
   circulation_count?: Maybe<Scalars['Float']>;
   edition_id?: Maybe<Scalars['Float']>;
   event_index?: Maybe<Scalars['Float']>;
+  hidden_in_packs_count?: Maybe<Scalars['Float']>;
   max_list_price?: Maybe<Scalars['Float']>;
   max_mint_size?: Maybe<Scalars['Float']>;
   min_list_price?: Maybe<Scalars['Float']>;
@@ -1305,6 +1434,7 @@ export type Nfl_All_Day_Editions_Avg_Fields = {
   series_id?: Maybe<Scalars['Float']>;
   set_id?: Maybe<Scalars['Float']>;
   transaction_index?: Maybe<Scalars['Float']>;
+  unavailable_count?: Maybe<Scalars['Float']>;
 };
 
 /** Boolean expression to filter rows from the table "nfl_all_day_editions". All fields are combined with a logical 'AND'. */
@@ -1318,6 +1448,7 @@ export type Nfl_All_Day_Editions_Bool_Exp = {
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   edition_id?: InputMaybe<Bigint_Comparison_Exp>;
   event_index?: InputMaybe<Int_Comparison_Exp>;
+  hidden_in_packs_count?: InputMaybe<Int_Comparison_Exp>;
   inserted_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   max_list_price?: InputMaybe<Float8_Comparison_Exp>;
   max_mint_size?: InputMaybe<Int_Comparison_Exp>;
@@ -1332,6 +1463,7 @@ export type Nfl_All_Day_Editions_Bool_Exp = {
   set_id?: InputMaybe<Bigint_Comparison_Exp>;
   tier?: InputMaybe<String_Comparison_Exp>;
   transaction_index?: InputMaybe<Int_Comparison_Exp>;
+  unavailable_count?: InputMaybe<Int_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "nfl_all_day_editions" */
@@ -1346,6 +1478,7 @@ export type Nfl_All_Day_Editions_Inc_Input = {
   circulation_count?: InputMaybe<Scalars['Int']>;
   edition_id?: InputMaybe<Scalars['bigint']>;
   event_index?: InputMaybe<Scalars['Int']>;
+  hidden_in_packs_count?: InputMaybe<Scalars['Int']>;
   max_list_price?: InputMaybe<Scalars['float8']>;
   max_mint_size?: InputMaybe<Scalars['Int']>;
   min_list_price?: InputMaybe<Scalars['float8']>;
@@ -1354,6 +1487,7 @@ export type Nfl_All_Day_Editions_Inc_Input = {
   series_id?: InputMaybe<Scalars['bigint']>;
   set_id?: InputMaybe<Scalars['bigint']>;
   transaction_index?: InputMaybe<Scalars['Int']>;
+  unavailable_count?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "nfl_all_day_editions" */
@@ -1364,6 +1498,7 @@ export type Nfl_All_Day_Editions_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']>;
   edition_id?: InputMaybe<Scalars['bigint']>;
   event_index?: InputMaybe<Scalars['Int']>;
+  hidden_in_packs_count?: InputMaybe<Scalars['Int']>;
   inserted_at?: InputMaybe<Scalars['timestamptz']>;
   max_list_price?: InputMaybe<Scalars['float8']>;
   max_mint_size?: InputMaybe<Scalars['Int']>;
@@ -1378,6 +1513,7 @@ export type Nfl_All_Day_Editions_Insert_Input = {
   set_id?: InputMaybe<Scalars['bigint']>;
   tier?: InputMaybe<Scalars['String']>;
   transaction_index?: InputMaybe<Scalars['Int']>;
+  unavailable_count?: InputMaybe<Scalars['Int']>;
 };
 
 /** aggregate max on columns */
@@ -1388,6 +1524,7 @@ export type Nfl_All_Day_Editions_Max_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>;
   edition_id?: Maybe<Scalars['bigint']>;
   event_index?: Maybe<Scalars['Int']>;
+  hidden_in_packs_count?: Maybe<Scalars['Int']>;
   inserted_at?: Maybe<Scalars['timestamptz']>;
   max_list_price?: Maybe<Scalars['float8']>;
   max_mint_size?: Maybe<Scalars['Int']>;
@@ -1398,6 +1535,7 @@ export type Nfl_All_Day_Editions_Max_Fields = {
   set_id?: Maybe<Scalars['bigint']>;
   tier?: Maybe<Scalars['String']>;
   transaction_index?: Maybe<Scalars['Int']>;
+  unavailable_count?: Maybe<Scalars['Int']>;
 };
 
 /** aggregate min on columns */
@@ -1408,6 +1546,7 @@ export type Nfl_All_Day_Editions_Min_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>;
   edition_id?: Maybe<Scalars['bigint']>;
   event_index?: Maybe<Scalars['Int']>;
+  hidden_in_packs_count?: Maybe<Scalars['Int']>;
   inserted_at?: Maybe<Scalars['timestamptz']>;
   max_list_price?: Maybe<Scalars['float8']>;
   max_mint_size?: Maybe<Scalars['Int']>;
@@ -1418,6 +1557,7 @@ export type Nfl_All_Day_Editions_Min_Fields = {
   set_id?: Maybe<Scalars['bigint']>;
   tier?: Maybe<Scalars['String']>;
   transaction_index?: Maybe<Scalars['Int']>;
+  unavailable_count?: Maybe<Scalars['Int']>;
 };
 
 /** response of any mutation on the table "nfl_all_day_editions" */
@@ -1450,6 +1590,7 @@ export type Nfl_All_Day_Editions_Order_By = {
   created_at?: InputMaybe<Order_By>;
   edition_id?: InputMaybe<Order_By>;
   event_index?: InputMaybe<Order_By>;
+  hidden_in_packs_count?: InputMaybe<Order_By>;
   inserted_at?: InputMaybe<Order_By>;
   max_list_price?: InputMaybe<Order_By>;
   max_mint_size?: InputMaybe<Order_By>;
@@ -1464,6 +1605,7 @@ export type Nfl_All_Day_Editions_Order_By = {
   set_id?: InputMaybe<Order_By>;
   tier?: InputMaybe<Order_By>;
   transaction_index?: InputMaybe<Order_By>;
+  unavailable_count?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: nfl_all_day_editions */
@@ -1486,6 +1628,8 @@ export enum Nfl_All_Day_Editions_Select_Column {
   /** column name */
   EventIndex = 'event_index',
   /** column name */
+  HiddenInPacksCount = 'hidden_in_packs_count',
+  /** column name */
   InsertedAt = 'inserted_at',
   /** column name */
   MaxListPrice = 'max_list_price',
@@ -1504,7 +1648,9 @@ export enum Nfl_All_Day_Editions_Select_Column {
   /** column name */
   Tier = 'tier',
   /** column name */
-  TransactionIndex = 'transaction_index'
+  TransactionIndex = 'transaction_index',
+  /** column name */
+  UnavailableCount = 'unavailable_count'
 }
 
 /** input type for updating data in table "nfl_all_day_editions" */
@@ -1515,6 +1661,7 @@ export type Nfl_All_Day_Editions_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']>;
   edition_id?: InputMaybe<Scalars['bigint']>;
   event_index?: InputMaybe<Scalars['Int']>;
+  hidden_in_packs_count?: InputMaybe<Scalars['Int']>;
   inserted_at?: InputMaybe<Scalars['timestamptz']>;
   max_list_price?: InputMaybe<Scalars['float8']>;
   max_mint_size?: InputMaybe<Scalars['Int']>;
@@ -1525,6 +1672,7 @@ export type Nfl_All_Day_Editions_Set_Input = {
   set_id?: InputMaybe<Scalars['bigint']>;
   tier?: InputMaybe<Scalars['String']>;
   transaction_index?: InputMaybe<Scalars['Int']>;
+  unavailable_count?: InputMaybe<Scalars['Int']>;
 };
 
 /** aggregate stddev on columns */
@@ -1533,6 +1681,7 @@ export type Nfl_All_Day_Editions_Stddev_Fields = {
   circulation_count?: Maybe<Scalars['Float']>;
   edition_id?: Maybe<Scalars['Float']>;
   event_index?: Maybe<Scalars['Float']>;
+  hidden_in_packs_count?: Maybe<Scalars['Float']>;
   max_list_price?: Maybe<Scalars['Float']>;
   max_mint_size?: Maybe<Scalars['Float']>;
   min_list_price?: Maybe<Scalars['Float']>;
@@ -1541,6 +1690,7 @@ export type Nfl_All_Day_Editions_Stddev_Fields = {
   series_id?: Maybe<Scalars['Float']>;
   set_id?: Maybe<Scalars['Float']>;
   transaction_index?: Maybe<Scalars['Float']>;
+  unavailable_count?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -1549,6 +1699,7 @@ export type Nfl_All_Day_Editions_Stddev_Pop_Fields = {
   circulation_count?: Maybe<Scalars['Float']>;
   edition_id?: Maybe<Scalars['Float']>;
   event_index?: Maybe<Scalars['Float']>;
+  hidden_in_packs_count?: Maybe<Scalars['Float']>;
   max_list_price?: Maybe<Scalars['Float']>;
   max_mint_size?: Maybe<Scalars['Float']>;
   min_list_price?: Maybe<Scalars['Float']>;
@@ -1557,6 +1708,7 @@ export type Nfl_All_Day_Editions_Stddev_Pop_Fields = {
   series_id?: Maybe<Scalars['Float']>;
   set_id?: Maybe<Scalars['Float']>;
   transaction_index?: Maybe<Scalars['Float']>;
+  unavailable_count?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -1565,6 +1717,7 @@ export type Nfl_All_Day_Editions_Stddev_Samp_Fields = {
   circulation_count?: Maybe<Scalars['Float']>;
   edition_id?: Maybe<Scalars['Float']>;
   event_index?: Maybe<Scalars['Float']>;
+  hidden_in_packs_count?: Maybe<Scalars['Float']>;
   max_list_price?: Maybe<Scalars['Float']>;
   max_mint_size?: Maybe<Scalars['Float']>;
   min_list_price?: Maybe<Scalars['Float']>;
@@ -1573,6 +1726,7 @@ export type Nfl_All_Day_Editions_Stddev_Samp_Fields = {
   series_id?: Maybe<Scalars['Float']>;
   set_id?: Maybe<Scalars['Float']>;
   transaction_index?: Maybe<Scalars['Float']>;
+  unavailable_count?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate sum on columns */
@@ -1581,6 +1735,7 @@ export type Nfl_All_Day_Editions_Sum_Fields = {
   circulation_count?: Maybe<Scalars['Int']>;
   edition_id?: Maybe<Scalars['bigint']>;
   event_index?: Maybe<Scalars['Int']>;
+  hidden_in_packs_count?: Maybe<Scalars['Int']>;
   max_list_price?: Maybe<Scalars['float8']>;
   max_mint_size?: Maybe<Scalars['Int']>;
   min_list_price?: Maybe<Scalars['float8']>;
@@ -1589,6 +1744,7 @@ export type Nfl_All_Day_Editions_Sum_Fields = {
   series_id?: Maybe<Scalars['bigint']>;
   set_id?: Maybe<Scalars['bigint']>;
   transaction_index?: Maybe<Scalars['Int']>;
+  unavailable_count?: Maybe<Scalars['Int']>;
 };
 
 /** update columns of table "nfl_all_day_editions" */
@@ -1606,6 +1762,8 @@ export enum Nfl_All_Day_Editions_Update_Column {
   /** column name */
   EventIndex = 'event_index',
   /** column name */
+  HiddenInPacksCount = 'hidden_in_packs_count',
+  /** column name */
   InsertedAt = 'inserted_at',
   /** column name */
   MaxListPrice = 'max_list_price',
@@ -1624,7 +1782,9 @@ export enum Nfl_All_Day_Editions_Update_Column {
   /** column name */
   Tier = 'tier',
   /** column name */
-  TransactionIndex = 'transaction_index'
+  TransactionIndex = 'transaction_index',
+  /** column name */
+  UnavailableCount = 'unavailable_count'
 }
 
 /** aggregate var_pop on columns */
@@ -1633,6 +1793,7 @@ export type Nfl_All_Day_Editions_Var_Pop_Fields = {
   circulation_count?: Maybe<Scalars['Float']>;
   edition_id?: Maybe<Scalars['Float']>;
   event_index?: Maybe<Scalars['Float']>;
+  hidden_in_packs_count?: Maybe<Scalars['Float']>;
   max_list_price?: Maybe<Scalars['Float']>;
   max_mint_size?: Maybe<Scalars['Float']>;
   min_list_price?: Maybe<Scalars['Float']>;
@@ -1641,6 +1802,7 @@ export type Nfl_All_Day_Editions_Var_Pop_Fields = {
   series_id?: Maybe<Scalars['Float']>;
   set_id?: Maybe<Scalars['Float']>;
   transaction_index?: Maybe<Scalars['Float']>;
+  unavailable_count?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
@@ -1649,6 +1811,7 @@ export type Nfl_All_Day_Editions_Var_Samp_Fields = {
   circulation_count?: Maybe<Scalars['Float']>;
   edition_id?: Maybe<Scalars['Float']>;
   event_index?: Maybe<Scalars['Float']>;
+  hidden_in_packs_count?: Maybe<Scalars['Float']>;
   max_list_price?: Maybe<Scalars['Float']>;
   max_mint_size?: Maybe<Scalars['Float']>;
   min_list_price?: Maybe<Scalars['Float']>;
@@ -1657,6 +1820,7 @@ export type Nfl_All_Day_Editions_Var_Samp_Fields = {
   series_id?: Maybe<Scalars['Float']>;
   set_id?: Maybe<Scalars['Float']>;
   transaction_index?: Maybe<Scalars['Float']>;
+  unavailable_count?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
@@ -1665,6 +1829,7 @@ export type Nfl_All_Day_Editions_Variance_Fields = {
   circulation_count?: Maybe<Scalars['Float']>;
   edition_id?: Maybe<Scalars['Float']>;
   event_index?: Maybe<Scalars['Float']>;
+  hidden_in_packs_count?: Maybe<Scalars['Float']>;
   max_list_price?: Maybe<Scalars['Float']>;
   max_mint_size?: Maybe<Scalars['Float']>;
   min_list_price?: Maybe<Scalars['Float']>;
@@ -1673,6 +1838,7 @@ export type Nfl_All_Day_Editions_Variance_Fields = {
   series_id?: Maybe<Scalars['Float']>;
   set_id?: Maybe<Scalars['Float']>;
   transaction_index?: Maybe<Scalars['Float']>;
+  unavailable_count?: Maybe<Scalars['Float']>;
 };
 
 /** columns and relationships of "nfl_all_day_listings" */
@@ -1692,6 +1858,7 @@ export type Nfl_All_Day_Listings = {
   transaction_index: Scalars['Int'];
   vault_type: Scalars['String'];
 };
+
 
 /** columns and relationships of "nfl_all_day_listings" */
 export type Nfl_All_Day_ListingsPaymentsArgs = {
@@ -1718,6 +1885,7 @@ export type Nfl_All_Day_Listings_Aggregate_Fields = {
   var_samp?: Maybe<Nfl_All_Day_Listings_Var_Samp_Fields>;
   variance?: Maybe<Nfl_All_Day_Listings_Variance_Fields>;
 };
+
 
 /** aggregate fields of "nfl_all_day_listings" */
 export type Nfl_All_Day_Listings_Aggregate_FieldsCountArgs = {
@@ -2072,6 +2240,7 @@ export type Nfl_All_Day_Moment_Transfers_Aggregate_Fields = {
   variance?: Maybe<Nfl_All_Day_Moment_Transfers_Variance_Fields>;
 };
 
+
 /** aggregate fields of "nfl_all_day_moment_transfers" */
 export type Nfl_All_Day_Moment_Transfers_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Nfl_All_Day_Moment_Transfers_Select_Column>>;
@@ -2329,6 +2498,7 @@ export type Nfl_All_Day_Moments_Aggregate_Fields = {
   var_samp?: Maybe<Nfl_All_Day_Moments_Var_Samp_Fields>;
   variance?: Maybe<Nfl_All_Day_Moments_Variance_Fields>;
 };
+
 
 /** aggregate fields of "nfl_all_day_moments" */
 export type Nfl_All_Day_Moments_Aggregate_FieldsCountArgs = {
@@ -2947,6 +3117,7 @@ export type Nfl_All_Day_Pack_Moments_Aggregate_Fields = {
   variance?: Maybe<Nfl_All_Day_Pack_Moments_Variance_Fields>;
 };
 
+
 /** aggregate fields of "nfl_all_day_pack_moments" */
 export type Nfl_All_Day_Pack_Moments_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Nfl_All_Day_Pack_Moments_Select_Column>>;
@@ -3198,6 +3369,7 @@ export type Nfl_All_Day_Pack_Transfers_Aggregate_Fields = {
   variance?: Maybe<Nfl_All_Day_Pack_Transfers_Variance_Fields>;
 };
 
+
 /** aggregate fields of "nfl_all_day_pack_transfers" */
 export type Nfl_All_Day_Pack_Transfers_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Nfl_All_Day_Pack_Transfers_Select_Column>>;
@@ -3448,6 +3620,7 @@ export type Nfl_All_Day_Packs_Aggregate_Fields = {
   var_samp?: Maybe<Nfl_All_Day_Packs_Var_Samp_Fields>;
   variance?: Maybe<Nfl_All_Day_Packs_Variance_Fields>;
 };
+
 
 /** aggregate fields of "nfl_all_day_packs" */
 export type Nfl_All_Day_Packs_Aggregate_FieldsCountArgs = {
@@ -3782,6 +3955,7 @@ export type Nfl_All_Day_Plays_Aggregate_Fields = {
   var_samp?: Maybe<Nfl_All_Day_Plays_Var_Samp_Fields>;
   variance?: Maybe<Nfl_All_Day_Plays_Variance_Fields>;
 };
+
 
 /** aggregate fields of "nfl_all_day_plays" */
 export type Nfl_All_Day_Plays_Aggregate_FieldsCountArgs = {
@@ -4174,6 +4348,7 @@ export type Nfl_All_Day_Purchases = {
   vault_type: Scalars['String'];
 };
 
+
 /** columns and relationships of "nfl_all_day_purchases" */
 export type Nfl_All_Day_PurchasesCutsArgs = {
   path?: InputMaybe<Scalars['String']>;
@@ -4199,6 +4374,7 @@ export type Nfl_All_Day_Purchases_Aggregate_Fields = {
   var_samp?: Maybe<Nfl_All_Day_Purchases_Var_Samp_Fields>;
   variance?: Maybe<Nfl_All_Day_Purchases_Variance_Fields>;
 };
+
 
 /** aggregate fields of "nfl_all_day_purchases" */
 export type Nfl_All_Day_Purchases_Aggregate_FieldsCountArgs = {
@@ -4544,6 +4720,7 @@ export type Nfl_All_Day_Series_Aggregate_Fields = {
   variance?: Maybe<Nfl_All_Day_Series_Variance_Fields>;
 };
 
+
 /** aggregate fields of "nfl_all_day_series" */
 export type Nfl_All_Day_Series_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Nfl_All_Day_Series_Select_Column>>;
@@ -4802,6 +4979,7 @@ export type Nfl_All_Day_Sets_Aggregate_Fields = {
   variance?: Maybe<Nfl_All_Day_Sets_Variance_Fields>;
 };
 
+
 /** aggregate fields of "nfl_all_day_sets" */
 export type Nfl_All_Day_Sets_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Nfl_All_Day_Sets_Select_Column>>;
@@ -5047,6 +5225,7 @@ export type Nfl_All_Day_Taxonomies_Aggregate_Fields = {
   variance?: Maybe<Nfl_All_Day_Taxonomies_Variance_Fields>;
 };
 
+
 /** aggregate fields of "nfl_all_day_taxonomies" */
 export type Nfl_All_Day_Taxonomies_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Nfl_All_Day_Taxonomies_Select_Column>>;
@@ -5174,10 +5353,12 @@ export type Nft = {
   updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
+
 /** columns and relationships of "nft" */
 export type NftDataArgs = {
   path?: InputMaybe<Scalars['String']>;
 };
+
 
 /** columns and relationships of "nft" */
 export type NftNft_FavoritesArgs = {
@@ -5188,6 +5369,7 @@ export type NftNft_FavoritesArgs = {
   where?: InputMaybe<Nft_Favorites_Bool_Exp>;
 };
 
+
 /** columns and relationships of "nft" */
 export type NftNft_Favorites_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
@@ -5197,6 +5379,7 @@ export type NftNft_Favorites_AggregateArgs = {
   where?: InputMaybe<Nft_Favorites_Bool_Exp>;
 };
 
+
 /** columns and relationships of "nft" */
 export type NftSale_OffersArgs = {
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Select_Column>>;
@@ -5205,6 +5388,7 @@ export type NftSale_OffersArgs = {
   order_by?: InputMaybe<Array<Nft_Sale_Offer_Order_By>>;
   where?: InputMaybe<Nft_Sale_Offer_Bool_Exp>;
 };
+
 
 /** columns and relationships of "nft" */
 export type NftSale_Offers_AggregateArgs = {
@@ -5235,6 +5419,7 @@ export type Nft_Aggregate_Fields = {
   var_samp?: Maybe<Nft_Var_Samp_Fields>;
   variance?: Maybe<Nft_Variance_Fields>;
 };
+
 
 /** aggregate fields of "nft" */
 export type Nft_Aggregate_FieldsCountArgs = {
@@ -5327,10 +5512,12 @@ export type Nft_Collection = {
   website?: Maybe<Scalars['String']>;
 };
 
+
 /** columns and relationships of "nft_collection" */
 export type Nft_CollectionAllowed_AccountsArgs = {
   path?: InputMaybe<Scalars['String']>;
 };
+
 
 /** columns and relationships of "nft_collection" */
 export type Nft_CollectionNftsArgs = {
@@ -5341,6 +5528,7 @@ export type Nft_CollectionNftsArgs = {
   where?: InputMaybe<Nft_Bool_Exp>;
 };
 
+
 /** columns and relationships of "nft_collection" */
 export type Nft_CollectionNfts_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Select_Column>>;
@@ -5350,6 +5538,7 @@ export type Nft_CollectionNfts_AggregateArgs = {
   where?: InputMaybe<Nft_Bool_Exp>;
 };
 
+
 /** columns and relationships of "nft_collection" */
 export type Nft_CollectionTemplatesArgs = {
   distinct_on?: InputMaybe<Array<Nft_Template_Select_Column>>;
@@ -5358,6 +5547,7 @@ export type Nft_CollectionTemplatesArgs = {
   order_by?: InputMaybe<Array<Nft_Template_Order_By>>;
   where?: InputMaybe<Nft_Template_Bool_Exp>;
 };
+
 
 /** columns and relationships of "nft_collection" */
 export type Nft_CollectionTemplates_AggregateArgs = {
@@ -5388,6 +5578,7 @@ export type Nft_Collection_Aggregate_Fields = {
   var_samp?: Maybe<Nft_Collection_Var_Samp_Fields>;
   variance?: Maybe<Nft_Collection_Variance_Fields>;
 };
+
 
 /** aggregate fields of "nft_collection" */
 export type Nft_Collection_Aggregate_FieldsCountArgs = {
@@ -5715,6 +5906,7 @@ export type Nft_Drops_Aggregate_Fields = {
   variance?: Maybe<Nft_Drops_Variance_Fields>;
 };
 
+
 /** aggregate fields of "nft_drops" */
 export type Nft_Drops_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Nft_Drops_Select_Column>>;
@@ -6001,6 +6193,7 @@ export type Nft_Favorites_Aggregate_Fields = {
   max?: Maybe<Nft_Favorites_Max_Fields>;
   min?: Maybe<Nft_Favorites_Min_Fields>;
 };
+
 
 /** aggregate fields of "nft_favorites" */
 export type Nft_Favorites_Aggregate_FieldsCountArgs = {
@@ -6305,6 +6498,7 @@ export type Nft_Sale_Offer_Aggregate_Fields = {
   variance?: Maybe<Nft_Sale_Offer_Variance_Fields>;
 };
 
+
 /** aggregate fields of "nft_sale_offer" */
 export type Nft_Sale_Offer_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Nft_Sale_Offer_Select_Column>>;
@@ -6393,6 +6587,7 @@ export type Nft_Sale_Offer_Cut_Aggregate_Fields = {
   max?: Maybe<Nft_Sale_Offer_Cut_Max_Fields>;
   min?: Maybe<Nft_Sale_Offer_Cut_Min_Fields>;
 };
+
 
 /** aggregate fields of "nft_sale_offer_cut" */
 export type Nft_Sale_Offer_Cut_Aggregate_FieldsCountArgs = {
@@ -6903,10 +7098,12 @@ export type Nft_Template = {
   updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
+
 /** columns and relationships of "nft_template" */
 export type Nft_TemplateMetadataArgs = {
   path?: InputMaybe<Scalars['String']>;
 };
+
 
 /** columns and relationships of "nft_template" */
 export type Nft_TemplateNftsArgs = {
@@ -6916,6 +7113,7 @@ export type Nft_TemplateNftsArgs = {
   order_by?: InputMaybe<Array<Nft_Order_By>>;
   where?: InputMaybe<Nft_Bool_Exp>;
 };
+
 
 /** columns and relationships of "nft_template" */
 export type Nft_TemplateNfts_AggregateArgs = {
@@ -6946,6 +7144,7 @@ export type Nft_Template_Aggregate_Fields = {
   var_samp?: Maybe<Nft_Template_Var_Samp_Fields>;
   variance?: Maybe<Nft_Template_Variance_Fields>;
 };
+
 
 /** aggregate fields of "nft_template" */
 export type Nft_Template_Aggregate_FieldsCountArgs = {
@@ -7372,6 +7571,7 @@ export type Notifications_Aggregate_Fields = {
   min?: Maybe<Notifications_Min_Fields>;
 };
 
+
 /** aggregate fields of "notifications" */
 export type Notifications_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Notifications_Select_Column>>;
@@ -7521,6 +7721,7 @@ export type Notifications_Types_Aggregate_Fields = {
   max?: Maybe<Notifications_Types_Max_Fields>;
   min?: Maybe<Notifications_Types_Min_Fields>;
 };
+
 
 /** aggregate fields of "notifications_types" */
 export type Notifications_Types_Aggregate_FieldsCountArgs = {
@@ -7790,6 +7991,7 @@ export type Query_Root = {
   random_sale_offer_aggregate: Nft_Sale_Offer_Aggregate;
 };
 
+
 export type Query_RootNfl_All_Day_EditionsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Editions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7797,6 +7999,7 @@ export type Query_RootNfl_All_Day_EditionsArgs = {
   order_by?: InputMaybe<Array<Nfl_All_Day_Editions_Order_By>>;
   where?: InputMaybe<Nfl_All_Day_Editions_Bool_Exp>;
 };
+
 
 export type Query_RootNfl_All_Day_Editions_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Editions_Select_Column>>;
@@ -7806,9 +8009,11 @@ export type Query_RootNfl_All_Day_Editions_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Editions_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Editions_By_PkArgs = {
   edition_id: Scalars['bigint'];
 };
+
 
 export type Query_RootNfl_All_Day_ListingsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Listings_Select_Column>>;
@@ -7818,6 +8023,7 @@ export type Query_RootNfl_All_Day_ListingsArgs = {
   where?: InputMaybe<Nfl_All_Day_Listings_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Listings_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Listings_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7826,10 +8032,12 @@ export type Query_RootNfl_All_Day_Listings_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Listings_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Listings_By_PkArgs = {
   order_address: Scalars['String'];
   order_id: Scalars['bigint'];
 };
+
 
 export type Query_RootNfl_All_Day_Moment_TransfersArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Moment_Transfers_Select_Column>>;
@@ -7839,6 +8047,7 @@ export type Query_RootNfl_All_Day_Moment_TransfersArgs = {
   where?: InputMaybe<Nfl_All_Day_Moment_Transfers_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Moment_Transfers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Moment_Transfers_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7847,12 +8056,14 @@ export type Query_RootNfl_All_Day_Moment_Transfers_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Moment_Transfers_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Moment_Transfers_By_PkArgs = {
   block_height: Scalars['bigint'];
   event_index: Scalars['Int'];
   moment_id: Scalars['bigint'];
   transaction_index: Scalars['Int'];
 };
+
 
 export type Query_RootNfl_All_Day_MomentsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Moments_Select_Column>>;
@@ -7862,6 +8073,7 @@ export type Query_RootNfl_All_Day_MomentsArgs = {
   where?: InputMaybe<Nfl_All_Day_Moments_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Moments_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Moments_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7870,9 +8082,11 @@ export type Query_RootNfl_All_Day_Moments_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Moments_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Moments_By_PkArgs = {
   moment_id: Scalars['bigint'];
 };
+
 
 export type Query_RootNfl_All_Day_Pack_MomentsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Pack_Moments_Select_Column>>;
@@ -7882,6 +8096,7 @@ export type Query_RootNfl_All_Day_Pack_MomentsArgs = {
   where?: InputMaybe<Nfl_All_Day_Pack_Moments_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Pack_Moments_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Pack_Moments_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7890,10 +8105,12 @@ export type Query_RootNfl_All_Day_Pack_Moments_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Pack_Moments_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Pack_Moments_By_PkArgs = {
   moment_id: Scalars['bigint'];
   pack_id: Scalars['bigint'];
 };
+
 
 export type Query_RootNfl_All_Day_Pack_TransfersArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Pack_Transfers_Select_Column>>;
@@ -7903,6 +8120,7 @@ export type Query_RootNfl_All_Day_Pack_TransfersArgs = {
   where?: InputMaybe<Nfl_All_Day_Pack_Transfers_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Pack_Transfers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Pack_Transfers_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7911,12 +8129,14 @@ export type Query_RootNfl_All_Day_Pack_Transfers_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Pack_Transfers_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Pack_Transfers_By_PkArgs = {
   block_height: Scalars['bigint'];
   event_index: Scalars['Int'];
   pack_id: Scalars['bigint'];
   transaction_index: Scalars['Int'];
 };
+
 
 export type Query_RootNfl_All_Day_PacksArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Packs_Select_Column>>;
@@ -7926,6 +8146,7 @@ export type Query_RootNfl_All_Day_PacksArgs = {
   where?: InputMaybe<Nfl_All_Day_Packs_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Packs_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Packs_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7934,9 +8155,11 @@ export type Query_RootNfl_All_Day_Packs_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Packs_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Packs_By_PkArgs = {
   pack_id: Scalars['bigint'];
 };
+
 
 export type Query_RootNfl_All_Day_PlaysArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Plays_Select_Column>>;
@@ -7946,6 +8169,7 @@ export type Query_RootNfl_All_Day_PlaysArgs = {
   where?: InputMaybe<Nfl_All_Day_Plays_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Plays_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Plays_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7954,9 +8178,11 @@ export type Query_RootNfl_All_Day_Plays_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Plays_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Plays_By_PkArgs = {
   play_id: Scalars['bigint'];
 };
+
 
 export type Query_RootNfl_All_Day_PurchasesArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Purchases_Select_Column>>;
@@ -7966,6 +8192,7 @@ export type Query_RootNfl_All_Day_PurchasesArgs = {
   where?: InputMaybe<Nfl_All_Day_Purchases_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Purchases_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Purchases_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7974,10 +8201,12 @@ export type Query_RootNfl_All_Day_Purchases_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Purchases_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Purchases_By_PkArgs = {
   order_address: Scalars['String'];
   order_id: Scalars['bigint'];
 };
+
 
 export type Query_RootNfl_All_Day_SeriesArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Series_Select_Column>>;
@@ -7987,6 +8216,7 @@ export type Query_RootNfl_All_Day_SeriesArgs = {
   where?: InputMaybe<Nfl_All_Day_Series_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Series_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Series_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7995,9 +8225,11 @@ export type Query_RootNfl_All_Day_Series_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Series_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Series_By_PkArgs = {
   series_id: Scalars['bigint'];
 };
+
 
 export type Query_RootNfl_All_Day_SetsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Sets_Select_Column>>;
@@ -8007,6 +8239,7 @@ export type Query_RootNfl_All_Day_SetsArgs = {
   where?: InputMaybe<Nfl_All_Day_Sets_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Sets_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Sets_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8015,9 +8248,11 @@ export type Query_RootNfl_All_Day_Sets_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Sets_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Sets_By_PkArgs = {
   set_id: Scalars['bigint'];
 };
+
 
 export type Query_RootNfl_All_Day_TaxonomiesArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Taxonomies_Select_Column>>;
@@ -8027,6 +8262,7 @@ export type Query_RootNfl_All_Day_TaxonomiesArgs = {
   where?: InputMaybe<Nfl_All_Day_Taxonomies_Bool_Exp>;
 };
 
+
 export type Query_RootNfl_All_Day_Taxonomies_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Taxonomies_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8034,6 +8270,7 @@ export type Query_RootNfl_All_Day_Taxonomies_AggregateArgs = {
   order_by?: InputMaybe<Array<Nfl_All_Day_Taxonomies_Order_By>>;
   where?: InputMaybe<Nfl_All_Day_Taxonomies_Bool_Exp>;
 };
+
 
 export type Query_RootNftArgs = {
   distinct_on?: InputMaybe<Array<Nft_Select_Column>>;
@@ -8043,6 +8280,7 @@ export type Query_RootNftArgs = {
   where?: InputMaybe<Nft_Bool_Exp>;
 };
 
+
 export type Query_RootNft_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8051,9 +8289,11 @@ export type Query_RootNft_AggregateArgs = {
   where?: InputMaybe<Nft_Bool_Exp>;
 };
 
+
 export type Query_RootNft_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Query_RootNft_CollectionArgs = {
   distinct_on?: InputMaybe<Array<Nft_Collection_Select_Column>>;
@@ -8063,6 +8303,7 @@ export type Query_RootNft_CollectionArgs = {
   where?: InputMaybe<Nft_Collection_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Collection_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Collection_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8071,9 +8312,11 @@ export type Query_RootNft_Collection_AggregateArgs = {
   where?: InputMaybe<Nft_Collection_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Collection_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Query_RootNft_DropsArgs = {
   distinct_on?: InputMaybe<Array<Nft_Drops_Select_Column>>;
@@ -8083,6 +8326,7 @@ export type Query_RootNft_DropsArgs = {
   where?: InputMaybe<Nft_Drops_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Drops_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Drops_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8091,9 +8335,11 @@ export type Query_RootNft_Drops_AggregateArgs = {
   where?: InputMaybe<Nft_Drops_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Drops_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Query_RootNft_FavoritesArgs = {
   distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
@@ -8103,6 +8349,7 @@ export type Query_RootNft_FavoritesArgs = {
   where?: InputMaybe<Nft_Favorites_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Favorites_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8111,9 +8358,11 @@ export type Query_RootNft_Favorites_AggregateArgs = {
   where?: InputMaybe<Nft_Favorites_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Favorites_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Query_RootNft_Sale_OfferArgs = {
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Select_Column>>;
@@ -8123,6 +8372,7 @@ export type Query_RootNft_Sale_OfferArgs = {
   where?: InputMaybe<Nft_Sale_Offer_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Sale_Offer_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8131,9 +8381,11 @@ export type Query_RootNft_Sale_Offer_AggregateArgs = {
   where?: InputMaybe<Nft_Sale_Offer_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Sale_Offer_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Query_RootNft_Sale_Offer_CutArgs = {
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Cut_Select_Column>>;
@@ -8143,6 +8395,7 @@ export type Query_RootNft_Sale_Offer_CutArgs = {
   where?: InputMaybe<Nft_Sale_Offer_Cut_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Sale_Offer_Cut_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Cut_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8151,9 +8404,11 @@ export type Query_RootNft_Sale_Offer_Cut_AggregateArgs = {
   where?: InputMaybe<Nft_Sale_Offer_Cut_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Sale_Offer_Cut_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Query_RootNft_TemplateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Template_Select_Column>>;
@@ -8163,6 +8418,7 @@ export type Query_RootNft_TemplateArgs = {
   where?: InputMaybe<Nft_Template_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Template_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Template_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8171,9 +8427,11 @@ export type Query_RootNft_Template_AggregateArgs = {
   where?: InputMaybe<Nft_Template_Bool_Exp>;
 };
 
+
 export type Query_RootNft_Template_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Query_RootNotificationsArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
@@ -8183,6 +8441,7 @@ export type Query_RootNotificationsArgs = {
   where?: InputMaybe<Notifications_Bool_Exp>;
 };
 
+
 export type Query_RootNotifications_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8191,9 +8450,11 @@ export type Query_RootNotifications_AggregateArgs = {
   where?: InputMaybe<Notifications_Bool_Exp>;
 };
 
+
 export type Query_RootNotifications_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Query_RootNotifications_TypesArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Types_Select_Column>>;
@@ -8203,6 +8464,7 @@ export type Query_RootNotifications_TypesArgs = {
   where?: InputMaybe<Notifications_Types_Bool_Exp>;
 };
 
+
 export type Query_RootNotifications_Types_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Types_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8211,9 +8473,11 @@ export type Query_RootNotifications_Types_AggregateArgs = {
   where?: InputMaybe<Notifications_Types_Bool_Exp>;
 };
 
+
 export type Query_RootNotifications_Types_By_PkArgs = {
   type: Scalars['String'];
 };
+
 
 export type Query_RootRandom_Sale_OfferArgs = {
   args: Random_Sale_Offer_Args;
@@ -8223,6 +8487,7 @@ export type Query_RootRandom_Sale_OfferArgs = {
   order_by?: InputMaybe<Array<Nft_Sale_Offer_Order_By>>;
   where?: InputMaybe<Nft_Sale_Offer_Bool_Exp>;
 };
+
 
 export type Query_RootRandom_Sale_Offer_AggregateArgs = {
   args: Random_Sale_Offer_Args;
@@ -8369,6 +8634,7 @@ export type Subscription_Root = {
   random_sale_offer_aggregate: Nft_Sale_Offer_Aggregate;
 };
 
+
 export type Subscription_RootNfl_All_Day_EditionsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Editions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8376,6 +8642,7 @@ export type Subscription_RootNfl_All_Day_EditionsArgs = {
   order_by?: InputMaybe<Array<Nfl_All_Day_Editions_Order_By>>;
   where?: InputMaybe<Nfl_All_Day_Editions_Bool_Exp>;
 };
+
 
 export type Subscription_RootNfl_All_Day_Editions_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Editions_Select_Column>>;
@@ -8385,9 +8652,11 @@ export type Subscription_RootNfl_All_Day_Editions_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Editions_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Editions_By_PkArgs = {
   edition_id: Scalars['bigint'];
 };
+
 
 export type Subscription_RootNfl_All_Day_ListingsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Listings_Select_Column>>;
@@ -8397,6 +8666,7 @@ export type Subscription_RootNfl_All_Day_ListingsArgs = {
   where?: InputMaybe<Nfl_All_Day_Listings_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Listings_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Listings_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8405,10 +8675,12 @@ export type Subscription_RootNfl_All_Day_Listings_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Listings_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Listings_By_PkArgs = {
   order_address: Scalars['String'];
   order_id: Scalars['bigint'];
 };
+
 
 export type Subscription_RootNfl_All_Day_Moment_TransfersArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Moment_Transfers_Select_Column>>;
@@ -8418,6 +8690,7 @@ export type Subscription_RootNfl_All_Day_Moment_TransfersArgs = {
   where?: InputMaybe<Nfl_All_Day_Moment_Transfers_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Moment_Transfers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Moment_Transfers_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8426,12 +8699,14 @@ export type Subscription_RootNfl_All_Day_Moment_Transfers_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Moment_Transfers_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Moment_Transfers_By_PkArgs = {
   block_height: Scalars['bigint'];
   event_index: Scalars['Int'];
   moment_id: Scalars['bigint'];
   transaction_index: Scalars['Int'];
 };
+
 
 export type Subscription_RootNfl_All_Day_MomentsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Moments_Select_Column>>;
@@ -8441,6 +8716,7 @@ export type Subscription_RootNfl_All_Day_MomentsArgs = {
   where?: InputMaybe<Nfl_All_Day_Moments_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Moments_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Moments_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8449,9 +8725,11 @@ export type Subscription_RootNfl_All_Day_Moments_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Moments_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Moments_By_PkArgs = {
   moment_id: Scalars['bigint'];
 };
+
 
 export type Subscription_RootNfl_All_Day_Pack_MomentsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Pack_Moments_Select_Column>>;
@@ -8461,6 +8739,7 @@ export type Subscription_RootNfl_All_Day_Pack_MomentsArgs = {
   where?: InputMaybe<Nfl_All_Day_Pack_Moments_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Pack_Moments_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Pack_Moments_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8469,10 +8748,12 @@ export type Subscription_RootNfl_All_Day_Pack_Moments_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Pack_Moments_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Pack_Moments_By_PkArgs = {
   moment_id: Scalars['bigint'];
   pack_id: Scalars['bigint'];
 };
+
 
 export type Subscription_RootNfl_All_Day_Pack_TransfersArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Pack_Transfers_Select_Column>>;
@@ -8482,6 +8763,7 @@ export type Subscription_RootNfl_All_Day_Pack_TransfersArgs = {
   where?: InputMaybe<Nfl_All_Day_Pack_Transfers_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Pack_Transfers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Pack_Transfers_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8490,12 +8772,14 @@ export type Subscription_RootNfl_All_Day_Pack_Transfers_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Pack_Transfers_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Pack_Transfers_By_PkArgs = {
   block_height: Scalars['bigint'];
   event_index: Scalars['Int'];
   pack_id: Scalars['bigint'];
   transaction_index: Scalars['Int'];
 };
+
 
 export type Subscription_RootNfl_All_Day_PacksArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Packs_Select_Column>>;
@@ -8505,6 +8789,7 @@ export type Subscription_RootNfl_All_Day_PacksArgs = {
   where?: InputMaybe<Nfl_All_Day_Packs_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Packs_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Packs_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8513,9 +8798,11 @@ export type Subscription_RootNfl_All_Day_Packs_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Packs_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Packs_By_PkArgs = {
   pack_id: Scalars['bigint'];
 };
+
 
 export type Subscription_RootNfl_All_Day_PlaysArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Plays_Select_Column>>;
@@ -8525,6 +8812,7 @@ export type Subscription_RootNfl_All_Day_PlaysArgs = {
   where?: InputMaybe<Nfl_All_Day_Plays_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Plays_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Plays_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8533,9 +8821,11 @@ export type Subscription_RootNfl_All_Day_Plays_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Plays_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Plays_By_PkArgs = {
   play_id: Scalars['bigint'];
 };
+
 
 export type Subscription_RootNfl_All_Day_PurchasesArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Purchases_Select_Column>>;
@@ -8545,6 +8835,7 @@ export type Subscription_RootNfl_All_Day_PurchasesArgs = {
   where?: InputMaybe<Nfl_All_Day_Purchases_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Purchases_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Purchases_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8553,10 +8844,12 @@ export type Subscription_RootNfl_All_Day_Purchases_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Purchases_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Purchases_By_PkArgs = {
   order_address: Scalars['String'];
   order_id: Scalars['bigint'];
 };
+
 
 export type Subscription_RootNfl_All_Day_SeriesArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Series_Select_Column>>;
@@ -8566,6 +8859,7 @@ export type Subscription_RootNfl_All_Day_SeriesArgs = {
   where?: InputMaybe<Nfl_All_Day_Series_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Series_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Series_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8574,9 +8868,11 @@ export type Subscription_RootNfl_All_Day_Series_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Series_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Series_By_PkArgs = {
   series_id: Scalars['bigint'];
 };
+
 
 export type Subscription_RootNfl_All_Day_SetsArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Sets_Select_Column>>;
@@ -8586,6 +8882,7 @@ export type Subscription_RootNfl_All_Day_SetsArgs = {
   where?: InputMaybe<Nfl_All_Day_Sets_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Sets_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Sets_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8594,9 +8891,11 @@ export type Subscription_RootNfl_All_Day_Sets_AggregateArgs = {
   where?: InputMaybe<Nfl_All_Day_Sets_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Sets_By_PkArgs = {
   set_id: Scalars['bigint'];
 };
+
 
 export type Subscription_RootNfl_All_Day_TaxonomiesArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Taxonomies_Select_Column>>;
@@ -8606,6 +8905,7 @@ export type Subscription_RootNfl_All_Day_TaxonomiesArgs = {
   where?: InputMaybe<Nfl_All_Day_Taxonomies_Bool_Exp>;
 };
 
+
 export type Subscription_RootNfl_All_Day_Taxonomies_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nfl_All_Day_Taxonomies_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8613,6 +8913,7 @@ export type Subscription_RootNfl_All_Day_Taxonomies_AggregateArgs = {
   order_by?: InputMaybe<Array<Nfl_All_Day_Taxonomies_Order_By>>;
   where?: InputMaybe<Nfl_All_Day_Taxonomies_Bool_Exp>;
 };
+
 
 export type Subscription_RootNftArgs = {
   distinct_on?: InputMaybe<Array<Nft_Select_Column>>;
@@ -8622,6 +8923,7 @@ export type Subscription_RootNftArgs = {
   where?: InputMaybe<Nft_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8630,9 +8932,11 @@ export type Subscription_RootNft_AggregateArgs = {
   where?: InputMaybe<Nft_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Subscription_RootNft_CollectionArgs = {
   distinct_on?: InputMaybe<Array<Nft_Collection_Select_Column>>;
@@ -8642,6 +8946,7 @@ export type Subscription_RootNft_CollectionArgs = {
   where?: InputMaybe<Nft_Collection_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Collection_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Collection_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8650,9 +8955,11 @@ export type Subscription_RootNft_Collection_AggregateArgs = {
   where?: InputMaybe<Nft_Collection_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Collection_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Subscription_RootNft_DropsArgs = {
   distinct_on?: InputMaybe<Array<Nft_Drops_Select_Column>>;
@@ -8662,6 +8969,7 @@ export type Subscription_RootNft_DropsArgs = {
   where?: InputMaybe<Nft_Drops_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Drops_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Drops_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8670,9 +8978,11 @@ export type Subscription_RootNft_Drops_AggregateArgs = {
   where?: InputMaybe<Nft_Drops_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Drops_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Subscription_RootNft_FavoritesArgs = {
   distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
@@ -8682,6 +8992,7 @@ export type Subscription_RootNft_FavoritesArgs = {
   where?: InputMaybe<Nft_Favorites_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Favorites_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Favorites_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8690,9 +9001,11 @@ export type Subscription_RootNft_Favorites_AggregateArgs = {
   where?: InputMaybe<Nft_Favorites_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Favorites_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Subscription_RootNft_Sale_OfferArgs = {
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Select_Column>>;
@@ -8702,6 +9015,7 @@ export type Subscription_RootNft_Sale_OfferArgs = {
   where?: InputMaybe<Nft_Sale_Offer_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Sale_Offer_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8710,9 +9024,11 @@ export type Subscription_RootNft_Sale_Offer_AggregateArgs = {
   where?: InputMaybe<Nft_Sale_Offer_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Sale_Offer_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Subscription_RootNft_Sale_Offer_CutArgs = {
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Cut_Select_Column>>;
@@ -8722,6 +9038,7 @@ export type Subscription_RootNft_Sale_Offer_CutArgs = {
   where?: InputMaybe<Nft_Sale_Offer_Cut_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Sale_Offer_Cut_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Cut_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8730,9 +9047,11 @@ export type Subscription_RootNft_Sale_Offer_Cut_AggregateArgs = {
   where?: InputMaybe<Nft_Sale_Offer_Cut_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Sale_Offer_Cut_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Subscription_RootNft_TemplateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Template_Select_Column>>;
@@ -8742,6 +9061,7 @@ export type Subscription_RootNft_TemplateArgs = {
   where?: InputMaybe<Nft_Template_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Template_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Nft_Template_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8750,9 +9070,11 @@ export type Subscription_RootNft_Template_AggregateArgs = {
   where?: InputMaybe<Nft_Template_Bool_Exp>;
 };
 
+
 export type Subscription_RootNft_Template_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Subscription_RootNotificationsArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
@@ -8762,6 +9084,7 @@ export type Subscription_RootNotificationsArgs = {
   where?: InputMaybe<Notifications_Bool_Exp>;
 };
 
+
 export type Subscription_RootNotifications_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8770,9 +9093,11 @@ export type Subscription_RootNotifications_AggregateArgs = {
   where?: InputMaybe<Notifications_Bool_Exp>;
 };
 
+
 export type Subscription_RootNotifications_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 export type Subscription_RootNotifications_TypesArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Types_Select_Column>>;
@@ -8782,6 +9107,7 @@ export type Subscription_RootNotifications_TypesArgs = {
   where?: InputMaybe<Notifications_Types_Bool_Exp>;
 };
 
+
 export type Subscription_RootNotifications_Types_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Types_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8790,9 +9116,11 @@ export type Subscription_RootNotifications_Types_AggregateArgs = {
   where?: InputMaybe<Notifications_Types_Bool_Exp>;
 };
 
+
 export type Subscription_RootNotifications_Types_By_PkArgs = {
   type: Scalars['String'];
 };
+
 
 export type Subscription_RootRandom_Sale_OfferArgs = {
   args: Random_Sale_Offer_Args;
@@ -8802,6 +9130,7 @@ export type Subscription_RootRandom_Sale_OfferArgs = {
   order_by?: InputMaybe<Array<Nft_Sale_Offer_Order_By>>;
   where?: InputMaybe<Nft_Sale_Offer_Bool_Exp>;
 };
+
 
 export type Subscription_RootRandom_Sale_Offer_AggregateArgs = {
   args: Random_Sale_Offer_Args;
@@ -8856,110 +9185,37 @@ export type AddFavoriteMutationVariables = Exact<{
   address?: InputMaybe<Scalars['String']>;
 }>;
 
-export type AddFavoriteMutation = {
-  insert_nft_favorites?:
-    | { returning: Array<{ id: any; nft_id: any; wallet_address: string }> }
-    | null
-    | undefined;
-};
+
+export type AddFavoriteMutation = { insert_nft_favorites?: { returning: Array<{ id: any, nft_id: any, wallet_address: string }> } | null | undefined };
 
 export type RemoveFavoriteMutationVariables = Exact<{
   id?: InputMaybe<Scalars['uuid']>;
 }>;
 
-export type RemoveFavoriteMutation = {
-  delete_nft_favorites?: { returning: Array<{ id: any }> } | null | undefined;
-};
+
+export type RemoveFavoriteMutation = { delete_nft_favorites?: { returning: Array<{ id: any }> } | null | undefined };
 
 export type GetCollectionByIdQueryVariables = Exact<{
   id: Scalars['uuid'];
 }>;
 
-export type GetCollectionByIdQuery = {
-  nft_collection: Array<{
-    id: any;
-    image: string;
-    author: string;
-    description: string;
-    name: string;
-  }>;
-};
+
+export type GetCollectionByIdQuery = { nft_collection: Array<{ id: any, image: string, author: string, description: string, name: string }> };
 
 export type GetNftByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['jsonb']>;
   collection_id: Scalars['uuid'];
 }>;
 
-export type GetNftByIdQuery = {
-  nft: Array<{
-    id: any;
-    asset_id: any;
-    is_for_sale: boolean;
-    collection_id?: any | null | undefined;
-    created_at?: any | null | undefined;
-    updated_at?: any | null | undefined;
-    minted_at?: any | null | undefined;
-    mint_number?: any | null | undefined;
-    has_sale_offers?: boolean | null | undefined;
-    transaction_status?: boolean | null | undefined;
-    owner: string;
-    collection?:
-      | {
-          collection_id?: any | null | undefined;
-          name: string;
-          market_fee: any;
-          image: string;
-          description: string;
-          author: string;
-        }
-      | null
-      | undefined;
-    template?: { metadata?: any | null | undefined } | null | undefined;
-    sale_offers: Array<{
-      listing_resource_id: any;
-      price: string;
-      status: string;
-      updated_at: any;
-    }>;
-  }>;
-};
+
+export type GetNftByIdQuery = { nft: Array<{ id: any, asset_id: any, is_for_sale: boolean, collection_id?: any | null | undefined, created_at?: any | null | undefined, updated_at?: any | null | undefined, minted_at?: any | null | undefined, mint_number?: any | null | undefined, has_sale_offers?: boolean | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> }> };
 
 export type GetNflEditionByIdQueryVariables = Exact<{
   _eq: Scalars['bigint'];
 }>;
 
-export type GetNflEditionByIdQuery = {
-  nfl_all_day_moments_aggregate: { aggregate?: { count: number } | null | undefined };
-  nfl_all_day_editions: Array<{
-    edition_id: any;
-    max_mint_size?: number | null | undefined;
-    inserted_at: any;
-    number_of_active_listings?: number | null | undefined;
-    circulation_count?: number | null | undefined;
-    unavailable_count?: number | null | undefined;
-    hidden_in_packs_count?: number | null | undefined;
-    tier: string;
-    play?:
-      | {
-          player_full_name: string;
-          team_name: string;
-          game_date: any;
-          play_type: string;
-          player_position: string;
-          description?: string | null | undefined;
-          classification: string;
-          away_team_name: string;
-          away_team_score: string;
-          home_team_name: string;
-          home_team_score: string;
-          external_id: any;
-        }
-      | null
-      | undefined;
-    series?: { name: string; series_id: any } | null | undefined;
-    set?: { name: string; set_id: any } | null | undefined;
-  }>;
-};
+
+export type GetNflEditionByIdQuery = { nfl_all_day_moments_aggregate: { aggregate?: { count: number } | null | undefined }, nfl_all_day_editions: Array<{ edition_id: any, max_mint_size?: number | null | undefined, inserted_at: any, number_of_active_listings?: number | null | undefined, unavailable_count?: number | null | undefined, hidden_in_packs_count?: number | null | undefined, circulation_count?: number | null | undefined, tier: string, play?: { player_full_name: string, team_name: string, game_date: any, play_type: string, player_position: string, description?: string | null | undefined, classification: string, away_team_name: string, away_team_score: number, home_team_name: string, home_team_score: number, external_id?: string | null | undefined } | null | undefined, series?: { name: string, series_id: any } | null | undefined, set?: { name: string, set_id: any } | null | undefined }> };
 
 export type GetMomentsByEditionIdQueryVariables = Exact<{
   _eq: Scalars['bigint'];
@@ -8967,75 +9223,25 @@ export type GetMomentsByEditionIdQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
 
-export type GetMomentsByEditionIdQuery = {
-  nfl_all_day_moments: Array<{
-    transaction_index: number;
-    serial_number: number;
-    owner?: string | null | undefined;
-    moment_id: any;
-    inserted_at: any;
-    event_index: number;
-    edition_id: any;
-    created_at: any;
-    burned_at?: any | null | undefined;
-    block_height: any;
-    active_listing_vault_type?: string | null | undefined;
-    active_listing_transaction_index?: number | null | undefined;
-    active_listing_price?: any | null | undefined;
-    active_listing_order_id?: any | null | undefined;
-    active_listing_order_address?: string | null | undefined;
-    active_listing_event_index?: number | null | undefined;
-    active_listing_date?: any | null | undefined;
-    active_listing_block_height?: any | null | undefined;
-    acquired_at?: any | null | undefined;
-  }>;
-};
+
+export type GetMomentsByEditionIdQuery = { nfl_all_day_moments: Array<{ transaction_index: number, serial_number: number, owner?: string | null | undefined, moment_id: any, inserted_at: any, event_index: number, edition_id: any, created_at: any, burned_at?: any | null | undefined, block_height: any, active_listing_vault_type?: string | null | undefined, active_listing_transaction_index?: number | null | undefined, active_listing_price?: any | null | undefined, active_listing_order_id?: any | null | undefined, active_listing_order_address?: string | null | undefined, active_listing_event_index?: number | null | undefined, active_listing_date?: any | null | undefined, active_listing_block_height?: any | null | undefined, acquired_at?: any | null | undefined }> };
 
 export type GetNftByMintNumberQueryVariables = Exact<{
   filter?: InputMaybe<Nft_Bool_Exp>;
 }>;
 
-export type GetNftByMintNumberQuery = {
-  nft: Array<{
-    id: any;
-    asset_id: any;
-    mint_number?: any | null | undefined;
-    owner: string;
-    is_for_sale: boolean;
-    created_at?: any | null | undefined;
-    updated_at?: any | null | undefined;
-    minted_at?: any | null | undefined;
-    collection_id?: any | null | undefined;
-    transaction_status?: boolean | null | undefined;
-    has_sale_offers?: boolean | null | undefined;
-    collection?:
-      | {
-          collection_id?: any | null | undefined;
-          name: string;
-          market_fee: any;
-          image: string;
-          description: string;
-          author: string;
-        }
-      | null
-      | undefined;
-    sale_offers: Array<{
-      status: string;
-      price: string;
-      listing_resource_id: any;
-      updated_at: any;
-    }>;
-    template?: { metadata?: any | null | undefined } | null | undefined;
-  }>;
-};
 
-export type GetNfTsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetNftByMintNumberQuery = { nft: Array<{ id: any, asset_id: any, mint_number?: any | null | undefined, owner: string, is_for_sale: boolean, created_at?: any | null | undefined, updated_at?: any | null | undefined, minted_at?: any | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, has_sale_offers?: boolean | null | undefined, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, sale_offers: Array<{ status: string, price: string, listing_resource_id: any, updated_at: any }>, template?: { metadata?: any | null | undefined } | null | undefined }> };
 
-export type GetNfTsQuery = { nft: Array<{ asset_id: any; owner: string; id: any }> };
+export type GetNfTsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetNfTsQuery = { nft: Array<{ asset_id: any, owner: string, id: any }> };
 
 export type GetMetadataIDsQueryVariables = Exact<{
   collections?: InputMaybe<Array<Nft_Template_Bool_Exp> | Nft_Template_Bool_Exp>;
 }>;
+
 
 export type GetMetadataIDsQuery = { nft_template: Array<{ id?: any | null | undefined }> };
 
@@ -9043,93 +9249,32 @@ export type GetNfTsMintNumberQueryVariables = Exact<{
   collection_id: Scalars['uuid'];
 }>;
 
-export type GetNfTsMintNumberQuery = {
-  nft_collection: Array<{ nfts: Array<{ mint_number?: any | null | undefined }> }>;
-};
+
+export type GetNfTsMintNumberQuery = { nft_collection: Array<{ nfts: Array<{ mint_number?: any | null | undefined }> }> };
 
 export type GetNfTsByAddressQueryVariables = Exact<{
   address: Scalars['String'];
   collections?: InputMaybe<Array<Nft_Bool_Exp> | Nft_Bool_Exp>;
 }>;
 
-export type GetNfTsByAddressQuery = {
-  nft: Array<{
-    asset_id: any;
-    mint_number?: any | null | undefined;
-    is_for_sale: boolean;
-    has_sale_offers?: boolean | null | undefined;
-    collection_id?: any | null | undefined;
-    transaction_status?: boolean | null | undefined;
-    owner: string;
-    collection?:
-      | {
-          collection_id?: any | null | undefined;
-          name: string;
-          market_fee: any;
-          image: string;
-          description: string;
-          author: string;
-        }
-      | null
-      | undefined;
-    template?: { metadata?: any | null | undefined } | null | undefined;
-    sale_offers: Array<{
-      listing_resource_id: any;
-      price: string;
-      status: string;
-      updated_at: any;
-    }>;
-  }>;
-};
+
+export type GetNfTsByAddressQuery = { nft: Array<{ asset_id: any, mint_number?: any | null | undefined, is_for_sale: boolean, has_sale_offers?: boolean | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> }> };
 
 export type Nft_Sale_OfferQueryVariables = Exact<{
   id: Scalars['uuid'];
   address: Scalars['String'];
 }>;
 
-export type Nft_Sale_OfferQuery = {
-  nft_sale_offer: Array<{
-    id: any;
-    listing_resource_id: any;
-    price: string;
-    status: string;
-    nft: {
-      asset_id: any;
-      is_for_sale: boolean;
-      has_sale_offers?: boolean | null | undefined;
-      owner: string;
-      collection_id?: any | null | undefined;
-      mint_number?: any | null | undefined;
-      transaction_status?: boolean | null | undefined;
-      template?:
-        | { id: any; metadata?: any | null | undefined; template_id: any }
-        | null
-        | undefined;
-    };
-  }>;
-};
+
+export type Nft_Sale_OfferQuery = { nft_sale_offer: Array<{ id: any, listing_resource_id: any, price: string, status: string, nft: { asset_id: any, is_for_sale: boolean, has_sale_offers?: boolean | null | undefined, owner: string, collection_id?: any | null | undefined, mint_number?: any | null | undefined, transaction_status?: boolean | null | undefined, template?: { id: any, metadata?: any | null | undefined, template_id: any } | null | undefined } }> };
 
 export type GetSingleNfTsForSalQueryVariables = Exact<{
   id: Scalars['uuid'];
   address: Scalars['String'];
 }>;
 
-export type GetSingleNfTsForSalQuery = {
-  nft_sale_offer: Array<{
-    listing_resource_id: any;
-    price: string;
-    status: string;
-    nft: {
-      asset_id: any;
-      mint_number?: any | null | undefined;
-      is_for_sale: boolean;
-      has_sale_offers?: boolean | null | undefined;
-      collection_id?: any | null | undefined;
-      owner: string;
-      template?: { metadata?: any | null | undefined } | null | undefined;
-    };
-  }>;
-};
+
+export type GetSingleNfTsForSalQuery = { nft_sale_offer: Array<{ listing_resource_id: any, price: string, status: string, nft: { asset_id: any, mint_number?: any | null | undefined, is_for_sale: boolean, has_sale_offers?: boolean | null | undefined, collection_id?: any | null | undefined, owner: string, template?: { metadata?: any | null | undefined } | null | undefined } }> };
 
 export type Nfts_MarketplaceQueryVariables = Exact<{
   has_sale_offers?: InputMaybe<Boolean_Comparison_Exp>;
@@ -9141,25 +9286,8 @@ export type Nfts_MarketplaceQueryVariables = Exact<{
   marketPlaceAddress?: InputMaybe<Scalars['String']>;
 }>;
 
-export type Nfts_MarketplaceQuery = {
-  nft_aggregate: { aggregate?: { count: number } | null | undefined };
-  nft: Array<{
-    asset_id: any;
-    mint_number?: any | null | undefined;
-    owner: string;
-    has_sale_offers?: boolean | null | undefined;
-    is_for_sale: boolean;
-    collection_id?: any | null | undefined;
-    template?: { metadata?: any | null | undefined } | null | undefined;
-    sale_offers: Array<{
-      updated_at: any;
-      listing_resource_id: any;
-      price: string;
-      parsed_price?: any | null | undefined;
-      status: string;
-    }>;
-  }>;
-};
+
+export type Nfts_MarketplaceQuery = { nft_aggregate: { aggregate?: { count: number } | null | undefined }, nft: Array<{ asset_id: any, mint_number?: any | null | undefined, owner: string, has_sale_offers?: boolean | null | undefined, is_for_sale: boolean, collection_id?: any | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ updated_at: any, listing_resource_id: any, price: string, parsed_price?: any | null | undefined, status: string }> }> };
 
 export type GetMarketplaceNfTsCountQueryVariables = Exact<{
   has_sale_offers?: InputMaybe<Boolean_Comparison_Exp>;
@@ -9169,26 +9297,22 @@ export type GetMarketplaceNfTsCountQueryVariables = Exact<{
   marketPlaceAddress?: InputMaybe<Scalars['String']>;
 }>;
 
-export type GetMarketplaceNfTsCountQuery = {
-  nft_sale_offer_aggregate: {
-    aggregate?: { count: number } | null | undefined;
-    nodes: Array<{ nft: { asset_id: any } }>;
-  };
-};
+
+export type GetMarketplaceNfTsCountQuery = { nft_sale_offer_aggregate: { aggregate?: { count: number } | null | undefined, nodes: Array<{ nft: { asset_id: any } }> } };
 
 export type GetCollectionFloorValueByIdQueryVariables = Exact<{
   collection_id: Scalars['uuid'];
   marketPlaceAddress?: InputMaybe<Scalars['String']>;
 }>;
 
-export type GetCollectionFloorValueByIdQuery = {
-  nft_sale_offer: Array<{ parsed_price?: any | null | undefined }>;
-};
+
+export type GetCollectionFloorValueByIdQuery = { nft_sale_offer: Array<{ parsed_price?: any | null | undefined }> };
 
 export type CheckFavoriteNftQueryVariables = Exact<{
   nftId: Scalars['uuid'];
   address?: InputMaybe<Scalars['String']>;
 }>;
+
 
 export type CheckFavoriteNftQuery = { nft_favorites: Array<{ id: any }> };
 
@@ -9196,171 +9320,61 @@ export type GetFavoriteListQueryVariables = Exact<{
   address?: InputMaybe<Scalars['String']>;
 }>;
 
-export type GetFavoriteListQuery = {
-  nft_favorites: Array<{
-    nft: {
-      asset_id: any;
-      mint_number?: any | null | undefined;
-      is_for_sale: boolean;
-      has_sale_offers?: boolean | null | undefined;
-      collection_id?: any | null | undefined;
-      transaction_status?: boolean | null | undefined;
-      owner: string;
-      collection?:
-        | {
-            collection_id?: any | null | undefined;
-            name: string;
-            market_fee: any;
-            image: string;
-            description: string;
-            author: string;
-          }
-        | null
-        | undefined;
-      template?: { metadata?: any | null | undefined } | null | undefined;
-      sale_offers: Array<{
-        listing_resource_id: any;
-        price: string;
-        status: string;
-        updated_at: any;
-      }>;
-    };
-  }>;
-};
+
+export type GetFavoriteListQuery = { nft_favorites: Array<{ nft: { asset_id: any, mint_number?: any | null | undefined, is_for_sale: boolean, has_sale_offers?: boolean | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> } }> };
 
 export type GetLowerNftPriceByCollectionQueryVariables = Exact<{
   collection_id?: InputMaybe<Scalars['uuid']>;
 }>;
 
-export type GetLowerNftPriceByCollectionQuery = {
-  nft: Array<{
-    id: any;
-    last_active_price?: any | null | undefined;
-    template?:
-      | {
-          collection?:
-            | {
-                description: string;
-                image: string;
-                name: string;
-                collection_id?: any | null | undefined;
-                id: any;
-              }
-            | null
-            | undefined;
-        }
-      | null
-      | undefined;
-    sale_offers: Array<{ id: any; price: string }>;
-  }>;
-};
 
-export type GetNflFiltersQueryVariables = Exact<{ [key: string]: never }>;
+export type GetLowerNftPriceByCollectionQuery = { nft: Array<{ id: any, last_active_price?: any | null | undefined, template?: { collection?: { description: string, image: string, name: string, collection_id?: any | null | undefined, id: any } | null | undefined } | null | undefined, sale_offers: Array<{ id: any, price: string }> }> };
 
-export type GetNflFiltersQuery = {
-  nfl_all_day_taxonomies: Array<{
-    moment_count?: any | null | undefined;
-    taxonomy_attribute?: string | null | undefined;
-    taxonomy_label?: string | null | undefined;
-    taxonomy_value?: string | null | undefined;
-  }>;
-};
+export type GetNflFiltersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetNflFiltersQuery = { nfl_all_day_taxonomies: Array<{ moment_count?: any | null | undefined, taxonomy_attribute?: string | null | undefined, taxonomy_label?: string | null | undefined, taxonomy_value?: string | null | undefined }> };
 
 export type GetNFlEditionsQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;
   plays?: InputMaybe<Nfl_All_Day_Plays_Bool_Exp>;
   sets?: InputMaybe<Nfl_All_Day_Sets_Bool_Exp>;
   tier?: InputMaybe<Array<Nfl_All_Day_Editions_Bool_Exp> | Nfl_All_Day_Editions_Bool_Exp>;
+  orderBy?: InputMaybe<Array<Nfl_All_Day_Editions_Order_By> | Nfl_All_Day_Editions_Order_By>;
 }>;
 
-export type GetNFlEditionsQuery = {
-  nfl_all_day_editions_aggregate: { aggregate?: { count: number } | null | undefined };
-  nfl_all_day_editions: Array<{
-    edition_id: any;
-    max_list_price?: any | null | undefined;
-    min_list_price?: any | null | undefined;
-    max_mint_size?: number | null | undefined;
-    inserted_at: any;
-    number_of_active_listings?: number | null | undefined;
-    circulation_count?: number | null | undefined;
-    tier: string;
-    play?:
-      | {
-          player_full_name: string;
-          description?: string | null | undefined;
-          external_id?: string | null | undefined;
-          team_name: string;
-          game_date: any;
-          play_type: string;
-          player_position: string;
-        }
-      | null
-      | undefined;
-    series?: { name: string; series_id: any } | null | undefined;
-    set?: { name: string; set_id: any } | null | undefined;
-  }>;
-};
+
+export type GetNFlEditionsQuery = { nfl_all_day_editions_aggregate: { aggregate?: { count: number } | null | undefined }, nfl_all_day_editions: Array<{ edition_id: any, max_list_price?: any | null | undefined, min_list_price?: any | null | undefined, max_mint_size?: number | null | undefined, inserted_at: any, number_of_active_listings?: number | null | undefined, circulation_count?: number | null | undefined, tier: string, play?: { player_full_name: string, description?: string | null | undefined, external_id?: string | null | undefined, team_name: string, game_date: any, play_type: string, player_position: string } | null | undefined, series?: { name: string, series_id: any } | null | undefined, set?: { name: string, set_id: any } | null | undefined }> };
 
 export type GetNflnfTsByAddressQueryVariables = Exact<{
   address: Scalars['String'];
   collections?: InputMaybe<Array<Nft_Bool_Exp> | Nft_Bool_Exp>;
 }>;
 
-export type GetNflnfTsByAddressQuery = {
-  nft: {
-    nfl: Array<{
-      active_listing_price?: any | null | undefined;
-      active_listing_order_id?: any | null | undefined;
-      created_at: any;
-      owner?: string | null | undefined;
-      id: any;
-      asset_id: any;
-      mint_number: number;
-      edition?:
-        | {
-            max_mint_size?: number | null | undefined;
-            min_list_price?: any | null | undefined;
-            max_list_price?: any | null | undefined;
-            collection_id: any;
-            play?:
-              | {
-                  team_name: string;
-                  play_id: any;
-                  description?: string | null | undefined;
-                  classification: string;
-                  created_at: any;
-                  play_type: string;
-                  external_id?: string | null | undefined;
-                  game_date: any;
-                  player_full_name: string;
-                  player_position: string;
-                }
-              | null
-              | undefined;
-            series?: { name: string; series_id: any } | null | undefined;
-            set?: { name: string; set_id: any } | null | undefined;
-          }
-        | null
-        | undefined;
-    }>;
-  };
-};
+
+export type GetNflnfTsByAddressQuery = { nft: { nfl: Array<{ serial_number: number, active_listing_price?: any | null | undefined, active_listing_order_id?: any | null | undefined, created_at: any, owner?: string | null | undefined, id: any, asset_id: any, edition?: { edition_id: any, max_mint_size?: number | null | undefined, min_list_price?: any | null | undefined, max_list_price?: any | null | undefined, number_of_active_listings?: number | null | undefined, tier: string, play?: { team_name: string, play_id: any, description?: string | null | undefined, classification: string, created_at: any, play_type: string, external_id?: string | null | undefined, game_date: any, player_full_name: string, player_position: string } | null | undefined, series?: { name: string, series_id: any } | null | undefined, set?: { name: string, set_id: any } | null | undefined } | null | undefined }> } };
+
+export type GetNflMomentQueryVariables = Exact<{
+  edition_id?: InputMaybe<Scalars['bigint']>;
+  serial_number?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetNflMomentQuery = { nfl_all_day_moments: Array<{ moment_id: any, active_listing_price?: any | null | undefined, owner?: string | null | undefined, serial_number: number, active_listing_order_id?: any | null | undefined, active_listing_order_address?: string | null | undefined, edition?: { edition_id: any, max_mint_size?: number | null | undefined, inserted_at: any, circulation_count?: number | null | undefined, hidden_in_packs_count?: number | null | undefined, tier: string, play?: { player_full_name: string, description?: string | null | undefined, external_id?: string | null | undefined, team_name: string, game_date: any, play_type: string, player_position: string, home_team_name: string, away_team_name: string } | null | undefined, series?: { name: string, series_id: any } | null | undefined, set?: { name: string, set_id: any } | null | undefined } | null | undefined }> };
+
 
 export const AddFavoriteDocument = gql`
-  mutation addFavorite($nftId: uuid, $address: String) {
-    insert_nft_favorites(objects: { nft_id: $nftId, wallet_address: $address }) {
-      returning {
-        id
-        nft_id
-        wallet_address
-      }
+    mutation addFavorite($nftId: uuid, $address: String) {
+  insert_nft_favorites(objects: {nft_id: $nftId, wallet_address: $address}) {
+    returning {
+      id
+      nft_id
+      wallet_address
     }
   }
-`;
-export type AddFavoriteMutationFn = Apollo.MutationFunction<
-  AddFavoriteMutation,
-  AddFavoriteMutationVariables
->;
+}
+    `;
+export type AddFavoriteMutationFn = Apollo.MutationFunction<AddFavoriteMutation, AddFavoriteMutationVariables>;
 
 /**
  * __useAddFavoriteMutation__
@@ -9380,34 +9394,23 @@ export type AddFavoriteMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useAddFavoriteMutation(
-  baseOptions?: Apollo.MutationHookOptions<AddFavoriteMutation, AddFavoriteMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<AddFavoriteMutation, AddFavoriteMutationVariables>(
-    AddFavoriteDocument,
-    options
-  );
-}
+export function useAddFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<AddFavoriteMutation, AddFavoriteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddFavoriteMutation, AddFavoriteMutationVariables>(AddFavoriteDocument, options);
+      }
 export type AddFavoriteMutationHookResult = ReturnType<typeof useAddFavoriteMutation>;
 export type AddFavoriteMutationResult = Apollo.MutationResult<AddFavoriteMutation>;
-export type AddFavoriteMutationOptions = Apollo.BaseMutationOptions<
-  AddFavoriteMutation,
-  AddFavoriteMutationVariables
->;
+export type AddFavoriteMutationOptions = Apollo.BaseMutationOptions<AddFavoriteMutation, AddFavoriteMutationVariables>;
 export const RemoveFavoriteDocument = gql`
-  mutation removeFavorite($id: uuid) {
-    delete_nft_favorites(where: { id: { _eq: $id } }) {
-      returning {
-        id
-      }
+    mutation removeFavorite($id: uuid) {
+  delete_nft_favorites(where: {id: {_eq: $id}}) {
+    returning {
+      id
     }
   }
-`;
-export type RemoveFavoriteMutationFn = Apollo.MutationFunction<
-  RemoveFavoriteMutation,
-  RemoveFavoriteMutationVariables
->;
+}
+    `;
+export type RemoveFavoriteMutationFn = Apollo.MutationFunction<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>;
 
 /**
  * __useRemoveFavoriteMutation__
@@ -9426,32 +9429,24 @@ export type RemoveFavoriteMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useRemoveFavoriteMutation(
-  baseOptions?: Apollo.MutationHookOptions<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>(
-    RemoveFavoriteDocument,
-    options
-  );
-}
+export function useRemoveFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>(RemoveFavoriteDocument, options);
+      }
 export type RemoveFavoriteMutationHookResult = ReturnType<typeof useRemoveFavoriteMutation>;
 export type RemoveFavoriteMutationResult = Apollo.MutationResult<RemoveFavoriteMutation>;
-export type RemoveFavoriteMutationOptions = Apollo.BaseMutationOptions<
-  RemoveFavoriteMutation,
-  RemoveFavoriteMutationVariables
->;
+export type RemoveFavoriteMutationOptions = Apollo.BaseMutationOptions<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>;
 export const GetCollectionByIdDocument = gql`
-  query getCollectionById($id: uuid!) {
-    nft_collection(where: { id: { _eq: $id } }) {
-      id
-      image
-      author
-      description
-      name
-    }
+    query getCollectionById($id: uuid!) {
+  nft_collection(where: {id: {_eq: $id}}) {
+    id
+    image
+    author
+    description
+    name
   }
-`;
+}
+    `;
 
 /**
  * __useGetCollectionByIdQuery__
@@ -9469,66 +9464,53 @@ export const GetCollectionByIdDocument = gql`
  *   },
  * });
  */
-export function useGetCollectionByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<GetCollectionByIdQuery, GetCollectionByIdQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetCollectionByIdQuery, GetCollectionByIdQueryVariables>(
-    GetCollectionByIdDocument,
-    options
-  );
-}
-export function useGetCollectionByIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetCollectionByIdQuery, GetCollectionByIdQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetCollectionByIdQuery, GetCollectionByIdQueryVariables>(
-    GetCollectionByIdDocument,
-    options
-  );
-}
+export function useGetCollectionByIdQuery(baseOptions: Apollo.QueryHookOptions<GetCollectionByIdQuery, GetCollectionByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCollectionByIdQuery, GetCollectionByIdQueryVariables>(GetCollectionByIdDocument, options);
+      }
+export function useGetCollectionByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCollectionByIdQuery, GetCollectionByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCollectionByIdQuery, GetCollectionByIdQueryVariables>(GetCollectionByIdDocument, options);
+        }
 export type GetCollectionByIdQueryHookResult = ReturnType<typeof useGetCollectionByIdQuery>;
 export type GetCollectionByIdLazyQueryHookResult = ReturnType<typeof useGetCollectionByIdLazyQuery>;
-export type GetCollectionByIdQueryResult = Apollo.QueryResult<
-  GetCollectionByIdQuery,
-  GetCollectionByIdQueryVariables
->;
+export type GetCollectionByIdQueryResult = Apollo.QueryResult<GetCollectionByIdQuery, GetCollectionByIdQueryVariables>;
 export const GetNftByIdDocument = gql`
-  query getNftById($id: jsonb, $collection_id: uuid!) {
-    nft(
-      where: { collection_id: { _eq: $collection_id }, template: { metadata: { _contains: $id } } }
-    ) {
-      id
-      asset_id
-      is_for_sale
+    query getNftById($id: jsonb, $collection_id: uuid!) {
+  nft(
+    where: {collection_id: {_eq: $collection_id}, template: {metadata: {_contains: $id}}}
+  ) {
+    id
+    asset_id
+    is_for_sale
+    collection_id
+    created_at
+    updated_at
+    minted_at
+    mint_number
+    has_sale_offers
+    transaction_status
+    collection {
       collection_id
-      created_at
+      name
+      market_fee
+      image
+      description
+      author
+    }
+    owner
+    template {
+      metadata
+    }
+    sale_offers {
+      listing_resource_id
+      price
+      status
       updated_at
-      minted_at
-      mint_number
-      has_sale_offers
-      transaction_status
-      collection {
-        collection_id
-        name
-        market_fee
-        image
-        description
-        author
-      }
-      owner
-      template {
-        metadata
-      }
-      sale_offers {
-        listing_resource_id
-        price
-        status
-        updated_at
-      }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetNftByIdQuery__
@@ -9547,58 +9529,58 @@ export const GetNftByIdDocument = gql`
  *   },
  * });
  */
-export function useGetNftByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<GetNftByIdQuery, GetNftByIdQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNftByIdQuery, GetNftByIdQueryVariables>(GetNftByIdDocument, options);
-}
-export function useGetNftByIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetNftByIdQuery, GetNftByIdQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNftByIdQuery, GetNftByIdQueryVariables>(
-    GetNftByIdDocument,
-    options
-  );
-}
+export function useGetNftByIdQuery(baseOptions: Apollo.QueryHookOptions<GetNftByIdQuery, GetNftByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNftByIdQuery, GetNftByIdQueryVariables>(GetNftByIdDocument, options);
+      }
+export function useGetNftByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNftByIdQuery, GetNftByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNftByIdQuery, GetNftByIdQueryVariables>(GetNftByIdDocument, options);
+        }
 export type GetNftByIdQueryHookResult = ReturnType<typeof useGetNftByIdQuery>;
 export type GetNftByIdLazyQueryHookResult = ReturnType<typeof useGetNftByIdLazyQuery>;
 export type GetNftByIdQueryResult = Apollo.QueryResult<GetNftByIdQuery, GetNftByIdQueryVariables>;
 export const GetNflEditionByIdDocument = gql`
-  query getNflEditionById($_eq: bigint!) {
-    nfl_all_day_moments_aggregate(where: { edition_id: { _eq: $_eq } }) {
-      aggregate {
-        count
-      }
-    }
-    nfl_all_day_editions(where: { edition_id: { _eq: $_eq } }) {
-      edition_id
-      max_mint_size
-      inserted_at
-      play {
-        player_full_name
-        team_name
-        game_date
-        play_type
-        player_position
-        description
-        classification
-      }
-      series {
-        name
-        series_id
-      }
-      set {
-        name
-        set_id
-      }
-      number_of_active_listings
-      circulation_count
-      tier
+    query getNflEditionById($_eq: bigint!) {
+  nfl_all_day_moments_aggregate(where: {edition_id: {_eq: $_eq}}) {
+    aggregate {
+      count
     }
   }
-`;
+  nfl_all_day_editions(where: {edition_id: {_eq: $_eq}}) {
+    edition_id
+    max_mint_size
+    inserted_at
+    play {
+      player_full_name
+      team_name
+      game_date
+      play_type
+      player_position
+      description
+      classification
+      away_team_name
+      away_team_score
+      home_team_name
+      home_team_score
+      external_id
+    }
+    series {
+      name
+      series_id
+    }
+    set {
+      name
+      set_id
+    }
+    number_of_active_listings
+    unavailable_count
+    hidden_in_packs_count
+    circulation_count
+    tier
+  }
+}
+    `;
 
 /**
  * __useGetNflEditionByIdQuery__
@@ -9616,59 +9598,46 @@ export const GetNflEditionByIdDocument = gql`
  *   },
  * });
  */
-export function useGetNflEditionByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<GetNflEditionByIdQuery, GetNflEditionByIdQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNflEditionByIdQuery, GetNflEditionByIdQueryVariables>(
-    GetNflEditionByIdDocument,
-    options
-  );
-}
-export function useGetNflEditionByIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetNflEditionByIdQuery, GetNflEditionByIdQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNflEditionByIdQuery, GetNflEditionByIdQueryVariables>(
-    GetNflEditionByIdDocument,
-    options
-  );
-}
+export function useGetNflEditionByIdQuery(baseOptions: Apollo.QueryHookOptions<GetNflEditionByIdQuery, GetNflEditionByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNflEditionByIdQuery, GetNflEditionByIdQueryVariables>(GetNflEditionByIdDocument, options);
+      }
+export function useGetNflEditionByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNflEditionByIdQuery, GetNflEditionByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNflEditionByIdQuery, GetNflEditionByIdQueryVariables>(GetNflEditionByIdDocument, options);
+        }
 export type GetNflEditionByIdQueryHookResult = ReturnType<typeof useGetNflEditionByIdQuery>;
 export type GetNflEditionByIdLazyQueryHookResult = ReturnType<typeof useGetNflEditionByIdLazyQuery>;
-export type GetNflEditionByIdQueryResult = Apollo.QueryResult<
-  GetNflEditionByIdQuery,
-  GetNflEditionByIdQueryVariables
->;
+export type GetNflEditionByIdQueryResult = Apollo.QueryResult<GetNflEditionByIdQuery, GetNflEditionByIdQueryVariables>;
 export const GetMomentsByEditionIdDocument = gql`
-  query getMomentsByEditionId($_eq: bigint!, $offset: Int!, $limit: Int!) {
-    nfl_all_day_moments(
-      where: { active_listing_price: { _is_null: false }, edition_id: { _eq: $_eq } }
-      limit: $limit
-      offset: $offset
-    ) {
-      transaction_index
-      serial_number
-      owner
-      moment_id
-      inserted_at
-      event_index
-      edition_id
-      created_at
-      burned_at
-      block_height
-      active_listing_vault_type
-      active_listing_transaction_index
-      active_listing_price
-      active_listing_order_id
-      active_listing_order_address
-      active_listing_event_index
-      active_listing_date
-      active_listing_block_height
-      acquired_at
-    }
+    query getMomentsByEditionId($_eq: bigint!, $offset: Int!, $limit: Int!) {
+  nfl_all_day_moments(
+    where: {active_listing_price: {_is_null: false}, edition_id: {_eq: $_eq}}
+    limit: $limit
+    offset: $offset
+  ) {
+    transaction_index
+    serial_number
+    owner
+    moment_id
+    inserted_at
+    event_index
+    edition_id
+    created_at
+    burned_at
+    block_height
+    active_listing_vault_type
+    active_listing_transaction_index
+    active_listing_price
+    active_listing_order_id
+    active_listing_order_address
+    active_listing_event_index
+    active_listing_date
+    active_listing_block_height
+    acquired_at
   }
-`;
+}
+    `;
 
 /**
  * __useGetMomentsByEditionIdQuery__
@@ -9688,72 +9657,51 @@ export const GetMomentsByEditionIdDocument = gql`
  *   },
  * });
  */
-export function useGetMomentsByEditionIdQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetMomentsByEditionIdQuery,
-    GetMomentsByEditionIdQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetMomentsByEditionIdQuery, GetMomentsByEditionIdQueryVariables>(
-    GetMomentsByEditionIdDocument,
-    options
-  );
-}
-export function useGetMomentsByEditionIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetMomentsByEditionIdQuery,
-    GetMomentsByEditionIdQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetMomentsByEditionIdQuery, GetMomentsByEditionIdQueryVariables>(
-    GetMomentsByEditionIdDocument,
-    options
-  );
-}
+export function useGetMomentsByEditionIdQuery(baseOptions: Apollo.QueryHookOptions<GetMomentsByEditionIdQuery, GetMomentsByEditionIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMomentsByEditionIdQuery, GetMomentsByEditionIdQueryVariables>(GetMomentsByEditionIdDocument, options);
+      }
+export function useGetMomentsByEditionIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMomentsByEditionIdQuery, GetMomentsByEditionIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMomentsByEditionIdQuery, GetMomentsByEditionIdQueryVariables>(GetMomentsByEditionIdDocument, options);
+        }
 export type GetMomentsByEditionIdQueryHookResult = ReturnType<typeof useGetMomentsByEditionIdQuery>;
-export type GetMomentsByEditionIdLazyQueryHookResult = ReturnType<
-  typeof useGetMomentsByEditionIdLazyQuery
->;
-export type GetMomentsByEditionIdQueryResult = Apollo.QueryResult<
-  GetMomentsByEditionIdQuery,
-  GetMomentsByEditionIdQueryVariables
->;
+export type GetMomentsByEditionIdLazyQueryHookResult = ReturnType<typeof useGetMomentsByEditionIdLazyQuery>;
+export type GetMomentsByEditionIdQueryResult = Apollo.QueryResult<GetMomentsByEditionIdQuery, GetMomentsByEditionIdQueryVariables>;
 export const GetNftByMintNumberDocument = gql`
-  query getNftByMintNumber($filter: nft_bool_exp) {
-    nft(where: $filter) {
-      id
-      asset_id
-      mint_number
-      owner
-      is_for_sale
-      created_at
-      updated_at
-      minted_at
+    query getNftByMintNumber($filter: nft_bool_exp) {
+  nft(where: $filter) {
+    id
+    asset_id
+    mint_number
+    owner
+    is_for_sale
+    created_at
+    updated_at
+    minted_at
+    collection_id
+    transaction_status
+    has_sale_offers
+    collection {
       collection_id
-      transaction_status
-      has_sale_offers
-      collection {
-        collection_id
-        name
-        market_fee
-        image
-        description
-        author
-      }
-      sale_offers {
-        status
-        price
-        listing_resource_id
-        updated_at
-      }
-      template {
-        metadata
-      }
+      name
+      market_fee
+      image
+      description
+      author
+    }
+    sale_offers {
+      status
+      price
+      listing_resource_id
+      updated_at
+    }
+    template {
+      metadata
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetNftByMintNumberQuery__
@@ -9771,44 +9719,26 @@ export const GetNftByMintNumberDocument = gql`
  *   },
  * });
  */
-export function useGetNftByMintNumberQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetNftByMintNumberQuery, GetNftByMintNumberQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNftByMintNumberQuery, GetNftByMintNumberQueryVariables>(
-    GetNftByMintNumberDocument,
-    options
-  );
-}
-export function useGetNftByMintNumberLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetNftByMintNumberQuery,
-    GetNftByMintNumberQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNftByMintNumberQuery, GetNftByMintNumberQueryVariables>(
-    GetNftByMintNumberDocument,
-    options
-  );
-}
+export function useGetNftByMintNumberQuery(baseOptions?: Apollo.QueryHookOptions<GetNftByMintNumberQuery, GetNftByMintNumberQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNftByMintNumberQuery, GetNftByMintNumberQueryVariables>(GetNftByMintNumberDocument, options);
+      }
+export function useGetNftByMintNumberLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNftByMintNumberQuery, GetNftByMintNumberQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNftByMintNumberQuery, GetNftByMintNumberQueryVariables>(GetNftByMintNumberDocument, options);
+        }
 export type GetNftByMintNumberQueryHookResult = ReturnType<typeof useGetNftByMintNumberQuery>;
-export type GetNftByMintNumberLazyQueryHookResult = ReturnType<
-  typeof useGetNftByMintNumberLazyQuery
->;
-export type GetNftByMintNumberQueryResult = Apollo.QueryResult<
-  GetNftByMintNumberQuery,
-  GetNftByMintNumberQueryVariables
->;
+export type GetNftByMintNumberLazyQueryHookResult = ReturnType<typeof useGetNftByMintNumberLazyQuery>;
+export type GetNftByMintNumberQueryResult = Apollo.QueryResult<GetNftByMintNumberQuery, GetNftByMintNumberQueryVariables>;
 export const GetNfTsDocument = gql`
-  query getNFTs {
-    nft {
-      asset_id
-      owner
-      id
-    }
+    query getNFTs {
+  nft {
+    asset_id
+    owner
+    id
   }
-`;
+}
+    `;
 
 /**
  * __useGetNfTsQuery__
@@ -9825,28 +9755,24 @@ export const GetNfTsDocument = gql`
  *   },
  * });
  */
-export function useGetNfTsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetNfTsQuery, GetNfTsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNfTsQuery, GetNfTsQueryVariables>(GetNfTsDocument, options);
-}
-export function useGetNfTsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetNfTsQuery, GetNfTsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNfTsQuery, GetNfTsQueryVariables>(GetNfTsDocument, options);
-}
+export function useGetNfTsQuery(baseOptions?: Apollo.QueryHookOptions<GetNfTsQuery, GetNfTsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNfTsQuery, GetNfTsQueryVariables>(GetNfTsDocument, options);
+      }
+export function useGetNfTsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNfTsQuery, GetNfTsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNfTsQuery, GetNfTsQueryVariables>(GetNfTsDocument, options);
+        }
 export type GetNfTsQueryHookResult = ReturnType<typeof useGetNfTsQuery>;
 export type GetNfTsLazyQueryHookResult = ReturnType<typeof useGetNfTsLazyQuery>;
 export type GetNfTsQueryResult = Apollo.QueryResult<GetNfTsQuery, GetNfTsQueryVariables>;
 export const GetMetadataIDsDocument = gql`
-  query getMetadataIDs($collections: [nft_template_bool_exp!]) {
-    nft_template(where: { _or: $collections }) {
-      id: metadata(path: "$.id")
-    }
+    query getMetadataIDs($collections: [nft_template_bool_exp!]) {
+  nft_template(where: {_or: $collections}) {
+    id: metadata(path: "$.id")
   }
-`;
+}
+    `;
 
 /**
  * __useGetMetadataIDsQuery__
@@ -9864,39 +9790,26 @@ export const GetMetadataIDsDocument = gql`
  *   },
  * });
  */
-export function useGetMetadataIDsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetMetadataIDsQuery, GetMetadataIDsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetMetadataIDsQuery, GetMetadataIDsQueryVariables>(
-    GetMetadataIDsDocument,
-    options
-  );
-}
-export function useGetMetadataIDsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetMetadataIDsQuery, GetMetadataIDsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetMetadataIDsQuery, GetMetadataIDsQueryVariables>(
-    GetMetadataIDsDocument,
-    options
-  );
-}
+export function useGetMetadataIDsQuery(baseOptions?: Apollo.QueryHookOptions<GetMetadataIDsQuery, GetMetadataIDsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMetadataIDsQuery, GetMetadataIDsQueryVariables>(GetMetadataIDsDocument, options);
+      }
+export function useGetMetadataIDsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMetadataIDsQuery, GetMetadataIDsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMetadataIDsQuery, GetMetadataIDsQueryVariables>(GetMetadataIDsDocument, options);
+        }
 export type GetMetadataIDsQueryHookResult = ReturnType<typeof useGetMetadataIDsQuery>;
 export type GetMetadataIDsLazyQueryHookResult = ReturnType<typeof useGetMetadataIDsLazyQuery>;
-export type GetMetadataIDsQueryResult = Apollo.QueryResult<
-  GetMetadataIDsQuery,
-  GetMetadataIDsQueryVariables
->;
+export type GetMetadataIDsQueryResult = Apollo.QueryResult<GetMetadataIDsQuery, GetMetadataIDsQueryVariables>;
 export const GetNfTsMintNumberDocument = gql`
-  query getNFTsMintNumber($collection_id: uuid!) {
-    nft_collection(where: { id: { _eq: $collection_id } }) {
-      nfts(order_by: { mint_number: asc }) {
-        mint_number
-      }
+    query getNFTsMintNumber($collection_id: uuid!) {
+  nft_collection(where: {id: {_eq: $collection_id}}) {
+    nfts(order_by: {mint_number: asc}) {
+      mint_number
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetNfTsMintNumberQuery__
@@ -9914,60 +9827,47 @@ export const GetNfTsMintNumberDocument = gql`
  *   },
  * });
  */
-export function useGetNfTsMintNumberQuery(
-  baseOptions: Apollo.QueryHookOptions<GetNfTsMintNumberQuery, GetNfTsMintNumberQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNfTsMintNumberQuery, GetNfTsMintNumberQueryVariables>(
-    GetNfTsMintNumberDocument,
-    options
-  );
-}
-export function useGetNfTsMintNumberLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetNfTsMintNumberQuery, GetNfTsMintNumberQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNfTsMintNumberQuery, GetNfTsMintNumberQueryVariables>(
-    GetNfTsMintNumberDocument,
-    options
-  );
-}
+export function useGetNfTsMintNumberQuery(baseOptions: Apollo.QueryHookOptions<GetNfTsMintNumberQuery, GetNfTsMintNumberQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNfTsMintNumberQuery, GetNfTsMintNumberQueryVariables>(GetNfTsMintNumberDocument, options);
+      }
+export function useGetNfTsMintNumberLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNfTsMintNumberQuery, GetNfTsMintNumberQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNfTsMintNumberQuery, GetNfTsMintNumberQueryVariables>(GetNfTsMintNumberDocument, options);
+        }
 export type GetNfTsMintNumberQueryHookResult = ReturnType<typeof useGetNfTsMintNumberQuery>;
 export type GetNfTsMintNumberLazyQueryHookResult = ReturnType<typeof useGetNfTsMintNumberLazyQuery>;
-export type GetNfTsMintNumberQueryResult = Apollo.QueryResult<
-  GetNfTsMintNumberQuery,
-  GetNfTsMintNumberQueryVariables
->;
+export type GetNfTsMintNumberQueryResult = Apollo.QueryResult<GetNfTsMintNumberQuery, GetNfTsMintNumberQueryVariables>;
 export const GetNfTsByAddressDocument = gql`
-  query getNFTsByAddress($address: String!, $collections: [nft_bool_exp!]) {
-    nft(where: { _or: $collections, owner: { _eq: $address } }) {
-      asset_id
-      mint_number
-      is_for_sale
-      has_sale_offers
+    query getNFTsByAddress($address: String!, $collections: [nft_bool_exp!]) {
+  nft(where: {_or: $collections, owner: {_eq: $address}}) {
+    asset_id
+    mint_number
+    is_for_sale
+    has_sale_offers
+    collection_id
+    transaction_status
+    collection {
       collection_id
-      transaction_status
-      collection {
-        collection_id
-        name
-        market_fee
-        image
-        description
-        author
-      }
-      owner
-      template {
-        metadata
-      }
-      sale_offers {
-        listing_resource_id
-        price
-        status
-        updated_at
-      }
+      name
+      market_fee
+      image
+      description
+      author
+    }
+    owner
+    template {
+      metadata
+    }
+    sale_offers {
+      listing_resource_id
+      price
+      status
+      updated_at
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetNfTsByAddressQuery__
@@ -9986,64 +9886,43 @@ export const GetNfTsByAddressDocument = gql`
  *   },
  * });
  */
-export function useGetNfTsByAddressQuery(
-  baseOptions: Apollo.QueryHookOptions<GetNfTsByAddressQuery, GetNfTsByAddressQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNfTsByAddressQuery, GetNfTsByAddressQueryVariables>(
-    GetNfTsByAddressDocument,
-    options
-  );
-}
-export function useGetNfTsByAddressLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetNfTsByAddressQuery, GetNfTsByAddressQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNfTsByAddressQuery, GetNfTsByAddressQueryVariables>(
-    GetNfTsByAddressDocument,
-    options
-  );
-}
+export function useGetNfTsByAddressQuery(baseOptions: Apollo.QueryHookOptions<GetNfTsByAddressQuery, GetNfTsByAddressQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNfTsByAddressQuery, GetNfTsByAddressQueryVariables>(GetNfTsByAddressDocument, options);
+      }
+export function useGetNfTsByAddressLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNfTsByAddressQuery, GetNfTsByAddressQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNfTsByAddressQuery, GetNfTsByAddressQueryVariables>(GetNfTsByAddressDocument, options);
+        }
 export type GetNfTsByAddressQueryHookResult = ReturnType<typeof useGetNfTsByAddressQuery>;
 export type GetNfTsByAddressLazyQueryHookResult = ReturnType<typeof useGetNfTsByAddressLazyQuery>;
-export type GetNfTsByAddressQueryResult = Apollo.QueryResult<
-  GetNfTsByAddressQuery,
-  GetNfTsByAddressQueryVariables
->;
+export type GetNfTsByAddressQueryResult = Apollo.QueryResult<GetNfTsByAddressQuery, GetNfTsByAddressQueryVariables>;
 export const Nft_Sale_OfferDocument = gql`
-  query nft_sale_offer($id: uuid!, $address: String!) {
-    nft_sale_offer(
-      where: {
-        nft: {
-          collection_id: { _eq: $id }
-          has_sale_offers: { _eq: true }
-          transaction_status: { _eq: false }
-          owner: { _eq: $address }
-        }
-        status: { _eq: "active" }
-      }
-    ) {
-      id
-      listing_resource_id
-      price
-      status
-      nft {
-        asset_id
-        is_for_sale
-        has_sale_offers
-        owner
-        collection_id
-        mint_number
-        transaction_status
-        template {
-          id
-          metadata
-          template_id
-        }
+    query nft_sale_offer($id: uuid!, $address: String!) {
+  nft_sale_offer(
+    where: {nft: {collection_id: {_eq: $id}, has_sale_offers: {_eq: true}, transaction_status: {_eq: false}, owner: {_eq: $address}}, status: {_eq: "active"}}
+  ) {
+    id
+    listing_resource_id
+    price
+    status
+    nft {
+      asset_id
+      is_for_sale
+      has_sale_offers
+      owner
+      collection_id
+      mint_number
+      transaction_status
+      template {
+        id
+        metadata
+        template_id
       }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useNft_Sale_OfferQuery__
@@ -10062,60 +9941,39 @@ export const Nft_Sale_OfferDocument = gql`
  *   },
  * });
  */
-export function useNft_Sale_OfferQuery(
-  baseOptions: Apollo.QueryHookOptions<Nft_Sale_OfferQuery, Nft_Sale_OfferQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<Nft_Sale_OfferQuery, Nft_Sale_OfferQueryVariables>(
-    Nft_Sale_OfferDocument,
-    options
-  );
-}
-export function useNft_Sale_OfferLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<Nft_Sale_OfferQuery, Nft_Sale_OfferQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<Nft_Sale_OfferQuery, Nft_Sale_OfferQueryVariables>(
-    Nft_Sale_OfferDocument,
-    options
-  );
-}
+export function useNft_Sale_OfferQuery(baseOptions: Apollo.QueryHookOptions<Nft_Sale_OfferQuery, Nft_Sale_OfferQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Nft_Sale_OfferQuery, Nft_Sale_OfferQueryVariables>(Nft_Sale_OfferDocument, options);
+      }
+export function useNft_Sale_OfferLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Nft_Sale_OfferQuery, Nft_Sale_OfferQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Nft_Sale_OfferQuery, Nft_Sale_OfferQueryVariables>(Nft_Sale_OfferDocument, options);
+        }
 export type Nft_Sale_OfferQueryHookResult = ReturnType<typeof useNft_Sale_OfferQuery>;
 export type Nft_Sale_OfferLazyQueryHookResult = ReturnType<typeof useNft_Sale_OfferLazyQuery>;
-export type Nft_Sale_OfferQueryResult = Apollo.QueryResult<
-  Nft_Sale_OfferQuery,
-  Nft_Sale_OfferQueryVariables
->;
+export type Nft_Sale_OfferQueryResult = Apollo.QueryResult<Nft_Sale_OfferQuery, Nft_Sale_OfferQueryVariables>;
 export const GetSingleNfTsForSalDocument = gql`
-  query getSingleNFTsForSal($id: uuid!, $address: String!) {
-    nft_sale_offer(
-      where: {
-        status: { _eq: "active" }
-        nft: {
-          collection_id: { _eq: $id }
-          has_sale_offers: { _eq: true }
-          transaction_status: { _eq: false }
-          owner: { _eq: $address }
-        }
+    query getSingleNFTsForSal($id: uuid!, $address: String!) {
+  nft_sale_offer(
+    where: {status: {_eq: "active"}, nft: {collection_id: {_eq: $id}, has_sale_offers: {_eq: true}, transaction_status: {_eq: false}, owner: {_eq: $address}}}
+  ) {
+    listing_resource_id
+    nft {
+      asset_id
+      mint_number
+      is_for_sale
+      has_sale_offers
+      collection_id
+      owner
+      template {
+        metadata
       }
-    ) {
-      listing_resource_id
-      nft {
-        asset_id
-        mint_number
-        is_for_sale
-        has_sale_offers
-        collection_id
-        owner
-        template {
-          metadata
-        }
-      }
-      price
-      status
     }
+    price
+    status
   }
-`;
+}
+    `;
 
 /**
  * __useGetSingleNfTsForSalQuery__
@@ -10134,89 +9992,51 @@ export const GetSingleNfTsForSalDocument = gql`
  *   },
  * });
  */
-export function useGetSingleNfTsForSalQuery(
-  baseOptions: Apollo.QueryHookOptions<GetSingleNfTsForSalQuery, GetSingleNfTsForSalQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetSingleNfTsForSalQuery, GetSingleNfTsForSalQueryVariables>(
-    GetSingleNfTsForSalDocument,
-    options
-  );
-}
-export function useGetSingleNfTsForSalLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetSingleNfTsForSalQuery,
-    GetSingleNfTsForSalQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetSingleNfTsForSalQuery, GetSingleNfTsForSalQueryVariables>(
-    GetSingleNfTsForSalDocument,
-    options
-  );
-}
+export function useGetSingleNfTsForSalQuery(baseOptions: Apollo.QueryHookOptions<GetSingleNfTsForSalQuery, GetSingleNfTsForSalQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSingleNfTsForSalQuery, GetSingleNfTsForSalQueryVariables>(GetSingleNfTsForSalDocument, options);
+      }
+export function useGetSingleNfTsForSalLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSingleNfTsForSalQuery, GetSingleNfTsForSalQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSingleNfTsForSalQuery, GetSingleNfTsForSalQueryVariables>(GetSingleNfTsForSalDocument, options);
+        }
 export type GetSingleNfTsForSalQueryHookResult = ReturnType<typeof useGetSingleNfTsForSalQuery>;
-export type GetSingleNfTsForSalLazyQueryHookResult = ReturnType<
-  typeof useGetSingleNfTsForSalLazyQuery
->;
-export type GetSingleNfTsForSalQueryResult = Apollo.QueryResult<
-  GetSingleNfTsForSalQuery,
-  GetSingleNfTsForSalQueryVariables
->;
+export type GetSingleNfTsForSalLazyQueryHookResult = ReturnType<typeof useGetSingleNfTsForSalLazyQuery>;
+export type GetSingleNfTsForSalQueryResult = Apollo.QueryResult<GetSingleNfTsForSalQuery, GetSingleNfTsForSalQueryVariables>;
 export const Nfts_MarketplaceDocument = gql`
-  query nfts_marketplace(
-    $has_sale_offers: Boolean_comparison_exp
-    $price: [nft_bool_exp!]
-    $collections: [nft_bool_exp!]
-    $properties: [nft_template_bool_exp!]
-    $offset: Int
-    $orderBy: [nft_order_by!]
-    $marketPlaceAddress: String
-  ) @cached(ttl: 120) {
-    nft_aggregate(
-      where: {
-        _not: { owner: { _eq: $marketPlaceAddress } }
-        _or: $collections
-        has_sale_offers: $has_sale_offers
-        template: { _and: $properties }
-        _and: $price
-      }
-    ) {
-      aggregate {
-        count
-      }
-    }
-    nft(
-      where: {
-        _not: { owner: { _eq: $marketPlaceAddress } }
-        _or: $collections
-        has_sale_offers: $has_sale_offers
-        template: { _and: $properties }
-        _and: $price
-      }
-      order_by: $orderBy
-      limit: 40
-      offset: $offset
-    ) {
-      asset_id
-      mint_number
-      owner
-      has_sale_offers
-      is_for_sale
-      collection_id
-      template {
-        metadata
-      }
-      sale_offers {
-        updated_at
-        listing_resource_id
-        price
-        parsed_price
-        status
-      }
+    query nfts_marketplace($has_sale_offers: Boolean_comparison_exp, $price: [nft_bool_exp!], $collections: [nft_bool_exp!], $properties: [nft_template_bool_exp!], $offset: Int, $orderBy: [nft_order_by!], $marketPlaceAddress: String) @cached(ttl: 120) {
+  nft_aggregate(
+    where: {_not: {owner: {_eq: $marketPlaceAddress}}, _or: $collections, has_sale_offers: $has_sale_offers, template: {_and: $properties}, _and: $price}
+  ) {
+    aggregate {
+      count
     }
   }
-`;
+  nft(
+    where: {_not: {owner: {_eq: $marketPlaceAddress}}, _or: $collections, has_sale_offers: $has_sale_offers, template: {_and: $properties}, _and: $price}
+    order_by: $orderBy
+    limit: 40
+    offset: $offset
+  ) {
+    asset_id
+    mint_number
+    owner
+    has_sale_offers
+    is_for_sale
+    collection_id
+    template {
+      metadata
+    }
+    sale_offers {
+      updated_at
+      listing_resource_id
+      price
+      parsed_price
+      status
+    }
+  }
+}
+    `;
 
 /**
  * __useNfts_MarketplaceQuery__
@@ -10240,60 +10060,33 @@ export const Nfts_MarketplaceDocument = gql`
  *   },
  * });
  */
-export function useNfts_MarketplaceQuery(
-  baseOptions?: Apollo.QueryHookOptions<Nfts_MarketplaceQuery, Nfts_MarketplaceQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<Nfts_MarketplaceQuery, Nfts_MarketplaceQueryVariables>(
-    Nfts_MarketplaceDocument,
-    options
-  );
-}
-export function useNfts_MarketplaceLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<Nfts_MarketplaceQuery, Nfts_MarketplaceQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<Nfts_MarketplaceQuery, Nfts_MarketplaceQueryVariables>(
-    Nfts_MarketplaceDocument,
-    options
-  );
-}
+export function useNfts_MarketplaceQuery(baseOptions?: Apollo.QueryHookOptions<Nfts_MarketplaceQuery, Nfts_MarketplaceQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Nfts_MarketplaceQuery, Nfts_MarketplaceQueryVariables>(Nfts_MarketplaceDocument, options);
+      }
+export function useNfts_MarketplaceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Nfts_MarketplaceQuery, Nfts_MarketplaceQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Nfts_MarketplaceQuery, Nfts_MarketplaceQueryVariables>(Nfts_MarketplaceDocument, options);
+        }
 export type Nfts_MarketplaceQueryHookResult = ReturnType<typeof useNfts_MarketplaceQuery>;
 export type Nfts_MarketplaceLazyQueryHookResult = ReturnType<typeof useNfts_MarketplaceLazyQuery>;
-export type Nfts_MarketplaceQueryResult = Apollo.QueryResult<
-  Nfts_MarketplaceQuery,
-  Nfts_MarketplaceQueryVariables
->;
+export type Nfts_MarketplaceQueryResult = Apollo.QueryResult<Nfts_MarketplaceQuery, Nfts_MarketplaceQueryVariables>;
 export const GetMarketplaceNfTsCountDocument = gql`
-  query getMarketplaceNFTsCount(
-    $has_sale_offers: Boolean_comparison_exp
-    $price: [nft_sale_offer_bool_exp!]
-    $collections: [nft_bool_exp!]
-    $properties: [nft_template_bool_exp!]
-    $marketPlaceAddress: String
+    query getMarketplaceNFTsCount($has_sale_offers: Boolean_comparison_exp, $price: [nft_sale_offer_bool_exp!], $collections: [nft_bool_exp!], $properties: [nft_template_bool_exp!], $marketPlaceAddress: String) {
+  nft_sale_offer_aggregate(
+    where: {_and: $price, nft: {_not: {owner: {_eq: $marketPlaceAddress}}, _or: $collections, has_sale_offers: $has_sale_offers, template: {_and: $properties}}}
   ) {
-    nft_sale_offer_aggregate(
-      where: {
-        _and: $price
-        nft: {
-          _not: { owner: { _eq: $marketPlaceAddress } }
-          _or: $collections
-          has_sale_offers: $has_sale_offers
-          template: { _and: $properties }
-        }
-      }
-    ) {
-      aggregate {
-        count
-      }
-      nodes {
-        nft {
-          asset_id
-        }
+    aggregate {
+      count
+    }
+    nodes {
+      nft {
+        asset_id
       }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetMarketplaceNfTsCountQuery__
@@ -10315,57 +10108,28 @@ export const GetMarketplaceNfTsCountDocument = gql`
  *   },
  * });
  */
-export function useGetMarketplaceNfTsCountQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetMarketplaceNfTsCountQuery,
-    GetMarketplaceNfTsCountQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetMarketplaceNfTsCountQuery, GetMarketplaceNfTsCountQueryVariables>(
-    GetMarketplaceNfTsCountDocument,
-    options
-  );
-}
-export function useGetMarketplaceNfTsCountLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetMarketplaceNfTsCountQuery,
-    GetMarketplaceNfTsCountQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetMarketplaceNfTsCountQuery, GetMarketplaceNfTsCountQueryVariables>(
-    GetMarketplaceNfTsCountDocument,
-    options
-  );
-}
-export type GetMarketplaceNfTsCountQueryHookResult = ReturnType<
-  typeof useGetMarketplaceNfTsCountQuery
->;
-export type GetMarketplaceNfTsCountLazyQueryHookResult = ReturnType<
-  typeof useGetMarketplaceNfTsCountLazyQuery
->;
-export type GetMarketplaceNfTsCountQueryResult = Apollo.QueryResult<
-  GetMarketplaceNfTsCountQuery,
-  GetMarketplaceNfTsCountQueryVariables
->;
-export const GetCollectionFloorValueByIdDocument = gql`
-  query getCollectionFloorValueById($collection_id: uuid!, $marketPlaceAddress: String) {
-    nft_sale_offer(
-      limit: 1
-      where: {
-        nft: {
-          collection_id: { _eq: $collection_id }
-          _not: { owner: { _eq: $marketPlaceAddress } }
-        }
-        status: { _eq: "active" }
+export function useGetMarketplaceNfTsCountQuery(baseOptions?: Apollo.QueryHookOptions<GetMarketplaceNfTsCountQuery, GetMarketplaceNfTsCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMarketplaceNfTsCountQuery, GetMarketplaceNfTsCountQueryVariables>(GetMarketplaceNfTsCountDocument, options);
       }
-      order_by: { parsed_price: asc }
-    ) {
-      parsed_price
-    }
+export function useGetMarketplaceNfTsCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMarketplaceNfTsCountQuery, GetMarketplaceNfTsCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMarketplaceNfTsCountQuery, GetMarketplaceNfTsCountQueryVariables>(GetMarketplaceNfTsCountDocument, options);
+        }
+export type GetMarketplaceNfTsCountQueryHookResult = ReturnType<typeof useGetMarketplaceNfTsCountQuery>;
+export type GetMarketplaceNfTsCountLazyQueryHookResult = ReturnType<typeof useGetMarketplaceNfTsCountLazyQuery>;
+export type GetMarketplaceNfTsCountQueryResult = Apollo.QueryResult<GetMarketplaceNfTsCountQuery, GetMarketplaceNfTsCountQueryVariables>;
+export const GetCollectionFloorValueByIdDocument = gql`
+    query getCollectionFloorValueById($collection_id: uuid!, $marketPlaceAddress: String) {
+  nft_sale_offer(
+    limit: 1
+    where: {nft: {collection_id: {_eq: $collection_id}, _not: {owner: {_eq: $marketPlaceAddress}}}, status: {_eq: "active"}}
+    order_by: {parsed_price: asc}
+  ) {
+    parsed_price
   }
-`;
+}
+    `;
 
 /**
  * __useGetCollectionFloorValueByIdQuery__
@@ -10384,47 +10148,24 @@ export const GetCollectionFloorValueByIdDocument = gql`
  *   },
  * });
  */
-export function useGetCollectionFloorValueByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetCollectionFloorValueByIdQuery,
-    GetCollectionFloorValueByIdQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetCollectionFloorValueByIdQuery,
-    GetCollectionFloorValueByIdQueryVariables
-  >(GetCollectionFloorValueByIdDocument, options);
-}
-export function useGetCollectionFloorValueByIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetCollectionFloorValueByIdQuery,
-    GetCollectionFloorValueByIdQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetCollectionFloorValueByIdQuery,
-    GetCollectionFloorValueByIdQueryVariables
-  >(GetCollectionFloorValueByIdDocument, options);
-}
-export type GetCollectionFloorValueByIdQueryHookResult = ReturnType<
-  typeof useGetCollectionFloorValueByIdQuery
->;
-export type GetCollectionFloorValueByIdLazyQueryHookResult = ReturnType<
-  typeof useGetCollectionFloorValueByIdLazyQuery
->;
-export type GetCollectionFloorValueByIdQueryResult = Apollo.QueryResult<
-  GetCollectionFloorValueByIdQuery,
-  GetCollectionFloorValueByIdQueryVariables
->;
+export function useGetCollectionFloorValueByIdQuery(baseOptions: Apollo.QueryHookOptions<GetCollectionFloorValueByIdQuery, GetCollectionFloorValueByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCollectionFloorValueByIdQuery, GetCollectionFloorValueByIdQueryVariables>(GetCollectionFloorValueByIdDocument, options);
+      }
+export function useGetCollectionFloorValueByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCollectionFloorValueByIdQuery, GetCollectionFloorValueByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCollectionFloorValueByIdQuery, GetCollectionFloorValueByIdQueryVariables>(GetCollectionFloorValueByIdDocument, options);
+        }
+export type GetCollectionFloorValueByIdQueryHookResult = ReturnType<typeof useGetCollectionFloorValueByIdQuery>;
+export type GetCollectionFloorValueByIdLazyQueryHookResult = ReturnType<typeof useGetCollectionFloorValueByIdLazyQuery>;
+export type GetCollectionFloorValueByIdQueryResult = Apollo.QueryResult<GetCollectionFloorValueByIdQuery, GetCollectionFloorValueByIdQueryVariables>;
 export const CheckFavoriteNftDocument = gql`
-  query checkFavoriteNft($nftId: uuid!, $address: String) {
-    nft_favorites(where: { nft_id: { _eq: $nftId }, wallet_address: { _eq: $address } }) {
-      id
-    }
+    query checkFavoriteNft($nftId: uuid!, $address: String) {
+  nft_favorites(where: {nft_id: {_eq: $nftId}, wallet_address: {_eq: $address}}) {
+    id
   }
-`;
+}
+    `;
 
 /**
  * __useCheckFavoriteNftQuery__
@@ -10443,62 +10184,49 @@ export const CheckFavoriteNftDocument = gql`
  *   },
  * });
  */
-export function useCheckFavoriteNftQuery(
-  baseOptions: Apollo.QueryHookOptions<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>(
-    CheckFavoriteNftDocument,
-    options
-  );
-}
-export function useCheckFavoriteNftLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>(
-    CheckFavoriteNftDocument,
-    options
-  );
-}
+export function useCheckFavoriteNftQuery(baseOptions: Apollo.QueryHookOptions<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>(CheckFavoriteNftDocument, options);
+      }
+export function useCheckFavoriteNftLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>(CheckFavoriteNftDocument, options);
+        }
 export type CheckFavoriteNftQueryHookResult = ReturnType<typeof useCheckFavoriteNftQuery>;
 export type CheckFavoriteNftLazyQueryHookResult = ReturnType<typeof useCheckFavoriteNftLazyQuery>;
-export type CheckFavoriteNftQueryResult = Apollo.QueryResult<
-  CheckFavoriteNftQuery,
-  CheckFavoriteNftQueryVariables
->;
+export type CheckFavoriteNftQueryResult = Apollo.QueryResult<CheckFavoriteNftQuery, CheckFavoriteNftQueryVariables>;
 export const GetFavoriteListDocument = gql`
-  query getFavoriteList($address: String) {
-    nft_favorites(where: { wallet_address: { _eq: $address } }) {
-      nft {
-        asset_id
-        mint_number
-        is_for_sale
-        has_sale_offers
+    query getFavoriteList($address: String) {
+  nft_favorites(where: {wallet_address: {_eq: $address}}) {
+    nft {
+      asset_id
+      mint_number
+      is_for_sale
+      has_sale_offers
+      collection_id
+      transaction_status
+      collection {
         collection_id
-        transaction_status
-        collection {
-          collection_id
-          name
-          market_fee
-          image
-          description
-          author
-        }
-        owner
-        template {
-          metadata
-        }
-        sale_offers {
-          listing_resource_id
-          price
-          status
-          updated_at
-        }
+        name
+        market_fee
+        image
+        description
+        author
+      }
+      owner
+      template {
+        metadata
+      }
+      sale_offers {
+        listing_resource_id
+        price
+        status
+        updated_at
       }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetFavoriteListQuery__
@@ -10516,51 +10244,38 @@ export const GetFavoriteListDocument = gql`
  *   },
  * });
  */
-export function useGetFavoriteListQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetFavoriteListQuery, GetFavoriteListQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetFavoriteListQuery, GetFavoriteListQueryVariables>(
-    GetFavoriteListDocument,
-    options
-  );
-}
-export function useGetFavoriteListLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetFavoriteListQuery, GetFavoriteListQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetFavoriteListQuery, GetFavoriteListQueryVariables>(
-    GetFavoriteListDocument,
-    options
-  );
-}
+export function useGetFavoriteListQuery(baseOptions?: Apollo.QueryHookOptions<GetFavoriteListQuery, GetFavoriteListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFavoriteListQuery, GetFavoriteListQueryVariables>(GetFavoriteListDocument, options);
+      }
+export function useGetFavoriteListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFavoriteListQuery, GetFavoriteListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFavoriteListQuery, GetFavoriteListQueryVariables>(GetFavoriteListDocument, options);
+        }
 export type GetFavoriteListQueryHookResult = ReturnType<typeof useGetFavoriteListQuery>;
 export type GetFavoriteListLazyQueryHookResult = ReturnType<typeof useGetFavoriteListLazyQuery>;
-export type GetFavoriteListQueryResult = Apollo.QueryResult<
-  GetFavoriteListQuery,
-  GetFavoriteListQueryVariables
->;
+export type GetFavoriteListQueryResult = Apollo.QueryResult<GetFavoriteListQuery, GetFavoriteListQueryVariables>;
 export const GetLowerNftPriceByCollectionDocument = gql`
-  query getLowerNftPriceByCollection($collection_id: uuid) {
-    nft(where: { template: { collection: { id: { _eq: $collection_id } } } }) {
-      id
-      template {
-        collection {
-          description
-          image
-          name
-          collection_id
-          id
-        }
-      }
-      last_active_price
-      sale_offers(order_by: { price: asc }) {
+    query getLowerNftPriceByCollection($collection_id: uuid) {
+  nft(where: {template: {collection: {id: {_eq: $collection_id}}}}) {
+    id
+    template {
+      collection {
+        description
+        image
+        name
+        collection_id
         id
-        price
       }
     }
+    last_active_price
+    sale_offers(order_by: {price: asc}) {
+      id
+      price
+    }
   }
-`;
+}
+    `;
 
 /**
  * __useGetLowerNftPriceByCollectionQuery__
@@ -10578,50 +10293,27 @@ export const GetLowerNftPriceByCollectionDocument = gql`
  *   },
  * });
  */
-export function useGetLowerNftPriceByCollectionQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetLowerNftPriceByCollectionQuery,
-    GetLowerNftPriceByCollectionQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetLowerNftPriceByCollectionQuery,
-    GetLowerNftPriceByCollectionQueryVariables
-  >(GetLowerNftPriceByCollectionDocument, options);
-}
-export function useGetLowerNftPriceByCollectionLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetLowerNftPriceByCollectionQuery,
-    GetLowerNftPriceByCollectionQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetLowerNftPriceByCollectionQuery,
-    GetLowerNftPriceByCollectionQueryVariables
-  >(GetLowerNftPriceByCollectionDocument, options);
-}
-export type GetLowerNftPriceByCollectionQueryHookResult = ReturnType<
-  typeof useGetLowerNftPriceByCollectionQuery
->;
-export type GetLowerNftPriceByCollectionLazyQueryHookResult = ReturnType<
-  typeof useGetLowerNftPriceByCollectionLazyQuery
->;
-export type GetLowerNftPriceByCollectionQueryResult = Apollo.QueryResult<
-  GetLowerNftPriceByCollectionQuery,
-  GetLowerNftPriceByCollectionQueryVariables
->;
+export function useGetLowerNftPriceByCollectionQuery(baseOptions?: Apollo.QueryHookOptions<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>(GetLowerNftPriceByCollectionDocument, options);
+      }
+export function useGetLowerNftPriceByCollectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>(GetLowerNftPriceByCollectionDocument, options);
+        }
+export type GetLowerNftPriceByCollectionQueryHookResult = ReturnType<typeof useGetLowerNftPriceByCollectionQuery>;
+export type GetLowerNftPriceByCollectionLazyQueryHookResult = ReturnType<typeof useGetLowerNftPriceByCollectionLazyQuery>;
+export type GetLowerNftPriceByCollectionQueryResult = Apollo.QueryResult<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>;
 export const GetNflFiltersDocument = gql`
-  query getNflFilters {
-    nfl_all_day_taxonomies {
-      moment_count
-      taxonomy_attribute
-      taxonomy_label
-      taxonomy_value
-    }
+    query getNflFilters {
+  nfl_all_day_taxonomies {
+    moment_count
+    taxonomy_attribute
+    taxonomy_label
+    taxonomy_value
   }
-`;
+}
+    `;
 
 /**
  * __useGetNflFiltersQuery__
@@ -10638,75 +10330,60 @@ export const GetNflFiltersDocument = gql`
  *   },
  * });
  */
-export function useGetNflFiltersQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetNflFiltersQuery, GetNflFiltersQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNflFiltersQuery, GetNflFiltersQueryVariables>(
-    GetNflFiltersDocument,
-    options
-  );
-}
-export function useGetNflFiltersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetNflFiltersQuery, GetNflFiltersQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNflFiltersQuery, GetNflFiltersQueryVariables>(
-    GetNflFiltersDocument,
-    options
-  );
-}
+export function useGetNflFiltersQuery(baseOptions?: Apollo.QueryHookOptions<GetNflFiltersQuery, GetNflFiltersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNflFiltersQuery, GetNflFiltersQueryVariables>(GetNflFiltersDocument, options);
+      }
+export function useGetNflFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNflFiltersQuery, GetNflFiltersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNflFiltersQuery, GetNflFiltersQueryVariables>(GetNflFiltersDocument, options);
+        }
 export type GetNflFiltersQueryHookResult = ReturnType<typeof useGetNflFiltersQuery>;
 export type GetNflFiltersLazyQueryHookResult = ReturnType<typeof useGetNflFiltersLazyQuery>;
-export type GetNflFiltersQueryResult = Apollo.QueryResult<
-  GetNflFiltersQuery,
-  GetNflFiltersQueryVariables
->;
+export type GetNflFiltersQueryResult = Apollo.QueryResult<GetNflFiltersQuery, GetNflFiltersQueryVariables>;
 export const GetNFlEditionsDocument = gql`
-  query getNFlEditions(
-    $offset: Int
-    $plays: nfl_all_day_plays_bool_exp
-    $sets: nfl_all_day_sets_bool_exp
-    $tier: [nfl_all_day_editions_bool_exp!]
+    query getNFlEditions($offset: Int, $plays: nfl_all_day_plays_bool_exp, $sets: nfl_all_day_sets_bool_exp, $tier: [nfl_all_day_editions_bool_exp!], $orderBy: [nfl_all_day_editions_order_by!]) {
+  nfl_all_day_editions_aggregate(
+    where: {_and: {_or: $tier, play: $plays, set: $sets}}
   ) {
-    nfl_all_day_editions_aggregate(where: { _and: { _or: $tier, play: $plays, set: $sets } }) {
-      aggregate {
-        count
-      }
-    }
-    nfl_all_day_editions(
-      where: { _and: { _or: $tier, play: $plays, set: $sets } }
-      limit: 40
-      offset: $offset
-    ) {
-      edition_id
-      max_list_price
-      min_list_price
-      max_mint_size
-      inserted_at
-      number_of_active_listings
-      circulation_count
-      tier
-      play {
-        player_full_name
-        description
-        external_id
-        team_name
-        game_date
-        play_type
-        player_position
-      }
-      series {
-        name
-        series_id
-      }
-      set {
-        name
-        set_id
-      }
+    aggregate {
+      count
     }
   }
-`;
+  nfl_all_day_editions(
+    where: {_and: [{number_of_active_listings: {_gt: 0}}, {_or: $tier, play: $plays, set: $sets}]}
+    limit: 40
+    offset: $offset
+    order_by: $orderBy
+  ) {
+    edition_id
+    max_list_price
+    min_list_price
+    max_mint_size
+    inserted_at
+    number_of_active_listings
+    circulation_count
+    tier
+    play {
+      player_full_name
+      description
+      external_id
+      team_name
+      game_date
+      play_type
+      player_position
+    }
+    series {
+      name
+      series_id
+    }
+    set {
+      name
+      set_id
+    }
+  }
+}
+    `;
 
 /**
  * __useGetNFlEditionsQuery__
@@ -10724,74 +10401,64 @@ export const GetNFlEditionsDocument = gql`
  *      plays: // value for 'plays'
  *      sets: // value for 'sets'
  *      tier: // value for 'tier'
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */
-export function useGetNFlEditionsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetNFlEditionsQuery, GetNFlEditionsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNFlEditionsQuery, GetNFlEditionsQueryVariables>(
-    GetNFlEditionsDocument,
-    options
-  );
-}
-export function useGetNFlEditionsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetNFlEditionsQuery, GetNFlEditionsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNFlEditionsQuery, GetNFlEditionsQueryVariables>(
-    GetNFlEditionsDocument,
-    options
-  );
-}
+export function useGetNFlEditionsQuery(baseOptions?: Apollo.QueryHookOptions<GetNFlEditionsQuery, GetNFlEditionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNFlEditionsQuery, GetNFlEditionsQueryVariables>(GetNFlEditionsDocument, options);
+      }
+export function useGetNFlEditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNFlEditionsQuery, GetNFlEditionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNFlEditionsQuery, GetNFlEditionsQueryVariables>(GetNFlEditionsDocument, options);
+        }
 export type GetNFlEditionsQueryHookResult = ReturnType<typeof useGetNFlEditionsQuery>;
 export type GetNFlEditionsLazyQueryHookResult = ReturnType<typeof useGetNFlEditionsLazyQuery>;
-export type GetNFlEditionsQueryResult = Apollo.QueryResult<
-  GetNFlEditionsQuery,
-  GetNFlEditionsQueryVariables
->;
+export type GetNFlEditionsQueryResult = Apollo.QueryResult<GetNFlEditionsQuery, GetNFlEditionsQueryVariables>;
 export const GetNflnfTsByAddressDocument = gql`
-  query getNFLNFTsByAddress($address: String!, $collections: [nft_bool_exp!]) {
-    nft: nfl_all_day_moments_aggregate(where: { owner: { _eq: $address } }) {
-      nfl: nodes {
-        id: moment_id
-        asset_id: moment_id
-        mint_number: serial_number
-        active_listing_price
-        active_listing_order_id
-        created_at
-        owner
-        edition {
-          collection_id: edition_id
-          max_mint_size
-          min_list_price
-          max_list_price
-          play {
-            team_name
-            play_id
-            description
-            classification
-            created_at
-            play_type
-            external_id
-            game_date
-            player_full_name
-            player_position
-          }
-          series {
-            name
-            series_id
-          }
-          set {
-            name
-            set_id
-          }
+    query getNFLNFTsByAddress($address: String!, $collections: [nft_bool_exp!]) {
+  nft: nfl_all_day_moments_aggregate(where: {owner: {_eq: $address}}) {
+    nfl: nodes {
+      id: moment_id
+      asset_id: moment_id
+      serial_number
+      active_listing_price
+      active_listing_order_id
+      created_at
+      owner
+      edition {
+        edition_id
+        max_mint_size
+        min_list_price
+        max_list_price
+        number_of_active_listings
+        tier
+        play {
+          team_name
+          play_id
+          description
+          classification
+          created_at
+          play_type
+          external_id
+          game_date
+          player_full_name
+          player_position
+        }
+        series {
+          name
+          series_id
+        }
+        set {
+          name
+          set_id
         }
       }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetNflnfTsByAddressQuery__
@@ -10810,32 +10477,84 @@ export const GetNflnfTsByAddressDocument = gql`
  *   },
  * });
  */
-export function useGetNflnfTsByAddressQuery(
-  baseOptions: Apollo.QueryHookOptions<GetNflnfTsByAddressQuery, GetNflnfTsByAddressQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNflnfTsByAddressQuery, GetNflnfTsByAddressQueryVariables>(
-    GetNflnfTsByAddressDocument,
-    options
-  );
-}
-export function useGetNflnfTsByAddressLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetNflnfTsByAddressQuery,
-    GetNflnfTsByAddressQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNflnfTsByAddressQuery, GetNflnfTsByAddressQueryVariables>(
-    GetNflnfTsByAddressDocument,
-    options
-  );
-}
+export function useGetNflnfTsByAddressQuery(baseOptions: Apollo.QueryHookOptions<GetNflnfTsByAddressQuery, GetNflnfTsByAddressQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNflnfTsByAddressQuery, GetNflnfTsByAddressQueryVariables>(GetNflnfTsByAddressDocument, options);
+      }
+export function useGetNflnfTsByAddressLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNflnfTsByAddressQuery, GetNflnfTsByAddressQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNflnfTsByAddressQuery, GetNflnfTsByAddressQueryVariables>(GetNflnfTsByAddressDocument, options);
+        }
 export type GetNflnfTsByAddressQueryHookResult = ReturnType<typeof useGetNflnfTsByAddressQuery>;
-export type GetNflnfTsByAddressLazyQueryHookResult = ReturnType<
-  typeof useGetNflnfTsByAddressLazyQuery
->;
-export type GetNflnfTsByAddressQueryResult = Apollo.QueryResult<
-  GetNflnfTsByAddressQuery,
-  GetNflnfTsByAddressQueryVariables
->;
+export type GetNflnfTsByAddressLazyQueryHookResult = ReturnType<typeof useGetNflnfTsByAddressLazyQuery>;
+export type GetNflnfTsByAddressQueryResult = Apollo.QueryResult<GetNflnfTsByAddressQuery, GetNflnfTsByAddressQueryVariables>;
+export const GetNflMomentDocument = gql`
+    query getNFLMoment($edition_id: bigint, $serial_number: Int) {
+  nfl_all_day_moments(
+    where: {serial_number: {_eq: $serial_number}, edition: {edition_id: {_eq: $edition_id}}}
+  ) {
+    moment_id
+    active_listing_price
+    owner
+    serial_number
+    active_listing_order_id
+    active_listing_order_address
+    edition {
+      edition_id
+      max_mint_size
+      inserted_at
+      circulation_count
+      hidden_in_packs_count
+      tier
+      play {
+        player_full_name
+        description
+        external_id
+        team_name
+        game_date
+        play_type
+        player_position
+        home_team_name
+        away_team_name
+      }
+      series {
+        name
+        series_id
+      }
+      set {
+        name
+        set_id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetNflMomentQuery__
+ *
+ * To run a query within a React component, call `useGetNflMomentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNflMomentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNflMomentQuery({
+ *   variables: {
+ *      edition_id: // value for 'edition_id'
+ *      serial_number: // value for 'serial_number'
+ *   },
+ * });
+ */
+export function useGetNflMomentQuery(baseOptions?: Apollo.QueryHookOptions<GetNflMomentQuery, GetNflMomentQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNflMomentQuery, GetNflMomentQueryVariables>(GetNflMomentDocument, options);
+      }
+export function useGetNflMomentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNflMomentQuery, GetNflMomentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNflMomentQuery, GetNflMomentQueryVariables>(GetNflMomentDocument, options);
+        }
+export type GetNflMomentQueryHookResult = ReturnType<typeof useGetNflMomentQuery>;
+export type GetNflMomentLazyQueryHookResult = ReturnType<typeof useGetNflMomentLazyQuery>;
+export type GetNflMomentQueryResult = Apollo.QueryResult<GetNflMomentQuery, GetNflMomentQueryVariables>;

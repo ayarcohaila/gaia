@@ -1,29 +1,31 @@
+import { collection, getFirestore, onSnapshot, query, where } from '@firebase/firestore';
+import humps from 'humps';
 import { Box, Grid, useTheme } from '@mui/material';
-
-import NflDetailsTopSection from '~/components/productDetails/detailsNFL';
+import { useEffect, useState } from 'react';
+import MomentNFLSection from '~/components/productDetails/momentNFL';
 
 import Seo from '~/components/seo';
 import { gqlClient } from '~/config/apolloClient';
 import useBreakpoints from '~/hooks/useBreakpoints';
-import { GET_NFL_EDITION_BY_ID } from '~/store/server/queries';
+import { GET_NFL_MOMENT } from '~/store/server/queries';
 import { COLLECTIONS_NAME } from '~/../collections_setup';
-import {
-  GetNflEditionByIdQuery,
-  GetNflEditionByIdQueryVariables
-} from '~/store/server/graphql.generated';
+import { GetNflMomentQuery, GetNflMomentQueryVariables } from '~/store/server/graphql.generated';
 
-import { NflDetailsTopSectionProps } from '~/components/productDetails/detailsNFL/types';
+import { mergeDeep } from '~/utils/mergeDeep';
 import { useRouter } from 'next/router';
 
+type MomentType = GetNflMomentQuery['nfl_all_day_moments'][number];
 export type MomentDetailsPageParams = {
   collection_name: string;
   nft_id: string;
   serial_number: string;
+  moment: MomentType;
 };
 
 const MomentProductDetails = (props: MomentDetailsPageParams) => {
+  const [updatedMoment, setUpdatedMoment] = useState<MomentType>(props.moment);
   const {
-    query: { serial_number }
+    query: { nft_id, serial_number }
   } = useRouter();
 
   const {
@@ -34,13 +36,38 @@ const MomentProductDetails = (props: MomentDetailsPageParams) => {
   const title = `MOMENT #${serial_number}`;
   const description = 'NFL Moment';
 
-  const nflProps = props as any as NflDetailsTopSectionProps;
+  useEffect(() => {
+    const subscriptions: any = [];
+
+    const db = getFirestore();
+    const nftsQuery = query(
+      collection(db, 'nflAllDayMoments'),
+      where('serialNumber', '==', Number(serial_number)),
+      where('edition.editionId', '==', Number(nft_id))
+    );
+
+    subscriptions.push(
+      onSnapshot(nftsQuery, querySnapshot => {
+        const nfts: MomentType[] = [];
+
+        querySnapshot.forEach((doc: any) => {
+          nfts.push(doc.data());
+        });
+        const decamilazedMoment = humps.decamelizeKeys(nfts?.[0]);
+        setUpdatedMoment((prevState: MomentType) => ({
+          ...mergeDeep(prevState, decamilazedMoment)
+        }));
+      })
+    );
+
+    return () => subscriptions.forEach((unsubscribe: any) => unsubscribe());
+  }, [setUpdatedMoment]);
 
   return (
     <Box bgcolor={grey[200]}>
       <Seo title={`${title} | NFL All Day NFT Collection`} description={description} />
       <Grid m="0 auto" maxWidth="1280px" width={isSmallDevice ? '100%' : '90%'}>
-        <NflDetailsTopSection {...nflProps} />
+        <MomentNFLSection moment={updatedMoment} />
       </Grid>
     </Box>
   );
@@ -59,19 +86,18 @@ export const getServerSideProps = async ({ params }: { params: MomentDetailsPage
 
   try {
     if (collection_name === COLLECTIONS_NAME.NFL) {
-      const { nfl_all_day_editions } = await gqlClient.request<
-        GetNflEditionByIdQuery,
-        GetNflEditionByIdQueryVariables
-      >(GET_NFL_EDITION_BY_ID, { _eq: nft_id });
+      const { nfl_all_day_moments } = await gqlClient.request<
+        GetNflMomentQuery,
+        GetNflMomentQueryVariables
+      >(GET_NFL_MOMENT, { edition_id: Number(nft_id), serial_number: Number(serial_number) });
 
-      if (!nfl_all_day_editions.length) {
+      if (!nfl_all_day_moments.length) {
         return { notFound: true };
       }
 
       return {
         props: {
-          edition: nfl_all_day_editions[0],
-          serial_number: serial_number
+          moment: nfl_all_day_moments[0]
         }
       };
     }
