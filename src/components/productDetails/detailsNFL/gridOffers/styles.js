@@ -68,3 +68,10 @@ export const CustomButton = styled(Button)(() => ({
   fontWeight: '600',
   textAlign: 'center'
 }));
+
+export const CentralizedContent = styled(Grid)(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%'
+}));

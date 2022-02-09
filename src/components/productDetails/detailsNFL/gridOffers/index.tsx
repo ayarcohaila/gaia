@@ -130,10 +130,14 @@ export default function GridOffers(props: Props) {
               disableVirtualization={true}
             />
           ) : (
-            'There are no moments for sale for this edition'
+            <Styled.CentralizedContent>
+              There are no moments for sale for this edition
+            </Styled.CentralizedContent>
           )
         ) : (
-          <CircularProgress />
+          <Styled.CentralizedContent>
+            <CircularProgress />
+          </Styled.CentralizedContent>
         )}
       </Styled.GridContainer>
       {purchaseNft ? (
