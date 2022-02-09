@@ -45,6 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       {
         orderBy: orderBy,
         offset: req?.body?.offset,
+        limit: req?.body?.limit,
         plays: {
           _and: {
             ...playFilters,

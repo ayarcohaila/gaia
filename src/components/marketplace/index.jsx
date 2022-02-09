@@ -36,16 +36,14 @@ const Marketplace = ({ collectionName }) => {
     setShowFilter(prevState => !prevState);
   };
 
-  const handleLoadMore = () => {
+  const handleLoadMore = e => {
+    e.preventDefault();
     handleAppData({ page: page + 1, loadMore: true });
   };
 
   useEffect(() => {
     if (!marketplaceLoading && imgRef) {
       handleScrollPosition();
-    }
-    if (!imgRef) {
-      window.scrollTo(0, 0);
     }
   }, [marketplaceLoading, imgRef]);
 

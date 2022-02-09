@@ -115,6 +115,7 @@ const FiltersNFL = ({
       ...(state.player_position.length > 0 && { player_position: state.player_position }),
       ...(state.play_type.length > 0 && { play_type: state.play_type }),
       ...(state.tier.length > 0 && { tier: state.tier }),
+      limit: DEFAULT_LIST_SIZE,
       offset: appData?.loadMore ? (appData?.page || 1) * DEFAULT_LIST_SIZE : 0,
       orderBy: appData?.marketplaceSort || { min_list_price: 'asc' }
     };
@@ -140,7 +141,6 @@ const FiltersNFL = ({
       marketplaceNfts: appendedList,
       marketCount: result.data.marketCount,
       marketplaceLoading: false,
-      loadMore: false,
       filters: data.filters
     });
   }, 500);

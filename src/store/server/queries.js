@@ -466,8 +466,13 @@ const GET_NFL = gql`
     $sets: nfl_all_day_sets_bool_exp
     $tier: [nfl_all_day_editions_bool_exp!]
     $orderBy: [nfl_all_day_editions_order_by!]
+    $limit: Int
   ) {
-    nfl_all_day_editions_aggregate(where: { _and: { _or: $tier, play: $plays, set: $sets } }) {
+    nfl_all_day_editions_aggregate(
+      where: {
+        _and: [{ number_of_active_listings: { _gt: 0 } }, { _or: $tier, play: $plays, set: $sets }]
+      }
+    ) {
       aggregate {
         count
       }
@@ -476,7 +481,7 @@ const GET_NFL = gql`
       where: {
         _and: [{ number_of_active_listings: { _gt: 0 } }, { _or: $tier, play: $plays, set: $sets }]
       }
-      limit: 40
+      limit: $limit
       offset: $offset
       order_by: $orderBy
     ) {
