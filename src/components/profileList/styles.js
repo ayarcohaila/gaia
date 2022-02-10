@@ -1,5 +1,12 @@
 import { Grid, Button, styled, Tab } from '@mui/material';
 
+export const TabPanel = styled('div')(() => ({}));
+
+export const LoadMoreWrapper = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+}));
 export const GridRenderList = styled(Grid, {
   shouldForwardProp: prop => !['showFilter', 'isMediumDevice'].includes(prop)
 })(({ showFilter, isMediumDevice, theme }) => ({

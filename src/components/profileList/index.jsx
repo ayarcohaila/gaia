@@ -29,14 +29,14 @@ function TabPanel(props) {
   const { children, tabValue, index, ...other } = props;
 
   return (
-    <div
+    <Styled.TabPanel
       role="tabpanel"
       hidden={tabValue !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}>
       {tabValue === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
+    </Styled.TabPanel>
   );
 }
 
@@ -135,7 +135,9 @@ const ProfileList = ({ nfts, onQuantityChanged }) => {
         </Box>
         <TabPanel tabValue={tabValue} index={0}>
           {filteredNfts === undefined ? (
-            <CircularProgress />
+            <Styled.LoadMoreWrapper>
+              <CircularProgress />
+            </Styled.LoadMoreWrapper>
           ) : filteredNfts.length > 0 ? (
             <>
               <FormGroup>
