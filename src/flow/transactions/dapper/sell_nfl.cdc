@@ -6,7 +6,7 @@ import NonFungibleToken from 0x631e88ae7f1d7c20
 import DapperUtilityCoin from 0x82ec283f88a62e65
 import FungibleToken from 0x9a0766d93b6608b7
 
-transaction(nftID: UInt64, price: UFix64, royalties: {Address: UFix64}) {
+transaction(nftID: UInt64, price: UFix64) {
     let nftProvider: Capability<&{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>
     let storefront: &NFTStorefront.Storefront
     let oldListings: [&NFTStorefront.Listing{NFTStorefront.ListingPublic}]
@@ -58,12 +58,14 @@ transaction(nftID: UInt64, price: UFix64, royalties: {Address: UFix64}) {
             )
         }
 
-        let royaltiesPart: [GaiaOrder.PaymentPart] = []
+        let royalties: [GaiaOrder.PaymentPart] = []
         let extraCuts: [GaiaOrder.PaymentPart] = []
 
-        for k in royalties.keys {
-            royaltiesPart.append(GaiaOrder.PaymentPart(address: k, rate: royalties[k]!))
-        }
+        // specify fees for AllDay (this is secure because all txs must be whitelisted by Dapper)
+        let feeRecipientAddress: Address = 0x4dfd62c88d1b6462 
+        let feePercentage = 0.05
+
+        royalties.append(GaiaOrder.PaymentPart(address: feeRecipientAddress, rate: feePercentage))
 
         GaiaOrder.addOrder(
             storefront: self.storefront,
@@ -74,7 +76,7 @@ transaction(nftID: UInt64, price: UFix64, royalties: {Address: UFix64}) {
             vaultType: Type<@DapperUtilityCoin.Vault>(), // specify ft token
             price: price,
             extraCuts: extraCuts,
-            royalties: royaltiesPart
+            royalties: royalties
         )
     }
 }
