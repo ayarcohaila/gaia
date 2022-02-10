@@ -16,9 +16,24 @@ import Accordion from '~/components/accordion';
 import Input from '~/base/input';
 import Autocomplete from '~/base/autocomplete';
 import usePrevious from '~/hooks/usePrevious';
-
+import { ParsedTaxonomy } from '~/pages/api/nfl/filtersOptions';
 import { ACTION_TYPE, reducer, initialState, NFL_ALL_DAY_FILTERS } from './reducer';
 import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup';
+
+const sortFilterOptions = options => {
+  if (options?.length > 1) {
+    return options.sort((a, b) => {
+      if (a.label < b.label) {
+        return -1;
+      }
+      if (a.label > b.label) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+  return options;
+};
 
 import * as Styled from './styles';
 
@@ -233,14 +248,14 @@ const FiltersNFL = ({
               width={isSmallDevice ? '90%' : '100%'}>
               <Autocomplete
                 value={state[id]}
-                options={filteredOptions}
+                options={sortFilterOptions(filteredOptions)}
                 placeholder={'Search'}
                 onChange={(event, newValue) => setFilter(id, newValue)}
               />
             </Box>
           );
         case filtersTypes.MULTI:
-          return options?.map(option => {
+          return sortFilterOptions(options)?.map(option => {
             return (
               <Box key={option?.value} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
                 <CheckboxCard
