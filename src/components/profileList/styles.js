@@ -31,10 +31,17 @@ export const GridRenderList = styled(Grid, {
     marginTop: '10px'
   },
 
+  [theme.breakpoints.down('md')]: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    padding: '0',
+    marginTop: '10px'
+  },
+
   [theme.breakpoints.down('sm')]: {
     display: 'grid',
     gridTemplateColumns: '1fr',
-    padding: '0 20px',
+    padding: '0',
     marginTop: '5px'
   }
 }));
