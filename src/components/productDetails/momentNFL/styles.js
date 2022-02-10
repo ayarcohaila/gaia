@@ -17,22 +17,14 @@ export const Container = styled(Grid)(({ theme: { breakpoints, palette } }) => (
   padding: 40,
   gap: '40px',
 
-  '.MuiAccordionSummary-root, .MuiAccordionDetails-root': {
-    padding: '0px !important'
-  },
-
   [breakpoints.down('md')]: {
     marginTop: '0',
-    padding: '24px !important',
-
-    '.MuiAccordionSummary-root, .MuiAccordionDetails-root': {
-      padding: '12px'
-    }
+    padding: '24px '
   },
 
   [breakpoints.down('sm')]: {
     marginTop: '0',
-    padding: '20px 0 !important'
+    padding: '20px 0'
   }
 }));
 
@@ -57,7 +49,8 @@ export const EditionInfo = styled(Typography)(
     textTransform: 'uppercase',
 
     [breakpoints.down('sm')]: {
-      textAlign: 'center'
+      textAlign: 'center',
+      padding: '0 20px'
     },
 
     '&>span': {
@@ -208,20 +201,12 @@ export const TransferButton = styled(MuiButton)(({ theme: { palette } }) => ({
 
 export const CustomAccordion = styled(Accordion)(({ theme: { breakpoints } }) => ({
   '.MuiAccordionSummary-root, .MuiAccordionDetails-root': {
-    padding: '0px !important'
+    padding: '0px'
   },
 
   [breakpoints.down('md')]: {
-    marginTop: '0',
-    padding: '24px !important',
-
     '.MuiAccordionSummary-root, .MuiAccordionDetails-root': {
-      padding: '12px'
+      padding: ' 0 20px'
     }
-  },
-
-  [breakpoints.down('sm')]: {
-    marginTop: '0',
-    padding: '20px 0 !important'
   }
 }));
