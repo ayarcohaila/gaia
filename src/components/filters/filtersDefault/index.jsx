@@ -114,6 +114,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
     const ids = [];
     const list = [];
+    const removedItems = [];
 
     const unfilteredList =
       config?.id && !appData.loadMore
@@ -124,12 +125,14 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       if (!ids.includes(nft_item.asset_id)) {
         ids.push(nft_item.asset_id);
         list.push(nft_item);
+      } else {
+        removedItems.push(nft_item);
       }
     });
 
     handleAppData({
       marketplaceNfts: list,
-      marketCount: result.data.marketCount,
+      marketCount: result.data.marketCount - removedItems.length,
       marketplaceLoading: false,
       loadMore: false,
       marketplaceSort:
