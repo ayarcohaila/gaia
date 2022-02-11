@@ -127,8 +127,11 @@ export const CancelNflModal = (props: Props) => {
       title={title}
       disableCloseButton={disableClose}
       titleSx={{ mt: '120px' }}
-      mobileHeight={isExtraSmallDevice ? '70vh' : '60vh'}
-      height={'400px'}>
+      mobileHeight={isExtraSmallDevice ? '75vh' : '65vh'}
+      height={'400px'}
+      contentSx={{
+        height: 'auto'
+      }}>
       {errorMessage ? (
         <Stack spacing={1}>
           <Typography style={{ textAlign: 'center' }} padding={4} fontSize={18} lineHeight={1.4}>

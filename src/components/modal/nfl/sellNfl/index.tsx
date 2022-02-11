@@ -181,8 +181,8 @@ export const SellNflModal = (props: Props) => {
       descriptionSx={{ textAlign: 'center' }}
       title={title}
       disableCloseButton={disableClose}
-      titleSx={{ mt: '120px' }}
-      mobileHeight={isExtraSmallDevice ? '70vh' : '60vh'}
+      titleSx={{ mt: '120px', fontSize: isExtraSmallDevice ? '1.35rem' : '1.5rem' }}
+      mobileHeight={isExtraSmallDevice ? '85vh' : '75vh'}
       height={'400px'}>
       {errorMessage ? (
         <Stack spacing={1}>

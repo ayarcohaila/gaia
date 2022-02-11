@@ -97,7 +97,13 @@ const Modal = ({
           onClose={onClose}
           onOpen={onClose}
           disableSwipeToOpen={false}
-          ModalProps={DRAWER_MODAL_PROPS}>
+          ModalProps={DRAWER_MODAL_PROPS}
+          PaperProps={{
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none'
+            }
+          }}>
           {renderContent()}
         </SwipeableDrawer>
       );
