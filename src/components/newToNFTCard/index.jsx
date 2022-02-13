@@ -18,7 +18,13 @@ const NewToNFTCard = ({ data }) => {
         <Link {...(data.hasButton ? data.linkProps : { href: '#' })} passHref>
           <Styled.CustomLink rel="noreferrer" target={data.linkProps?.target}>
             <Styled.ImageContainer>
-              <Image src={data.image} alt={data.title} height={407.16} width={576.88} />
+              <Image
+                src={data.image}
+                alt={data.title}
+                height={407.16}
+                width={576.88}
+                quality={100}
+              />
             </Styled.ImageContainer>
           </Styled.CustomLink>
         </Link>
