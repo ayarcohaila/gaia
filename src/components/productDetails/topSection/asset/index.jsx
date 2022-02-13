@@ -24,6 +24,7 @@ const Asset = ({ metadata }) => {
         layout={'fill'}
         objectFit="contain"
         placeholder="blur"
+        quality={100}
       />
     </Styled.ImageContainer>
   );
