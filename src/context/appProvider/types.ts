@@ -6,7 +6,9 @@ export interface AppContextValue {
     marketplaceNfts: any[];
     cardRef: any;
     imgRef: any;
-    marketplaceSort: any;
+    marketplaceSort: {
+      last_active_price: 'asc' | 'desc';
+    };
   };
   handleAppData: (value: AppContextValue['appData']) => void;
 }

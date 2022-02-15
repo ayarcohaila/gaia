@@ -1,21 +1,23 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useContext, useState, useMemo, useCallback, useEffect } from 'react';
 import { useTheme } from '@emotion/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Typography, Divider, Grid } from '@mui/material';
 import dynamic from 'next/dynamic';
+
 import { buy } from '~/flow/buy';
 import Button from '~/base/button';
 import Loader from '~/base/spinnerLoader';
 import VideoPlayer from '~/components/videoPlayer';
+import useAuth from '~/hooks/useAuth';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
-import { useAuthContext } from '~/providers/AuthProvider';
+import { AuthContext } from '~/providers/AuthProvider';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { BUY_TX } from '~/constant';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
-import { INSUFFICIENT_FUNDS } from '~/components/productDetails/defaultDetails';
+import { INSUFFICIENT_FUNDS } from '~/components/productDetails/topSection';
 
 const InsufficientFundsModal = dynamic(() => import('~/components/modal/insufficientFunds'));
 const PurchaseErrorModal = dynamic(() => import('~/components/modal/purchaseError'));
@@ -28,7 +30,7 @@ const ShareefCollectionContent = ({ data }) => {
   const {
     palette: { grey }
   } = useTheme();
-  const { login, user } = useAuthContext();
+  const { login } = useAuth();
   const route = useRouter();
   const { isMediumDevice, isExtraMediumDevice } = useBreakpoints();
   const [isPurchaseNftModalOpen, togglePurchaseNftModal] = useToggle();
@@ -36,6 +38,7 @@ const ShareefCollectionContent = ({ data }) => {
   const [isFundsErrorOpen, toggleFundsError] = useToggle();
   const [isProcessingModalOpen, toggleProcessingModal] = useToggle();
   const [purchaseTxId, setPurchaseTxId] = useState(null);
+  const { user } = useContext(AuthContext);
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [loadingTransaction, setLoadingTransaction] = useState(false);
   const [transaction, setTransaction] = useState(null);

@@ -15,8 +15,7 @@ export const COLLECTIONS_NAME = {
   BALLERZ: 'ballerz',
   BRYSON: 'bryson',
   SHAREEF: 'shareef',
-  SHAREEF_AIRDROP: 'shareef-airdrop',
-  NFL: 'nfl-all-day'
+  SHAREEF_AIRDROP: 'shareef-airdrop'
 };
 
 export const COLLECTION_LIST_CONFIG = {
@@ -81,21 +80,6 @@ export const COLLECTION_LIST_CONFIG = {
     secondaryColor: '#4b1f87',
     collectionSize: 1023,
     displayOnCollectionsPage: true
-  },
-  [COLLECTIONS_NAME.NFL]: {
-    id: process.env.NEXT_PUBLIC_NFLALLDAY_COLLECTION,
-    nftName: 'NFL',
-    collectionName: COLLECTIONS_NAME.NFL,
-    status: COLLECTION_STATUS.SALE,
-    mystery: false,
-    buyLimit: 0,
-    avatar: '/collections/nfl/avatar-white.svg',
-    banner: '/collections/nfl/banner.webp',
-    pageTitle: 'NFL All Day',
-    mainColor: '#000000',
-    secondaryColor: '#00000',
-    collectionSize: 0,
-    displayOnCollectionsPage: false
   }
 };
 

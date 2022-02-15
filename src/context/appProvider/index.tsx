@@ -9,7 +9,7 @@ const initialContextValue: AppContextValue = {
     cardRef: null,
     imgRef: null,
     marketplaceNfts: [],
-    marketplaceSort: null
+    marketplaceSort: { last_active_price: 'asc' }
   },
   handleAppData: () => void 0
 };

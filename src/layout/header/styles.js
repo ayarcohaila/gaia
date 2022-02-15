@@ -6,7 +6,7 @@ export const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'isM
   ({ isMobile }) => ({
     width: '100%',
     height: isMobile ? '72px' : '80px',
-    padding: isMobile ? '12px 20px' : '20px 50px',
+    padding: isMobile ? '12px 20px' : '20px 40px',
     display: 'flex',
     alignItems: 'center',
     boxSizing: 'border-box'

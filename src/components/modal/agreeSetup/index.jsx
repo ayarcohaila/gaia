@@ -1,6 +1,7 @@
-import { memo, useMemo, useState, useEffect } from 'react';
+import { memo, useMemo, useState, useEffect, useContext } from 'react';
 
 import Loader from '~/base/spinnerLoader';
+import useAuth from '~/hooks/useAuth';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { isDapper } from '~/utils/currencyCheck';
@@ -10,24 +11,25 @@ import { setupAccount } from '~/flow/setupAccount';
 
 import Modal from '..';
 import * as Styled from './styles';
-import { useAuthContext } from '~/providers/AuthProvider';
+import { AuthContext } from '~/providers/AuthProvider';
 
 const AgreeSetupModal = ({ onClose, ...props }) => {
-  const { logout, setHasSetup } = useAuthContext();
+  const { logout } = useAuth();
   const [transaction, setTransaction] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { setHasSetup } = useContext(AuthContext);
   const { isSmallDevice, isExtraSmallDevice } = useBreakpoints();
 
   const setupTx = isDapper
     ? preval`
     const fs = require('fs')
-    const path = require('path'),
+    const path = require('path'),   
     filePath = path.join(__dirname, "../../../flow/transactions/dapper/setup_account.cdc");
     module.exports = fs.readFileSync(filePath, 'utf8')
     `
     : preval`
     const fs = require('fs')
-    const path = require('path'),
+    const path = require('path'),   
     filePath = path.join(__dirname, "../../../flow/transactions/flowToken/setup_account.cdc");
     module.exports = fs.readFileSync(filePath, 'utf8')
     `;

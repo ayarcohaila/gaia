@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Typography, useTheme } from '@mui/material';
 import { ArrowDropDown as ExpandMoreIcon } from '@mui/icons-material';
 import { capitalize } from '~/utils/string';
@@ -15,7 +14,6 @@ const Accordion = ({
   title,
   ...props
 }: PropsWithChildren<AccordionProps>) => {
-  const [expanded, setExpanded] = useState(false);
   const {
     palette: { grey }
   } = useTheme();
@@ -27,11 +25,10 @@ const Accordion = ({
       <Styled.Accordion {...props}>
         <Styled.AccordionSummary
           aria-controls={title}
-          expandIcon={<ExpandMoreIcon htmlColor={grey[expanded ? 700 : 600]} />}
+          expandIcon={<ExpandMoreIcon htmlColor={grey[600]} />}
           id={`${title}_summary`}
-          data-cy={`accordion-summary-${title}`}
-          onClick={() => setExpanded(!expanded)}>
-          <Typography color={grey[700]} variant="h5" fontWeight="600">
+          data-cy={`accordion-summary-${title}`}>
+          <Typography color={grey[700]} variant="h5">
             {capitalize(title)}
           </Typography>
         </Styled.AccordionSummary>

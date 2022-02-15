@@ -3,14 +3,16 @@ import { Search as SearchIcon } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { Hidden } from '@mui/material';
 import { useRouter } from 'next/router';
+
 import Dropdown from '~/base/dropdown';
 import SearchInput from '~/base/searchInput';
 import BurstIcon from '~/base/burstIcon';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import useCollectionConfig from '~/hooks/useCollectionConfig';
+import useAuth from '~/hooks/useAuth';
+
 import { ORDER_MENU_IDS } from './constants';
 import * as Styled from './styles.js';
-import { useAuthContext } from '~/providers/AuthProvider';
 
 const ESC_KEY = 27;
 
@@ -29,7 +31,7 @@ const CollectionsFilter = ({
   const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.SORT_BY);
   const [isSearching, setIsSearching] = useState(false);
   const { isMediumDevice } = useBreakpoints();
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   const {
     query: { id: pathAddress }
   } = useRouter();

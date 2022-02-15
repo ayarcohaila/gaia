@@ -2,26 +2,22 @@
 // import { useEffect, useState } from 'react';
 // import usePrevious from '~/hooks/usePrevious';
 // import { validateEmail } from '~/utils/validations';
-import { useMemo } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { Twitter as TwitterIcon } from '@mui/icons-material';
 import { useTheme } from 'styled-components';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
-import { useRouter } from 'next/router';
 
 import useBreakpoints from '~/hooks/useBreakpoints';
 
 import * as Styled from './styles';
 import { ITEMS, iconStyles } from './constants';
-import { COLLECTIONS_NAME } from 'collections_setup';
 
 const Footer = () => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
   const {
     palette: { secondary, grey }
   } = useTheme();
-  const router = useRouter();
 
   //TODO: Uncomment later when adding mail newsletter integration
   // const previousEmailValue = usePrevious(email);
@@ -42,7 +38,6 @@ const Footer = () => {
   //     setHasError(false);
   //   }
   // }, [email, hasError, previousEmailValue]);
-  const isNflPage = useMemo(() => router.asPath.includes(COLLECTIONS_NAME.NFL), [router]);
 
   return (
     <Grid bgcolor={secondary.main} mt="64px" component="footer" width="100%">
@@ -91,37 +86,21 @@ const Footer = () => {
             </Grid>
           </Box>
           <Grid item mt={isSmallDevice ? '32px' : 0} width={isSmallDevice ? '90%' : '160px'}>
-            {!isNflPage && (
-              <>
-                <Typography color="white.main" mb="12px" letterSpacing="0.2px" variant="subtitle2">
-                  Our Network
-                </Typography>
-                {ITEMS.map(({ label, href }) => (
-                  <Styled.CustomLink
-                    key={label}
-                    fontSize="1rem"
-                    href={href}
-                    mb="0"
-                    target="_blank"
-                    underline="none"
-                    rel="noopener noreferrer">
-                    {label}
-                  </Styled.CustomLink>
-                ))}
-              </>
-            )}
-            {isNflPage && (
+            <Typography color="white.main" mb="12px" letterSpacing="0.2px" variant="subtitle2">
+              Our Network
+            </Typography>
+            {ITEMS.map(({ label, href }) => (
               <Styled.CustomLink
-                key={COLLECTIONS_NAME.NFL}
+                key={label}
                 fontSize="1rem"
-                href={'https://support.nflallday.com/hc/en-us/categories/4411061276563-Marketplace'}
+                href={href}
                 mb="0"
                 target="_blank"
                 underline="none"
                 rel="noopener noreferrer">
-                {'NFLAD Help Center'}
+                {label}
               </Styled.CustomLink>
-            )}
+            ))}
           </Grid>
         </Grid>
 

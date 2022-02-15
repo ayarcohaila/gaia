@@ -1,7 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 import Breadcrumbs from '~/components/breadcrumbs';
 import useBreakpoints from '~/hooks/useBreakpoints';
@@ -11,24 +10,15 @@ import BurstIcon from '~/base/burstIcon';
 import Dropdown from '~/base/dropdown';
 import { ORDER_MENU_IDS } from '~/components/collectionFilters/constants';
 import { useAppContext } from '~/context/appProvider';
-
 import * as Styled from './styles';
-import { COLLECTIONS_NAME } from 'collections_setup';
-const Header = ({
-  handleShowFilters,
-  showFilter,
-  totalShowing,
-  available,
-  withBorder,
-  collectionName
-}) => {
+
+const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBorder }) => {
   const { isMediumDevice, isSmallDevice, isExtraMediumDevice } = useBreakpoints();
   const orderButtonRef = useRef(null);
   const [isMenuOrderOpen, toggleMenuOrder] = useToggle();
   const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWEST_PRICE);
   const { handleAppData } = useAppContext();
-  const { config, collectionsNames, collections } = useCollectionConfig();
-  const { asPath } = useRouter();
+  const { config } = useCollectionConfig();
 
   const handleClickOption = ({
     target: {
@@ -38,33 +28,19 @@ const Header = ({
     const currentId = Number(id);
     if (currentId === ORDER_MENU_IDS.LOWEST_PRICE) {
       handleAppData({
-        marketplaceSort:
-          collectionName === COLLECTIONS_NAME.NFL
-            ? { min_list_price: 'asc' }
-            : { last_active_price: 'asc' },
+        marketplaceSort: { last_active_price: 'asc' },
         page: 0,
         marketplaceNfts: []
       });
     } else if (currentId === ORDER_MENU_IDS.HIGHEST_PRICE) {
       handleAppData({
-        marketplaceSort:
-          collectionName === COLLECTIONS_NAME.NFL
-            ? { min_list_price: 'desc' }
-            : { last_active_price: 'desc' },
-        page: 0,
-        marketplaceNfts: []
-      });
-    } else if (currentId === ORDER_MENU_IDS.OLDEST) {
-      handleAppData({
-        marketplaceSort:
-          collectionName === COLLECTIONS_NAME.NFL ? { created_at: 'asc' } : { updated_at: 'asc' },
+        marketplaceSort: { last_active_price: 'desc' },
         page: 0,
         marketplaceNfts: []
       });
     } else {
       handleAppData({
-        marketplaceSort:
-          collectionName === COLLECTIONS_NAME.NFL ? { created_at: 'desc' } : { updated_at: 'desc' },
+        marketplaceSort: { updated_at: 'desc' },
         page: 0,
         marketplaceNfts: []
       });
@@ -87,15 +63,6 @@ const Header = ({
   );
 
   const orderButton = useMemo(() => {
-    // TODO: Temporary solution to show UI to the client
-    if (config?.id === collections[collectionsNames.NFL].id && asPath !== '/browse') {
-      return [
-        { id: ORDER_MENU_IDS.LOWEST_PRICE, label: 'Price: Low to High' },
-        { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Price: High to Low' },
-        { id: ORDER_MENU_IDS.MOST_RECENT, label: 'Newest listings' },
-        { id: ORDER_MENU_IDS.OLDEST, label: 'Oldest listings' }
-      ];
-    }
     return [
       { id: ORDER_MENU_IDS.MOST_RECENT, label: 'Recently Listed' },
       { id: ORDER_MENU_IDS.HIGHEST_PRICE, label: 'Highest Price' },

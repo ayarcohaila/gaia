@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import Marketplace from '~/components/marketplace';
+import MarketPlace from '~/components/marketplace';
 import { useRouter } from 'next/router';
 import { gqlClient } from '~/config/apolloClient';
 import { GET_COLLECTION_BY_ID } from '~/store/server/queries';
@@ -16,7 +16,9 @@ const CUSTOM_BANNER_BACKGROUND = {
   sx: {
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
+    margin: '0 auto',
+    maxWidth: '1800px'
   }
 };
 
@@ -48,15 +50,9 @@ const Collection = ({ nft_collection }) => {
       },
       [collectionsNames.BALLERZ]: {
         ...nft_collection[0],
-        bannerDescription: nft_collection[0]?.description,
+        bannerDescription: nft_collection[0].description,
         accountNumber: nft_collection[0]?.author,
         bannerName: nft_collection[0]?.name
-      },
-      [collectionsNames.NFL]: {
-        bannerDescription:
-          'The drama. The stories. The Moments. NFL All Day Digital video collectibles of Iconic NFL Moments by Dapper Labs.',
-        accountNumber: nft_collection[0]?.author,
-        bannerName: 'NFLALLDAY'
       }
     };
   }, [isBrysonCollection, isShareefCollection]);
@@ -67,13 +63,13 @@ const Collection = ({ nft_collection }) => {
       <Grid>
         <CollectionBanner
           bannerAvatar={config?.avatar}
-          bannerDescription={customStyleBanner[collection_name]?.description}
+          bannerDescription={customStyleBanner?.description}
           bgImg={config?.banner}
           mainColor={config.mainColor}
           secondaryColor={config.secondaryColor}
           {...customStyleBanner[collection_name]}
         />
-        <Marketplace collectionName={collection_name} />
+        <MarketPlace />
       </Grid>
     </>
   );

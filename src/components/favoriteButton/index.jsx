@@ -1,8 +1,9 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+import useAuth from '~/hooks/useAuth';
+
 import * as Styled from './styles';
-import { useAuthContext } from '~/providers/AuthProvider';
 
 const ADD_FAVORITE = '/api/favorites/add';
 const REMOVE_FAVORITE = '/api/favorites/remove';
@@ -16,7 +17,7 @@ const FavoriteButton = props => {
   const { nftId } = props;
   const [favoriteId, setFavoriteId] = useState('');
   const [loading, setLoading] = useState(false);
-  const { user, login } = useAuthContext();
+  const { user, login } = useAuth();
 
   const handleFavorite = useCallback(async () => {
     if (!user?.addr) {

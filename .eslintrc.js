@@ -29,8 +29,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended', // Make this the last element so prettier config overrides other formatting rules
-    'plugin:cypress/recommended',
-    'prettier'
+    'plugin:cypress/recommended'
   ],
   globals: {
     JSX: true // Allows the use of the JSX namespace
@@ -45,7 +44,6 @@ module.exports = {
     'react/prop-types': 'off',
     'no-unused-vars': 'off',
     '"jsx-a11y/no-autofocus"': 'off', // Allow autoFocus on material elements
-    'cypress/no-unnecessary-waiting': 'off',
-    'no-unsafe-optional-chaining': 'off'
+    'cypress/no-unnecessary-waiting': 'off'
   }
 };

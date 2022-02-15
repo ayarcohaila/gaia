@@ -14,7 +14,6 @@ const hasBrowse = process.env.NEXT_PUBLIC_HAS_BROWSE === 'true';
 const hasSell = process.env.NEXT_PUBLIC_HAS_SELL === 'true';
 const hasTransfer = process.env.NEXT_PUBLIC_HAS_TRANSFER === 'true';
 const hasCollectionPage = process.env.NEXT_PUBLIC_HAS_COLLECTION_PAGE === 'true';
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const users = [
   {
@@ -67,6 +66,5 @@ export {
   hasBrowse,
   hasSell,
   hasTransfer,
-  hasCollectionPage,
-  apiUrl
+  hasCollectionPage
 };

@@ -9,6 +9,7 @@ import { ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
 import Link from 'next/link';
 import Dropdown from '~/base/dropdown';
 import Divider from '~/base/divider';
+import useAuth from '~/hooks/useAuth';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
 import { hasBrowse } from '~/config/config';
@@ -18,7 +19,6 @@ import { useAppContext } from '~/context/appProvider';
 const HeaderModal = dynamic(() => import('~/components/modal/headerMenu'));
 
 import * as Styled from './styles.js';
-import { useAuthContext } from '~/providers/AuthProvider';
 
 const PATH_WITH_DIVIDER = ['/browse', '/[collection_name]/[nft_id]'];
 
@@ -26,7 +26,7 @@ const Header = () => {
   const menuAnchorRef = useRef(null);
   const [stateModalHeader, toggleHeaderModal] = useToggle();
   const [openUserMenu, setOpenUserMenu] = useState(false);
-  const { login, user, logout } = useAuthContext();
+  const { login, user, logout } = useAuth();
   const { isMediumDevice } = useBreakpoints();
   const router = useRouter();
 

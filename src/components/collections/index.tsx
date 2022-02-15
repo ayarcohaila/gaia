@@ -2,12 +2,19 @@ import React, { useMemo, memo } from 'react';
 import { Grid } from '@mui/material';
 
 import CollectionsBanner from '~/components/collectionsBanner';
-import CardFill from '~/components/cards/cardCollection/cardFill';
+import CardFill from '~/components/cardFilled/cardFill';
 import Breadcrumbs from '~/components/breadcrumbs';
-import CardFilled from '~/components/cards/cardCollection';
+import CardFilled from '~/components/cardFilled';
 
+// TODO: the rest of this page was implemented, these imports are part of it
+// import CounterFill from '../cardFilled/counterFill';
+// import Card from '~/components/card';
+// import Button from '~/base/button';
+
+// import { CardProps } from '../card/types';
 import * as Styled from './styles';
 import { CollectionsProps, Collection } from './types';
+// import { COLLECTIONS_NAME } from '../../../collections_setup';
 
 function Collections(props: CollectionsProps) {
   const { collections } = props;

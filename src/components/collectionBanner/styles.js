@@ -1,13 +1,5 @@
 import { Grid, Box, Typography, styled } from '@mui/material';
 
-const GridContainer = styled(Grid)(({ theme }) => ({
-  padding: '0px 50px',
-
-  [theme.breakpoints.down('md')]: {
-    padding: '0px 20px'
-  }
-}));
-
 const BannerBackground = styled(Grid, { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ theme, imgUrl }) => ({
     width: '100%',
@@ -142,6 +134,5 @@ export {
   BannerItemValue,
   BannerBackground,
   BannerAvatar,
-  GridContainer,
   MobileSubBanner
 };

@@ -13,7 +13,7 @@ export const GridRenderList = styled(Grid, {
   [theme.breakpoints.up('lg')]: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    padding: '0 50px',
+    padding: '0 40px',
     marginTop: '40px'
   },
 
@@ -33,7 +33,7 @@ export const GridRenderList = styled(Grid, {
 }));
 
 export const FiltersContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
-  padding: '0 50px',
+  padding: '0 40px',
   boxSizing: 'border-box',
 
   [breakpoints.down('sm')]: {

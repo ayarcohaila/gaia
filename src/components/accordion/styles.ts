@@ -8,29 +8,13 @@ import { styled } from '~/themes/styled';
 import { AccordionProps } from './types';
 
 export const Accordion = styled(MuiAccordion)(() => ({
-  width: '100%',
   border: 0,
-  margin: 0,
   boxShadow: 'none',
 
   minHeight: 0,
 
-  '&.MuiAccordion-root:first-of-type': {
-    borderTopLeftRadius: '16px',
-    borderTopRightRadius: '16px'
-  },
-
-  '&.MuiAccordion-root:last-of-type': {
-    borderBottomLeftRadius: '16px',
-    borderBottomRightRadius: '16px'
-  },
-
   '&::before': {
     display: 'none'
-  },
-
-  '&.Mui-expanded': {
-    margin: 0
   }
 }));
 
@@ -38,50 +22,16 @@ export const Divider = styled(MuiDivider, { shouldForwardProp: prop => prop !== 
   dividerSx: AccordionProps['dividerSx'];
 }>(({ theme, dividerSx }) => ({
   border: 0,
-  borderTop: `1px solid ${theme.palette.grey[300]}`,
+  borderTop: `2px solid ${theme.palette.grey[200]}`,
   ...dividerSx
 }));
 
 export const AccordionDetails = styled(MuiAccordionDetails)<{
   contentSx?: AccordionProps['contentSx'];
-}>(({ theme, contentSx }) => ({
-  '&.MuiAccordionDetails-root': {
-    padding: '0 22px 0 12px',
-    maxHeight: '500px',
-    overflowX: 'hidden',
-    overflowY: 'overlay',
-
-    '&::-webkit-scrollbar': {
-      width: '5px'
-    },
-
-    '&-webkit-scrollbar-track': {
-      background: theme.palette.grey[200]
-    },
-
-    '&::-webkit-scrollbar-thumb': {
-      background: theme.palette.grey[300]
-    },
-
-    '&::-webkit-scrollbar-thumb:hover': {
-      background: theme.palette.grey[400]
-    }
-  },
-  ...contentSx
+}>(props => ({
+  ...props.contentSx
 }));
 
 export const AccordionSummary = styled(MuiAccordionSummary)(() => ({
-  marginBottom: '0',
-
-  '.MuiAccordionSummary-content': {
-    paddingLeft: '8px',
-    '&.Mui-expanded': {
-      margin: '16px 0'
-    }
-  },
-
-  '&.MuiButtonBase-root': {
-    padding: '0 22px 0 12px',
-    minHeight: '60px'
-  }
+  marginBottom: '-10px'
 }));
