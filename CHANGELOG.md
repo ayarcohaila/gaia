@@ -1,3 +1,12 @@
+## [0.2.2](https://github.com/NFT-Genius/gaia-frontend/compare/v0.2.1...v0.2.2) (2022-02-15)
+
+
+### Bug Fixes
+
+* Update ballerz properties trait ([243ad33](https://github.com/NFT-Genius/gaia-frontend/commit/243ad33a4920e6e6933fe79ecb0f254078cbd870))
+
+
+
 ## [0.2.1](https://github.com/NFT-Genius/gaia-frontend/compare/v0.2.0...v0.2.1) (2022-02-04)
 
 
