@@ -102,6 +102,7 @@ const Card = (props: CardProps) => {
                       objectFit="cover"
                       height={'17.25rem'}
                       width={'17.25rem'}
+                      quality={100}
                       onLoadingComplete={() => {
                         setImgLoaded(true);
                       }}
