@@ -26,7 +26,7 @@ import {
   SNEAKERZ_COMPUTED_PROPERTIES
 } from '~/components/filters/constants';
 
-const DEFAULT_LIST_SIZE = 3;
+const DEFAULT_LIST_SIZE = 40;
 
 const COMPUTED_PROPERTIES = {
   BALLERZ_COMPUTED_PROPERTIES,
