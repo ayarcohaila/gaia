@@ -70,9 +70,11 @@ const Header = () => {
         router.push('/favorites');
         break;
       }
-      default:
+      default: {
         logout();
+        router.push('/');
         break;
+      }
     }
   };
 
