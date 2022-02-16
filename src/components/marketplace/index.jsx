@@ -32,9 +32,6 @@ const MarketPlace = () => {
     if (!marketplaceLoading && imgRef) {
       handleScrollPosition();
     }
-    if (!imgRef) {
-      window.scrollTo(0, 0);
-    }
   }, [marketplaceLoading, imgRef]);
 
   const handleScrollPosition = useCallback(() => {

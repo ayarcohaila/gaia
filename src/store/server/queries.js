@@ -218,6 +218,7 @@ const GET_MARKETPLACE_OFFERS = gql`
     $offset: Int
     $orderBy: [nft_order_by!]
     $marketPlaceAddress: String
+    $limit: Int
   ) @cached(ttl: 120) {
     nft_aggregate(
       where: {
@@ -241,7 +242,7 @@ const GET_MARKETPLACE_OFFERS = gql`
         _and: $price
       }
       order_by: $orderBy
-      limit: 40
+      limit: $limit
       offset: $offset
     ) {
       asset_id

@@ -25,7 +25,7 @@ import {
   SHAREEF_COMPUTED_PROPERTIES
 } from '~/components/filters/constants';
 
-const DEFAULT_LIST_SIZE = 40;
+const DEFAULT_LIST_SIZE = 3;
 
 const VIEW_ALL = 'viewAll';
 const GET_URL = '/api/marketplace';
@@ -184,7 +184,8 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       collections: collectionsFilter,
       properties: { [logicalOperator]: propertiesFilters },
       offset: appData?.page * DEFAULT_LIST_SIZE,
-      orderBy: appData?.marketplaceSort
+      orderBy: appData?.marketplaceSort,
+      limit: DEFAULT_LIST_SIZE
     };
 
     return filters;
