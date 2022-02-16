@@ -128,7 +128,7 @@ const ShareefCollectionContent = ({ data }) => {
                   <Grid component="li">
                     Custom Shareef BALLERZ (minted into the original 10k set)
                   </Grid>
-                  <Grid component="li">Signed pair of game-worn sneakers</Grid>
+                  <Grid component="li">Signed pair of game-worn sneakerz</Grid>
                   <Grid component="li">Meet-and-greet with Shareef</Grid>
                   <Grid component="li">Play a game of Fortnite with Shareef</Grid>
                 </Grid>

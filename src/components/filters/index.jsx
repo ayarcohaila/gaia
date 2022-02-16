@@ -22,14 +22,22 @@ import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup
 import * as Styled from './styles';
 import {
   BALLERZ_COMPUTED_PROPERTIES,
-  SHAREEF_COMPUTED_PROPERTIES
+  SHAREEF_COMPUTED_PROPERTIES,
+  SNEAKERZ_COMPUTED_PROPERTIES
 } from '~/components/filters/constants';
 
 const DEFAULT_LIST_SIZE = 3;
 
+const COMPUTED_PROPERTIES = {
+  BALLERZ_COMPUTED_PROPERTIES,
+  SHAREEF_COMPUTED_PROPERTIES,
+  SNEAKERZ_COMPUTED_PROPERTIES
+};
+
 const VIEW_ALL = 'viewAll';
 const GET_URL = '/api/marketplace';
 const SHAREEF_NAME = COLLECTION_LIST_CONFIG?.[COLLECTIONS_NAME?.SHAREEF]?.nftName;
+const SNEAKERZ_NAME = COLLECTION_LIST_CONFIG?.[COLLECTIONS_NAME?.SNEAKERZ]?.nftName;
 
 const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
@@ -174,11 +182,13 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       ? collections.map(item => ({
           collection_id: { _eq: item.id }
         }))
-      : Object.values(COLLECTION_LIST_CONFIG).map(item => ({
-          collection_id: { _eq: item.id }
-        }));
+      : filters
+          .find(filter => filter.id === filtersIds.COLLECTIONS)
+          ?.options.map(item => ({
+            collection_id: { _eq: item.id }
+          }));
 
-    const filters = {
+    const computedFilters = {
       price: priceFilters,
       isForSale: status === 'buyNow' ? { _eq: true } : {},
       collections: collectionsFilter,
@@ -188,7 +198,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       limit: DEFAULT_LIST_SIZE
     };
 
-    return filters;
+    return computedFilters;
   }, [
     collections,
     status,
@@ -243,7 +253,9 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   }, [isMediumDevice, isMobileModalOpen]);
 
   const getComputedProperties = label => {
-    return label === SHAREEF_NAME ? SHAREEF_COMPUTED_PROPERTIES : BALLERZ_COMPUTED_PROPERTIES;
+    const colectionName = label.split(' ')[0].toUpperCase();
+
+    return COMPUTED_PROPERTIES[`${colectionName}_COMPUTED_PROPERTIES`];
   };
 
   const handleMultipleCheck = useCallback(
@@ -438,10 +450,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
                     <Accordion key={`${property}-${index}`} title={capitalize(property)}>
                       <Styled.ValuesContainer>
                         {currentCollection.properties[property].map(option => {
-                          const computedProperties =
-                            currentCollection.label === SHAREEF_NAME
-                              ? SHAREEF_COMPUTED_PROPERTIES
-                              : BALLERZ_COMPUTED_PROPERTIES;
+                          const computedProperties = getComputedProperties(currentCollection.label);
                           return (
                             <CheckboxCard
                               key={`mobile-${currentCollection.id}-${property}-${option}`}

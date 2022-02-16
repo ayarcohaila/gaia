@@ -5,6 +5,8 @@ import CardSkeletonLoader from '~/base/cardSkeletonLoader';
 import BrowseHeader from '~/components/browseHeader';
 import Filters from '~/components/filters';
 import { FILTERS, FILTERS_IDS, FILTERS_TYPES } from '~/components/filters/browseFilters';
+import COLLECTION_LIST_CONFIG from 'collections_setup';
+import { hasSneakerzSell } from '~/config/config';
 import { useAppContext } from '~/context/appProvider';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import * as Styled from './styles';
@@ -14,6 +16,22 @@ const Card = dynamic(() => import('~/components/card'));
 const MarketPlace = () => {
   const [showFilter, setShowFilter] = useState(true);
   const { isMediumDevice } = useBreakpoints();
+
+  const parsedFilter = FILTERS.map(filter => {
+    if (filter.id === FILTERS_IDS.COLLECTIONS) {
+      return {
+        ...filter,
+        options: filter.options.filter(option => {
+          if (option.id === COLLECTION_LIST_CONFIG.sneakerz.id) {
+            return hasSneakerzSell;
+          } else {
+            return true;
+          }
+        })
+      };
+    }
+    return filter;
+  });
 
   const {
     appData: { page, marketCount, marketplaceLoading, marketplaceNfts, cardRef, imgRef },
@@ -71,7 +89,7 @@ const MarketPlace = () => {
       />
       <Styled.Wrapper showFilter={showFilter}>
         <Filters
-          filters={FILTERS}
+          filters={parsedFilter}
           filtersTypes={FILTERS_TYPES}
           filtersIds={FILTERS_IDS}
           showFilter={showFilter}

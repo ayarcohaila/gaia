@@ -6,7 +6,11 @@
 //   SportsBasketball as SportsIcon,
 //   Theaters as MoviesIcon
 // } from '@mui/icons-material';
-import { BALLERZ_PROPERTIES, SHAREEF_PROPERTIES } from '~/components/filters/constants';
+import {
+  BALLERZ_PROPERTIES,
+  SHAREEF_PROPERTIES,
+  SNEAKERZ_PROPERTIES
+} from '~/components/filters/constants';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 
 export const FILTERS_TYPES = {
@@ -49,6 +53,11 @@ export const FILTERS = [
     label: 'Collection',
     type: FILTERS_TYPES.MULTI,
     options: [
+      {
+        id: COLLECTION_LIST_CONFIG.sneakerz.id,
+        label: 'SNEAKERZ',
+        properties: SNEAKERZ_PROPERTIES
+      },
       {
         id: COLLECTION_LIST_CONFIG.ballerz.id,
         label: 'BALLERZ',

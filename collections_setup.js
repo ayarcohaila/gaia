@@ -15,10 +15,27 @@ export const COLLECTIONS_NAME = {
   BALLERZ: 'ballerz',
   BRYSON: 'bryson',
   SHAREEF: 'shareef',
+  SNEAKERZ: 'sneakerz',
   SHAREEF_AIRDROP: 'shareef-airdrop'
 };
 
 export const COLLECTION_LIST_CONFIG = {
+  [COLLECTIONS_NAME.SNEAKERZ]: {
+    id: process.env.NEXT_PUBLIC_SNEAKERZ_COLLECTION,
+    nftName: COLLECTIONS_NAME.SNEAKERZ,
+    collectionName: COLLECTIONS_NAME.SNEAKERZ,
+    status: COLLECTION_STATUS.SALE,
+    saleType: COLLECTION_SALE_TYPE.SINGLE,
+    mystery: false,
+    buyLimit: 7,
+    avatar: '/collections/sneakerz/avatar.webp',
+    banner: '/collections/sneakerz/banner.webp',
+    pageTitle: 'SNEAKERZ',
+    mainColor: '#83cbda',
+    secondaryColor: '#83cbda',
+    collectionSize: 10000,
+    displayOnCollectionsPage: true
+  },
   [COLLECTIONS_NAME.BALLERZ]: {
     id: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION,
     nftName: 'baller',

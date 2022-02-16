@@ -5,7 +5,7 @@ import { GET_MARKETPLACE_OFFERS } from '~/store/server/queries';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { nft, nft_aggregate } = await gqlClient.request(GET_MARKETPLACE_OFFERS, {
-      marketPlaceAddress: process.env.NEXT_PUBLIC_MARKET_OWNER,
+      marketPlaceAddress: '',
       price: req?.body?.price,
       has_sale_offers: req?.body?.isForSale,
       collections: req?.body?.collections.length ? req?.body?.collections : [{}],

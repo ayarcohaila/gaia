@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { gqlClient } from '~/config/apolloClient';
 import { GET_COLLECTION_BY_ID } from '~/store/server/queries';
 import useCollectionConfig from '~/hooks/useCollectionConfig';
+import { hasSneakerzSell } from '~/config/config';
 import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '../../../collections_setup';
 import { Grid } from '@mui/material';
 
@@ -52,6 +53,12 @@ const Collection = ({ nft_collection }) => {
         bannerDescription: nft_collection[0].description,
         accountNumber: nft_collection[0]?.author,
         bannerName: nft_collection[0]?.name
+      },
+      [collectionsNames.SNEAKERZ]: {
+        ...nft_collection[0],
+        bannerDescription: 'Stylish footwear with utility. Sneakerz.',
+        accountNumber: '@sneakerz',
+        bannerName: nft_collection[0]?.name
       }
     };
   }, [isBrysonCollection, isShareefCollection]);
@@ -78,6 +85,10 @@ const Collection = ({ nft_collection }) => {
 export async function getServerSideProps({ query }) {
   try {
     if (!Object.values(COLLECTIONS_NAME).includes(query?.collection_name)) {
+      return { notFound: true };
+    }
+
+    if (query.collection_name === COLLECTIONS_NAME.SNEAKERZ && !hasSneakerzSell) {
       return { notFound: true };
     }
 

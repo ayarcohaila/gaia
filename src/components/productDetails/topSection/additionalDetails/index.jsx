@@ -9,7 +9,7 @@ import useBreakpoints from '~/hooks/useBreakpoints';
 
 import * as Styled from './styles';
 
-const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
+const AdditionalDetails = ({ data, computedProps, attributesOrder }) => {
   const {
     palette: { grey }
   } = useTheme();
@@ -32,6 +32,16 @@ const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
       ),
     [filteredData]
   );
+
+  const handleTrait = (key, value) => {
+    if (
+      config.collectionName === collectionsNames.BALLERZ ||
+      config.collectionName === collectionsNames.SNEAKERZ
+    ) {
+      return ((computedProps[key][value] / config.collectionSize) * 100).toFixed(2);
+    }
+    return 100;
+  };
 
   return (
     <Styled.Container>
@@ -61,10 +71,7 @@ const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
                   letterSpacing: '0px',
                   fontSize: isSmallDevice && '10px'
                 }}>
-                {config.collectionName === collectionsNames.BALLERZ
-                  ? ((ballerzComputedProps[key][value] / config.collectionSize) * 100).toFixed(2)
-                  : 100}
-                % have this trait
+                {handleTrait(key, value)}% have this trait
               </Typography>
             </Styled.BoxData>
           )
