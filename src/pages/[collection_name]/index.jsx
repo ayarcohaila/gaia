@@ -17,8 +17,7 @@ const CUSTOM_BANNER_BACKGROUND = {
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    margin: '0 auto',
-    maxWidth: '1800px'
+    margin: '0 auto'
   }
 };
 
@@ -66,6 +65,7 @@ const Collection = ({ nft_collection }) => {
           bannerDescription={customStyleBanner?.description}
           bgImg={config?.banner}
           mainColor={config.mainColor}
+          fullBgPosition={isBrysonCollection || isShareefCollection}
           secondaryColor={config.secondaryColor}
           {...customStyleBanner[collection_name]}
         />

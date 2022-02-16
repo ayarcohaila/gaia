@@ -10,7 +10,7 @@ export const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'isM
     display: 'flex',
     alignItems: 'center',
     boxSizing: 'border-box',
-    [breakpoints.down('xll')]: {
+    [breakpoints.down('xl')]: {
       padding: isMobile ? '12px 20px' : '20px 5.55%'
     }
   })

@@ -10,8 +10,8 @@ const customTheme = {
       mdx: 1080,
       lg: 1200,
       lgm: 1300,
-      xl: 1536,
-      xll: 1440
+      xl: 1440,
+      xll: 2560
     }
   },
   palette: {

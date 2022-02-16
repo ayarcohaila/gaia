@@ -17,22 +17,24 @@ const BannerBackground = styled(Grid, { shouldForwardProp: prop => prop !== 'img
   })
 );
 
-const BannerStyled = styled(Box, { shouldForwardProp: prop => prop !== 'bgColor' })(
-  ({ theme, bgColor }) => ({
-    padding: '48px',
-    boxSizing: 'border-box',
-    backgroundImage: `radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, ${bgColor} 81%)`,
-    borderRadius: '40px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
+const BannerStyled = styled(Box, {
+  shouldForwardProp: prop => !['fullBgPosition', 'bgColor'].includes(prop)
+})(({ theme, bgColor, fullBgPosition }) => ({
+  padding: '48px',
+  boxSizing: 'border-box',
+  backgroundImage: `radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, ${bgColor} ${
+    fullBgPosition ? '40%' : '81%'
+  })`,
+  borderRadius: '40px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'stretch',
 
-    [theme.breakpoints.down('sm')]: {
-      height: '220px',
-      padding: '24px'
-    }
-  })
-);
+  [theme.breakpoints.down('sm')]: {
+    height: '220px',
+    padding: '24px'
+  }
+}));
 
 const Divider = styled('div')(() => ({
   width: '2px',
