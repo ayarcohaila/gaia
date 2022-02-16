@@ -182,8 +182,7 @@ const ProductDetailsTopSection = ({
         href: `/${collection_name}`
       },
       {
-        label: metadata.title,
-        href: `/${collection_name}/${metadata?.id || nft?.mint_number}`
+        label: metadata.title
       }
     ],
     [nft?.collection]
