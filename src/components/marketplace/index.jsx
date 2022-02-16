@@ -79,6 +79,7 @@ const MarketPlace = () => {
           filtersIds={FILTERS_IDS}
           showFilter={showFilter}
         />
+
         {marketplaceLoading || marketplaceNfts?.length ? (
           <Styled.GridRenderList showFilter={showFilter} isMediumDevice={isMediumDevice}>
             {renderList}
