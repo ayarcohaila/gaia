@@ -311,7 +311,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       switch (type) {
         case filtersTypes.RANGE:
           return (
-            <Box mx="auto" width={isSmallDevice ? '90%' : '100%'}>
+            <Box mx="auto" mb="16px" mt="6px" width={isSmallDevice ? '90%' : '100%'}>
               <InputRangeGroup
                 max={maxPrice}
                 min={minPrice}
@@ -326,7 +326,12 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
         case filtersTypes.SINGLE:
           return options.map(option => (
-            <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
+            <Box
+              key={option?.id}
+              mx="auto"
+              mb="16px"
+              mt="6px"
+              width={isMediumDevice ? '90%' : '100%'}>
               <CheckboxCard
                 data-cy={`single-filter-${option?.id}`}
                 containerProps={{ sx: { mb: 1 } }}
@@ -359,7 +364,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   const renderContent = useMemo(
     () => (
       <Styled.Content height="fit-content" width={isMediumDevice ? '80%' : 'auto'}>
-        <Grid p="20px 22px 20px 12px" sx={{ boxSizing: 'border-box' }}>
+        <Grid sx={{ boxSizing: 'border-box' }}>
           {filters.map((filter, index) => {
             if (config?.id && filter.id === FILTERS_CONSTANTS.COLLECTIONS) {
               return '';
