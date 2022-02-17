@@ -38,6 +38,15 @@ const MarketPlace = () => {
     handleAppData
   } = useAppContext();
 
+  useEffect(() => {
+    // This is to prevent the miss ordination when the user come back from some collections page
+    handleAppData({
+      marketplaceSort: { last_active_price: 'asc' },
+      page: 0,
+      marketplaceNfts: []
+    });
+  }, []);
+
   const handleShowFilters = () => {
     setShowFilter(prevState => !prevState);
   };
