@@ -30,6 +30,7 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBo
       handleAppData({
         marketplaceSort: { last_active_price: 'asc' },
         page: 0,
+        sort: isSmallDevice,
         marketplaceNfts: [],
         marketplaceLoading: true
       });
@@ -37,6 +38,7 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBo
       handleAppData({
         marketplaceSort: { last_active_price: 'desc' },
         page: 0,
+        sort: isSmallDevice,
         marketplaceNfts: [],
         marketplaceLoading: true
       });
@@ -44,6 +46,7 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBo
       handleAppData({
         marketplaceSort: { updated_at: 'desc' },
         page: 0,
+        sort: isSmallDevice,
         marketplaceNfts: [],
         marketplaceLoading: true
       });

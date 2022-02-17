@@ -138,7 +138,8 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       marketplaceNfts: list,
       marketCount: result.data.marketCount,
       marketplaceLoading: false,
-      loadMore: false
+      loadMore: false,
+      sort: false
     });
   }, 500);
 
@@ -211,10 +212,10 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   ]);
 
   useEffect(() => {
-    if (!isMediumDevice) {
+    if (!isMediumDevice || appData?.sort) {
       getNfts(appliedFilters);
     }
-  }, [getNfts, appliedFilters]);
+  }, [getNfts, appliedFilters, appData?.sort]);
 
   const handleApplyFilters = useCallback(async () => {
     handleAppData({ page: 0, marketplaceNfts: [] });

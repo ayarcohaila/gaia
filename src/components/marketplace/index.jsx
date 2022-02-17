@@ -34,7 +34,7 @@ const MarketPlace = () => {
   });
 
   const {
-    appData: { page, marketCount, marketplaceLoading, marketplaceNfts, cardRef, imgRef },
+    appData: { page, marketCount, sort, marketplaceLoading, marketplaceNfts, cardRef, imgRef },
     handleAppData
   } = useAppContext();
 
@@ -43,6 +43,7 @@ const MarketPlace = () => {
     handleAppData({
       marketplaceSort: { last_active_price: 'asc' },
       page: 0,
+      sort: false,
       marketplaceNfts: []
     });
   }, []);
