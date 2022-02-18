@@ -319,7 +319,13 @@ const ProductDetailsTopSection = ({
 
   return (
     <>
-      <Breadcrumbs data-cy="breadcrumbs" links={breadcrumbsLinks} mx={1} />
+      <Breadcrumbs
+        data-cy="breadcrumbs"
+        links={breadcrumbsLinks}
+        mx={1}
+        ml={isMediumDevice ? '20px' : '0'}
+        mb={isMediumDevice ? '14px' : '0'}
+      />
       <Styled.Container container={!isMediumDevice} justifyContent="space-between">
         <Asset metadata={metadata} />
         <Grid

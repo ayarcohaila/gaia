@@ -7,16 +7,18 @@ export const Text = styled(Typography)(({ theme: { palette } }) => ({
 }));
 
 export const Container = styled(Grid, {
-  shouldForwardProp: prop => !['isSmallDevice', 'isMediumDevice', 'withBorder'].includes(prop)
-})(({ withBorder, isSmallDevice, isMediumDevice, theme: { palette } }) => ({
+  shouldForwardProp: prop =>
+    !['isSmallDevice', 'isMediumDevice', 'withBorder', 'isLargeDevice'].includes(prop)
+})(({ withBorder, isSmallDevice, isMediumDevice, isLargeDevice, theme: { palette } }) => ({
   display: isSmallDevice || isMediumDevice ? 'flex' : 'grid',
   gridTemplateColumns: '302px auto',
   alignItems: 'center',
-  padding: isSmallDevice ? 0 : '0 40px',
+  padding: isSmallDevice ? 0 : isLargeDevice ? '0 80px' : '0 5.55%',
   boxSizing: 'border-box',
   width: '100%',
   gap: '22px',
   margin: '0 auto',
+
   borderTop: withBorder ? `2px solid ${palette.grey[300]}` : 'none'
 }));
 

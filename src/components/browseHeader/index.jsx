@@ -13,7 +13,7 @@ import { useAppContext } from '~/context/appProvider';
 import * as Styled from './styles';
 
 const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBorder }) => {
-  const { isMediumDevice, isSmallDevice, isExtraMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isSmallDevice, isExtraMediumDevice, isLargeDevice } = useBreakpoints();
   const orderButtonRef = useRef(null);
   const [isMenuOrderOpen, toggleMenuOrder] = useToggle();
   const [selectedOrderButton, setSelectedOrderButton] = useState(ORDER_MENU_IDS.LOWEST_PRICE);
@@ -80,7 +80,8 @@ const Header = ({ handleShowFilters, showFilter, totalShowing, available, withBo
     <Styled.Container
       withBorder={withBorder}
       isMediumDevice={isMediumDevice}
-      isSmallDevice={isSmallDevice}>
+      isSmallDevice={isSmallDevice}
+      isLargeDevice={isLargeDevice}>
       {!isMediumDevice && (
         <Styled.MainContainer>
           <Breadcrumbs links={breadcrumbsLinks} sx={{ mx: 1 }} withMargin={false} />

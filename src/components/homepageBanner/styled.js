@@ -81,7 +81,7 @@ export const Divider = styled('div')({
   marginBottom: '24px'
 });
 
-export const BannerRedirect = styled(Button)({
+export const BannerRedirect = styled(Button)(({ theme: { breakpoints } }) => ({
   height: '100%',
   textDecoration: 'none',
   textTransform: 'none',
@@ -89,8 +89,9 @@ export const BannerRedirect = styled(Button)({
   width: '100%',
   cursor: 'pointer',
   backgroundColor: 'transparent',
+  padding: '0px',
 
   '&:hover': {
     backgroundColor: 'transparent'
   }
-});
+}));

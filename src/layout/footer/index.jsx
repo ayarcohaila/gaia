@@ -15,7 +15,7 @@ import * as Styled from './styles';
 import { ITEMS, iconStyles } from './constants';
 
 const Footer = () => {
-  const { isMediumDevice, isSmallDevice } = useBreakpoints();
+  const { isMediumDevice, isSmallDevice, isLargeDevice } = useBreakpoints();
   const {
     palette: { secondary, grey }
   } = useTheme();
@@ -40,10 +40,12 @@ const Footer = () => {
   //   }
   // }, [email, hasError, previousEmailValue]);
 
+  const sidePadding = isLargeDevice ? '80px' : '5.55%';
+
   return (
     <Grid bgcolor={secondary.main} mt="64px" component="footer" width="100%">
       <Container maxWidth="xll" disableGutters>
-        <Grid p={isSmallDevice ? '32px' : '48px 0 48px 40px'} mx="auto" width="100%">
+        <Grid p={isSmallDevice ? '32px' : `48px ${sidePadding} 40px`} mx="auto" width="100%">
           <Grid container flexWrap="wrap" justifyContent="space-between">
             {
               //TODO: Uncomment later when adding mail newsletter integration

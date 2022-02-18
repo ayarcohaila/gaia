@@ -64,25 +64,25 @@ export const BlackButton = styled(Button)(({ theme: { typography, palette } }) =
   }
 }));
 
-export const Wrapper = styled(Grid, { shouldForwardProp: props => props !== 'showFilter' })(
-  ({ theme, showFilter }) => ({
-    display: !showFilter ? 'flex' : 'grid',
-    gridTemplateColumns: '302px auto',
-    padding: '0 40px',
-    boxSizing: 'border-box',
-    width: '100%',
-    gap: '22px',
-    margin: '0 auto',
-    minHeight: '350px',
+export const Wrapper = styled(Grid, {
+  shouldForwardProp: props => props !== ['showFilter', 'isLargeDevice']
+})(({ theme, showFilter, isLargeDevice }) => ({
+  display: !showFilter ? 'flex' : 'grid',
+  gridTemplateColumns: '302px auto',
+  padding: isLargeDevice ? '0 80px' : '0 5.55%',
+  boxSizing: 'border-box',
+  width: '100%',
+  gap: '22px',
+  margin: '0 auto',
+  minHeight: '350px',
 
-    [theme.breakpoints.down('md')]: {
-      padding: '0 20px',
-      display: 'flex',
-      flexDirection: 'column',
-      marginTop: '24px'
-    }
-  })
-);
+  [theme.breakpoints.down('md')]: {
+    padding: '0 20px',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: '24px'
+  }
+}));
 
 export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   padding: '0 40px',

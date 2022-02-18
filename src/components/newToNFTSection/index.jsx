@@ -4,6 +4,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { hasBrowse } from '~/config/config';
 
 import * as Styled from './styled';
+import useBreakpoints from '~/hooks/useBreakpoints';
 
 const NewNFTs = [
   {
@@ -34,10 +35,18 @@ const NewNFTs = [
 ];
 
 export default function NewToNFTSection() {
-  const isMediumDevice = useMediaQuery('(max-width:1080px)');
+  const { isMediumDevice, isLargeDevice } = useBreakpoints();
+
   return (
     <>
-      <Grid xs={12} container item spacing="32px" mt={isMediumDevice && '0px'}>
+      <Grid
+        xs={12}
+        container
+        item
+        rowSpacing="32px"
+        spacing="16px"
+        padding={`0 ${isMediumDevice ? '8px' : isLargeDevice ? '48px' : '3.3%'}`}
+        mt={isMediumDevice && '0px'}>
         {NewNFTs.map((card, index) => (
           <Styled.CustomGrid key={index} item md={4}>
             <NewToNFTCard data={card} />

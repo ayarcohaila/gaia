@@ -41,6 +41,7 @@ export const Divider = styled(MuiDivider)(({ theme: { palette } }) => ({
 }));
 
 export const AcordionWrapper = styled('div')(() => ({
+  marginLeft: '10px',
   MuiAccordionRoot: {
     width: '100%'
   }

@@ -40,7 +40,7 @@ const ProductDetails = (props: ProductDetailsProps) => {
   const {
     palette: { grey }
   } = useTheme();
-  const { isSmallDevice } = useBreakpoints();
+  const { isMediumDevice, isLargeDevice } = useBreakpoints();
 
   const title = nft?.template?.metadata?.title;
   const description = nft?.template?.metadata?.description;
@@ -53,7 +53,11 @@ const ProductDetails = (props: ProductDetailsProps) => {
         description={description}
         imgURL={formatIpfsImg(img)}
       />
-      <Grid m="0 auto" maxWidth="1280px" width={isSmallDevice ? '100%' : '90%'}>
+      <Grid
+        m="0 auto"
+        maxWidth="1800px"
+        width="100%"
+        padding={isMediumDevice ? '0' : isLargeDevice ? '0 80px' : '0 5.55%'}>
         <ProductDetailsTopSection {...props} />
       </Grid>
     </Box>

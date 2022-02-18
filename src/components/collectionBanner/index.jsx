@@ -17,7 +17,7 @@ function CollectionBanner({
   secondaryColor,
   ...props
 }) {
-  const { isSmallDevice, isExtraLargeDevice } = useBreakpoints();
+  const { isSmallDevice, isExtraLargeDevice, isMediumDevice } = useBreakpoints();
 
   const backgroundSizeContain = () => {
     if (fullBgPosition && isExtraLargeDevice) {
@@ -30,7 +30,7 @@ function CollectionBanner({
   };
 
   return (
-    <Grid px={isSmallDevice ? '20px' : '32px'}>
+    <Grid px={isMediumDevice ? '12px' : '32px'}>
       <Styled.BannerBackground
         imgUrl={bgImg}
         {...props}

@@ -11,15 +11,22 @@ export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
   [breakpoints.up('lg')]: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    padding: '0 40px',
+    padding: '0 80px',
     marginTop: '40px'
+  },
+
+  [breakpoints.down('xl')]: {
+    padding: '0 5.55%'
   },
 
   [breakpoints.down('lg')]: {
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)',
-    padding: '0 20px',
+    padding: '0 5.55%',
     marginTop: '40px'
+  },
+  [breakpoints.down('md')]: {
+    padding: '0 20px'
   },
 
   [breakpoints.down('sm')]: {

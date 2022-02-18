@@ -15,7 +15,7 @@ const Card = dynamic(() => import('~/components/card'));
 
 const MarketPlace = () => {
   const [showFilter, setShowFilter] = useState(true);
-  const { isMediumDevice } = useBreakpoints();
+  const { isMediumDevice, isLargeDevice } = useBreakpoints();
 
   const parsedFilter = FILTERS.map(filter => {
     if (filter.id === FILTERS_IDS.COLLECTIONS) {
@@ -97,7 +97,7 @@ const MarketPlace = () => {
         available={marketCount || 0}
         withBorder={false}
       />
-      <Styled.Wrapper showFilter={showFilter}>
+      <Styled.Wrapper showFilter={showFilter} isLargeDevice={isLargeDevice}>
         <Filters
           filters={parsedFilter}
           filtersTypes={FILTERS_TYPES}
