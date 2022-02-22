@@ -42,7 +42,9 @@ export const Container = styled(Box)(({ theme: { breakpoints } }) => ({
     position: 'static',
     transform: 'none',
     left: 'auto',
-    top: 'auto'
+    top: 'auto',
+    paddingTop: '20vh',
+    backgroundColor: 'transparent'
   }
 }));
 

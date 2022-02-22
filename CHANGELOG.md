@@ -1,3 +1,13 @@
+## [0.3.1](https://github.com/NFT-Genius/gaia-frontend/compare/v0.3.0...v0.3.1) (2022-02-22)
+
+
+### Bug Fixes
+
+* **GP-231:** Fix mobile modals ([#651](https://github.com/NFT-Genius/gaia-frontend/issues/651)) ([f6d6c04](https://github.com/NFT-Genius/gaia-frontend/commit/f6d6c040a4b9f700ff5cde00acca677c0795d0dc))
+
+
+
+
 # [0.3.0](https://github.com/NFT-Genius/gaia-frontend/compare/0.2.2...0.3.0) (2022-02-22)
 
 
