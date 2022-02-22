@@ -17,6 +17,7 @@ const AdditionalDetails = ({ data, computedProps, attributesOrder }) => {
   const { isSmallDevice } = useBreakpoints();
 
   const { config, collectionsNames } = useCollectionConfig();
+  const disableTraits = config.collectionName === collectionsNames.SNEAKERZ;
 
   const excludeAdditionalFields = ['id', 'img', 'uri', 'title', 'video', 'description'];
 
@@ -63,16 +64,18 @@ const AdditionalDetails = ({ data, computedProps, attributesOrder }) => {
                 textAlign="center">
                 {value}
               </Typography>
-              <Typography
-                color={grey[500]}
-                variant="body1"
-                fontWeight="400"
-                sx={{
-                  letterSpacing: '0px',
-                  fontSize: isSmallDevice && '10px'
-                }}>
-                {handleTrait(key, value)}% have this trait
-              </Typography>
+              {!disableTraits && (
+                <Typography
+                  color={grey[500]}
+                  variant="body1"
+                  fontWeight="400"
+                  sx={{
+                    letterSpacing: '0px',
+                    fontSize: isSmallDevice && '10px'
+                  }}>
+                  {handleTrait(key, value)}% have this trait
+                </Typography>
+              )}
             </Styled.BoxData>
           )
       )}

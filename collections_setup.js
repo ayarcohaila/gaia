@@ -33,7 +33,7 @@ export const COLLECTION_LIST_CONFIG = {
     pageTitle: 'SNEAKERZ',
     mainColor: '#83cbda',
     secondaryColor: '#83cbda',
-    collectionSize: 10000,
+    collectionSize: 25000,
     displayOnCollectionsPage: true
   },
   [COLLECTIONS_NAME.BALLERZ]: {
