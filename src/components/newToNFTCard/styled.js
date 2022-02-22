@@ -53,6 +53,7 @@ export const CardLink = styled('div')(({ theme: { breakpoints } }) => ({
   color: '#215cf1',
   marginTop: '18px',
   cursor: 'pointer',
+  width: 'fit-content',
 
   [breakpoints.up('mdx')]: {
     marginTop: '20px'

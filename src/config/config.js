@@ -12,6 +12,7 @@ const appName = process.env.NEXT_PUBLIC_APP_NAME;
 const needsAuth = process.env.APPLICATION_NEEDS_AUTH === 'true';
 const hasBrowse = process.env.NEXT_PUBLIC_HAS_BROWSE === 'true';
 const hasSell = process.env.NEXT_PUBLIC_HAS_SELL === 'true';
+const hasSneakerzSell = process.env.NEXT_PUBLIC_HAS_SNEAKERZ_SELL === 'true';
 const hasTransfer = process.env.NEXT_PUBLIC_HAS_TRANSFER === 'true';
 const hasCollectionPage = process.env.NEXT_PUBLIC_HAS_COLLECTION_PAGE === 'true';
 
@@ -66,5 +67,6 @@ export {
   hasBrowse,
   hasSell,
   hasTransfer,
-  hasCollectionPage
+  hasCollectionPage,
+  hasSneakerzSell
 };

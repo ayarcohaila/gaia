@@ -22,14 +22,22 @@ import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup
 import * as Styled from './styles';
 import {
   BALLERZ_COMPUTED_PROPERTIES,
-  SHAREEF_COMPUTED_PROPERTIES
+  SHAREEF_COMPUTED_PROPERTIES,
+  SNEAKERZ_COMPUTED_PROPERTIES
 } from '~/components/filters/constants';
 
 const DEFAULT_LIST_SIZE = 40;
 
+const COMPUTED_PROPERTIES = {
+  BALLERZ_COMPUTED_PROPERTIES,
+  SHAREEF_COMPUTED_PROPERTIES,
+  SNEAKERZ_COMPUTED_PROPERTIES
+};
+
 const VIEW_ALL = 'viewAll';
 const GET_URL = '/api/marketplace';
 const SHAREEF_NAME = COLLECTION_LIST_CONFIG?.[COLLECTIONS_NAME?.SHAREEF]?.nftName;
+const SNEAKERZ_NAME = COLLECTION_LIST_CONFIG?.[COLLECTIONS_NAME?.SNEAKERZ]?.nftName;
 
 const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter }) => {
   const { isMediumDevice, isSmallDevice } = useBreakpoints();
@@ -117,7 +125,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     const unfilteredList =
       config?.id && !appData.loadMore
         ? result?.data?.nfts
-        : [...appData?.marketplaceNfts, ...result?.data?.nfts];
+        : [...appData.marketplaceNfts, ...result.data.nfts];
 
     unfilteredList.filter(nft_item => {
       if (!ids.includes(nft_item.asset_id)) {
@@ -130,7 +138,8 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       marketplaceNfts: list,
       marketCount: result.data.marketCount,
       marketplaceLoading: false,
-      loadMore: false
+      loadMore: false,
+      sort: false
     });
   }, 500);
 
@@ -174,20 +183,23 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       ? collections.map(item => ({
           collection_id: { _eq: item.id }
         }))
-      : Object.values(COLLECTION_LIST_CONFIG).map(item => ({
-          collection_id: { _eq: item.id }
-        }));
+      : filters
+          .find(filter => filter.id === filtersIds.COLLECTIONS)
+          ?.options.map(item => ({
+            collection_id: { _eq: item.id }
+          }));
 
-    const filters = {
+    const computedFilters = {
       price: priceFilters,
       isForSale: status === 'buyNow' ? { _eq: true } : {},
       collections: collectionsFilter,
       properties: { [logicalOperator]: propertiesFilters },
       offset: appData?.page * DEFAULT_LIST_SIZE,
-      orderBy: appData?.marketplaceSort
+      orderBy: appData?.marketplaceSort,
+      limit: DEFAULT_LIST_SIZE
     };
 
-    return filters;
+    return computedFilters;
   }, [
     collections,
     status,
@@ -200,10 +212,10 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   ]);
 
   useEffect(() => {
-    if (!isMediumDevice) {
+    if (!isMediumDevice || appData?.sort) {
       getNfts(appliedFilters);
     }
-  }, [getNfts, appliedFilters]);
+  }, [getNfts, appliedFilters, appData?.sort]);
 
   const handleApplyFilters = useCallback(async () => {
     handleAppData({ page: 0, marketplaceNfts: [] });
@@ -242,7 +254,9 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   }, [isMediumDevice, isMobileModalOpen]);
 
   const getComputedProperties = label => {
-    return label === SHAREEF_NAME ? SHAREEF_COMPUTED_PROPERTIES : BALLERZ_COMPUTED_PROPERTIES;
+    const colectionName = label.split(' ')[0].toUpperCase();
+
+    return COMPUTED_PROPERTIES[`${colectionName}_COMPUTED_PROPERTIES`];
   };
 
   const handleMultipleCheck = useCallback(
@@ -298,7 +312,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       switch (type) {
         case filtersTypes.RANGE:
           return (
-            <Box mx="auto" width={isSmallDevice ? '90%' : '100%'}>
+            <Box mx="auto" mb="16px" mt="6px" width={isSmallDevice ? '90%' : '100%'}>
               <InputRangeGroup
                 max={maxPrice}
                 min={minPrice}
@@ -313,7 +327,12 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
         case filtersTypes.SINGLE:
           return options.map(option => (
-            <Box key={option?.id} mx="auto" width={isMediumDevice ? '90%' : '100%'}>
+            <Box
+              key={option?.id}
+              mx="auto"
+              mb="16px"
+              mt="6px"
+              width={isMediumDevice ? '90%' : '100%'}>
               <CheckboxCard
                 data-cy={`single-filter-${option?.id}`}
                 containerProps={{ sx: { mb: 1 } }}
@@ -346,7 +365,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   const renderContent = useMemo(
     () => (
       <Styled.Content height="fit-content" width={isMediumDevice ? '80%' : 'auto'}>
-        <Grid p="20px 22px 20px 12px" sx={{ boxSizing: 'border-box' }}>
+        <Grid sx={{ boxSizing: 'border-box' }}>
           {filters.map((filter, index) => {
             if (config?.id && filter.id === FILTERS_CONSTANTS.COLLECTIONS) {
               return '';
@@ -437,10 +456,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
                     <Accordion key={`${property}-${index}`} title={capitalize(property)}>
                       <Styled.ValuesContainer>
                         {currentCollection.properties[property].map(option => {
-                          const computedProperties =
-                            currentCollection.label === SHAREEF_NAME
-                              ? SHAREEF_COMPUTED_PROPERTIES
-                              : BALLERZ_COMPUTED_PROPERTIES;
+                          const computedProperties = getComputedProperties(currentCollection.label);
                           return (
                             <CheckboxCard
                               key={`mobile-${currentCollection.id}-${property}-${option}`}

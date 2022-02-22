@@ -1,6 +1,6 @@
 {
   "name": "gaia-frontend",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "private": true,
   "engines": {
     "node": "14.x",
@@ -78,10 +78,10 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx}": [
+    "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ],
-    "src/**/*.{js,jsx,css,scss,less}": [
+    "src/**/*.{ts,tsx,js,jsx,css,scss,less}": [
       "prettier --write"
     ]
   },

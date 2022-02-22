@@ -3,13 +3,16 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 
 export const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'isMobile' })(
-  ({ isMobile }) => ({
+  ({ isMobile, theme: { breakpoints } }) => ({
     width: '100%',
     height: isMobile ? '72px' : '80px',
-    padding: isMobile ? '12px 20px' : '20px 40px',
+    padding: '20px 80px',
     display: 'flex',
     alignItems: 'center',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    [breakpoints.down('xl')]: {
+      padding: isMobile ? '12px 20px' : '20px 5.55%'
+    }
   })
 );
 

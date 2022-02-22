@@ -6,6 +6,7 @@ const initialContextValue: AppContextValue = {
     page: 0,
     loadMore: false,
     marketplaceLoading: true,
+    sort: false,
     cardRef: null,
     imgRef: null,
     marketplaceNfts: [],

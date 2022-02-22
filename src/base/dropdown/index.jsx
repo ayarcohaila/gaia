@@ -1,5 +1,5 @@
-import React from 'react';
-import { MenuList, ClickAwayListener, Popper } from '@mui/material';
+import React, { useEffect } from 'react';
+import { MenuList, ClickAwayListener, Popper, useScrollTrigger } from '@mui/material';
 import PropTypes from 'prop-types';
 import * as Styled from './styles.js';
 
@@ -9,20 +9,26 @@ const Dropdown = ({
   menuAnchorRef,
   isOpen,
   onClose,
-  handleListKeyDown,
   options,
+  closeWhenScroll,
   handleClickOption,
   ...otherProps
 }) => {
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 100
+  });
+
+  useEffect(() => {
+    if (closeWhenScroll && trigger) onClose();
+  }, [trigger]);
+
   const defaultKeyDownPress = event => {
-    if (!handleListKeyDown) {
-      if (event.key === ESC_KEY) {
-        onClose();
-      }
-    } else {
-      handleListKeyDown();
+    if (event.keyCode === ESC_KEY) {
+      onClose();
     }
   };
+
   return (
     <Popper anchorEl={menuAnchorRef?.current} open={isOpen} onClose={onClose}>
       <Styled.CustomPaper {...otherProps}>
@@ -52,7 +58,6 @@ Dropdown.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   handleClickOption: PropTypes.func.isRequired,
-  handleListKeyDown: PropTypes.func,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -63,8 +68,8 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
+  closeWhenScroll: false,
   menuAnchorRef: undefined,
-  handleListKeyDown: undefined,
   options: []
 };
 

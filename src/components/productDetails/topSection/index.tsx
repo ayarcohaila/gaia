@@ -15,7 +15,7 @@ import Loader from '~/base/spinnerLoader';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { cancelSale } from '~/flow/cancelSale';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
-import { hasSell, hasTransfer } from '~/config/config';
+import { hasSell, hasSneakerzSell, hasTransfer } from '~/config/config';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { BUY_TX, CANCEL_SALE_TX } from '~/constant';
 import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup';
@@ -168,6 +168,13 @@ const ProductDetailsTopSection = ({
     [nft]
   );
 
+  const hasCollectionPage = useMemo(() => {
+    if (nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id) {
+      return hasSneakerzSell;
+    }
+    return true;
+  }, []);
+
   const breadcrumbsLinks = useMemo(
     () => [
       {
@@ -179,11 +186,10 @@ const ProductDetailsTopSection = ({
       },
       {
         label: `${nft?.collection?.name} NFTs`,
-        href: `/${collection_name}`
+        href: hasCollectionPage ? `/${collection_name}` : ''
       },
       {
-        label: metadata.title,
-        href: `/${collection_name}/${metadata?.id || nft?.mint_number}`
+        label: metadata.title
       }
     ],
     [nft?.collection]
@@ -204,7 +210,7 @@ const ProductDetailsTopSection = ({
             <AdditionalDetails
               data-cy="aditional-detail-properties"
               data={metadata}
-              ballerzComputedProps={computedProps}
+              computedProps={computedProps}
               attributesOrder={attributesOrder}
             />
           </Accordion>
@@ -242,7 +248,9 @@ const ProductDetailsTopSection = ({
     const formattedPrice = formatCurrencyValue(price);
 
     switch (true) {
-      case nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id:
+      case nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id ||
+        (nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id &&
+          !hasSneakerzSell):
         return null;
       case loadingPurchase:
         return <Loader />;
@@ -311,7 +319,13 @@ const ProductDetailsTopSection = ({
 
   return (
     <>
-      <Breadcrumbs data-cy="breadcrumbs" links={breadcrumbsLinks} mx={1} />
+      <Breadcrumbs
+        data-cy="breadcrumbs"
+        links={breadcrumbsLinks}
+        mx={1}
+        ml={isMediumDevice ? '20px' : '0'}
+        mb={isMediumDevice ? '14px' : '0'}
+      />
       <Styled.Container container={!isMediumDevice} justifyContent="space-between">
         <Asset metadata={metadata} />
         <Grid

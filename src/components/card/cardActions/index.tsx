@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { CardActions as BaseCardActions, Grid } from '@mui/material';
-import { hasSell, hasTransfer } from '~/config/config';
+import { hasSell, hasSneakerzSell, hasTransfer } from '~/config/config';
 import { ComingSoon, CancelButton, TransferButton, SellButton } from './styled';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
@@ -11,7 +11,12 @@ const CardActions = (props: CardActionsProps) => {
   const { data, loading, toggleCancelListingModal, toggleSellNftModal, toggleTransferNftModal } =
     props;
 
-  if (data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id) {
+  const disableSell =
+    data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id ||
+    (data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id &&
+      !hasSneakerzSell);
+
+  if (disableSell) {
     return (
       <BaseCardActions sx={{ justifyContent: 'center' }}>
         <SellButton disabled={true}>Sell</SellButton>

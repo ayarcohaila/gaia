@@ -1,6 +1,7 @@
 import '../../public/static/fonts/fonts.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'nprogress/nprogress.css';
+import { Container } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -58,10 +59,12 @@ function MyApp({ Component, pageProps }) {
                 content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=5, viewport-fit=cover"
               />
             </Head>
-            <Header />
-            <Content>
-              <Component {...pageProps} />
-            </Content>
+            <Container maxWidth="xll" disableGutters>
+              <Header />
+              <Content>
+                <Component {...pageProps} />
+              </Content>
+            </Container>
             <Footer />
             <ToastContainer pauseOnFocusLoss={false} position={toast.POSITION.BOTTOM_LEFT} />
           </ApolloProvider>

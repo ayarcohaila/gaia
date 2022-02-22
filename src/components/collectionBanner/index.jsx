@@ -11,17 +11,36 @@ function CollectionBanner({
   bannerAvatar,
   bannerName,
   bannerDescription,
+  fullBgPosition,
   bgImg,
   mainColor,
   secondaryColor,
   ...props
 }) {
-  const { isSmallDevice } = useBreakpoints();
+  const { isSmallDevice, isExtraLargeDevice, isMediumDevice } = useBreakpoints();
+
+  const backgroundSizeContain = () => {
+    if (fullBgPosition && isExtraLargeDevice) {
+      return {
+        backgroundPosition: '100% 0%',
+        backgroundSize: 'contain'
+      };
+    }
+    return {};
+  };
 
   return (
-    <Grid px={isSmallDevice ? '20px' : '32px'}>
-      <Styled.BannerBackground imgUrl={bgImg} {...props}>
-        <Styled.BannerStyled bgColor={mainColor}>
+    <Grid px={isMediumDevice ? '12px' : '32px'}>
+      <Styled.BannerBackground
+        imgUrl={bgImg}
+        {...props}
+        sx={{
+          ...props.sx,
+          ...backgroundSizeContain()
+        }}>
+        <Styled.BannerStyled
+          bgColor={mainColor}
+          fullBgPosition={fullBgPosition && isExtraLargeDevice}>
           <Box display="flex" alignItems="start" justifyContent="start" flexDirection="row">
             <Styled.BannerAvatar imgUrl={bannerAvatar} />
             {!isSmallDevice && (

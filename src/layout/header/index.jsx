@@ -70,9 +70,11 @@ const Header = () => {
         router.push('/favorites');
         break;
       }
-      default:
+      default: {
         logout();
+        router.push('/');
         break;
+      }
     }
   };
 
@@ -160,8 +162,9 @@ const Header = () => {
         <Dropdown
           menuAnchorRef={menuAnchorRef}
           isOpen={!!openUserMenu}
-          onClose={handleDropdownMenu}
+          onClose={() => handleDropdownMenu(false)}
           options={USER_MENU_OPTIONS}
+          closeWhenScroll
           handleClickOption={handleClick}
           onMouseLeave={() => handleDropdownMenu(false)}
           sx={{ width: '164px', marginRight: '30px' }}

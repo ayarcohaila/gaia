@@ -11,8 +11,10 @@ function useBreakpoints(size) {
   const isSmallDevice = useMediaQuery(theme => theme?.breakpoints?.down('sm'));
   const isMediumDevice = useMediaQuery(theme => theme?.breakpoints?.down('md'));
   const isExtraMediumDevice = useMediaQuery('(min-width:1250px)');
+  const isLargeDevice = useMediaQuery('(min-width:1400px)');
+  const isExtraLargeDevice = useMediaQuery('(min-width:1920px)');
   const matches = useMediaQuery(theme => theme?.breakpoints?.down(size || 0));
-  const { lg, md, sm, xl, xs } = theme?.breakpoints?.values;
+  const { lg, md, sm, xl, xs } = theme.breakpoints.values;
 
   return {
     lg,
@@ -24,7 +26,9 @@ function useBreakpoints(size) {
     isExtraSmallDevice,
     isSmallDevice,
     isMediumDevice,
-    isExtraMediumDevice
+    isExtraMediumDevice,
+    isExtraLargeDevice,
+    isLargeDevice
   };
 }
 

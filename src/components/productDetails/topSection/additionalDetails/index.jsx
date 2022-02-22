@@ -9,7 +9,7 @@ import useBreakpoints from '~/hooks/useBreakpoints';
 
 import * as Styled from './styles';
 
-const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
+const AdditionalDetails = ({ data, computedProps, attributesOrder }) => {
   const {
     palette: { grey }
   } = useTheme();
@@ -17,6 +17,7 @@ const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
   const { isSmallDevice } = useBreakpoints();
 
   const { config, collectionsNames } = useCollectionConfig();
+  const disableTraits = config.collectionName === collectionsNames.SNEAKERZ;
 
   const excludeAdditionalFields = ['id', 'img', 'uri', 'title', 'video', 'description'];
 
@@ -32,6 +33,16 @@ const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
       ),
     [filteredData]
   );
+
+  const handleTrait = (key, value) => {
+    if (
+      config.collectionName === collectionsNames.BALLERZ ||
+      config.collectionName === collectionsNames.SNEAKERZ
+    ) {
+      return ((computedProps[key][value] / config.collectionSize) * 100).toFixed(2);
+    }
+    return 100;
+  };
 
   return (
     <Styled.Container>
@@ -53,19 +64,18 @@ const AdditionalDetails = ({ data, ballerzComputedProps, attributesOrder }) => {
                 textAlign="center">
                 {value}
               </Typography>
-              <Typography
-                color={grey[500]}
-                variant="body1"
-                fontWeight="400"
-                sx={{
-                  letterSpacing: '0px',
-                  fontSize: isSmallDevice && '10px'
-                }}>
-                {config.collectionName === collectionsNames.BALLERZ
-                  ? ((ballerzComputedProps[key][value] / config.collectionSize) * 100).toFixed(2)
-                  : 100}
-                % have this trait
-              </Typography>
+              {!disableTraits && (
+                <Typography
+                  color={grey[500]}
+                  variant="body1"
+                  fontWeight="400"
+                  sx={{
+                    letterSpacing: '0px',
+                    fontSize: isSmallDevice && '10px'
+                  }}>
+                  {handleTrait(key, value)}% have this trait
+                </Typography>
+              )}
             </Styled.BoxData>
           )
       )}

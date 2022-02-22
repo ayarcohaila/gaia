@@ -14,7 +14,8 @@ import {
   ATTRIBUTES_ORDER,
   ATTRIBUTES_SHAREEF_ORDER,
   BALLERZ_COMPUTED_PROPERTIES,
-  SHAREEF_COMPUTED_PROPERTIES
+  SHAREEF_COMPUTED_PROPERTIES,
+  SNEAKERZ_COMPUTED_PROPERTIES
 } from '~/components/filters/constants';
 import listNFTOffers from '~/utils/fetchNFTOffers';
 import formatIpfsImg from '~/utils/formatIpfsImg';
@@ -39,7 +40,7 @@ const ProductDetails = (props: ProductDetailsProps) => {
   const {
     palette: { grey }
   } = useTheme();
-  const { isSmallDevice } = useBreakpoints();
+  const { isMediumDevice, isLargeDevice } = useBreakpoints();
 
   const title = nft?.template?.metadata?.title;
   const description = nft?.template?.metadata?.description;
@@ -52,7 +53,11 @@ const ProductDetails = (props: ProductDetailsProps) => {
         description={description}
         imgURL={formatIpfsImg(img)}
       />
-      <Grid m="0 auto" maxWidth="1280px" width={isSmallDevice ? '100%' : '90%'}>
+      <Grid
+        m="0 auto"
+        maxWidth="1800px"
+        width="100%"
+        padding={isMediumDevice ? '0' : isLargeDevice ? '0 80px' : '0 5.55%'}>
         <ProductDetailsTopSection {...props} />
       </Grid>
     </Box>
@@ -71,6 +76,7 @@ export const getServerSideProps: ProductDetailsServerSidePropsFN = async ({ para
 
   const attributesOrder = ATTRIBUTES_ORDER;
   const ballerzComputedProps = BALLERZ_COMPUTED_PROPERTIES;
+  const sneakerzComputedProps = SNEAKERZ_COMPUTED_PROPERTIES;
 
   const attributesShareefOrder = ATTRIBUTES_SHAREEF_ORDER;
   const shareefComputedProperties = SHAREEF_COMPUTED_PROPERTIES;
@@ -169,6 +175,35 @@ export const getServerSideProps: ProductDetailsServerSidePropsFN = async ({ para
       };
     }
 
+    if (collection_name === COLLECTIONS_NAME.SNEAKERZ) {
+      const { nft } = await gqlClient.request<GetNftByIdQuery>(GET_NFT_BY_ID, {
+        id: { id: params?.nft_id },
+        collection_id: process.env.NEXT_PUBLIC_SNEAKERZ_COLLECTION
+      });
+
+      if (!nft?.length) {
+        return { notFound: true };
+      }
+
+      const owner = nft[0]?.owner;
+      try {
+        const offers = await listNFTOffers(owner, nft[0]?.asset_id.toString());
+        hasMultipleOffers = offers?.length > 1;
+      } catch (err) {
+        hasMultipleOffers = false;
+      }
+
+      return {
+        props: {
+          nft: nft[0],
+          attributesOrder,
+          computedProps: sneakerzComputedProps,
+          hasMultipleOffers
+        }
+      };
+    }
+
+    // BALLERZ
     const { nft } = await gqlClient.request<GetNftByIdQuery>(GET_NFT_BY_ID, {
       id: { id: params?.nft_id },
       collection_id: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION
