@@ -1,3 +1,28 @@
+# [0.3.0](https://github.com/NFT-Genius/gaia-frontend/compare/0.2.2...0.3.0) (2022-02-22)
+
+
+### Bug Fixes
+
+* **GP-141:** disable last breadcrumb item for shareef ([#560](https://github.com/NFT-Genius/gaia-frontend/issues/560)) ([472672b](https://github.com/NFT-Genius/gaia-frontend/commit/472672ba315634f254b229fe76394980dd5a28b6))
+* **GP-173:** Fix load nfts after go to PDP and back ([#580](https://github.com/NFT-Genius/gaia-frontend/issues/580)) ([cea5fa6](https://github.com/NFT-Genius/gaia-frontend/commit/cea5fa63d77d8a520f4c7127cc032d302402b4e5))
+* **GP-176:** [MOBILE] Remove padding from cards on My Account screen ([#594](https://github.com/NFT-Genius/gaia-frontend/issues/594)) ([24f4693](https://github.com/NFT-Genius/gaia-frontend/commit/24f4693cc3fa89aa29d0893336903db752a4d8d7))
+* **GP-181:** centralizing empty message and loading ([#590](https://github.com/NFT-Genius/gaia-frontend/issues/590)) ([78913ad](https://github.com/NFT-Genius/gaia-frontend/commit/78913ade9f9c705455d25826cd526b3bdfa42848))
+* **GP-187:** Adjust paddings in the PDP and moment page ([#597](https://github.com/NFT-Genius/gaia-frontend/issues/597)) ([03edc88](https://github.com/NFT-Genius/gaia-frontend/commit/03edc8807ab01a56c1073113fa27c977ec6c48bc))
+* **GP-214:** remove max-width from banners ([#633](https://github.com/NFT-Genius/gaia-frontend/issues/633)) ([b5ca9ed](https://github.com/NFT-Genius/gaia-frontend/commit/b5ca9edb7f61b81b621afa4e098e9e48eafe6ce4))
+* **GP-215:** Fix padding-left/right for Header ([#635](https://github.com/NFT-Genius/gaia-frontend/issues/635)) ([3c7c1e7](https://github.com/NFT-Genius/gaia-frontend/commit/3c7c1e7d59d7fd80513129cb490eb7c9517df7f0))
+* **GP-217:** Fix padding in all pages ([#640](https://github.com/NFT-Genius/gaia-frontend/issues/640)) ([9396ad6](https://github.com/NFT-Genius/gaia-frontend/commit/9396ad6fc78de4340f66950c7222a56e84bdab20))
+* **GP-218:** fixing filter ui ([#645](https://github.com/NFT-Genius/gaia-frontend/issues/645)) ([b9ec545](https://github.com/NFT-Genius/gaia-frontend/commit/b9ec545d122fe8e1af7213a1eff576528f70c965))
+* List on marketplace ([#644](https://github.com/NFT-Genius/gaia-frontend/issues/644)) ([509cc5d](https://github.com/NFT-Genius/gaia-frontend/commit/509cc5d2e82f2d36eed0edcf4fecd401c42b1f34))
+
+
+### Features
+
+* **GP-134:** create sneakers page ([#632](https://github.com/NFT-Genius/gaia-frontend/issues/632)) ([c71d620](https://github.com/NFT-Genius/gaia-frontend/commit/c71d620c5452a4ee9ab915e60f3c5becd11056da))
+* **GP-145:** Add actions in the Moments page ([#583](https://github.com/NFT-Genius/gaia-frontend/issues/583)) ([29c68ba](https://github.com/NFT-Genius/gaia-frontend/commit/29c68ba8997b1a5f77d9c300533f174817bdc97d))
+
+
+
+
 ## [0.2.2](https://github.com/NFT-Genius/gaia-frontend/compare/v0.2.1...v0.2.2) (2022-02-15)
 
 
