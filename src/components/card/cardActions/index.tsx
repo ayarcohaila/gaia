@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { CardActions as BaseCardActions, Grid } from '@mui/material';
-import { hasSell, hasSneakerzSell, hasTransfer } from '~/config/config';
+import { hasSell, hasTransfer } from '~/config/config';
 import { ComingSoon, CancelButton, TransferButton, SellButton } from './styled';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
@@ -13,8 +13,7 @@ const CardActions = (props: CardActionsProps) => {
 
   const disableSell =
     data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id ||
-    (data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id &&
-      !hasSneakerzSell);
+    data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id;
 
   if (disableSell) {
     return (

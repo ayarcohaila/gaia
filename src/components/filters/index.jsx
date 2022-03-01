@@ -45,8 +45,11 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   const [hasChangeFilters, setHasChangeFilter] = useState(false);
   const { config } = useCollectionConfig();
 
+  const isSneakerz = config?.id === COLLECTION_LIST_CONFIG?.[COLLECTIONS_NAME?.SNEAKERZ]?.id;
+
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
+    status: isSneakerz ? 'viewAll' : 'buyNow',
     collections: config?.id
       ? [
           filters
@@ -154,15 +157,26 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     let propertiesFilters = [];
     let logicalOperator = '_and';
 
+    const customNFTMetadata = [
+      'rarity',
+      'jump',
+      'dripfactor',
+      'teamcolor',
+      'design',
+      'accessory',
+      'background',
+      'enhancement'
+    ];
+
     Object.values(properties)?.forEach(property => {
       Object.entries(property)?.forEach(([key, value]) => {
         Object.entries(value)?.forEach(([propKey, propValue]) => {
           if (propValue) {
             if (key === 'accessories') {
               propertiesFilters.push({ [key]: { _like: `%${propKey}%` } });
-            } else if (key === 'rarity') {
-              logicalOperator = '_or';
-              propertiesFilters.push({ metadata: { _contains: { rarity: propKey } } });
+            } else if (customNFTMetadata.includes(key)) {
+              logicalOperator = isSneakerz ? '_and' : '_or';
+              propertiesFilters.push({ metadata: { _contains: { [key]: propKey } } });
             } else {
               propertiesFilters.push({ [key]: { _eq: propKey } });
             }
@@ -405,7 +419,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
                                 !!properties?.[currentCollection?.id]?.[property]?.[option]
                               }
                               label={option}
-                              amount={COMPUTED_PROPERTIES[property][option]}
+                              amount={COMPUTED_PROPERTIES?.[property]?.[option]}
                               onChange={() =>
                                 handleCheckProperties(currentCollection.id, property, option)
                               }
@@ -468,7 +482,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
                                 !!properties?.[currentCollection?.id]?.[property]?.[option]
                               }
                               label={option}
-                              amount={computedProperties[property][option]}
+                              amount={COMPUTED_PROPERTIES?.[property]?.[option]}
                               onChange={() =>
                                 handleCheckProperties(currentCollection.id, property, option)
                               }
