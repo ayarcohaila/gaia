@@ -1,3 +1,12 @@
+# [0.4.0](https://github.com/NFT-Genius/gaia-frontend/compare/0.3.2...0.4.0) (2022-03-01)
+
+
+### Features
+
+* **GAIA-60:** Add sneakerz filters ([#662](https://github.com/NFT-Genius/gaia-frontend/issues/662)) ([047058d](https://github.com/NFT-Genius/gaia-frontend/commit/047058d1e16f384d2e85ef1854de1315065ee449))
+
+
+
 ## [0.3.2](https://github.com/NFT-Genius/gaia-frontend/compare/v0.3.1...v0.3.2) (2022-03-01)
 
 
