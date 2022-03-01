@@ -249,8 +249,7 @@ const ProductDetailsTopSection = ({
 
     switch (true) {
       case nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id ||
-        (nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id &&
-          !hasSneakerzSell):
+        nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id:
         return null;
       case loadingPurchase:
         return <Loader />;
