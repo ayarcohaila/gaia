@@ -212,10 +212,12 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   ]);
 
   useEffect(() => {
-    if (!isMediumDevice || appData?.sort) {
+    const shouldFetchOnMobile = appData?.sort || appData?.loadMore;
+
+    if (shouldFetchOnMobile || !isMediumDevice) {
       getNfts(appliedFilters);
     }
-  }, [getNfts, appliedFilters, appData?.sort]);
+  }, [getNfts, appliedFilters, appData?.sort, appData?.loadMore]);
 
   const handleApplyFilters = useCallback(async () => {
     handleAppData({ page: 0, marketplaceNfts: [] });
