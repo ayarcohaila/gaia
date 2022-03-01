@@ -2,6 +2,7 @@ export interface AppContextValue {
   appData: {
     page: number;
     loadMore: boolean;
+    clearFilters: boolean;
     sort: boolean;
     marketplaceLoading: boolean;
     marketplaceNfts: any[];

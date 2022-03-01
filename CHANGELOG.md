@@ -1,3 +1,13 @@
+## [0.3.2](https://github.com/NFT-Genius/gaia-frontend/compare/v0.3.1...v0.3.2) (2022-03-01)
+
+
+### Bug Fixes
+
+* **GAIA-70:** fix clearFilters feature ([f3fa3f5](https://github.com/NFT-Genius/gaia-frontend/commit/f3fa3f56a7c791f5befcef303cca919ccdccae14))
+* **GAIA-71:** enable load more on mobile ([e4d7ae8](https://github.com/NFT-Genius/gaia-frontend/commit/e4d7ae8ebe9c77296175e84edb14b218a8c3cfc2))
+
+
+
 ## [0.3.1](https://github.com/NFT-Genius/gaia-frontend/compare/v0.3.0...v0.3.1) (2022-02-22)
 
 
