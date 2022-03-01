@@ -139,6 +139,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
       marketCount: result.data.marketCount,
       marketplaceLoading: false,
       loadMore: false,
+      clearFilters: false,
       sort: false
     });
   }, 500);
@@ -212,12 +213,12 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   ]);
 
   useEffect(() => {
-    const shouldFetchOnMobile = appData?.sort || appData?.loadMore;
+    const shouldFetchOnMobile = appData?.sort || appData?.loadMore || appData?.clearFilters;
 
     if (shouldFetchOnMobile || !isMediumDevice) {
       getNfts(appliedFilters);
     }
-  }, [getNfts, appliedFilters, appData?.sort, appData?.loadMore]);
+  }, [getNfts, appliedFilters, appData?.sort, appData?.loadMore, appData?.clearFilters]);
 
   const handleApplyFilters = useCallback(async () => {
     handleAppData({ page: 0, marketplaceNfts: [] });
@@ -238,7 +239,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
   }, [state, setLastState]);
 
   const handleClearFilters = useCallback(() => {
-    handleAppData({ page: 0, marketplaceNfts: [] });
+    handleAppData({ page: 0, marketplaceNfts: [], clearFilters: true });
     dispatch({ type: ACTION_TYPE.CLEAR_FILTERS });
     getNfts(appliedFilters);
     toggleMobileModal();

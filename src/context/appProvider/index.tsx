@@ -5,6 +5,7 @@ const initialContextValue: AppContextValue = {
   appData: {
     page: 0,
     loadMore: false,
+    clearFilters: false,
     marketplaceLoading: true,
     sort: false,
     cardRef: null,
