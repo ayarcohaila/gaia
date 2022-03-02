@@ -59,6 +59,7 @@ const Favorites = () => {
                 key={i}
                 data={nft}
                 hasPrice
+                onFavoriteClick={user?.addr && (() => handleGetFavorites(user.addr))}
                 hasActions={!!user && user.loggedIn && user.addr === router.query.id}
               />
             ))}

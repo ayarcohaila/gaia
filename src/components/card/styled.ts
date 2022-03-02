@@ -12,6 +12,13 @@ export const CustomCard = styled(Card)(() => ({
   justifyContent: 'space-between'
 }));
 
+export const CustomCardHeaderWrapper = styled('div')({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-between',
+  alignItems: 'center'
+});
+
 export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => ({
   padding: '0px 0 10px 0',
 
@@ -24,8 +31,7 @@ export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => (
   },
 
   svg: {
-    color: palette.grey[600],
-    marginRight: 16
+    color: palette.grey[600]
   }
 }));
 

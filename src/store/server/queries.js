@@ -115,6 +115,7 @@ const GET_NFTS_MINT_NUMBER = gql`
 const GET_NFTS_BY_ADDRESS = gql`
   query getNFTsByAddress($address: String!, $collections: [nft_bool_exp!]) {
     nft(where: { _or: $collections, owner: { _eq: $address } }) {
+      id
       asset_id
       mint_number
       is_for_sale
@@ -245,6 +246,7 @@ const GET_MARKETPLACE_OFFERS = gql`
       limit: $limit
       offset: $offset
     ) {
+      id
       asset_id
       mint_number
       owner
@@ -326,6 +328,7 @@ const GET_FAVORITE_LIST = gql`
   query getFavoriteList($address: String) {
     nft_favorites(where: { wallet_address: { _eq: $address } }) {
       nft {
+        id
         asset_id
         mint_number
         is_for_sale

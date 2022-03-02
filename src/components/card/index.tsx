@@ -8,6 +8,7 @@ import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
 import useToggle from '~/hooks/useToggle';
 import formatIpfsImg from '~/utils/formatIpfsImg';
+import FavoriteButton from '~/components/favoriteButton';
 import VideoPlayer from '~/components/videoPlayer';
 import COLLECTION_LIST_CONFIG, { COLLECTIONS_NAME } from 'collections_setup';
 
@@ -21,7 +22,7 @@ import { CardProps } from './types';
 import * as Styled from './styled';
 
 const Card = (props: CardProps) => {
-  const { data, hasActions, hasPrice, setPosition } = props;
+  const { data, hasActions, hasPrice, setPosition, onFavoriteClick } = props;
   const [imgLoaded, setImgLoaded] = useState(false);
   const [isSellNftModalOpen, toggleSellNftModal] = useToggle();
   const [isTransferNftModalOpen, toggleTransferNftModal] = useToggle();
@@ -76,7 +77,12 @@ const Card = (props: CardProps) => {
                 sx={{ width: 28, height: 28 }}
               />
             }
-            title={COLLECTIONS_NAME_UPPERCASE}
+            title={
+              <Styled.CustomCardHeaderWrapper>
+                {COLLECTIONS_NAME_UPPERCASE}
+                <FavoriteButton nftId={data.id} afterClick={onFavoriteClick} />
+              </Styled.CustomCardHeaderWrapper>
+            }
           />
 
           <Grid margin={0} overflow={'hidden'} borderRadius={'20px'}>

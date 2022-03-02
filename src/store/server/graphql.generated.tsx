@@ -198,6 +198,14 @@ export type Mutation_Root = {
   delete_nft_template?: Maybe<Nft_Template_Mutation_Response>;
   /** delete single row from the table: "nft_template" */
   delete_nft_template_by_pk?: Maybe<Nft_Template>;
+  /** delete data from the table: "notifications" */
+  delete_notifications?: Maybe<Notifications_Mutation_Response>;
+  /** delete single row from the table: "notifications" */
+  delete_notifications_by_pk?: Maybe<Notifications>;
+  /** delete data from the table: "notifications_types" */
+  delete_notifications_types?: Maybe<Notifications_Types_Mutation_Response>;
+  /** delete single row from the table: "notifications_types" */
+  delete_notifications_types_by_pk?: Maybe<Notifications_Types>;
   /** insert data into the table: "nft" */
   insert_nft?: Maybe<Nft_Mutation_Response>;
   /** insert data into the table: "nft_collection" */
@@ -226,6 +234,14 @@ export type Mutation_Root = {
   insert_nft_template?: Maybe<Nft_Template_Mutation_Response>;
   /** insert a single row into the table: "nft_template" */
   insert_nft_template_one?: Maybe<Nft_Template>;
+  /** insert data into the table: "notifications" */
+  insert_notifications?: Maybe<Notifications_Mutation_Response>;
+  /** insert a single row into the table: "notifications" */
+  insert_notifications_one?: Maybe<Notifications>;
+  /** insert data into the table: "notifications_types" */
+  insert_notifications_types?: Maybe<Notifications_Types_Mutation_Response>;
+  /** insert a single row into the table: "notifications_types" */
+  insert_notifications_types_one?: Maybe<Notifications_Types>;
   mint?: Maybe<MintOutput>;
   /** update data of the table: "nft" */
   update_nft?: Maybe<Nft_Mutation_Response>;
@@ -255,6 +271,14 @@ export type Mutation_Root = {
   update_nft_template?: Maybe<Nft_Template_Mutation_Response>;
   /** update single row of the table: "nft_template" */
   update_nft_template_by_pk?: Maybe<Nft_Template>;
+  /** update data of the table: "notifications" */
+  update_notifications?: Maybe<Notifications_Mutation_Response>;
+  /** update single row of the table: "notifications" */
+  update_notifications_by_pk?: Maybe<Notifications>;
+  /** update data of the table: "notifications_types" */
+  update_notifications_types?: Maybe<Notifications_Types_Mutation_Response>;
+  /** update single row of the table: "notifications_types" */
+  update_notifications_types_by_pk?: Maybe<Notifications_Types>;
 };
 
 
@@ -355,6 +379,30 @@ export type Mutation_RootDelete_Nft_Template_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootDelete_NotificationsArgs = {
+  where: Notifications_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Notifications_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Notifications_TypesArgs = {
+  where: Notifications_Types_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Notifications_Types_By_PkArgs = {
+  type: Scalars['String'];
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_NftArgs = {
   objects: Array<Nft_Insert_Input>;
   on_conflict?: InputMaybe<Nft_On_Conflict>;
@@ -449,6 +497,34 @@ export type Mutation_RootInsert_Nft_TemplateArgs = {
 export type Mutation_RootInsert_Nft_Template_OneArgs = {
   object: Nft_Template_Insert_Input;
   on_conflict?: InputMaybe<Nft_Template_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_NotificationsArgs = {
+  objects: Array<Notifications_Insert_Input>;
+  on_conflict?: InputMaybe<Notifications_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Notifications_OneArgs = {
+  object: Notifications_Insert_Input;
+  on_conflict?: InputMaybe<Notifications_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Notifications_TypesArgs = {
+  objects: Array<Notifications_Types_Insert_Input>;
+  on_conflict?: InputMaybe<Notifications_Types_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Notifications_Types_OneArgs = {
+  object: Notifications_Types_Insert_Input;
+  on_conflict?: InputMaybe<Notifications_Types_On_Conflict>;
 };
 
 
@@ -585,6 +661,34 @@ export type Mutation_RootUpdate_Nft_Template_By_PkArgs = {
   pk_columns: Nft_Template_Pk_Columns_Input;
 };
 
+
+/** mutation root */
+export type Mutation_RootUpdate_NotificationsArgs = {
+  _set?: InputMaybe<Notifications_Set_Input>;
+  where: Notifications_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Notifications_By_PkArgs = {
+  _set?: InputMaybe<Notifications_Set_Input>;
+  pk_columns: Notifications_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Notifications_TypesArgs = {
+  _set?: InputMaybe<Notifications_Types_Set_Input>;
+  where: Notifications_Types_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Notifications_Types_By_PkArgs = {
+  _set?: InputMaybe<Notifications_Types_Set_Input>;
+  pk_columns: Notifications_Types_Pk_Columns_Input;
+};
+
 /** columns and relationships of "nft" */
 export type Nft = {
   asset_id: Scalars['bigint'];
@@ -601,7 +705,7 @@ export type Nft = {
   /** A computed field, executes function "nft_last_active_price" */
   last_active_price?: Maybe<Scalars['float8']>;
   mint_number?: Maybe<Scalars['bigint']>;
-  minted_at?: Maybe<Scalars['timestamp']>;
+  minted_at?: Maybe<Scalars['timestamptz']>;
   /** An array relationship */
   nft_favorites: Array<Nft_Favorites>;
   /** An aggregate relationship */
@@ -743,7 +847,7 @@ export type Nft_Bool_Exp = {
   is_tradable?: InputMaybe<Boolean_Comparison_Exp>;
   last_active_price?: InputMaybe<Float8_Comparison_Exp>;
   mint_number?: InputMaybe<Bigint_Comparison_Exp>;
-  minted_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  minted_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   nft_favorites?: InputMaybe<Nft_Favorites_Bool_Exp>;
   owner?: InputMaybe<String_Comparison_Exp>;
   sale_offers?: InputMaybe<Nft_Sale_Offer_Bool_Exp>;
@@ -1608,7 +1712,7 @@ export type Nft_Insert_Input = {
   is_for_sale?: InputMaybe<Scalars['Boolean']>;
   is_tradable?: InputMaybe<Scalars['Boolean']>;
   mint_number?: InputMaybe<Scalars['bigint']>;
-  minted_at?: InputMaybe<Scalars['timestamp']>;
+  minted_at?: InputMaybe<Scalars['timestamptz']>;
   nft_favorites?: InputMaybe<Nft_Favorites_Arr_Rel_Insert_Input>;
   owner?: InputMaybe<Scalars['String']>;
   sale_offers?: InputMaybe<Nft_Sale_Offer_Arr_Rel_Insert_Input>;
@@ -1626,7 +1730,7 @@ export type Nft_Max_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
   mint_number?: Maybe<Scalars['bigint']>;
-  minted_at?: Maybe<Scalars['timestamp']>;
+  minted_at?: Maybe<Scalars['timestamptz']>;
   owner?: Maybe<Scalars['String']>;
   standard?: Maybe<Scalars['String']>;
   template_id?: Maybe<Scalars['uuid']>;
@@ -1654,7 +1758,7 @@ export type Nft_Min_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
   mint_number?: Maybe<Scalars['bigint']>;
-  minted_at?: Maybe<Scalars['timestamp']>;
+  minted_at?: Maybe<Scalars['timestamptz']>;
   owner?: Maybe<Scalars['String']>;
   standard?: Maybe<Scalars['String']>;
   template_id?: Maybe<Scalars['uuid']>;
@@ -1730,6 +1834,7 @@ export type Nft_Pk_Columns_Input = {
 export type Nft_Sale_Offer = {
   created_at: Scalars['timestamptz'];
   id: Scalars['uuid'];
+  listed_at?: Maybe<Scalars['timestamptz']>;
   listing_resource_id: Scalars['bigint'];
   /** An object relationship */
   nft: Nft;
@@ -1738,6 +1843,7 @@ export type Nft_Sale_Offer = {
   parsed_price?: Maybe<Scalars['float8']>;
   price: Scalars['String'];
   status: Scalars['String'];
+  status_at?: Maybe<Scalars['timestamptz']>;
   updated_at: Scalars['timestamptz'];
 };
 
@@ -1808,12 +1914,14 @@ export type Nft_Sale_Offer_Bool_Exp = {
   _or?: InputMaybe<Array<Nft_Sale_Offer_Bool_Exp>>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  listed_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   listing_resource_id?: InputMaybe<Bigint_Comparison_Exp>;
   nft?: InputMaybe<Nft_Bool_Exp>;
   nft_id?: InputMaybe<Uuid_Comparison_Exp>;
   parsed_price?: InputMaybe<Float8_Comparison_Exp>;
   price?: InputMaybe<String_Comparison_Exp>;
   status?: InputMaybe<String_Comparison_Exp>;
+  status_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
 
@@ -1990,11 +2098,13 @@ export type Nft_Sale_Offer_Inc_Input = {
 export type Nft_Sale_Offer_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
+  listed_at?: InputMaybe<Scalars['timestamptz']>;
   listing_resource_id?: InputMaybe<Scalars['bigint']>;
   nft?: InputMaybe<Nft_Obj_Rel_Insert_Input>;
   nft_id?: InputMaybe<Scalars['uuid']>;
   price?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Scalars['String']>;
+  status_at?: InputMaybe<Scalars['timestamptz']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
 
@@ -2002,10 +2112,12 @@ export type Nft_Sale_Offer_Insert_Input = {
 export type Nft_Sale_Offer_Max_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
+  listed_at?: Maybe<Scalars['timestamptz']>;
   listing_resource_id?: Maybe<Scalars['bigint']>;
   nft_id?: Maybe<Scalars['uuid']>;
   price?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
+  status_at?: Maybe<Scalars['timestamptz']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
@@ -2013,10 +2125,12 @@ export type Nft_Sale_Offer_Max_Fields = {
 export type Nft_Sale_Offer_Max_Order_By = {
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  listed_at?: InputMaybe<Order_By>;
   listing_resource_id?: InputMaybe<Order_By>;
   nft_id?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  status_at?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -2024,10 +2138,12 @@ export type Nft_Sale_Offer_Max_Order_By = {
 export type Nft_Sale_Offer_Min_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
+  listed_at?: Maybe<Scalars['timestamptz']>;
   listing_resource_id?: Maybe<Scalars['bigint']>;
   nft_id?: Maybe<Scalars['uuid']>;
   price?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
+  status_at?: Maybe<Scalars['timestamptz']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
@@ -2035,10 +2151,12 @@ export type Nft_Sale_Offer_Min_Fields = {
 export type Nft_Sale_Offer_Min_Order_By = {
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  listed_at?: InputMaybe<Order_By>;
   listing_resource_id?: InputMaybe<Order_By>;
   nft_id?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  status_at?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -2068,12 +2186,14 @@ export type Nft_Sale_Offer_On_Conflict = {
 export type Nft_Sale_Offer_Order_By = {
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  listed_at?: InputMaybe<Order_By>;
   listing_resource_id?: InputMaybe<Order_By>;
   nft?: InputMaybe<Nft_Order_By>;
   nft_id?: InputMaybe<Order_By>;
   parsed_price?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  status_at?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -2089,6 +2209,8 @@ export enum Nft_Sale_Offer_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  ListedAt = 'listed_at',
+  /** column name */
   ListingResourceId = 'listing_resource_id',
   /** column name */
   NftId = 'nft_id',
@@ -2097,6 +2219,8 @@ export enum Nft_Sale_Offer_Select_Column {
   /** column name */
   Status = 'status',
   /** column name */
+  StatusAt = 'status_at',
+  /** column name */
   UpdatedAt = 'updated_at'
 }
 
@@ -2104,10 +2228,12 @@ export enum Nft_Sale_Offer_Select_Column {
 export type Nft_Sale_Offer_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
+  listed_at?: InputMaybe<Scalars['timestamptz']>;
   listing_resource_id?: InputMaybe<Scalars['bigint']>;
   nft_id?: InputMaybe<Scalars['uuid']>;
   price?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Scalars['String']>;
+  status_at?: InputMaybe<Scalars['timestamptz']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
 
@@ -2158,6 +2284,8 @@ export enum Nft_Sale_Offer_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  ListedAt = 'listed_at',
+  /** column name */
   ListingResourceId = 'listing_resource_id',
   /** column name */
   NftId = 'nft_id',
@@ -2165,6 +2293,8 @@ export enum Nft_Sale_Offer_Update_Column {
   Price = 'price',
   /** column name */
   Status = 'status',
+  /** column name */
+  StatusAt = 'status_at',
   /** column name */
   UpdatedAt = 'updated_at'
 }
@@ -2241,7 +2371,7 @@ export type Nft_Set_Input = {
   is_for_sale?: InputMaybe<Scalars['Boolean']>;
   is_tradable?: InputMaybe<Scalars['Boolean']>;
   mint_number?: InputMaybe<Scalars['bigint']>;
-  minted_at?: InputMaybe<Scalars['timestamp']>;
+  minted_at?: InputMaybe<Scalars['timestamptz']>;
   owner?: InputMaybe<Scalars['String']>;
   standard?: InputMaybe<Scalars['String']>;
   template_id?: InputMaybe<Scalars['uuid']>;
@@ -2780,6 +2910,310 @@ export type Nft_Variance_Order_By = {
   mint_number?: InputMaybe<Order_By>;
 };
 
+/**
+ * Holds information about SELL, OFFER, etc, notifications
+ *
+ *
+ * columns and relationships of "notifications"
+ *
+ */
+export type Notifications = {
+  created_at: Scalars['timestamptz'];
+  id: Scalars['uuid'];
+  message?: Maybe<Scalars['String']>;
+  nft_id?: Maybe<Scalars['uuid']>;
+  read_at?: Maybe<Scalars['timestamptz']>;
+  receiver: Scalars['String'];
+  sender?: Maybe<Scalars['String']>;
+  type: Notifications_Types_Enum;
+};
+
+/** aggregated selection of "notifications" */
+export type Notifications_Aggregate = {
+  aggregate?: Maybe<Notifications_Aggregate_Fields>;
+  nodes: Array<Notifications>;
+};
+
+/** aggregate fields of "notifications" */
+export type Notifications_Aggregate_Fields = {
+  count: Scalars['Int'];
+  max?: Maybe<Notifications_Max_Fields>;
+  min?: Maybe<Notifications_Min_Fields>;
+};
+
+
+/** aggregate fields of "notifications" */
+export type Notifications_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Notifications_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "notifications". All fields are combined with a logical 'AND'. */
+export type Notifications_Bool_Exp = {
+  _and?: InputMaybe<Array<Notifications_Bool_Exp>>;
+  _not?: InputMaybe<Notifications_Bool_Exp>;
+  _or?: InputMaybe<Array<Notifications_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  message?: InputMaybe<String_Comparison_Exp>;
+  nft_id?: InputMaybe<Uuid_Comparison_Exp>;
+  read_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  receiver?: InputMaybe<String_Comparison_Exp>;
+  sender?: InputMaybe<String_Comparison_Exp>;
+  type?: InputMaybe<Notifications_Types_Enum_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "notifications" */
+export enum Notifications_Constraint {
+  /** unique or primary key constraint */
+  NotificationsPkey = 'notifications_pkey'
+}
+
+/** input type for inserting data into table "notifications" */
+export type Notifications_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  message?: InputMaybe<Scalars['String']>;
+  nft_id?: InputMaybe<Scalars['uuid']>;
+  read_at?: InputMaybe<Scalars['timestamptz']>;
+  receiver?: InputMaybe<Scalars['String']>;
+  sender?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Notifications_Types_Enum>;
+};
+
+/** aggregate max on columns */
+export type Notifications_Max_Fields = {
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  message?: Maybe<Scalars['String']>;
+  nft_id?: Maybe<Scalars['uuid']>;
+  read_at?: Maybe<Scalars['timestamptz']>;
+  receiver?: Maybe<Scalars['String']>;
+  sender?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Notifications_Min_Fields = {
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  message?: Maybe<Scalars['String']>;
+  nft_id?: Maybe<Scalars['uuid']>;
+  read_at?: Maybe<Scalars['timestamptz']>;
+  receiver?: Maybe<Scalars['String']>;
+  sender?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "notifications" */
+export type Notifications_Mutation_Response = {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Notifications>;
+};
+
+/** on conflict condition type for table "notifications" */
+export type Notifications_On_Conflict = {
+  constraint: Notifications_Constraint;
+  update_columns?: Array<Notifications_Update_Column>;
+  where?: InputMaybe<Notifications_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "notifications". */
+export type Notifications_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  message?: InputMaybe<Order_By>;
+  nft_id?: InputMaybe<Order_By>;
+  read_at?: InputMaybe<Order_By>;
+  receiver?: InputMaybe<Order_By>;
+  sender?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: notifications */
+export type Notifications_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "notifications" */
+export enum Notifications_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Message = 'message',
+  /** column name */
+  NftId = 'nft_id',
+  /** column name */
+  ReadAt = 'read_at',
+  /** column name */
+  Receiver = 'receiver',
+  /** column name */
+  Sender = 'sender',
+  /** column name */
+  Type = 'type'
+}
+
+/** input type for updating data in table "notifications" */
+export type Notifications_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  message?: InputMaybe<Scalars['String']>;
+  nft_id?: InputMaybe<Scalars['uuid']>;
+  read_at?: InputMaybe<Scalars['timestamptz']>;
+  receiver?: InputMaybe<Scalars['String']>;
+  sender?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Notifications_Types_Enum>;
+};
+
+/**
+ * Holds the possible types of the notifications (ENUM)
+ *
+ *
+ * columns and relationships of "notifications_types"
+ *
+ */
+export type Notifications_Types = {
+  description?: Maybe<Scalars['String']>;
+  type: Scalars['String'];
+};
+
+/** aggregated selection of "notifications_types" */
+export type Notifications_Types_Aggregate = {
+  aggregate?: Maybe<Notifications_Types_Aggregate_Fields>;
+  nodes: Array<Notifications_Types>;
+};
+
+/** aggregate fields of "notifications_types" */
+export type Notifications_Types_Aggregate_Fields = {
+  count: Scalars['Int'];
+  max?: Maybe<Notifications_Types_Max_Fields>;
+  min?: Maybe<Notifications_Types_Min_Fields>;
+};
+
+
+/** aggregate fields of "notifications_types" */
+export type Notifications_Types_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Notifications_Types_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "notifications_types". All fields are combined with a logical 'AND'. */
+export type Notifications_Types_Bool_Exp = {
+  _and?: InputMaybe<Array<Notifications_Types_Bool_Exp>>;
+  _not?: InputMaybe<Notifications_Types_Bool_Exp>;
+  _or?: InputMaybe<Array<Notifications_Types_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  type?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "notifications_types" */
+export enum Notifications_Types_Constraint {
+  /** unique or primary key constraint */
+  NotificationsTypesPkey = 'notifications_types_pkey'
+}
+
+export enum Notifications_Types_Enum {
+  /** An NFT listed for sale received an OFFER */
+  Offer = 'OFFER'
+}
+
+/** Boolean expression to compare columns of type "notifications_types_enum". All fields are combined with logical 'AND'. */
+export type Notifications_Types_Enum_Comparison_Exp = {
+  _eq?: InputMaybe<Notifications_Types_Enum>;
+  _in?: InputMaybe<Array<Notifications_Types_Enum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Notifications_Types_Enum>;
+  _nin?: InputMaybe<Array<Notifications_Types_Enum>>;
+};
+
+/** input type for inserting data into table "notifications_types" */
+export type Notifications_Types_Insert_Input = {
+  description?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Notifications_Types_Max_Fields = {
+  description?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Notifications_Types_Min_Fields = {
+  description?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "notifications_types" */
+export type Notifications_Types_Mutation_Response = {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Notifications_Types>;
+};
+
+/** on conflict condition type for table "notifications_types" */
+export type Notifications_Types_On_Conflict = {
+  constraint: Notifications_Types_Constraint;
+  update_columns?: Array<Notifications_Types_Update_Column>;
+  where?: InputMaybe<Notifications_Types_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "notifications_types". */
+export type Notifications_Types_Order_By = {
+  description?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: notifications_types */
+export type Notifications_Types_Pk_Columns_Input = {
+  type: Scalars['String'];
+};
+
+/** select columns of table "notifications_types" */
+export enum Notifications_Types_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Type = 'type'
+}
+
+/** input type for updating data in table "notifications_types" */
+export type Notifications_Types_Set_Input = {
+  description?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "notifications_types" */
+export enum Notifications_Types_Update_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Type = 'type'
+}
+
+/** update columns of table "notifications" */
+export enum Notifications_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Message = 'message',
+  /** column name */
+  NftId = 'nft_id',
+  /** column name */
+  ReadAt = 'read_at',
+  /** column name */
+  Receiver = 'receiver',
+  /** column name */
+  Sender = 'sender',
+  /** column name */
+  Type = 'type'
+}
+
 /** column ordering options */
 export enum Order_By {
   /** in ascending order, nulls last */
@@ -2839,6 +3273,18 @@ export type Query_Root = {
   nft_template_aggregate: Nft_Template_Aggregate;
   /** fetch data from the table: "nft_template" using primary key columns */
   nft_template_by_pk?: Maybe<Nft_Template>;
+  /** fetch data from the table: "notifications" */
+  notifications: Array<Notifications>;
+  /** fetch aggregated fields from the table: "notifications" */
+  notifications_aggregate: Notifications_Aggregate;
+  /** fetch data from the table: "notifications" using primary key columns */
+  notifications_by_pk?: Maybe<Notifications>;
+  /** fetch data from the table: "notifications_types" */
+  notifications_types: Array<Notifications_Types>;
+  /** fetch aggregated fields from the table: "notifications_types" */
+  notifications_types_aggregate: Notifications_Types_Aggregate;
+  /** fetch data from the table: "notifications_types" using primary key columns */
+  notifications_types_by_pk?: Maybe<Notifications_Types>;
   /** execute function "random_sale_offer" which returns "nft_sale_offer" */
   random_sale_offer: Array<Nft_Sale_Offer>;
   /** execute function "random_sale_offer" and query aggregates on result of table type "nft_sale_offer" */
@@ -3007,6 +3453,52 @@ export type Query_RootNft_Template_By_PkArgs = {
 };
 
 
+export type Query_RootNotificationsArgs = {
+  distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Notifications_Order_By>>;
+  where?: InputMaybe<Notifications_Bool_Exp>;
+};
+
+
+export type Query_RootNotifications_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Notifications_Order_By>>;
+  where?: InputMaybe<Notifications_Bool_Exp>;
+};
+
+
+export type Query_RootNotifications_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootNotifications_TypesArgs = {
+  distinct_on?: InputMaybe<Array<Notifications_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Notifications_Types_Order_By>>;
+  where?: InputMaybe<Notifications_Types_Bool_Exp>;
+};
+
+
+export type Query_RootNotifications_Types_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Notifications_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Notifications_Types_Order_By>>;
+  where?: InputMaybe<Notifications_Types_Bool_Exp>;
+};
+
+
+export type Query_RootNotifications_Types_By_PkArgs = {
+  type: Scalars['String'];
+};
+
+
 export type Query_RootRandom_Sale_OfferArgs = {
   args: Random_Sale_Offer_Args;
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Select_Column>>;
@@ -3074,6 +3566,18 @@ export type Subscription_Root = {
   nft_template_aggregate: Nft_Template_Aggregate;
   /** fetch data from the table: "nft_template" using primary key columns */
   nft_template_by_pk?: Maybe<Nft_Template>;
+  /** fetch data from the table: "notifications" */
+  notifications: Array<Notifications>;
+  /** fetch aggregated fields from the table: "notifications" */
+  notifications_aggregate: Notifications_Aggregate;
+  /** fetch data from the table: "notifications" using primary key columns */
+  notifications_by_pk?: Maybe<Notifications>;
+  /** fetch data from the table: "notifications_types" */
+  notifications_types: Array<Notifications_Types>;
+  /** fetch aggregated fields from the table: "notifications_types" */
+  notifications_types_aggregate: Notifications_Types_Aggregate;
+  /** fetch data from the table: "notifications_types" using primary key columns */
+  notifications_types_by_pk?: Maybe<Notifications_Types>;
   /** execute function "random_sale_offer" which returns "nft_sale_offer" */
   random_sale_offer: Array<Nft_Sale_Offer>;
   /** execute function "random_sale_offer" and query aggregates on result of table type "nft_sale_offer" */
@@ -3242,6 +3746,52 @@ export type Subscription_RootNft_Template_By_PkArgs = {
 };
 
 
+export type Subscription_RootNotificationsArgs = {
+  distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Notifications_Order_By>>;
+  where?: InputMaybe<Notifications_Bool_Exp>;
+};
+
+
+export type Subscription_RootNotifications_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Notifications_Order_By>>;
+  where?: InputMaybe<Notifications_Bool_Exp>;
+};
+
+
+export type Subscription_RootNotifications_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootNotifications_TypesArgs = {
+  distinct_on?: InputMaybe<Array<Notifications_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Notifications_Types_Order_By>>;
+  where?: InputMaybe<Notifications_Types_Bool_Exp>;
+};
+
+
+export type Subscription_RootNotifications_Types_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Notifications_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Notifications_Types_Order_By>>;
+  where?: InputMaybe<Notifications_Types_Bool_Exp>;
+};
+
+
+export type Subscription_RootNotifications_Types_By_PkArgs = {
+  type: Scalars['String'];
+};
+
+
 export type Subscription_RootRandom_Sale_OfferArgs = {
   args: Random_Sale_Offer_Args;
   distinct_on?: InputMaybe<Array<Nft_Sale_Offer_Select_Column>>;
@@ -3362,7 +3912,7 @@ export type GetNfTsByAddressQueryVariables = Exact<{
 }>;
 
 
-export type GetNfTsByAddressQuery = { nft: Array<{ asset_id: any, mint_number?: any | null | undefined, is_for_sale: boolean, has_sale_offers?: boolean | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> }> };
+export type GetNfTsByAddressQuery = { nft: Array<{ id: any, asset_id: any, mint_number?: any | null | undefined, is_for_sale: boolean, has_sale_offers?: boolean | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> }> };
 
 export type Nft_Sale_OfferQueryVariables = Exact<{
   id: Scalars['uuid'];
@@ -3388,10 +3938,11 @@ export type Nfts_MarketplaceQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Array<Nft_Order_By> | Nft_Order_By>;
   marketPlaceAddress?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type Nfts_MarketplaceQuery = { nft_aggregate: { aggregate?: { count: number } | null | undefined }, nft: Array<{ asset_id: any, mint_number?: any | null | undefined, owner: string, has_sale_offers?: boolean | null | undefined, is_for_sale: boolean, collection_id?: any | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ updated_at: any, listing_resource_id: any, price: string, parsed_price?: any | null | undefined, status: string }> }> };
+export type Nfts_MarketplaceQuery = { nft_aggregate: { aggregate?: { count: number } | null | undefined }, nft: Array<{ id: any, asset_id: any, mint_number?: any | null | undefined, owner: string, has_sale_offers?: boolean | null | undefined, is_for_sale: boolean, collection_id?: any | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ updated_at: any, listing_resource_id: any, price: string, parsed_price?: any | null | undefined, status: string }> }> };
 
 export type GetMarketplaceNfTsCountQueryVariables = Exact<{
   has_sale_offers?: InputMaybe<Boolean_Comparison_Exp>;
@@ -3425,7 +3976,14 @@ export type GetFavoriteListQueryVariables = Exact<{
 }>;
 
 
-export type GetFavoriteListQuery = { nft_favorites: Array<{ nft: { asset_id: any, mint_number?: any | null | undefined, is_for_sale: boolean, has_sale_offers?: boolean | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> } }> };
+export type GetFavoriteListQuery = { nft_favorites: Array<{ nft: { id: any, asset_id: any, mint_number?: any | null | undefined, is_for_sale: boolean, has_sale_offers?: boolean | null | undefined, collection_id?: any | null | undefined, transaction_status?: boolean | null | undefined, owner: string, collection?: { collection_id?: any | null | undefined, name: string, market_fee: any, image: string, description: string, author: string } | null | undefined, template?: { metadata?: any | null | undefined } | null | undefined, sale_offers: Array<{ listing_resource_id: any, price: string, status: string, updated_at: any }> } }> };
+
+export type GetLowerNftPriceByCollectionQueryVariables = Exact<{
+  collection_id?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetLowerNftPriceByCollectionQuery = { nft: Array<{ id: any, last_active_price?: any | null | undefined, template?: { collection?: { description: string, image: string, name: string, collection_id?: any | null | undefined, id: any } | null | undefined } | null | undefined, sale_offers: Array<{ id: any, price: string }> }> };
 
 
 export const AddFavoriteDocument = gql`
@@ -3778,6 +4336,7 @@ export type GetNfTsMintNumberQueryResult = Apollo.QueryResult<GetNfTsMintNumberQ
 export const GetNfTsByAddressDocument = gql`
     query getNFTsByAddress($address: String!, $collections: [nft_bool_exp!]) {
   nft(where: {_or: $collections, owner: {_eq: $address}}) {
+    id
     asset_id
     mint_number
     is_for_sale
@@ -3941,7 +4500,7 @@ export type GetSingleNfTsForSalQueryHookResult = ReturnType<typeof useGetSingleN
 export type GetSingleNfTsForSalLazyQueryHookResult = ReturnType<typeof useGetSingleNfTsForSalLazyQuery>;
 export type GetSingleNfTsForSalQueryResult = Apollo.QueryResult<GetSingleNfTsForSalQuery, GetSingleNfTsForSalQueryVariables>;
 export const Nfts_MarketplaceDocument = gql`
-    query nfts_marketplace($has_sale_offers: Boolean_comparison_exp, $price: [nft_bool_exp!], $collections: [nft_bool_exp!], $properties: [nft_template_bool_exp!], $offset: Int, $orderBy: [nft_order_by!], $marketPlaceAddress: String) @cached(ttl: 120) {
+    query nfts_marketplace($has_sale_offers: Boolean_comparison_exp, $price: [nft_bool_exp!], $collections: [nft_bool_exp!], $properties: [nft_template_bool_exp!], $offset: Int, $orderBy: [nft_order_by!], $marketPlaceAddress: String, $limit: Int) @cached(ttl: 120) {
   nft_aggregate(
     where: {_not: {owner: {_eq: $marketPlaceAddress}}, _or: $collections, has_sale_offers: $has_sale_offers, template: {_and: $properties}, _and: $price}
   ) {
@@ -3952,9 +4511,10 @@ export const Nfts_MarketplaceDocument = gql`
   nft(
     where: {_not: {owner: {_eq: $marketPlaceAddress}}, _or: $collections, has_sale_offers: $has_sale_offers, template: {_and: $properties}, _and: $price}
     order_by: $orderBy
-    limit: 40
+    limit: $limit
     offset: $offset
   ) {
+    id
     asset_id
     mint_number
     owner
@@ -3994,6 +4554,7 @@ export const Nfts_MarketplaceDocument = gql`
  *      offset: // value for 'offset'
  *      orderBy: // value for 'orderBy'
  *      marketPlaceAddress: // value for 'marketPlaceAddress'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
@@ -4136,6 +4697,7 @@ export const GetFavoriteListDocument = gql`
     query getFavoriteList($address: String) {
   nft_favorites(where: {wallet_address: {_eq: $address}}) {
     nft {
+      id
       asset_id
       mint_number
       is_for_sale
@@ -4192,3 +4754,52 @@ export function useGetFavoriteListLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type GetFavoriteListQueryHookResult = ReturnType<typeof useGetFavoriteListQuery>;
 export type GetFavoriteListLazyQueryHookResult = ReturnType<typeof useGetFavoriteListLazyQuery>;
 export type GetFavoriteListQueryResult = Apollo.QueryResult<GetFavoriteListQuery, GetFavoriteListQueryVariables>;
+export const GetLowerNftPriceByCollectionDocument = gql`
+    query getLowerNftPriceByCollection($collection_id: uuid) {
+  nft(where: {template: {collection: {id: {_eq: $collection_id}}}}) {
+    id
+    template {
+      collection {
+        description
+        image
+        name
+        collection_id
+        id
+      }
+    }
+    last_active_price
+    sale_offers(order_by: {price: asc}) {
+      id
+      price
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLowerNftPriceByCollectionQuery__
+ *
+ * To run a query within a React component, call `useGetLowerNftPriceByCollectionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLowerNftPriceByCollectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLowerNftPriceByCollectionQuery({
+ *   variables: {
+ *      collection_id: // value for 'collection_id'
+ *   },
+ * });
+ */
+export function useGetLowerNftPriceByCollectionQuery(baseOptions?: Apollo.QueryHookOptions<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>(GetLowerNftPriceByCollectionDocument, options);
+      }
+export function useGetLowerNftPriceByCollectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>(GetLowerNftPriceByCollectionDocument, options);
+        }
+export type GetLowerNftPriceByCollectionQueryHookResult = ReturnType<typeof useGetLowerNftPriceByCollectionQuery>;
+export type GetLowerNftPriceByCollectionLazyQueryHookResult = ReturnType<typeof useGetLowerNftPriceByCollectionLazyQuery>;
+export type GetLowerNftPriceByCollectionQueryResult = Apollo.QueryResult<GetLowerNftPriceByCollectionQuery, GetLowerNftPriceByCollectionQueryVariables>;

@@ -89,10 +89,6 @@ export async function getServerSideProps(ctx) {
       );
       return {
         ...nft,
-        id:
-          nft.collection_id === COLLECTION_LIST_CONFIG.shareef.id
-            ? nft.asset_id
-            : nft.template.metadata.id || nft.mint_number,
         name: nft.template.metadata.title,
         imageURL: formatIpfsImg(nft.template.metadata.img),
         videoURL: formatIpfsImg(nft.template.metadata?.video),
