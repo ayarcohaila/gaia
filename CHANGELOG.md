@@ -1,3 +1,12 @@
+## [0.4.1](https://github.com/NFT-Genius/gaia-frontend/compare/v0.4.0...v0.4.1) (2022-03-01)
+
+
+### Bug Fixes
+
+* **GAIA-75:** update sneakerz collection banner ([7c46bb4](https://github.com/NFT-Genius/gaia-frontend/commit/7c46bb48f85852a5c41dc41cce0af9a2ad5c232b))
+
+
+
 # [0.4.0](https://github.com/NFT-Genius/gaia-frontend/compare/0.3.2...0.4.0) (2022-03-01)
 
 
