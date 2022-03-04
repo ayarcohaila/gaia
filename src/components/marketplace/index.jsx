@@ -58,21 +58,17 @@ const MarketPlace = () => {
 
   useEffect(() => {
     if (!marketplaceLoading && imgRef) {
-      handleScrollPosition();
-    }
-  }, [marketplaceLoading, imgRef]);
-
-  const handleScrollPosition = useCallback(() => {
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const elementRef = document?.getElementById(`${cardRef}`);
-    if (elementRef) {
-      if (isSafari) {
-        elementRef.scrollIntoView();
-      } else {
-        elementRef.scrollIntoView({ block: 'start' });
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      const elementRef = document?.getElementById(`${cardRef}`);
+      if (elementRef) {
+        if (isSafari) {
+          elementRef.scrollIntoView();
+        } else {
+          elementRef.scrollIntoView({ block: 'start' });
+        }
       }
     }
-  }, [cardRef]);
+  }, [marketplaceLoading]);
 
   const setPosition = id => {
     handleAppData({ cardRef: `card-${id}`, imgRef: id });
