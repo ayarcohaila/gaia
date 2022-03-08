@@ -21,9 +21,6 @@ import * as Styled from '~/styles/profile/styles';
 const Profile = ({ userNFTs }) => {
   const router = useRouter();
 
-  const handleClick = () => {
-    router.push('/browse');
-  };
   const { id: address } = router.query;
   const { isMediumDevice } = useBreakpoints();
 
@@ -54,12 +51,6 @@ const Profile = ({ userNFTs }) => {
           <Typography variant="body" sx={{ fontSize: '20px' }}>
             There are no Flow NFTs in this wallet from any Gaia collections
           </Typography>
-          <Button
-            data-cy="button-visit-marketplace"
-            onClick={handleClick}
-            sx={{ padding: '16px 40px', letterSpacing: '0.6px', margin: '20px 0 0 0' }}>
-            Visit Marketplace
-          </Button>
         </Grid>
       )}
     </Box>

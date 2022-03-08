@@ -10,4 +10,7 @@ const Browse = () => {
   );
 };
 
+export async function getServerSideProps() {
+  return { notFound: true };
+}
 export default Browse;

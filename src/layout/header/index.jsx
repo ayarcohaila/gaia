@@ -13,7 +13,13 @@ import useAuth from '~/hooks/useAuth';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import useToggle from '~/hooks/useToggle';
 import { hasBrowse } from '~/config/config';
-import { MARKETPLACE_TITLE, MENU_OPTIONS, USER_MENU_IDS, USER_MENU_OPTIONS } from './constants';
+import {
+  MARKETPLACE_TITLE,
+  MENU_OPTIONS,
+  USER_MENU_IDS,
+  USER_MENU_OPTIONS,
+  MYCOLLECTION_TITLE
+} from './constants';
 import { useAppContext } from '~/context/appProvider';
 
 const HeaderModal = dynamic(() => import('~/components/modal/headerMenu'));
@@ -83,7 +89,20 @@ const Header = () => {
     router.push('/ballerz');
   };
 
-  const removeImgRef = () => {
+  const redirectToMenu = async option => {
+    const IS_MY_COLLECTION = option.label === MYCOLLECTION_TITLE;
+
+    if (IS_MY_COLLECTION) {
+      if (!user?.addr) await login();
+      if (user?.addr) router.push(`${option.href}${user.addr}`);
+      return;
+    }
+
+    router.push(option.href);
+  };
+
+  const handleMenuNavigation = async option => {
+    await redirectToMenu(option);
     handleAppData({ imgRef: null });
   };
 
@@ -104,12 +123,14 @@ const Header = () => {
           <Grid component="nav" ml="47px">
             <Styled.MenuOptionList component="ul">
               {MENU_OPTIONS.filter(menuOption => menuOption !== false).map(option => (
-                <Grid key={option.label} item component="li" onClick={() => removeImgRef()}>
-                  <Link href={option.href}>
-                    <Styled.MenuOption data-cy={`link-${option.label}`}>
-                      {option.label}
-                    </Styled.MenuOption>
-                  </Link>
+                <Grid
+                  key={option.label}
+                  item
+                  component="li"
+                  onClick={() => handleMenuNavigation(option)}>
+                  <Styled.MenuOption data-cy={`link-${option.label}`}>
+                    {option.label}
+                  </Styled.MenuOption>
                 </Grid>
               ))}
               {MENU_OPTIONS.length > 4 && (
@@ -182,15 +203,6 @@ const Header = () => {
           </Button>
           {user?.loggedIn ? (
             <>
-              {hasBrowse && (
-                <Styled.ButtonText
-                  data-cy="link-Marketplace"
-                  variant="text"
-                  onClick={handleClick}
-                  data-id={USER_MENU_IDS.BROWSE}>
-                  {MARKETPLACE_TITLE}
-                </Styled.ButtonText>
-              )}
               <Styled.ButtonText
                 variant="text"
                 onClick={handleClick}
@@ -215,15 +227,6 @@ const Header = () => {
             </>
           ) : (
             <>
-              {hasBrowse && (
-                <Styled.ButtonText
-                  data-cy="link-Marketplace"
-                  variant="text"
-                  onClick={handleClick}
-                  data-id={USER_MENU_IDS.BROWSE}>
-                  {MARKETPLACE_TITLE}
-                </Styled.ButtonText>
-              )}
               <Styled.CustomButton data-cy="login" variant="contained" headerModal onClick={login}>
                 Sign In
               </Styled.CustomButton>

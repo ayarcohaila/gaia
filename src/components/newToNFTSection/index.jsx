@@ -12,8 +12,8 @@ const NewNFTs = [
     description:
       'The first of a series of drops highlighting his basketball career, family, and recovery from heart surgery',
     image: '/images/newToNFT/shareef.webp',
-    linkProps: { href: '/browse' },
-    linkText: 'Go To Marketplace',
+    linkProps: { href: '/shareef' },
+    linkText: 'Buy now',
     hasButton: hasBrowse
   },
   {
