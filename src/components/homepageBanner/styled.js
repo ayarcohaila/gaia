@@ -1,16 +1,21 @@
 import { styled, Button, Typography, Grid as MuiGrid } from '@mui/material';
 
 export const ContainerBackground = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
-  ({ imgUrl }) => ({
+  ({ imgUrl, theme: { breakpoints } }) => ({
     backgroundImage: `url(${imgUrl})`,
     maxHeight: '420px',
     width: '100%',
+    maxWidth: '1800px',
     borderRadius: '40px',
     backgroundSize: 'cover',
     backgroundPosition: 'top',
     backgroundRepeat: 'no-repeat',
     boxSizing: 'border-box',
-    position: 'relative'
+    position: 'relative',
+
+    [breakpoints.up('md')]: {
+      margin: '0 32px'
+    }
   })
 );
 
