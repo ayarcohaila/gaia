@@ -1,3 +1,12 @@
+## [0.4.2](https://github.com/NFT-Genius/gaia-frontend/compare/v0.4.1...v0.4.2) (2022-03-11)
+
+
+### Features
+
+* **GAIA-111:** Enable sale for Sneakerz NFTs ([#677](https://github.com/NFT-Genius/gaia-frontend/issues/677)) ([7a62bea](https://github.com/NFT-Genius/gaia-frontend/commit/7a62beaa3ac446e264218b0d5271a6cfe6aba87d))
+
+
+
 ## [0.4.1](https://github.com/NFT-Genius/gaia-frontend/compare/v0.4.0...v0.4.1) (2022-03-01)
 
 
