@@ -12,8 +12,7 @@ const CardActions = (props: CardActionsProps) => {
     props;
 
   const disableSell =
-    data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id ||
-    data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id;
+    data.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id;
 
   if (disableSell) {
     return (

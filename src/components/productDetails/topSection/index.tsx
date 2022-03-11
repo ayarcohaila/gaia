@@ -15,7 +15,7 @@ import Loader from '~/base/spinnerLoader';
 import { loadTransaction } from '~/utils/transactionsLoader';
 import { cancelSale } from '~/flow/cancelSale';
 import getLastByUpdateAt from '~/utils/getLastByUpdateAt';
-import { hasSell, hasSneakerzSell, hasTransfer } from '~/config/config';
+import { hasSell, hasTransfer } from '~/config/config';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import { BUY_TX, CANCEL_SALE_TX } from '~/constant';
 import { COLLECTION_LIST_CONFIG, COLLECTIONS_NAME } from '~/../collections_setup';
@@ -169,9 +169,9 @@ const ProductDetailsTopSection = ({
   );
 
   const hasCollectionPage = useMemo(() => {
-    if (nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id) {
-      return hasSneakerzSell;
-    }
+    // if (nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id) {
+    //   return hasSneakerzSell;
+    // }
     return true;
   }, []);
 
@@ -248,8 +248,7 @@ const ProductDetailsTopSection = ({
     const formattedPrice = formatCurrencyValue(price);
 
     switch (true) {
-      case nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id ||
-        nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SNEAKERZ].id:
+      case nft.collection_id === COLLECTION_LIST_CONFIG[COLLECTIONS_NAME.SHAREEF_AIRDROP].id:
         return null;
       case loadingPurchase:
         return <Loader />;
