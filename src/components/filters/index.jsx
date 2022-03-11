@@ -49,7 +49,7 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
-    status: isSneakerz ? 'viewAll' : 'buyNow',
+    status: 'buyNow',
     collections: config?.id
       ? [
           filters
