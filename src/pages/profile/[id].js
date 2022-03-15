@@ -5,12 +5,11 @@ import { useRouter } from 'next/router';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import { gqlClient } from '~/config/apolloClient';
 import basicAuthCheck from '~/utils/basicAuthCheck';
-import Divider from '~/base/divider';
 import { GET_NFTS_BY_ADDRESS } from '~/store/server/queries';
 import { COLLECTION_LIST_CONFIG } from '~/../collections_setup';
 import formatIpfsImg from '~/utils/formatIpfsImg';
 import ProfileBanner from '~/components/profileBanner';
-import ProfileList from '~/components/profileList';
+import ProfileTabs from '~/components/profileTabs';
 import CollectionsFilter from '~/components/collectionFilters';
 import Seo from '~/components/seo';
 import { SEO_DATA } from '~/constant';
@@ -30,29 +29,10 @@ const Profile = ({ userNFTs }) => {
   );
 
   return (
-    <Box>
+    <Box component="section">
       <Seo title={SEO_DATA.title.profile} description={profileDescription} />
       <ProfileBanner address={address} />
-      <Styled.FiltersContainer>
-        <CollectionsFilter nftQuantity={userNFTs?.length} enableSearch isProfile />
-        <Divider hidden={isMediumDevice} customProps={{ marginTop: '24px' }} />
-      </Styled.FiltersContainer>
-      {userNFTs.length ? (
-        <Styled.GridRenderList>
-          <ProfileList nfts={userNFTs} />
-        </Styled.GridRenderList>
-      ) : (
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          sx={{ width: '100%', height: 300 }}>
-          <Typography variant="body" sx={{ fontSize: '20px' }}>
-            There are no Flow NFTs in this wallet from any Gaia collections
-          </Typography>
-        </Grid>
-      )}
+      <ProfileTabs nfts={userNFTs} />
     </Box>
   );
 };

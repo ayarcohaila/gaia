@@ -14,7 +14,7 @@ const ProfileBanner = ({ address, bannerTitle }) => {
       <Styled.ProfileInfo isMobile={isMediumDevice}>{bannerTitle}</Styled.ProfileInfo>
       {address && (
         <Styled.BoxWallet>
-          <Styled.WalletText>In Wallet:</Styled.WalletText>
+          <Styled.WalletText>Wallet:</Styled.WalletText>
           <Address>{address}</Address>
         </Styled.BoxWallet>
       )}
@@ -28,7 +28,7 @@ ProfileBanner.propTypes = {
 };
 
 ProfileBanner.defaultProps = {
-  bannerTitle: 'My Account',
+  bannerTitle: 'Profile',
   address: ''
 };
 

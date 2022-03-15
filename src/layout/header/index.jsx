@@ -59,7 +59,7 @@ const Header = () => {
 
     switch (id) {
       case USER_MENU_IDS.PROFILE:
-        router.push(`/profile/${user?.addr}`);
+        router.push(`/profile/${user?.addr}?view=my-collection`);
         break;
       case USER_MENU_IDS.DAPPER_WALLET: {
         const address = `https://${
@@ -73,7 +73,7 @@ const Header = () => {
         break;
       }
       case USER_MENU_IDS.FAVORITES: {
-        router.push('/favorites');
+        router.push(`/profile/${user?.addr}?view=favorites`);
         break;
       }
       default: {
@@ -94,7 +94,7 @@ const Header = () => {
 
     if (IS_MY_COLLECTION) {
       if (!user?.addr) await login();
-      if (user?.addr) router.push(`${option.href}${user.addr}`);
+      if (user?.addr) router.push(`${option.href}${user.addr}?view=my-collection`);
       return;
     }
 

@@ -1,6 +1,5 @@
 import { Grid, Typography, styled } from '@mui/material';
 import Button from '~/base/button';
-
 export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
   display: 'grid',
   gap: '16px',
@@ -12,7 +11,11 @@ export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
     padding: '0 80px',
-    marginTop: '40px'
+    marginTop: '30px'
+  },
+
+  [breakpoints.up('xl')]: {
+    marginTop: '10px'
   },
 
   [breakpoints.down('xl')]: {
@@ -23,7 +26,7 @@ export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)',
     padding: '0 5.55%',
-    marginTop: '40px'
+    marginTop: '30px'
   },
   [breakpoints.down('md')]: {
     padding: '0 20px'
@@ -38,8 +41,12 @@ export const ListWrapper = styled(Grid)(({ theme: { breakpoints } }) => ({
 }));
 
 export const FiltersContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
-  padding: '0 40px',
+  padding: '20px 76px',
   boxSizing: 'border-box',
+
+  [breakpoints.down('xl')]: {
+    padding: '0 5.55%'
+  },
 
   [breakpoints.down('sm')]: {
     padding: '0 20px'
@@ -80,13 +87,24 @@ export const EmptyContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
 }));
 
 export const EmptyText = styled(Typography)(({ theme: { typography } }) => ({
-  ...typography.body2,
+  ...typography.body1,
   fontSize: '20px',
-  letterSpacing: '0.6px'
+  lineHeight: '1.5rem'
 }));
 
 export const RedirectButton = styled(Button)(() => ({
   padding: '16px 40px',
   letterSpacing: '0.6px',
   margin: '20px 0 0 0'
+}));
+
+export const FavoritesCount = styled(Typography, {
+  shouldForwardProp: prop => prop !== 'isMobile'
+})(({ theme: { palette }, isMobile }) => ({
+  fontSize: '14px',
+  fontWeight: 'bold',
+  lineHeight: '1.14',
+  letterSpacing: '0.2px',
+  color: palette.grey[600],
+  ...(isMobile && { fontSize: '13px' })
 }));
