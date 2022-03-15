@@ -1,3 +1,30 @@
+## [0.4.3](https://github.com/NFT-Genius/gaia-frontend/compare/v0.4.2...v0.4.3) (2022-03-15)
+
+
+### Bug Fixes
+
+* **GAIA-124:** Not being able to right-click/open individual item pages in new tabs ([#685](https://github.com/NFT-Genius/gaia-frontend/issues/685)) ([e75d7a5](https://github.com/NFT-Genius/gaia-frontend/commit/e75d7a5fd45ded7d226b045e733e2fd39d3f17ec))
+* **GAIA-61:** Fix/update footer date and content ([#658](https://github.com/NFT-Genius/gaia-frontend/issues/658)) ([a37797e](https://github.com/NFT-Genius/gaia-frontend/commit/a37797e7ff0cb10f223fd099b523d8f5318511a2))
+* **GAIA-85:** [ Home Page/Collection Page ] Main Container Width ([#674](https://github.com/NFT-Genius/gaia-frontend/issues/674)) ([4e31937](https://github.com/NFT-Genius/gaia-frontend/commit/4e31937bdbafbe0700bab88352701d7976330739))
+
+
+### Features
+
+* **GAIA-114:** Update banner sneakerz ([#686](https://github.com/NFT-Genius/gaia-frontend/issues/686)) ([c90102a](https://github.com/NFT-Genius/gaia-frontend/commit/c90102a2fc3d3aa5e6058ba27ec867a786981bc7)), closes [#661](https://github.com/NFT-Genius/gaia-frontend/issues/661) [#655](https://github.com/NFT-Genius/gaia-frontend/issues/655) [#656](https://github.com/NFT-Genius/gaia-frontend/issues/656) [#667](https://github.com/NFT-Genius/gaia-frontend/issues/667) [#668](https://github.com/NFT-Genius/gaia-frontend/issues/668) [#670](https://github.com/NFT-Genius/gaia-frontend/issues/670) [#658](https://github.com/NFT-Genius/gaia-frontend/issues/658) [#674](https://github.com/NFT-Genius/gaia-frontend/issues/674) [#677](https://github.com/NFT-Genius/gaia-frontend/issues/677) [#679](https://github.com/NFT-Genius/gaia-frontend/issues/679) [#679](https://github.com/NFT-Genius/gaia-frontend/issues/679) [#677](https://github.com/NFT-Genius/gaia-frontend/issues/677) [#685](https://github.com/NFT-Genius/gaia-frontend/issues/685) [#657](https://github.com/NFT-Genius/gaia-frontend/issues/657)
+* **GAIA-36:** Feat/tab view profile page ([#657](https://github.com/NFT-Genius/gaia-frontend/issues/657)) ([644b9e1](https://github.com/NFT-Genius/gaia-frontend/commit/644b9e1b964bda0ab3e06090a6302e6b01a41161))
+* **Gaia-38:** Favorites - add ability to favorite NFTs to pdp and collection page ([#667](https://github.com/NFT-Genius/gaia-frontend/issues/667)) ([86d776b](https://github.com/NFT-Genius/gaia-frontend/commit/86d776b21b352ce5cb501fff68a4d40c02c305d5))
+* **GAIA-72:** added a custom 404 page and its styles ([#661](https://github.com/NFT-Genius/gaia-frontend/issues/661)) ([67aa4fb](https://github.com/NFT-Genius/gaia-frontend/commit/67aa4fb6e6328940230181d72bca038eb938335d))
+* **GAIA-82:** Load More is not working in Collection pages ([#678](https://github.com/NFT-Genius/gaia-frontend/issues/678)) ([0b25ff0](https://github.com/NFT-Genius/gaia-frontend/commit/0b25ff0adf1fd854219c6243e354a92e2f136dff))
+* **GAIA-86:** Remove "Marketplace" From Nav Bar, Replace with "My Co… ([#670](https://github.com/NFT-Genius/gaia-frontend/issues/670)) ([6d58118](https://github.com/NFT-Genius/gaia-frontend/commit/6d58118f85a079acd6dc7d0ffe647fec1d8f3be2))
+* **GP-GAIA-57:** adding fade in when loading PDP ([#656](https://github.com/NFT-Genius/gaia-frontend/issues/656)) ([0d0c92b](https://github.com/NFT-Genius/gaia-frontend/commit/0d0c92b41fdb67dd41cbc9498b640111792942db))
+
+
+### Reverts
+
+* Revert "Revert "Merge pull request #679 from NFT-Genius/release/0.4.2"" ([650f45d](https://github.com/NFT-Genius/gaia-frontend/commit/650f45d05071f1a07064a357b58fccd5a6398749)), closes [#679](https://github.com/NFT-Genius/gaia-frontend/issues/679)
+
+
+
 ## [0.4.2](https://github.com/NFT-Genius/gaia-frontend/compare/v0.4.1...v0.4.2) (2022-03-11)
 
 

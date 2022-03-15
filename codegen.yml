@@ -1,6 +1,6 @@
 overwrite: true
 schema:
-  - https://gaia-postgres-hasura-addon.herokuapp.com/v1/graphql:
+  - ${API_URL}:
       headers:
         X-Hasura-Admin-Secret: ${API_SECRET}
 documents: [./src/**/*.js, ./src/**/*.ts, ./src/**/*.jsx, ./src/**/*.tsx]

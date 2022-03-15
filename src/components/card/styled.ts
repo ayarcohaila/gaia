@@ -1,6 +1,6 @@
-import { styled, Card, CardHeader, Typography, Grid, Skeleton as MuiSkeleton } from '@mui/material';
+import { styled, CardHeader, Typography, Grid, Skeleton as MuiSkeleton } from '@mui/material';
 
-export const CustomCard = styled(Card)(() => ({
+export const CustomCard = styled('a')(() => ({
   padding: '16px 16px 22px',
   borderRadius: 20,
   backgroundColor: 'white',
@@ -9,8 +9,16 @@ export const CustomCard = styled(Card)(() => ({
   borderSizing: 'border-box',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  textDecoration: 'none'
 }));
+
+export const CustomCardHeaderWrapper = styled('div')({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-between',
+  alignItems: 'center'
+});
 
 export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => ({
   padding: '0px 0 10px 0',
@@ -24,8 +32,7 @@ export const CustomCardHeader = styled(CardHeader)(({ theme: { palette } }) => (
   },
 
   svg: {
-    color: palette.grey[600],
-    marginRight: 16
+    color: palette.grey[600]
   }
 }));
 

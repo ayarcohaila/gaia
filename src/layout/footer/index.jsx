@@ -90,35 +90,8 @@ const Footer = () => {
             </Box>
             <Grid item mt={isSmallDevice ? '32px' : 0} width={isSmallDevice ? '90%' : '160px'}>
               <Typography color="white.main" mb="12px" letterSpacing="0.2px" variant="subtitle2">
-                Our Network
+                Policies
               </Typography>
-              {ITEMS.map(({ label, href }) => (
-                <Styled.CustomLink
-                  key={label}
-                  fontSize="1rem"
-                  href={href}
-                  mb="0"
-                  target="_blank"
-                  underline="none"
-                  rel="noopener noreferrer">
-                  {label}
-                </Styled.CustomLink>
-              ))}
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            flexDirection={isSmallDevice ? 'column' : 'row'}
-            justifyContent="space-between"
-            mt={isSmallDevice ? '24px' : '108px'}>
-            <Box width="170px" my={isSmallDevice ? '24px' : '0'}>
-              <Typography color={grey[600]} variant="subtitle2" lineHeight="1.54">
-                © 2021 – NFT Genius Inc. All rights reserved.
-              </Typography>
-            </Box>
-
-            <Box width="160px">
               <NextLink scroll passHref href="/terms-of-use">
                 <Styled.CustomLink underline="none">Terms of Use</Styled.CustomLink>
               </NextLink>
@@ -128,6 +101,17 @@ const Footer = () => {
               <NextLink scroll passHref href="/copyright-policy">
                 <Styled.CustomLink underline="none">Copyright Policy</Styled.CustomLink>
               </NextLink>
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            flexDirection={isSmallDevice ? 'column' : 'row'}
+            justifyContent="space-between"
+            mt={isSmallDevice ? '24px' : '108px'}>
+            <Box width="170px" my={isSmallDevice ? '24px' : '0'}>
+              <Typography color={grey[600]} variant="subtitle2" lineHeight="1.54">
+                © 2022 – NFT Genius Inc. All rights reserved.
+              </Typography>
             </Box>
           </Grid>
         </Grid>

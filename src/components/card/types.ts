@@ -1,5 +1,6 @@
 export interface CardProps {
   data: {
+    id: string;
     mystery: boolean;
     asset_id: any;
     mint_number: any;
@@ -21,6 +22,7 @@ export interface CardProps {
       updated_at: string;
     }>;
   };
+  onFavoriteClick?: () => void;
   hasActions: boolean;
   setPosition?: (id: number) => void;
   hasPrice?: boolean;

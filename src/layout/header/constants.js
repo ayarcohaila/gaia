@@ -3,10 +3,11 @@ import { hasBrowse, hasCollectionPage } from '~/config/config';
 import { LockIcon } from './styles.js';
 
 export const MARKETPLACE_TITLE = 'Marketplace';
+export const MYCOLLECTION_TITLE = 'My Collection';
 export const COLLECTIONS_TITLE = 'Collections';
 
 export const MENU_OPTIONS = [
-  hasBrowse && { label: MARKETPLACE_TITLE, href: '/browse' },
+  hasBrowse && { label: MYCOLLECTION_TITLE, href: '/profile/' },
   hasCollectionPage && { label: COLLECTIONS_TITLE, href: '/collections' }
 ];
 
@@ -27,6 +28,5 @@ export const USER_MENU_OPTIONS = [
     label: 'Sign Out',
     isRed: true,
     icon: <LockIcon />
-  },
-  hasBrowse && { id: USER_MENU_IDS.BROWSE, label: MARKETPLACE_TITLE }
+  }
 ].filter(option => option !== false);

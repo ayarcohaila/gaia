@@ -30,7 +30,7 @@ function CollectionBanner({
   };
 
   return (
-    <Grid px={isMediumDevice ? '12px' : '32px'}>
+    <Grid px={isMediumDevice ? '12px' : '64px'}>
       <Styled.BannerBackground
         imgUrl={bgImg}
         {...props}

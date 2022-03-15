@@ -14,36 +14,41 @@ const CHECK_FAVORITE = '/api/favorites/checkFavorite';
 const TEMP_ID = '1';
 
 const FavoriteButton = props => {
-  const { nftId } = props;
+  const { nftId, afterClick } = props;
   const [favoriteId, setFavoriteId] = useState('');
   const [loading, setLoading] = useState(false);
   const { user, login } = useAuth();
 
-  const handleFavorite = useCallback(async () => {
-    if (!user?.addr) {
-      await login();
-      return;
-    }
-    setLoading(true);
-    if (favoriteId) {
-      setFavoriteId('');
-    } else {
-      setFavoriteId(TEMP_ID);
-    }
+  const handleFavorite = useCallback(
+    async e => {
+      e.preventDefault();
+      if (!user?.addr) {
+        await login();
+        return;
+      }
+      setLoading(true);
+      if (favoriteId) {
+        setFavoriteId('');
+      } else {
+        setFavoriteId(TEMP_ID);
+      }
 
-    const currentRequest = favoriteId ? REMOVE_FAVORITE : ADD_FAVORITE;
-    const currentPayload = favoriteId
-      ? {
-          id: favoriteId
-        }
-      : {
-          nftId,
-          address: user?.addr
-        };
-    const { data } = await axios.post(currentRequest, currentPayload);
-    setFavoriteId(data.id);
-    setLoading(false);
-  }, [user?.addr, favoriteId, setFavoriteId]);
+      const currentRequest = favoriteId ? REMOVE_FAVORITE : ADD_FAVORITE;
+      const currentPayload = favoriteId
+        ? {
+            id: favoriteId
+          }
+        : {
+            nftId,
+            address: user?.addr
+          };
+      const { data } = await axios.post(currentRequest, currentPayload);
+      setFavoriteId(data.id);
+      setLoading(false);
+      afterClick && afterClick();
+    },
+    [user?.addr, favoriteId, setFavoriteId]
+  );
 
   const handleCheckNftFavorite = useCallback(
     async address => {

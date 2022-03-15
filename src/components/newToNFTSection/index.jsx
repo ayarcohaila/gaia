@@ -8,12 +8,20 @@ import useBreakpoints from '~/hooks/useBreakpoints';
 
 const NewNFTs = [
   {
+    title: 'The Home of BALLERZ',
+    description: 'Secondary marketplace is now live! Buy and sell with other collectors.',
+    image: '/images/newToNFT/ballerz.webp',
+    linkProps: { href: 'https://ongaia.com/ballerz', target: '_blank' },
+    linkText: 'Explore BALLERZ',
+    hasButton: true
+  },
+  {
     title: 'Shareef O’Neal Genesis Collection SOLD OUT!',
     description:
       'The first of a series of drops highlighting his basketball career, family, and recovery from heart surgery',
     image: '/images/newToNFT/shareef.webp',
-    linkProps: { href: '/browse' },
-    linkText: 'Go To Marketplace',
+    linkProps: { href: '/shareef' },
+    linkText: 'Buy now',
     hasButton: hasBrowse
   },
   {
@@ -23,15 +31,15 @@ const NewNFTs = [
     linkProps: { href: '/bryson' },
     linkText: 'Buy Now',
     hasButton: true
-  },
-  {
-    title: 'About The Team',
-    description: 'Learn more about NFT Genius, the team behind Gaia.',
-    image: '/images/newToNFT/nftg.webp',
-    linkProps: { href: 'https://www.nftgenius.com/', target: '_blank' },
-    linkText: 'Visit Website',
-    hasButton: true
   }
+  // {
+  //   title: 'About The Team',
+  //   description: 'Learn more about NFT Genius, the team behind Gaia.',
+  //   image: '/images/newToNFT/nftg.webp',
+  //   linkProps: { href: 'https://www.nftgenius.com/', target: '_blank' },
+  //   linkText: 'Visit Website',
+  //   hasButton: true
+  // }
 ];
 
 export default function NewToNFTSection() {

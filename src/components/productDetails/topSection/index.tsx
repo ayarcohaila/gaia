@@ -36,6 +36,8 @@ import CollectionInfo from './collectionInfo';
 import { ProductDetailsTopSectionProps } from './types';
 import ShareButton from '~/components/shareButton';
 import FavoriteButton from '~/components/favoriteButton';
+import PDPDesktopSkeletonLoader from './skeleton/desktopSkeleton';
+import PDPMobileSkeletonLoader from './skeleton/mobileSkeleton';
 
 export const INSUFFICIENT_FUNDS =
   'Amount withdrawn must be less than or equal than the balance of the Vault';
@@ -53,7 +55,7 @@ const ProductDetailsTopSection = ({
   const {
     palette: { grey }
   } = useTheme();
-  const { isMediumDevice, isSmallDevice } = useBreakpoints();
+  const { isSmallDevice, isMediumDevice } = useBreakpoints();
   const {
     push,
     asPath,
@@ -74,6 +76,7 @@ const ProductDetailsTopSection = ({
   const [transaction, setTransaction] = useState<any>(null);
   const [loadingSell, setLoadingSell] = useState(false);
   const [loadingCancel, setLoadingCancel] = useState(false);
+  const [loadingSkeleton, setLoadingSkeleton] = useState(true);
 
   const LIMIT_PURCHASE = 2000000;
 
@@ -91,6 +94,14 @@ const ProductDetailsTopSection = ({
   useEffect(() => {
     handleLoadTransaction();
   }, [handleLoadTransaction]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoadingSkeleton(false);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   const handleCancelListing: MouseEventHandler<HTMLButtonElement> = async event => {
     event.stopPropagation();
@@ -315,6 +326,15 @@ const ProductDetailsTopSection = ({
       ? COLLECTION_LIST_CONFIG.shareef.pageTitle
       : nft?.collection?.name;
 
+  if (loadingSkeleton) {
+    return (
+      <>
+        <PDPMobileSkeletonLoader />
+        <PDPDesktopSkeletonLoader />
+      </>
+    );
+  }
+
   return (
     <>
       <Breadcrumbs
@@ -324,6 +344,7 @@ const ProductDetailsTopSection = ({
         ml={isMediumDevice ? '20px' : '0'}
         mb={isMediumDevice ? '14px' : '0'}
       />
+
       <Styled.Container container={!isMediumDevice} justifyContent="space-between">
         <Asset metadata={metadata} />
         <Grid

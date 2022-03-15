@@ -39,6 +39,7 @@ const SellNftModal = ({
     () => loading || valueError || !value || isFloorPriceError,
     [loading, valueError, value, isFloorPriceError]
   );
+  const [floorPrice, setFloorProce] = useState(0);
 
   const getCollectionFloorValueById = async collectionId => {
     try {
@@ -65,9 +66,16 @@ const SellNftModal = ({
     module.exports = fs.readFileSync(filePath, 'utf8')
     `;
 
+  useEffect(() => {
+    const getFloorPrice = async () => {
+      const floorPrice = await getCollectionFloorValueById(collectionId);
+      setFloorProce(floorPrice);
+    };
+    getFloorPrice();
+  }, []);
+
   const checkFloorValue = async () => {
     setLoading(true);
-    const floorPrice = await getCollectionFloorValueById(collectionId);
     const minFloorPrice = (floorPrice / 100) * 90;
     if (floorPrice > 0 && value <= minFloorPrice) {
       let floorPercentage = (100 - (value * 100) / floorPrice).toFixed(2);

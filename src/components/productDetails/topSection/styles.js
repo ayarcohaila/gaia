@@ -14,6 +14,21 @@ export const Container = styled(Grid)(({ theme: { breakpoints } }) => ({
   marginTop: '16px',
   padding: '42px 56px 38px 0px',
 
+  opacity: 1,
+  animationName: 'fadeInOpacity',
+  animationIterationCount: 1,
+  animationTimingFunction: 'ease-in',
+  animationDuration: '1s',
+
+  '@keyframes fadeInOpacity': {
+    '0%': {
+      opacity: 0
+    },
+    '100%': {
+      opacity: 1
+    }
+  },
+
   [breakpoints.down('md')]: {
     marginTop: '0',
     padding: '24px'

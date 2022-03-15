@@ -39,19 +39,6 @@ export const GridRenderList = styled(Grid, {
   }
 }));
 
-export const FiltersContainer = styled(Grid)(({ theme: { breakpoints } }) => ({
-  padding: '0 80px',
-  boxSizing: 'border-box',
-
-  [breakpoints.down('xl')]: {
-    padding: '0 5.55%'
-  },
-
-  [breakpoints.down('sm')]: {
-    padding: '0 20px'
-  }
-}));
-
 export const BlackButton = styled(Button)(({ theme: { typography, palette } }) => ({
   ...typography.subtitle1,
   padding: '16px 22px',
