@@ -9,27 +9,25 @@ import { hasBrowse } from '~/config/config';
 import * as Styled from './styled';
 
 const bannerData = {
-  drop: 'BALLERZ',
-  title: 'The Home of BALLERZ',
-  description: hasBrowse
-    ? 'Secondary marketplace is now live! Buy and sell with other collectors.'
-    : 'Secondary marketplace goes live today at 2pm PT!  Buy and sell with other collectors.',
-  background: '/collections/ballerz/banner.webp'
+  drop: 'Sneakerz',
+  title: 'Stylish footwear with utility for your Ballerz',
+  description: 'Secondary marketplace is now live! Buy and sell with other collectors.',
+  background: '/collections/sneakerz/hero.webp'
 };
 
 export default function HomepageBanner() {
   const { isMediumDevice, isExtraSmallDevice } = useBreakpoints();
   const router = useRouter();
 
-  const navigateToBallerz = () => {
-    router.push('/ballerz');
+  const navigateToSneakerz = () => {
+    router.push('/sneakerz');
   };
 
   return (
     <Styled.BannerRedirect
       disableTouchRipple
-      onClick={navigateToBallerz}
-      arial-label="Redirect to Ballerz page">
+      onClick={navigateToSneakerz}
+      arial-label="Redirect to Sneakerz page">
       <Styled.ContainerBackground alt="background" imgUrl={bannerData.background}>
         <Styled.Container>
           <Styled.TypographyWithOpacity
@@ -51,11 +49,11 @@ export default function HomepageBanner() {
             sx={{ maxWidth: '600px', lineHeight: !isMediumDevice && '30px' }}>
             {bannerData.description}
           </Typography>
-          {hasBrowse && (
+          {!hasBrowse && (
             <Grid container sx={{ gap: '12px' }}>
-              <Link href="/ballerz" passHref>
-                <Styled.CardButton component="a" aria-label="ballerz" sx={{ width: '200px' }}>
-                  <Typography variant="subtitle1">Explore BALLERZ</Typography>
+              <Link href="/sneakerz" passHref>
+                <Styled.CardButton component="a" aria-label="sneakerz" sx={{ width: '200px' }}>
+                  <Typography variant="subtitle1">Explore Sneakerz</Typography>
                 </Styled.CardButton>
               </Link>
             </Grid>

@@ -8,13 +8,18 @@ export const ContainerBackground = styled('div', { shouldForwardProp: prop => pr
     maxWidth: '1800px',
     borderRadius: '40px',
     backgroundSize: 'cover',
-    backgroundPosition: 'top',
+    backgroundPosition: '75% 50%',
     backgroundRepeat: 'no-repeat',
     boxSizing: 'border-box',
     position: 'relative',
 
     [breakpoints.up('md')]: {
       margin: '0 32px'
+    },
+
+    [breakpoints.up('xl')]: {
+      maxHeight: 'none',
+      height: '520px'
     }
   })
 );
@@ -22,7 +27,7 @@ export const ContainerBackground = styled('div', { shouldForwardProp: prop => pr
 export const Container = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ theme: { breakpoints } }) => ({
     backgroundImage:
-      'radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, #270b5a 81%)',
+      'radial-gradient(circle at 91% 0, rgba(39, 11, 90, 0), rgba(39, 11, 90, 0.06) 22%, #0202f5ca 81%)',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
@@ -38,13 +43,19 @@ export const Container = styled('div', { shouldForwardProp: prop => prop !== 'im
     [breakpoints.down('md')]: {
       padding: '28px',
       paddingBottom: '20px'
+    },
+
+    [breakpoints.up('xl')]: {
+      maxHeight: 'none',
+      height: '520px'
     }
   })
 );
 
 export const TypographyWithOpacity = styled(Typography)(() => ({
   fontWeight: 'normal',
-  opacity: '0.64'
+  opacity: '0.8',
+  textTransform: 'uppercase'
 }));
 
 export const TypographyDescription = styled(Typography)(props => ({
