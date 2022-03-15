@@ -49,14 +49,12 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
 
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
-    status: 'buyNow',
-    collections: config?.id
-      ? [
-          filters
-            ?.find(item => item.id === FILTERS_CONSTANTS.COLLECTIONS)
-            .options.find(item => item.id === config.id)
-        ]
-      : []
+    status: isSneakerz ? 'viewAll' : 'buyNow',
+    collections: [
+      filters
+        ?.find(item => item.id === FILTERS_CONSTANTS.COLLECTIONS)
+        .options.find(item => item.id === config.id)
+    ]
   });
 
   const [lastState, setLastState] = useState(state);
@@ -126,9 +124,9 @@ const Filters = ({ orderByUpdate, filters, filtersTypes, filtersIds, showFilter 
     const list = [];
 
     const unfilteredList =
-      config?.id && !appData.loadMore
-        ? result?.data?.nfts
-        : [...appData.marketplaceNfts, ...result.data.nfts];
+      appData.marketplaceNfts && result?.data?.nfts
+        ? [...appData.marketplaceNfts, ...result.data.nfts]
+        : [];
 
     unfilteredList.filter(nft_item => {
       if (!ids.includes(nft_item.asset_id)) {
