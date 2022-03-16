@@ -13,7 +13,7 @@ import CardFilled from '~/components/cardFilled';
 
 // import { CardProps } from '../card/types';
 import * as Styled from './styles';
-import { CollectionsProps, Collection } from './types';
+import { CollectionsProps, Collection } from '~/components/cardFilled/types';
 // import { COLLECTIONS_NAME } from '../../../collections_setup';
 
 function Collections(props: CollectionsProps) {
@@ -43,9 +43,13 @@ function Collections(props: CollectionsProps) {
       <Grid mt={7}>
         <Styled.SectionTitle mb={3}>Featured Collections</Styled.SectionTitle>
         <Styled.GridCardContainer>
-          {collections.map((collection: Collection) => {
+          {collections.map((collection: Collection, index) => {
             return (
-              <CardFilled card={collection} key={collection.nft.id}>
+              <CardFilled
+                index={index}
+                total={collections.length}
+                card={collection}
+                key={collection.nft.id}>
                 <CardFill card={collection}></CardFill>
               </CardFilled>
             );

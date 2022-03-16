@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import NewToNFTCard from '~/components/newToNFTCard';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { hasBrowse } from '~/config/config';
@@ -47,6 +47,9 @@ export default function NewToNFTSection() {
 
   return (
     <>
+      <Styled.SectionTitle ml={isMediumDevice ? 1 : 6} mt={'34px'}>
+        Other Collections
+      </Styled.SectionTitle>
       <Grid
         xs={12}
         container

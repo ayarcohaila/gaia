@@ -4,6 +4,9 @@ export interface CardFillProps {
       avatar: string;
       collectionName: string;
       collectionSize: string;
+      comingStatus: string;
+      mainColor: string;
+      ipLogo: string;
     };
     nft: {
       id: string;

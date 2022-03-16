@@ -4,17 +4,33 @@ import { styled } from '~/themes/styled';
 export const CounterContainer = styled(Grid)(() => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '16px',
+  gap: '10px',
   marginBottom: '20px'
 }));
 
 export const Counter = styled(Typography)<{
   bgColor: string;
-}>(({ bgColor }) => ({
+}>(({ bgColor, theme }) => ({
   fontSize: '24px',
   background: `${bgColor}`,
   padding: '80% 100%',
-  borderRadius: '10px'
+  borderRadius: '10px',
+  width: '100%',
+  textAlign: 'center',
+
+  [theme.breakpoints.down(640)]: {
+    padding: '65% 85%',
+    fontSize: '36px'
+  },
+
+  [theme.breakpoints.down(375)]: {
+    padding: '30% 0%',
+    fontSize: '24px'
+  },
+
+  [theme.breakpoints.up(1500)]: {
+    padding: '60% 85%'
+  }
 }));
 
 export const Label = styled(Typography)(() => ({

@@ -1,41 +1,69 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { Grid, Typography } from '@mui/material';
-
-import BurstIcon from '~/base/burstIcon';
 
 import * as Styled from './styles';
 import { CardFillProps } from './types';
 import { formatCurrencyValue } from '~/utils/formatCurrencyValue';
 
+import { COMING_STATUS } from '../../../../collections_setup';
+import CounterFill from '../counterFill';
+import formatK from '~/utils/formatK';
+
 function CardFill(props: CardFillProps) {
   const { card } = props;
 
-  return (
-    <Grid p={4} container direction="column" sx={{ height: '100%' }} justifyContent="space-between">
-      <Grid container alignItems="center">
-        <Styled.AvatarCollection src={card?.config?.avatar} alt="top shot" />
-        <Styled.VerticalDivider orientation="vertical" flexItem />
-        <Typography variant="subtitle1">{`@${card.config.collectionName}`}</Typography>
-      </Grid>
-
-      <Grid>
-        <Styled.Description my={2} variant="subtitle1">
-          {card?.nft?.template?.collection?.description.substring(0, 200)}
-        </Styled.Description>
-        <Styled.CardDivider />
-        <Grid mt={2} container alignItems="end">
-          <Grid item container xs={6}>
-            <BurstIcon />
-            <Typography component="span">{card?.config?.collectionSize} Cards</Typography>
-          </Grid>
-          <Grid item xs={6} container>
-            ${formatCurrencyValue(card?.nft?.sale_offers[0]?.price) || '0'}
-            <Styled.Description ml={1} variant="subtitle1">
-              and up
-            </Styled.Description>
+  const renderCardContent = useMemo(() => {
+    return (
+      <>
+        <Grid container alignItems="center" mt="auto" mb="25px" height="130px">
+          <Styled.CollectionIcon src={card?.config?.ipLogo} alt="logo" />
+        </Grid>
+        <Grid>
+          {card.config.comingStatus !== COMING_STATUS.PRIMARY_DROP && <Styled.CardDivider />}
+          <Grid mt={2} container alignItems="end">
+            <Grid item container alignItems="center">
+              {card.config.comingStatus === COMING_STATUS.COMING_SOON && (
+                <>
+                  <Styled.BurstIcon src="/icons/burst.svg" alt="burst" />
+                  <Typography ml={'10px'} component="span">
+                    Coming Soon
+                  </Typography>
+                </>
+              )}
+              {card.config.comingStatus === COMING_STATUS.SECONDARY_MKT && (
+                <>
+                  <Styled.BurstIcon src="/icons/burst.svg" alt="burst" />
+                  <Typography ml={'10px'} component="span">
+                    {formatK(Number(card?.config?.collectionSize))} Cards
+                  </Typography>
+                  <Styled.Description ml="10px">&#8226;</Styled.Description>
+                  <Typography ml="10px" component="span">
+                    ${formatCurrencyValue(card?.nft?.sale_offers[0]?.price) || '0'}
+                  </Typography>
+                  <Styled.Description ml={1} variant="subtitle1">
+                    and up
+                  </Styled.Description>
+                </>
+              )}
+              {card.config.comingStatus === COMING_STATUS.PRIMARY_DROP && (
+                <CounterFill countDownUnix={3652199113} bgColor={card?.config?.mainColor} />
+              )}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </>
+    );
+  }, []);
+
+  return (
+    <Grid
+      p={4}
+      pb={2}
+      container
+      direction="column"
+      sx={{ height: '100%' }}
+      justifyContent="space-between">
+      {renderCardContent}
     </Grid>
   );
 }
