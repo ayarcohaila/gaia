@@ -63,7 +63,7 @@ const ProfileTabs = ({ nfts }) => {
 
   const handleTabChange = (_, newValue) => {
     setTabValue(newValue);
-    router.push(`/profile/${address}?view=${TABS_MAP[newValue]}`, undefined, { shallow: true });
+    router.replace(`/profile/${address}?view=${TABS_MAP[newValue]}`, undefined, { shallow: true });
   };
 
   return (
