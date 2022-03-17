@@ -12,7 +12,7 @@ export const CardContent = styled(Grid, { shouldForwardProp: prop => prop !== 'b
   borderRadius: '20px',
   backgroundSize: 'cover',
   // backgroundSize: 'auto 100%',
-  // backgroundPosition: 'center',
+  backgroundPosition: 'center',
   // backgroundRepeat: 'repeat-x',
   boxSizing: 'border-box',
   color: theme.palette.white.main

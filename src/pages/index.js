@@ -5,12 +5,20 @@ import HomepageBanner from '~/components/homepageBanner';
 import Seo from '~/components/seo';
 import useBreakpoints from '~/hooks/useBreakpoints';
 import UpcomingSection from '~/components/upcomingSection';
-import { UPCOMING_COLLECTIONS, COMING_STATUS } from '../../collections_setup';
-import { GET_LOWER_NFT_PRICE_BY_COLLECTION } from '~/store/server/queries';
+import {
+  UPCOMING_COLLECTIONS,
+  COMING_STATUS,
+  COLLECTION_LIST_CONFIG,
+  OTHER_COLLECTIONS
+} from '../../collections_setup';
+import {
+  GET_LOWER_NFT_PRICE_BY_COLLECTION,
+  GET_LOWER_NFT_PRICE_BY_COLLECTIONS
+} from '~/store/server/queries';
 import { gqlClient } from '~/config/apolloClient';
 
 const Home = props => {
-  const { collections } = props;
+  const { upcomingCollections, othersCollections } = props;
   const { isMediumDevice, isLargeDevice, isSmallDevice } = useBreakpoints();
   const padding = isSmallDevice ? 0 : isMediumDevice ? '12px' : isLargeDevice ? '32px' : '2.2%';
   return (
@@ -24,8 +32,8 @@ const Home = props => {
         justifyContent="center">
         <Box paddingLeft={padding} paddingRight={padding} maxWidth="1800px" width="100%">
           <HomepageBanner />
-          <UpcomingSection collections={collections} />
-          <NewToNFTSection />
+          <UpcomingSection collections={upcomingCollections} />
+          <NewToNFTSection collections={othersCollections} />
         </Box>
       </Box>
     </>
@@ -33,34 +41,42 @@ const Home = props => {
 };
 
 export async function getServerSideProps() {
-  const comingCollectionsWithNfts = Object.values(UPCOMING_COLLECTIONS)
-    .map(collection => collection)
-    .filter(collection => collection.comingStatus !== COMING_STATUS.COMING_SOON);
+  const upcomingCollections = Object.values(UPCOMING_COLLECTIONS).map(collection => ({
+    config: collection,
+    lowerPrice: null
+  }));
 
-  const comingSoonCollections = Object.values(UPCOMING_COLLECTIONS).filter(
-    collection => collection.comingStatus === COMING_STATUS.COMING_SOON
+  const othersCollections = Object.values(OTHER_COLLECTIONS).map(collection => ({
+    config: collection,
+    lowerPrice: null
+  }));
+
+  const collectionIds = [...upcomingCollections, ...othersCollections]
+    .filter(c => c.config.comingStatus !== COMING_STATUS.COMING_SOON)
+    .map(c => c.config.id);
+
+  const lowerPricePerCollectionResponse = await gqlClient.request(
+    GET_LOWER_NFT_PRICE_BY_COLLECTIONS,
+    {
+      collection_ids: collectionIds
+    }
   );
 
-  const nftsPromise = comingCollectionsWithNfts.map(async collection => {
-    const promise = gqlClient.request(GET_LOWER_NFT_PRICE_BY_COLLECTION, {
-      collection_id: collection.id
-    });
+  const lowerPricePerCollection = lowerPricePerCollectionResponse.nft_collection;
+  lowerPricePerCollection.forEach(collection => {
+    let index = upcomingCollections.findIndex(c => c.config.id === collection.id);
+    if (index !== -1) {
+      upcomingCollections[index].lowerPrice = collection.nfts[0].last_active_price;
+      return;
+    }
 
-    return promise;
+    index = othersCollections.findIndex(c => c.config.id === collection.id);
+    if (index !== -1) {
+      othersCollections[index].lowerPrice = collection.nfts[0].last_active_price;
+    }
   });
 
-  const allPromise = await (await Promise.all(nftsPromise)).filter(nft => nft !== null);
-  const collectionsWithNftMapped = comingCollectionsWithNfts.map((collection, index) => {
-    return {
-      config: collection,
-      nft: allPromise[index].nft[0]
-    };
-  });
-
-  const comingSoonCollectionsMapped = comingSoonCollections.map(c => ({ config: c, nft: 0 }));
-
-  const collections = [...collectionsWithNftMapped, ...comingSoonCollectionsMapped];
-  return { props: { collections } };
+  return { props: { upcomingCollections, othersCollections } };
 }
 
 export default Home;

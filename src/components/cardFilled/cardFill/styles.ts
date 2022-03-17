@@ -1,14 +1,26 @@
 import { Divider, Typography } from '@mui/material';
 import { styled } from '~/themes/styled';
 
-export const CardDivider = styled(Divider)(({ theme }) => ({
-  borderColor: theme.palette.common.white
+interface CardDividerProps {
+  color?: string;
+}
+
+export const CardDivider = styled(Divider)<CardDividerProps>(({ theme, color }) => ({
+  borderColor: color || theme.palette.white.main
 }));
 
 export const Description = styled(Typography)(() => ({
   opacity: '0.64',
   lineHeight: '1.33',
   letterSpacing: '0.6px'
+}));
+
+export const Bullet = styled(Typography)(() => ({
+  backgroundColor: '#fff',
+  borderRadius: '50%',
+  width: '4px',
+  height: '4px',
+  margin: '0 10px'
 }));
 
 export const VerticalDivider = styled(Divider)(({ theme }) => ({

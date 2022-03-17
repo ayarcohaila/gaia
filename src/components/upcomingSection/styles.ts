@@ -6,7 +6,7 @@ export const SectionTitle = styled(Typography)(({ theme }) => ({
   fontWeight: '600',
   lineHeight: '1.2',
   letterSpacing: '0.2px',
-
+  marginBottom: '30px',
   color: theme.palette.grey[700],
 
   [theme.breakpoints.up(1500)]: {

@@ -43,13 +43,9 @@ function Collections(props: CollectionsProps) {
       <Grid mt={7}>
         <Styled.SectionTitle mb={3}>Featured Collections</Styled.SectionTitle>
         <Styled.GridCardContainer>
-          {collections.map((collection: Collection, index) => {
+          {collections.map((collection: Collection) => {
             return (
-              <CardFilled
-                index={index}
-                total={collections.length}
-                card={collection}
-                key={collection.nft.id}>
+              <CardFilled card={collection} key={collection.config.id}>
                 <CardFill card={collection}></CardFill>
               </CardFilled>
             );

@@ -37,15 +37,17 @@ export const UPCOMING_COLLECTIONS = {
     collectionSize: 10000,
     comingStatus: COMING_STATUS.SECONDARY_MKT,
     collectionPath: '/ballerz',
+    ipTextColor: '#FFF',
     ipMainColor: '#1d0048'
   },
   [COLLECTIONS_NAME.FLUNKS]: {
     id: COLLECTIONS_NAME.FLUNKS,
     collectionPath: '/flunks',
     comingStatus: COMING_STATUS.COMING_SOON,
-    ipBanner: '/collections/flunks/background.jpeg',
+    ipBanner: '/collections/flunks/background.webp',
     ipLogo: '/collections/flunks/iplogo.webp',
     ipMainColor: '#FFC6FF',
+    ipTextColor: '#2b2a2b',
     collectionName: COLLECTIONS_NAME.FLUNKS
   },
   [COLLECTIONS_NAME.HIPHOP_ARCHIVE]: {
@@ -55,7 +57,29 @@ export const UPCOMING_COLLECTIONS = {
     ipBanner: '/collections/hiphopArchive/background.webp',
     ipLogo: '/collections/hiphopArchive/iplogo.webp',
     ipMainColor: '#333333',
+    ipTextColor: '#FFF',
     collectionName: COLLECTIONS_NAME.HIPHOP_ARCHIVE
+  }
+};
+
+export const OTHER_COLLECTIONS = {
+  [COLLECTIONS_NAME.SHAREEF]: {
+    id: process.env.NEXT_PUBLIC_SHAREEF_COLLECTION,
+    collectionName: COLLECTIONS_NAME.SHAREEF,
+    collectionPath: '/shareef',
+    pageTitle: "Shareef O'Neal",
+    ipMainColor: '#40050F',
+    ipTextColor: '#FFF',
+    ipBanner: '/images/newToNFT/shareef.webp'
+  },
+  [COLLECTIONS_NAME.BRYSON]: {
+    id: process.env.NEXT_PUBLIC_BRYSON_COLLECTION,
+    collectionPath: '/bryson',
+    collectionName: COLLECTIONS_NAME.BRYSON,
+    pageTitle: 'Bryson DeChambeau',
+    ipMainColor: '#517fb1',
+    ipTextColor: '#FFF',
+    ipBanner: '/images/newToNFT/bryson_banner.webp'
   }
 };
 
@@ -74,7 +98,7 @@ export const COLLECTION_LIST_CONFIG = {
     mainColor: '#83cbda',
     secondaryColor: '#83cbda',
     collectionSize: 25000,
-    collectionPath: '/ballerz'
+    collectionPath: '/sneakerz'
   },
   [COLLECTIONS_NAME.BALLERZ]: {
     id: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION,
@@ -98,6 +122,7 @@ export const COLLECTION_LIST_CONFIG = {
     id: process.env.NEXT_PUBLIC_BRYSON_COLLECTION,
     nftName: COLLECTIONS_NAME.BRYSON,
     collectionName: COLLECTIONS_NAME.BRYSON,
+    comingStatus: COMING_STATUS.SECONDARY_MKT,
     status: COLLECTION_STATUS.SALE,
     saleType: COLLECTION_SALE_TYPE.SINGLE,
     mystery: false,
@@ -114,6 +139,7 @@ export const COLLECTION_LIST_CONFIG = {
     id: process.env.NEXT_PUBLIC_SHAREEF_COLLECTION,
     nftName: `Shareef O'Neal`,
     collectionName: COLLECTIONS_NAME.SHAREEF,
+    comingStatus: COMING_STATUS.SECONDARY_MKT,
     status: COLLECTION_STATUS.SALE,
     mystery: false,
     buyLimit: 0,

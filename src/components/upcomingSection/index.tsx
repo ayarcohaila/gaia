@@ -3,6 +3,7 @@ import CardFilled from '~/components/cardFilled';
 import CardFill from '~/components/cardFilled/cardFill';
 import { CollectionsProps, Collection } from '~/components/cardFilled/types';
 import useBreakpoints from '~/hooks/useBreakpoints';
+import CardContainer from './cardContainer';
 import * as Styled from './styles';
 
 // FUNCTION TO REPEAT COLLECTIONS TO TEST RESPONSIVITY
@@ -22,18 +23,16 @@ const UpcomingSection = (props: CollectionsProps) => {
   const { isMediumDevice } = useBreakpoints();
 
   return (
-    <Grid mt={'24px'} marginX={isMediumDevice ? '5px' : '32px'}>
-      <Styled.SectionTitle mb={3}>New & Upcoming Collections</Styled.SectionTitle>
+    <Grid mt={'40px'} marginX={isMediumDevice ? '5px' : '32px'}>
+      <Styled.SectionTitle>New & Upcoming Collections</Styled.SectionTitle>
       <Grid container item rowSpacing="20px" spacing="16px" justifyContent="center">
         {collections?.map((collection: Collection, index) => {
           return (
-            <CardFilled
-              index={index}
-              total={collections.length}
-              card={collection}
-              key={collection.config.id}>
-              <CardFill card={collection}></CardFill>
-            </CardFilled>
+            <CardContainer key={collection.config.id} index={index} total={collections.length}>
+              <CardFilled card={collection}>
+                <CardFill card={collection}></CardFill>
+              </CardFilled>
+            </CardContainer>
           );
         })}
       </Grid>

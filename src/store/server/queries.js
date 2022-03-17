@@ -358,9 +358,24 @@ const GET_FAVORITE_LIST = gql`
   }
 `;
 
+const GET_LOWER_NFT_PRICE_BY_COLLECTIONS = gql`
+  query getLowerNftPriceByCollection($collection_ids: [uuid]) {
+    nft_collection(where: { id: { _in: $collection_ids } }) {
+      id
+      nfts(limit: 1, order_by: { last_active_price: asc }) {
+        last_active_price
+      }
+    }
+  }
+`;
+
 const GET_LOWER_NFT_PRICE_BY_COLLECTION = gql`
   query getLowerNftPriceByCollection($collection_id: uuid) {
-    nft(where: { template: { collection: { id: { _eq: $collection_id } } } }) {
+    nft(
+      where: { template: { collection: { id: { _eq: $collection_id } } } }
+      order_by: { last_active_price: asc }
+      limit: 1
+    ) {
       id
       template {
         collection {
@@ -372,10 +387,6 @@ const GET_LOWER_NFT_PRICE_BY_COLLECTION = gql`
         }
       }
       last_active_price
-      sale_offers(order_by: { price: asc }) {
-        id
-        price
-      }
     }
   }
 `;
@@ -395,5 +406,6 @@ export {
   GET_COLLECTION_FLOOR_VALUE_BY_ID,
   CHECK_FAVORITE_NFT,
   GET_FAVORITE_LIST,
-  GET_LOWER_NFT_PRICE_BY_COLLECTION
+  GET_LOWER_NFT_PRICE_BY_COLLECTION,
+  GET_LOWER_NFT_PRICE_BY_COLLECTIONS
 };

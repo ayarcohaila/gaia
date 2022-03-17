@@ -7,15 +7,10 @@ export interface CardFillProps {
       comingStatus: string;
       mainColor: string;
       ipLogo: string;
+      ipTextColor: string;
+      pageTitle: string;
     };
-    nft: {
-      id: string;
-      template: {
-        collection: {
-          description: string;
-        };
-      };
-      sale_offers: [{ price: string }];
-    };
+
+    lowerPrice: number;
   };
 }
