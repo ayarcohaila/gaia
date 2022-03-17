@@ -50,6 +50,12 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
     setIsMuted(prevState => !prevState);
   };
 
+  const handleVideoClick = event => {
+    if (isFullscreen) {
+      togglePlay(event);
+    }
+  };
+
   const toggleFullscreen = event => {
     event.preventDefault();
     const player = playerRef?.current;
@@ -83,6 +89,7 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
         fullscreen={isFullscreen}
         onEnded={() => setIsPlaying(false)}
         poster={poster}
+        onClick={handleVideoClick}
         ref={playerRef}
         playsInline
         {...props}>
