@@ -1,10 +1,9 @@
-import { styled, Button, Typography, Grid as MuiGrid } from '@mui/material';
+import { styled, Button, Typography, Grid as MuiGrid, Box } from '@mui/material';
 
 export const ContainerBackground = styled('div', { shouldForwardProp: prop => prop !== 'imgUrl' })(
   ({ imgUrl, theme: { breakpoints } }) => ({
     backgroundImage: `url(${imgUrl})`,
     maxHeight: '420px',
-    width: '100%',
     maxWidth: '1800px',
     borderRadius: '40px',
     backgroundSize: 'cover',
@@ -97,13 +96,11 @@ export const Divider = styled('div')({
   marginBottom: '24px'
 });
 
-export const BannerRedirect = styled(Button)(({ theme: { breakpoints } }) => ({
+export const BannerRedirect = styled(Box)(({ theme: { breakpoints } }) => ({
   height: '100%',
   textDecoration: 'none',
   textTransform: 'none',
   textAlign: 'left',
-  width: '100%',
-  cursor: 'pointer',
   backgroundColor: 'transparent',
   padding: '0px',
 
