@@ -6,7 +6,7 @@ import * as Styled from './styles';
 
 const NFTGeniusCard: React.FC = () => {
   return (
-    <Styled.Anchor href="https://www.nftgenius.com/" target="_blank" rel="noreferrer">
+    <Styled.Anchor href="https://forms.gle/2MZuvepYAvJNXGyb7" target="_blank" rel="noreferrer">
       <Styled.Container>
         <Styled.IconContainer>
           <Image width={170} height={170} src={Logo} />
