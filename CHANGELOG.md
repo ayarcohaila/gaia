@@ -2,9 +2,9 @@
 
 ### Bug Fixes
 
-- **GAIA-124:** Not being able to right-click/open individual item pages in new tabs ([#685](https://github.com/NFT-Genius/gaia-frontend/issues/685)) ([e75d7a5](https://github.com/NFT-Genius/gaia-frontend/commit/e75d7a5fd45ded7d226b045e733e2fd39d3f17ec))
+- **GAIA-143:** top banner (sneakerz) is not working properly with right click to open a new tab/window ([#698](https://github.com/NFT-Genius/gaia-frontend/pull/698)) ([69cffce](https://github.com/NFT-Genius/gaia-frontend/commit/69cffceabf7ebaa7fe20e42817c53ff6292f8133))
 
-## [0.4.3](https://github.com/NFT-Genius/gaia-frontend/compare/0.3.1...0.4.3) (2022-03-17)
+## [0.4.4](https://github.com/NFT-Genius/gaia-frontend/compare/0.3.1...0.4.3) (2022-03-17)
 
 ### Bug Fixes
 
