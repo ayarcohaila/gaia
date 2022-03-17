@@ -41,17 +41,23 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
   const isVideoHovered = useHover(containerRef);
 
   const togglePlay = event => {
-    event.stopPropagation();
+    event.preventDefault();
     setIsPlaying(prevState => !prevState);
   };
 
   const toggleMute = event => {
-    event.stopPropagation();
+    event.preventDefault();
     setIsMuted(prevState => !prevState);
   };
 
+  const handleVideoClick = event => {
+    if (isFullscreen) {
+      togglePlay(event);
+    }
+  };
+
   const toggleFullscreen = event => {
-    event.stopPropagation();
+    event.preventDefault();
     const player = playerRef?.current;
     if (player.requestFullscreen) {
       player.requestFullscreen();
@@ -83,6 +89,7 @@ const VideoPlayer = ({ containerProps, height, poster, src, width, ...props }) =
         fullscreen={isFullscreen}
         onEnded={() => setIsPlaying(false)}
         poster={poster}
+        onClick={handleVideoClick}
         ref={playerRef}
         playsInline
         {...props}>

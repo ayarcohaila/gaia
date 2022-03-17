@@ -16,7 +16,71 @@ export const COLLECTIONS_NAME = {
   BRYSON: 'bryson',
   SHAREEF: 'shareef',
   SNEAKERZ: 'sneakerz',
-  SHAREEF_AIRDROP: 'shareef-airdrop'
+  SHAREEF_AIRDROP: 'shareef-airdrop',
+  FLUNKS: 'flunks',
+  HIPHOP_ARCHIVE: 'hiphop-archive'
+};
+
+export const COMING_STATUS = {
+  COMING_SOON: 'coming-soon',
+  SECONDARY_MKT: 'active-secondary-mkplace',
+  PRIMARY_DROP: 'primary-drop-countdown'
+};
+
+export const UPCOMING_COLLECTIONS = {
+  [COLLECTIONS_NAME.BALLERZ]: {
+    id: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION,
+    buyLimit: 7,
+    ipBanner: '/collections/ballerz/background.webp',
+    ipLogo: '/collections/ballerz/iplogo.webp',
+    secondaryColor: '#4814a6',
+    collectionSize: 10000,
+    comingStatus: COMING_STATUS.SECONDARY_MKT,
+    collectionPath: '/ballerz',
+    ipTextColor: '#FFF',
+    ipMainColor: '#1d0048'
+  },
+  [COLLECTIONS_NAME.FLUNKS]: {
+    id: COLLECTIONS_NAME.FLUNKS,
+    collectionPath: '/flunks',
+    comingStatus: COMING_STATUS.COMING_SOON,
+    ipBanner: '/collections/flunks/background.webp',
+    ipLogo: '/collections/flunks/iplogo.webp',
+    ipMainColor: '#FFC6FF',
+    ipTextColor: '#2b2a2b',
+    collectionName: COLLECTIONS_NAME.FLUNKS
+  },
+  [COLLECTIONS_NAME.HIPHOP_ARCHIVE]: {
+    id: COLLECTIONS_NAME.HIPHOP_ARCHIVE,
+    collectionPath: '/hiphop-archive',
+    comingStatus: COMING_STATUS.COMING_SOON,
+    ipBanner: '/collections/hiphopArchive/background.webp',
+    ipLogo: '/collections/hiphopArchive/iplogo.webp',
+    ipMainColor: '#333333',
+    ipTextColor: '#FFF',
+    collectionName: COLLECTIONS_NAME.HIPHOP_ARCHIVE
+  }
+};
+
+export const OTHER_COLLECTIONS = {
+  [COLLECTIONS_NAME.SHAREEF]: {
+    id: process.env.NEXT_PUBLIC_SHAREEF_COLLECTION,
+    collectionName: COLLECTIONS_NAME.SHAREEF,
+    collectionPath: '/shareef',
+    pageTitle: "Shareef O'Neal",
+    ipMainColor: '#40050F',
+    ipTextColor: '#FFF',
+    ipBanner: '/images/newToNFT/shareef.webp'
+  },
+  [COLLECTIONS_NAME.BRYSON]: {
+    id: process.env.NEXT_PUBLIC_BRYSON_COLLECTION,
+    collectionPath: '/bryson',
+    collectionName: COLLECTIONS_NAME.BRYSON,
+    pageTitle: 'Bryson DeChambeau',
+    ipMainColor: '#517fb1',
+    ipTextColor: '#FFF',
+    ipBanner: '/images/newToNFT/bryson_banner.webp'
+  }
 };
 
 export const COLLECTION_LIST_CONFIG = {
@@ -34,7 +98,7 @@ export const COLLECTION_LIST_CONFIG = {
     mainColor: '#83cbda',
     secondaryColor: '#83cbda',
     collectionSize: 25000,
-    displayOnCollectionsPage: true
+    collectionPath: '/sneakerz'
   },
   [COLLECTIONS_NAME.BALLERZ]: {
     id: process.env.NEXT_PUBLIC_BALLERZ_COLLECTION,
@@ -46,16 +110,19 @@ export const COLLECTION_LIST_CONFIG = {
     buyLimit: 7,
     avatar: '/collections/ballerz/avatar.webp',
     banner: '/collections/ballerz/banner.webp',
+    ipBanner: '/collections/ballerz/background.webp',
+    ipLogo: '/collections/ballerz/iplogo.webp',
     pageTitle: 'BALLERZ',
     mainColor: '#270b5a',
     secondaryColor: '#4814a6',
     collectionSize: 10000,
-    displayOnCollectionsPage: true
+    collectionPath: '/ballerz'
   },
   [COLLECTIONS_NAME.BRYSON]: {
     id: process.env.NEXT_PUBLIC_BRYSON_COLLECTION,
     nftName: COLLECTIONS_NAME.BRYSON,
     collectionName: COLLECTIONS_NAME.BRYSON,
+    comingStatus: COMING_STATUS.SECONDARY_MKT,
     status: COLLECTION_STATUS.SALE,
     saleType: COLLECTION_SALE_TYPE.SINGLE,
     mystery: false,
@@ -66,12 +133,13 @@ export const COLLECTION_LIST_CONFIG = {
     mainColor: '#517fb1',
     secondaryColor: '#517fb1',
     collectionSize: 5000,
-    displayOnCollectionsPage: true
+    collectionPath: '/bryson'
   },
   [COLLECTIONS_NAME.SHAREEF]: {
     id: process.env.NEXT_PUBLIC_SHAREEF_COLLECTION,
     nftName: `Shareef O'Neal`,
     collectionName: COLLECTIONS_NAME.SHAREEF,
+    comingStatus: COMING_STATUS.SECONDARY_MKT,
     status: COLLECTION_STATUS.SALE,
     mystery: false,
     buyLimit: 0,
@@ -81,7 +149,7 @@ export const COLLECTION_LIST_CONFIG = {
     mainColor: '#4b1f87',
     secondaryColor: '#4b1f87',
     collectionSize: 1023,
-    displayOnCollectionsPage: true
+    collectionPath: '/shareef'
   },
   [COLLECTIONS_NAME.SHAREEF_AIRDROP]: {
     id: process.env.NEXT_PUBLIC_SHAREEF_AIRDROP_COLLECTION,
@@ -96,7 +164,7 @@ export const COLLECTION_LIST_CONFIG = {
     mainColor: '#4b1f87',
     secondaryColor: '#4b1f87',
     collectionSize: 1023,
-    displayOnCollectionsPage: true
+    collectionPath: '/shareef'
   }
 };
 

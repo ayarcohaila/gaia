@@ -1,9 +1,12 @@
-import { Avatar, Divider, styled, Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
+import { styled } from '~/themes/styled';
 
-export const CardDivider = styled(Divider)(({ theme }) => ({
-  height: '2px',
-  opacity: '0.16',
-  background: theme.palette.common.white
+interface CardDividerProps {
+  color?: string;
+}
+
+export const CardDivider = styled(Divider)<CardDividerProps>(({ theme, color }) => ({
+  borderColor: color || theme.palette.white.main
 }));
 
 export const Description = styled(Typography)(() => ({
@@ -12,9 +15,12 @@ export const Description = styled(Typography)(() => ({
   letterSpacing: '0.6px'
 }));
 
-export const AvatarCollection = styled(Avatar)(() => ({
-  width: '60px',
-  height: '60px'
+export const Bullet = styled(Typography)(() => ({
+  backgroundColor: '#fff',
+  borderRadius: '50%',
+  width: '4px',
+  height: '4px',
+  margin: '0 10px'
 }));
 
 export const VerticalDivider = styled(Divider)(({ theme }) => ({
@@ -22,4 +28,13 @@ export const VerticalDivider = styled(Divider)(({ theme }) => ({
   opacity: '0.25',
   height: '75%',
   background: theme.palette.common.white
+}));
+
+export const BurstIcon = styled('img')(() => ({
+  width: '25px',
+  height: '25px'
+}));
+
+export const CollectionIcon = styled('img')(() => ({
+  maxWidth: '60%'
 }));

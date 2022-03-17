@@ -42,7 +42,7 @@ const CardActions = (props: CardActionsProps) => {
           disabled={loading}
           variant="text"
           onClick={(event: any) => {
-            event?.stopPropagation();
+            event?.preventDefault();
             toggleCancelListingModal();
           }}>
           Remove ${price} Listing
@@ -53,7 +53,7 @@ const CardActions = (props: CardActionsProps) => {
             <SellButton
               disabled={loading}
               onClick={event => {
-                event.stopPropagation();
+                event.preventDefault();
                 toggleSellNftModal();
               }}>
               Sell
@@ -63,7 +63,7 @@ const CardActions = (props: CardActionsProps) => {
             <TransferButton
               disabled={loading}
               onClick={event => {
-                event?.stopPropagation();
+                event?.preventDefault();
                 toggleTransferNftModal();
               }}>
               Transfer

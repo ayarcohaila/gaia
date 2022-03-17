@@ -1,14 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import { styled } from '~/themes/styled';
 
-export const Container = styled(Grid)(({ theme }) => ({
-  margin: '40px 5px 0',
-
-  [theme.breakpoints.up('md')]: {
-    margin: '40px 32px 0'
-  }
-}));
-
 export const SectionTitle = styled(Typography)(({ theme }) => ({
   fontSize: '20px',
   fontWeight: '600',
@@ -20,4 +12,10 @@ export const SectionTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.up(1500)]: {
     fontSize: '25px'
   }
+}));
+
+export const GridCardContainer = styled(Grid)(() => ({
+  gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
+  display: 'grid',
+  gap: '16px'
 }));

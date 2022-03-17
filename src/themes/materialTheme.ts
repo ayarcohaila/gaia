@@ -24,6 +24,7 @@ const customTheme = {
       main: '#171a24'
     },
     grey: {
+      main: '#42454d',
       800: '#1c202a',
       700: '#272a36',
       650: '#42454d',

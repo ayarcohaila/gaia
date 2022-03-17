@@ -4,15 +4,13 @@ export interface CardFillProps {
       avatar: string;
       collectionName: string;
       collectionSize: string;
+      comingStatus: string;
+      mainColor: string;
+      ipLogo: string;
+      ipTextColor: string;
+      pageTitle: string;
     };
-    nft: {
-      id: string;
-      template: {
-        collection: {
-          description: string;
-        };
-      };
-      sale_offers: [{ price: string }];
-    };
+
+    lowerPrice: number;
   };
 }
