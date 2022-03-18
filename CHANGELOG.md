@@ -1,3 +1,12 @@
+## [0.4.6](https://github.com/NFT-Genius/gaia-frontend/compare/v0.4.4...v0.4.6) (2022-03-18)
+
+
+### Bug Fixes
+
+* **GAIA-145:** sneakerz filter default ([3d8d44c](https://github.com/NFT-Genius/gaia-frontend/commit/3d8d44c5ef4d516e14ebc1c33521638057bc8691))
+
+
+
 ## [0.4.5](https://github.com/NFT-Genius/gaia-frontend/compare/v0.4.4...v0.4.5) (2022-03-17)
 
 ### Bug Fixes
